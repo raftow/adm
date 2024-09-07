@@ -1,0 +1,41 @@
+<?php
+	$trad["academic_term"]["step1"] = "Definition";
+	$trad["academic_term"]["step2"] = "Advanced infos";
+
+	$trad["academic_term"]["academicterm.single"] = "Academic term";
+	$trad["academic_term"]["academicterm.new"] = "new";
+	$trad["academic_term"]["academic_term"] = "Academic terms";
+
+	$trad["academic_term"]["academic_year_id"] = "Acdemic Year";
+	$trad["academic_term"]["term_name_ar"] = "Term Name";
+	$trad["academic_term"]["term_name_en"] = "Term Name";
+	$trad["academic_term"]["term_mode_enum"] = "Term Mode";
+	$trad["academic_term"]["start_date"] = "Term Start Date";
+	$trad["academic_term"]["end_date"] = "Term End Date";
+	$trad["academic_term"]["hijri_start_date"] = "Hijri Term Start Date";
+	$trad["academic_term"]["hijri_end_date"] = "Hijri Term End Date";
+	$trad["academic_term"]["aplication_start_date"] = "Application Start Date";
+	$trad["academic_term"]["application_end_date"] = "Appplication  End Date";
+	$trad["academic_term"]["application_start_time"] = "Application Start time";
+	$trad["academic_term"]["application_end_time"] = "Application End time";
+	$trad["academic_term"]["admission_start_date"] = "Addmission Start Date";
+	$trad["academic_term"]["admission_end_date"] = "Addmission End Date";
+	$trad["academic_term"]["direct_adm_start_date"] = "Direct Admission Start Date";
+	$trad["academic_term"]["direct_adm_end_date"] = "Direct Admission End Date";
+	$trad["academic_term"]["seats_update_start_date"] = "Seats  Update Start Date";
+	$trad["academic_term"]["seats_update_end_date"] = "Seats  Update End Date";
+	$trad["academic_term"]["migration_start_date"] = "Migration to SIS Start Date";
+	$trad["academic_term"]["migration_end_date"] = "Migration to SIS End Date";
+	$trad["academic_term"]["hijri_application_start_date"] = "Hijri Application Start date";
+	$trad["academic_term"]["hijri_application_end_date"] = "Hijri Application End date";
+	$trad["academic_term"]["hijri_admission_start_date"] = "Hijri  Admission Start Date";
+	$trad["academic_term"]["hijri_admission_end_date"] = "Hijri  Admission End Date";
+	$trad["academic_term"]["hijri_direct_adm_start_d"] = "Hijri  Direct Admission Start D";
+	$trad["academic_term"]["hijri_direct_adm_end_date"] = "Hijri  Direct Admission End Date";
+	$trad["academic_term"]["hijri_seats_update_start_date"] = "Hijri  Seats Update Start Date";
+	$trad["academic_term"]["hijri_seats_update_end_date"] = "Hijri  Seats Update End Date";
+	$trad["academic_term"]["hijri_migration_start_date"] = "Hijri SIS Migration Start Date";
+	$trad["academic_term"]["hijri_migration_end_date"] = "Hijri SIS Migration End Date";
+	$trad["academic_term"]["academic_level_mfk"] = "Academic Levels";
+	$trad["academic_term"]["maqbool_id"] = "Maqbool Integration Code";
+	$trad["academic_term"]["current_active_term"] = "Current Active Term";

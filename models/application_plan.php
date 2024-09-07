@@ -1,0 +1,386 @@
+<?php
+        class ApplicationPlan extends AdmObject{
+
+                public static $DATABASE		= ""; 
+                public static $MODULE		    = "adm"; 
+                public static $TABLE			= "application_plan"; 
+                public static $DB_STRUCTURE = null;
+                // public static $copypast = true;
+
+                public function __construct(){
+                        parent::__construct("application_plan","id","adm");
+                        AdmApplicationPlanAfwStructure::initInstance($this);
+                        
+                }
+
+                public static function loadById($id)
+                {
+                        $obj = new ApplicationPlan();
+                        
+                        if($obj->load($id))
+                        {
+                                return $obj;
+                        }
+                        else return null;
+                }
+
+                public function getDisplay($lang="ar")
+                {
+                    return $this->getVal("application_model_name_$lang");                    
+                }
+
+                public function stepsAreOrdered()
+                {
+                        return true;
+                }
+
+
+                public function shouldBeCalculatedField($attribute){
+                    if($attribute=="academic_level_id") return true;
+                    if($attribute=="gender_enum") return true;
+                    if($attribute=="training_period_enum") return true;
+                    if($attribute=="language_enum") return true;
+                    if($attribute=="academic_year_id") return true;
+                    if($attribute=="start_date") return true;
+                    if($attribute=="end_date") return true;
+                    if($attribute=="aplication_start_date") return true;
+                    if($attribute=="application_start_time") return true;
+                    if($attribute=="application_end_date") return true;
+                    if($attribute=="application_end_time") return true;
+                    if($attribute=="sorting_start_date") return true;
+                    if($attribute=="sorting_end_date") return true;
+                    if($attribute=="admission_start_date") return true;
+                    if($attribute=="admission_end_date") return true;
+                    if($attribute=="direct_adm_start_date") return true;
+                    if($attribute=="direct_adm_end_date") return true;
+                    if($attribute=="seats_update_start_date") return true;
+                    if($attribute=="seats_update_end_date") return true;
+                    if($attribute=="migration_start_date") return true;
+                    if($attribute=="migration_end_date") return true;
+                    return false;
+                 }
+
+        
+        public function canApply()
+        {
+            // @todo
+            return true;
+        }
+
+
+        protected function getPublicMethods()
+        {
+            
+            $pbms = array();
+            
+            $color = "green";
+            $title_ar = "اعتماد الخطة"; 
+            $methodName = "validate";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("valid"));
+            
+            $color = "orange";
+            $title_ar = "نشر الخطة"; 
+            $methodName = "publish";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("valid"));
+
+            $color = "blue";
+            $title_ar = "غلق الخطة"; 
+            $methodName = "close";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("valid"));
+            
+            if($this->est("active"))
+            {
+                $color = "red";
+                $title_ar = "تعطيل الخطة"; 
+                $methodName = "disable";
+            }
+            else
+            {
+                $color = "red";
+                $title_ar = "تفعيل الخطة"; 
+                $methodName = "enable";                
+            }
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("valid"));
+            
+
+            $color = "gray";
+            $title_ar = "تصفير مسمى الخطة"; 
+            $methodName = "resetNames";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
+            
+
+            if($this->canApply())
+            {
+                $color = "orange";
+                $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج"; 
+                $methodName = "addPossibleBranchs";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+            }
+            
+            return $pbms;
+        }
+
+        public function repareAllHijriApplicationEndDate($lang="ar")
+        {
+            $obj = new ApplicationPlanBranch();                        
+            $obj->select("application_plan_id", $this->id);
+            $obj->where("hijri_application_end_date is null or hijri_application_end_date='' or hijri_application_end_date='0000-00-00'");
+            $objList = $obj->loadMany();
+            foreach($objList as $objItem)
+            {
+                    $objItem->repareHijriApplicationEndDate($lang);
+            }
+        }
+
+        public function addPossibleBranchs($lang="ar", $reset = false)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+                $db = $this->getDatabase();
+                $this_id = $this->id;
+
+                if ($reset) {
+                        $sql_delete = "delete from $db.application_plan_branch 
+                        where application_id=$this_id";
+
+                        list($result, $row_count, $affected_row_count) = self::executeQuery($sql_delete);
+                        $info_mess_arr[] = $this->tm('عدد سجلات فروع التقديم التي تم مسحها : ', $lang) . $affected_row_count;
+                }
+
+                $me = AfwSession::getUserIdActing();
+
+                $academic_level_id = $this->getVal("academic_level_id");
+                $application_model_id = $this->getVal("application_model_id");
+                
+                $gender_enum = $this->getVal("gender_enum");
+                $term_id = $this->getVal("term_id");
+
+                $application_start_date = $this->getVal("aplication_start_date");
+                $application_end_date = $this->getVal("application_end_date");
+
+                
+                $sql_insert = "insert into $db.application_plan_branch(created_by,  created_at, updated_by,updated_at, active, version, sci_id,
+                                academic_level_id,gender_enum,term_id,application_plan_id,
+                                department_id,major_id,program_id,training_unit_id,program_offering_id,application_model_branch_id,
+                                seats_capacity, direct_adm_capacity, deaf_specialty,is_open,allow_direct_adm,
+                                confirmation_days, application_end_date)
+                                select $me, now(), $me, now(), apo.active, 0 as version, 431 as sci_id,
+                                        $academic_level_id, $gender_enum, $term_id, $this_id, 
+                                        apo.department_id, apo.major_id, apo.academic_program_id, apo.training_unit_id, apo.id, amb.id,
+                                        amb.seats_capacity, amb.direct_adm_capacity, amb.deaf_specialty, amb.is_open, IF(amb.direct_adm_capacity>0, 'Y','N') as allow_direct_adm,
+                                        amb.confirmation_days, '$application_end_date' as application_end_date
+                                from $db.academic_program_offering apo
+                                    inner join $db.application_model_branch amb on amb.program_offering_id = apo.id and amb.application_model_id = $application_model_id
+                                        left join $db.application_plan_branch apb on
+                                                apb.application_plan_id = $this_id and
+                                                apb.program_offering_id = apo.id                                                          
+                                where apo.academic_level_id = $academic_level_id
+                                  and apo.gender_enum = $gender_enum
+                                  and apo.active = 'Y'
+                                  and amb.seats_capacity > 0
+                                  and apb.id is null";
+
+
+                list($result, $row_count, $affected_row_count) = self::executeQuery($sql_insert);
+                
+                $this->repareAllHijriApplicationEndDate($lang);
+
+                $inf_arr[] = $this->getDisplay($lang) . " : " . $this->tm('عدد سجلات فروع التقديم التي تم توليدها : ', $lang) . $affected_row_count;
+                
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+        }
+
+ 
+
+        public function validate($lang="ar")
+        {
+
+        }
+
+        public function publish($lang="ar")
+        {
+
+        }
+
+        public function close($lang="ar")
+        {
+
+        }
+
+        public function enable($lang="ar")
+        {
+
+        }
+
+        public function disable($lang="ar")
+        {
+
+        }
+
+        public function resetNames($lang="ar", $which="all", $commit=true)
+        {
+            $appModel = $this->het("application_model_id");            
+            if(!$appModel) return ["لم يتم تحديد نموذج القبول", ""];
+            if(!$this->getVal("term_id")) return ["لم يتم تحديد الفصل التدريبي", ""];
+            if(($which=="all") or ($which=="ar"))
+            {
+                $new_name = $this->decode("term_id")."-".$appModel->getDisplay("ar");
+                $this->set("application_model_name_ar", $new_name);                        
+                // die("reset name to : ".$new_name);
+            }
+
+            if(($which=="all") or ($which=="en"))
+            {
+                $new_name = $this->decode("term_id")."-".$appModel->getDisplay("en");
+                $this->set("application_model_name_en", $new_name); 
+            }
+
+            if($commit) $this->commit();
+
+            return ["", "تم تصفير مسمى الخطة بنجاح"];
+            
+        }
+
+            public function beforeMaj($id, $fields_updated)
+            {  
+                    if($fields_updated["application_model_id"] or $fields_updated["term_id"])
+                    {
+                        if($this->getVal("term_id") and $this->getVal("application_model_id"))
+                        {
+                            // if we change application_model_id or term_id name should be changed automqtically if not manually
+                            if(!$fields_updated["application_model_name_ar"]) //  or (!$this->getVal("application_model_name_ar")) or ($this->getVal("application_model_name_ar")=="--")
+                            {
+                                // die("resetNames-ar");
+                                $this->resetNames("ar", "ar", false);
+                            }
+                            // else throw new RuntimeException("what Majed : fields_updated=".var_export($fields_updated,true)." term_id=".$this->getVal("term_id")." application_model_id=".$this->getVal("application_model_id"));
+                            // if we change application_model_id or term_id name should be changed automqtically if not manually
+                            if(!$fields_updated["application_model_name_en"]) //  or (!$this->getVal("application_model_name_en")) or ($this->getVal("application_model_name_en")=="--")
+                            {
+                                // die("resetNames-en");
+                                $this->resetNames("en", "en", false);
+                            }
+                            // else throw new RuntimeException("what Majed : fields_updated=".var_export($fields_updated,true)." term_id=".$this->getVal("term_id")." application_model_id=".$this->getVal("application_model_id"));
+                        }
+                        // else throw new RuntimeException("what Majed : fields_updated=".var_export($fields_updated,true)."term_id=".$this->getVal("term_id")." application_model_id=".$this->getVal("application_model_id"));
+                    }
+                    // else throw new RuntimeException("what Majed : fields_updated=".var_export($fields_updated,true)." term_id=".$this->getVal("term_id")." application_model_id=".$this->getVal("application_model_id"));
+                    
+
+
+                
+                    return true;
+            }
+
+
+            protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
+            {
+                global $lang;
+                // $objme = AfwSession::getUserConnected();
+                // $me = ($objme) ? $objme->id : 0;
+
+                $otherLinksArray = $this->getOtherLinksArrayStandard($mode,$genereLog,$step);
+                $my_id = $this->getId();
+                $displ = $this->getDisplay($lang);
+                
+                if($mode=="mode_applicationPlanBranchList")
+                {
+                    unset($link);
+                    $link = array();
+                    $title = "إضافة فرع تقديم يدويا";
+                    $title_detailed = $title ."لـ : ". $displ;
+                    $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationPlanBranch&currmod=adm&sel_application_plan_id=$my_id";
+                    $link["TITLE"] = $title;
+                    $link["UGROUPS"] = array();
+                    $otherLinksArray[] = $link;
+                }
+                
+                
+                
+                // check errors on all steps (by default no for optimization)
+                // rafik don't know why this : \//  = false;
+                
+                return $otherLinksArray;
+            }
+
+            public function beforeDelete($id,$id_replace) 
+            {
+                $server_db_prefix = AfwSession::config("db_prefix","c0");
+                
+                if(!$id)
+                {
+                    $id = $this->getId();
+                    $simul = true;
+                }
+                else
+                {
+                    $simul = false;
+                }
+                
+                if($id)
+                {   
+                if($id_replace==0)
+                {
+                    // FK part of me - not deletable 
+                        // adm.application_plan_branch-Application Plan	application_plan_id  OneToMany (required field)
+                            // require_once "../adm/application_plan_branch.php";
+                            $obj = new ApplicationPlanBranch();
+                            $obj->where("application_plan_id = '$id' and active='Y' ");
+                            $nbRecords = $obj->count();
+                            // check if there's no record that block the delete operation
+                            if($nbRecords>0)
+                            {
+                                $this->deleteNotAllowedReason = "Used in some Application plan branchs(s) as Application plan";
+                                return false;
+                            }
+                            // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                            if(!$simul) $obj->deleteWhere("application_plan_id = '$id' and active='N'");
+
+
+                            
+                    // FK part of me - deletable 
+
+                    
+                    // FK not part of me - replaceable 
+
+                            
+                    
+                    // MFK
+
+                }
+                else
+                {
+                            // FK on me 
+    
+
+                            // adm.application_plan_branch-Application Plan	application_plan_id  OneToMany (required field)
+                            if(!$simul)
+                            {
+                                // require_once "../adm/application_plan_branch.php";
+                                ApplicationPlanBranch::updateWhere(array('application_plan_id'=>$id_replace), "application_plan_id='$id'");
+                                // $this->execQuery("update ${server_db_prefix}adm.application_plan_branch set application_plan_id='$id_replace' where application_plan_id='$id' ");
+                                
+                            } 
+                            
+
+
+                            
+                            // MFK
+
+                    
+                } 
+                return true;
+                }    
+        }
+
+
+    }
+
+        
+
+
+
+?>
