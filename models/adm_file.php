@@ -18,12 +18,7 @@ class AdmFile extends AFWObject{
         
         public function __construct(){
 		parent::__construct("adm_file","id","adm");
-                $this->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 0;
-		$this->DISPLAY_FIELD = "afile_name";
-                $this->ORDER_BY_FIELDS = "created_at desc";
-                $this->showQeditErrors = true;
-                //$this->qedit_minibox = true;
-                $this->ENABLE_DISPLAY_MODE_IN_QEDIT = true;
+                AdmAdmFileAfwStructure::initInstance($this);
 	}
         
         public function getWideDisplay($lang="ar") 
