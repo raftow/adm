@@ -11,6 +11,7 @@
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('api_code');
                                 $obj->public_display = true;
+                                $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 2; 

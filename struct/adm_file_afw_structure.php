@@ -1,6 +1,24 @@
 <?php 
         class AdmAdmFileAfwStructure
         {
+
+			public static function initInstance(&$obj)
+			{
+					if ($obj instanceof AdmFile) 
+					{
+						$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 0;
+						$obj->DISPLAY_FIELD = "afile_name";
+						$obj->ORDER_BY_FIELDS = "created_at desc";
+						$obj->UNIQUE_KEY = array('afile_name');
+						$obj->public_display = true;
+						$obj->IS_LOOKUP = true;
+
+						$obj->showQeditErrors = true;
+						//$this->qedit_minibox = true;
+						$obj->ENABLE_DISPLAY_MODE_IN_QEDIT = true;	
+					}
+			}
+
                 public static $DB_STRUCTURE = array(
 
                         

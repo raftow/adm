@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "app_model_api_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                // $obj->UNIQUE_KEY = array('application_model_id','api_endpoint_id');
+                                 $obj->UNIQUE_KEY = array('application_model_id','api_endpoint_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
