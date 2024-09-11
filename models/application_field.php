@@ -1,5 +1,5 @@
 <?php
-// 9/9/24
+// 9/9/24 rafik
 /*
 DROP TABLE IF EXISTS c0adm.application_field;
 

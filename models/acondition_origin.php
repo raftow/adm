@@ -1,4 +1,8 @@
 <?php
+// rafik , 10/9/2024
+// alter table c0adm.acondition_origin add   application_model_mfk varchar(255) DEFAULT NULL  after acondition_origin_desc_en;
+// alter table c0adm.acondition_origin add   academic_program_mfk varchar(255) DEFAULT NULL  after application_model_mfk;
+
 class AconditionOrigin extends AdmObject{
 
 	public static $DATABASE		= ""; 
@@ -49,27 +53,41 @@ class AconditionOrigin extends AdmObject{
         
         protected function getOtherLinksArray($mode, $genereLog = false, $step="all")      
         {
-           global $me, $objme, $lang;
-           
-             $displ = $this->getDisplay($lang);
-             $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
-             $my_id = $this->getId();
+                global $me, $objme, $lang;
+                
+                $displ = $this->getDisplay($lang);
+                $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
+                $my_id = $this->getId();
 
-             if($my_id and ($mode=="mode_aconditionList"))
-             {
-                  
-                       unset($link);
-                       $link = array();
-                       $title = "إدارة الفروع للـمستوى :  ". $displ;
-                       $link["URL"] = "main.php?Main_Page=afw_mode_qedit.php&cl=LevelClass&currmod=adm&&id_origin=$my_id&class_origin=AconditionOrigin&module_origin=adm";
-                       $link["URL"] .= "&newo=10&limit=30&ids=all&fixmtit=$title&fixmdisable=1&fixm=acondition_origin_id=$my_id&sel_acondition_origin_id=$my_id";
-                       $link["TITLE"] = $title;
-                       $link["UGROUPS"] = array();
-                       $otherLinksArray[] = $link;      
+                if($my_id and ($mode=="mode_aconditionList"))
+                {
+                        
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة شرط جديد";
+                        $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Acondition&currmod=adm&sel_acondition_origin_id=$my_id";
+                        $link["TITLE"] = $title;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;     
 
-             }
-             
-             return $otherLinksArray;          
+                }
+
+                if($my_id and ($mode=="mode_aconditionOriginScopeList"))
+                {
+                        
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة مجال تطبيق جديد";
+                        $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?mp=ed&cl=AconditionOriginScope&cm=adm&sel_acondition_origin_id=$my_id";
+                        $link["TITLE"] = $title;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;     
+
+                }
+                
+                return $otherLinksArray;          
         }
 
         public function beforeDelete($id,$id_replace) 

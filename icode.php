@@ -2,14 +2,12 @@
 // http://localhost/pag/main.php?Main_Page=afw_mode_edit.php&cl=Domain&currmod=pag&id=25
 
 
-$struc = "App_model_Api
-Id	1					N	INTEGER	المعرف الفريد	Id		
-Application_model_id	2					N	INTEGER	نموذج القبول	Application Model	UK	ManyToOne
-Api_Endpoint_id	3					N	INTEGER	معرف API	Api Endpoint	UK	ManyToOne
-Manadatory	4					N	CHAR(1)	الزامي؟	Mandatory		
-can_refresh	5					N	CHAR(1)	يمكن التحديث	Can Refresh		
-duration_expiry	6					Y	VARCHAR2 (50 Byte)	مدة الصلاحية	Duration Expiry		
-Published	7					Y	CHAR(1)	تم النشر	Published		";
+$struc = "acondition_origin_scope
+ACONDITION_ORIGIN_ID	2					N	INTEGER	معرف قائمة الشروط	Condition List 		ManyToOne
+APPLICATION_MODEL_ID	3					N	INTEGER	نموذج القبول	Application Model		ManyToOne
+training_unit_id	4					Y	INTEGER	الوحدة التدريبية	Training unit		
+department_id	5					Y	INTEGER	القسم 	department		
+application_model_branch_id	6					Y	INTEGER	فرع  القبول	Application Model Branch		";
 
 
 
@@ -58,7 +56,7 @@ $phpTemplate = "<?php
 $structTemplate = "<?php 
         class Adm[CLASS_NAME]AfwStructure
         {
-        
+                // token separator = §
                 public static function initInstance(&\$obj)
                 {
                         if (\$obj instanceof [CLASS_NAME]) 
