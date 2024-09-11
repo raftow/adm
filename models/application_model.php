@@ -139,6 +139,7 @@
                         foreach($trainingPeriodArr as $training_period_enum)
                         {
                                 $progOffList = AcademicProgramOffering::loadListeForModel($academic_level_id, $gender_enum);
+                                $inf_arr[] = $this->tm("nb of Academic Program Offering")." : ".count($progOffList);
                                 foreach($progOffList as $progOffItem)
                                 {
                                         $seats_capacity = $this->getVal("seats_capacity_$training_period_enum");

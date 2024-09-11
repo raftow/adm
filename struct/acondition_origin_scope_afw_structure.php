@@ -46,8 +46,8 @@
                                         'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  
-                                                'WHERE' => "§application_model_mfk§ like concat('%,',id,',%')",
-                                                
+                                                'WHERE' => "active = 'Y' and §application_model_mfk§ like concat('%,',id,',%')",
+                                                'DEPENDENT_OFME' => array("training_unit_id", ),
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -56,8 +56,15 @@
 
                                         'training_unit_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => "id in (select distinct apo.training_unit_id from §DBPREFIX§adm.academic_program_offering apo 
+                                                                        inner join §DBPREFIX§adm.application_model_branch amb on amb.program_offering_id = apo.id
+                                                                   where amb.application_model_id = §application_model_id§
+                                                                     and apo.active = 'Y'
+                                                                     and amb.active = 'Y')",
+                                                'DEPENDENCIES' => ['application_model_id',],
+                                                'SIZE' => 40,  'DEFAUT' => 0, 'MANDATORY' => false, 'READONLY'=>false,    
+                                                'AUTOCOMPLETE' => false, 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),	
 
