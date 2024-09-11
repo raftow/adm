@@ -33,6 +33,8 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_75', ),	
 
+                                                // initialization of gender_enum
+                                                // update `academic_program_offering` po set po.`gender_enum` = (select gender_enum from training_unit t where t.id = po.training_unit_id);
                                                 'gender_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
