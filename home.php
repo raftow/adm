@@ -23,7 +23,7 @@ $out_scr .= $myEmplObj->showMinibox();
 global $MODE_SQL_PROCESS_LOURD;
 
 $MODE_SQL_PROCESS_LOURD = true;
-//AcademicProgramOffering::genereAllNames($lang="ar");
+AcademicProgramOffering::genereAllNames($lang="ar");
 
 /*
 $schoolList = SchoolEmployee::getSchoolList($myEmplId);    

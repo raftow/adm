@@ -1,5 +1,11 @@
 <?php 
         /*
+        update `prog_offri` set al1 = 1 WHERE al1='دبلوم';
+        update `prog_offri` set al1 = 6 WHERE al1='دبلوم الثانوي الصناعي';
+        update `prog_offri` set al1 = 10 WHERE al1='برامج المعاهد الصناعية';
+
+        truncate table c0adm.academic_program_offering;
+
         insert into c0adm.academic_program_offering(training_unit_id, gender_enum,department_id, major_id, academic_program_id, academic_level_id, degree_id) 
         SELECT training_unit_id, 0, department_id, major_id, program_id, al1, degree_id FROM `prog_offri` WHERE 1;
 
