@@ -13,7 +13,7 @@
 					$obj->public_display = true;
 
 					$obj->editByStep = true;
-					$obj->editNbSteps = 2; 
+					$obj->editNbSteps = 3; 
 					$obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
 				}
 			}
@@ -66,7 +66,7 @@
 
 			'afile_id' => array('SHORTNAME' => 'file',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  
 				'EDIT' => true,  'INPUT_WIDE' => true,  'QEDIT' => true,  'SIZE' => 255,  
-				'TYPE' => 'FK',  'ANSWER' => 'afile',  'ANSMODULE' => 'pag',  
+				'TYPE' => 'FK',  'ANSWER' => 'adm_file',  'ANSMODULE' => 'adm',  
 				'WHERE' => "doc_type_id = 555", 'UTF8' => false,  
 				 
 				'RELATION' => 'ManyToOne',  'SEARCH-BY-ONE' => false,  'DISPLAY' => true,  'STEP' => 1,  
@@ -102,8 +102,34 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_100',),
 
+			'application_model_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',   
+                                                'WHERE' => 'id < 10 ',
+                                                // 'DEPENDENT_OFME' => array("zzz", ),
+                                                // 'DEPENDENCIES' => ['qualification_id',],
+                                                'DISPLAY' => true,  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_100',),				
+
+			'academic_program_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',   
+                                                'WHERE' => 'id < 550',
+                                                // 'DEPENDENT_OFME' => array("zzz", ),
+                                                // 'DEPENDENCIES' => ['qualification_id',],
+                                                'DISPLAY' => true,  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_100',),
+
+			'aconditionOriginScopeList' => array('TYPE' => 'FK', 'ANSWER' => 'acondition_origin_scope', 'ANSMODULE' => 'adm', 
+												'CATEGORY' => 'ITEMS', 'ITEM' => 'acondition_origin_id', 'STEP' => 2, 
+												// 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
+												'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+												'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+												
 			'aconditionList' => array(
-					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 2,    
+					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 3,    
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
 					'WHERE' => "", 
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  

@@ -553,7 +553,128 @@ class AdmObject extends AFWObject{
                 return $arr_list_of_term_mode;
         } 
 
+        public static function list_of_afield_set_enum()
+        {
+            global $lang;
+            return self::afield_set()[$lang];
+        }
         
+        public static function afield_set()
+        {
+                $arr_list_of_afield_set = array();
+                
+                $arr_list_of_afield_set["en"]  [1] = "";
+                $arr_list_of_afield_set["ar"]  [1] = "نتائج الإختبارت";
+                $arr_list_of_afield_set["code"][1] = "1";
+
+                $arr_list_of_afield_set["en"]  [2] = "";
+                $arr_list_of_afield_set["ar"]  [2] = "الحصول على الشهادات العلمية";
+                $arr_list_of_afield_set["code"][2] = "2";
+
+                $arr_list_of_afield_set["en"]  [3] = "";
+                $arr_list_of_afield_set["ar"]  [3] = "معدلات الشهادات العلمية";
+                $arr_list_of_afield_set["code"][3] = "3";
+
+                $arr_list_of_afield_set["en"]  [4] = "";
+                $arr_list_of_afield_set["ar"]  [4] = "تواريخ الشهادات العلمية";
+                $arr_list_of_afield_set["code"][4] = "4";
+                
+                $arr_list_of_afield_set["en"]  [5] = "";
+                $arr_list_of_afield_set["ar"]  [5] = "درجات في اختبار أو مؤهل علمي";
+                $arr_list_of_afield_set["code"][5] = "5";
+                
+                
+                
+                return $arr_list_of_afield_set;
+        } 
+        public static function list_of_afield_type_enum()
+        {
+            global $lang;
+            return self::afield_type()[$lang];
+        }
+        public static function afield_type()
+        {
+                $arr_list_of_afield_type = array();
+                
+                $arr_list_of_afield_type["en"]  [1] = "Date";
+                $arr_list_of_afield_type["ar"]  [1] = "تاريخ";
+                $arr_list_of_afield_type["code"][1] = "date";
+
+                $arr_list_of_afield_type["en"]  [2] = "Amount";
+                $arr_list_of_afield_type["ar"]  [2] = "مبلغ من المال";
+                $arr_list_of_afield_type["code"][2] = "amnt";
+
+                $arr_list_of_afield_type["en"]  [3] = "Time";
+                $arr_list_of_afield_type["ar"]  [3] = "وقت";
+                $arr_list_of_afield_type["code"][3] = "time";
+
+                $arr_list_of_afield_type["en"]  [4] = "Choose from list";
+                $arr_list_of_afield_type["ar"]  [4] = "اختيار من قائمة";
+                $arr_list_of_afield_type["code"][4] = "list";
+                
+                $arr_list_of_afield_type["en"]  [5] = "Numeric Value";
+                $arr_list_of_afield_type["ar"]  [5] = "قيمة عددية";
+                $arr_list_of_afield_type["code"][5] = "nmbr";
+                
+                $arr_list_of_afield_type["en"]  [6] = "multiple choice from list";
+                $arr_list_of_afield_type["ar"]  [6] = "اختيار متعدد من قائمة";
+                $arr_list_of_afield_type["code"][6] = "mlst";
+                $arr_list_of_afield_type["en"]  [7] = "Percentage";
+                $arr_list_of_afield_type["ar"]  [7] = "نسبة مائوية";
+                $arr_list_of_afield_type["code"][7] = "pctg";
+                $arr_list_of_afield_type["en"]  [8] = "G. Date";
+                $arr_list_of_afield_type["ar"]  [8] = "تاريخ ميلادي";
+                $arr_list_of_afield_type["code"][8] = "Gdat";
+                $arr_list_of_afield_type["en"]  [9] = "Short text";
+                $arr_list_of_afield_type["ar"]  [9] = "نص قصير";
+                $arr_list_of_afield_type["code"][9] = "text";
+                $arr_list_of_afield_type["en"]  [10] = "Long text";
+                $arr_list_of_afield_type["ar"]  [10] = "نص طويل";
+                $arr_list_of_afield_type["code"][10] = "mtxt";
+                $arr_list_of_afield_type["en"]  [11] = "Yes/No";
+                $arr_list_of_afield_type["ar"]  [11] = "نعم/لا";
+                $arr_list_of_afield_type["code"][11] = "yn";
+                $arr_list_of_afield_type["en"]  [12] = "Short list";
+                $arr_list_of_afield_type["ar"]  [12] = "قائمة قصيرة";
+                $arr_list_of_afield_type["code"][12] = "enum";
+                
+                return $arr_list_of_afield_type;
+        } 
+
+        public static function list_of_entry_type_enum()
+        {
+            global $lang;
+            return self::entry_type()[$lang];
+        }
+        
+        public static function entry_type()
+        {
+                $arr_list_of_entry_type = array();
+                
+                $arr_list_of_entry_type["en"]  [1] = "Manual";
+                $arr_list_of_entry_type["ar"]  [1] = "يدويا";
+                $arr_list_of_entry_type["code"][1] = "";
+
+                $arr_list_of_entry_type["en"]  [2] = "API";
+                $arr_list_of_entry_type["ar"]  [2] = "واجهة برمجة التطبيقات";
+                $arr_list_of_entry_type["code"][2] = "";
+
+                $arr_list_of_entry_type["en"]  [3] = "Semi-Automatic";
+                $arr_list_of_entry_type["ar"]  [3] = "آلي/يدوي";
+                $arr_list_of_entry_type["code"][3] = "";
+
+                $arr_list_of_entry_type["en"]  [4] = "Computed";
+                $arr_list_of_entry_type["ar"]  [4] = "محسوب غير مدخل";
+                $arr_list_of_entry_type["code"][4] = "";
+                
+                $arr_list_of_entry_type["en"]  [5] = "Web service";
+                $arr_list_of_entry_type["ar"]  [5] = "خدمة واب";
+                $arr_list_of_entry_type["code"][5] = "";
+                
+                
+                
+                return $arr_list_of_entry_type;
+        } 
 
         public static function executeIndicator($object, $indicator, $normal_class, $arrObjectsRelated, $sens="asc", $default_red_pct=0, $default_orange_pct=0)
         {

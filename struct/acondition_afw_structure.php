@@ -117,7 +117,7 @@
 		
 		'afield_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'afield',  'ANSMODULE' => 'pag', 
+				'TYPE' => 'FK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 
 				'WHERE' => "atable_id=0", 
 				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
