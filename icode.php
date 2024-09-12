@@ -2,14 +2,14 @@
 // http://localhost/pag/main.php?Main_Page=afw_mode_edit.php&cl=Domain&currmod=pag&id=25
 
 
-$struc = "App_model_Api
-Id	1					N	INTEGER	المعرف الفريد	Id		
-Application_model_id	2					N	INTEGER	نموذج القبول	Application Model	UK	ManyToOne
-Api_Endpoint_id	3					N	INTEGER	معرف API	Api Endpoint	UK	ManyToOne
-Manadatory	4					N	CHAR(1)	الزامي؟	Mandatory		
-can_refresh	5					N	CHAR(1)	يمكن التحديث	Can Refresh		
-duration_expiry	6					Y	VARCHAR2 (50 Byte)	مدة الصلاحية	Duration Expiry		
-Published	7					Y	CHAR(1)	تم النشر	Published		";
+$struc = "applicant_evaluation
+ID		1					N	INTEGER		المعرف الفريد	Identifier		
+EVALUATION_ID	2					N	INTEGER		معرف الاختبار	Evaluation		
+APPLICANT_ID	3					N	INTEGER		معرف المتقدم	Applicant		
+EVAL_RESULT	4					N	decimal(3,2)	درجة الاختبار	Grade		
+EVAL_DATE	5						DATE	تاريخ الاختبار	Evaluation Date		
+EVAL_EXPIRED_DATE	6						DATE	نهاية صلاحية الاختبار	expiry validity date		
+EVAL_LEVEL	7						VARCHAR2(10)	مستوى الاختبار	Evaluation level		";
 
 
 
@@ -383,7 +383,7 @@ function oracleTypeToAfwType($field_name, $otype)
                 $maxlength = "";
                 $asize = "";
         }
-        elseif($otype=="DATE")
+        elseif($otype=="DATETIME")
         {
                 $afwType = "GDAT";
                 $maxlength = "";
