@@ -29,4 +29,10 @@
 	$trad["academic_program"]["program_tuition_fees"] = "رسوم التدريب";
 	$trad["academic_program"]["maqbool_id"] = "الربط مع خدمة مقبول";
     $trad["academic_program"]["old_name_ar"] = "الاسم القديم للبرنامج التدريبي"; //  بالعربية
+
+
+
+	 
+	
+
 	

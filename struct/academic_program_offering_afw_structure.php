@@ -1,4 +1,19 @@
 <?php 
+        /*
+        update `prog_offri` set al1 = 1 WHERE al1='دبلوم';
+        update `prog_offri` set al1 = 6 WHERE al1='دبلوم الثانوي الصناعي';
+        update `prog_offri` set al1 = 10 WHERE al1='برامج المعاهد الصناعية';
+
+        truncate table c0adm.academic_program_offering;
+
+        insert into c0adm.academic_program_offering(training_unit_id, gender_enum,department_id, major_id, academic_program_id, academic_level_id, degree_id) 
+        SELECT training_unit_id, 0, department_id, major_id, program_id, al1, degree_id FROM `prog_offri` WHERE 1;
+
+
+        update c0adm.academic_program_offering set active='Y', version=0,created_by=1,created_at='2024-04-15';
+
+        update `academic_program_offering` po set po.`gender_enum` = (select gender_enum from training_unit t where t.id = po.training_unit_id);
+        */
         class AdmAcademicProgramOfferingAfwStructure
         {
         
@@ -33,6 +48,8 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_75', ),	
 
+                                                // initialization of gender_enum
+                                                // update `academic_program_offering` po set po.`gender_enum` = (select gender_enum from training_unit t where t.id = po.training_unit_id);
                                                 'gender_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
