@@ -1,4 +1,7 @@
 <?php
+        // rafik 12/02/2024
+        // alter table c0adm.application_model_branch add   branch_name_ar varchar(128)  DEFAULT NULL  after is_open;
+        // alter table c0adm.application_model_branch add   branch_name_en varchar(128)  DEFAULT NULL  after branch_name_ar;
         class ApplicationModelBranch extends AdmObject{
 
                 public static $DATABASE		= ""; 
@@ -61,7 +64,7 @@
 
                 public function getDisplay($lang = 'ar')
                 {
-                        return $this->getDefaultDisplay($lang);
+                        return $this->getVal("branch_name_$lang"); 
                 }
 
                 public function stepsAreOrdered()
@@ -75,6 +78,46 @@
                         
                 
                     return true;
+                }
+
+                public function genereName($lang="ar", $which="all", $commit=true)
+                {
+                    $acadProg = $this->het("academic_program_id");            
+                    if(!$acadProg) return ["لم يتم تحديد البرنامج", ""];
+                    $appModelObj = $this->het("application_model_id");            
+                    if(!$appModelObj) return ["لم يتم تحديد البرنامج", ""];
+                    
+                    if(($which=="all") or ($which=="ar"))
+                    {
+                        $new_name = $appModelObj->getDisplay("ar")."-".$acadProg->getDisplay("ar");
+                        $this->set("program_name_ar", $new_name);                        
+                        // die("reset name to : ".$new_name);
+                    }
+        
+                    if(($which=="all") or ($which=="en"))
+                    {
+                        $new_name = $appModelObj->getDisplay("en")."-".$acadProg->getDisplay("en");
+                        $this->set("program_name_en", $new_name); 
+                    }
+
+                    // $this->set("gender_enum", $tunitObj->getVal("gender_enum"));
+        
+                    if($commit) $this->commit();
+        
+                    return ["", "تم تصفير مسمى البرنامج بنجاح"];
+                    
+                }
+
+                public static function genereAllNames($lang="ar")
+                {
+                        $obj = new ApplicationModelBranch();
+                        // $obj->select_visibilite_horizontale();
+                        $objList = $obj->loadMany();
+
+                        foreach($objList as $objItem)
+                        {
+                                $objItem->genereName($lang);
+                        }
                 }
 
 
@@ -93,6 +136,8 @@
                         }
                         
                 }
+
+                
 
 
                 public function beforeDelete($id,$id_replace) 

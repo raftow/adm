@@ -101,9 +101,9 @@
                                         // adm.academic_program_offering-Academic program	academic_program_id  OneToMany
                                                 if(!$simul)
                                                 {
-                                                // require_once "../adm/academic_program_offering.php";
-                                                AcademicProgramOffering::removeWhere("academic_program_id='$id'");
-                                                // $this->execQuery("delete from ${server_db_prefix}adm.academic_program_offering where academic_program_id = '$id' ");
+                                                        // require_once "../adm/academic_program_offering.php";
+                                                        AcademicProgramOffering::removeWhere("academic_program_id='$id'");
+                                                        // $this->execQuery("delete from ${server_db_prefix}adm.academic_program_offering where academic_program_id = '$id' ");
                                                 
                                                 } 
                                                 
@@ -111,9 +111,9 @@
                                         // adm.program_qualification-Program	academic_program_id  OneToMany
                                                 if(!$simul)
                                                 {
-                                                // require_once "../adm/program_qualification.php";
-                                                ProgramQualification::removeWhere("academic_program_id='$id'");
-                                                // $this->execQuery("delete from ${server_db_prefix}adm.program_qualification where academic_program_id = '$id' ");
+                                                        // require_once "../adm/program_qualification.php";
+                                                        ProgramQualification::removeWhere("academic_program_id='$id'");
+                                                        // $this->execQuery("delete from ${server_db_prefix}adm.program_qualification where academic_program_id = '$id' ");
                                                 
                                                 } 
 
@@ -121,9 +121,9 @@
                                                 // adm.application_plan_branch-Program	program_id  ManyToOne
                                                 if(!$simul)
                                                 {
-                                                // require_once "../adm/application_plan_branch.php";
-                                                ApplicationPlanBranch::removeWhere("program_id='$id'");
-                                                // $this->execQuery("update ${server_db_prefix}adm.application_plan_branch set program_id='$id_replace' where program_id='$id' ");
+                                                        // require_once "../adm/application_plan_branch.php";
+                                                        ApplicationPlanBranch::removeWhere("program_id='$id'");
+                                                        // $this->execQuery("update ${server_db_prefix}adm.application_plan_branch set program_id='$id_replace' where program_id='$id' ");
                                                 }
                                                 
                                                 
@@ -139,35 +139,35 @@
                                 }
                                 else
                                 {
-                                                // FK on me 
+                                        // FK on me 
                                         // adm.academic_program_offering-Academic program	academic_program_id  OneToMany
-                                                if(!$simul)
-                                                {
+                                        if(!$simul)
+                                        {
                                                 // require_once "../adm/academic_program_offering.php";
                                                 AcademicProgramOffering::updateWhere(array('academic_program_id'=>$id_replace), "academic_program_id='$id'");
                                                 // $this->execQuery("update ${server_db_prefix}adm.academic_program_offering set academic_program_id='$id_replace' where academic_program_id='$id' ");
-                                                
-                                                }
-                                                
+                                        
+                                        }
+                                        
                                         // adm.program_qualification-Program	academic_program_id  OneToMany
-                                                if(!$simul)
-                                                {
+                                        if(!$simul)
+                                        {
                                                 // require_once "../adm/program_qualification.php";
                                                 ProgramQualification::updateWhere(array('academic_program_id'=>$id_replace), "academic_program_id='$id'");
                                                 // $this->execQuery("update ${server_db_prefix}adm.program_qualification set academic_program_id='$id_replace' where academic_program_id='$id' ");
-                                                
-                                                }
-                                                
+                                        
+                                        }
+                                        
                                         // adm.application_plan_branch-Program	program_id  ManyToOne
-                                                if(!$simul)
-                                                {
+                                        if(!$simul)
+                                        {
                                                 // require_once "../adm/application_plan_branch.php";
                                                 ApplicationPlanBranch::updateWhere(array('program_id'=>$id_replace), "program_id='$id'");
                                                 // $this->execQuery("update ${server_db_prefix}adm.application_plan_branch set program_id='$id_replace' where program_id='$id' ");
-                                                }
+                                        }
 
-                                                
-                                                // MFK
+                                        
+                                        // MFK
 
                                         
                                 } 

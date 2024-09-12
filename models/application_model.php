@@ -161,7 +161,7 @@
                                                         // $inf_arr[] = $appModelBr->tm("updated branch")." : ".$appModelBr->getDisplay($lang);  
                                                 }
 
-                                                
+                                                $appModelBr->genereName($lang="ar");
                                         }
                                         /*else 
                                         {
@@ -201,7 +201,7 @@
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
                         
                         $color = "green";
-                        $title_ar = "تحديث الفروع"; 
+                        $title_ar = "انشاء جميع الفروع الممكنة"; 
                         $methodName = "genereApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         

@@ -27,3 +27,7 @@
 	$trad["application_model_branch"]["deaf_specialty"] = "مخصص لضعاف السمع";
 	$trad["application_model_branch"]["is_open"] = "البرنامج مفتوح";
 	$trad["application_model_branch"]["allow_direct_adm"] = "تفعيل القبول المباشر";
+	$trad["application_model_branch"]["branch_name_ar"] = "مسمى الفرع بالعربية";
+	$trad["application_model_branch"]["branch_name_en"] = "مسمى الفرع بالانجليزية";
+
+	

@@ -223,7 +223,7 @@
                 public static function genereAllNames($lang="ar")
                 {
                         $obj = new AcademicProgramOffering();
-                        $obj->select_visibilite_horizontale();
+                        // $obj->select_visibilite_horizontale();
                         $objList = $obj->loadMany();
 
                         foreach($objList as $objItem)

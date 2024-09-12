@@ -7,7 +7,7 @@
                         if ($obj instanceof AconditionOriginScope) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "acondition_origin_scope_name_ar";
+                                // $obj->DISPLAY_FIELD = "acondition_origin_scope_name_ar";
                                 $obj->ORDER_BY_FIELDS = "acondition_origin_id,application_model_id,training_unit_id,acondition_origin_id,department_id,application_model_branch_id";
                                 $obj->UNIQUE_KEY = array('acondition_origin_id','application_model_id','training_unit_id','acondition_origin_id','department_id','application_model_branch_id');
                                 // $obj->public_display = true;
@@ -15,7 +15,7 @@
 
                                 // $obj->editByStep = true;
                                 // $obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("class"=>'AconditionOrigin',"attribute"=>'acondition_origin_id', "currmod"=>'adm',"currstep"=>2);
                         }
                 }
                 
@@ -47,7 +47,7 @@
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  
                                                 'WHERE' => "active = 'Y' and §application_model_mfk§ like concat('%,',id,',%')",
-                                                'DEPENDENT_OFME' => array("training_unit_id", ),
+                                                'DEPENDENT_OFME' => array("training_unit_id", "application_model_branch_id"),
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -80,7 +80,10 @@
                                         'application_model_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DEPENDENCIES' => ['application_model_id',],
+                                                'WHERE' => 'application_model_id = §application_model_id§',
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 
+                                                'AUTOCOMPLETE' => true, 'AUTOCOMPLETE-SEARCH' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),	
 
