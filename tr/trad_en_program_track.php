@@ -7,3 +7,4 @@
 	$trad["program_track"]["track_code"] = "Track Code";
 	$trad["program_track"]["track_name_ar"] = "Track Name-Arabic";
 	$trad["program_track"]["track_name_en"] = "Track Name-English";
+	$trad["program_track"]["sort_criteria"] = "sort criteria";
