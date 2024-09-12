@@ -7,3 +7,5 @@
 	$trad["program_track"]["track_code"] = "رمز المسار";
 	$trad["program_track"]["track_name_ar"] = "اسم المسار-العربي";
 	$trad["program_track"]["track_name_en"] = "اسم المسار -الإنجليزي";
+	
+	$trad["program_track"]["sort_criteria"] = "معايير الفرز";
