@@ -120,7 +120,7 @@
                     $acadProg = $this->het("academic_program_id");            
                     if(!$acadProg) return ["لم يتم تحديد البرنامج", ""];
                     $tunitObj = $this->het("training_unit_id");            
-                    if(!$tunitObj) return ["لم يتم تحديد البرنامج", ""];
+                    if(!$tunitObj) return ["لم يتم تحديد الوحدة التدريبية", ""];
                     
                     if(($which=="all") or ($which=="ar"))
                     {

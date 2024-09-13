@@ -24,8 +24,8 @@ global $MODE_SQL_PROCESS_LOURD;
 
 $MODE_SQL_PROCESS_LOURD = true;
 //AcademicProgramOffering::genereAllNames($lang="ar");
-ApplicationModelBranch::genereAllNames($lang="ar");
-
+list($error, $info, $warn, $technical) = ApplicationModelBranch::genereAllNames($lang="ar");
+AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 /*
 $schoolList = SchoolEmployee::getSchoolList($myEmplId);    
 $structure = [];

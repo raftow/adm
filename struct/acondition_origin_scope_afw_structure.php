@@ -8,13 +8,13 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 // $obj->DISPLAY_FIELD = "acondition_origin_scope_name_ar";
-                                $obj->ORDER_BY_FIELDS = "acondition_origin_id,application_model_id,training_unit_id,acondition_origin_id,department_id,application_model_branch_id";
-                                $obj->UNIQUE_KEY = array('acondition_origin_id','application_model_id','training_unit_id','acondition_origin_id','department_id','application_model_branch_id');
+                                $obj->ORDER_BY_FIELDS = "acondition_origin_id,application_model_id,training_unit_id,department_id,application_model_branch_id";
+                                $obj->UNIQUE_KEY = array('acondition_origin_id','application_model_id','training_unit_id','department_id','application_model_branch_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
-                                // $obj->editByStep = true;
-                                // $obj->editNbSteps = 1; 
+                                $obj->editByStep = true;
+                                $obj->editNbSteps = 3; 
                                 $obj->after_save_edit = array("class"=>'AconditionOrigin',"attribute"=>'acondition_origin_id', "currmod"=>'adm',"currstep"=>2);
                         }
                 }
@@ -31,7 +31,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'acondition_origin',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_100', ),	
 
                                                 'application_model_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => false,  'RETRIEVE' => false,  
                                                         'EDIT' => false,  'QEDIT' => false,  'UTF8' => false, 'CATEGORY' => 'SHORTCUT',  'SHORTCUT' => 'acondition_origin_id.application_model_mfk',
@@ -51,7 +51,7 @@
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_100', ),	
 
 
                                         'training_unit_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -64,17 +64,17 @@
                                                                      and amb.active = 'Y')",
                                                 'DEPENDENCIES' => ['application_model_id',],
                                                 'SIZE' => 40,  'DEFAUT' => 0, 'MANDATORY' => false, 'READONLY'=>false,    
-                                                'AUTOCOMPLETE' => false, 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                'AUTOCOMPLETE' => true, 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_100', ),	
 
 
                                         'department_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_100', ),	
 
 
                                         'application_model_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -82,15 +82,26 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DEPENDENCIES' => ['application_model_id',],
                                                 'WHERE' => 'application_model_id = §application_model_id§',
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 
+                                                'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 
                                                 'AUTOCOMPLETE' => true, 'AUTOCOMPLETE-SEARCH' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_100', ),	
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
+                                                'CSS' => 'width_pct_100',),
+
+                                        'applicationModelBranchList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_branch', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'STEP' => 3,
+                                                'WHERE'=>'application_model_id = §application_model_id§
+                                                        and ((§training_unit_id§ = 0) or (training_unit_id = §training_unit_id§))          
+                                                        and ((§department_id§ = 0) or (department_id = §department_id§))          
+                                                        and ((§application_model_branch_id§ = 0) or (id = §application_model_branch_id§))', 
+                                                'HIDE_COLS' => array(),
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>false, 'DELETE-ICON'=>false,'VIEW-ICON'=>false,                                                
+                                                'BUTTONS'=>true, 'NO-LABEL'=>false),
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
