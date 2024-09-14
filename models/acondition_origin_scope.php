@@ -56,7 +56,7 @@ class AconditionOriginScope extends AdmObject
 
     public function getDisplay($lang = 'ar')
     {
-        return $this->getDefaultDisplay($lang);
+        return $this->getDefaultDisplay($lang, '&larr;');
     }
 
     public function stepsAreOrdered()

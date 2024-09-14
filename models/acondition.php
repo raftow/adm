@@ -14,6 +14,12 @@ class Acondition extends AdmObject{
         public static $MODULE		    = "adm"; 
         public static $TABLE			= ""; 
         public static $DB_STRUCTURE = null; 
+
+
+        private Acondition $cond1Obj = null;
+        private Acondition $cond2Obj = null;
+        private ApplicationField $afObj = null;
+        private Aparameter $aparamObj = null;
         
         
 
@@ -184,6 +190,20 @@ class Acondition extends AdmObject{
                 }
 
                 return true;
+        }
+
+        public function applyOnMe($obj, $simulate=true)
+        {
+                if($this->_isComposed())
+                {
+                        // to avoid for big loops to recreate the composing objects for each iteration
+                        // save it inside a private attribute
+                        if(!$this->cond1Obj) $this->cond1Obj = $this->get("condition_1_id");
+                        if(!$this->cond2Obj) $this->cond2Obj = $this->get("condition_2_id");
+
+                        $res1 = $this->cond1Obj->applyOnMe($obj, $simulate);
+                        $res2 = $this->cond2Obj->applyOnMe($obj, $simulate);
+                }
         }
 
         /*

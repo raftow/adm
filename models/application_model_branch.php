@@ -2,6 +2,12 @@
         // rafik 12/02/2024
         // alter table c0adm.application_model_branch add   branch_name_ar varchar(128)  DEFAULT NULL  after is_open;
         // alter table c0adm.application_model_branch add   branch_name_en varchar(128)  DEFAULT NULL  after branch_name_ar;
+        //
+        // alter table c0adm.application_model_branch add   training_unit_id int(11) DEFAULT NULL  after program_offering_id;
+        // alter table c0adm.application_model_branch add   department_id int(11) DEFAULT NULL  after training_unit_id;
+        // update c0adm.application_model_branch mb set mb.training_unit_id = (select po.training_unit_id from c0adm.academic_program_offering po where id = mb.program_offering_id);
+        // update c0adm.application_model_branch mb set mb.department_id = (select po.department_id from c0adm.academic_program_offering po where id = mb.program_offering_id);
+        
         class ApplicationModelBranch extends AdmObject{
 
                 public static $DATABASE		= ""; 
@@ -75,49 +81,71 @@
 
                 public function beforeMaj($id, $fields_updated)
                 {  
-                        
+                        if ($fields_updated["program_offering_id"]) {    
+                                $po = $this->het("program_offering_id");
+                                if($po)
+                                {
+                                        $this->set("training_unit_id", $po->getVal("training_unit_id"));   
+                                        $this->set("department_id", $po->getVal("department_id"));   
+                                }
+                                else
+                                {
+                                        $this->set("training_unit_id", 0);   
+                                        $this->set("department_id", 0);   
+                                }
+                                
+                        }
                 
-                    return true;
+                        return true;
                 }
 
                 public function genereName($lang="ar", $which="all", $commit=true)
                 {
-                    $acadProg = $this->het("academic_program_id");            
-                    if(!$acadProg) return ["لم يتم تحديد البرنامج", ""];
+                    $progOffr = $this->het("program_offering_id");            
+                    if(!$progOffr) return ["لم يتم تحديد البرنامج المتاح", ""];
                     $appModelObj = $this->het("application_model_id");            
-                    if(!$appModelObj) return ["لم يتم تحديد البرنامج", ""];
+                    if(!$appModelObj) return ["لم يتم تحديد نموذج القبول", ""];
                     
                     if(($which=="all") or ($which=="ar"))
                     {
-                        $new_name = $appModelObj->getDisplay("ar")."-".$acadProg->getDisplay("ar");
-                        $this->set("program_name_ar", $new_name);                        
+                        $new_name_ar = $appModelObj->getDisplay("ar")."-".$progOffr->getDisplay("ar");
+                        $this->set("branch_name_ar", $new_name_ar);                        
                         // die("reset name to : ".$new_name);
                     }
         
                     if(($which=="all") or ($which=="en"))
                     {
-                        $new_name = $appModelObj->getDisplay("en")."-".$acadProg->getDisplay("en");
-                        $this->set("program_name_en", $new_name); 
+                        $new_name_en = $appModelObj->getDisplay("en")."-".$progOffr->getDisplay("en");
+                        $this->set("branch_name_en", $new_name_en); 
                     }
 
                     // $this->set("gender_enum", $tunitObj->getVal("gender_enum"));
         
                     if($commit) $this->commit();
         
-                    return ["", "تم تصفير مسمى البرنامج بنجاح"];
+                    return ["", "تم تصفير مسمى الفرع إلى $new_name_ar بنجاح"];
                     
                 }
 
                 public static function genereAllNames($lang="ar")
                 {
+                        $err_arr = [];
+                        $inf_arr = [];
+                        $war_arr = [];
+                        $tech_arr = [];
+
                         $obj = new ApplicationModelBranch();
                         // $obj->select_visibilite_horizontale();
                         $objList = $obj->loadMany();
-
+                        
                         foreach($objList as $objItem)
                         {
-                                $objItem->genereName($lang);
+                                list($err,$inf) = $objItem->genereName($lang);
+                                if($err) $err_arr[] = $err;
+                                if($inf) $inf_arr[] = $inf;
                         }
+
+                        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
                 }
 
 

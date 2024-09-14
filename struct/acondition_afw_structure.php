@@ -35,7 +35,7 @@
 		
 		'acondition_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-EN' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '128', 'UTF8' => false,  
-				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
+				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_50',),
 				

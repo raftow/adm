@@ -4,6 +4,7 @@
         
                 public static function initInstance(&$obj)
                 {
+                        global $_GET, $_POST;
                         if ($obj instanceof ApplicationModelBranch) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
@@ -15,7 +16,16 @@
 
                                 //$obj->editByStep = true;
                                 //$obj->editNbSteps = 2; 
-                                $obj->after_save_edit = array("class"=>'AcademicProgramOffering',"attribute"=>'program_offering_id', "currmod"=>'adm',"currstep"=>3);
+                                if(($_GET["class_parent"]=="AcademicProgramOffering") or
+                                   ($_POST["class_parent"]=="AcademicProgramOffering"))
+                                {
+                                        $obj->after_save_edit = array("class"=>'AcademicProgramOffering',"attribute"=>'program_offering_id', "currmod"=>'adm',"currstep"=>3);
+                                }
+                                else
+                                {
+                                        // die("_GET[]=".var_export($_GET,true)." _POST[]=".var_export($_POST,true));
+                                        $obj->after_save_edit = array("class"=>'ApplicationModel',"attribute"=>'application_model_id', "currmod"=>'adm',"currstep"=>4   );
+                                }
                         }
                 }
                 
@@ -26,20 +36,45 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-                                        'program_offering_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => true,  
-                                                'EDIT' => false,  'QEDIT' => false, 'UTF8' => false,  
+                                        'program_offering_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
                                                 /* 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  */
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_program_offering',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,                                                 
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100', ),
+                                                'CSS' => 'width_pct_50', ),
+
+                                                'training_unit_id' => array('IMPORTANT' => 'IN',  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
+                                                        'READONLY' => true,  'STEP' => 1,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                         ),	
+
+                                                'department_id' => array('IMPORTANT' => 'IN',  
+                                                                'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  
+                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
+                                                                ),
 
                                         'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),
+                                                'CSS' => 'width_pct_50', ),
+
+                                        'branch_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '50', 'MAXLENGTH' => '128', 'UTF8' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 99, 'MANDATORY' => true, 'READONLY'=>true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+                                                
+
+                                        'branch_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '50', 'MAXLENGTH' => '128', 'UTF8' => false,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 99, 'MANDATORY' => true, 'READONLY'=>true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+
                                                 
         
 
@@ -113,19 +148,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'CHECKBOX'=>true, 'FORMAT' => 'icon',
                                                 'CSS' => 'width_pct_25',),
 
-                                        'branch_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '128', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-                                                
-
-                                        'branch_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '128', 'UTF8' => false,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
+                                        
 
 
 
