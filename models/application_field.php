@@ -475,43 +475,9 @@ class ApplicationField extends AdmObject {
         }
         
         
-        public static function list_of_application_table_id()
-        {
-            global $lang;
-            return self::application_table()[$lang];
-        }
         
-        public static function application_table()
-        {
-                $arr_list_of_application_table = array();
-
-                $arr_list_of_application_table["ar"][1] = "المتقدمون";
-                $arr_list_of_application_table["en"][1] = "Applicants";
-
-                
-                return $arr_list_of_application_table;
-        }
 
 
-        public static function list_of_application_field_type_id()
-        {
-            global $lang;
-            return self::application_field_type()[$lang];
-        }
-        
-        public static function application_field_type()
-        {
-                $arr_list_of_application_field_type = array();
-
-                $arr_list_of_application_field_type["ar"][1] = "عدد";
-                $arr_list_of_application_field_type["en"][1] = "number";
-
-                
-                return $arr_list_of_application_field_type;
-        }
-        
-        
-        
         protected function getSpecificDataErrors($lang="ar",$show_val=true,$step="all",$erroned_attribute=null,$stop_on_first_error=false, $start_step=null, $end_step=null)
         {
               $sp_errors = array();

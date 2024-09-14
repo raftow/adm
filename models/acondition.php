@@ -16,10 +16,10 @@ class Acondition extends AdmObject{
         public static $DB_STRUCTURE = null; 
 
 
-        private Acondition $cond1Obj = null;
-        private Acondition $cond2Obj = null;
-        private ApplicationField $afObj = null;
-        private Aparameter $aparamObj = null;
+        private ?Acondition $cond1Obj = null;
+        private ?Acondition $cond2Obj = null;
+        private ?ApplicationField $afObj = null;
+        private ?Aparameter $aparamObj = null;
         
         
 
@@ -192,8 +192,149 @@ class Acondition extends AdmObject{
                 return true;
         }
 
-        public function applyOnMe($obj, $simulate=true)
+
+        public function calcApplication_table_id()
         {
+                $this->_isGeneral() ? 1 : 2;
+        }
+
+        protected function getPublicMethods()
+        {
+        
+                $pbms = array();
+                
+                
+
+                $color = "green";
+                $title_ar = "محاكاة هذا الشرط"; 
+                $methodName = "simulateMeOnSomeCases";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>3);
+                
+
+                
+                
+                return $pbms;
+        }
+
+        public function simulateMeOnSomeCases($lang="ar")
+        {
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+
+                try{
+                        // from simulation config get data :
+                        // load simulation applicants
+                        $simulation_applicants_ids = AfwSession::config("simulation_applicants","2340182555");
+                        // simulation_application_plan_id
+                        $simulation_application_plan_id = AfwSession::config("simulation_application_plan_id",1);
+                        // simulation_application_model_id 
+                        $simulation_application_model_id = AfwSession::config("simulation_application_model_id",1);
+                        $appObj = new Applicant();
+                        $appObj->where("id in ($simulation_applicants_ids)");
+                        $appList = $appObj->loadMany();
+
+                        foreach($appList as $appItem)
+                        {
+                                if($this->_isGeneral())
+                                {
+                                        // if this is a general condition we apply on simulation applicant
+                                        $err = "";
+                                        $inf = "";
+                                        $war = "";
+                                        
+                                        list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                        if($res)
+                                        {
+                                                $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
+                                        }
+                                        else
+                                        {
+                                                $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
+                                        }
+
+                                        if($err) $err_arr[] = $err;
+                                        if($inf) $inf_arr[] = $inf;
+                                        if($war) $war_arr[] = $war;
+                                }
+                                else
+                                {
+                                        // if this is a special condition we apply on desires of these simulation applicant 
+                                        $desireList = $appItem->getMyDesires($simulation_application_plan_id);
+                                        if(count($desireList)==0) 
+                                        {
+                                                $err_arr[] = "لا يوجد رغبات للمتقدم ".$appItem->getDisplay($lang)." على حملة القبول ".$simulation_application_plan_id;
+                                        }
+                                        foreach($desireList as $desireItem)
+                                        {
+                                                // if this is a general condition we apply on simulation applicant
+                                                $err = "";
+                                                $inf = "";
+                                                $war = "";
+                                                
+                                                list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                if($res)
+                                                {
+                                                        $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                }
+                                                else
+                                                {
+                                                        $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                }
+
+                                                if($err) $err_arr[] = $err;
+                                                if($inf) $inf_arr[] = $inf;
+                                                if($war) $war_arr[] = $war;
+                                        }
+
+                                }     
+
+                                
+                        }
+                }
+                catch(Exception $e)
+                {
+                        $err_arr[] = $e->getMessage();
+                }
+
+                return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+                
+        }
+
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true)
+        {
+                if(!$application_plan_id)
+                {
+                        throw new AfwRuntimeException("no valid application_plan_id given for condition execution");   
+                }
+
+                if(!$application_model_id)
+                {
+                        throw new AfwRuntimeException("no valid application_model_id given for condition execution");   
+                }
+
+                if((!$obj) or ($obj->isEmpty()))
+                {
+                        throw new AfwRuntimeException("no valid object given for applying condition");
+                }
+
+                if($obj instanceof Applicant)
+                {
+                        $applicant_id = $obj->id;
+                        $adesire_id = 0;
+                        
+                }/*
+                elseif($obj instanceof ApplicationDesire)
+                {
+                        $applicant_id = $obj->getVal("applicant_id");
+                        $adesire_id = $obj->id;
+                }*/
+                else
+                {
+                        throw new AfwRuntimeException("unknown class for applying condition : ".get_class($obj));
+                }
+
                 if($this->_isComposed())
                 {
                         // to avoid for big loops to recreate the composing objects for each iteration
@@ -201,10 +342,141 @@ class Acondition extends AdmObject{
                         if(!$this->cond1Obj) $this->cond1Obj = $this->get("condition_1_id");
                         if(!$this->cond2Obj) $this->cond2Obj = $this->get("condition_2_id");
 
-                        $res1 = $this->cond1Obj->applyOnMe($obj, $simulate);
-                        $res2 = $this->cond2Obj->applyOnMe($obj, $simulate);
+                        if(!$this->cond1Obj) throw new AfwRuntimeException("no valid part 1 given for composed condition");
+                        if(!$this->cond2Obj) throw new AfwRuntimeException("no valid part 2 given for composed condition");
+
+                        $cond1Desc = $this->cond1Obj->getDisplay($lang);
+                        $cond2Desc = $this->cond2Obj->getDisplay($lang);
+
+                        list($res1, $comments1) = $this->cond1Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                        list($res2, $comments2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+
+                        $operator = $this->getVal("operator_id");
+                        
+
+                        if($operator==1)
+                        {
+                                return [($res1 and $res2), $cond1Desc.":".$comments1."<br>\n".$cond2Desc.":".$comments2];
+                        }
+                        else
+                        {
+                                return [($res1 or $res2), $cond1Desc.":".$comments1."<br>\n".$cond2Desc.":".$comments2];
+                        }
+                }
+                else
+                {
+                        if(!$this->afObj) $this->afObj = $this->get("afield_id");
+                        if(!$this->aparamObj) $this->aparamObj = $this->get("aparameter_id");
+
+                        if(!$this->afObj) throw new AfwRuntimeException("no valid field given for simple condition");
+                        if(!$this->aparamObj) throw new AfwRuntimeException("no valid param given for simple condition");
+                        $aparameter_id = $this->aparamObj->id;
+                        $afield_id = $this->afObj->id;
+
+                        $comparator = $this->getVal("compare_id");
+
+                        $field_name = $this->afObj->getVal("field_name");
+                        $field_value = $obj->getVal($field_name);
+                        $param_value =$this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
+
+                        list($exec_result, $comments) = self::applyComparison($field_value, $comparator, $param_value);
+                        
+                        
+
+                        if(!$simulate)
+                        {
+                                $acondition_id = $this->id;
+                                $aparameter_value_date = $field_date = $condition_exec_date = date("Y-m-d H:i:s");
+                                $acExecObj = ApplicationConditionExec::loadByMainIndex($application_plan_id,$applicant_id,$adesire_id,$acondition_id, true);
+                                $acExecObj->set("field_value",$field_value);
+                                $acExecObj->set("condition_exec_date",$condition_exec_date);
+                                $acExecObj->set("field_date",$field_date);
+                                $acExecObj->set("aparameter_id",$aparameter_id);
+                                $acExecObj->set("aparameter_value",$param_value);
+                                $acExecObj->set("aparameter_value_date",$aparameter_value_date);
+                                $success_ind = $exec_result ? "Y" : "N";
+                                $acExecObj->set("success_ind",$success_ind);
+                                
+                                $acExecObj->commit();
+                                unset($acExecObj);
+                        }
+
+
+                        return [$exec_result, $comments];
                 }
         }
+
+        public static function applyComparison($field_value, $comparator, $param_value)
+        {
+                // arr_list_of_compare["en"][1] = "Equal to";
+                if($comparator == 1)
+                {
+                        $comparatorDesc = "Equal to";
+                        $return = ($field_value == $param_value);
+                }
+                // arr_list_of_compare["en"][2] = "Greater than";
+                elseif($comparator == 2)
+                {
+                        $comparatorDesc = "Greater than";
+                        $return = ($field_value > $param_value); 
+                }
+                // arr_list_of_compare["en"][3] = "Less than";
+                elseif($comparator == 3)
+                {
+                        $comparatorDesc = "Less than";
+                        $return = ($field_value < $param_value);  
+                }
+                // arr_list_of_compare["en"][4] = "Greater than or equal to";
+                elseif($comparator == 4)
+                {
+                        $comparatorDesc = "Greater than or equal to";
+                        $return = ($field_value >= $param_value); 
+                }
+                // arr_list_of_compare["en"][5] = "Less than or equal to";
+                elseif($comparator == 5)
+                {
+                        $comparatorDesc = "Less than or equal to";
+                        $return = ($field_value <= $param_value); 
+                }
+                // arr_list_of_compare["en"][6] = "Not equal to";
+                elseif($comparator == 6)
+                {
+                        $comparatorDesc = "Not equal to";
+                        $return = ($field_value != $param_value); 
+                }
+                // arr_list_of_compare["en"][7] = "Belongs to";
+                elseif($comparator == 7)
+                {
+                        $comparatorDesc = "Belongs to";
+                        $param_value_arr = explode(",",trim(trim($param_value),","));
+                        $return = in_array($field_value,$param_value_arr);  
+                }
+                // arr_list_of_compare["en"][8] = "Does not belong to";
+                elseif($comparator == 8)
+                {
+                        $comparatorDesc = "Does not belong to";
+                        $param_value_arr = explode(",",trim(trim($param_value),","));
+                        $return = !in_array($field_value,$param_value_arr);  
+                }
+                // arr_list_of_compare["en"][9] = "Contains";
+                elseif($comparator == 9)
+                {
+                        $comparatorDesc = "Contains";
+                        $field_value_arr = explode(",",trim(trim($field_value),","));
+                        $return = in_array($param_value,$field_value_arr);
+                }
+                // arr_list_of_compare["en"][10] = "Not contains";
+                elseif($comparator == 10)
+                {
+                        $comparatorDesc = "Not contains";
+                        $field_value_arr = explode(",",trim(trim($field_value),","));
+                        $return = !in_array($param_value,$field_value_arr);
+                }
+                else throw new AfwRuntimeException("unknown comparator = $comparator");
+
+                return [$return, "$field_value $comparatorDesc $param_value ?"];
+
+        }        
 
         /*
         public function whyAttributeIsNotApplicable($attribute, $lang = "ar")

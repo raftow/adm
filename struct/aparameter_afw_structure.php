@@ -38,6 +38,14 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+
+
+                                        'aparam_use_scope_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),                                                
                                                 
 
 
@@ -50,15 +58,17 @@
 
                                         'afield_type_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'afield_type',  'ANSMODULE' => 'pag',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'afield_type_enum',
+                                                'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
 
-                                        'answer_table_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'answer_table_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'atable',  'ANSMODULE' => 'pag',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'application_table_id', 
+                                                'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
@@ -77,23 +87,22 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+
+
+                                        /*
                                                 
 
 
-                                        'tprogram_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'branch_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                'TYPE' => 'MFK',  'ANSWER' => 'tprogram',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 1,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  
+                                                'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
 
 
-                                        'aparam_use_scope_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                        	
 
 
                                         'readonly' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
@@ -101,7 +110,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-
+                                        */
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  

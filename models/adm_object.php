@@ -722,6 +722,26 @@ class AdmObject extends AFWObject{
 
         }
 
+        public static function list_of_application_table_id()
+        {
+            global $lang;
+            return self::application_table()[$lang];
+        }
+        
+        public static function application_table()
+        {
+                $arr_list_of_application_table = array();
+
+                $arr_list_of_application_table["ar"][1] = "المتقدمون";
+                $arr_list_of_application_table["en"][1] = "Applicants";
+
+                $arr_list_of_application_table["ar"][2] = "رغبات المتقدم";
+                $arr_list_of_application_table["en"][2] = "Applicant desires";
+
+
+                return $arr_list_of_application_table;
+        }
+
 
         public function calcHijri_current()
         {

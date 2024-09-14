@@ -53,7 +53,7 @@
 				),
 
 			'application_field_type_id' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'QEDIT' => true,  'EDIT' => true,  
-				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 
+				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'afield_type_enum',
 				/*'ANSWER' => 'application_field_type',  'ANSMODULE' => 'adm', */ 
 				'SIZE' => 40,  'DEFAUT' => 0,  'STYLE' => 'width:150px',  'SHORTNAME' => 'ftype',  'FGROUP' => 'general_props',  'NO_KEEP_VAL' => true,  'LOAD_ALL' => true,  'NO-COTE' => true,  'SEARCH' => true,  'SEARCH-BY-ONE' => true,  'QSEARCH' => true,  'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
