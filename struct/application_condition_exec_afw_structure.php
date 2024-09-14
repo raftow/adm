@@ -1,212 +1,127 @@
 <?php 
+
+     
         class AdmApplicationConditionExecAfwStructure
         {
         
                 public static function initInstance(&$obj)
                 {
-                        if ($obj instanceof ApplicationConditionExec) 
+                        if ($obj instanceof ApplicationConditionExec ) 
                         {
-                                $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "application_condition_exec_name_ar";
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                // $obj->UNIQUE_KEY = array('id');
-                                // $obj->public_display = true;
-                                // $obj->IS_LOOKUP = true;
-
+                                $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
+                                $obj->DISPLAY_FIELD = "";
+                                // $title = ApplicationConditionExecTranslator::translateAttribute("application_condition_exec.single","ar");
+                                // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
+                                $obj->ORDER_BY_FIELDS = "application_plan_id, applicant_id, adesire_id, acondition_id";
+                                 
+                                
+                                
+                                $obj->UNIQUE_KEY = array('application_plan_id','applicant_id','adesire_id','acondition_id');
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                $obj->editNbSteps = 1;
+                $obj->showQeditErrors = true;
+                $obj->showRetrieveErrors = true;
+                $obj->general_check_errors = true;
+                                // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
                         }
                 }
                 
                 
-                public static $DB_STRUCTURE = array(
-                                        'id' => array('SHOW' => false,  'RETRIEVE' => true,  'EDIT' => false,  
-                                                'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                public static $DB_STRUCTURE =  
+     array(
+                'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
-                                        'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+		
+		'application_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
+		'applicant_id' => array('STEP' => 1,  'SHORTNAME' => 'applicant',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
-'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+		'adesire_id' => array('STEP' => 1,  'SHORTNAME' => 'adesire',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'integer',/*  'ANSWER' => 'adesire',  'ANSMODULE' => 'adm', */ 
+				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
+		'acondition_id' => array('STEP' => 1,  'SHORTNAME' => 'acondition',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
-'adesire_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'integer',  /*'ANSWER' => 'adesire',  'ANSMODULE' => 'adm',*/  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+		'field_value' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 64,  'MAXLENGTH' => 64,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
+		'field_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 10,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'GDAT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
-'acondition_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+		'condition_exec_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 10,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'GDAT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
+		'aparameter_id' => array('STEP' => 1,  'SHORTNAME' => 'aparameter',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
-'field_value' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '64', 'MAXLENGTH' => '64', 'UTF8' => true,  
-        'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
-        
+		'aparameter_value' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 64,  'MAXLENGTH' => 64,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
+		'aparameter_value_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 10,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'GDAT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
-'field_date' => [
-        'IMPORTANT' => 'IN',
-        'SEARCH' => true,
-        'SHOW' => true,
-        'RETRIEVE' => true,
-        'EDIT' => true,
-        'QEDIT' => true,
-        'SEARCH-ADMIN' => true,
-        'SHOW-ADMIN' => true,
-        'EDIT-ADMIN' => true,
-        'UTF8' => false,
-        'TYPE' => 'GDAT',
-        'STEP' => 1,
-        'DISPLAY-UGROUPS' => '',
-        'EDIT-UGROUPS' => '',
-        
-        'CSS' => 'width_pct_25',
-    ],
+		'success_ind' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'YN',  'DEFAUT' => 'N',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
-
-'condition_exec_date' => [
-        'IMPORTANT' => 'IN',
-        'SEARCH' => true,
-        'SHOW' => true,
-        'RETRIEVE' => true,
-        'EDIT' => true,
-        'QEDIT' => true,
-        'SEARCH-ADMIN' => true,
-        'SHOW-ADMIN' => true,
-        'EDIT-ADMIN' => true,
-        'UTF8' => false,
-        'TYPE' => 'GDAT',
-        'STEP' => 1,
-        'DISPLAY-UGROUPS' => '',
-        'EDIT-UGROUPS' => '',
-        
-        'CSS' => 'width_pct_25',
-    ],
-
-
-'aparameter_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
-
-
-'aparameter_value' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '64', 'MAXLENGTH' => '64', 'UTF8' => true,  
-        'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
-        
+                
+                'created_by'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
+                'created_at'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),
+                'updated_by'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
+                'updated_at'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),
+                'validated_by'       => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
+                'validated_at'       => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),
+                'active'             => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'EDIT' => false, 'QEDIT' => false, "DEFAULT" => 'Y', 'TYPE' => 'YN', 'FGROUP' => 'tech_fields'),
+                'version'            => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'INT', 'FGROUP' => 'tech_fields'),
+                'draft'             => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'EDIT' => false, 'QEDIT' => false, "DEFAULT" => 'Y', 'TYPE' => 'YN', 'FGROUP' => 'tech_fields'),
+                'update_groups_mfk' => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
+                'delete_groups_mfk' => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
+                'display_groups_mfk' => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
+                'sci_id'            => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'scenario_item', 'ANSMODULE' => 'pag', 'FGROUP' => 'tech_fields'),
+                'tech_notes' 	      => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'TYPE' => 'TEXT', 'CATEGORY' => 'FORMULA', "SHOW-ADMIN" => true, 'TOKEN_SEP'=>"§", 'READONLY' =>true, "NO-ERROR-CHECK"=>true, 'FGROUP' => 'tech_fields'),
+	);  
+    
+         }
+    
 
 
-'aparameter_value_date' => [
-        'IMPORTANT' => 'IN',
-        'SEARCH' => true,
-        'SHOW' => true,
-        'RETRIEVE' => true,
-        'EDIT' => true,
-        'QEDIT' => true,
-        'SEARCH-ADMIN' => true,
-        'SHOW-ADMIN' => true,
-        'EDIT-ADMIN' => true,
-        'UTF8' => false,
-        'TYPE' => 'GDAT',
-        'STEP' => 1,
-        'DISPLAY-UGROUPS' => '',
-        'EDIT-UGROUPS' => '',
-        
-        'CSS' => 'width_pct_25',
-    ],
-
-
-'success_ind' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-        'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
-
-
-
-
-                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
-        
-                                        'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
-
-                                        'created_at' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
-                                                'TYPE' => 'GDAT',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
-
-                                        'updated_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
-
-                                        'updated_at' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
-                                                'TYPE' => 'GDAT',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
-
-                                        'validated_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
-
-                                        'validated_at' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
-                                                'TYPE' => 'GDAT',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
-
-                                        
-
-
-                                        'version'                  => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 
-                                                                        'QEDIT' => false, 'TYPE' => 'INT', 'FGROUP' => 'tech_fields'),
-
-                                        'update_groups_mfk'             => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 
-                                                                        'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-
-                                        'delete_groups_mfk'             => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 
-                                                                        'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-
-                                        'display_groups_mfk'            => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 
-                                                                        'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-
-                                        'sci_id'                        => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 
-                                                                        'TYPE' => 'FK', 'ANSWER' => 'scenario_item', 'ANSMODULE' => 'pag', 'FGROUP' => 'tech_fields'),
-
-                                        'tech_notes' 	                => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'TYPE' => 'TEXT', 'CATEGORY' => 'FORMULA', 'SHOW-ADMIN' => true,  'QEDIT' => false, 
-                                                                        'TOKEN_SEP'=>'§', 'READONLY'=>true, 'NO-ERROR-CHECK'=>true, 'FGROUP' => 'tech_fields'),				
-
-
-                                ); 
-        } 
-?>
+// errors 
