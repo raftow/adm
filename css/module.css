@@ -3477,7 +3477,7 @@ div.body_nav_hzm>p {
     margin-left: 3%;
     margin-right: 3%;
     border: none;
-    background-color: #f9f9f900;
+    background-color: #f9f9f9a8;
     width: 94%;
     overflow: hidden;
     /* margin-top: 140px; */
@@ -5028,4 +5028,8 @@ h5.bluetitle.search {
     padding-right: 10px;
     border-bottom: 1px solid #1280d2;
     padding-bottom: 15px;
+}
+
+.fixmgrid td, .fixmgrid th {
+    border: 1px #7fc5e5 solid !important;
 }

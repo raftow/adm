@@ -6,7 +6,7 @@
 	$trad["application_model_branch"]["applicationmodelbranch.new"] = "جديد";
 	$trad["application_model_branch"]["application_model_branch"] = "فروع القبول";
 
-	$trad["application_model_branch"]["application_model_id"] = "مسمى الفرع";
+	$trad["application_model_branch"]["application_model_id"] = "نموذج القبول";
 	$trad["application_model_branch"]["program_offering_id"] = "البرنامج المتاح";
 	/*
 	$trad["application_model_branch"]["gender_enum"] = "الجنس";
