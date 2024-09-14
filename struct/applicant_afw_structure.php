@@ -57,7 +57,7 @@
                                                 'RETRIEVE' => false,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
-                                                'TYPE' => 'FK', 'ANSWER'=>'idn_type', 'ANSMODULE'=>'pag', 'MANDATORY' => true, 
+                                                'TYPE' => 'FK', 'ANSWER'=>'identity_type', 'ANSMODULE'=>'adm', 'MANDATORY' => true, 
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
