@@ -2,14 +2,14 @@
 // http://localhost/pag/main.php?Main_Page=afw_mode_edit.php&cl=Domain&currmod=pag&id=25
 
 
-$struc = "identity_type
-Id	1					N	integer	المعرف الفريد	Id		
-identity_type_code	4					N	VARCHAR2 (10 Byte)	رمز نوع الهوية	identity Type Code	UK	
-identity_type_name_ar	5					N	VARCHAR2 (30 Byte)	الاسم العربي	identity Type Name -Ar	UK	
-identity_type_name_en	6					Y	VARCHAR2 (30 Byte)	الاسم الإنجليزي	identity Type Name -En	UK	
-sci_id	2					N	VARCHAR2 (50 Byte)				
-saudi_indicator	3					N	CHAR(1)	سعودي؟	Saudi Indicator		
-enabled	7					Y	CHAR(1)	مفعّل؟	Enabled		";
+$struc = "application_model_engagement
+ID	1					N	INTEGER	معرف المسار	Track Id		
+TRACK_CODE	2					N	VARCHAR2 (50 Byte)	رمز المسار	Track Code	UK	
+TRACK_NAME_AR	3					N	VARCHAR2 (50 Byte)	اسم المسار-العربي	Track Name -Arabic	UK	
+TRACK_NAME_EN	4					N	VARCHAR2 (50 Byte)	اسم المسار -الإنجليزي	Track Name-English	UK	
+Sorting_instructions	5					Y	VARCHAR2 (200 Byte)	تعليمات معايير المفاضلة	Sorting Criteria Instructions		
+Application_model_id	6					N	INTEGER	نموذج القبول	Application Model		OneToMany
+Sorting_Formula	7					Y	VARCHAR2 (200 Byte)	صيغة المفاضلة	Sorting Criteria Formula		";
 
 
 
