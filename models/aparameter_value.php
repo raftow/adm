@@ -1,4 +1,39 @@
 <?php
+/*
+rafik 16/9/2024
+
+CREATE TABLE IF NOT EXISTS c0adm.`aparameter_value` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_by` int(11) NOT NULL,
+  `created_at`   datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `validated_by` int(11) DEFAULT NULL,
+  `validated_at` datetime DEFAULT NULL,
+  `active` char(1) NOT NULL,
+  `draft` char(1) NOT NULL default 'Y',
+  `version` int(4) DEFAULT NULL,
+  `update_groups_mfk` varchar(255) DEFAULT NULL,
+  `delete_groups_mfk` varchar(255) DEFAULT NULL,
+  `display_groups_mfk` varchar(255) DEFAULT NULL,
+  `sci_id` int(11) DEFAULT NULL,
+  
+    
+   aparameter_id int(11) DEFAULT NULL , 
+   application_model_id int(11) DEFAULT NULL , 
+   application_plan_id int(11) DEFAULT NULL , 
+   training_unit_id int(11) DEFAULT NULL , 
+   department_id int(11) DEFAULT NULL , 
+   application_model_branch_id int(11) DEFAULT NULL , 
+   value varchar(255)  DEFAULT NULL , 
+
+  
+  PRIMARY KEY (`id`)
+) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
+
+create unique index uk_aparameter_value on c0adm.aparameter_value(aparameter_id,application_model_id,application_plan_id,training_unit_id,department_id,application_model_branch_id);
+
+*/
         class AparameterValue extends AdmObject{
 
                 public static $DATABASE		= ""; 
@@ -110,16 +145,21 @@
                 {
                     $return = null;    
                     $aparamObj = $this->het("aparameter_id"); 
-                    if(!$aparamObj) return null;
-                    $af_type_id = $aparamObj->getVal("afield_type_id");    
-                    if($field_name=="value" and ($col_struct=="TYPE") ) die("dynamic log : af_type_id=$af_type_id aparamObj=".var_export($aparamObj,true));
+                    if($aparamObj)
+                    {
+                        $af_type_id = $aparamObj->getVal("afield_type_id");    
+                        // if($field_name=="value" and ($col_struct=="TYPE") ) die("dynamic log : af_type_id=$af_type_id aparamObj=".var_export($aparamObj,true));
+                    }
+                    
                     if(!$af_type_id) $af_type_id = 10;
 
                     $col_struct = strtoupper($col_struct);
 
                     if($col_struct=="TYPE") 
                     {
-                        return AfwUmsPagHelper::afieldTypeToAfwType($af_type_id);
+                        $return = AfwUmsPagHelper::afieldTypeToAfwType($af_type_id);
+                        // die("I am here dynamic(field_name=$field_name, col_struct=$col_struct) => return = $return = AfwUmsPagHelper::afieldTypeToAfwType(af_type_id=$af_type_id)");
+                        return $return;
                     }
                     
                     if($col_struct=="ANSMODULE") 
@@ -162,6 +202,7 @@
                         }
                     }
 
+                    //die("I am here dynamic(field_name=$field_name, col_struct=$col_struct) => return = $return");
                     
                     return $return;
                 }

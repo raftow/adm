@@ -1,6 +1,9 @@
 <?php
     $trad["aparameter"]["step1"] = "التعريف";
 	$trad["aparameter"]["step2"] = "معلومات متقدمة";
+	$trad["aparameter"]["step3"] = "القيم الجاهزة";
+	
+	$trad["aparameter"]["aparameterValueList"] = "القيم الجاهزة";
 
     $trad["aparameter"]["aparameter.single"] = "قيمة معلمة";
 	$trad["aparameter"]["aparameter.new"] = "جديدة";
@@ -16,3 +19,5 @@
 	$trad["aparameter"]["tprogram_mfk"] = "البرامج المعنية";
 	$trad["aparameter"]["aparam_use_scope_id"] = "مجال الاستخدام";
 	$trad["aparameter"]["short enum list name"] = "مسمى حقل القائمة القصيرة";
+
+	
