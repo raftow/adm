@@ -1,5 +1,6 @@
 <?php
-    // $trad["aparameter"]["step1"] = "........";
+    $trad["aparameter"]["step1"] = "التعريف";
+	$trad["aparameter"]["step2"] = "معلومات متقدمة";
 
     $trad["aparameter"]["aparameter.single"] = "قيمة معلمة";
 	$trad["aparameter"]["aparameter.new"] = "جديدة";
@@ -14,4 +15,4 @@
 	$trad["aparameter"]["measurement_unit_en"] = "الوحدة بالانجليزية";
 	$trad["aparameter"]["tprogram_mfk"] = "البرامج المعنية";
 	$trad["aparameter"]["aparam_use_scope_id"] = "مجال الاستخدام";
-	$trad["aparameter"]["readonly"] = "غير قابل للتعديل";
+	$trad["aparameter"]["short enum list name"] = "مسمى حقل القائمة القصيرة";

@@ -23,13 +23,13 @@
                                         'id' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true,  
                                                 'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_33',),
 
                                         'aparameter_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '64', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_33',),
                                                 
 
 
@@ -37,7 +37,7 @@
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '64', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_33',),
 
 
                                         'aparam_use_scope_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -45,14 +45,14 @@
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),                                                
+                                                'CSS' => 'width_pct_33', ),                                                
                                                 
 
 
                                         'customizable' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_33',),
 
 
 
@@ -62,31 +62,37 @@
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                                'CSS' => 'width_pct_33', ),	
 
 
                                         'answer_table_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'application_table_id', 
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                                'CSS' => 'width_pct_50', ),	
 
 
                                         'measurement_unit_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '8', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_50',),
                                                 
 
 
                                         'measurement_unit_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-EN' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '8', 'UTF8' => false,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_50',),
+
+                                        'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'DISPLAY' => '',  'STEP' => 2,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+
 
 
                                         /*
@@ -143,11 +149,7 @@
                                                 'CSS' => 'width_pct_100',),
 
                                         
-                                        'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'DISPLAY' => '',  'STEP' => 1,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
-
+                                        
                                         'version'                  => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 
                                                                         'QEDIT' => false, 'TYPE' => 'INT', 'FGROUP' => 'tech_fields'),
 

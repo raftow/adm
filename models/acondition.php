@@ -195,7 +195,7 @@ class Acondition extends AdmObject{
 
         public function calcApplication_table_id()
         {
-                $this->_isGeneral() ? 1 : 2;
+               return $this->_isGeneral() ? 1 : 2;
         }
 
         protected function getPublicMethods()
@@ -226,7 +226,7 @@ class Acondition extends AdmObject{
                 try{
                         // from simulation config get data :
                         // load simulation applicants
-                        $simulation_applicants_ids = AfwSession::config("simulation_applicants","2340182555");
+                        $simulation_applicants_ids = AfwSession::config("simulation_applicants","1,2340182555");
                         // simulation_application_plan_id
                         $simulation_application_plan_id = AfwSession::config("simulation_application_plan_id",1);
                         // simulation_application_model_id 
@@ -235,63 +235,72 @@ class Acondition extends AdmObject{
                         $appObj->where("id in ($simulation_applicants_ids)");
                         $appList = $appObj->loadMany();
 
-                        foreach($appList as $appItem)
+                        if(count($appList)>0)
                         {
-                                if($this->_isGeneral())
+                                foreach($appList as $appItem)
                                 {
-                                        // if this is a general condition we apply on simulation applicant
-                                        $err = "";
-                                        $inf = "";
-                                        $war = "";
-                                        
-                                        list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
-                                        if($res)
-                                        {
-                                                $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
-                                        }
-                                        else
-                                        {
-                                                $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
-                                        }
-
-                                        if($err) $err_arr[] = $err;
-                                        if($inf) $inf_arr[] = $inf;
-                                        if($war) $war_arr[] = $war;
-                                }
-                                else
-                                {
-                                        // if this is a special condition we apply on desires of these simulation applicant 
-                                        $desireList = $appItem->getMyDesires($simulation_application_plan_id);
-                                        if(count($desireList)==0) 
-                                        {
-                                                $err_arr[] = "لا يوجد رغبات للمتقدم ".$appItem->getDisplay($lang)." على حملة القبول ".$simulation_application_plan_id;
-                                        }
-                                        foreach($desireList as $desireItem)
+                                        if($this->_isGeneral())
                                         {
                                                 // if this is a general condition we apply on simulation applicant
                                                 $err = "";
                                                 $inf = "";
                                                 $war = "";
                                                 
-                                                list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                 if($res)
                                                 {
-                                                        $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                        $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
                                                 }
                                                 else
                                                 {
-                                                        $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                        $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
                                                 }
-
+        
                                                 if($err) $err_arr[] = $err;
                                                 if($inf) $inf_arr[] = $inf;
                                                 if($war) $war_arr[] = $war;
                                         }
-
-                                }     
-
-                                
+                                        else
+                                        {
+                                                // if this is a special condition we apply on desires of these simulation applicant 
+                                                $desireList = $appItem->getMyDesires($simulation_application_plan_id);
+                                                if(count($desireList)==0) 
+                                                {
+                                                        $err_arr[] = "لا يوجد رغبات للمتقدم ".$appItem->getDisplay($lang)." على حملة القبول ".$simulation_application_plan_id;
+                                                }
+                                                foreach($desireList as $desireItem)
+                                                {
+                                                        // if this is a general condition we apply on simulation applicant
+                                                        $err = "";
+                                                        $inf = "";
+                                                        $war = "";
+                                                        
+                                                        list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                        if($res)
+                                                        {
+                                                                $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                        }
+                                                        else
+                                                        {
+                                                                $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                        }
+        
+                                                        if($err) $err_arr[] = $err;
+                                                        if($inf) $inf_arr[] = $inf;
+                                                        if($war) $war_arr[] = $war;
+                                                }
+        
+                                        }     
+        
+                                        
+                                }
                         }
+                        else
+                        {
+                                $war_arr[] = "لم يتم العثور على المتقدمين للمحاكاة $simulation_applicants_ids";
+                        }
+
+                        
                 }
                 catch(Exception $e)
                 {
