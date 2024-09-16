@@ -14,7 +14,7 @@
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 2; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("class"=>'Aparameter',"attribute"=>'aparameter_id', "currmod"=>'adm',"currstep"=>3);
                         }
                 }
                 
@@ -29,25 +29,26 @@
                                         'aparameter_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm', 'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'READONLY'=>true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33', ),
+                                                'CSS' => 'width_pct_50', ),
                                                 
-                                        'application_model_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'application_model_id', 'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'application_model_id' => array('IMPORTANT' => 'IN', 'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',                                                  
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100', ),
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  'EMPTY_IS_ALL' => true,
+                                                'CSS' => 'width_pct_50', ),
 
-                                        'application_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'application_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true, 
+                                                'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  
                                                 'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'WHERE' => 'application_model_id = §application_model_id§',
                                                 'DEPENDENCIES' => ['application_model_id',],
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  
-                                                'RELATION' => 'ManyToOne',  'READONLY' => false, 
+                                                'RELATION' => 'ManyToOne',  'READONLY' => false,  'EMPTY_IS_ALL' => true,
                                                 'CSS' => 'width_pct_50', ),        
                                                 
                                         'training_unit_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  

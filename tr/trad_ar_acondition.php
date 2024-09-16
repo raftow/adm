@@ -20,7 +20,7 @@
 	$trad["acondition"]["condition_2_id"] = "الجزء الثاني من الشرط";
 	$trad["acondition"]["afield_id"] = "الحقل";
 	$trad["acondition"]["compare_id"] = "أداة المقارنة";
-	$trad["acondition"]["aparameter_id"] = "القيمة المعلمة";
+	$trad["acondition"]["aparameter_id"] = "القيمة المقارنة";
 	$trad["acondition"]["excuse_text_ar"] = "نص الاعتذار بالعربية";
 	$trad["acondition"]["general"] = "الشرط يطبق في المراحل العامة";
 	$trad["acondition"]["acondition_type_id"] = "نوع الشرط";

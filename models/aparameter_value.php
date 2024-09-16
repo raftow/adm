@@ -58,6 +58,25 @@ create unique index uk_aparameter_value on c0adm.aparameter_value(aparameter_id,
                         else return null;
                 }
 
+                public function getDisplay($lang = 'ar')
+                {
+                        
+                        $application_model_id = $this->getVal("application_model_id");
+                        $application_plan_id  = $this->getVal("application_plan_id");
+                        $training_unit_id     = $this->getVal("training_unit_id");
+                        $department_id        = $this->getVal("department_id");
+                        $application_model_branch_id = $this->getVal("application_model_branch_id");
+
+                        if(!$application_model_id and !$application_plan_id and !$training_unit_id and !$department_id and !$application_model_branch_id)
+                        {
+                                return $this->tr("no customization", $lang);
+                        }
+                        
+
+                        return $this->getDefaultDisplay($lang,"-");
+                }
+
+
 
                 public static function list_of_aparam_use_scope_id()
                 {

@@ -1,9 +1,9 @@
 <?php
     $trad["aparameter"]["step1"] = "التعريف";
 	$trad["aparameter"]["step2"] = "معلومات متقدمة";
-	$trad["aparameter"]["step3"] = "القيم الجاهزة";
+	$trad["aparameter"]["step3"] = "التخصيص";
 	
-	$trad["aparameter"]["aparameterValueList"] = "القيم الجاهزة";
+	$trad["aparameter"]["aparameterValueList"] = "التخصيص";
 
     $trad["aparameter"]["aparameter.single"] = "قيمة معلمة";
 	$trad["aparameter"]["aparameter.new"] = "جديدة";

@@ -99,7 +99,7 @@
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'STEP' => 3,  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'aparameter_value',  'ANSMODULE' => 'adm',  'ITEM' => 'aparameter_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),
 
 
 
