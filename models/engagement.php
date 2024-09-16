@@ -2,6 +2,8 @@
 
 // medali 15/09/2024
 /*
+DROP TABLE IF EXISTS c0adm.engagement;
+
 CREATE TABLE IF NOT EXISTS c0adm.`engagement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
@@ -20,12 +22,14 @@ CREATE TABLE IF NOT EXISTS c0adm.`engagement` (
   
     
    engagement_type_id int(11) DEFAULT NULL , 
-   engagement_name_ar varchar(48)  DEFAULT NULL , 
-   engagement_name_en varchar(48)  DEFAULT NULL , 
+   engagement_name_ar text  DEFAULT NULL , 
+   engagement_name_en text  DEFAULT NULL , 
 
   
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
+
+
 create unique index uk_engagement on c0adm.engagement(engagement_name_ar);
 
 */

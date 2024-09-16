@@ -35,7 +35,7 @@
 
 
 'engagement_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'UTF8' => true,  
+        'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,   
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_100',),        
@@ -43,7 +43,7 @@
 
 
 'engagement_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'UTF8' => false,  
+        'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => false,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,   
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_100',),        
