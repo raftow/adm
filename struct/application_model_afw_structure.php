@@ -1,4 +1,6 @@
 <?php 
+
+//alter table c0adm.application_model add   web_application char(1) DEFAULT NULL  after upload_files;
         class AdmApplicationModelAfwStructure
         {
         
@@ -65,13 +67,13 @@
                                                 'CSS' => 'width_pct_25', ),	
 
 
-                                                'level_degree_mfk' => array('IMPORTANT' => 'IN',  'NO-COTE' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                /*'level_degree_mfk' => array('IMPORTANT' => 'IN',  'NO-COTE' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'academic_level_id.degree_mfk',
                                                         'MFK-SHOW-SEPARATOR' => ' / ',
                                                         'EDIT' => true,  'QEDIT' => false,  'UTF8' => false, 'MANDATORY' => false,  
                                                         'TYPE' => 'MFK',  'ANSWER' => 'degree',  'ANSMODULE' => 'adm',    'READONLY' => true,  'STEP' => 1,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        ),
+                                                        ),*/
 
 
 
@@ -150,7 +152,10 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-
+                                        'web_application' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 3,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
 
                                         
 

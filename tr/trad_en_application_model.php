@@ -31,3 +31,4 @@
 	$trad["application_model"]["print_application_notification"] = "Enable printing of application notice";
 	$trad["application_model"]["print_admission_agreement"] = "Enable printing of acceptance agreement";
 	$trad["application_model"]["training_mode_enum"] = "Training Mode";
+	$trad["application_model"]["web_application"] = "Allow publishing on the web";

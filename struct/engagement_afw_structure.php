@@ -34,7 +34,7 @@
         'CSS' => 'width_pct_25', ),	
 
 
-'engagement_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+'engagement_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,   
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -42,12 +42,17 @@
 
 
 
-'engagement_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+'engagement_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => true,  
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => false,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,   
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_100',),        
 
+'academic_level_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+        'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => true,  
+        'TYPE' => 'MFK',  'ANSWER' => 'academic_level',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 1,  
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_50',),
 
 
 

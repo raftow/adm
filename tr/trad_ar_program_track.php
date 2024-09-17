@@ -8,6 +8,6 @@
 	$trad["program_track"]["track_name_ar"] = "اسم المسار-العربي";
 	$trad["program_track"]["track_name_en"] = "اسم المسار -الإنجليزي";
 	
-	$trad["program_track"]["Sorting_instructions"] = "تعليمات معايير المفاضلة";
-	$trad["program_track"]["Application_model_id"] = "نموذج القبول";
-	$trad["program_track"]["Sorting_Formula"] = "صيغة المفاضلة";
+	$trad["program_track"]["sorting_instructions"] = "تعليمات معايير المفاضلة";
+	$trad["program_track"]["application_model_id"] = "نموذج القبول";
+	$trad["program_track"]["sorting_formula"] = "صيغة المفاضلة";

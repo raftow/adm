@@ -45,4 +45,5 @@
 	$trad["application_model"]["allow_add_qualification"] = "السماح بإضافة المؤهل";
 	$trad["application_model"]["print_application_notification"] = "تمكين طباعة اشعار التسجيل";
 	$trad["application_model"]["print_admission_agreement"] = "تمكين طباعة اتفاقية القبول";
+	$trad["application_model"]["web_application"] = "تمكين النشر على البوابة";
 	
