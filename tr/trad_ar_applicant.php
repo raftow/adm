@@ -24,7 +24,7 @@
 	$trad["applicant"]["id_expiry_date"] = "تاريخ إنتهاء الهوية";
 	$trad["applicant"]["gender_enum"] = "الجنس";
 	$trad["applicant"]["country_id"] = "الجنسية";
-    $trad["applicant"]["mother_saudi_ind"] = "من أم سعودية؟";    
+    // $trad["applicant"]["mother_saudi_ind"] = "من أم سعودية؟";    
 	$trad["applicant"]["mother_idn"] = "هوية الام";
 	$trad["applicant"]["mother_birth_date"] = "تاريخ ميلاد الام";
 	$trad["applicant"]["passeport_num"] = "جواز السفر";

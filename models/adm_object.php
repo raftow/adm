@@ -363,7 +363,7 @@ class AdmObject extends AFWObject{
 
                 $main_company = AfwSession::config("main_company","all");
                 $file_dir_name = dirname(__FILE__);        
-                include($file_dir_name."/../extra/qualification_level-$main_company.php");
+                include($file_dir_name."/../../external/qualification_level-$main_company.php");
 
                 foreach($lookup as $id => $lookup_row)
                 {
@@ -787,12 +787,50 @@ class AdmObject extends AFWObject{
 
                 $arr_list_of_application_table["ar"][1] = "المتقدمون";
                 $arr_list_of_application_table["en"][1] = "Applicants";
+                $arr_list_of_application_table["code"][1] = "applicant";
 
                 $arr_list_of_application_table["ar"][2] = "رغبات المتقدم";
                 $arr_list_of_application_table["en"][2] = "Applicant desires";
+                $arr_list_of_application_table["code"][2] = "adesire";
 
 
                 return $arr_list_of_application_table;
+        }
+
+
+        public static function list_of_answer_table_id()
+        {
+            global $lang;
+            return self::answer_table()[$lang];
+        }
+        
+
+        public static function answer_table_code($ansTabId)        
+        {
+            return self::answer_table()["code"][$ansTabId];
+        }
+
+        public static function answer_table_module($ansTabId)        
+        {
+            return self::answer_table()["module"][$ansTabId];
+        }
+        
+        public static function answer_table()
+        {
+                $arr_list_of_answer_table = array();
+
+                $arr_list_of_answer_table["ar"][1] = "أنواع الهويات";
+                $arr_list_of_answer_table["en"][1] = "identity type";
+                $arr_list_of_answer_table["code"][1] = "identity_type";
+                $arr_list_of_answer_table["module"][1] = "adm";
+                
+                /*
+                $arr_list_of_answer_table["ar"][2] = "xxxx";
+                $arr_list_of_answer_table["en"][2] = "xxxx xxxx";
+                $arr_list_of_answer_table["code"][2] = "xxxx";*/
+
+
+                return $arr_list_of_answer_table;
         }
 
 

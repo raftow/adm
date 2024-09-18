@@ -8,7 +8,7 @@
                         {
                             $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 5;
 							$obj->CORRECT_IF_ERRORS = true;
-							$obj->DISPLAY_FIELD = "titre_short";
+							$obj->DISPLAY_FIELD = "field_title_ar"; //["field_title_ar", "field_title_en"];
 							$obj->ORDER_BY_FIELDS = "application_table_id, field_order, id";
 							$obj->UNIQUE_KEY = array("application_table_id","field_name");
 							$obj->editByStep = true;

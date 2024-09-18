@@ -31,4 +31,19 @@
 	$trad["acondition"]["known_already"] = "قيمة الحقل معلومة مسبقا";
 	$trad["acondition"]["show_fe"] = "الاضهار في الواجهة";
 	$trad["acondition"]["bfunction_id"] = "الخدمة العملية";
+
+
+	$trad["acondition"]["compare_id.short"] = "مقارنة";
+
+	$trad["acondition"]["acondition_name_ar.short"] = "المسمى عر";
+	$trad["acondition"]["acondition_name_en.short"] = "المسمى انج";
+	
+	$trad["acondition"]["condition_1_id.short"] = "الجزء 1";
+	$trad["acondition"]["condition_2_id.short"] = "الجزء 2";
+	
+	$trad["acondition"]["general.short"] = "شرط عام";
+	// $trad["acondition"]["unique_apply.short"] = "يتم تطبيقه على كل فرع";
+	$trad["acondition"]["known_already.short"] = "معلومة مسبقا";
+	$trad["acondition"]["show_fe.short"] = "الاضهار";
+	
 ?>

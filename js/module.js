@@ -23,8 +23,8 @@ function job_status_enum_onchange(){
 }
 
 
-function mother_saudi_ind_onchange(){
-  if($("#mother_saudi_ind").val()=="N")
+function idn_type_id_onchange(){
+  if($("#idn_type_id").val()!=3)
   {
     $("#mother_idn").prop("disabled", true);
     $("#mother_birth_date").prop("disabled", true);

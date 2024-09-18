@@ -1,4 +1,6 @@
 <?php
+        // medali 18/9/2024 : alter table c0adm.application_model add   web_application char(1) DEFAULT NULL  after upload_files;
+
         class ApplicationModel extends AdmObject{
 
                 public static $DATABASE		= ""; 
