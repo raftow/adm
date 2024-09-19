@@ -2,14 +2,13 @@
 // http://localhost/pag/main.php?Main_Page=afw_mode_edit.php&cl=Domain&currmod=pag&id=25
 
 
-$struc = "application_model_engagement
-ID	1					N	INTEGER	معرف المسار	Track Id		
-TRACK_CODE	2					N	VARCHAR2 (50 Byte)	رمز المسار	Track Code	UK	
-TRACK_NAME_AR	3					N	VARCHAR2 (50 Byte)	اسم المسار-العربي	Track Name -Arabic	UK	
-TRACK_NAME_EN	4					N	VARCHAR2 (50 Byte)	اسم المسار -الإنجليزي	Track Name-English	UK	
-Sorting_instructions	5					Y	VARCHAR2 (200 Byte)	تعليمات معايير المفاضلة	Sorting Criteria Instructions		
-Application_model_id	6					N	INTEGER	نموذج القبول	Application Model		OneToMany
-Sorting_Formula	7					Y	VARCHAR2 (200 Byte)	صيغة المفاضلة	Sorting Criteria Formula		";
+$struc = "bfunction_type
+ID	1	1	1			N	INTEGER	المعرف الفريد	Id		
+SHORT_NAME	2					Y	VARCHAR2(32)	الاسم المختصر	short name		
+LONG_NAME	3					Y	VARCHAR2(128)	اسم نوع المرحلة	name		
+ENUM_CODE	4					Y	VARCHAR2(32)	الشفرة	enum code	UK	
+DESCRIPTION	5					Y	VARCHAR2(512)	الوصف	description		
+FOR_ROLE	6					Y	VARCHAR2(1)	المهمة	for role		";
 
 
 

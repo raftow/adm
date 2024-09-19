@@ -171,8 +171,62 @@ class AdmObject extends AFWObject{
                 return $arr_list_of_religion_enum;
         }
 
+        public static function list_of_application_status_enum()
+        {
+            global $lang;
+            return self::application_status_enum()[$lang];
+        }
         
+        public static function application_status_enum()
+        {
+                $arr_list_of_application_status_enum = array();
+                
+                        
+                $arr_list_of_application_status_enum["en"][1] = "application pending";
+                $arr_list_of_application_status_enum["ar"][1] = "جاري التقديم";
 
+                $arr_list_of_application_status_enum["en"][2] = "applied";
+                $arr_list_of_application_status_enum["ar"][2] = "متقدم";
+                
+                $arr_list_of_application_status_enum["en"][3] = "withdrawn";
+                $arr_list_of_application_status_enum["ar"][3] = "منسحب";
+
+                $arr_list_of_application_status_enum["en"][4] = "excluded";
+                $arr_list_of_application_status_enum["ar"][4] = "مستبعد";
+                
+                return $arr_list_of_application_status_enum;
+        }
+
+        public static function list_of_desire_status_enum()
+        {
+            global $lang;
+            return self::desire_status_enum()[$lang];
+        }
+        
+        public static function desire_status_enum()
+        {
+                $arr_list_of_application_status_enum = array();
+                
+                        
+                $arr_list_of_desire_status_enum["en"][1] = "candidat";
+                $arr_list_of_desire_status_enum["ar"][1] = "مترشح";
+
+                $arr_list_of_desire_status_enum["en"][2] = "excluded";
+                $arr_list_of_desire_status_enum["ar"][2] = "مستبعد";
+
+                $arr_list_of_desire_status_enum["en"][3] = "initial acceptance";
+                $arr_list_of_desire_status_enum["ar"][3] = "قبول مبدئي";
+                
+                $arr_list_of_desire_status_enum["en"][4] = "final acceptance";
+                $arr_list_of_desire_status_enum["ar"][4] = "قبول نهائي";
+
+                $arr_list_of_desire_status_enum["en"][5] = "withdrawn";
+                $arr_list_of_desire_status_enum["ar"][5] = "منسحب";
+
+                
+                return $arr_list_of_desire_status_enum;
+        }
+        
         public static function list_of_marital_status_enum()
         {
             global $lang;
