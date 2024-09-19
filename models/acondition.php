@@ -118,6 +118,11 @@ class Acondition extends AdmObject{
             global $lang;
             return self::compare()[$lang];
         }
+
+        public static function translateComparator($comparator, $lang)
+        {
+                return self::compare()[$lang][$comparator];  
+        }
         
         public static function compare()
         {
@@ -208,7 +213,7 @@ class Acondition extends AdmObject{
                 $color = "green";
                 $title_ar = "محاكاة هذا الشرط"; 
                 $methodName = "simulateMeOnSomeCases";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>3);
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEPS' =>[2,3]);
                 
 
                 
@@ -228,9 +233,9 @@ class Acondition extends AdmObject{
                         // load simulation applicants
                         $simulation_applicants_ids = AfwSession::config("simulation_applicants","1,2340182555");
                         // simulation_application_plan_id
-                        $simulation_application_plan_id = AfwSession::config("simulation_application_plan_id",1);
+                        $simulation_application_plan_id = AfwSession::config("simulation_application_plan_id",0);
                         // simulation_application_model_id 
-                        $simulation_application_model_id = AfwSession::config("simulation_application_model_id",1);
+                        $simulation_application_model_id = AfwSession::config("simulation_application_model_id",0);
                         $appObj = new Applicant();
                         $appObj->where("id in ($simulation_applicants_ids)");
                         $appList = $appObj->loadMany();
@@ -313,15 +318,18 @@ class Acondition extends AdmObject{
 
         public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true)
         {
+                /*
+                if(!$application_model_id)
+                {
+                        throw new AfwRuntimeException("no valid application_model_id given for condition execution");   
+                }
+
                 if(!$application_plan_id)
                 {
                         throw new AfwRuntimeException("no valid application_plan_id given for condition execution");   
                 }
 
-                if(!$application_model_id)
-                {
-                        throw new AfwRuntimeException("no valid application_model_id given for condition execution");   
-                }
+                */
 
                 if((!$obj) or ($obj->isEmpty()))
                 {
@@ -386,9 +394,18 @@ class Acondition extends AdmObject{
 
                         $field_name = $this->afObj->getVal("field_name");
                         $field_value = $obj->getVal($field_name);
-                        $param_value =$this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
+                        $param_valueObj = $this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
 
-                        list($exec_result, $comments) = self::applyComparison($field_value, $comparator, $param_value);
+                        if(!$param_valueObj) 
+                        {
+                                $exec_result = false;
+                                $comments = $this->tm("no general or customized value for parameter", $lang)." : ".$this->aparamObj->getDisplay($lang);
+                        }
+                        else
+                        {
+                                $param_value =$param_valueObj->getVal("value");
+                                list($exec_result, $comments) = $this->applyComparison($field_value, $comparator, $param_value, $lang);
+                        } 
                         
                         
 
@@ -415,75 +432,79 @@ class Acondition extends AdmObject{
                 }
         }
 
-        public static function applyComparison($field_value, $comparator, $param_value)
+        public function applyComparison($field_value, $comparator, $param_value, $lang="ar")
         {
                 // arr_list_of_compare["en"][1] = "Equal to";
                 if($comparator == 1)
                 {
-                        $comparatorDesc = "Equal to";
+                        // $comparatorDesc = "Equal to";
                         $return = ($field_value == $param_value);
                 }
                 // arr_list_of_compare["en"][2] = "Greater than";
                 elseif($comparator == 2)
                 {
-                        $comparatorDesc = "Greater than";
+                        // $comparatorDesc = "Greater than";
                         $return = ($field_value > $param_value); 
                 }
                 // arr_list_of_compare["en"][3] = "Less than";
                 elseif($comparator == 3)
                 {
-                        $comparatorDesc = "Less than";
+                        // $comparatorDesc = "Less than";
                         $return = ($field_value < $param_value);  
                 }
                 // arr_list_of_compare["en"][4] = "Greater than or equal to";
                 elseif($comparator == 4)
                 {
-                        $comparatorDesc = "Greater than or equal to";
+                        // $comparatorDesc = "Greater than or equal to";
                         $return = ($field_value >= $param_value); 
                 }
                 // arr_list_of_compare["en"][5] = "Less than or equal to";
                 elseif($comparator == 5)
                 {
-                        $comparatorDesc = "Less than or equal to";
+                        // $comparatorDesc = "Less than or equal to";
                         $return = ($field_value <= $param_value); 
                 }
                 // arr_list_of_compare["en"][6] = "Not equal to";
                 elseif($comparator == 6)
                 {
-                        $comparatorDesc = "Not equal to";
+                        // $comparatorDesc = "Not equal to";
                         $return = ($field_value != $param_value); 
                 }
                 // arr_list_of_compare["en"][7] = "Belongs to";
                 elseif($comparator == 7)
                 {
-                        $comparatorDesc = "Belongs to";
+                        // $comparatorDesc = "Belongs to";
                         $param_value_arr = explode(",",trim(trim($param_value),","));
                         $return = in_array($field_value,$param_value_arr);  
                 }
                 // arr_list_of_compare["en"][8] = "Does not belong to";
                 elseif($comparator == 8)
                 {
-                        $comparatorDesc = "Does not belong to";
+                        // $comparatorDesc = "Does not belong to";
                         $param_value_arr = explode(",",trim(trim($param_value),","));
                         $return = !in_array($field_value,$param_value_arr);  
                 }
                 // arr_list_of_compare["en"][9] = "Contains";
                 elseif($comparator == 9)
                 {
-                        $comparatorDesc = "Contains";
+                        // $comparatorDesc = "Contains";
                         $field_value_arr = explode(",",trim(trim($field_value),","));
                         $return = in_array($param_value,$field_value_arr);
                 }
                 // arr_list_of_compare["en"][10] = "Not contains";
                 elseif($comparator == 10)
                 {
-                        $comparatorDesc = "Not contains";
+                        // $comparatorDesc = "Not contains";
                         $field_value_arr = explode(",",trim(trim($field_value),","));
                         $return = !in_array($param_value,$field_value_arr);
                 }
                 else throw new AfwRuntimeException("unknown comparator = $comparator");
 
-                return [$return, "$field_value $comparatorDesc $param_value ?"];
+                $comparatorDesc = self::translateComparator($comparator, $lang);
+                if($return) $is_or_isnt = $this->tm("very the condition that", $lang); 
+                else $is_or_isnt = $this->tm("does'nt very the condition that", $lang);
+
+                return [$return, "$field_value $is_or_isnt $comparatorDesc $param_value"];
 
         }        
 

@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = ['first_name_ar', 'father_name_ar', 'last_name_ar'];
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                // $obj->UNIQUE_KEY = array('idn');
+                                $obj->UNIQUE_KEY = array('idn');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
@@ -53,11 +53,12 @@
 
                                         'idn_type_id' => array('FGROUP'=>'idn-infos', 
                                                 'IMPORTANT' => 'IN',
-                                                'SHOW' => true,
-                                                'RETRIEVE' => false,
+                                                'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => true,
+                                                'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
-                                                'TYPE' => 'FK', 'ANSWER'=>'identity_type', 'ANSMODULE'=>'adm', 'MANDATORY' => true, 
+                                                'TYPE' => 'FK', 'ANSWER'=>'identity_type', 'ANSMODULE'=>'adm', 
+                                                'REQUIRED' => true, 
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
@@ -66,7 +67,7 @@
                                         'idn' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
                                                 'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '16', 'MAXLENGTH' => '16', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'REQUIRED' => true, 'READONLY-AFTER-INSERT'=>true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'TEXT-SEARCHABLE-SEPARATED'=>true, 'FORMAT' => 'SA-IDN', 
                                                 'CSS' => 'width_pct_25',),
                                                 
@@ -119,53 +120,52 @@
                                                 'CSS' => 'width_pct_25',
                                             ],
 
-                                    'gender_enum' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
-                                            'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                            'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                            'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 
-                                            'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                            'CSS' => 'width_pct_25', ),	
+                                        'gender_enum' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),	
 
-                                    'passeport_num' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                            'EDIT' => true,  'QEDIT' => true,  'SIZE' => '32', 'MAXLENGTH' => '32', 'UTF8' => true,  
-                                            'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
-                                            'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                            'CSS' => 'width_pct_25',),
-                                            
+                                        'passeport_num' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '32', 'MAXLENGTH' => '32', 'UTF8' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
+                                                
 
 
-                                    'passeport_expiry_gdate' => ['FGROUP'=>'idn-infos', 
-                                            'IMPORTANT' => 'IN',
-                                            'SEARCH' => true,
-                                            'SHOW' => true,
-                                            'RETRIEVE' => false,
-                                            'EDIT' => true,
-                                            'QEDIT' => true,
-                                            'SEARCH-ADMIN' => true,
-                                            'SHOW-ADMIN' => true,
-                                            'EDIT-ADMIN' => true,
-                                            'UTF8' => false,
-                                            'TYPE' => 'GDAT',
-                                            'STEP' => 1,
-                                            'DISPLAY-UGROUPS' => '',
-                                            'EDIT-UGROUPS' => '',
-                                            
-                                            'CSS' => 'width_pct_25',  ],
+                                        'passeport_expiry_gdate' => ['FGROUP'=>'idn-infos', 
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'SEARCH-ADMIN' => true,
+                                                'SHOW-ADMIN' => true,
+                                                'EDIT-ADMIN' => true,
+                                                'UTF8' => false,
+                                                'TYPE' => 'GDAT',
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                
+                                                'CSS' => 'width_pct_25',  ],
 
 
                                         
 
-
-                                        'mother_saudi_ind' => array('FGROUP'=>'idn-infos', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+                                        /* 'mother_saudi_ind' => array('FGROUP'=>'idn-infos', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => false,
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_25',),*/
 
-
+                                                
                                         'mother_idn' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '30', 'MAXLENGTH' => '30', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'DISABLED' => '::disableOrReadonlyForInput',
                                                 'CSS' => 'width_pct_25',),
                                                 
 
@@ -174,7 +174,7 @@
                                                 'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
                                                 'TYPE' => 'DATE',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,   
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'DISABLED' => '::disableOrReadonlyForInput', 
                                                 'CSS' => 'width_pct_25',),        
 
 
@@ -185,7 +185,7 @@
                                         'religion_enum' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
                                             'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                             'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                            'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 
+                                            'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                             'CSS' => 'width_pct_25', ),	
 
@@ -267,7 +267,7 @@
                                         'birth_date' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  
                                                 'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
-                                                'TYPE' => 'DATE',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,   
+                                                'TYPE' => 'DATE',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,   
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),        
 
@@ -398,7 +398,7 @@
 
 
 
-                                        'employer_enum' => array('FGROUP'=>'job_status', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'employer_enum' => array('FGROUP'=>'job_status', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 4, 'MANDATORY' => false, 

@@ -912,11 +912,11 @@ div.modal-dialog {
 .panel-heading>h3>span {
     white-space: nowrap;
     overflow: hidden;
-    font-size: 19px;
+    font-size: 16px;
     font-family: title;
     line-height: 28px;
     font-weight: bold;
-    color: #1590e7;
+    color: #1275bb;
 }
 
 span.object_id {

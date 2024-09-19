@@ -1,182 +1,318 @@
 <?php
-        $main_company = AfwSession::config("main_company","all");
-        $file_dir_name = dirname(__FILE__);        
-        require_once($file_dir_name."/../extra/applicant_additional_fields-$main_company.php");
+// rafik 18/9/2024 : ALTER TABLE `applicant` CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;
 
-        class Applicant extends AdmObject{
+$main_company = AfwSession::config("main_company", "all");
+$file_dir_name = dirname(__FILE__);
+require_once($file_dir_name . "/../../external/applicant_additional_fields-$main_company.php");
 
-                public static $DATABASE		= ""; 
-                public static $MODULE		    = "adm"; 
-                public static $TABLE			= "applicant"; 
-                public static $DB_STRUCTURE = null;
-                // public static $copypast = true;
+class Applicant extends AdmObject
+{
 
-                public function __construct(){
-                        parent::__construct("applicant","id","adm");
-                        AdmApplicantAfwStructure::initInstance($this);
-                        
-                }
+    public static $DATABASE        = "";
+    public static $MODULE            = "adm";
+    public static $TABLE            = "applicant";
+    public static $DB_STRUCTURE = null;
+    // public static $copypast = true;
 
-                public static function loadById($id)
-                {
-                        $obj = new Applicant();
-                        
-                        if($obj->load($id))
-                        {
-                                return $obj;
-                        }
-                        else return null;
-                }
+    public function __construct()
+    {
+        parent::__construct("applicant", "id", "adm");
+        AdmApplicantAfwStructure::initInstance($this);
+    }
 
-                public function getDisplay($lang = 'ar')
-                {
-                        return $this->getDefaultDisplay($lang);
-                }
+    public static function loadById($id)
+    {
+        $obj = new Applicant();
 
-                public function stepsAreOrdered()
-                {
-                        return false;
-                }
+        if ($obj->load($id)) {
+            return $obj;
+        } else return null;
+    }
 
-                
-
-                public static function getAdditionalFieldParams($field_name)
-                {
-                    global $additional_fields;
-                    if(!$additional_fields)
-                    {
-                        $main_company = AfwSession::config("main_company","all");
-                        $file_dir_name = dirname(__FILE__);        
-                        require_once($file_dir_name."/../extra/applicant_additional_fields-$main_company.php");
-                    }
-
-                    $return = $additional_fields[$field_name];
-
-                    //if(!$return) die("no params for getAdditionalFieldParams($field_name) look additional_fields[$field_name] in additional_fields=".var_export($additional_fields,true));
-
-                    return $return;
-                }
+    public static function loadByMainIndex($idn, $create_obj_if_not_found = false)
+    {
+        if (!$idn) throw new AfwRuntimeException("loadByMainIndex : idn is mandatory field");
 
 
-                public function additional($field_name, $col_struct)
-                {
-                    $params = self::getAdditionalFieldParams($field_name);
+        $obj = new Applicant();
+        $obj->select("idn", $idn);
 
-                    $col_struct = strtolower($col_struct);
-                    if($col_struct=="mandatory") return (!$params["optional"]);
-                    if($col_struct=="required") return (!$params["optional"]);
+        if ($obj->load()) {
+            if ($create_obj_if_not_found) $obj->activate();
+            return $obj;
+        } elseif ($create_obj_if_not_found) {
+            $obj->set("idn", $idn);
+            $obj->set("id", $idn);
+            $obj->insertNew();
+            if (!$obj->id) return null; // means beforeInsert rejected insert operation
+            $obj->is_new = true;
+            return $obj;
+        } else return null;
+    }
 
-                    if($col_struct=="css")
-                    {
-                        if(!$params["css"]) $params["css"] = 'width_pct_50';
-                    } 
-                    
+    public function getDisplay($lang = 'ar')
+    {
+        $return = trim($this->getDefaultDisplay($lang));
+        if(!$return) return $this->tm("identity")." : ".$this->id;
+        else return $return;
+    }
 
-                    if($col_struct=="step") 
-                    {
-                        $step =  $params["step"]+5;
-                        //if($col_struct=="step" and $field_name=="attribute_1") throw new AfwRuntimeException("step additional for $field_name =".$step);
-                        return $step;
-                    }
+    public function stepsAreOrdered()
+    {
+        return false;
+    }
 
-                    $return = $params[$col_struct];
-                    if($col_struct=="css")
-                    {
-                        // if($field_name=="attribute_18") throw new AfwRuntimeException("css additional for $field_name params=".var_export($params,true)." return=".$return);
-                    }
-                    
+    public function beforeMaj($id, $fields_updated)
+    {
+        $idn = $this->getVal("idn");
 
-                    //if($col_struct=="fgroup" and $return == "") throw new AfwRuntimeException("fgroup additional return = $return params=".var_export($params,true));
-
-                    //if(!$return) die("no param for additional($field_name, $col_struct) params=".var_export($params,true));
-
-                    return $return;
-                }
-
-
-                protected function paggableAttribute($attribute)
-                {
-                    if(AfwStringHelper::stringStartsWith($attribute,"attribute_"))
-                    {
-                        $params = self::getAdditionalFieldParams($attribute);
-                        if(!$params)
-                        {
-                            return [false, "no params defined for this additional attribute"];
-                        }
-                    }
-                    // can be overridden in subclasses
-                    return [true, ""];
-                }
-
-
-                public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
-                {
-                    if(AfwStringHelper::stringStartsWith($attribute,"attribute_"))
-                    {
-                        $params = self::getAdditionalFieldParams($attribute);
-                        if($params)
-                        {
-                            $return = $params["title_$lang"];
-                            if($return) return $return;
-                        }
-                    }
-                    // die("calling getAttributeLabel($attribute, $lang, short=$short)");
-                    return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
-                }
-
-                public function myShortNameToAttributeName($attribute)
-                {
-                    global $additional_fields;
-                    if(!$additional_fields)
-                    {
-                        $main_company = AfwSession::config("main_company","all");
-                        $file_dir_name = dirname(__FILE__);        
-                        require_once($file_dir_name."/../extra/applicant_additional_fields-$main_company.php");
-                    }
-
-                    if($additional_fields)
-                    {
-                        foreach($additional_fields as $attribute_reel => $paramAF)
-                        {
-                            $field_code = strtolower($paramAF["field_code"]);
-                            if($field_code==$attribute) return $attribute_reel;
-                        }
-                    }
-
-                    return $attribute;
-                }
-
-                protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
-                {
-                    global $lang;
-                    // $objme = AfwSession::getUserConnected();
-                    // $me = ($objme) ? $objme->id : 0;
-
-                    $otherLinksArray = $this->getOtherLinksArrayStandard($mode,$genereLog,$step);
-                    $my_id = $this->getId();
-                    $displ = $this->getDisplay($lang);
-                    
-                    if($mode=="mode_applicantQualificationList")
-                    {
-                        unset($link);
-                        $link = array();
-                        $title = "إضافة مؤهل جديد";
-                        $title_detailed = $title ."لـ : ". $displ;
-                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantQualification&currmod=adm&sel_applicant_id=$my_id";
-                        $link["TITLE"] = $title;
-                        $link["UGROUPS"] = array();
-                        $otherLinksArray[] = $link;
-                    }
-                    
-                    
-                    
-                    // check errors on all steps (by default no for optimization)
-                    // rafik don't know why this : \//  = false;
-                    
-                    return $otherLinksArray;
-                }
-
+        if (!$idn) // should never happen but ....                    
+        {
+            return false;
         }
+
+        
+        
+        // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") before set id=".var_export($id,true));
+
+        if (!$id) // the ID of an applicant is his IDN
+        {
+            $this->set("id", $idn);
+            $id = $this->id;
+            // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") after set id=".var_export($id,true));
+        }
+        else
+        {
+            if($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id");
+        }
+
+        return true;
+    }
+
+
+
+    public static function getAdditionalFieldParams($field_name)
+    {
+        global $additional_fields;
+        if (!$additional_fields) {
+            $main_company = AfwSession::config("main_company", "all");
+            $file_dir_name = dirname(__FILE__);
+            require_once($file_dir_name . "/../../external/applicant_additional_fields-$main_company.php");
+        }
+
+        $return = $additional_fields[$field_name];
+
+        //if(!$return) die("no params for getAdditionalFieldParams($field_name) look additional_fields[$field_name] in additional_fields=".var_export($additional_fields,true));
+
+        return $return;
+    }
+
+
+    public function additional($field_name, $col_struct)
+    {
+        $params = self::getAdditionalFieldParams($field_name);
+
+        $col_struct = strtolower($col_struct);
+        if ($col_struct == "mandatory") return (!$params["optional"]);
+        if ($col_struct == "required") return (!$params["optional"]);
+
+        if ($col_struct == "css") {
+            if (!$params["css"]) $params["css"] = 'width_pct_50';
+        }
+
+
+        if ($col_struct == "step") {
+            $step =  $params["step"] + 5;
+            //if($col_struct=="step" and $field_name=="attribute_1") throw new AfwRuntimeException("step additional for $field_name =".$step);
+            return $step;
+        }
+
+        $return = $params[$col_struct];
+        if ($col_struct == "css") {
+            // if($field_name=="attribute_18") throw new AfwRuntimeException("css additional for $field_name params=".var_export($params,true)." return=".$return);
+        }
+
+
+        //if($col_struct=="fgroup" and $return == "") throw new AfwRuntimeException("fgroup additional return = $return params=".var_export($params,true));
+
+        //if(!$return) die("no param for additional($field_name, $col_struct) params=".var_export($params,true));
+
+        return $return;
+    }
+
+
+    protected function paggableAttribute($attribute)
+    {
+        if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) {
+            $params = self::getAdditionalFieldParams($attribute);
+            if (!$params) {
+                return [false, "no params defined for this additional attribute"];
+            }
+        }
+        // can be overridden in subclasses
+        return [true, ""];
+    }
+
+
+    public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+    {
+        if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) {
+            $params = self::getAdditionalFieldParams($attribute);
+            if ($params) {
+                $return = $params["title_$lang"];
+                if ($return) return $return;
+            }
+        }
+        // die("calling getAttributeLabel($attribute, $lang, short=$short)");
+        return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
+    }
+
+    public function myShortNameToAttributeName($attribute)
+    {
+        global $additional_fields;
+        if (!$additional_fields) {
+            $main_company = AfwSession::config("main_company", "all");
+            $file_dir_name = dirname(__FILE__);
+            require_once($file_dir_name . "/../../external/applicant_additional_fields-$main_company.php");
+        }
+
+        if ($additional_fields) {
+            foreach ($additional_fields as $attribute_reel => $paramAF) {
+                $field_code = strtolower($paramAF["field_code"]);
+                if ($field_code == $attribute) return $attribute_reel;
+            }
+        }
+
+        return $attribute;
+    }
+
+    protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")
+    {
+        global $lang;
+        // $objme = AfwSession::getUserConnected();
+        // $me = ($objme) ? $objme->id : 0;
+
+        $otherLinksArray = $this->getOtherLinksArrayStandard($mode, $genereLog, $step);
+        $my_id = $this->getId();
+        $displ = $this->getDisplay($lang);
+
+        if ($mode == "mode_applicantQualificationList") {
+            unset($link);
+            $link = array();
+            $title = "إضافة مؤهل جديد";
+            $title_detailed = $title . "لـ : " . $displ;
+            $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantQualification&currmod=adm&sel_applicant_id=$my_id";
+            $link["TITLE"] = $title;
+            $link["UGROUPS"] = array();
+            $otherLinksArray[] = $link;
+        }
+
+
+
+        // check errors on all steps (by default no for optimization)
+        // rafik don't know why this : \//  = false;
+
+        return $otherLinksArray;
+    }
+
+
+    public function attributeIsApplicable($attribute)
+    {
+        /* 
+        if(($attribute == "mother_birth_date") or ($attribute == "mother_idn"))
+        {
+            return ($this->getVal("idn_type_id")==3);
+        }*/
+
+
+        return true;
+    }
+
+    public function disableOrReadonlyForInput ($field_name, $col_struct)
+    {
+        if(($field_name == "mother_birth_date") or ($field_name == "mother_idn"))
+        {
+            return ($this->getVal("idn_type_id")==3) ? '' : 'disabled';
+        }
+        return '';
+    }
+
+    protected function getSpecificDataErrors(
+        $lang = 'ar',
+        $show_val = true,
+        $step = 'all', 
+        $erroned_attribute = null,
+        $stop_on_first_error = false, $start_step=null, $end_step=null
+    ) {
+        global $objme;
+        $sp_errors = [];
+
+        $birth_gdate = $this->getVal('birth_gdate');
+        $birth_date = $this->getVal('birth_date');
+
+        if (!$birth_gdate and !$birth_date) {
+            $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+        }
+
+        return $sp_errors;
+    }
+
+
+    public function beforeDelete($id, $id_replace)
+    {
+        $server_db_prefix = AfwSession::config("db_prefix", "c0");
+
+        if (!$id) {
+            $id = $this->getId();
+            $simul = true;
+        } else {
+            $simul = false;
+        }
+
+        if ($id) {
+            if ($id_replace == 0) {
+                // FK part of me - not deletable 
+
+
+                // FK part of me - deletable 
+                // adm.applicant_qualification-Applicant	applicant_id  OneToMany
+                if (!$simul) {
+                    // require_once "../adm/applicant_qualification.php";
+                    ApplicantQualification::removeWhere("applicant_id='$id'");
+                    // $this->execQuery("delete from ${server_db_prefix}adm.applicant_qualification where applicant_id = '$id' ");
+
+                }
+
+
+
+
+                // FK not part of me - replaceable 
+
+
+
+                // MFK
+
+            } else {
+                // FK on me 
+                // adm.applicant_qualification-Applicant	applicant_id  OneToMany
+                if (!$simul) {
+                    // require_once "../adm/applicant_qualification.php";
+                    ApplicantQualification::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                    // $this->execQuery("update ${server_db_prefix}adm.applicant_qualification set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                }
+
+
+
+                // MFK
+
+
+            }
+            return true;
+        }
+    }
+}
+
 /*
 INSERT INTO `applicant` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `email`, `mobile`, `country_id`, `idn_type_id`, `idn`, `id_issue_place`, `id_issue_date`, `id_expiry_date`, `religion_enum`, `gender_enum`, `mother_saudi_ind`, `mother_idn`, `mother_birth_date`, `passeport_num`, `passeport_expiry_gdate`, `first_name_ar`, `father_name_ar`, `middle_name_ar`, `last_name_ar`, `first_name_en`, `father_name_en`, `middle_name_en`, `last_name_en`, `birth_date`, `birth_gdate`, `place_of_birth`, `marital_status_enum`, `profile_approved`, `address_type_enum`, `address`, `city_id`, `postal_code`, `country_code`, `username`, `password`, `signup_acknowldgment`, `has_iban`, `iban`, `bank_account_pledge`, `job_status_enum`, `employer_approval`, `employer_enum`, `employer_approval_afile_id`, `guardian_name`, `guardian_phone`, `guardian_idn`, `guardian_id_date`, `guardian_id_place`, `relationship_enum`, `attribute_1`, `attribute_2`, `attribute_3`, `attribute_4`, `attribute_5`, `attribute_6`, `attribute_8`, `attribute_9`, `attribute_11`, `attribute_12`, `attribute_13`, `attribute_14`, `attribute_15`, `attribute_16`, `attribute_17`, `attribute_18`, `attribute_19`, `attribute_20`, `attribute_21`, `attribute_22`, `attribute_23`, `attribute_24`, `attribute_25`, `attribute_26`, `attribute_27`, `attribute_28`, `attribute_29`, `attribute_30`, `attribute_31`, `attribute_32`, `attribute_33`, `attribute_34`, `attribute_35`, `attribute_36`, `attribute_37`) VALUES
 (1, 1, '2024-05-21 15:25:28', 1, '2024-07-22 12:06:58', 0, NULL, 'Y', 'Y', 10, NULL, NULL, NULL, 0, 'rafiq.boubaker@gmail.com', '0598988330', 213, 2, '2340182555', 'الرياض', '2024-05-15 00:00:00', '2025-05-14 00:00:00', 1, 1, 'N', NULL, NULL, 'AS001235', '2028-05-11 00:00:00', 'رفيق', 'محمد نورالدين', 'بوبكر', 'بوبكر', 'Rafik', 'Med Noureddine', 'Boubaker', 'BOUBAKER', '13950118', '1973-09-13 00:00:00', 'بازمة - قبلي', 2, 'N', 1, 'شارع الأنشاء 6606', 301, '1005', 'Saudi Arab', 'rboubaker', NULL, 'W', 'N', NULL, 'N', 2, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
