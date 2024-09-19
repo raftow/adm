@@ -31,19 +31,11 @@ if($objToShow and $objToShow->isAdmin() and false)
 {
         die("here rafik 20210321");
         $_GET["Main_Page"] = "afw_mode_edit.php";
-        $_GET["My_Module"] = "pag";
+        $_GET["My_Module"] = "ums";
         $_GET["cl"] = "Auser";
         $_GET["currmod"]="ums";
         $_GET["id"] = $objToShow->getId();
         include("main.php");
-        
-        /*
-        $Main_Page = "my_account.php";
-        $My_Module = "pag";
-        include_once ("$file_dir_name/ini.php");
-        include_once ("$file_dir_name/module_config.php");
-        
-        include("afw_main_page.php");*/
 }
 elseif($objToShow)
 {

@@ -1,4 +1,8 @@
 <?php
+        /*
+             RB 19/9/2024 :
+             create unique index uk_applicant_qualification on c0adm.applicant_qualification(applicant_id,qualification_id,major_category_id);
+        */
         class ApplicantQualification extends AdmObject{
 
                 public static $DATABASE		= ""; 
