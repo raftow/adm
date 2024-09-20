@@ -39,6 +39,8 @@ class Acondition extends AdmObject{
                 else return null;
         }
         
+        
+
         public function getDisplay($lang="ar")
         {
                if($lang=="fr") $lang = "en";
@@ -46,6 +48,12 @@ class Acondition extends AdmObject{
                $data2 = $this->getVal("acondition_name_$lang");
                //$data3 = $this->getVal("acondition_order");
                return $data." ← ".$data2;
+        }
+
+        public function getShortDisplay($lang="ar")
+        {
+               if($lang=="fr") $lang = "en";
+               return $this->getVal("acondition_name_$lang");               
         }
 
         public function getDropdownDisplay($lang="ar")
@@ -228,6 +236,8 @@ class Acondition extends AdmObject{
                 $war_arr = [];
                 $tech_arr = [];
 
+                $cond_name = "الشرط " . $this->getShortDisplay($lang);
+
                 try{
                         // from simulation config get data :
                         // load simulation applicants
@@ -254,11 +264,11 @@ class Acondition extends AdmObject{
                                                 list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                 if($res)
                                                 {
-                                                        $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
+                                                        $inf = "$cond_name متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                 }
                                                 else
                                                 {
-                                                        $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." ".$comments;      
+                                                        $war = "$cond_name غير متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                 }
         
                                                 if($err) $err_arr[] = $err;
@@ -283,11 +293,11 @@ class Acondition extends AdmObject{
                                                         list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                         if($res)
                                                         {
-                                                                $inf = "الشرط متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                                $inf = "$cond_name متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                         }
                                                         else
                                                         {
-                                                                $war = "الشرط غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang);      
+                                                                $war = "$cond_name غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                         }
         
                                                         if($err) $err_arr[] = $err;

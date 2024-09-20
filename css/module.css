@@ -5033,3 +5033,10 @@ h5.bluetitle.search {
 .fixmgrid td, .fixmgrid th {
     border: 1px #7fc5e5 solid !important;
 }
+
+.alert-dismissable>i {
+    background-color: #9ecafb;
+    color: #3a58d2;
+    padding: 2px 5px;
+    font-size: 80%;
+}
