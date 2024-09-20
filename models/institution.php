@@ -116,5 +116,14 @@ create unique index uk_institution on c0adm.institution(institution_code);
                     }    
                 }
 
+                // institution 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 400;
+      if ($currstep == 2) return 401;
+
+      return 0;
+   }
+
         }
 ?>

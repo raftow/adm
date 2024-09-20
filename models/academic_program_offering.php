@@ -296,7 +296,15 @@
                         return $otherLinksArray;
                 }
 
+// academic_program_offering 
+public function getScenarioItemId($currstep)
+{
+   if ($currstep == 1) return 422;
+   if ($currstep == 2) return 423;
+   if ($currstep == 3) return 424;
 
+   return 0;
+}
                 
 
         }

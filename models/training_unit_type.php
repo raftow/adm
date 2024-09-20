@@ -30,5 +30,14 @@
                         return $this->getDefaultDisplay($lang);
                 }
 
+                // training_unit_type 
+                public function getScenarioItemId($currstep)
+                {
+                        if ($currstep == 1) return 394;
+                        if ($currstep == 2) return 395;
+
+                        return 0;
+                }
+
         }
 ?>

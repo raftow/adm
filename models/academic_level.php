@@ -83,6 +83,17 @@
                         return $otherLinksArray;
                 }
 
+                // academic_level 
+                public function getScenarioItemId($currstep)
+                {
+                        if ($currstep == 1) return 384;
+                        if ($currstep == 2) return 385;
+                        if ($currstep == 3) return 410;
+                        if ($currstep == 4) return 419;
+
+                        return 0;
+                }
+
                 
 
         }

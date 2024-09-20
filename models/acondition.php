@@ -518,6 +518,16 @@ class Acondition extends AdmObject{
 
         }        
 
+        // acondition 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 381;
+      if ($currstep == 2) return 382;
+      if ($currstep == 3) return 383;
+
+      return 0;
+   }
+
         /*
         public function whyAttributeIsNotApplicable($attribute, $lang = "ar")
         {

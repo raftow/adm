@@ -60,5 +60,14 @@
                     return $otherLinksArray;
                 }
 
+                // major 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 388;
+      if ($currstep == 2) return 389;
+
+      return 0;
+   }
+
         }
 ?>

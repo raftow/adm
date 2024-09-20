@@ -1,83 +1,82 @@
 <?php
-        class AcademicLevelPrivilege extends AdmObject{
+class AcademicLevelPrivilege extends AdmObject
+{
 
-                public static $DATABASE		= ""; 
-                public static $MODULE		    = "adm"; 
-                public static $TABLE			= "academic_level_privilege"; 
-                public static $DB_STRUCTURE = null;
-                
-                // public static $copypast = true;
+        public static $DATABASE                = "";
+        public static $MODULE                    = "adm";
+        public static $TABLE                        = "academic_level_privilege";
+        public static $DB_STRUCTURE = null;
 
-                public function __construct(){
-                        parent::__construct("academic_level_privilege","id","adm");
-                        AdmAcademicLevelPrivilegeAfwStructure::initInstance($this);
-                        
-                }
+        // public static $copypast = true;
 
-                public static function loadById($id)
-                {
-                        $obj = new AcademicLevelPrivilege();
-                        
-                        if($obj->load($id))
-                        {
-                                return $obj;
-                        }
-                        else return null;
-                }
+        public function __construct()
+        {
+                parent::__construct("academic_level_privilege", "id", "adm");
+                AdmAcademicLevelPrivilegeAfwStructure::initInstance($this);
+        }
 
-                public function getDisplay($lang = 'ar')
-                {
-                        return $this->getDefaultDisplay($lang);
-                }
+        public static function loadById($id)
+        {
+                $obj = new AcademicLevelPrivilege();
 
-                public function stepsAreOrdered()
-                {
-                        return false;
-                }
+                if ($obj->load($id)) {
+                        return $obj;
+                } else return null;
+        }
 
-                public function beforeDelete($id,$id_replace) 
-                {
-                    $server_db_prefix = AfwSession::config("db_prefix","c0");
-                    
-                    if(!$id)
-                    {
+        public function getDisplay($lang = 'ar')
+        {
+                return $this->getDefaultDisplay($lang);
+        }
+
+        public function stepsAreOrdered()
+        {
+                return false;
+        }
+
+        public function beforeDelete($id, $id_replace)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "c0");
+
+                if (!$id) {
                         $id = $this->getId();
                         $simul = true;
-                    }
-                    else
-                    {
+                } else {
                         $simul = false;
-                    }
-                    
-                    if($id)
-                    {   
-                    if($id_replace==0)
-                    {
-                        // FK part of me - not deletable 
-
-                                
-                        // FK part of me - deletable 
-
-                        
-                        // FK not part of me - replaceable 
-
-                                
-                        
-                        // MFK
-
-                    }
-                    else
-                    {
-                                // FK on me 
-
-                                
-                                // MFK
-
-                        
-                    } 
-                    return true;
-                    }    
                 }
 
+                if ($id) {
+                        if ($id_replace == 0) {
+                                // FK part of me - not deletable 
+
+
+                                // FK part of me - deletable 
+
+
+                                // FK not part of me - replaceable 
+
+
+
+                                // MFK
+
+                        } else {
+                                // FK on me 
+
+
+                                // MFK
+
+
+                        }
+                        return true;
+                }
         }
-?>
+
+        // academic_level_privilege 
+        public function getScenarioItemId($currstep)
+        {
+                if ($currstep == 1) return 408;
+                if ($currstep == 2) return 409;
+
+                return 0;
+        }
+}

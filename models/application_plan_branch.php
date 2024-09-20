@@ -149,6 +149,15 @@
                                 return true;
                         }    
                 }
+
+                // application_plan_branch 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 430;
+      if ($currstep == 2) return 431;
+
+      return 0;
+   }
                  
 
         }

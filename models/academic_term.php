@@ -77,5 +77,15 @@
                         );
                 }
 
+                // academic_term 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 414;
+      if ($currstep == 2) return 415;
+      if ($currstep == 3) return 416;
+
+      return 0;
+   }
+
         }
 ?>

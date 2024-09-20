@@ -133,5 +133,15 @@ class AconditionOrigin extends AdmObject{
                return true;
             }    
 	}
+
+         // acondition_origin 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 375;
+      if ($currstep == 2) return 376;
+      if ($currstep == 3) return 473;
+
+      return 0;
+   }
 }
 ?>

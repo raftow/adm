@@ -175,5 +175,14 @@
                         }    
                 }
 
+                // academic_program 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 402;
+      if ($currstep == 2) return 403;
+
+      return 0;
+   }
+
         }
 ?>

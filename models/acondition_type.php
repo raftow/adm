@@ -23,5 +23,14 @@
                         else return null;
                 }
 
+                // acondition_type 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 377;
+      if ($currstep == 2) return 378;
+
+      return 0;
+   }
+
         }
 ?>

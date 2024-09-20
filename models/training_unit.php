@@ -265,5 +265,17 @@
                     }    
                 }
 
+                // training_unit 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 396;
+      if ($currstep == 2) return 397;
+      if ($currstep == 3) return 411;
+      if ($currstep == 4) return 420;
+      if ($currstep == 5) return 421;
+
+      return 0;
+   }
+
         }
 ?>

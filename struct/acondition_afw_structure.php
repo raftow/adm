@@ -25,19 +25,14 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_100',),
 
-		'acondition_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
-				'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '128', 'UTF8' => true,  
-				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+
+
+		'acondition_origin_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'acondition_origin',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_50',),
-				
-		
-		
-		'acondition_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-EN' => true,  
-				'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '128', 'UTF8' => false,  
-				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_50',),
+				'CSS' => 'width_pct_25', ),					
 				
 		'general' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
 				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
@@ -53,17 +48,28 @@
 				'CSS' => 'width_pct_25', ),	
 		
 		
-		'acondition_origin_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition_origin',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true,
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+		
 				
 		'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'DEFAUT' => 'Y',  
 				'TYPE' => 'YN',    'DISPLAY' => '',  'STEP' => 1, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25',),
+
+
+		
+		'acondition_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
+				'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '128', 'UTF8' => true,  
+				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+				'CSS' => 'width_pct_50',),
+				
+		
+		
+		'acondition_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-EN' => true,  
+				'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '128', 'UTF8' => false,  
+				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+				'CSS' => 'width_pct_50',),
 		
 		
 

@@ -43,5 +43,14 @@
                         return false;
                 }
 
+                // academic_level_offering 
+                public function getScenarioItemId($currstep)
+                {
+                        if ($currstep == 1) return 417;
+                        if ($currstep == 2) return 418;
+
+                        return 0;
+                }
+
         }
 ?>

@@ -279,5 +279,14 @@ class ProgramTrack extends AFWObject{
                return true;
             }    
 	}
+
+    // program_track 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 406;
+      if ($currstep == 2) return 407;
+
+      return 0;
+   }
              
 }

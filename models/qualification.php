@@ -152,5 +152,14 @@
                     }    
             }
 
+            // qualification 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 454;
+      if ($currstep == 2) return 455;
+
+      return 0;
+   }
+
         }
 ?>

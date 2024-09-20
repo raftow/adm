@@ -34,5 +34,14 @@
                         return false;
                 }
 
+                // training_unit_college 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 404;
+      if ($currstep == 2) return 405;
+
+      return 0;
+   }
+
         }
 ?>

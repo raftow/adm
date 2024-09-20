@@ -74,5 +74,14 @@
                     }    
             }
 
+            // major_department 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 392;
+      if ($currstep == 2) return 393;
+
+      return 0;
+   }
+
         }
 ?>

@@ -630,6 +630,22 @@ class ApplicationField extends AdmObject {
                 return false;
         }
 
+
+        // application_field 
+        public function getScenarioItemId($currstep)
+        {
+                if ($currstep == 1) return 463;
+                if ($currstep == 2) return 464;
+                if ($currstep == 3) return 465;
+                if ($currstep == 4) return 466;
+                if ($currstep == 5) return 467;
+                if ($currstep == 6) return 468;
+                if ($currstep == 7) return 469;
+                if ($currstep == 8) return 470;
+
+                return 0;
+        }
+
         
 }
 ?>

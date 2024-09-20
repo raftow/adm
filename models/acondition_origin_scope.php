@@ -106,4 +106,12 @@ class AconditionOriginScope extends AdmObject
             return true;
         }
     }
+
+    // acondition_origin_scope 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 472;
+
+      return 0;
+   }
 }

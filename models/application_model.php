@@ -270,5 +270,18 @@
                         return $otherLinksArray;
                 }
 
+                // application_model 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 425;
+      if ($currstep == 2) return 426;
+      if ($currstep == 3) return 427;
+      if ($currstep == 4) return 434;
+      if ($currstep == 5) return 435;
+
+      return 0;
+   }
+
+
         }
 ?>

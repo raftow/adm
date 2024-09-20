@@ -111,5 +111,14 @@
                     }    
                 }
 
+                // training_unit_department 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 398;
+      if ($currstep == 2) return 399;
+
+      return 0;
+   }
+
         }
 ?>

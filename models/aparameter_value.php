@@ -293,4 +293,14 @@ class AparameterValue extends AdmObject
                         return true;
                 }
         }
+
+           // aparameter_value 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 474;
+      if ($currstep == 2) return 475;
+
+      return 0;
+   }
+
 }

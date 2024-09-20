@@ -61,5 +61,14 @@
                     return $otherLinksArray;
                 }
 
+                // department 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 390;
+      if ($currstep == 2) return 391;
+
+      return 0;
+   }
+
         }
 ?>

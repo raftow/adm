@@ -30,5 +30,14 @@
                         return $this->getDefaultDisplay($lang);
                 }
 
+                // check_method 
+                public function getScenarioItemId($currstep)
+                {
+                        if ($currstep == 1) return 447;
+                        if ($currstep == 2) return 448;
+
+                        return 0;
+                }
+
         }
 ?>

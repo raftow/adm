@@ -311,6 +311,23 @@ class Applicant extends AdmObject
             return true;
         }
     }
+
+    // applicant 
+   public function getScenarioItemId($currstep)
+   {
+      if ($currstep == 1) return 436;
+      if ($currstep == 2) return 437;
+      if ($currstep == 3) return 438;
+      if ($currstep == 4) return 439;
+      if ($currstep == 5) return 440;
+      if ($currstep == 6) return 441;
+      if ($currstep == 7) return 442;
+      if ($currstep == 8) return 443;
+      if ($currstep == 9) return 444;
+      if ($currstep == 10) return 471;
+
+      return 0;
+   }
 }
 
 /*
