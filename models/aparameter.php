@@ -24,31 +24,29 @@ class Aparameter extends AdmObject
 
         public function getMyValueForContext($application_model_id, $application_plan_id, $obj)
         {
-                
-                if($obj instanceof Applicant)
-                {
-                        $training_unit_id = 0;   
-                        $department_id = 0;   
+
+                if ($obj instanceof Applicant) {
+                        $training_unit_id = 0;
+                        $department_id = 0;
                         $application_model_branch_id = 0;
                 }
-                
-                if($obj instanceof ApplicationPlan) // @todo ApplicantDesire
+
+                if ($obj instanceof ApplicationPlan) // @todo ApplicantDesire
                 {
-                     $training_unit_id = $obj->getVal("training_unit_id");   
-                     $department_id = $obj->getVal("department_id");   
-                     $application_model_branch_id = $obj->getVal("application_model_branch_id");   
+                        $training_unit_id = $obj->getVal("training_unit_id");
+                        $department_id = $obj->getVal("department_id");
+                        $application_model_branch_id = $obj->getVal("application_model_branch_id");
                 }
 
                 $paramValueObj = null;
                 $first_time = true;
-                while((!$paramValueObj) and ($first_time or $application_model_id or $application_plan_id or $training_unit_id or $department_id or $application_model_branch_id))
-                {
+                while ((!$paramValueObj) and ($first_time or $application_model_id or $application_plan_id or $training_unit_id or $department_id or $application_model_branch_id)) {
                         $paramValueObj = AparameterValue::loadByMainIndex($this->id, $application_model_id, $application_plan_id, $training_unit_id, $department_id, $application_model_branch_id);
                         $first_time = false;
-                        if($application_model_branch_id) $application_model_branch_id = 0;
-                        elseif($department_id) $department_id = 0;
-                        elseif($training_unit_id) $training_unit_id = 0;
-                        elseif($application_plan_id) $application_plan_id = 0;
+                        if ($application_model_branch_id) $application_model_branch_id = 0;
+                        elseif ($department_id) $department_id = 0;
+                        elseif ($training_unit_id) $training_unit_id = 0;
+                        elseif ($application_plan_id) $application_plan_id = 0;
                         else $application_model_id = 0;
                 }
 
@@ -255,12 +253,22 @@ class Aparameter extends AdmObject
         }
 
         // aparameter 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 379;
-      if ($currstep == 2) return 380;
-      if ($currstep == 3) return 476;
+        public function getScenarioItemId($currstep)
+        {
+                if ($currstep == 1) return 379;
+                if ($currstep == 2) return 380;
+                if ($currstep == 3) return 476;
 
-      return 0;
-   }
+                return 0;
+        }
+
+        public function afterMaj($id, $fields_updated)
+        {
+                $obj = AparameterValue::loadByMainIndex($this->id,0,0,0,0,0,true);
+                /*
+                if($fields_updated["xxxx"])
+                {
+                        $this->XXXX("ar");
+                }*/
+        }
 }

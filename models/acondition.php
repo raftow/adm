@@ -264,11 +264,11 @@ class Acondition extends AdmObject{
                                                 list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                 if($res)
                                                 {
-                                                        $inf = "$cond_name متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                        $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                 }
                                                 else
                                                 {
-                                                        $war = "$cond_name غير متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                        $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                 }
         
                                                 if($err) $err_arr[] = $err;
@@ -293,11 +293,11 @@ class Acondition extends AdmObject{
                                                         list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                         if($res)
                                                         {
-                                                                $inf = "$cond_name متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                                $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                         }
                                                         else
                                                         {
-                                                                $war = "$cond_name غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                                $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                         }
         
                                                         if($err) $err_arr[] = $err;
@@ -511,10 +511,11 @@ class Acondition extends AdmObject{
                 else throw new AfwRuntimeException("unknown comparator = $comparator");
 
                 $comparatorDesc = self::translateComparator($comparator, $lang);
+                $field_value_tr = $this->tm("the following field value", $lang); 
                 if($return) $is_or_isnt = $this->tm("very the condition that", $lang); 
                 else $is_or_isnt = $this->tm("does'nt very the condition that", $lang);
 
-                return [$return, "$field_value $is_or_isnt $comparatorDesc $param_value"];
+                return [$return, "$field_value_tr [ $field_value ] $is_or_isnt $comparatorDesc $param_value"];
 
         }        
 

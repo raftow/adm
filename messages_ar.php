@@ -7,8 +7,9 @@
     $messages["updated branch"] = "فرع تم تحديثه";
     $messages["no customization"] = "سياق عام بدون تخصيص";
     $messages["no general or customized value for parameter"] = "لا يوجد قيمة عامة ولا مخصصة للمعلمة";
-    $messages["does'nt very the condition that"] = "لا ينطبق عليه شرط أنه";
-    $messages["very the condition that"] = "ينطبق عليه شرط أنه";
+    $messages["does'nt very the condition that"] = "لا ينطبق عليها شرط أنها";
+    $messages["very the condition that"] = "ينطبق عليها شرط أنها";
+    $messages["the following field value"] = "قيمة الحقل التالية";
     
       
     

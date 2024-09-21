@@ -37,14 +37,17 @@ create unique index uk_aparameter_value on c0adm.aparameter_value(aparameter_id,
 */
 
 // rafik 18/9/2024
-// ALTER TABLE `aparameter_value` CHANGE `application_model_id` `application_model_id` INT(11) NOT NULL DEFAULT '0';
-// ALTER TABLE `aparameter_value` CHANGE `application_plan_id` `application_plan_id` INT(11) NOT NULL DEFAULT '0';
-// ALTER TABLE `aparameter_value` CHANGE `training_unit_id` `training_unit_id` INT(11) NOT NULL DEFAULT '0';
-// ALTER TABLE `aparameter_value` CHANGE `department_id` `department_id` INT(11) NOT NULL DEFAULT '0';
+// ALTER TABLE `aparameter_value` CHANGE `application_model_id` `application_model_id` INT(11) NOT NULL DEFAULT 0;
+// ALTER TABLE `aparameter_value` CHANGE `application_plan_id` `application_plan_id` INT(11) NOT NULL DEFAULT 0;
+// ALTER TABLE `aparameter_value` CHANGE `training_unit_id` `training_unit_id` INT(11) NOT NULL DEFAULT 0;
+// ALTER TABLE `aparameter_value` CHANGE `department_id` `department_id` INT(11) NOT NULL DEFAULT 0;
+// ALTER TABLE `aparameter_value` CHANGE application_model_branch_id application_model_branch_id INT(11) NOT NULL DEFAULT 0;
+
 // update `aparameter_value` set `application_model_id` = 0 where `application_model_id` is null;
 // update `aparameter_value` set `application_plan_id` = 0 where `application_plan_id` is null;
 // update `aparameter_value` set `training_unit_id` = 0 where `training_unit_id` is null;
 // update `aparameter_value` set `department_id` = 0 where `department_id` is null;
+// update `aparameter_value` set `application_model_branch_id` = 0 where `application_model_branch_id` is null;
 
 class AparameterValue extends AdmObject
 {
@@ -69,7 +72,7 @@ class AparameterValue extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($aparameter_id, $application_model_id, 
+        public static function loadByMainIndex($aparameter_id, $application_model_id=0, 
                          $application_plan_id=0, $training_unit_id=0, 
                          $department_id=0, $application_model_branch_id=0, $create_obj_if_not_found = false)
         {
