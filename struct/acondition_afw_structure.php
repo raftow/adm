@@ -134,7 +134,7 @@
 				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_75', ),	
 		
 		
 		'compare_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -142,7 +142,7 @@
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_12', ),	
 		
 		
 		'aparameter_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -150,7 +150,7 @@
 				'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'DNA' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_12', ),	
 		
 		
 		'excuse_text_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  

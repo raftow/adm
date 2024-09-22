@@ -419,7 +419,7 @@ class Acondition extends AdmObject{
                         
                         
 
-                        if(!$simulate)
+                        if(!$simulate or true)
                         {
                                 $acondition_id = $this->id;
                                 $aparameter_value_date = $field_date = $condition_exec_date = date("Y-m-d H:i:s");

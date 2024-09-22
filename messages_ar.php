@@ -10,6 +10,16 @@
     $messages["does'nt very the condition that"] = "لا ينطبق عليها شرط أنها";
     $messages["very the condition that"] = "ينطبق عليها شرط أنها";
     $messages["the following field value"] = "قيمة الحقل التالية";
+
+
+    $messages["the application plan has been successfully validated"] = "تم اعتماد خطة القبول بنجاح";
+    $messages["the application plan has been successfully unvalidated"] = "تم الغاء اعتماد خطة القبول";
+    $messages["the application plan has been successfully published"] = "تم نشر خطة القبول بنجاح";
+    $messages["the application plan has been successfully unpublished"] = "تم الغاء نشر خطة القبول";
+    $messages["the application plan has been successfully closed"] = "تم غلق خطة القبول بنجاح";
+    $messages["the application plan has been successfully opened"] = "تم فتح خطة القبول بنجاح";
+    $messages["the application plan has been successfully enabled"] = "تم تنشيط خطة القبول بنجاح";
+    $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     
       
     

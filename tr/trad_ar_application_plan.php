@@ -3,8 +3,12 @@
     $trad["application_plan"]["step2"] = "الفصل التدريبي";
     $trad["application_plan"]["step3"] = "اجراءات";
     $trad["application_plan"]["step4"] = "فروع التقديم";
+	$trad["application_plan"]["step5"] = "تقديم يدوي";
+
+	
 
     $trad["application_plan"]["applicationPlanBranchList"] = "فروع التقديم";
+	$trad["application_plan"]["applicationList"] = "تقديم يدوي";
 
     
 

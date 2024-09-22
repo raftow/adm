@@ -5,7 +5,9 @@
     $trad["applicant"]["step2"] = "البيانات الشخصية";
 	$trad["applicant"]["step3"] = "العنوان";
     $trad["applicant"]["step4"] = "معلومات متقدمة";
-	$trad["applicant"]["step5"] = "المؤهلات";
+	$trad["applicant"]["step5"] = "المؤهلات والتقديم";
+	
+	$trad["applicant"]["applicationList"] = "طلبات التقديم";
 
 	$trad["applicant"]["applicantQualificationList"] = "مؤهلات المتقدم";
 	

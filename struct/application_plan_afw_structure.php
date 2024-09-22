@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 4; 
+                                $obj->editNbSteps = 5; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -459,7 +459,7 @@
                                                 'CSS' => 'width_pct_25',),
 
 
-
+                                                
                                         'published' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 'MANDATORY' => true, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -485,7 +485,12 @@
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'DISPLAY-ICON'=>false,  'BUTTONS'=>true, 'NO-LABEL'=>false),
 
 
-
+                                        'applicationList' => array('SHORTNAME' => 'applications',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                                        'EDIT' => false,  'QEDIT' => false,  
+                                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'FK', 'STEP' => 5, 
+                                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                                        'CSS' => 'width_pct_50', ),
 
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  

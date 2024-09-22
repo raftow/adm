@@ -24,6 +24,35 @@
                         else return null;
                 }
 
+                public static function loadByMainIndex($application_model_id, $term_id,$create_obj_if_not_found=false)
+                {
+                    if(!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
+                    if(!$term_id) throw new AfwRuntimeException("loadByMainIndex : term_id is mandatory field");
+
+
+                    $obj = new ApplicationPlan();
+                    $obj->select("application_model_id",$application_model_id);
+                    $obj->select("term_id",$term_id);
+
+                    if($obj->load())
+                    {
+                            if($create_obj_if_not_found) $obj->activate();
+                            return $obj;
+                    }
+                    elseif($create_obj_if_not_found)
+                    {
+                            $obj->set("application_model_id",$application_model_id);
+                            $obj->set("term_id",$term_id);
+
+                            $obj->insertNew();
+                            if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                            $obj->is_new = true;
+                            return $obj;
+                    }
+                    else return null;
+                
+                }
+
                 public function getDisplay($lang="ar")
                 {
                     return $this->getVal("application_model_name_$lang");                    
@@ -193,31 +222,134 @@
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
- 
+        
+        
 
-        public function validate($lang="ar")
+        public function validate($lang="ar", $commit=true)
         {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("valid","Y");
+            if($commit) $this->commit();
+
+            $inf_arr[] = $this->tm("the application plan has been successfully validated");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+        }
+
+        public function unvalidate($lang="ar", $commit=true)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("valid","N");
+            if($commit) $this->commit();
+
+            $inf_arr[] = $this->tm("the application plan has been successfully unvalidated");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+
+            
+        }
+
+        public function publish($lang="ar", $commit=true)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("published","Y");
+            if($commit) $this->commit();
+            $inf_arr[] = $this->tm("the application plan has been successfully published");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+
+            
+        }
+
+        public function unpublish($lang="ar", $commit=true)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("published","N");
+            if($commit) $this->commit();
+            $inf_arr[] = $this->tm("the application plan has been successfully unpublished");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+
+            
+        }
+
+        public function close($lang="ar", $commit=true)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("closed","Y");
+            if($commit) $this->commit();
+            $inf_arr[] = $this->tm("the application plan has been successfully closed");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+
+            
+        }
+
+        public function open($lang="ar", $commit=true)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("closed","N");
+            if($commit) $this->commit();
+            $inf_arr[] = $this->tm("the application plan has been successfully opened");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+
+            
+        }
+
+        public function enable($lang="ar", $commit=true)
+        {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
+
+            $this->set("active","Y");
+            if($commit) $this->commit();
+            $inf_arr[] = $this->tm("the application plan has been successfully enabled");
+
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
         }
 
-        public function publish($lang="ar")
+        public function disable($lang="ar", $commit=true)
         {
+            $err_arr=[];
+            $inf_arr=[];
+            $war_arr=[];
+            $tech_arr=[];
 
-        }
+            $this->set("active","N");
+            if($commit) $this->commit();
+            $inf_arr[] = $this->tm("the application plan has been successfully disabled");
 
-        public function close($lang="ar")
-        {
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
-        }
-
-        public function enable($lang="ar")
-        {
-
-        }
-
-        public function disable($lang="ar")
-        {
-
+            
         }
 
         public function resetNames($lang="ar", $which="all", $commit=true)
@@ -297,6 +429,19 @@
                     $link["UGROUPS"] = array();
                     $otherLinksArray[] = $link;
                 }
+
+                /*
+                if($mode=="mode_applicationList")
+                {
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة تقديم يدوي";
+                        $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicLevelOffering&currmod=adm&sel_academic_level_id=$my_id";
+                        $link["TITLE"] = $title;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;
+                }*/
                 
                 
                 
@@ -376,16 +521,26 @@
                 }    
         }
 
-        // application_plan 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 428;
-      if ($currstep == 2) return 429;
-      if ($currstep == 3) return 432;
-      if ($currstep == 4) return 433;
+        public function getScenarioItemId($currstep)
+        {
+                if($currstep == 1) return 428;
+                if($currstep == 2) return 429;
+                if($currstep == 3) return 432;
+                if($currstep == 4) return 433;
+                if($currstep == 5) return 480;
 
-      return 0;
-   }
+            return 0;
+        }
+
+        public static function getCurrentApplicationPlans()
+        {
+                $obj = new ApplicationPlan();
+                $obj->select("published","Y");
+                $obj->select("active","Y");
+                $obj->select("closed","N");
+
+                return $obj->loadMany();  
+        }
 
 
     }

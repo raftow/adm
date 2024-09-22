@@ -190,7 +190,7 @@
                                             'CSS' => 'width_pct_25', ),	
 
                                         'profile_approved' => array('FGROUP'=>'idn-infos', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                            'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
+                                            'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                             'CSS' => 'width_pct_25',),
 
@@ -484,6 +484,14 @@
                                                 'TYPE' => 'FK', 'CATEGORY' => 'ITEMS',  'ANSWER' => 'applicant_qualification',  'ANSMODULE' => 'adm',  'ITEM' => 'applicant_id',  
                                                 'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_100', ),
+
+                                        'applicationList' => array('STEP' => 5,  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'ITEM' => 'applicant_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_50', ),
+
                                         
 
 

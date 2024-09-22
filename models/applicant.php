@@ -200,12 +200,38 @@ class Applicant extends AdmObject
             unset($link);
             $link = array();
             $title = "إضافة مؤهل جديد";
-            $title_detailed = $title . "لـ : " . $displ;
+            // $title_detailed = $title . "لـ : " . $displ;
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantQualification&currmod=adm&sel_applicant_id=$my_id";
             $link["TITLE"] = $title;
             $link["UGROUPS"] = array();
             $otherLinksArray[] = $link;
         }
+
+        if ($mode == "mode_applicationList") {
+            $aplanList = ApplicationPlan::getCurrentApplicationPlans();
+            $color = 'blue';
+            foreach($aplanList as $aplanItem)
+            {
+                $application_plan_id = $aplanItem->id;
+                $application_model_id = $aplanItem->getVal("application_model_id");
+                unset($link);
+                $link = array();
+                $title = "التقديم على ".$aplanItem->getShortDisplay($lang);
+                // $title_detailed = $title . "لـ : " . $displ;
+                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&sel_applicant_id=$my_id&sel_application_plan_id=$application_plan_id&sel_application_model_id=$application_model_id";
+                $link["TITLE"] = $title;
+                $link["COLOR"] = $color;
+                $link["UGROUPS"] = array();
+                $otherLinksArray[] = $link;
+                if($color == 'yellow') $color = 'blue';
+                elseif($color == 'green') $color = 'yellow';
+                elseif($color == 'blue') $color = 'green';
+                
+            }
+            
+        }
+
+        
 
 
 

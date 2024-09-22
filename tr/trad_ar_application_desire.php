@@ -2,7 +2,7 @@
 	$trad["application_desire"]["step1"] = "التعريف";
 
 	$trad["application_desire"]["applicationdesire.single"] = "رغبة متقدم";
-	$trad["application_desire"]["applicationdesire.new"] = "جديد ة";
+	$trad["application_desire"]["applicationdesire.new"] = "جديدة";
 	$trad["application_desire"]["application_desire"] = "رغبات المتقدمين";
 
 	$trad["application_desire"]["applicant_id"] = "المتفدم";
