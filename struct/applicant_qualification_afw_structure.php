@@ -7,7 +7,7 @@
                         if ($obj instanceof ApplicantQualification) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "applicant_qualification_name_ar";
+                                // $obj->DISPLAY_FIELD = "applicant_qualification_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('applicant_id','qualification_id','major_category_id');
                                 // $obj->public_display = true;

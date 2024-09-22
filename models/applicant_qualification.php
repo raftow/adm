@@ -28,9 +28,17 @@
                         else return null;
                 }
 
-                public function getDisplay($lang = 'ar')
+                public function getDisplay($lang="ar")
                 {
-                        return $this->getDefaultDisplay($lang);
+                       
+                       $data = array();
+                       $link = array();
+        
+                       list($data[0],$link[0]) = $this->displayAttribute("qualification_id",false, $lang);
+                       list($data[1],$link[1]) = $this->displayAttribute("major_category_id",false, $lang);
+        
+                       
+                       return implode(" - ",$data);
                 }
 
                 public function stepsAreOrdered()
