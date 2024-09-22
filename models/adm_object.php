@@ -227,6 +227,31 @@ class AdmObject extends AFWObject{
                 return $arr_list_of_desire_status_enum;
         }
         
+        public static function list_of_application_admission_enum()
+        {
+            global $lang;
+            return self::application_admission_enum()[$lang];
+        }
+        
+        public static function application_admission_enum()
+        {
+                $arr_list_of_application_admission_enum = array();
+                
+                        
+                $arr_list_of_application_admission_enum["en"][1] = "Application";
+                $arr_list_of_application_admission_enum["ar"][1] = "تقديم";
+                $arr_list_of_application_admission_enum["code"][1] = "APP";
+
+                $arr_list_of_application_admission_enum["en"][2] = "Admission";
+                $arr_list_of_application_admission_enum["ar"][2] = "قبول";
+                $arr_list_of_application_admission_enum["code"][2] = "ADM";
+
+                
+                return $arr_list_of_application_admission_enum;
+        }
+
+        
+        
         public static function list_of_marital_status_enum()
         {
             global $lang;
