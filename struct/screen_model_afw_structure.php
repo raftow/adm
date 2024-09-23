@@ -123,6 +123,7 @@ class AdmScreenModelAfwStructure
         'application_field_mfk' => array(
             'IMPORTANT' => 'IN',
             'SEARCH' => true,
+            'QSEARCH' => true,
             'SHOW' => true,
             'RETRIEVE' => true,
             'EDIT' => true,

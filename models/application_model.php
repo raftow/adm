@@ -232,7 +232,7 @@
                         {
                                 unset($link);
                                 $link = array();
-                                $title = "إضافة ميزة جديد";
+                                $title = "إضافة ميزة جديدة";
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicLevelPrivilege&currmod=adm&sel_academic_level_id=$my_id";
                                 $link["TITLE"] = $title;
@@ -261,6 +261,21 @@
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
                         }
+
+                        if($mode=="mode_applicationStepList")
+                        {
+                                $objAS = new ApplicationStep();
+                                $objAS->select("application_model_id", $my_id);
+                                $nextStep = AfwSqlHelper::aggregFunction($objAS, "max(step_num)")+1;
+                                unset($link);
+                                $link = array();
+                                $title = "إضافة خطوة تقديم جديدة";
+                                $title_detailed = $title ."لـ : ". $displ;
+                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationStep&currmod=adm&sel_application_model_id=$my_id&sel_step_num=$nextStep";
+                                $link["TITLE"] = $title;
+                                $link["UGROUPS"] = array();
+                                $otherLinksArray[] = $link;
+                        }
                         
                         
                         
@@ -271,16 +286,16 @@
                 }
 
                 // application_model 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 425;
-      if ($currstep == 2) return 426;
-      if ($currstep == 3) return 427;
-      if ($currstep == 4) return 434;
-      if ($currstep == 5) return 435;
+                public function getScenarioItemId($currstep)
+                {
+                        if ($currstep == 1) return 425;
+                        if ($currstep == 2) return 426;
+                        if ($currstep == 3) return 427;
+                        if ($currstep == 4) return 434;
+                        if ($currstep == 5) return 435;
 
-      return 0;
-   }
+                        return 0;
+                }
 
 
         }

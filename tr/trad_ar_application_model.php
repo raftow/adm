@@ -3,8 +3,11 @@
 	$trad["application_model"]["step2"] = "خصائص القبول";
 	$trad["application_model"]["step3"] = "خيارات متقدمة";
 	$trad["application_model"]["step4"] = "فروع القبول";
-	$trad["application_model"]["step5"] = "خطط التقديم";
-
+	$trad["application_model"]["step5"] = "خطوات التقديم";
+	$trad["application_model"]["step6"] = "خطط التقديم";
+	
+	
+	$trad["application_model"]["applicationStepList"] = "قائمة خطوات التقديم";
 	$trad["application_model"]["applicationPlanList"] = "قائمة خطط التقديم";
 	$trad["application_model"]["applicationModelBranchList"] = "قائمة فروع القبول المتاحة";
 	

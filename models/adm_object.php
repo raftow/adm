@@ -872,6 +872,11 @@ class AdmObject extends AFWObject{
                 $arr_list_of_application_table["en"][2] = "Applicant desires";
                 $arr_list_of_application_table["code"][2] = "adesire";
 
+                $arr_list_of_application_table["ar"][3] = "طلبات التقديم";
+                $arr_list_of_application_table["en"][3] = "Applications";
+                $arr_list_of_application_table["code"][3] = "application";
+
+
 
                 return $arr_list_of_application_table;
         }

@@ -16,7 +16,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 5; 
+                                $obj->editNbSteps = 6; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -316,9 +316,16 @@
                                                 'VIEW-ICON'=>false,
                                                 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
+                                        'applicationStepList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 5, 
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_100', ),
+
 
                                         'applicationPlanList' => array('TYPE' => 'FK', 'ANSWER' => 'application_plan', 'ANSMODULE' => 'adm', 'QEDIT' => false, 
-                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 5,
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 6,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),

@@ -52,8 +52,21 @@ select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_
 from c0pag.afield
 where atable_id = 13890
   and avail = 'Y'
+  and reel = 'Y'
   and afield_type_id in (1,2,3,13,14,5,6,7,9,8,12,15,16)
   and id not in (110297,110298,110308,110306,110332,110356,110358,110361,110373,110375);
+
+insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
+select id, id_aut, now(), avail, version, field_name, shortname, 3, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
+-- select count(*)
+from c0pag.afield
+where atable_id = 13917
+  and avail = 'Y'
+  and reel = 'Y'
+  and readonly = 'N'
+  and afield_type_id in (1,2,3,13,14,5,6,7,9,8,12,15,16);
+
+  
 
 */
 
