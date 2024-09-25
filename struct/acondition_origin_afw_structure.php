@@ -131,7 +131,16 @@
 			'aconditionList' => array(
 					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 3,    
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
-					'WHERE' => "", 
+					'WHERE' => "composed != 'Y'", 'HIDE_COLS' => ['condition_1_id','operator_id','condition_2_id',],
+					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
+					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
+					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+					'CSS' => 'width_pct_100',),
+
+			'composedAconditionList' => array(
+					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 3,    
+					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
+					'WHERE' => "composed='Y'", 'HIDE_COLS' => ['afield_id','compare_id','aparameter_id',],
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
 					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

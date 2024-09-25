@@ -477,9 +477,23 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
+                                        'aparameterValueList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'STEP' => 4,  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'aparameter_value',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => 'application_model_id = §application_model_id§ 
+                                                        and application_plan_id = §id§
+                                                        and training_unit_id = 0
+                                                        and department_id = 0 
+                                                        and application_model_branch_id = 0',  
+                                                'HIDE_COLS' => array('application_model_id','application_plan_id','training_unit_id','department_id','application_model_branch_id',),
+                                                'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_100', ),
+
 
                                         'applicationPlanBranchList' => array('TYPE' => 'FK', 'ANSWER' => 'application_plan_branch', 'ANSMODULE' => 'adm', 
-                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_plan_id', 'STEP' => 4,
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_plan_id', 'STEP' => 5,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'DISPLAY-ICON'=>false,  'BUTTONS'=>true, 'NO-LABEL'=>false),
@@ -488,7 +502,7 @@
                                         'applicationList' => array('SHORTNAME' => 'applications',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                                         'EDIT' => false,  'QEDIT' => false,  
                                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
-                                                                        'TYPE' => 'FK', 'STEP' => 5, 
+                                                                        'TYPE' => 'FK', 'STEP' => 6, 
                                                                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                                         'CSS' => 'width_pct_50', ),
 

@@ -241,7 +241,7 @@ class Acondition extends AdmObject{
                 try{
                         // from simulation config get data :
                         // load simulation applicants
-                        $simulation_applicants_ids = AfwSession::config("simulation_applicants","1,2340182555");
+                        $simulation_applicants_ids = AfwSession::config("simulation_applicants","");
                         // simulation_application_plan_id
                         $simulation_application_plan_id = AfwSession::config("simulation_application_plan_id",0);
                         // simulation_application_model_id 
@@ -249,7 +249,7 @@ class Acondition extends AdmObject{
                         $appObj = new Applicant();
                         $appObj->where("id in ($simulation_applicants_ids)");
                         $appList = $appObj->loadMany();
-
+                        // die("appList=".var_export($appList,true));
                         if(count($appList)>0)
                         {
                                 foreach($appList as $appItem)
@@ -321,7 +321,7 @@ class Acondition extends AdmObject{
                 {
                         $err_arr[] = $e->getMessage();
                 }
-
+                // die("war_arr=".var_export($war_arr));
                 return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
                 
         }
@@ -520,16 +520,30 @@ class Acondition extends AdmObject{
         }        
 
         // acondition 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 381;
-      if ($currstep == 2) return 382;
-      if ($currstep == 3) return 383;
+        public function getScenarioItemId($currstep)
+        {
+                if ($currstep == 1) return 381;
+                if ($currstep == 2) return 382;
+                if ($currstep == 3) return 383;
 
-      return 0;
-   }
+                return 0;
+        }
 
+        // generalCondition
         /*
+        public function generalCondition($field_name, $col_struct)
+        {
+                $acoObj = $this->het("acondition_origin_id");        
+                if($acoObj)
+                {
+                        return $acoObj->getVal("general");
+                }
+
+                // should not happen
+                return 'W';
+        }
+
+        
         public function whyAttributeIsNotApplicable($attribute, $lang = "ar")
         {
                 $icon = "na20.png";

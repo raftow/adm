@@ -65,8 +65,9 @@ class AconditionOrigin extends AdmObject{
                         unset($link);
                         $link = array();
                         $title = "إضافة شرط جديد";
+                        $general = $this->getVal("general");
                         $title_detailed = $title ."لـ : ". $displ;
-                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Acondition&currmod=adm&sel_acondition_origin_id=$my_id";
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Acondition&currmod=adm&sel_acondition_origin_id=$my_id&sel_general=$general";
                         $link["TITLE"] = $title;
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;     
@@ -135,13 +136,15 @@ class AconditionOrigin extends AdmObject{
 	}
 
          // acondition_origin 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 375;
-      if ($currstep == 2) return 376;
-      if ($currstep == 3) return 473;
+        public function getScenarioItemId($currstep)
+        {
+                if ($currstep == 1) return 375;
+                if ($currstep == 2) return 376;
+                if ($currstep == 3) return 473;
 
-      return 0;
-   }
+                return 0;
+        }
+
+        
 }
 ?>

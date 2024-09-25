@@ -31,7 +31,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_33',),
                                                 
-
+                                                
 
                                         'aparameter_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-EN' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '64', 'UTF8' => false,  
@@ -75,7 +75,7 @@
 
 
                                         'measurement_unit_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '8', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '32', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -83,7 +83,7 @@
 
 
                                         'measurement_unit_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-EN' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '8', 'UTF8' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '32', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),

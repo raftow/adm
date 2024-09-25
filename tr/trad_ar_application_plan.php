@@ -2,11 +2,12 @@
 	$trad["application_plan"]["step1"] = "نموذج القبول";
     $trad["application_plan"]["step2"] = "الفصل التدريبي";
     $trad["application_plan"]["step3"] = "اجراءات";
-    $trad["application_plan"]["step4"] = "فروع التقديم";
-	$trad["application_plan"]["step5"] = "تقديم يدوي";
+	$trad["application_plan"]["step4"] = "إعدادات اخرى";
+    $trad["application_plan"]["step5"] = "فروع التقديم";
+	$trad["application_plan"]["step6"] = "تقديم يدوي";
 
 	
-
+	$trad["application_plan"]["aparameterValueList"] = "إعدادات اخرى";
     $trad["application_plan"]["applicationPlanBranchList"] = "فروع التقديم";
 	$trad["application_plan"]["applicationList"] = "تقديم يدوي";
 

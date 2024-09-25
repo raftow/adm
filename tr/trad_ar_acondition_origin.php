@@ -13,7 +13,9 @@
 	$trad["acondition_origin"]["acondition_origin_order.short"] = "ترقيم";
 	$trad["acondition_origin"]["acondition_origin_name_en"] = "مسمى اللائحة أوالقرار انجليزي";
 	$trad["acondition_origin"]["acondition_origin_type_id"] = "نوع اللائحة أوالقرار";
-	$trad["acondition_origin"]["aconditionList"] = "الشروط";
+	$trad["acondition_origin"]["aconditionList"] = "الشروط البسيطة";
+	$trad["acondition_origin"]["composedAconditionList"] = "الشروط المركبة";
+	
 	$trad["acondition_origin"]["aconditionOriginScopeList"] = "مجالات التطبيق";
 
 	$trad["acondition_origin"]["general"] = "قرار عام";

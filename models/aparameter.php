@@ -271,4 +271,49 @@ class Aparameter extends AdmObject
                         $this->XXXX("ar");
                 }*/
         }
+
+        protected function getPublicMethods()
+        {
+        
+                $pbms = array();
+                
+                
+
+                $color = "green";
+                $title_ar = "انشاء نسخة مطابقة"; 
+                $methodName = "cloneMe";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEPS' =>[2,3]);
+                
+
+                
+                
+                return $pbms;
+        }
+
+        public function cloneMe($lang="ar", $cloneValues=true)
+        {
+                  
+                $aparameter_name_ar = $this->getVal("aparameter_name_ar");
+                $aparameter_name_en = $this->getVal("aparameter_name_en");
+                $aparameterValueList = $this->get("aparameterValueList");
+                
+
+                $paramCloned = clone $this;
+                $nb_inserts = 0;
+                $paramCloned->resetAsCopy();
+                $paramCloned->set("aparameter_name_ar", $aparameter_name_ar."-نسخة");
+                $paramCloned->set("aparameter_name_en", $aparameter_name_en."-clone");
+                if($paramCloned->insert()) $nb_inserts++;
+                if($cloneValues)
+                {
+                        foreach($aparameterValueList as $aparameterValueItem)
+                        {
+                                if($aparameterValueItem->cloneInParameter($paramCloned->id)) $nb_inserts++;
+                        }
+                }
+                
+                return ["", "$nb_inserts objects has been cloned"];
+
+                
+        }
 }

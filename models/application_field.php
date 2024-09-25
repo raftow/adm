@@ -48,6 +48,11 @@ delete from c0adm.`application_field`;
 
 insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
 select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
+from c0pag.afield
+where id = 110732;
+
+insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
+select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
 -- select count(*)
 from c0pag.afield
 where atable_id = 13890

@@ -297,13 +297,32 @@ class AparameterValue extends AdmObject
                 }
         }
 
-           // aparameter_value 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 474;
-      if ($currstep == 2) return 475;
+        // aparameter_value 
+        public function getScenarioItemId($currstep)
+        {
+                if ($currstep == 1) return 474;
+                if ($currstep == 2) return 475;
 
-      return 0;
-   }
+                return 0;
+        }
+
+        public function cloneInParameter($newParamId, $erase_existing=true)
+        {
+                $application_model_id = $this->getVal('application_model_id');
+                $application_plan_id = $this->getVal('application_plan_id');
+                $training_unit_id = $this->getVal('training_unit_id');
+                $department_id = $this->getVal('department_id');
+                $application_model_branch_id = $this->getVal('application_model_branch_id');
+
+                $pvObj = AparameterValue::loadByMainIndex($newParamId,$application_model_id, 
+                                                $application_plan_id, $training_unit_id, 
+                                                $department_id, $application_model_branch_id, $create_obj_if_not_found =true);
+
+                if($erase_existing or $pvObj->is_new)
+                {
+                        $pvObj->set("value", $this->getVal('value'));  
+                        $pvObj->commit();
+                }
+        }
 
 }

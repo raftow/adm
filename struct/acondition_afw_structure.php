@@ -34,7 +34,8 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25', ),					
 				
-		'general' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+		'general' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  
+		        'DEFAULT' => 'W',  'READONLY' => true, // ::generalCondition
 				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25',),
@@ -126,7 +127,7 @@
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 					),	
 				
-		
+					
 		'afield_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 
@@ -134,7 +135,7 @@
 				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_75', ),	
+				'CSS' => 'width_pct_50', ),	
 		
 		
 		'compare_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -142,7 +143,7 @@
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_12', ),	
+				'CSS' => 'width_pct_25', ),	
 		
 		
 		'aparameter_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -150,7 +151,7 @@
 				'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'DNA' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_12', ),	
+				'CSS' => 'width_pct_25', ),	
 		
 		
 		'excuse_text_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
@@ -199,19 +200,19 @@
 		
 		
 		
-		'show_fe' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3,  
+		'show_fe' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAULT' => 'Y',  
+				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3, 'FORMAT' => 'icon', 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25',),
 		
 		
 		
 		'bfunction_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'bfunction',  'ANSMODULE' => 'ums', 
+				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'screen_model',  'ANSMODULE' => 'adm', 
 				'WHERE' => "1=0",
 				'SIZE' => 40,  'DEFAUT' => 0,    
-				'DISPLAY' => true,  'STEP' => 3,  
+				'DISPLAY' => true,  'STEP' => 99,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25', ),	
 		

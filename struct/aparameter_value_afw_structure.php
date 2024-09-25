@@ -36,6 +36,7 @@
                                         'application_model_id' => array('IMPORTANT' => 'IN', 'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',                                                  
+                                                'DEPENDENT_OFME' => ['application_plan_id', 'training_unit_id','department_id', 'application_model_branch_id',],
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  'EMPTY_IS_ALL' => true, 'READONLY-AFTER-INSERT'=>true, 
@@ -87,7 +88,6 @@
                                         'application_model_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DEPENDENCIES' => ['application_model_id',],
                                                 'WHERE' => 'application_model_id = §application_model_id§
                                                            and ((§training_unit_id§ = 0) or (training_unit_id = §training_unit_id§))          
                                                            and ((§department_id§ = 0) or (department_id = §department_id§))',

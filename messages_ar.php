@@ -20,6 +20,7 @@
     $messages["the application plan has been successfully opened"] = "تم فتح خطة القبول بنجاح";
     $messages["the application plan has been successfully enabled"] = "تم تنشيط خطة القبول بنجاح";
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
+    $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
     
       
     
