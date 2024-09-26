@@ -5,5 +5,6 @@ $developers = [
 ];
 $migrations = [
     '00001' => ['by'=>'rafik', 'title' => 'first migration test'],
-
+    '00002' => ['by'=>'medali', 'title' => 'admission_agreement_scope'],
+    '00003' => ['by'=>'medali', 'title' => 'admission_agreement_plan'],
 ];
