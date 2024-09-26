@@ -208,7 +208,7 @@ class Acondition extends AdmObject{
 
         public function calcApplication_table_id()
         {
-               return $this->_isGeneral() ? 1 : 2;
+               return $this->_isGeneral() ? '1,2' : '1,2,3';
         }
 
         protected function getPublicMethods()
@@ -527,6 +527,46 @@ class Acondition extends AdmObject{
                 if ($currstep == 3) return 383;
 
                 return 0;
+        }
+
+        protected function getOtherLinksArray($mode, $genereLog = false, $step="all")      
+        {
+                global $me, $objme, $lang;
+                
+                $displ = $this->getDisplay($lang);
+                $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
+                $my_id = $this->getId();
+
+                if($my_id and (($mode=="mode_condition_1_id") or ($mode=="mode_condition_2_id")))
+                {
+                        $aco_id = $this->getVal("acondition_origin_id");
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة هذا الشرط";
+                        $general = $this->getVal("general");
+                        // $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Acondition&currmod=adm&sel_acondition_origin_id=$aco_id&sel_general=$general&sel_acondition_type_id=3";
+                        $link["TITLE"] = $title;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;     
+
+                }
+
+                if($my_id and ($mode=="mode_aconditionOriginScopeList"))
+                {
+                        
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة مجال تطبيق جديد";
+                        $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?mp=ed&cl=AconditionOriginScope&cm=adm&sel_acondition_origin_id=$my_id";
+                        $link["TITLE"] = $title;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;     
+
+                }
+                
+                return $otherLinksArray;          
         }
 
         // generalCondition

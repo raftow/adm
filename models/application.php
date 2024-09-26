@@ -38,6 +38,11 @@ alter table c0adm.application add   attribute_2 smallint DEFAULT NULL  after att
 
 
          */
+
+$main_company = AfwSession::config("main_company", "all");
+$file_dir_name = dirname(__FILE__);
+require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");
+         
 class Application extends AdmObject
 {
 
@@ -78,7 +83,7 @@ class Application extends AdmObject
                 if (!$application_additional_fields) {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        require_once($file_dir_name . "/../../external/application_additional_fields-$main_company.php");
+                        require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");
                 }
 
                 $return = $application_additional_fields[$field_name];
@@ -130,7 +135,7 @@ class Application extends AdmObject
                         {
                                 $main_company = AfwSession::config("main_company", "all");
                                 $file_dir_name = dirname(__FILE__);
-                                require_once($file_dir_name . "/../../external/application_additional_fields-$main_company.php");  
+                                require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");  
                         }
                         if($formulaMethod)
                         {
@@ -142,13 +147,15 @@ class Application extends AdmObject
 
         protected function paggableAttribute($attribute)
         {
-                if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) {
-                $params = self::getApplicationAdditionalFieldParams($attribute);
-                if (!$params) {
-                        return [false, "no params defined for this additional attribute"];
+                if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) 
+                {
+                        $params = self::getApplicationAdditionalFieldParams($attribute);
+                        if (!$params) {
+                                // die("paggableAttribute died for attribute $attribute : params = ".var_export($params,true));
+                                return [false, "no params defined for this additional attribute"];
+                        }
                 }
-                }
-                // can be overridden in subclasses
+                
                 return [true, ""];
         }
 

@@ -13,7 +13,7 @@
 					$obj->public_display = true;
 
 					$obj->editByStep = true;
-					$obj->editNbSteps = 3; 
+					$obj->editNbSteps = 4; 
 					$obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
 				}
 			}
@@ -131,7 +131,7 @@
 			'aconditionList' => array(
 					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 3,    
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
-					'WHERE' => "composed != 'Y'", 'HIDE_COLS' => ['condition_1_id','operator_id','condition_2_id',],
+					'WHERE' => "acondition_type_id = 1 and composed != 'Y'", 'HIDE_COLS' => ['condition_1_id','operator_id','condition_2_id',],
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
 					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -140,7 +140,16 @@
 			'composedAconditionList' => array(
 					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 3,    
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
-					'WHERE' => "composed='Y'", 'HIDE_COLS' => ['afield_id','compare_id','aparameter_id',],
+					'WHERE' => "acondition_type_id = 1 and composed='Y'", 'HIDE_COLS' => ['afield_id','compare_id','aparameter_id',],
+					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
+					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
+					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+					'CSS' => 'width_pct_100',),
+
+			'otherAconditionList' => array(
+					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 4,    
+					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
+					'WHERE' => "acondition_type_id != 1", 
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
 					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

@@ -442,7 +442,7 @@ class AdmObject extends AFWObject{
 
                 $main_company = AfwSession::config("main_company","all");
                 $file_dir_name = dirname(__FILE__);        
-                include($file_dir_name."/../../external/qualification_level-$main_company.php");
+                include($file_dir_name."/../extra/qualification_level-$main_company.php");
 
                 foreach($lookup as $id => $lookup_row)
                 {

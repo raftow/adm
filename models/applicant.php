@@ -3,7 +3,7 @@
 
 $main_company = AfwSession::config("main_company", "all");
 $file_dir_name = dirname(__FILE__);
-require_once($file_dir_name . "/../../external/applicant_additional_fields-$main_company.php");
+require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
 
 class Applicant extends AdmObject
 {
@@ -97,7 +97,7 @@ class Applicant extends AdmObject
         if (!$additional_fields) {
             $main_company = AfwSession::config("main_company", "all");
             $file_dir_name = dirname(__FILE__);
-            require_once($file_dir_name . "/../../external/applicant_additional_fields-$main_company.php");
+            require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
         }
 
         $return = $additional_fields[$field_name];
@@ -173,7 +173,7 @@ class Applicant extends AdmObject
         if (!$additional_fields) {
             $main_company = AfwSession::config("main_company", "all");
             $file_dir_name = dirname(__FILE__);
-            require_once($file_dir_name . "/../../external/applicant_additional_fields-$main_company.php");
+            require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
         }
 
         if ($additional_fields) {
@@ -359,7 +359,7 @@ class Applicant extends AdmObject
    {
         $main_company = AfwSession::config("main_company", "all");
         $file_dir_name = dirname(__FILE__);
-        require_once($file_dir_name . "/../../external/qualification_level-$main_company.php");   
+        require_once($file_dir_name . "/../extra/qualification_level-$main_company.php");   
         // $lookup
         foreach($lookup as $lookup_level => $lookupItem)
         {

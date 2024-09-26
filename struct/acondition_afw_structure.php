@@ -25,7 +25,7 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_100',),
 
-
+				
 
 		'acondition_origin_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
@@ -42,8 +42,9 @@
 		
 		
 		'acondition_type_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition_type',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'UTF8' => false,  
+				'READONLY' => true,
+				'TYPE' => 'FK',  'ANSWER' => 'acondition_type',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAULT' => 1,    
 				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25', ),	
@@ -100,10 +101,12 @@
 		
 		'condition_1_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+				'TYPE' => 'FK',  'ANSWER' => 'acondition',  
+				'WHERE' => "acondition_origin_id=§acondition_origin_id§ and acondition_type_id=3",
+				'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_75', ),	
 		
 		
 		'operator_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -116,13 +119,15 @@
 		
 		'condition_2_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+				'TYPE' => 'FK',  'ANSWER' => 'acondition',  
+				'WHERE' => "acondition_origin_id=§acondition_origin_id§ and acondition_type_id=3",
+				'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_75', ),	
 
 				'application_table_id' => array(
-					'TYPE' => 'INT',  
+					'TYPE' => 'INT', 'NO-COTE' => true,   
 					'CATEGORY' => 'FORMULA',  'SEARCH-BY-ONE' => '',  'DISPLAY' => '', 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 					),	
@@ -131,7 +136,7 @@
 		'afield_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 
-				'WHERE' => "application_table_id=§application_table_id§", 
+				'WHERE' => "application_table_id in (§application_table_id§)", 
 				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
