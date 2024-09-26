@@ -251,7 +251,28 @@ class AdmObject extends AFWObject{
         }
 
         
+        public static function list_of_agreement_scope_type_enum()
+        {
+            global $lang;
+            return self::agreement_scope_type_enum()[$lang];
+        }
         
+        public static function agreement_scope_type_enum()
+        {
+                $arr_list_of_agreement_scope_type_enum = array();
+                
+                        
+                $arr_list_of_agreement_scope_type_enum["en"][1] = "general";
+                $arr_list_of_agreement_scope_type_enum["ar"][1] = "عام";
+                
+                $arr_list_of_agreement_scope_type_enum["en"][2] = "private";
+                $arr_list_of_agreement_scope_type_enum["ar"][2] = "خاص";
+                
+                
+                
+                return $arr_list_of_agreement_scope_type_enum;
+        }
+
         public static function list_of_marital_status_enum()
         {
             global $lang;
