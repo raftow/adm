@@ -208,7 +208,7 @@ class Acondition extends AdmObject{
 
         public function calcApplication_table_id()
         {
-               return $this->_isGeneral() ? '1,2' : '1,2,3';
+               return $this->_isGeneral() ? '1,3' : '1,2,3';
         }
 
         protected function getPublicMethods()
@@ -264,11 +264,11 @@ class Acondition extends AdmObject{
                                                 list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                 if($res)
                                                 {
-                                                        $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                        $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." <i>".$comments."</i>";      
                                                 }
                                                 else
                                                 {
-                                                        $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                        $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getWideDisplay($lang)." <i>".$comments."</i>";      
                                                 }
         
                                                 if($err) $err_arr[] = $err;
@@ -281,7 +281,7 @@ class Acondition extends AdmObject{
                                                 $desireList = $appItem->getMyDesires($simulation_application_plan_id);
                                                 if(count($desireList)==0) 
                                                 {
-                                                        $err_arr[] = "لا يوجد رغبات للمتقدم ".$appItem->getDisplay($lang)." على حملة القبول ".$simulation_application_plan_id;
+                                                        $err_arr[] = "لا يوجد رغبات للمتقدم ".$appItem->getWideDisplay($lang)." على حملة القبول ".$simulation_application_plan_id;
                                                 }
                                                 foreach($desireList as $desireItem)
                                                 {
@@ -293,11 +293,11 @@ class Acondition extends AdmObject{
                                                         list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
                                                         if($res)
                                                         {
-                                                                $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                                $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                         }
                                                         else
                                                         {
-                                                                $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                                $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getWideDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
                                                         }
         
                                                         if($err) $err_arr[] = $err;
@@ -351,7 +351,13 @@ class Acondition extends AdmObject{
                         $applicant_id = $obj->id;
                         $adesire_id = 0;
                         
-                }/*
+                }
+                elseif($obj instanceof Application)
+                {
+                        $applicant_id = $obj->getVal("applicant_id");
+                        $application_id = $obj->id;
+                }
+                /*
                 elseif($obj instanceof ApplicationDesire)
                 {
                         $applicant_id = $obj->getVal("applicant_id");
@@ -403,7 +409,67 @@ class Acondition extends AdmObject{
                         $comparator = $this->getVal("compare_id");
 
                         $field_name = $this->afObj->getVal("field_name");
-                        $field_value = $obj->getVal($field_name);
+                        $field_reel = $this->afObj->_isReel();
+                        $application_table_id = $this->afObj->getVal("application_table_id");
+                        if($application_table_id==1)
+                        {
+                                if($field_reel)
+                                {
+                                        $field_value = $obj->getVal($field_name);
+                                        $field_value_case = "getVal";
+                                }
+                                else
+                                {
+                                        $field_value = $obj->calc($field_name);
+                                        $field_value_case = "calc";
+                                }
+                        }
+                        elseif($application_table_id==3)
+                        {
+                                // die("here rafik applicant_id=$applicant_id application_table_id=$application_table_id application_plan_id=$application_plan_id field_name=$field_name field_reel=$field_reel");
+                                $objApp = Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate);
+                                if(!$objApp)
+                                {
+                                        // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate) keyf failed ??");
+                                        $field_value = null;
+                                        $field_value_case = "Application::loadByMainIndex return null"; 
+                                }
+                                elseif($field_reel)
+                                {
+                                        $field_value = $objApp->getVal($field_name);
+                                        $field_value_case = "getVal";
+                                }
+                                else
+                                {
+                                        // die("before objApp->calc rafik applicant_id=$applicant_id application_table_id=$application_table_id field_name=$field_name");
+                                        $field_value = $objApp->calc($field_name);
+                                        $field_value_case = "calc";
+                                }
+                        }
+                        elseif($application_table_id==2)
+                        {
+                                $objDesire = ApplicationDesire::loadById(1);
+                                if(!$objDesire)
+                                {
+                                        $field_value = null;
+                                        $field_value_case = "ApplicationDesire::loadByMainIndex return null"; 
+                                }
+                                elseif($field_reel)
+                                {
+                                        $field_value = $objDesire->getVal($field_name);
+                                        $field_value_case = "getVal";
+                                }
+                                else
+                                {
+                                        $field_value = $objDesire->calc($field_name);
+                                        $field_value_case = "calc";
+                                }
+                        }
+   
+                        if(is_string($field_value) and (strlen($field_value)>15))
+                        {
+                                throw new AfwRuntimeException("not valid field value : $field_value = <br> $obj => <br> $field_value_case($field_name)");        
+                        }
                         $param_valueObj = $this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
 
                         if(!$param_valueObj) 
@@ -413,7 +479,7 @@ class Acondition extends AdmObject{
                         }
                         else
                         {
-                                $param_value =$param_valueObj->getVal("value");
+                                $param_value = $param_valueObj->getVal("value");
                                 list($exec_result, $comments) = $this->applyComparison($field_value, $comparator, $param_value, $lang);
                         } 
                         
@@ -567,6 +633,11 @@ class Acondition extends AdmObject{
                 }
                 
                 return $otherLinksArray;          
+        }
+
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="afield_type_id") return true;
+                return false;
         }
 
         // generalCondition

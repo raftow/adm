@@ -57,6 +57,15 @@ class Applicant extends AdmObject
         else return $return;
     }
 
+    public function getWideDisplay($lang = 'ar')
+    {
+        $return = trim($this->getDefaultDisplay($lang));
+        $return .= " ".$this->tm("identity")." : ".$this->id;
+        return $return;
+    }
+
+    
+
     public function stepsAreOrdered()
     {
         return false;
@@ -392,6 +401,22 @@ class Applicant extends AdmObject
         }
 
         $this->commit();
-   }
+    }
+    
+
+    public function getLastQualification()
+    {
+        $obj = new ApplicantQualification();
+        $obj->select("applicant_id", $this->id);
+        $obj->select("active", "Y");
+                        
+        if($obj->load())
+        {
+                return $obj;
+        }
+        else return null;
+    }
+
+    
 }
 

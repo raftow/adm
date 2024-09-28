@@ -138,9 +138,16 @@
 				'TYPE' => 'FK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 
 				'WHERE' => "application_table_id in (§application_table_id§)", 
 				'SIZE' => 40,  'DEFAUT' => 0,    
+				'DEPENDENT_OFME' => ['aparameter_id', ],
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_50', ),	
+				
+						'afield_type_id' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'afield_id.application_field_type_id', 	
+								'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'afield_type_enum',
+								// 'SHOW' => true, 'STEP' => 2, 'EDIT' => true, 
+								'STEP' => 99,
+						),	
 		
 		
 		'compare_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -153,7 +160,12 @@
 		
 		'aparameter_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+				'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  
+				// 'WHERE' => "afield_type_id = §afield_type_id§",
+				// I remove this above because 5 shoud be in (5,6) not = 6
+				// @to-review
+				'DEPENDENCIES' => ['afield_id', ],
+				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'DNA' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25', ),	

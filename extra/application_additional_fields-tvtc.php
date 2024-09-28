@@ -78,17 +78,25 @@ class ApplicationFormulaManager
                         $age = round(10 * $ageInDays / 365) / 10;
                         if($age<=0) $age = 0;
                     }
-                    else $age = -4;                    
+                    else $age = 666;                    
                 }
-                else $age = -3;
+                else $age = 777;
             }
-            else $age = -2; // no start date to calculate age
-    
+            else $age = 888; // no start date to calculate age
+            /*
+            if(!is_numeric($age))
+            {
+                return "$age = round(10 * $ageInDays / 365) / 10;";
+            }*/
             return $age;
         }
         catch(Exception $e)
         {
-            return -99;
+            return 999;
+        }
+        catch(Error $e)
+        {
+            return 555;
         }
     }
     

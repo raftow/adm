@@ -50,8 +50,10 @@ $trad["application_field"]["application_field_type_id"] = "نوع الحقل";
 
 $trad["application_field"]["utf8"] = "نص عربي";
 $trad["application_field"]["additional"] = "حقل إضافي";
+$trad["application_field"]["reel"] = "حقل حقيقي";
+
 /*
-$trad["application_field"]["formula"] = "صيغة حساب قيمة الحقل";
+
 $trad["application_field"]["formula_type_id"] = "نوع المعادلة";*/
 
 $trad["application_field"]["applicationfield.single"] = "حقل";

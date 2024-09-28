@@ -1,89 +1,13 @@
 <?php
-// 9/9/24 rafik
-/*
-DROP TABLE IF EXISTS c0adm.application_field;
-
-CREATE TABLE IF NOT EXISTS c0adm.`application_field` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default 'Y',
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-    
-   field_name varchar(48)  DEFAULT NULL , 
-   shortname varchar(32)  DEFAULT NULL , 
-   application_table_id smallint DEFAULT NULL , 
-   application_field_type_id smallint DEFAULT NULL , 
-   field_title_ar varchar(64)  DEFAULT NULL , 
-   field_title_en varchar(64)  DEFAULT NULL , 
-   reel char(1) DEFAULT NULL , 
-   additional char(1) DEFAULT NULL , 
-   unit varchar(32)  DEFAULT NULL , 
-   unit_en varchar(32)  DEFAULT NULL , 
-   field_order smallint DEFAULT NULL , 
-   field_num smallint DEFAULT NULL , 
-   field_size smallint DEFAULT NULL , 
-   help_text text  DEFAULT NULL , 
-   help_text_en text  DEFAULT NULL , 
-   question_text text  DEFAULT NULL , 
-   question_text_en text  DEFAULT NULL , 
-
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
-
-create unique index uk_application_field on c0adm.application_field(application_table_id, field_name);
-
-delete from c0adm.`application_field`;
-
-insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
-select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
-from c0pag.afield
-where id in (110734, 110735);
-
-insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
-select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
--- select count(*)
-from c0pag.afield
-where atable_id = 13890
-  and avail = 'Y'
-  and reel = 'Y'
-  and afield_type_id in (1,2,3,13,14,5,6,7,9,8,12,15,16)
-  and id not in (110297,110298,110308,110306,110332,110356,110358,110361,110373,110375);
-
-insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
-select id, id_aut, now(), avail, version, field_name, shortname, 3, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
--- select count(*)
-from c0pag.afield
-where atable_id = 13917
-  and avail = 'Y'
-  and reel = 'Y'
-  and readonly = 'N'
-  and afield_type_id in (1,2,3,13,14,5,6,7,9,8,12,15,16);
-
-  
-
-*/
-
 
 global $enum_tables, $lookup_tables, $count_here;
 
-
-
-
-
-
 class ApplicationField extends AdmObject {
+
+        public function __construct(){
+		parent::__construct("application_field","id","adm");
+                AdmApplicationFieldAfwStructure::initInstance($this);
+	}
 
         public static $AFIELD_TYPE_AMNT = 3; 
 
@@ -161,10 +85,7 @@ class ApplicationField extends AdmObject {
         public static $DB_STRUCTURE = null; 
         
         
-        public function __construct(){
-		parent::__construct("application_field","id","adm");
-                AdmApplicationFieldAfwStructure::initInstance($this);
-	}
+        
         
         public static function loadById($id)
         {
@@ -269,107 +190,8 @@ class ApplicationField extends AdmObject {
         
         
         
-         public function attributeIsApplicable($attribute)
-         {
-                $my_tab = $this->het("application_table_id");
-                
-                if($attribute=="answer_table_id")
-                {
-                        return $this->needAnswerTable();
-                }
-                
-                if($attribute=="answer_module_id")
-                {
-                        return $this->needAnswerTable();
-                }
-                
-                if($attribute=="field_where")
-                {
-                        return $this->needAnswerTable();
-                }
-                
-                
-                
-                
-                if($attribute=="entity_relation_type_id")
-                {
-                        return (($this->getVal("application_field_type_id")==5) and ($this->is("reel"))); 
-                }
-                
-                if($attribute=="application_field_category_id")
-                {
-                        return (!$this->is("reel")); 
-                }
-
-                if(($attribute=="sql") or ($attribute=="sql_gen") 
-                        or ($attribute=="mode_qsearch")
-                        or ($attribute=="mandatory")
-                        or ($attribute=="distinct_for_list")
-                        )
-                {
-                        return ($this->is("reel")); 
-                }
-                        
-
-
-                if($attribute=="foption_mfk")
-                {
-                        return true; 
-                }
-                
-                if($attribute=="entity_relation_type_id_help")
-                {
-                        return ($this->getVal("application_field_type_id")==5); 
-                }
-                
-                if($attribute=="utf8")
-                {
-                        return (in_array($this->getVal("application_field_type_id"),array(10,11)));
-                }
-                
-                if(($attribute=="field_size") or ($attribute=="field_width"))
-                {
-                        return ($this->is("reel") and in_array($this->getVal("application_field_type_id"),array(10, 11)));
-                }
-                
-                if($attribute=="field_min_size")
-                {
-                        return ($this->is("reel") and $this->is("mandatory") and in_array($this->getVal("application_field_type_id"),array(10, 11)));
-                }
-                
-                if($attribute=="char_group_men")
-                {
-                        return ($this->is("reel") and in_array($this->getVal("application_field_type_id"),array(10, 11)));
-                }
-                
-                if($attribute=="scenario_item_id")
-                {
-                        if($my_tab)
-                        {
-                                $roles_on_screen_tabs = $my_tab::$TBOPTION_OPEN_ROLES_ON_SCREEN_TABS;
-                                if($my_tab->hasOption($roles_on_screen_tabs))
-                                {
-                                        //if($my_tab->getVal("application_table_name")=="travel_template_bus") die("my_tab->hasOption($roles_on_screen_tabs) = true");
-                                        return true;
-                                } 
-                                /*
-                                $scis = $my_tab->get("scis");
-                                $scis_count = count($scis);
-                                if($scis_count>0)
-                                {
-                                //if($my_tab->getVal("application_table_name")=="travel_template_bus") die("scis = ".var_export($scis,true));
-                                return true;
-                                }*/
-                                else return false;
-                                
-                                /* old code before changes 004
-                                if($my_tab->hasOption($my_tab::$TBOPTION_OPEN_ROLES_ON_SCREEN_TABS)) return true;
-                                $scis = $my_tab->get("scis");
-                                $scis_count = count($scis);
-                                if($scis_count>0)  return true;*/                           
-                        }
-                }
-
+        public function attributeIsApplicable($attribute)
+        {
                 return true;
         }
         
@@ -666,4 +488,81 @@ class ApplicationField extends AdmObject {
 
         
 }
+
+// 9/9/24 rafik
+/*
+DROP TABLE IF EXISTS c0adm.application_field;
+
+CREATE TABLE IF NOT EXISTS c0adm.`application_field` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_by` int(11) NOT NULL,
+  `created_at`   datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `validated_by` int(11) DEFAULT NULL,
+  `validated_at` datetime DEFAULT NULL,
+  `active` char(1) NOT NULL,
+  `draft` char(1) NOT NULL default 'Y',
+  `version` int(4) DEFAULT NULL,
+  `update_groups_mfk` varchar(255) DEFAULT NULL,
+  `delete_groups_mfk` varchar(255) DEFAULT NULL,
+  `display_groups_mfk` varchar(255) DEFAULT NULL,
+  `sci_id` int(11) DEFAULT NULL,
+  
+    
+   field_name varchar(48)  DEFAULT NULL , 
+   shortname varchar(32)  DEFAULT NULL , 
+   application_table_id smallint DEFAULT NULL , 
+   application_field_type_id smallint DEFAULT NULL , 
+   field_title_ar varchar(64)  DEFAULT NULL , 
+   field_title_en varchar(64)  DEFAULT NULL , 
+   reel char(1) DEFAULT NULL , 
+   additional char(1) DEFAULT NULL , 
+   unit varchar(32)  DEFAULT NULL , 
+   unit_en varchar(32)  DEFAULT NULL , 
+   field_order smallint DEFAULT NULL , 
+   field_num smallint DEFAULT NULL , 
+   field_size smallint DEFAULT NULL , 
+   help_text text  DEFAULT NULL , 
+   help_text_en text  DEFAULT NULL , 
+   question_text text  DEFAULT NULL , 
+   question_text_en text  DEFAULT NULL , 
+
+  
+  PRIMARY KEY (`id`)
+) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
+
+create unique index uk_application_field on c0adm.application_field(application_table_id, field_name);
+
+delete from c0adm.`application_field`;
+
+insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
+select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
+from c0pag.afield
+where id in (110734, 110735);
+
+insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
+select id, id_aut, now(), avail, version, field_name, shortname, 1, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
+-- select count(*)
+from c0pag.afield
+where atable_id = 13890
+  and avail = 'Y'
+  and reel = 'Y'
+  and afield_type_id in (1,2,3,13,14,5,6,7,9,8,12,15,16)
+  and id not in (110297,110298,110308,110306,110332,110356,110358,110361,110373,110375);
+
+insert into c0adm.`application_field` (id, created_by, created_at, active, version, field_name, shortname, application_table_id, application_field_type_id, field_title_ar, field_title_en, reel, additional, unit, unit_en, field_order, field_num, field_size)
+select id, id_aut, now(), avail, version, field_name, shortname, 3, afield_type_id, titre, titre_en, reel, additional, unit, unit_en, field_order, field_num, field_size
+-- select count(*)
+from c0pag.afield
+where atable_id = 13917
+  and avail = 'Y'
+  and reel = 'Y'
+  and readonly = 'N'
+  and afield_type_id in (1,2,3,13,14,5,6,7,9,8,12,15,16);
+
+  
+
+*/
+
 ?>

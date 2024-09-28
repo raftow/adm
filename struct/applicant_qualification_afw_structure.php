@@ -8,13 +8,13 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 // $obj->DISPLAY_FIELD = "applicant_qualification_name_ar";
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
+                                $obj->ORDER_BY_FIELDS = "applicant_id, date desc";
                                 $obj->UNIQUE_KEY = array('applicant_id','qualification_id','major_category_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
-                                $obj->editByStep = false;
-                                $obj->editNbSteps = 1; 
+                                // $obj->editByStep = true;
+                                // $obj->editNbSteps = 1; 
                                 $obj->after_save_edit = array("class"=>'Applicant',"attribute"=>'applicant_id', "currmod"=>'adm',"currstep"=>5);
                         }
                 }
@@ -51,7 +51,8 @@
                                         'major_category_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'major_category',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 
+                                                'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
@@ -109,6 +110,7 @@
                                                 'RETRIEVE' => true,
                                                 'EDIT' => true,
                                                 'QEDIT' => true,
+                                                'MANDATORY' => true, 
                                                 'SEARCH-ADMIN' => true,
                                                 'SHOW-ADMIN' => true,
                                                 'EDIT-ADMIN' => true,

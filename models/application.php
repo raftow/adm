@@ -1,44 +1,4 @@
 <?php
-/*
-         medali 19/9/2024
-         CREATE TABLE IF NOT EXISTS c0adm.`application` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default 'Y',
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-    
-   applicant_id int(11) NOT NULL , 
-   application_plan_id int(11) NOT NULL , 
-   application_model_id int(11) NOT NULL , 
-   step_num smallint DEFAULT NULL , 
-   application_step_id int(11) DEFAULT NULL , 
-   application_status_enum smallint NOT NULL , 
-   applicant_qualification_id int(11) DEFAULT NULL , 
-   qualification_id int(11) DEFAULT NULL , 
-   major_category_id int(11) DEFAULT NULL , 
-
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
-
-ALTER TABLE c0adm.application CHANGE `applicant_id` `applicant_id` BIGINT(20) NOT NULL;
-alter table c0adm.application add   attribute_1 smallint DEFAULT NULL  after major_category_id;
-alter table c0adm.application add   attribute_2 smallint DEFAULT NULL  after attribute_1;
-
-
-         */
-
 $main_company = AfwSession::config("main_company", "all");
 $file_dir_name = dirname(__FILE__);
 require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");
@@ -67,6 +27,35 @@ class Application extends AdmObject
                 } else return null;
         }
 
+        public static function loadByMainIndex($applicant_id, $application_plan_id,$create_obj_if_not_found=false)
+        {
+           if(!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
+           if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+
+
+           $obj = new Application();
+           $obj->select("applicant_id",$applicant_id);
+           $obj->select("application_plan_id",$application_plan_id);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("applicant_id",$applicant_id);
+                $obj->set("application_plan_id",$application_plan_id);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
+
         public function getDisplay($lang = 'ar')
         {
                 return $this->getDefaultDisplay($lang);
@@ -75,6 +64,21 @@ class Application extends AdmObject
         public function stepsAreOrdered()
         {
                 return false;
+        }
+
+        public function beforeMaj($id, $fields_updated)
+        {
+                if(!$this->getVal("applicant_qualification_id"))
+                {
+                        $applicantObj = $this->het("applicant_id");
+                        if($applicantObj)
+                        {
+                                $objApplicantQual = $applicantObj->getLastQualification(); 
+                                if($objApplicantQual) $this->set("applicant_qualification_id", $objApplicantQual->id); 
+                        }
+                }
+
+                return true;
         }
 
         public static function getApplicationAdditionalFieldParams($field_name)
@@ -171,4 +175,55 @@ class Application extends AdmObject
                 // die("calling getAttributeLabel($attribute, $lang, short=$short)");
                 return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
         }
+
+        public function getScenarioItemId($currstep)
+        {
+                if($currstep == 1) return 477;
+                if($currstep == 2) return 478;
+                if($currstep == 3) return 483;
+                if($currstep == 4) return 485;
+
+                return 0;
+        }
 }
+
+/*
+         medali 19/9/2024
+         CREATE TABLE IF NOT EXISTS c0adm.`application` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_by` int(11) NOT NULL,
+  `created_at`   datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `validated_by` int(11) DEFAULT NULL,
+  `validated_at` datetime DEFAULT NULL,
+  `active` char(1) NOT NULL,
+  `draft` char(1) NOT NULL default 'Y',
+  `version` int(4) DEFAULT NULL,
+  `update_groups_mfk` varchar(255) DEFAULT NULL,
+  `delete_groups_mfk` varchar(255) DEFAULT NULL,
+  `display_groups_mfk` varchar(255) DEFAULT NULL,
+  `sci_id` int(11) DEFAULT NULL,
+  
+    
+   applicant_id int(11) NOT NULL , 
+   application_plan_id int(11) NOT NULL , 
+   application_model_id int(11) NOT NULL , 
+   step_num smallint DEFAULT NULL , 
+   application_step_id int(11) DEFAULT NULL , 
+   application_status_enum smallint NOT NULL , 
+   applicant_qualification_id int(11) DEFAULT NULL , 
+   qualification_id int(11) DEFAULT NULL , 
+   major_category_id int(11) DEFAULT NULL , 
+
+  
+  PRIMARY KEY (`id`)
+) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
+
+ALTER TABLE c0adm.application CHANGE `applicant_id` `applicant_id` BIGINT(20) NOT NULL;
+alter table c0adm.application add   attribute_1 smallint DEFAULT NULL  after major_category_id;
+alter table c0adm.application add   attribute_2 smallint DEFAULT NULL  after attribute_1;
+
+
+         */
+
