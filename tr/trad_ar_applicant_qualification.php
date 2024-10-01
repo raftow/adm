@@ -14,6 +14,7 @@
 	$trad["applicant_qualification"]["gpa_from"] = "من";
 	$trad["applicant_qualification"]["date"] = "تاريخ  المؤهل";
 	$trad["applicant_qualification"]["source"] = "الجهة مصدر المؤهل";
-	$trad["applicant_qualification"]["imported"] = "مستورد";
+	$trad["applicant_qualification"]["imported"] = "تم التحقق";
+	$trad["applicant_qualification"]["imported.help"] = "تم التحقق من المؤهلات";
 	$trad["applicant_qualification"]["import_utility_id"] = "مصدر استيراد البيانات";
 	$trad["applicant_qualification"]["qualification_major_desc"] = "وصف تخصص المؤهل";

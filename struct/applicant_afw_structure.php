@@ -26,31 +26,6 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-
-                                        'country_id' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
-                                                
-
-
-                                        'mobile' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
-
-
-                                        'email' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
-                                        
-
                                         'idn_type_id' => array('FGROUP'=>'idn-infos', 
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => true,
@@ -98,7 +73,34 @@
                                                 'EDIT-UGROUPS' => '',
                                                 
                                                 'CSS' => 'width_pct_25',
-                                            ],
+                                            ],                                                
+
+
+                                        'country_id' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),	
+                                                
+
+
+                                        'mobile' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
+
+
+                                        'email' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+
+                                        
+
+                                        
 
 
                                         'id_expiry_date' => ['FGROUP'=>'idn-infos', 
