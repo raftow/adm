@@ -135,7 +135,7 @@ class ApplicationField extends AdmObject {
         }
         
         /*
-        protected function dynamicHelpCondition($attribute)
+        public function dynamicHelpCondition($attribute)
         {
              if($attribute=="titre_short") return ($this->getVal("titre_short") != $this->getVal("titre"));
              
