@@ -131,7 +131,7 @@
 
 
 'instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
+        'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '100', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),

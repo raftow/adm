@@ -29,7 +29,7 @@
                                         'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=>true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
@@ -39,6 +39,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DEPENDENT_OFME' => array("major_category_id","source","qualification_major_id"),
                                                 'CSS' => 'width_pct_25', ),	
 
                                                                 'level_enum' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'qualification_id.level_enum',
@@ -47,13 +48,17 @@
                                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                                                 'CSS' => 'width_pct_25', ),
 
-                                        // @todo rafik : dependecy bring only ctegories that exists in major_path for this qualification_id        
+                                        // @todo rafik : dependecy bring only ctegories that exists in major_path for this qualification_id   
+                                        // done by medali     
                                         'major_category_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'major_category',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 
                                                 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'WHERE' => 'id in (select major_category_id from §DBPREFIX§adm.major_path where qualification_id=§qualification_id§ and active="Y")',
+                                                'DEPENDENCIES' => ['qualification_id'],
+                                                'DEPENDENT_OFME' => array("qualification_major_id"),
                                                 'CSS' => 'width_pct_25', ),	
 
 
@@ -71,6 +76,9 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification_major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'WHERE'=>' id in (select qualification_major_id from §DBPREFIX§adm.qual_major_path mp inner join §DBPREFIX§adm.major_path m on mp.major_path_id=m.id where m.qualification_id=§qualification_id§ and m.major_category_id=§major_category_id§)',
+                                                'DEPENDENCIES' => ['qualification_id','major_category_id'],
+                                                'DEPENDENT_OFME' => array(),
                                                 'CSS' => 'width_pct_25', ),	
 
 
@@ -92,14 +100,17 @@
                                         'gpa_from' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => false,
+                                                'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
-                                                'TYPE' => 'INT', 'MANDATORY' => true, 
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
+                                                'READONLY' => false,
+                                                'DISPLAY'=>true,
+                                                'DEFAUT'=>'',
+                                                'CSS' => 'width_pct_25'),
 
 
 
@@ -123,11 +134,13 @@
                                                 'CSS' => 'width_pct_25',
                                             ],
 
-
-                                        'source' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+                                        // @todo medali depency with qual_source
+                                        'source' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'TYPE' => 'FK','ANSWER'=>'qual_source','ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'RELATION' => 'ManyToOne',
+                                                'WHERE' =>'qualification_id=§qualification_id§ ',
+                                                'DEPENDENCIES' => ['qualification_id'],
                                                 'CSS' => 'width_pct_25',),
                                                 
 

@@ -14,4 +14,5 @@
 	$trad["qualification"]["sis_code"] = "الربط مع نظام المتدربين";
     $trad["qualification"]["qualSourceList"] = "قائمة مصادر المؤهل";
     $trad["qualification"]["qualMajorPathList"] = "قائمة مسارات تأهيل التخصصات";
+	$trad["qualification"]["gpa_from"] = "الدرجة القصوى";
 	

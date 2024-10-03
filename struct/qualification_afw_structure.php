@@ -56,7 +56,18 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
                                                 
-
+                                                'gpa_from' => array(
+                                                        'IMPORTANT' => 'IN',
+                                                        'SHOW' => true,
+                                                        'RETRIEVE' => false,
+                                                        'QEDIT' => true,
+                                                        'EDIT' => true,
+                                                        'TYPE' => 'INT', 'MANDATORY' => true, 
+                                                        'STEP' => 1,
+                                                        'DISPLAY-UGROUPS' => '',
+                                                        'EDIT-UGROUPS' => '',
+                                                        'CSS' => 'width_pct_25',),
+        
 
                                         'sis_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  

@@ -18,11 +18,11 @@
                                 
                                 $obj->UNIQUE_KEY = array('applicant_id','admission_agreement_plan_id');
                                 $obj->editByStep = false;
-                $obj->editNbSteps = 1;
-                $obj->showQeditErrors = true;
-                $obj->showRetrieveErrors = true;
-                $obj->general_check_errors = true;
-                                // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
+                                $obj->editNbSteps = 1;
+                                $obj->showQeditErrors = true;
+                                $obj->showRetrieveErrors = true;
+                                $obj->general_check_errors = true;
+                                $obj->after_save_edit = array("class"=>'AdmissionAgreementPlan',"attribute"=>'admission_agreement_plan_id', "currmod"=>'adm',"currstep"=>4);
                         }
                 }
                 
@@ -31,13 +31,13 @@
      array(
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
-		
-		'identity_type_id' => array('STEP' => 1,  'SHORTNAME' => 'type',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'admission_agreement_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'agreement_plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'identity_type',  'ANSMODULE' => 'adm',  
-				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'TYPE' => 'FK',  'ANSWER' => 'admission_agreement_plan',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'OneToMany',  'READONLY' => true, 
 				'CSS' => 'width_pct_50', ),
+
 
 		'idn' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
@@ -45,26 +45,28 @@
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'applicant_id' => array('STEP' => 1,  'SHORTNAME' => 'applicant',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                'identity_type_id' => array('STEP' => 1,  'SHORTNAME' => 'type',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'identity_type',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
+
+                'applicant_name' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 128,  'MAXLENGTH' => 128,  'MIN-SIZE' => 5,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
+
+                'applicant_id' => array('STEP' => 1,  'SHORTNAME' => 'applicant',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm', 'AUTOCOMPLETE'=>true,'AUTOCOMPLETE-SEARCH'=>true,
 				'RELATION' => 'ManyToOne',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'applicant_name' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 128,  'MAXLENGTH' => 128,  'MIN-SIZE' => 5,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
-				'TYPE' => 'TEXT',  'READONLY' => false, 
-				'CSS' => 'width_pct_50', ),
 
-		'admission_agreement_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'agreement_plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'admission_agreement_plan',  'ANSMODULE' => 'adm',  
-				'RELATION' => 'OneToMany',  'READONLY' => false, 
-				'CSS' => 'width_pct_50', ),
-
+		
 		'applicant_informed' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  

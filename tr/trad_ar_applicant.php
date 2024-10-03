@@ -1,15 +1,20 @@
 <?php
       
-
-    $trad["applicant"]["step1"] = "الملف الشخصي";
-    $trad["applicant"]["step2"] = "البيانات الشخصية";
-	$trad["applicant"]["step3"] = "العنوان";
-    $trad["applicant"]["step4"] = "معلومات متقدمة";
-	$trad["applicant"]["step5"] = "المؤهلات والتقديم";
+	$trad["applicant"]["step1"] = "إعدادات ملف المتقدم";
+    $trad["applicant"]["step2"] = "بيانات المتقدم";
+    $trad["applicant"]["step3"] = "المؤهلات العلمية والاختبارات";
+	$trad["applicant"]["step4"] = "بيانات الحالة الاكاديمية";
+	$trad["applicant"]["step5"] = "بيانات التقديم";
+    //$trad["applicant"]["step4"] = "بيانات الحالة الاكاديمية";
+	//$trad["applicant"]["step5"] = "المؤهلات والتقديم";
 	
 	$trad["applicant"]["applicationList"] = "طلبات التقديم";
 
 	$trad["applicant"]["applicantQualificationList"] = "مؤهلات المتقدم";
+	$trad["applicant"]["qualif"] = "المؤهلات العلمية";
+	$trad["applicant"]["appl"] = "بيانات التقديم";
+	$trad["applicant"]["applicantEvaluationList"] = "اختبارات التحصيلي و القدرات";
+	$trad["applicant"]["evaluation"] = "اختبارات التحصيلي و القدرات";
 	
 
 	$trad["applicant"]["applicant.single"] = "متقدم";
@@ -19,7 +24,7 @@
 	$trad["applicant"]["applicant.short_"] = "المتقدمين";
 
 	$trad["applicant"]["idn"] = "رقم الهوية";
-    $trad["applicant"]["idn-infos"] = "معلومات الهوية";
+    $trad["applicant"]["idn-infos"] = "اعدادات ملف المتقدم"; //معلومات الهوية
 	$trad["applicant"]["idn_type_id"] = "نوع الهوية";
 	$trad["applicant"]["id_issue_place"] = "مكان إصدار الهوية";
 	$trad["applicant"]["id_issue_date"] = "تاريخ إصدار الهوية";
@@ -57,16 +62,17 @@
     $trad["applicant"]["signup_acknoldgment.EUH"] = "ليس بعد";*/
     $trad["applicant"]["comm"] = "بيانات التواصل";
     $trad["applicant"]["account-infos"] = "بيانات الحساب";
-    $trad["applicant"]["profile"] = "بيانات المتقدم";
-    $trad["applicant"]["job_status"] = "المعلومات الوظيفية";
-    
+    $trad["applicant"]["profile"] = "البيانات الشخصية";
+    $trad["applicant"]["job_status"] = "بيانات حالة التوظيف";
+    $trad["applicant"]["profile-other"] = "بيانات أخرى";
 
     
     
     
     
-    $trad["applicant"]["bank"] = "المعلومات البنكية";
-	$trad["applicant"]["address"] = "عنوان الشارع";
+    $trad["applicant"]["bank"] = "بيانات الحساب البنكي";
+	$trad["applicant"]["address-infos"] = "العنوان";
+	$trad["applicant"]["address"] = "العنوان";
 	$trad["applicant"]["address_type_enum"] = "نوع العنوان";
 	$trad["applicant"]["country_code"] = "الرقم الدولي";
 	$trad["applicant"]["city_id"] = "مدينة الإقامة";
@@ -78,30 +84,31 @@
 	$trad["applicant"]["employer_approval"] = "موافقة من جهة العمل";
 	$trad["applicant"]["employer_enum"] = "جهة التوظيف";
 	$trad["applicant"]["employer_approval_afile_id"] = "اثبات الموافقة من جهة العمل";
-    $trad["applicant"]["guardian"] = "بيانات وليّ الأمر";
-	$trad["applicant"]["guardian_name"] = "اسم وليّ الأمر";
-	$trad["applicant"]["guardian_phone"] = "جوال وليّ الأمر";
+    $trad["applicant"]["guardian"] = "بيانات اتصال الطوارئ";
+	$trad["applicant"]["guardian_name"] = "الاسم";
+	$trad["applicant"]["guardian_phone"] = "رقم الجوال";
 	$trad["applicant"]["guardian_idn"] = "هوية وليّ الأمر";
 	$trad["applicant"]["guardian_id_date"] = "تاريخ إنتهاء هوية وليّ الأمر";
 	$trad["applicant"]["guardian_id_place"] = "مكان إصدار هوية وليّ الأمر";
 	$trad["applicant"]["relationship_enum"] = "صلة القرابة";
 
     // additional fields
-    $trad["applicant"]["rayat"] = "بيانات مستوردة من نظام رايات";
+    $trad["applicant"]["rayat"] = "الحالة الأكاديمية في نظام التدريب";
     $trad["applicant"]["hrsd"] = "بيانات مستوردة من وزارة الموارد البشرية";
-    $trad["applicant"]["moe"] = "بيانات مستوردة من وزارة التربية والتعليم";
+    $trad["applicant"]["moe"] = "الانتظام بالجامعة";
+	$trad["applicant"]["moegraduate"] = "حالة الخريج من الجامعة";
     $trad["applicant"]["qiyas"] = "بيانات مستوردة من هيئة قياس";
 
     // additional fields steps
-	$start_additional_step = 5;
+	$start_additional_step = 2;
 	$additional_step = $start_additional_step + 1;
-	$trad["applicant"]["step".$additional_step] = "التربية والتعليم";
+	$trad["applicant"]["step".$additional_step] = "المؤهلات العلمية والاختبارات";// "التربية والتعليم";
 	$additional_step++;
-    $trad["applicant"]["step".$additional_step] = "نظام رايات";
+    $trad["applicant"]["step".$additional_step] = "بيانات الحالة الاكاديمية";//"نظام رايات";
 	$additional_step++;
-	$trad["applicant"]["step".$additional_step] = "الموارد البشرية";
+	/*$trad["applicant"]["step".$additional_step] = "الموارد البشرية";
 	$additional_step++;
     $trad["applicant"]["step".$additional_step] = "هيئة قياس";
-	$additional_step++;
+	$additional_step++;*/
 
     

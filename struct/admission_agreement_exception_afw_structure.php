@@ -15,7 +15,7 @@
 
                                 $obj->editByStep = false;
                                 //$obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("class"=>'AdmissionAgreementPlan',"attribute"=>'admission_agreement_plan_id', "currmod"=>'adm',"currstep"=>4);
                         }
                 }
                 

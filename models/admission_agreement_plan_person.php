@@ -37,7 +37,7 @@ create unique index uk_admission_agreement_plan_person on c0adm.admission_agreem
                 public static $MODULE		    = "adm"; 
                 public static $TABLE			= "admission_agreement_plan_person"; 
                 public static $DB_STRUCTURE = null;
-                // public static $copypast = true;
+                public static $copypast = true;
 
                 public function __construct(){
                         parent::__construct("admission_agreement_plan_person","id","adm");

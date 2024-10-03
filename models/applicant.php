@@ -131,7 +131,7 @@ class Applicant extends AdmObject
 
 
         if ($col_struct == "step") {
-            $step =  $params["step"] + 5;
+            $step =  $params["step"] + 2;
             //if($col_struct=="step" and $field_name=="attribute_1") throw new AfwRuntimeException("step additional for $field_name =".$step);
             return $step;
         }
@@ -238,9 +238,20 @@ class Applicant extends AdmObject
                 
             }
             
+            
         }
 
-        
+        if ($mode == "mode_applicantEvaluationList") {
+            unset($link);
+            $link = array();
+            $title = "إضافة اختبار جديد";
+            // $title_detailed = $title . "لـ : " . $displ;
+            $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm&sel_applicant_id=$my_id";
+            $link["TITLE"] = $title;
+            $link["UGROUPS"] = array();
+            $otherLinksArray[] = $link;
+        }
+       
 
 
 

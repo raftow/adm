@@ -11,3 +11,4 @@
 	$trad["qualification"]["sis_code"] = "SIS Integration Code";
     $trad["qualification"]["qualSourceList"] = "List of qualification sources";
     $trad["qualification"]["qualMajorPathList"] = "List of Qual major paths";
+	$trad["qualification"]["gpa_from"] = "gpa from";

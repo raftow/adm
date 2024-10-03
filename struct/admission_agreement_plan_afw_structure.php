@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 2; 
+                                $obj->editNbSteps = 4; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -81,6 +81,23 @@
         'READONLY' => true,  'CAN-BE-SETTED' => true, 
         'CSS' => 'width_pct_100', ),
 
+'addmissionagreementExceptionList' => array('STEP' => 3, 'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  
+        'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  
+        'RETRIEVE' => false, 'EDIT' => false,  'QEDIT' => false,  
+        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+        'MANDATORY' => false,  'UTF8' => false,  
+        'TYPE' => 'FK', 'CATEGORY' => 'ITEMS',  'ANSWER' => 'admission_agreement_exception',  'ANSMODULE' => 'adm',  'ITEM' => 'admission_agreement_plan_id',  
+        'READONLY' => true,  'CAN-BE-SETTED' => true, 
+        'CSS' => 'width_pct_100', ),
+
+'addmissionagreementPersonList' => array('STEP' => 4, 'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  
+        'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  
+        'RETRIEVE' => false, 'EDIT' => false,  'QEDIT' => false,  
+        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+        'MANDATORY' => false,  'UTF8' => false,  
+        'TYPE' => 'FK', 'CATEGORY' => 'ITEMS',  'ANSWER' => 'admission_agreement_plan_person',  'ANSMODULE' => 'adm',  'ITEM' => 'admission_agreement_plan_id',  
+        'READONLY' => true,  'CAN-BE-SETTED' => true, 
+        'CSS' => 'width_pct_100', ),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
