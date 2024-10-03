@@ -26,7 +26,6 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25'),
 
-<<<<<<< HEAD
 
                                                 
 
@@ -41,8 +40,6 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'TEXT-SEARCHABLE-SEPARATED'=>true, 'FORMAT' => 'SA-IDN', 
                                                 'CSS' => 'width_pct_50'),
 
-=======
->>>>>>> a59c35a7f87d2accf3397c72558979b412f21452
                                         'idn_type_id' => array('FGROUP'=>'idn-infos', 
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => true,
@@ -83,40 +80,8 @@
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
                                                 
-<<<<<<< HEAD
                                                 'CSS' => 'width_pct_50',
                                             ],
-=======
-                                                'CSS' => 'width_pct_25',
-                                            ],                                                
-
-
-                                        'country_id' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
-                                                
-
-
-                                        'mobile' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
-
-
-                                        'email' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
-                                        
-
-                                        
->>>>>>> a59c35a7f87d2accf3397c72558979b412f21452
 
 
                                         'id_expiry_date' => ['FGROUP'=>'idn-infos', 

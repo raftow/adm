@@ -8,4 +8,5 @@ $migrations = [
     '00002' => ['by'=>'medali', 'title' => 'admission_agreement_scope'],
     '00003' => ['by'=>'medali', 'title' => 'admission_agreement_plan'],
     '00004' => ['by'=>'medali', 'title' => 'القبول المباشر'],
+    '00005' => ['by'=>'medali', 'title' => 'applicant qualification'],
 ];
