@@ -44,3 +44,4 @@
 	$trad["academic_level"]["abreviation_ar"] = "مسمى المرحلة التدريبية المختصر-العربي";
 	$trad["academic_level"]["abreviation_en"] = "مسمى المرحلة التدريبية المختصر-الإنجليزي";
 
+	$trad["academic_level"]["training_unit_type_mfk"] = "نوع المنشآت التدريبية";
