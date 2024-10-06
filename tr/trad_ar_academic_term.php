@@ -79,4 +79,12 @@
 
     $trad["academic_term"]["hijri"] = "هجري";
     $trad["academic_term"]["miladi"] = "ميلادي";
+
+
+	$trad["academic_term"]["hijri_sorting_start_date"] = "بداية تنفيذ الفرز - هجري";
+	$trad["academic_term"]["hijri_sorting_end_date"] = "نهاية تنفيذ الفرز - هجري";
+	$trad["academic_term"]["Results_Announcement_date"] = "تاريخ اعلان النتائج";
+	$trad["academic_term"]["hijri_Results_Announcement_date"] = "تاريخ اعلان النتائج - هجري";
+	
+
     

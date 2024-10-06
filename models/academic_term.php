@@ -49,7 +49,10 @@
                     $date_attributes[] = "seats_update_start_date";
                     $date_attributes[] = "seats_update_end_date";
                     $date_attributes[] = "migration_start_date";
-                    $date_attributes[] = "migration_end_date";                    
+                    $date_attributes[] = "migration_end_date";  
+                    $date_attributes[] = "Results_Announcement_date";
+                    $date_attributes[] = "sorting_start_date";
+                    $date_attributes[] = "sorting_end_date";                  
 
                     foreach($date_attributes as $date_attribute)
                     {

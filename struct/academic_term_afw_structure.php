@@ -427,7 +427,25 @@
                                                 'CSS' => 'width_pct_25',
                                             ],
 
-                                    
+                                            'Results_Announcement_date' => [
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'SEARCH-ADMIN' => true,
+                                                'SHOW-ADMIN' => true,
+                                                'EDIT-ADMIN' => true,
+                                                'UTF8' => false,
+                                                'TYPE' => 'GDAT',
+                                                
+                                                'STEP' => 2, 'FGROUP' => 'miladi',
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                
+                                                'CSS' => 'width_pct_25',
+                                            ],
 
                                         'maqbool_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
                                             'EDIT' => true,  'QEDIT' => true,  'SIZE' => '8', 'MAXLENGTH' => '8', 'UTF8' => true,  
@@ -515,8 +533,22 @@
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
+                                        'hijri_Results_Announcement_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
+                                                                        'CSS' => 'width_pct_25',),
 
-                                        
+                                        'hijri_sorting_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
+                                                                        'CSS' => 'width_pct_25',),
+                            
+                            
+                                        'hijri_sorting_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
+                                                                        'CSS' => 'width_pct_25',),
+                            
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
