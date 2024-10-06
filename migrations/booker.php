@@ -9,5 +9,6 @@ $migrations = [
     '00003' => ['by'=>'medali', 'title' => 'admission_agreement_plan'],
     '00004' => ['by'=>'medali', 'title' => 'القبول المباشر'],
     '00005' => ['by'=>'medali', 'title' => 'applicant qualification'],
-    '00006' => ['by'=>'medali', 'title' => 'Add date to academic level']
+    '00006' => ['by'=>'medali', 'title' => 'Add date to academic level'],
+    '00007' => ['by'=>'rafik', 'title' => 'continue work on application conditions'],
 ];

@@ -223,7 +223,7 @@
 				'CSS' => 'width_pct_25',),
 		
 		
-		
+		/*
 		'bfunction_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'screen_model',  'ANSMODULE' => 'adm', 
@@ -231,7 +231,7 @@
 				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 99,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_25', ), */
 		
 				
 												'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false,  

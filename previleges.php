@@ -53,18 +53,6 @@
   array (
     'name' => 'adm_file',
   ),
-  13856 => 
-  array (
-    'name' => 'afield',
-  ),
-  13861 => 
-  array (
-    'name' => 'afield_type',
-  ),
-  13862 => 
-  array (
-    'name' => 'answer_table',
-  ),
   13858 => 
   array (
     'name' => 'aparameter',
@@ -72,10 +60,6 @@
   13916 => 
   array (
     'name' => 'aparameter_value',
-  ),
-  13864 => 
-  array (
-    'name' => 'aparam_use_scope',
   ),
   13909 => 
   array (
@@ -96,10 +80,6 @@
   13912 => 
   array (
     'name' => 'application_field',
-  ),
-  13913 => 
-  array (
-    'name' => 'application_field_rule',
   ),
   13883 => 
   array (
@@ -125,10 +105,6 @@
   array (
     'name' => 'app_model_api',
   ),
-  13860 => 
-  array (
-    'name' => 'bfunction',
-  ),
   13896 => 
   array (
     'name' => 'check_method',
@@ -137,26 +113,6 @@
   array (
     'name' => 'check_type',
   ),
-  13893 => 
-  array (
-    'name' => 'city',
-  ),
-  13877 => 
-  array (
-    'name' => 'college',
-  ),
-  13857 => 
-  array (
-    'name' => 'compare',
-  ),
-  13853 => 
-  array (
-    'name' => 'condition_1',
-  ),
-  13855 => 
-  array (
-    'name' => 'condition_2',
-  ),
   13866 => 
   array (
     'name' => 'degree',
@@ -164,10 +120,6 @@
   13868 => 
   array (
     'name' => 'department',
-  ),
-  13894 => 
-  array (
-    'name' => 'employer_approval_afile',
   ),
   13908 => 
   array (
@@ -184,10 +136,6 @@
   13915 => 
   array (
     'name' => 'identity_type',
-  ),
-  13905 => 
-  array (
-    'name' => 'import_utility',
   ),
   13872 => 
   array (
@@ -208,26 +156,6 @@
   13899 => 
   array (
     'name' => 'major_path',
-  ),
-  13892 => 
-  array (
-    'name' => 'marital status',
-  ),
-  13891 => 
-  array (
-    'name' => 'nationality',
-  ),
-  13854 => 
-  array (
-    'name' => 'operator',
-  ),
-  13887 => 
-  array (
-    'name' => 'program',
-  ),
-  13886 => 
-  array (
-    'name' => 'program_offering',
   ),
   13903 => 
   array (
@@ -257,14 +185,6 @@
   array (
     'name' => 'screen_model',
   ),
-  13888 => 
-  array (
-    'name' => 'term',
-  ),
-  13863 => 
-  array (
-    'name' => 'tprogram',
-  ),
   13871 => 
   array (
     'name' => 'training_unit',
@@ -288,7 +208,7 @@
     'id' => '13865',
     'display' => 
     array (
-      'id' => '104606',
+      'id' => '104817',
     ),
     'search' => 
     array (
@@ -855,138 +775,6 @@
       'id' => -1,
     ),
   ),
-  'afield' => 
-  array (
-    'id' => '13856',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'afield_type' => 
-  array (
-    'id' => '13861',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'answer_table' => 
-  array (
-    'id' => '13862',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
   'aparameter' => 
   array (
     'id' => '13858',
@@ -1034,50 +822,6 @@
   'aparameter_value' => 
   array (
     'id' => '13916',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'aparam_use_scope' => 
-  array (
-    'id' => '13864',
     'display' => 
     array (
       'id' => -1,
@@ -1337,50 +1081,6 @@
     'delete' => 
     array (
       'id' => '104804',
-    ),
-  ),
-  'application_field_rule' => 
-  array (
-    'id' => '13913',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
     ),
   ),
   'application_model' => 
@@ -1647,50 +1347,6 @@
       'id' => '104790',
     ),
   ),
-  'bfunction' => 
-  array (
-    'id' => '13860',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
   'check_method' => 
   array (
     'id' => '13896',
@@ -1738,226 +1394,6 @@
   'check_type' => 
   array (
     'id' => '13895',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'city' => 
-  array (
-    'id' => '13893',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'college' => 
-  array (
-    'id' => '13877',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'compare' => 
-  array (
-    'id' => '13857',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'condition_1' => 
-  array (
-    'id' => '13853',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'condition_2' => 
-  array (
-    'id' => '13855',
     'display' => 
     array (
       'id' => -1,
@@ -2085,50 +1521,6 @@
     'delete' => 
     array (
       'id' => '104626',
-    ),
-  ),
-  'employer_approval_afile' => 
-  array (
-    'id' => '13894',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
     ),
   ),
   'evaluation' => 
@@ -2266,50 +1658,6 @@
   'identity_type' => 
   array (
     'id' => '13915',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'import_utility' => 
-  array (
-    'id' => '13905',
     'display' => 
     array (
       'id' => -1,
@@ -2569,226 +1917,6 @@
     'delete' => 
     array (
       'id' => '104748',
-    ),
-  ),
-  'marital status' => 
-  array (
-    'id' => '13892',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'nationality' => 
-  array (
-    'id' => '13891',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'operator' => 
-  array (
-    'id' => '13854',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'program' => 
-  array (
-    'id' => '13887',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'program_offering' => 
-  array (
-    'id' => '13886',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
     ),
   ),
   'program_qualification' => 
@@ -3099,94 +2227,6 @@
       'id' => '104812',
     ),
   ),
-  'term' => 
-  array (
-    'id' => '13888',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'tprogram' => 
-  array (
-    'id' => '13863',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
   'training_unit' => 
   array (
     'id' => '13871',
@@ -3407,14 +2447,6 @@
           'css' => 'bf',
           'icon' => ' bficon-104650 bfc-',
         ),
-        104692 => 
-        array (
-          'id' => '104692',
-          'menu_name' => 'المسارات',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramTrack&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104692 bfc-',
-        ),
         104685 => 
         array (
           'id' => '104685',
@@ -3530,7 +2562,7 @@
         104608 => 
         array (
           'id' => '104608',
-          'menu_name' => 'المراحل الاكاديمية',
+          'menu_name' => 'المراحل التدريبية',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104608 bfc-',
@@ -3559,21 +2591,69 @@
           'css' => 'bf',
           'icon' => ' bficon-104678 bfc-',
         ),
-        104692 => 
-        array (
-          'id' => '104692',
-          'menu_name' => 'المسارات',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramTrack&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104692 bfc-',
-        ),
         104716 => 
         array (
           'id' => '104716',
-          'menu_name' => 'فروع التقديم',
+          'menu_name' => 'البرامج المتاحة',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgramOffering&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104716 bfc-',
+        ),
+      ),
+      'sub-folders' => 
+      array (
+      ),
+    ),
+  ),
+  387 => 
+  array (
+    'name' => 
+    array (
+      'ar' => 'البيانات المرجعية',
+      'en' => 'lookup data',
+    ),
+    'menu' => 
+    array (
+      'need_admin' => false,
+      'id' => '387',
+      'menu_name' => 'البيانات المرجعية',
+      'page' => 'main.php?Main_Page=fm.php&a=1282&r=387',
+      'css' => 'info',
+      'icon' => ' icon-387',
+      'showme' => true,
+      'items' => 
+      array (
+        104688 => 
+        array (
+          'id' => '104688',
+          'menu_name' => 'إدارة المسارات',
+          'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ProgramTrack&currmod=adm&ids=all&newo=3',
+          'css' => 'bf',
+          'icon' => ' bficon-104688 bfc-',
+        ),
+        104761 => 
+        array (
+          'id' => '104761',
+          'menu_name' => 'إدارة المؤهلات',
+          'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Qualification&currmod=adm&ids=all&newo=3',
+          'css' => 'bf',
+          'icon' => ' bficon-104761 bfc-',
+        ),
+        104747 => 
+        array (
+          'id' => '104747',
+          'menu_name' => 'إدارة مجموعات التأهيل',
+          'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=MajorPath&currmod=adm&ids=all&newo=3',
+          'css' => 'bf',
+          'icon' => ' bficon-104747 bfc-',
+        ),
+        104768 => 
+        array (
+          'id' => '104768',
+          'menu_name' => 'إدارة تخصصات المؤهلات',
+          'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=QualificationMajor&currmod=adm&ids=all&newo=3',
+          'css' => 'bf',
+          'icon' => ' bficon-104768 bfc-',
         ),
       ),
       'sub-folders' => 
@@ -3647,14 +2727,6 @@
           'css' => 'bf',
           'icon' => ' bficon-104615 bfc-',
         ),
-        104765 => 
-        array (
-          'id' => '104765',
-          'menu_name' => 'المؤهلات',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Qualification&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104765 bfc-',
-        ),
         104786 => 
         array (
           'id' => '104786',
@@ -3662,22 +2734,6 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualSource&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104786 bfc-',
-        ),
-        104751 => 
-        array (
-          'id' => '104751',
-          'menu_name' => 'مجموعات التأهيل',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=MajorPath&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104751 bfc-',
-        ),
-        104772 => 
-        array (
-          'id' => '104772',
-          'menu_name' => 'تخصصات المؤهلات',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualificationMajor&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104772 bfc-',
         ),
         104779 => 
         array (
@@ -3722,7 +2778,7 @@
         104608 => 
         array (
           'id' => '104608',
-          'menu_name' => 'المراحل الاكاديمية',
+          'menu_name' => 'المراحل التدريبية',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104608 bfc-',
@@ -3762,7 +2818,7 @@
         104664 => 
         array (
           'id' => '104664',
-          'menu_name' => 'المؤسسات الأكاديمية',
+          'menu_name' => 'المؤسسات التدريبية',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Institution&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104664 bfc-',

@@ -17,3 +17,5 @@
 	$trad["application"]["application_status_enum"] = "حالة التقديم";
 	$trad["application"]["qualification_id"] = "المؤهل";
 	$trad["application"]["major_category_id"] = "فئة التخصص";
+
+	$trad["application"]["program_id"] = "البرنامج";

@@ -1,5 +1,5 @@
 <?php
-    /*
+/*
 DROP TABLE IF EXISTS c0adm.screen_model;
 
 CREATE TABLE IF NOT EXISTS c0adm.`screen_model` (
@@ -35,40 +35,107 @@ create unique index uk_screen_model on c0adm.screen_model(screen_code);
 
 
     */
-        class ScreenModel extends AdmObject{
+class ScreenModel extends AdmObject
+{
 
-                public static $DATABASE		= ""; 
-                public static $MODULE		    = "adm"; 
-                public static $TABLE			= "screen_model"; 
-                public static $DB_STRUCTURE = null;
-                // public static $copypast = true;
+        public static $DATABASE                = "";
+        public static $MODULE                    = "adm";
+        public static $TABLE                        = "screen_model";
+        public static $DB_STRUCTURE = null;
+        // public static $copypast = true;
 
-                public function __construct(){
-                        parent::__construct("screen_model","id","adm");
-                        AdmScreenModelAfwStructure::initInstance($this);
-                        
-                }
-
-                public static function loadById($id)
-                {
-                        $obj = new ScreenModel();
-                        
-                        if($obj->load($id))
-                        {
-                                return $obj;
-                        }
-                        else return null;
-                }
-
-                public function getDisplay($lang = 'ar')
-                {
-                        return $this->getDefaultDisplay($lang);
-                }
-
-                public function stepsAreOrdered()
-                {
-                        return false;
-                }
-
+        public function __construct()
+        {
+                parent::__construct("screen_model", "id", "adm");
+                AdmScreenModelAfwStructure::initInstance($this);
         }
-?>
+
+        public static function loadById($id)
+        {
+                $obj = new ScreenModel();
+
+                if ($obj->load($id)) {
+                        return $obj;
+                } else return null;
+        }
+
+        public function getDisplay($lang = 'ar')
+        {
+                return $this->getDefaultDisplay($lang);
+        }
+
+        public function stepsAreOrdered()
+        {
+                return false;
+        }
+
+        public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+                       // adm.application_step-شاشة الادخال	screen_model_id  حقل يفلتر به (required field)
+                        // require_once "../adm/application_step.php";
+                        $obj = new ApplicationStep();
+                        $obj->where("screen_model_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some Application steps(s) as ???? ???????";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("screen_model_id = '$id' and active='N'");
+
+
+                        
+                   // FK part of me - deletable 
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+ 
+
+                        // adm.application_step-شاشة الادخال	screen_model_id  حقل يفلتر به (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_step.php";
+                            ApplicationStep::updateWhere(array('screen_model_id'=>$id_replace), "screen_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_step set screen_model_id='$id_replace' where screen_model_id='$id' ");
+                            
+                        } 
+                        
+
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	}
+}
