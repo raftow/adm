@@ -12,4 +12,5 @@ $migrations = [
     '00006' => ['by'=>'medali', 'title' => 'Add date to academic level'],
     '00007' => ['by'=>'rafik', 'title' => 'continue work on application conditions'],
     '00008' => ['by'=>'medali', 'title' => ' add training unit type mfk'],
+    '00009' => ['by'=>'rafik', 'title' => 'applicant do application'],
 ];
