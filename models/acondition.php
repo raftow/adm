@@ -39,7 +39,27 @@ class Acondition extends AdmObject{
                 else return null;
         }
         
-        
+        public function getAllFields() 
+        {
+                $return_arr = [];
+                if($this->_isComposed())
+                {
+                        if(!$this->cond1Obj) $this->cond1Obj = $this->het("condition_1_id");
+                        if(!$this->cond2Obj) $this->cond2Obj = $this->het("condition_2_id");
+                        $return_1_arr = [];
+                        if($this->cond1Obj) $return_1_arr = $this->cond1Obj->getAllFields();
+                        $return_2_arr = [];
+                        if($this->cond2Obj) $return_2_arr = $this->cond1Obj->getAllFields();
+
+                        $return_arr = array_merge($return_1_arr, $return_2_arr);
+                }    
+                else
+                {
+                        $return_arr[] = ["id"=>$this->getVal("afield_id")];
+                }
+
+                return $return_arr;
+        }
 
         public function getDisplay($lang="ar")
         {

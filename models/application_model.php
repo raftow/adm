@@ -82,10 +82,22 @@
                 
                 }
 
+                public function createDefaultSteps($lang="ar")
+                {
+                        $profileScreen = ScreenModel::loadByMainIndex("profile");
+                        if(!$profileScreen) return ["no profile screen", ""];
+                        $profileStepObj = ApplicationStep::loadByMainIndex($this->id, 0, "Y", $profileScreen, true);
+                        $info = "profile step";
+                        $info .= $profileStepObj->is_new ? " has been created" : " has been updated";
+                        return ["", $info];
+                }
+
                 public function beforeMaj($id, $fields_updated)
                 {  
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
                         {
+                                global $lang;
+
                                 if(!$fields_updated["application_model_name_ar"] or (!$this->getVal("application_model_name_ar")) or ($this->getVal("application_model_name_ar")=="--"))
                                 {
                                         $this->resetNames("ar", "ar", false);                  
@@ -95,8 +107,11 @@
                                 {
                                         $this->resetNames("en", "en", false);
                                 }
+
+                                $this->createDefaultSteps($lang);
                         }
-                        
+
+                        $this->createDefaultSteps($lang);
 
                     
                         return true;
@@ -113,6 +128,75 @@
                         
                         // return type is : array($can, $reason)
                         return [true, ''];
+                }
+
+                public function findScreenForField($application_field_id)
+                {
+                        $applicationStepList = $this->get("applicationStepList");   
+                        foreach($applicationStepList as $applicationStepItem)
+                        {
+                                $screen_model_id = $applicationStepItem->getVal("screen_model_id");  
+                                $step_num        = $applicationStepItem->getVal("step_num");  
+                                $general         = $applicationStepItem->getVal("general");  
+                                $field_exists    = $applicationStepItem->findInMfk("show_field_mfk",$application_field_id); 
+                                if($field_exists)
+                                {
+                                        return [$screen_model_id, $step_num, $general];
+                                }
+                        }
+
+                        return [0,-1,'W'];
+                }
+
+                public function genereApplicationModelConditionList($lang="ar")
+                {
+                        $err_arr = [];
+                        $inf_arr = [];
+                        $war_arr = [];
+                        $tech_arr = [];
+                        $nb_updated = 0;
+                        $nb_inserted = 0;
+
+                        $aconditionOriginList = $this->get("aconditionOriginList");
+                        foreach($aconditionOriginList as $aconditionOriginItem)
+                        {
+                                $aconditionList = $aconditionOriginItem->get("allAconditionList");  
+                                foreach($aconditionList as $aconditionItem)
+                                {
+                                        $general = $aconditionItem->getVal("general");
+                                        $acondition_origin_id = $aconditionItem->getVal("acondition_origin_id");
+                                        $amcObj = ApplicationModelCondition::loadByMainIndex($this->id, $aconditionItem->id, $acondition_origin_id, $general, true);
+                                        if($amcObj->is_new) $nb_inserted++;
+                                        else $nb_updated++;
+
+                                        $aconditionFieldList = $aconditionItem->getAllFields();
+                                        // the condition should be executed in the max step num
+                                        // when all fields have been recolted
+                                        // but min step of exec of step should be 1
+                                        $step_num_max = 1;
+                                        foreach($aconditionFieldList as $aconditionFieldItem)
+                                        {
+                                                $application_field_id = $aconditionFieldItem["id"];
+                                                $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_field_id, $aconditionItem->id, true);
+                                                if($amfObj->is_new) $nb_inserted++;
+                                                else $nb_updated++;
+                                                list($screen_model_id, $step_num, $general) = $this->findScreenForField($application_field_id);                                                
+                                                $amfObj->set("screen_model_id",$screen_model_id);
+                                                $amfObj->set("step_num",$step_num);
+                                                $amfObj->commit();
+                                                if($step_num_max < $step_num) $step_num_max = $step_num;
+                                        }
+
+                                        $amcObj->set("step_num",$step_num_max);
+                                        $amcObj->commit();
+                                }
+                        }
+
+                        $inf_arr[] = "تم اضافة $nb_inserted ما بين شرط وحقل";
+                        $inf_arr[] = "تم تحديث $nb_updated ما بين شرط وحقل";
+
+                        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+                        
                 }
 
 
@@ -207,6 +291,10 @@
                         $methodName = "genereApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
+                        $color = "orange";
+                        $title_ar = "تحديث الشروط"; 
+                        $methodName = "genereApplicationModelConditionList";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelConditionList"));
                         
                         
                         return $pbms;
@@ -288,11 +376,13 @@
                 // application_model 
                 public function getScenarioItemId($currstep)
                 {
-                        if ($currstep == 1) return 425;
-                        if ($currstep == 2) return 426;
-                        if ($currstep == 3) return 427;
-                        if ($currstep == 4) return 434;
-                        if ($currstep == 5) return 435;
+                        if($currstep == 1) return 425;
+                        if($currstep == 2) return 426;
+                        if($currstep == 3) return 427;
+                        if($currstep == 4) return 434;
+                        if($currstep == 5) return 435;
+                        if($currstep == 6) return 491;
+                        if($currstep == 7) return 497;
 
                         return 0;
                 }

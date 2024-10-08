@@ -137,7 +137,7 @@ class AdmScreenModelAfwStructure
             'STEP' => 1,
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
-            'CSS' => 'width_pct_50',
+            'CSS' => 'width_pct_75',
         ),
 
 
@@ -151,7 +151,7 @@ class AdmScreenModelAfwStructure
             'DEFAUT' => 'Y',
             'TYPE' => 'YN',
             'FORMAT' => 'icon',
-            'STEP' => 99,
+            'STEP' => 1,
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
             'CSS' => 'width_pct_25',

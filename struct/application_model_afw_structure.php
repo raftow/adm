@@ -16,7 +16,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 6; 
+                                $obj->editNbSteps = 7; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -320,12 +320,32 @@
                                                 'EDIT' => false,  'QEDIT' => false, 'STEP' => 5, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  
-                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  
+                                                'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_100', ),
+
+                                        'aconditionOriginList' => array('TYPE' => 'FK', 'ANSWER' => 'acondition_origin', 'ANSMODULE' => 'adm', 'QEDIT' => false, 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'STEP' => 6,
+                                                'WHERE'=>'id in (select acondition_origin_id from §DBPREFIX§adm.acondition_origin_scope where application_model_id=§id§ and training_unit_id = 0 and department_id = 0 and application_model_branch_id = 0 and active=\'Y\')', 'HIDE_COLS' => array(),
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 'PILLAR' => true, 
+                                                'ICONS'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+
+                                        'applicationModelConditionList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_condition', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 
+                                                'STEP' => 6, 'PILLAR' => true, 
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+
+
+                                        'applicationModelFieldList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_field', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 
+                                                'STEP' => 6, 'PILLAR' => true, 
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
 
                                         'applicationPlanList' => array('TYPE' => 'FK', 'ANSWER' => 'application_plan', 'ANSMODULE' => 'adm', 'QEDIT' => false, 
-                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 6,
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 7,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),

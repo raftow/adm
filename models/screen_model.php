@@ -59,6 +59,32 @@ class ScreenModel extends AdmObject
                 } else return null;
         }
 
+        public static function loadByMainIndex($screen_code,$create_obj_if_not_found=false)
+        {
+           if(!$screen_code) throw new AfwRuntimeException("loadByMainIndex : screen_code is mandatory field");
+
+
+           $obj = new ScreenModel();
+           $obj->select("screen_code",$screen_code);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("screen_code",$screen_code);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
+
         public function getDisplay($lang = 'ar')
         {
                 return $this->getDefaultDisplay($lang);

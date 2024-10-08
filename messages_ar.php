@@ -22,6 +22,7 @@
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
     
+    // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
     
 ?>

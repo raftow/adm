@@ -41,7 +41,7 @@
                                                         'DISPLAY' => true,  'STEP' => 99,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_100',),
-
+                                                        
 
                                         'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
@@ -65,7 +65,9 @@
                                                                      and amb.active = 'Y')",
                                                 'DEPENDENCIES' => ['application_model_id',],
                                                 'DEPENDENT_OFME' => ['department_id', 'application_model_branch_id'],
-                                                'SIZE' => 40,  'DEFAUT' => 0, 'MANDATORY' => false, 'READONLY'=>false, 'READONLY-AFTER-INSERT'=>true,    
+                                                'SIZE' => 40,  
+                                                'DEFAUT' => 0, 
+                                                'MANDATORY' => false, 'READONLY'=>false, 'READONLY-AFTER-INSERT'=>true,    
                                                 'AUTOCOMPLETE' => false, 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'EMPTY_IS_ALL' => true,
                                                 'CSS' => 'width_pct_50', ),	
@@ -73,7 +75,8 @@
 
                                         'department_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  'SIZE' => 40,  
+                                                'DEFAUT' => 0,    
                                                 'WHERE' => "id in (select distinct apo.department_id from §DBPREFIX§adm.academic_program_offering apo 
                                                                         inner join §DBPREFIX§adm.application_model_branch amb on amb.program_offering_id = apo.id
                                                                    where amb.application_model_id = §application_model_id§
@@ -91,7 +94,8 @@
 
                                         'application_model_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  
+                                                'DEFAUT' => 0,    
                                                 'DEPENDENCIES' => ['application_model_id',],
                                                 'WHERE' => 'application_model_id = §application_model_id§
                                                            and ((§training_unit_id§ = 0) or (training_unit_id = §training_unit_id§))          

@@ -127,6 +127,12 @@
 												// 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
 												'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
 												'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+
+			'allAconditionList' => array(
+					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 99,    
+					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
+					'WHERE' => "acondition_type_id = 1", 
+					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', ),	
 												
 			'aconditionList' => array(
 					'TYPE' => 'FK',  'ANSWER' => 'acondition',  'ANSMODULE' => 'adm', 'STEP' => 3,    

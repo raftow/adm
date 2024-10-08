@@ -4,18 +4,24 @@
 	$trad["application_model"]["step3"] = "خيارات متقدمة";
 	$trad["application_model"]["step4"] = "فروع القبول";
 	$trad["application_model"]["step5"] = "خطوات التقديم";
-	$trad["application_model"]["step6"] = "خطط التقديم";
+	$trad["application_model"]["step6"] = "الشروط";
+	$trad["application_model"]["step7"] = "خطط التقديم";
 	
-	
+	$trad["application_model"]["aconditionOriginList"] = "مصادر الشروط";
+	$trad["application_model"]["applicationModelConditionList"] = "قائمة الشروط المطلوبة";
+	$trad["application_model"]["applicationModelConditionList.tooltip"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
 	$trad["application_model"]["applicationStepList"] = "قائمة خطوات التقديم";
 	$trad["application_model"]["applicationPlanList"] = "قائمة خطط التقديم";
 	$trad["application_model"]["applicationModelBranchList"] = "قائمة فروع القبول المتاحة";
+	$trad["application_model"]["applicationModelFieldList"] = "قائمة الحقول المستخدمة";
+	
 	
 
 	$trad["application_model"]["applicationmodel.single"] = "نموذج قبول";
 	$trad["application_model"]["applicationmodel.new"] = "جديد";
 	$trad["application_model"]["application_model"] = "نماذج القبول";
-
+	
+	
 	$trad["application_model"]["level_degree_mfk"] = "الشهادة الممنوحة عند التخرج";
 
 	$trad["application_model"]["academic_level_id"] = "المرحلة التدريبية";

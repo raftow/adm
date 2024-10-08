@@ -1,40 +1,5 @@
 <?php
-/* rafik 23/09/2024
 
-DROP TABLE IF EXISTS c0adm.application_step;
-
-CREATE TABLE IF NOT EXISTS c0adm.`application_step` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default 'Y',
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-    
-   application_model_id int(11) NOT NULL , 
-   step_num smallint NOT NULL , 
-   general char(1) DEFAULT NULL , 
-   screen_model_id int(11) NOT NULL , 
-   step_name_ar varchar(100)  NOT NULL , 
-   step_name_en varchar(100)  NOT NULL , 
-   show_field_mfk varchar(255) DEFAULT NULL , 
-
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
-
-
-create unique index uk_application_step on c0adm.application_step(application_model_id,step_num);
-*/
         class ApplicationStep extends AdmObject{
 
                 public static $DATABASE		= ""; 
@@ -59,6 +24,59 @@ create unique index uk_application_step on c0adm.application_step(application_mo
                         }
                         else return null;
                 }
+
+                public static function loadByMainIndex(
+                        $application_model_id, 
+                        $step_num,
+                        $general,    
+                        $screenModelObj,                        
+                        $create_obj_if_not_found=false)
+                {
+                   if(!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
+                   if($step_num<0) throw new AfwRuntimeException("loadByMainIndex : step_num is mandatory field");
+        
+                   $screen_model_id = $screenModelObj->id;
+                   $show_field_mfk = $screenModelObj->getVal("application_field_mfk");
+                   $step_name_ar = $screenModelObj->getVal("screen_name_ar");
+                   $step_name_en = $screenModelObj->getVal("screen_name_en");
+                   $obj = new ApplicationStep();
+                   $obj->select("application_model_id",$application_model_id);
+                   $obj->select("step_num",$step_num);
+        
+                   if($obj->load())
+                   {
+                        if($create_obj_if_not_found) 
+                        {
+                                $obj->set("general",$general);
+                                $obj->set("screen_model_id",$screen_model_id);
+                                $obj->set("step_name_ar",$step_name_ar);
+                                $obj->set("step_name_en",$step_name_en);
+                                $obj->set("show_field_mfk",$show_field_mfk);
+                                $obj->activate();
+                        }
+                        return $obj;
+                   }
+                   elseif($create_obj_if_not_found)
+                   {
+                        $obj->set("application_model_id",$application_model_id);
+                        $obj->set("step_num",$step_num);
+
+
+                        $obj->set("general",$general);
+                        $obj->set("screen_model_id",$screen_model_id);
+                        $obj->set("step_name_ar",$step_name_ar);
+                        $obj->set("step_name_en",$step_name_en);
+                        $obj->set("show_field_mfk",$show_field_mfk);
+        
+                        $obj->insertNew();
+                        if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                        $obj->is_new = true;
+                        return $obj;
+                   }
+                   else return null;
+                   
+                }
+
 
                 public function getDisplay($lang = 'ar')
                 {

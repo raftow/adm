@@ -4847,6 +4847,10 @@ td.end.calculated>div, td.end.calculated>label {
     background-color: white !important;
 }
 
+.hzm_data.hzm_data_aconditionOriginList.form-control.inputreadonly.inputarea {
+    min-height: 150px !important;
+}
+
 .hzm-loader-div {
     position: absolute;
     top: 0px;
@@ -5039,4 +5043,9 @@ h5.bluetitle.search {
     color: #3a58d2;
     padding: 2px 5px;
     font-size: 80%;
+}
+
+.form-control-div.hzm_control_div_applicationModelConditionList.errors,
+.form-control-div.hzm_control_div_applicationModelFieldList.errors {
+    min-height: fit-content;
 }
