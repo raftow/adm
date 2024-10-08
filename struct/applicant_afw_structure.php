@@ -327,8 +327,8 @@
                                                 'CSS' => 'width_pct_25', ),	
 
 
-                                        'postal_code' => array('FGROUP'=>'address-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+                                        'postal_code' => array('FGROUP'=>'address-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
@@ -361,7 +361,7 @@
 
                                         'has_iban' => array('FGROUP'=>'bank', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'CHECKBOX'=>true,
                                                 'CSS' => 'width_pct_25',),
 
 
@@ -376,7 +376,7 @@
 
                                         'bank_account_pledge' => array('FGROUP'=>'bank', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'CHECKBOX'=>true,
                                                 'CSS' => 'width_pct_25',),
 
 
