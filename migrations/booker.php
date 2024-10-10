@@ -13,4 +13,5 @@ $migrations = [
     '00007' => ['by'=>'rafik', 'title' => 'continue work on application conditions'],
     '00008' => ['by'=>'medali', 'title' => ' add training unit type mfk'],
     '00009' => ['by'=>'rafik', 'title' => 'applicant do application'],
+    '00010' => ['by'=>'rafik', 'title' => 'add imported field to applicant_evaluation'],
 ];
