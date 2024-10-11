@@ -1,9 +1,9 @@
 <?php
 // rafik 18/9/2024 : ALTER TABLE `applicant` CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;
-
+/*
 $main_company = AfwSession::config("main_company", "all");
 $file_dir_name = dirname(__FILE__);
-require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
+require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");*/
 
 class Applicant extends AdmObject
 {

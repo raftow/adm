@@ -199,7 +199,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SEARCH' => true,
                                                 'SHOW' => true,
-                                                'RETRIEVE' => true,
+                                                'RETRIEVE' => false,
                                                 'EDIT' => true,
                                                 'QEDIT' => true,
                                                 'SEARCH-ADMIN' => true,

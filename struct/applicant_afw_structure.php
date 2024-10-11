@@ -43,7 +43,7 @@
                                         'idn_type_id' => array('FGROUP'=>'idn-infos', 
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => true,
-                                                'RETRIEVE' => true,
+                                                'RETRIEVE' => false,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'TYPE' => 'FK', 'ANSWER'=>'identity_type', 'ANSMODULE'=>'adm', 
@@ -103,7 +103,8 @@
                                                 'CSS' => 'width_pct_50',
                                             ],
 
-                                        'mobile' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'mobile' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 
+                                            'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                             'EDIT' => true,  'QEDIT' => true,  'SIZE' => '25', 'MAXLENGTH' => '25', 'UTF8' => true, 'TEXT-SEARCHABLE-SEPARATED'=>true, 
                                             'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -116,14 +117,16 @@
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                             'CSS' => 'width_pct_50'),
 
-                                        'gender_enum' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                        'gender_enum' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  
+                                                'RETRIEVE' => true, 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  
+                                                'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
-                                                'country_id' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'country_id' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 
+                                                'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
@@ -182,7 +185,8 @@
                                         
                                            
 
-                                        'religion_enum' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'religion_enum' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  
+                                            'SEARCH' => false,  'SHOW' => true, 'RETRIEVE' => false,  
                                             'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                             'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
                                             'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
@@ -319,7 +323,8 @@
 
 
 
-                                        'city_id' => array('FGROUP'=>'address-infos', 'IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'city_id' => array('FGROUP'=>'address-infos', 'IMPORTANT' => 'IN',  'SEARCH' => false, 
+                                                'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'city',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
@@ -335,7 +340,7 @@
                                                 
 
                                         'country_code' => array('FGROUP'=>'address-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => false,  'QEDIT' => false,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
@@ -916,7 +921,7 @@
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
 
 
-                                        'attribute_60' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'attribute_60' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  
                                                                         'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
                                                                         'TYPE' => '::additional', 'ANSWER' => '::additional',  'ANSMODULE' => '::additional',  'STEP' => '::additional',    'DISPLAY' => true, 'MANDATORY' => false,                                 
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',

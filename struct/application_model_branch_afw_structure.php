@@ -46,14 +46,29 @@
 
                                                 'training_unit_id' => array('IMPORTANT' => 'IN',  
                                                         'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
-                                                        'READONLY' => true,  'STEP' => 1,  
+                                                        'READONLY' => true,  'STEP' => 99,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                          ),	
 
-                                                'department_id' => array('IMPORTANT' => 'IN',  
+                                                'department_id' => array('IMPORTANT' => 'IN', 'STEP' => 99,  
                                                                 'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  
                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
                                                                 ),
+
+                                                'major_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 
+                                                                'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  
+                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
+                                                                ),
+
+                                                'academic_program_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 
+                                                                'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  
+                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
+                                                                ),
+
+                                                'gender_enum' => array('IMPORTANT' => 'IN',  'STEP' => 99, 
+                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  
+                                                        'MANDATORY' => true, 'READONLY' => true,
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', ),
 
                                         'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  

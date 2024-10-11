@@ -151,6 +151,7 @@
 
                 public function afterMaj($id, $fields_updated)
                 {  
+                        /* obsolete amjed asked to remove seats_capacity_1 and seats_capacity_2 from AcademicProgramOffering
                         if($fields_updated["seats_capacity"])
                         {
                              $amObj = $this->het("application_model_id");   
@@ -161,7 +162,7 @@
                                 $poObj->set("seats_capacity_$period", $this->getVal("seats_capacity"));
                                 $poObj->commit();
                              }
-                        }
+                        }*/
                         
                 }
 

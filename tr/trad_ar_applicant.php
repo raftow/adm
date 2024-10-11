@@ -74,7 +74,7 @@
 	$trad["applicant"]["address-infos"] = "العنوان";
 	$trad["applicant"]["address"] = "العنوان";
 	$trad["applicant"]["address_type_enum"] = "نوع العنوان";
-	$trad["applicant"]["country_code"] = "الرقم الدولي";
+	$trad["applicant"]["country_code"] = "الرمز الدولي";
 	$trad["applicant"]["city_id"] = "مدينة الإقامة";
 	$trad["applicant"]["postal_code"] = "الرمز البريدي";
 	$trad["applicant"]["has_iban"] = "هل لديك حساب بنكي ؟";

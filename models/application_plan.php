@@ -187,28 +187,37 @@
                 $gender_enum = $this->getVal("gender_enum");
                 $term_id = $this->getVal("term_id");
 
-                $application_start_date = $this->getVal("aplication_start_date");
-                $application_end_date = $this->getVal("application_end_date");
-
+                
+                list($application_start_date, $application_start_time) = explode(" ",$this->getVal("application_start_date"));
+                list($application_end_date, $application_end_time) = explode(" ",$this->getVal("application_end_date"));
+                if($application_end_date and ($application_end_date != "0000-00-00"))
+                {
+                        $hijri_application_end_date = AfwDateHelper::gregToHijri($application_end_date); 
+                }
+                else
+                {
+                        $hijri_application_end_date = "";                        
+                }
                 
                 $sql_insert = "insert into $db.application_plan_branch(created_by,  created_at, updated_by,updated_at, active, version, sci_id,
                                 academic_level_id,gender_enum,term_id,application_plan_id,
-                                department_id,major_id,program_id,training_unit_id,program_offering_id,application_model_branch_id,
+                                program_id,training_unit_id,department_id,major_id,
+                                program_offering_id,application_model_branch_id,
                                 seats_capacity, direct_adm_capacity, deaf_specialty,is_open,allow_direct_adm,
-                                confirmation_days, application_end_date)
-                                select $me, now(), $me, now(), apo.active, 0 as version, 431 as sci_id,
+                                confirmation_days, application_end_date, hijri_application_end_date)
+                                select $me, now(), $me, now(), amb.active, 0 as version, 431 as sci_id,
                                         $academic_level_id, $gender_enum, $term_id, $this_id, 
-                                        apo.department_id, apo.major_id, apo.academic_program_id, apo.training_unit_id, apo.id, amb.id,
+                                        amb.academic_program_id, amb.training_unit_id, amb.department_id, amb.major_id,  
+                                        amb.program_offering_id, amb.id,
                                         amb.seats_capacity, amb.direct_adm_capacity, amb.deaf_specialty, amb.is_open, IF(amb.direct_adm_capacity>0, 'Y','N') as allow_direct_adm,
-                                        amb.confirmation_days, '$application_end_date' as application_end_date
-                                from $db.academic_program_offering apo
-                                    inner join $db.application_model_branch amb on amb.program_offering_id = apo.id and amb.application_model_id = $application_model_id
+                                        amb.confirmation_days, '$application_end_date' as application_end_date, '$hijri_application_end_date' as hijri_application_end_date
+                                from $db.application_model_branch amb  
                                         left join $db.application_plan_branch apb on
-                                                apb.application_plan_id = $this_id and
-                                                apb.program_offering_id = apo.id                                                          
-                                where apo.academic_level_id = $academic_level_id
-                                  and apo.gender_enum = $gender_enum
-                                  and apo.active = 'Y'
+                                                apb.program_offering_id = amb.program_offering_id and
+                                                apb.application_plan_id = $this_id                                                        
+                                where amb.application_model_id = $application_model_id
+                                  and amb.gender_enum = $gender_enum
+                                  and amb.active = 'Y'
                                   and amb.seats_capacity > 0
                                   and apb.id is null";
 

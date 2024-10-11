@@ -1,8 +1,9 @@
 <?php
-	$trad["application"]["step1"] = "المراحل العامة";
-	$trad["application"]["step2"] = "الرغبات";
-	$trad["application"]["step3"] = "معلومات فنية";
-	$trad["application"]["step4"] = "معلومات متقدمة";
+	$trad["application"]["step1"] = "بيانات التقديم";
+	$trad["application"]["step2"] = "الشروط العامة";
+	$trad["application"]["step3"] = "اختيار الرغبات";
+	$trad["application"]["step4"] = "معلومات فنية";
+	$trad["application"]["step5"] = "معلومات متقدمة";
 
 	$trad["application"]["application.single"] = "طلب تقديم";
 	$trad["application"]["application.new"] = "جديد";

@@ -68,16 +68,53 @@ class Application extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
+                $objApplicantQual = null;
+                $objApplicationPlan = null;
+                $objApplicationModel = null;
+                
                 if(!$this->getVal("applicant_qualification_id"))
                 {
                         $applicantObj = $this->het("applicant_id");
                         if($applicantObj)
                         {
                                 $objApplicantQual = $applicantObj->getLastQualification(); 
-                                if($objApplicantQual) $this->set("applicant_qualification_id", $objApplicantQual->id); 
+                                if($objApplicantQual) 
+                                {
+                                        $this->set("applicant_qualification_id", $objApplicantQual->id); 
+                                        $fields_updated["applicant_qualification_id"] = "@WasEmpty";
+                                }
+                        }
+                }
+                
+
+                if($fields_updated["applicant_qualification_id"] and $this->getVal("applicant_qualification_id"))
+                {
+                        
+                        if(!$objApplicantQual) $objApplicantQual = $this->het("applicant_qualification_id");
+                        if($objApplicantQual)
+                        {
+                                $this->set("qualification_id",  $objApplicantQual->getVal("qualification_id")); 
+                                $this->set("major_category_id", $objApplicantQual->getVal("major_category_id")); 
+                                // reset step to 1 when applicant_qualification_id change
+                                $fields_updated["step_num"] = $this->getVal("step_num");
+                                $this->set("step_num", 1); 
+                                
                         }
                 }
 
+                // if(!$objApplicationPlan) $objApplicationPlan = $this->het("application_plan_id");
+
+                if($fields_updated["step_num"] or (!$this->getVal("application_step_id")))
+                {
+                        if(!$objApplicationModel) $objApplicationModel = $this->het("application_model_id");
+                        $appStepObj = $objApplicationModel->convertStepNumToID($this->getVal("step_num"));
+                        if($appStepObj)
+                        {
+                                $application_step_id = $appStepObj->id;
+                                $this->set("application_step_id", $application_step_id);
+                        }
+                        
+                }
                 return true;
         }
 
@@ -111,7 +148,7 @@ class Application extends AdmObject
 
 
                 if ($col_struct == "step") {
-                        $step =  $params["step"] + 3;
+                        $step =  $params["step"] + 4;
                         //if($col_struct=="step" and $field_name=="attribute_1") throw new AfwRuntimeException("step additional for $field_name =".$step);
                         return $step;
                 }
@@ -185,45 +222,66 @@ class Application extends AdmObject
 
                 return 0;
         }
+
+        protected function getPublicMethods()
+        {
+        
+                $pbms = array();
+                
+                $color = "orange";
+                $title_ar = "الانتقال الى الخطوة الموالية"; 
+                $methodName = "gotoNextStep";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
+                
+                
+                
+                return $pbms;
+        }
+
+        public function gotoNextStep($lang="ar")
+        {
+
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                // $nb_updated = 0;
+                // $nb_inserted = 0;
+                try
+                {
+                        $currentStepObj = $this->het("application_step_id");
+                        $currentStepNum = $this->het("step_num");
+
+                        if(!$currentStepObj) return [$this->tm("No current step defined for this application", $lang), ""];
+
+                        // to go to next step we should apply conditions of the current step
+                        list($fail_reason, $success, $wwaarr, $tech) = $currentStepObj->applyMyGeneralConditionsOn($this, $lang);
+                        if($success)
+                        {
+                                $inf_arr[]  = $this->tm("The step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has been successfully passed", $lang); 
+                                $tech_arr[] = $tech;
+                        }
+                        else
+                        {
+                                $war_arr[]  = $this->tm("The step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has failel for the following reason", $lang)." : ".$fail_reason; 
+                                $tech_arr[] = $tech;
+                        }
+                }
+                catch(Exception $e)
+                {
+                        $err_arr[] = $e->getMessage();
+                }
+                catch(Error $e)
+                {
+                        $err_arr[] = $e->__toString();
+                }
+                return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+                
+                
+        }
+
+        
 }
 
-/*
-         medali 19/9/2024
-         CREATE TABLE IF NOT EXISTS c0adm.`application` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default 'Y',
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-    
-   applicant_id int(11) NOT NULL , 
-   application_plan_id int(11) NOT NULL , 
-   application_model_id int(11) NOT NULL , 
-   step_num smallint DEFAULT NULL , 
-   application_step_id int(11) DEFAULT NULL , 
-   application_status_enum smallint NOT NULL , 
-   applicant_qualification_id int(11) DEFAULT NULL , 
-   qualification_id int(11) DEFAULT NULL , 
-   major_category_id int(11) DEFAULT NULL , 
 
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
-
-ALTER TABLE c0adm.application CHANGE `applicant_id` `applicant_id` BIGINT(20) NOT NULL;
-alter table c0adm.application add   attribute_1 smallint DEFAULT NULL  after major_category_id;
-alter table c0adm.application add   attribute_2 smallint DEFAULT NULL  after attribute_1;
-
-
-         */
 

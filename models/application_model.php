@@ -35,6 +35,11 @@
                 {
                         return true;
                 }
+
+                public function convertStepNumToID($step_num)
+                {
+                        return ApplicationStep::loadByMainIndex($this->id, $step_num);
+                }
                 
                 public static function loadByMainIndex($academic_level_id, $gender_enum, $training_period_enum,$create_obj_if_not_found=false)
                 {
@@ -235,7 +240,10 @@
                                         {
                                                 $seats_capacity = 0;
                                                 $appModelBr = ApplicationModelBranch::loadByMainIndex($progOffItem->id, $this->id, $seats_capacity, $create_obj_if_not_found=true);
-
+                                                $appModelBr->set("gender_enum", $progOffItem->getVal("gender_enum"));
+                                                $appModelBr->set("major_id", $progOffItem->getVal("major_id"));
+                                                $appModelBr->set("academic_program_id", $progOffItem->getVal("academic_program_id"));  
+                                                $appModelBr->commit();
                                                 if($appModelBr->is_new)
                                                 {
                                                         $nb_inserted++; 

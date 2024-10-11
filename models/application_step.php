@@ -28,17 +28,23 @@
                 public static function loadByMainIndex(
                         $application_model_id, 
                         $step_num,
-                        $general,    
-                        $screenModelObj,                        
+                        $general='Y',    
+                        $screenModelObj=null,                        
                         $create_obj_if_not_found=false)
                 {
                    if(!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
                    if($step_num<0) throw new AfwRuntimeException("loadByMainIndex : step_num is mandatory field");
+
+                   if($create_obj_if_not_found) 
+                   {
+                        if(!$screenModelObj) throw new AfwRuntimeException("loadByMainIndex : screenModelObj is mandatory attribute when you will create an instance");
+                        $screen_model_id = $screenModelObj->id;
+                        $show_field_mfk = $screenModelObj->getVal("application_field_mfk");
+                        $step_name_ar = $screenModelObj->getVal("screen_name_ar");
+                        $step_name_en = $screenModelObj->getVal("screen_name_en");
+                   }
+                   
         
-                   $screen_model_id = $screenModelObj->id;
-                   $show_field_mfk = $screenModelObj->getVal("application_field_mfk");
-                   $step_name_ar = $screenModelObj->getVal("screen_name_ar");
-                   $step_name_en = $screenModelObj->getVal("screen_name_en");
                    $obj = new ApplicationStep();
                    $obj->select("application_model_id",$application_model_id);
                    $obj->select("step_num",$step_num);
@@ -187,6 +193,24 @@
                                 } 
                                 return true;
                         }    
+                }
+
+                public function applyMyGeneralConditionsOn($applicationObject)
+                {
+                        $err_arr = [];
+                        $inf_arr = [];
+                        $war_arr = [];
+                        $tech_arr = [];
+
+                        $application_model_id = $this->getVal("application_model_id");
+                        $step_num = $this->getVal("step_num");
+                        $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, true);
+                        foreach($acondList as $acondItem)
+                        {
+                                
+                        }
+
+                        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
                 }
 
         }

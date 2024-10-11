@@ -69,6 +69,10 @@
   array (
     'name' => 'applicant',
   ),
+  13929 => 
+  array (
+    'name' => 'applicant_evaluation',
+  ),
   13904 => 
   array (
     'name' => 'applicant_qualification',
@@ -88,6 +92,14 @@
   13889 => 
   array (
     'name' => 'application_model_branch',
+  ),
+  13927 => 
+  array (
+    'name' => 'application_model_condition',
+  ),
+  13928 => 
+  array (
+    'name' => 'application_model_field',
   ),
   13884 => 
   array (
@@ -951,6 +963,50 @@
       'id' => '104741',
     ),
   ),
+  'applicant_evaluation' => 
+  array (
+    'id' => '13929',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'applicant_qualification' => 
   array (
     'id' => '13904',
@@ -1169,6 +1225,94 @@
     'delete' => 
     array (
       'id' => '104734',
+    ),
+  ),
+  'application_model_condition' => 
+  array (
+    'id' => '13927',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
+  'application_model_field' => 
+  array (
+    'id' => '13928',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
     ),
   ),
   'application_plan' => 

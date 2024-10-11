@@ -33,6 +33,28 @@ class ApplicationModelCondition extends AdmObject
         return false;
     }
 
+    public static function loadStepNumConditions($application_model_id, $step_num, $general=null)
+    {
+        if (!$application_model_id) throw new AfwRuntimeException("loadStepNumConditions : application_model_id is mandatory field");
+        if (!$step_num) throw new AfwRuntimeException("loadStepNumConditions : step_num is mandatory field");
+
+
+        $obj = new ApplicationModelCondition();
+        $obj->select("application_model_id", $application_model_id);
+        $obj->where("step_num <= $step_num");
+        if($general===true)
+        {
+            $obj->select("general", "Y");
+        }
+        elseif($general===false)
+        {
+            $obj->select("general", "N");
+        }
+
+        return $obj->loadMany();
+        
+    }
+
     public static function loadByMainIndex($application_model_id, $acondition_id, $acondition_origin_id=0, $general="W", $create_obj_if_not_found = false)
     {
         if (!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");

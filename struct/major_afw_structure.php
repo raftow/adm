@@ -8,9 +8,11 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 157;
                                 $obj->DISPLAY_FIELD = "major_name_ar";
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                // $obj->UNIQUE_KEY = array('xxxx','yyyy');
-                                // $obj->public_display = true;
+                                $obj->ORDER_BY_FIELDS = "major_name_ar";
+                                $obj->UNIQUE_KEY = array('major_code');
+                                $obj->public_display = true;
+                                $obj->IS_LOOKUP = true;
+                                $obj->IS_SMALL = true;
                                 
 
                                 // $obj->editByStep = true;

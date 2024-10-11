@@ -84,7 +84,16 @@
 
                 public function repareHijriApplicationEndDate($lang="ar", $commit=true)
                 {
-                        $this->set("hijri_application_end_date", AfwDateHelper::gregToHijri($this->getVal("application_end_date")));                        
+                        list($application_end_date, $application_end_time) = explode(" ",$this->getVal("application_end_date"));
+                        if($application_end_date and ($application_end_date != "0000-00-00"))
+                        {
+                                $this->set("hijri_application_end_date", AfwDateHelper::gregToHijri($application_end_date));                        
+                        }
+                        else
+                        {
+                                $this->set("hijri_application_end_date", "");                        
+                        }
+                        
                         if($commit) $this->commit();
 
                         return ["","repareHijriApplicationEndDate done"];
