@@ -42,7 +42,7 @@
 
                                         'idn_type_id' => array('FGROUP'=>'idn-infos', 
                                                 'IMPORTANT' => 'IN',
-                                                'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => true,
+                                                'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => false,
                                                 'RETRIEVE' => false,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
@@ -126,7 +126,7 @@
                                                 'CSS' => 'width_pct_25', ),	
 
                                         'country_id' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 
-                                                'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,

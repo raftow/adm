@@ -176,6 +176,7 @@ class Applicant extends AdmObject
         return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
     }
 
+
     public function myShortNameToAttributeName($attribute)
     {
         global $additional_fields;
@@ -426,6 +427,11 @@ class Applicant extends AdmObject
                 return $obj;
         }
         else return null;
+    }
+
+    public function qsearchByTextEnabled()
+    {
+        return false;
     }
 
     
