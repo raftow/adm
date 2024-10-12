@@ -3885,10 +3885,14 @@ ul.hzm_front_menu_bar>li {
 }
 
 .navbar-nav>li>a.alogout {
-    background-color: #fff !important;
-    color: #df252c !important;
+    background-color: #97fdb9 !important;
+    color: #1f5e12 !important;
+    text-shadow: 1px 0px #1f5e12;
     border: none !important;
-    font-weight: bold;
+    font-weight: normal;
+    min-height: 34px;
+    padding-top: 6px !important;
+    text-align: center !important;
 }
 
 a#ui-id-new {
@@ -4718,16 +4722,40 @@ td.end.calculated>div, td.end.calculated>label {
     min-height: 300px !important;
 }
 
+.fa-sign-out:before {
+    content: "\f2f5";
+}
 
+.icon-385:before {
+    content: "\f0a3";
+}
 
 .icon-381:before {
     content: "\f0e8";
 }
 
+.icon-382:before {
+    content: "\f0c9";
+}
+
+.icon-383:before {
+    content: "\f133";
+    font-weight: normal;
+}
+
+.icon-384:before {
+    content: "\f024";
+    font-weight: normal;
+}
+
+.icon-386:before {
+    content: "\f007";
+    font-weight: normal;
+}
 
 .bficon-104610:before,
 .bficon-104615:before {
-    content: "\f19d";
+    content: "";
 }
 
 .bficon-104760:before,
@@ -4846,7 +4874,7 @@ td.end.calculated>div, td.end.calculated>label {
     min-height: 300px;
     height: fit-content !important;
     background-color: white !important;
-}
+}\f19d
 
 .hzm_data.hzm_data_aconditionOriginList.form-control.inputreadonly.inputarea {
     min-height: 150px !important;
@@ -4956,7 +4984,7 @@ header.top-header {
 }
 
 .hzm_body {
-    background-color: #4a9bbf;
+    background-color: #4a9bbf !important;
 }
 
 .cms_container {

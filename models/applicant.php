@@ -20,6 +20,16 @@ class Applicant extends AdmObject
         AdmApplicantAfwStructure::initInstance($this);
     }
 
+    public function afterSelect($attribute, $value)
+    {
+        // As we have a partion by ID and ID = IDN,
+        // when we select IDN we select ID also to use the partionning concept
+        if($attribute=="idn")
+        {
+            $this->select("id", $value);
+        }
+    }
+
     public static function loadById($id)
     {
         $obj = new Applicant();

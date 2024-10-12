@@ -26,15 +26,10 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25'),
 
-
-                                                
-
-
-
                                         
                                         
                                         'idn' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'RETRIEVE' => true,  
+                                                'RETRIEVE' => true, "CLAUSE-WHERE-COL" => 'id', 
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '16', 'MAXLENGTH' => '16', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'REQUIRED' => true, 'READONLY-AFTER-INSERT'=>true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'TEXT-SEARCHABLE-SEPARATED'=>true, 'FORMAT' => 'SA-IDN', 

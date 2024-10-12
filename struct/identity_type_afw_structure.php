@@ -10,8 +10,9 @@
                                 $obj->DISPLAY_FIELD = "identity_type_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('identity_type_code','identity_type_name_ar','identity_type_name_en');
-                                // $obj->public_display = true;
-                                 $obj->IS_LOOKUP = true;
+                                $obj->public_display = true;
+                                $obj->IS_LOOKUP = true;
+                                $obj->IS_SMALL = true;
 
                                 $obj->editByStep = false;
                                 $obj->editNbSteps = 1; 
