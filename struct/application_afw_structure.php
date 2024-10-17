@@ -132,14 +132,14 @@
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
 
-                                        /*        
+                                                
                                         'attribute_3' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  
                                                                         'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
                                                                         'TYPE' => '::additional', 'ANSWER' => '::additional',  'ANSMODULE' => '::additional',  'STEP' => '::additional',    'DISPLAY' => true, 'MANDATORY' => false,                                 
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
 
-
+                                        /*
                                         'attribute_4' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  
                                                                         'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
                                                                         'TYPE' => '::additional', 'ANSWER' => '::additional',  'ANSMODULE' => '::additional',  'STEP' => '::additional',    'DISPLAY' => true, 'MANDATORY' => false,                                 

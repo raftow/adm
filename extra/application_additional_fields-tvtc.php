@@ -18,7 +18,7 @@ $application_additional_fields = [
                             'field_code' => 'qualification_level', 'optional' => false, 'readonly' =>true,
                             'title_ar' => 'مستوى المؤهل', 'title_en' => 'qualification age', 
                             'category' => 'FORMULA',
-                            'formula' => 'calcQualificationAge', ),
+                            'formula' => 'calcQualificationLevel', ),
     
 ];
 
@@ -103,6 +103,29 @@ class ApplicationFormulaManager
         catch(Error $e)
         {
             return 555;
+        }
+    }
+
+    public static function calcQualificationLevel($applicationObj)
+    {
+        try
+        {
+            $qualifObj = $applicationObj->het("applicant_qualification_id"); 
+            if($qualifObj)
+            {
+                $level = $qualifObj->calc("qualification_id.level_enum");
+            }
+            else $level = 0;
+
+            return $level;
+        }
+        catch(Exception $e)
+        {
+            return -1;
+        }
+        catch(Error $e)
+        {
+            return -2;
         }
     }
     
