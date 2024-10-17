@@ -138,7 +138,7 @@
 
 
 
-                                        'birth_gdate' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
+                                        'birth_gdate' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
                                                 'TYPE' => 'GDATE',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,   
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -264,13 +264,13 @@
 
 
 
-                                        'place_of_birth' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+                                        'place_of_birth' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '32', 'MAXLENGTH' => '32', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
                                                 
-                                                'passeport_num' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                        'passeport_num' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '32', 'MAXLENGTH' => '32', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

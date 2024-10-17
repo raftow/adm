@@ -3,12 +3,6 @@
 $trad["application_field"]["step1"] = "الخصائص الأساسية";
 $trad["application_field"]["step2"] = "الخصائص المتقدمة";
 $trad["application_field"]["step3"] = "خصائص أخرى";
-$trad["application_field"]["step4"] = "سياقات الإستعمال";
-$trad["application_field"]["step4_help"] = "ما يسمح به وما لا يسمح";
-$trad["application_field"]["step5"] = "واجهة الإدخال";
-$trad["application_field"]["step6"] = "الخصائص الفنية";
-$trad["application_field"]["step8"] = "التوليد";
-$trad["application_field"]["step7"] = "قواعد التثبت";
 
 
 $trad["application_field"]["general_props"] = "الرموز";

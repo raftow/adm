@@ -3,9 +3,9 @@
 	$trad["acondition_origin"]["step1"] = "التعريف";
 	$trad["acondition_origin"]["step2"] = "مجال التطبيق";
 	$trad["acondition_origin"]["step3"] = "شروط القبول";
-	$trad["acondition_origin"]["step4"] = "شروط اخرى";
+	$trad["acondition_origin"]["step4"] = "أجزاء الشروط";
 	
-	$trad["acondition_origin"]["otherAconditionList"] = "شروط اخرى";
+	$trad["acondition_origin"]["otherAconditionList"] = "أجزاء الشروط";
 	
 
 	$trad["acondition_origin"]["aconditionorigin.single"] = "لائحة أوقرار";

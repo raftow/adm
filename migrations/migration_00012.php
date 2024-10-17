@@ -1,0 +1,4 @@
+<?php
+// rafik applicant fields ++
+AfwDatabase::db_query("INSERT INTO `application_field` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `field_name`, `shortname`, `application_table_id`, `application_field_type_id`, `field_title_ar`, `field_title_en`, `reel`, `additional`, `unit`, `unit_en`, `field_order`, `field_num`, `field_size`, `help_text`, `help_text_en`, `question_text`, `question_text_en`) VALUES
+(110845, 1, '2024-10-17 13:35:19', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 2, NULL, NULL, NULL, NULL, 'attribute_3', '', 3, 13, 'مستوى المؤهل', 'qualification level', 'N', 'N', '', '', 130, NULL, 32, NULL, NULL, NULL, NULL)");
