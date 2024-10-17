@@ -386,6 +386,11 @@ class Applicant extends AdmObject
       return 0;
    }
 
+   public function updateCalculatedFields()
+   {
+        $this->updateQualificationLevelFields();
+   }
+
    public function updateQualificationLevelFields()
    {
         $main_company = AfwSession::config("main_company", "all");

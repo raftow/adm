@@ -1,8 +1,8 @@
 <?php
 
-	$trad["application_model_condition"]["applicationmodelcondition.single"] = "xxxxx";
-	$trad["application_model_condition"]["applicationmodelcondition.new"] = "جديد ة";
-	$trad["application_model_condition"]["application_model_condition"] = "xxxxx";
+	$trad["application_model_condition"]["applicationmodelcondition.single"] = "شرط قبول";
+	$trad["application_model_condition"]["applicationmodelcondition.new"] = "جديد";
+	$trad["application_model_condition"]["application_model_condition"] = "شروط القبول";
 
 	$trad["application_model_condition"]["application_model_id"] = "نموذج القبول";
 	$trad["application_model_condition"]["acondition_origin_id"] = "مصدر الشرط";

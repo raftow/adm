@@ -5,6 +5,7 @@ require_once($file_dir_name . "/../extra/application_additional_fields-$main_com
          
 class Application extends AdmObject
 {
+        private $objApplicationModel = null;
 
         public static $DATABASE                = "";
         public static $MODULE                    = "adm";
@@ -71,6 +72,16 @@ class Application extends AdmObject
                 $objApplicantQual = null;
                 $objApplicationPlan = null;
                 $objApplicationModel = null;
+
+                if(!$this->getVal("application_model_id"))
+                {
+                        $objApplicationPlan = $this->het("application_plan_id");
+                        if($objApplicationPlan) 
+                        {
+                                $this->set("application_model_id", $objApplicationPlan->getVal("application_model_id")); 
+                                $fields_updated["application_model_id"] = "@WasEmpty";
+                        }
+                }
                 
                 if(!$this->getVal("applicant_qualification_id"))
                 {
@@ -84,6 +95,12 @@ class Application extends AdmObject
                                         $fields_updated["applicant_qualification_id"] = "@WasEmpty";
                                 }
                         }
+                }
+
+                if(!$this->getVal("step_num"))
+                {
+                        $fields_updated["step_num"] = "@WasEmpty";
+                        $this->set("step_num", 1); 
                 }
                 
 
@@ -231,7 +248,7 @@ class Application extends AdmObject
                 $color = "orange";
                 $title_ar = "الانتقال الى الخطوة الموالية"; 
                 $methodName = "gotoNextStep";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_status_enum"));
                 
                 
                 
@@ -249,21 +266,34 @@ class Application extends AdmObject
                 // $nb_inserted = 0;
                 try
                 {
+                        /**
+                         * @var ApplicationStep $currentStepObj
+                         */
                         $currentStepObj = $this->het("application_step_id");
-                        $currentStepNum = $this->het("step_num");
+                        $currentStepNum = $this->getVal("step_num");
 
                         if(!$currentStepObj) return [$this->tm("No current step defined for this application", $lang), ""];
 
                         // to go to next step we should apply conditions of the current step
-                        list($fail_reason, $success, $wwaarr, $tech) = $currentStepObj->applyMyGeneralConditionsOn($this, $lang);
+                        $applyResult = $currentStepObj->applyMyGeneralConditionsOn($this, $lang);
+                        $success = $applyResult['success'];
+                        
+                        list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
                         if($success)
                         {
-                                $inf_arr[]  = $this->tm("The step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has been successfully passed", $lang); 
+                                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                                $nextStepNum = $this->objApplicationModel->getNextGeneralStepNumOf($currentStepNum);
+                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
+                                $this->set("step_num", $nextStepNum);
+                                $this->commit();
+                                $inf_arr[]  = $this->tm("The move from step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has been successfully done", $lang); 
+                                $inf_arr[]  = $success_message;
                                 $tech_arr[] = $tech;
                         }
                         else
                         {
-                                $war_arr[]  = $this->tm("The step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has failel for the following reason", $lang)." : ".$fail_reason; 
+                                $err_arr[]  = $this->tm("The move from step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has failed for the following reason", $lang)." : "; 
+                                $war_arr[]  = $fail_message;
                                 $tech_arr[] = $tech;
                         }
                 }

@@ -9,8 +9,14 @@ $application_additional_fields = [
                             'formula' => 'calcApplicantAge', ),
                             
     'attribute_2' => array('type' => 'INT', 'css' => 'width_pct_25', 'size' => 64, 'step' => 1, 
-                            'field_code' => 'applicant_age', 'optional' => false, 'readonly' =>true,
+                            'field_code' => 'qualification_age', 'optional' => false, 'readonly' =>true,
                             'title_ar' => 'عمر المؤهل', 'title_en' => 'qualification age', 
+                            'category' => 'FORMULA',
+                            'formula' => 'calcQualificationAge', ),
+
+    'attribute_3' => array('type' => 'INT', 'css' => 'width_pct_25', 'size' => 64, 'step' => 1, 
+                            'field_code' => 'qualification_level', 'optional' => false, 'readonly' =>true,
+                            'title_ar' => 'مستوى المؤهل', 'title_en' => 'qualification age', 
                             'category' => 'FORMULA',
                             'formula' => 'calcQualificationAge', ),
     

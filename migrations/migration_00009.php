@@ -1,8 +1,6 @@
 <?php
 // rafik 08/10/2024 : applicant do application
 
-update c0adm.applicant_qualification aq set aq.major_category_id = (select major_category_id from c0adm.qual_major_path mp inner join c0adm.major_path m on mp.major_path_id=m.id where m.qualification_id=aq.qualification_id and mp.qualification_major_id=aq.qualification_major_id);
-
 AfwDatabase::db_query("ALTER TABLE c0adm.application_model_branch 
        add   major_id int(11) DEFAULT NULL  after department_id;");
 

@@ -22,6 +22,14 @@
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
     
+    $messages["has been successfully done"] = "تمت بنجاح";
+    $messages["The move from step"] = "عملية الانتقال من الخطوة";
+    $messages["has failed for the following reason"] = "فشلت للأسباب التالية";
+    $messages["The condition"] = "الشرط";
+    $messages["condition part"] = "جزء الشرط";
+    $messages["has failed"] = "فشل";
+    $messages["has succeeded"] = "نجح";
+    
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
     

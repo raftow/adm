@@ -110,4 +110,18 @@ AfwDatabase::db_query("INSERT into `c0adm`.`applicant` select * from `c0adm`.`ap
 
 AfwDatabase::db_query("ALTER TABLE `applicant` ADD PRIMARY KEY (`id`);"); 
 
+AfwDatabase::db_query("CREATE INDEX applicant_mobile on `applicant`(mobile);"); 
 
+AfwDatabase::db_query("CREATE INDEX applicant_email on `applicant`(email);"); 
+
+/*
+ALTER TABLE `applicant` DROP PRIMARY KEY;
+
+ALTER TABLE `applicant` DROP INDEX applicant_mobile; 
+
+ALTER TABLE `applicant` DROP INDEX applicant_email;
+
+-- ALTER TABLE `applicant` ADD PRIMARY KEY (`id`);
+-- CREATE INDEX applicant_mobile on `applicant`(mobile); 
+-- CREATE INDEX applicant_email on `applicant`(email);
+*/

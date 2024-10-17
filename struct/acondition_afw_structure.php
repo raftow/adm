@@ -101,7 +101,7 @@
 		
 		'condition_1_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition',  
+				'TYPE' => 'FK',  'ANSWER' => 'acondition',  'RELATION' => 'OneToMany', 
 				'WHERE' => "acondition_origin_id=§acondition_origin_id§ and acondition_type_id=3",
 				'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
@@ -119,7 +119,7 @@
 		
 		'condition_2_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition',  
+				'TYPE' => 'FK',  'ANSWER' => 'acondition',  'RELATION' => 'OneToMany',
 				'WHERE' => "acondition_origin_id=§acondition_origin_id§ and acondition_type_id=3",
 				'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 

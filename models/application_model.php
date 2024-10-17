@@ -3,6 +3,9 @@
 
         class ApplicationModel extends AdmObject{
 
+
+                private $applicationStepList = null;
+
                 public static $DATABASE		= ""; 
                 public static $MODULE		    = "adm"; 
                 public static $TABLE			= "application_model"; 
@@ -311,6 +314,22 @@
                 public function shouldBeCalculatedField($attribute){
                         if($attribute=="level_degree_mfk") return true;
                         return false;
+                }
+
+                public function getStepMax($general=true)
+                {
+                        if($general) $gen = 'Y';
+                        else $gen = 'N';
+                        
+                        return $this->getRelation("applicationStepList")->resetWhere("general='$gen'")->func("max(step_num)");
+                }
+
+                public function getNextGeneralStepNumOf($step_num)
+                {
+                        if(!$this->stepMax) $this->stepMax = $this->getStepMax(true);
+                        $return = $step_num + 1;
+                        if($return > $this->stepMax) $return = $this->stepMax;
+                        return $return;
                 }
 
 

@@ -33,6 +33,11 @@ class ApplicationModelCondition extends AdmObject
         return false;
     }
 
+    /**
+     * @return Array(ApplicationModelCondition)
+     * 
+     */
+
     public static function loadStepNumConditions($application_model_id, $step_num, $general=null)
     {
         if (!$application_model_id) throw new AfwRuntimeException("loadStepNumConditions : application_model_id is mandatory field");

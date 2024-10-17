@@ -1,4 +1,9 @@
 /* CSS Document */
+.technical {
+    display: block;
+    background-color: #f6f6cf;
+    padding: 8px;
+}
 
 .medium-12.large-12.columns.text-center.large-text-right {
     border-bottom: 2px solid #91b1c947 !important;

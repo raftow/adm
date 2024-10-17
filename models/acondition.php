@@ -61,6 +61,13 @@ class Acondition extends AdmObject{
                 return $return_arr;
         }
 
+        public function getExcuseText($lang="ar")
+        {
+               if($lang=="fr") $lang = "en";
+               return $this->getVal("excuse_text_$lang");
+        }
+        
+
         public function getDisplay($lang="ar")
         {
                if($lang=="fr") $lang = "en";
@@ -366,16 +373,25 @@ class Acondition extends AdmObject{
                         throw new AfwRuntimeException("no valid object given for applying condition");
                 }
 
+
+                $objApplicant = null;
+                $objApplication = null;
+                $application_id = 0;
+
                 if($obj instanceof Applicant)
-                {
+                {                       
+                        $objApplicant = $obj;
                         $applicant_id = $obj->id;
                         $adesire_id = 0;
                         
                 }
                 elseif($obj instanceof Application)
                 {
-                        $applicant_id = $obj->getVal("applicant_id");
+                        $objApplication = $obj;
                         $application_id = $obj->id;
+                        $objApplicant = $obj->het("applicant_id");
+                        $applicant_id = $obj->getVal("applicant_id");
+                        $adesire_id = 0;
                 }
                 /*
                 elseif($obj instanceof ApplicationDesire)
@@ -388,6 +404,9 @@ class Acondition extends AdmObject{
                         throw new AfwRuntimeException("unknown class for applying condition : ".get_class($obj));
                 }
 
+                $has_failed = $this->tm("has failed");
+                $has_succeeded = $this->tm("has succeeded");
+
                 if($this->_isComposed())
                 {
                         // to avoid for big loops to recreate the composing objects for each iteration
@@ -398,22 +417,41 @@ class Acondition extends AdmObject{
                         if(!$this->cond1Obj) throw new AfwRuntimeException("no valid part 1 given for composed condition");
                         if(!$this->cond2Obj) throw new AfwRuntimeException("no valid part 2 given for composed condition");
 
-                        $cond1Desc = $this->cond1Obj->getDisplay($lang);
-                        $cond2Desc = $this->cond2Obj->getDisplay($lang);
+                        $cond1Desc = $this->tm("condition part", $lang)." 1";
+                        $cond2Desc = $this->tm("condition part", $lang)." 2";
 
-                        list($res1, $comments1) = $this->cond1Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
-                        list($res2, $comments2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
-
+                        list($res1, $comments1, $tech1) = $this->cond1Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                        
+                        // if(!$res1) die($this->cond1Obj->getShortDisplay($lang)." => comments1=$comments1, tech1=$tech1");
                         $operator = $this->getVal("operator_id");
                         
 
-                        if($operator==1)
+                        if($operator==1) // and
                         {
-                                return [($res1 and $res2), $cond1Desc.":".$comments1."<br>\n".$cond2Desc.":".$comments2];
+                                if($res1)
+                                {
+                                        list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                                        if(!$res2) return [false, $cond2Desc." " .$has_failed. " : ".$comments2, $cond2Desc.":".$tech2];
+                                        else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1."<br>\n".$cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2."<br>\n".$cond1Desc.":".$tech1];
+                                }
+                                else
+                                {
+                                        return [false, $cond1Desc." " .$has_failed. " : ".$comments1, $cond1Desc.":".$tech1];        
+                                }
+                                
+
+                                
                         }
-                        else
+                        else // or
                         {
-                                return [($res1 or $res2), $cond1Desc.":".$comments1."<br>\n".$cond2Desc.":".$comments2];
+                                if(!$res1)
+                                {
+                                        list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                                        if(!$res2) return [false, $cond1Desc." " .$has_failed. " : ".$comments1."<br>\n".$cond2Desc.":".$comments2, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
+                                        else return [true, $cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2];        
+                                }
+                                else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1, $cond1Desc.":".$tech1];        
+                                
                         }
                 }
                 else
@@ -429,40 +467,42 @@ class Acondition extends AdmObject{
                         $comparator = $this->getVal("compare_id");
 
                         $field_name = $this->afObj->getVal("field_name");
+                        $field_title = $this->afObj->getDisplay($lang);
                         $field_reel = $this->afObj->_isReel();
                         $application_table_id = $this->afObj->getVal("application_table_id");
                         if($application_table_id==1)
                         {
+                                $objApplicant->updateCalculatedFields();
                                 if($field_reel)
                                 {
-                                        $field_value = $obj->getVal($field_name);
+                                        $field_value = $objApplicant->getVal($field_name);
                                         $field_value_case = "getVal";
                                 }
                                 else
                                 {
-                                        $field_value = $obj->calc($field_name);
+                                        $field_value = $objApplicant->calc($field_name);
                                         $field_value_case = "calc";
                                 }
                         }
                         elseif($application_table_id==3)
                         {
                                 // die("here rafik applicant_id=$applicant_id application_table_id=$application_table_id application_plan_id=$application_plan_id field_name=$field_name field_reel=$field_reel");
-                                $objApp = Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate);
-                                if(!$objApp)
+                                if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate);
+                                if(!$objApplication)
                                 {
                                         // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate) keyf failed ??");
                                         $field_value = null;
-                                        $field_value_case = "Application::loadByMainIndex return null"; 
+                                        $field_value_case = "Application::loadByMainIndex($applicant_id, $application_plan_id) return null"; 
                                 }
                                 elseif($field_reel)
                                 {
-                                        $field_value = $objApp->getVal($field_name);
+                                        $field_value = $objApplication->getVal($field_name);
                                         $field_value_case = "getVal";
                                 }
                                 else
                                 {
                                         // die("before objApp->calc rafik applicant_id=$applicant_id application_table_id=$application_table_id field_name=$field_name");
-                                        $field_value = $objApp->calc($field_name);
+                                        $field_value = $objApplication->calc($field_name);
                                         $field_value_case = "calc";
                                 }
                         }
@@ -500,7 +540,12 @@ class Acondition extends AdmObject{
                         else
                         {
                                 $param_value = $param_valueObj->getVal("value");
-                                list($exec_result, $comments) = $this->applyComparison($field_value, $comparator, $param_value, $lang);
+                                list($exec_result, $tech) = $this->applyComparison($field_value, $comparator, $param_value, $lang, $field_title);
+                                $excuseText = $this->getExcuseText($lang);
+                                
+                                if(!$excuseText) $excuseText = $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
+                                $successText = $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_succeeded;
+                                $comments = $exec_result ? $successText : $excuseText;
                         } 
                         
                         
@@ -524,11 +569,11 @@ class Acondition extends AdmObject{
                         }
 
 
-                        return [$exec_result, $comments];
+                        return [$exec_result, $comments, $tech];
                 }
         }
 
-        public function applyComparison($field_value, $comparator, $param_value, $lang="ar")
+        public function applyComparison($field_value, $comparator, $param_value, $lang="ar", $field_title="[اسم حقل]")
         {
                 // arr_list_of_compare["en"][1] = "Equal to";
                 if($comparator == 1)
@@ -601,7 +646,7 @@ class Acondition extends AdmObject{
                 if($return) $is_or_isnt = $this->tm("very the condition that", $lang); 
                 else $is_or_isnt = $this->tm("does'nt very the condition that", $lang);
 
-                return [$return, "$field_value_tr [ $field_value ] $is_or_isnt $comparatorDesc $param_value"];
+                return [$return, "$field_value_tr [ $field_title = $field_value ] $is_or_isnt $comparatorDesc $param_value"];
 
         }        
 

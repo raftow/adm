@@ -195,7 +195,7 @@
                         }    
                 }
 
-                public function applyMyGeneralConditionsOn($applicationObject)
+                public function applyMyGeneralConditionsOn($applicationObject, $lang)
                 {
                         $err_arr = [];
                         $inf_arr = [];
@@ -203,14 +203,45 @@
                         $tech_arr = [];
 
                         $application_model_id = $this->getVal("application_model_id");
+                        $application_plan_id = $this->getVal("application_plan_id");
                         $step_num = $this->getVal("step_num");
                         $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, true);
-                        foreach($acondList as $acondItem)
+                        /**
+                         *
+                         * @var ApplicationModelCondition $aModelCondItem
+                         * 
+                         */
+                        $success = true; // if one condition fail so all fail
+                        $c = 0;
+                        foreach($acondList as $aModelCondItem)
                         {
-                                
+                                /**
+                                 * @var Acondition $acondItem 
+                                 */
+                                $acondItem = $aModelCondItem->het("acondition_id");
+                                if($acondItem)
+                                {
+                                        $c++;
+                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $applicationObject, $application_plan_id, $application_model_id, $simulate = false); 
+                                        if($exec_result) 
+                                        {
+                                                $inf_arr[] = "($c) ".$comments;
+                                        } 
+                                        else 
+                                        {
+                                                $success = false;
+                                                $war_arr[] = $comments;
+                                        }
+                                        if($tech)  $tech_arr[] = $tech;
+                                }
+                                else
+                                {
+                                        $err_arr[] = "model condition item has not valid condition : id=".$aModelCondItem->id;
+                                }
                         }
 
-                        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+                        
+                        return ['success'=>$success, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
                 }
 
         }
