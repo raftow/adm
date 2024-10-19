@@ -5083,3 +5083,17 @@ h5.bluetitle.search {
 .form-control-div.hzm_control_div_applicationModelFieldList.errors {
     min-height: fit-content;
 }
+
+.table thead>tr>th,
+.table tfoot>tr>th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #c6e5f2;
+    border-left: 1px solid #c6e5f2;
+    border-top: 1px solid #c6e5f2 !important;
+    border-right: none;
+    background-color: #c0e0f3;
+}
+
+.form_right.form_wizard_body.form_wizard_apiendpoin {
+    min-height: 1080px;
+}

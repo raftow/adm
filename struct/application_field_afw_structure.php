@@ -31,13 +31,14 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,'CSS' => 'width_pct_25',
 				),
 
-			'field_name' => array('IMPORTANT' => 'IN',  'SHORTNAME' => 'name',  'SHOW' => true,  'SEARCH' => true,  'RETRIEVE' => true,  'QEDIT' => true,  'EDIT' => true,  
-				'TYPE' => 'TEXT',  'SIZE' => 25,  'STYLE' => 'width:150px',    'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'QEDIT_ALL_FGROUP' => true,  'ALL_FGROUP' => true,  'ALL-RETRIEVE' => true,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
+			'field_name' => array('SHOW' => true,  'SEARCH' => true,  'RETRIEVE' => false,  'QEDIT' => true,  'EDIT' => true,  
+				'TYPE' => 'TEXT',  'SIZE' => 25,  'STYLE' => 'width:150px', 'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'CSS' => 'width_pct_25',
 				),
 
-			'shortname' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => false,  'UTF8' => true,    'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'SEARCH' => true,  'RETRIEVE_FGROUP' => true,  
-				'TYPE' => 'TEXT',  'SIZE' => 15,  'GENERAL_PROPS-RETRIEVE' => true,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
+			'shortname' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => false, 
+				'UTF8' => true,    'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'SEARCH' => true,  
+				'TYPE' => 'TEXT',  'SIZE' => 15,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'CSS' => 'width_pct_25',
 				),
 
@@ -141,7 +142,7 @@
 
 		'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
 				'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 3,  
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 
+				'READONLY' => true, 
 				'CSS' => 'width_pct_25',),
 
 		'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  

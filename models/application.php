@@ -5,6 +5,9 @@ require_once($file_dir_name . "/../extra/application_additional_fields-$main_com
          
 class Application extends AdmObject
 {
+        /**
+         * @var ApplicationModel $objApplicationModel
+         */
         private $objApplicationModel = null;
 
         public static $DATABASE                = "";
@@ -71,7 +74,6 @@ class Application extends AdmObject
         {
                 $objApplicantQual = null;
                 $objApplicationPlan = null;
-                $objApplicationModel = null;
 
                 if(!$this->getVal("application_model_id"))
                 {
@@ -119,12 +121,14 @@ class Application extends AdmObject
                         }
                 }
 
+                if($fields_updated["step_num"]) $this->requestAPIsOfStep($this->getVal("step_num"));
+
                 // if(!$objApplicationPlan) $objApplicationPlan = $this->het("application_plan_id");
 
                 if($fields_updated["step_num"] or (!$this->getVal("application_step_id")))
                 {
-                        if(!$objApplicationModel) $objApplicationModel = $this->het("application_model_id");
-                        $appStepObj = $objApplicationModel->convertStepNumToID($this->getVal("step_num"));
+                        if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                        $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
                         if($appStepObj)
                         {
                                 $application_step_id = $appStepObj->id;
@@ -286,6 +290,10 @@ class Application extends AdmObject
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
                                 $this->commit();
+                                if($nextStepNum != $currentStepNum)
+                                {
+                                        $this->requestAPIsOfStep($nextStepNum);
+                                }
                                 $inf_arr[]  = $this->tm("The move from step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has been successfully done", $lang); 
                                 $inf_arr[]  = $success_message;
                                 $tech_arr[] = $tech;
@@ -309,6 +317,80 @@ class Application extends AdmObject
                 
                 
         }
+
+        public function requestAPIsOfStep($nextStepNum)
+        {
+                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                $appModelApiList = $this->objApplicationModel->getAppModelApiOfStep($nextStepNum);
+
+                $appModelApiListCount = count($appModelApiList);
+
+                // die("appModelApiList ($appModelApiListCount apis) = objApplicationModel->getAppModelApiOfStep($nextStepNum) = ".var_export($appModelApiList,true));
+                // $api_runner_class = Applicant::loadApiRunner();
+
+                $applicantObj = $this->het("applicant_id");
+                if($applicantObj)
+                {
+                        // create step apis call requests to be done by applicant-api-request-job            
+                        foreach($appModelApiList as $appModelApiItem)
+                        {
+                                $apiEndPointObj = $appModelApiItem->het("api_endpoint_id");
+                                if($apiEndPointObj)
+                                {
+                                        // $api_endpoint_code = $apiEndPointObj->getVal("api_endpoint_code");                                
+                                        ApplicantApiRequest::loadByMainIndex($applicantObj->id, $apiEndPointObj->id, true);
+                                }
+                                
+                        }
+                }
+
+                
+        }
+
+
+        public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+
+                        
+                   // FK part of me - deletable 
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	}
 
         
 }

@@ -1,26 +1,26 @@
 <?php 
-        class AdmAppModelApiAfwStructure
+        class AdmApplicantApiRequestAfwStructure
         {
         
                 public static function initInstance(&$obj)
                 {
-                        if ($obj instanceof AppModelApi) 
+                        if ($obj instanceof ApplicantApiRequest) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                // $obj->DISPLAY_FIELD = "app_model_api_name_ar";
+                                // $obj->DISPLAY_FIELD = "applicant_api_request_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                 $obj->UNIQUE_KEY = array('application_model_id','api_endpoint_id');
+                                $obj->UNIQUE_KEY = array('applicant_id','api_endpoint_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 // $obj->editByStep = true;
                                 // $obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("class"=>'Applicant',"attribute"=>'applicant_id', "currmod"=>'adm',"currstep"=>1);
                         }
                         else 
                         {
-                                AppModelApiArTranslator::initData();
-                                AppModelApiEnTranslator::initData();
+                                ApplicantApiRequestArTranslator::initData();
+                                ApplicantApiRequestEnTranslator::initData();
                         }
                 }
                 
@@ -31,103 +31,55 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-                                        'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_25', ),	
 
 
                                         'api_endpoint_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),
-
-                                                'api_field_mfk' => array(
-                                                                'CATEGORY' => 'SHORTCUT',
-                                                                'SHORTCUT' => 'api_endpoint_id.application_field_mfk',
-                                                                'NO-COTE' => true,
-                                                                'TYPE' => 'MFK',
-                                                                'ANSWER' => 'application_field',
-                                                                'ANSMODULE' => 'adm',
-                                                                'STEP' => 99,
-                                                                'DISPLAY-UGROUPS' => '',
-                                                                'EDIT-UGROUPS' => '',
-                                                                'CSS' => 'width_pct_50',
-                                                                ),
-                                                                
-                                        'step_num' => array(
-                                                'IMPORTANT' => 'IN',
-                                                'SHOW' => true,
-                                                'RETRIEVE' => true,
-                                                'QEDIT' => true, 'READONLY'=>true,
-                                                'EDIT' => true, 'CAN_ZERO' => true,
-                                                'TYPE' => 'INT', 'MANDATORY' => false, 
-                                                'STEP' => 1,
-                                                'DISPLAY-UGROUPS' => '',
-                                                'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_50',),
+                                                'CSS' => 'width_pct_25', ),	
 
 
-                                        'manadatory' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
-
-
-                                        'can_refresh' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
-                                                
-
-                                        'duration_expiry' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
-                                                'TYPE' => 'INT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'UNIT' => 'يوم', 'DEFAUT' => 15, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-                                                
-
-
-                                        'published' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
-                                        'application_field_mfk' => array(
+                                        'run_date' => [
                                                 'IMPORTANT' => 'IN',
                                                 'SEARCH' => true,
-                                                'QSEARCH' => true,
                                                 'SHOW' => true,
                                                 'RETRIEVE' => true,
                                                 'EDIT' => true,
                                                 'QEDIT' => true,
+                                                'SEARCH-ADMIN' => true,
+                                                'SHOW-ADMIN' => true,
+                                                'EDIT-ADMIN' => true,
                                                 'UTF8' => false,
-                                                'MANDATORY' => true,
-                                                'TYPE' => 'MFK',
-                                                'ANSWER' => 'application_field',
-                                                'ANSMODULE' => 'adm',
-                                                'WHERE' => "id in (0§api_field_mfk§0)", 
-                                                'DISPLAY' => true,
+                                                'TYPE' => 'GDAT',
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_100',
-                                                ),
+                                                
+                                                'CSS' => 'width_pct_25',
+                                            ],
+                                            
 
-
-
-
-                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
+                                        'need_refresh' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN', 'FORMAT' => 'icon',   'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
+
+
+
+                                        'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
+        
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -158,7 +110,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
 
-
+                                        
 
 
                                         'version'                  => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 
@@ -180,6 +132,6 @@
                                                                         'TOKEN_SEP'=>'§', 'READONLY'=>true, 'NO-ERROR-CHECK'=>true, 'FGROUP' => 'tech_fields'),				
 
 
-                                                                        ); 
-                                                } 
+                                ); 
+        } 
 ?>

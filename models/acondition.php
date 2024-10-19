@@ -49,13 +49,14 @@ class Acondition extends AdmObject{
                         $return_1_arr = [];
                         if($this->cond1Obj) $return_1_arr = $this->cond1Obj->getAllFields();
                         $return_2_arr = [];
-                        if($this->cond2Obj) $return_2_arr = $this->cond1Obj->getAllFields();
+                        if($this->cond2Obj) $return_2_arr = $this->cond2Obj->getAllFields();
 
                         $return_arr = array_merge($return_1_arr, $return_2_arr);
+                        // die("getAllFields case _isComposed => ".var_export($return_arr, true));
                 }    
                 else
                 {
-                        $return_arr[] = ["id"=>$this->getVal("afield_id")];
+                        $return_arr[] = ["id"=>$this->getVal("afield_id"), "name"=>$this->showAttribute("afield_id",null,true,'en')];
                 }
 
                 return $return_arr;

@@ -17,6 +17,11 @@
                                 $obj->editNbSteps = 10; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
+                        else 
+                        {
+                                ApplicantArTranslator::initData();
+                                ApplicantEnTranslator::initData();
+                        }
                 }
                 
                 
@@ -204,7 +209,7 @@
                                                 
 
 
-                                        'father_name_ar' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
+                                        'father_name_ar' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '32', 'MAXLENGTH' => '32', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -361,7 +366,7 @@
 
                                         'has_iban' => array('FGROUP'=>'bank', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'CHECKBOX'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', /*'CHECKBOX'=>true,*/
                                                 'CSS' => 'width_pct_25',),
 
 
@@ -376,7 +381,7 @@
 
                                         'bank_account_pledge' => array('FGROUP'=>'bank', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'CHECKBOX'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', /*'CHECKBOX'=>true,*/
                                                 'CSS' => 'width_pct_25',),
 
 
@@ -477,7 +482,15 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
                                                 
-
+                                        'applicantApiRequestList' => array('STEP' => 2,'FGROUP'=>'apis', 'SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                                        'ICONS' => false, 
+                                                                        'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                                        'EDIT' => false,  'QEDIT' => false,  
+                                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'FK',  
+                                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'applicant_api_request',  'ANSMODULE' => 'adm',  'ITEM' => 'applicant_id',  
+                                                                        'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                                        'CSS' => 'width_pct_100', ),
 
 
                                         
@@ -643,11 +656,11 @@
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
 
 
-                                        'attribute_21' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  
+                                        /*'attribute_21' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  
                                                                         'EDIT' => false,  'QEDIT' => true,  'UTF8' => false,  
                                                                         'TYPE' => '::additional', 'ANSWER' => '::additional',  'ANSMODULE' => '::additional',  'STEP' => '::additional',    'DISPLAY' => true, 'MANDATORY' => false,                                 
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',
-                                                                        'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
+                                                                        'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),*/
 
 
                                         'attribute_22' => array('FGROUP'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  

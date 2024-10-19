@@ -81,6 +81,20 @@ class Applicant extends AdmObject
         return false;
     }
 
+    public static function loadApiRunner()
+    {
+        $main_company = AfwSession::config("main_company", "all");
+        $api_runner_file = $main_company."_api_runner";
+        $api_runner_class = AfwStringHelper::tableToClass($api_runner_file);
+        if(!class_exists($api_runner_class,false))
+        {
+            $file_dir_name = dirname(__FILE__);
+            require($file_dir_name . "/../extra/$api_runner_file.php");
+        }
+
+        return $api_runner_class;
+    }
+
     public function beforeMaj($id, $fields_updated)
     {
         $idn = $this->getVal("idn");
@@ -89,20 +103,37 @@ class Applicant extends AdmObject
         {
             return false;
         }
-
         
-        
+        $first_register = false;
         // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") before set id=".var_export($id,true));
 
         if (!$id) // the ID of an applicant is his IDN
         {
             $this->set("id", $idn);
             $id = $this->id;
+            $first_register = true;
             // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") after set id=".var_export($id,true));
         }
         else
         {
             if($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id");
+        }
+
+        $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", true);
+
+        if($this->id and ($first_register or $register_apis_need_refresh))
+        {
+            $api_runner_class = self::loadApiRunner();
+
+            // create register apis call requests to be done by applicant-api-request-job
+            $register_apis = $api_runner_class::register_apis();
+            foreach($register_apis as $register_api)
+            {
+                $aepObj = ApiEndpoint::loadByMainIndex($register_api);
+                if(!$aepObj) throw new AfwRuntimeException("the register API $register_api is not found in DB");
+                ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
+            }
+            
         }
 
         return true;
@@ -447,6 +478,105 @@ class Applicant extends AdmObject
     public function qsearchByTextEnabled()
     {
         return false;
+    }
+
+    protected function getPublicMethods()
+    {
+    
+            $pbms = array();
+            
+            
+
+            $color = "green";
+            $title_ar = "تحديث البيانات من الخدمات الالكترونية"; 
+            $methodName = "runNeededApis";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEPS' => 'all');
+            
+
+            
+            
+            return $pbms;
+    }
+
+
+    public function runNeededApis($lang="ar")
+    {
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+
+        // $app_name = $this->getShortDisplay($lang);
+
+
+        try
+        {
+            $applicantApiRequestList = $this->get("applicantApiRequestList");
+            /**
+             * @var ApplicantApiRequest $applicantApiRequestItem
+             */
+            foreach($applicantApiRequestList as $applicantApiRequestItem)
+            {
+                /**
+                 * @var ApiEndpoint $apiEndPoint
+                 */
+                $apiEndPoint = $applicantApiRequestItem->het("api_endpoint_id"); 
+                $need_refresh = $applicantApiRequestItem->est("need_refresh"); 
+                if($apiEndPoint and $apiEndPoint->est("published"))
+                {
+                    $run_date = $applicantApiRequestItem->getVal("run_date");
+                    if($run_date=="0000-00-00") $run_date = "";
+                    if($run_date=="0000-00-00 00:00:00") $run_date = "";
+
+                    if(!$need_refresh)
+                    {
+                        if($run_date)
+                        {
+                            $duration_expiry = $apiEndPoint->getVal("duration_expiry");
+                            if(!$duration_expiry) $duration_expiry = 15;
+                            $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
+                            $need_refresh = ($expiry_date > $run_date); // run date is very old
+                        }
+                        else $need_refresh = true;
+                    }
+                    
+                    
+                    
+
+                    if($run_date) $can_refresh = $apiEndPoint->est("can_refresh");
+                    else $can_refresh = true;
+
+                    if($need_refresh and $can_refresh)
+                    {
+                        $api_name = $apiEndPoint->getShortDisplay($lang);
+                        $api_endpoint_code = $apiEndPoint->getVal("api_endpoint_code");
+                        $api_runner_method = "run_api_" . $api_endpoint_code;
+                        $api_runner_class = self::loadApiRunner();
+                        list($err,$inf,$war,$tech) = $api_runner_class::$api_runner_method($this);
+
+                        if($err) $err_arr[] = "$api_name : ".$err;
+                        if($inf) $inf_arr[] = "$api_name : ".$inf;
+                        if($war) $war_arr[] = "$api_name : ".$war;
+                        if($tech) $tech_arr[] = $tech;
+                    }
+                    elseif(!$need_refresh) $war_arr[] = $apiEndPoint." doesn't need update as recently updated at $run_date";
+                    elseif(!$can_refresh) $war_arr[] = $apiEndPoint." already called at $run_date and can not be refreshed";
+
+                }
+                else $war_arr[] = $apiEndPoint." is not published";
+            }
+        }
+        catch(Exception $e)
+        {
+                $err_arr[] = $e->getMessage();
+        }
+        catch(Error $e)
+        {
+                $err_arr[] = $e->__toString();
+        }
+        // die("war_arr=".var_export($war_arr));
+        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+
     }
 
     

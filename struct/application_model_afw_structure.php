@@ -16,8 +16,13 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 7; 
+                                $obj->editNbSteps = 8; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                        }
+                        else 
+                        {
+                                ApplicationModelArTranslator::initData();
+                                ApplicationModelEnTranslator::initData();
                         }
                 }
                 
@@ -339,13 +344,20 @@
 
                                         'applicationModelFieldList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_field', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 
-                                                'STEP' => 6, 'PILLAR' => true, 
+                                                'STEP' => 7, 'PILLAR' => true, 
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+
+                                        'appModelApiList' => array('TYPE' => 'FK', 'ANSWER' => 'app_model_api', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 
+                                                'STEP' => 7, 'PILLAR' => true, 
+                                                // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
 
                                         'applicationPlanList' => array('TYPE' => 'FK', 'ANSWER' => 'application_plan', 'ANSMODULE' => 'adm', 'QEDIT' => false, 
-                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 7,
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 8,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
