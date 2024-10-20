@@ -579,6 +579,50 @@ class Applicant extends AdmObject
 
     }
 
+
+    public function getFieldsMatrix($applicantFieldsArr, $lang="ar")
+    {
+        $matrix = [];
+        // $this->updateCalculatedFields();
+        foreach($applicantFieldsArr as $field_name => $applicantFieldObj)
+        {
+            $row_matrix = [];
+            $field_reel = $applicantFieldObj->_isReel();
+            $row_matrix['reel'] = $field_reel;
+            $field_title = $applicantFieldObj->getDisplay($lang);
+            $row_matrix['title'] = $field_title;
+            if($field_reel)
+            {
+                    $field_value = $this->getVal($field_name);
+                    $field_value_case = "getVal";
+            }
+            else
+            {
+                    $field_value = $this->calc($field_name);
+                    $field_value_case = "calc";
+            }
+            $field_decode = $this->decode($field_name);
+            $row_matrix['decode'] = $field_decode."<!-- $field_value -->";
+            $row_matrix['value'] = $field_value;
+            $row_matrix['case'] = $field_value_case;
+
+            $field_empty = ((!$field_value) or ($field_value==="W"));
+            $row_matrix['empty'] = $field_empty;
+            if(!$field_empty)
+            {
+                $field_value_datetime = $this->getVal($this->fld_UPDATE_DATE());
+                if(!$field_value_datetime) $field_value_datetime = $this->getVal($this->fld_CREATION_DATE());
+            }
+            else $field_value_datetime = "";
+
+            $row_matrix['datetime'] = $field_value_datetime;
+
+            $matrix[] = $row_matrix;
+        }
+
+        return $matrix;
+    }
+
     
 }
 

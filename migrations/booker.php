@@ -16,6 +16,7 @@ $migrations = [
     '00010' => ['by'=>'medali', 'title' => 'add imported field to applicant_evaluation'],
     '00011' => ['by'=>'rafik', 'title' => 'applicant tables partionned'],
     '00012' => ['by'=>'rafik', 'title' => 'applicant fields ++'],
+    '00013' => ['by'=>'rafik', 'title' => 'application step workflow'],
     
 ];
 

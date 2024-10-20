@@ -347,6 +347,87 @@ class Application extends AdmObject
                 
         }
 
+        public function getFieldsMatrix($applicationFieldsArr, $lang="ar")
+        {
+                $matrix = [];
+                // $this->updateCalculatedFields();
+                foreach($applicationFieldsArr as $field_name => $applicationFieldObj)
+                {
+                        $row_matrix = [];
+                        $field_reel = $applicationFieldObj->_isReel();
+                        $row_matrix['reel'] = $field_reel;
+                        $field_title = $applicationFieldObj->getDisplay($lang);
+                        $row_matrix['title'] = $field_title;
+                        if($field_reel)
+                        {
+                                $field_value = $this->getVal($field_name);
+                                $field_value_case = "getVal";
+                                
+                        }
+                        else
+                        {
+                                $field_value = $this->calc($field_name);
+                                $field_value_case = "calc";
+                        }
+                        $field_decode = $this->decode($field_name);
+                        $row_matrix['decode'] = $field_decode."<!-- $field_value -->";
+                        $row_matrix['value'] = $field_value;                        
+                        $row_matrix['case'] = $field_value_case;
+
+                        $field_empty = ((!$field_value) or ($field_value==="W"));
+                        $row_matrix['empty'] = $field_empty;
+                        if(!$field_empty)
+                        {
+                                $field_value_datetime = $this->getVal($this->fld_UPDATE_DATE());
+                                if(!$field_value_datetime) $field_value_datetime = $this->getVal($this->fld_CREATION_DATE());
+                        }
+                        else $field_value_datetime = "";
+
+                        $row_matrix['datetime'] = $field_value_datetime;
+
+                        $matrix[] = $row_matrix;
+                }
+
+                return $matrix;
+        }
+
+        public function fieldsMatrixForStep($stepNum)
+        {
+                $applicantObj = $this->het("applicant_id");
+                if(!$applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
+                
+                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true);
+                if(count($applicationDesireFieldsArr)>0)
+                {
+                        $applicationDesireFieldsArrKeys = array_keys($applicationDesireFieldsArr);
+                        throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
+                }
+
+                $fieldsMatrix_1 = $applicantObj->getFieldsMatrix($applicantFieldsArr);
+                $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr);
+
+                $fieldsMatrix = array_merge($fieldsMatrix_1, $fieldsMatrix_2);
+
+                return $fieldsMatrix;
+        }
+
+        public function calcCurrent_fields_matrix()
+        {
+                global $lang;
+
+                $currentStepNum = $this->getVal("step_num");
+                $matrix = $this->fieldsMatrixForStep($currentStepNum);
+
+                $matrix_header = ['title'=>'الحقل', 'decode'=>'القيمة', 'datetime'=>'تاريخ التحديث', 'empty'=>'حالة التحديث', ];
+
+                
+                $return = AfwHtmlHelper::tableToHtml($matrix, $matrix_header);
+                //$return .= "matrix = ".var_export($matrix, true)."<br>\n";
+
+                return $return;
+        }
+
 
         public function beforeDelete($id,$id_replace) 
         {

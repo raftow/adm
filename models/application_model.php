@@ -138,6 +138,53 @@
                         return $stepAppModelApiList;
                 }
 
+                public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar")
+                {
+                        if(!$stepNum) $stepNum = 0;
+                        $applicationModelFieldList = $this->getRelation("applicationModelFieldList")->resetWhere("step_num<=$stepNum")->getList();
+                        if(!$splitByTable) return $applicationModelFieldList;
+                        else
+                        {
+                                $applicantFieldsArr = [];
+                                $applicationFieldsArr = [];
+                                $applicationDesireFieldsArr = [];
+                                foreach($applicationModelFieldList as $applicationModelFieldItem)
+                                {
+                                        $applicationFieldObj = $applicationModelFieldItem->het("application_field_id");
+                                        if($applicationFieldObj)
+                                        {
+                                                $field_name = $applicationFieldObj->getVal("field_name");
+                                                $field_title = $applicationFieldObj->getDisplay($lang);
+                                                // $field_reel = $applicationFieldObj->_isReel();
+                                                $application_table_id = $applicationFieldObj->getVal("application_table_id");
+                                                if($application_table_id==1)
+                                                {
+                                                        if($onlyTitles) $applicantFieldsArr[$field_name] = $field_title;
+                                                        else $applicantFieldsArr[$field_name] = $applicationFieldObj;
+                                                }
+                                                elseif($application_table_id==3)
+                                                {
+                                                        if($onlyTitles) $applicationFieldsArr[$field_name] = $field_title;
+                                                        else $applicationFieldsArr[$field_name] = $applicationFieldObj;
+                                                }    
+                                                elseif($application_table_id==2)
+                                                {
+                                                        if($onlyTitles) $applicationDesireFieldsArr[$field_name] = $field_title;
+                                                        else $applicationDesireFieldsArr[$field_name] = $applicationFieldObj;
+                                                }
+                                                else
+                                                {
+                                                        throw new AfwRuntimeException("unknown application_table_id=$application_table_id");
+                                                }
+                                                        
+                                                        
+                                        }
+                                }
+
+                                return [$applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr];
+                        }
+                }
+
 
                 protected function attributeCanBeEditedBy($attribute, $user, $desc)
                 {
