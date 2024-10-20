@@ -14,6 +14,7 @@ class ApplicationModelFieldArTranslator{
 		$trad["application_model_field"]["screen_model_id"] = "الشاشة";
 		$trad["application_model_field"]["step_num"] = "خطوة الإدخال";
 		$trad["application_model_field"]["api_endpoint_id"] = "الخدمة الالكترونية";
+		$trad["application_model_field"]["duration_expiry"] = "مدة الصلاحية";
         // steps
 		$trad["application_model_field"]["step1"] = "step1";
         return $trad;
