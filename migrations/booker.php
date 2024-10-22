@@ -17,6 +17,6 @@ $migrations = [
     '00011' => ['by'=>'rafik', 'title' => 'applicant tables partionned'],
     '00012' => ['by'=>'rafik', 'title' => 'applicant fields ++'],
     '00013' => ['by'=>'rafik', 'title' => 'application step workflow'],
-    
+    '00014' => ['by'=>'medali', 'title' => 'recommendation letter'],
 ];
 
