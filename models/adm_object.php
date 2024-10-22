@@ -610,8 +610,58 @@ class AdmObject extends AFWObject{
                 return $arr_list_of_training_mode;
         }
 
+        public static function list_of_lor_status_enum()
+        {
+            global $lang;
+            return self::lor_status()[$lang];
+        }
+        
+        public static function lor_status()
+        {
+                $arr_list_of_training_mode = array();
+                
+                
+                $arr_list_of_training_mode["en"][1] = "For review";
+                $arr_list_of_training_mode["ar"][1] = "للمراجعة";
+                
+                $arr_list_of_training_mode["en"][2] = "Rejected";
+                $arr_list_of_training_mode["ar"][2] = "مرفوضة";
+                
+                $arr_list_of_training_mode["en"][3] = "Approved";
+                $arr_list_of_training_mode["ar"][3] = "معتمدة";
+                
+                $arr_list_of_training_mode["en"][4] = "Under review";
+                $arr_list_of_training_mode["ar"][4] = "قيد المراجعة";
+                
+                return $arr_list_of_training_mode;
+        }
 
         
+        public static function list_of_notification_type_enum()
+        {
+            global $lang;
+            return self::notification_type()[$lang];
+        }
+        
+        public static function notification_type()
+        {
+                $arr_list_of_training_mode = array();
+                
+                
+                $arr_list_of_training_mode["en"][1] = "email";
+                $arr_list_of_training_mode["ar"][1] = "بريد الكتروني";
+                
+                $arr_list_of_training_mode["en"][2] = "sms";
+                $arr_list_of_training_mode["ar"][2] = "رسالة نصية";
+                
+                $arr_list_of_training_mode["en"][3] = "phone call";
+                $arr_list_of_training_mode["ar"][3] = "اتصال هاتفي";
+                
+                $arr_list_of_training_mode["en"][4] = "direct contact";
+                $arr_list_of_training_mode["ar"][4] = "اتصال مباشر";
+                
+                return $arr_list_of_training_mode;
+        }
 
         public static function code_of_term_mode_enum($lkp_id=null)
         {
