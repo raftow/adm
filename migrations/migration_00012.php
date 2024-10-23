@@ -1,25 +1,25 @@
 <?php
 // rafik applicant fields ++
-AfwDatabase::db_query("INSERT INTO `application_field` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `field_name`, `shortname`, `application_table_id`, `application_field_type_id`, `field_title_ar`, `field_title_en`, `reel`, `additional`, `unit`, `unit_en`, `field_order`, `field_num`, `field_size`, `help_text`, `help_text_en`, `question_text`, `question_text_en`) VALUES
+AfwDatabase::db_query("INSERT INTO c0adm.`application_field` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `field_name`, `shortname`, `application_table_id`, `application_field_type_id`, `field_title_ar`, `field_title_en`, `reel`, `additional`, `unit`, `unit_en`, `field_order`, `field_num`, `field_size`, `help_text`, `help_text_en`, `question_text`, `question_text_en`) VALUES
 (110845, 1, '2024-10-17 13:35:19', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 2, NULL, NULL, NULL, NULL, 'attribute_3', '', 3, 13, 'مستوى المؤهل', 'qualification level', 'N', 'N', '', '', 130, NULL, 32, NULL, NULL, NULL, NULL)");
 
 
-AfwDatabase::db_query("update `applicant` set active='Y';");
+AfwDatabase::db_query("update c0adm.`applicant` set active='Y';");
 
-AfwDatabase::db_query("update `applicant` set attribute_1='Y' where attribute_1='1';");
-AfwDatabase::db_query("update `applicant` set attribute_1='N' where attribute_1='0';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_1='Y' where attribute_1='1';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_1='N' where attribute_1='0';");
 
-AfwDatabase::db_query("update `applicant` set attribute_4='Y' where attribute_4='1';");
-AfwDatabase::db_query("update `applicant` set attribute_4='N' where attribute_4='0';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_4='Y' where attribute_4='1';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_4='N' where attribute_4='0';");
 
-AfwDatabase::db_query("update `applicant` set attribute_5='Y' where attribute_5='1';");
-AfwDatabase::db_query("update `applicant` set attribute_5='N' where attribute_5='0';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_5='Y' where attribute_5='1';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_5='N' where attribute_5='0';");
 
-AfwDatabase::db_query("update `applicant` set attribute_7='Y' where attribute_7='1';");
-AfwDatabase::db_query("update `applicant` set attribute_7='N' where attribute_7='0';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_7='Y' where attribute_7='1';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_7='N' where attribute_7='0';");
 
-AfwDatabase::db_query("update `applicant` set attribute_8='Y' where attribute_8='1';");
-AfwDatabase::db_query("update `applicant` set attribute_8='N' where attribute_8='0';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_8='Y' where attribute_8='1';");
+AfwDatabase::db_query("update c0adm.`applicant` set attribute_8='N' where attribute_8='0';");
 
 AfwDatabase::db_query("ALTER TABLE c0adm.api_endpoint add   application_field_mfk varchar(255) NOT NULL  AFTER api_url");
 AfwDatabase::db_query("ALTER TABLE c0adm.app_model_api add   application_field_mfk varchar(255) NOT NULL  AFTER published");
@@ -59,7 +59,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`applicant_api_request` 
 
   AfwDatabase::db_query("ALTER table c0adm.api_endpoint DROP key uk_api_endpoint;");
 
-  AfwDatabase::db_query("INSERT INTO `api_endpoint` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `api_endpoint_code`, `name_ar`, `api_endpoint_title`, `desc_ar`, `api_endpoint_name_ar`, `name_en`, `api_endpoint_name_en`, `desc_en`, `adm_file_id`, `failure_text`, `api_url`, `application_field_mfk`) VALUES
+  AfwDatabase::db_query("INSERT INTO c0adm.`api_endpoint` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `api_endpoint_code`, `name_ar`, `api_endpoint_title`, `desc_ar`, `api_endpoint_name_ar`, `name_en`, `api_endpoint_name_en`, `desc_en`, `adm_file_id`, `failure_text`, `api_url`, `application_field_mfk`) VALUES
 (1, 1, '2024-10-18 15:05:57', 1, '2024-10-19 08:43:30', 0, NULL, 'Y', 'Y', 3, NULL, NULL, NULL, 0, 'mlsd_disability', '', 'MLSD-DisabilityReportService ', NULL, 'الاستعلام عن بيانات ذوي الإعاقة', '', 'MLSD-DisabilityReportService', NULL, NULL, NULL, 'xxxxxx', ',110378,'),
 (2, 1, '2024-10-18 16:07:28', 1, '2024-10-19 08:43:30', 0, NULL, 'Y', 'Y', 2, NULL, NULL, NULL, 0, 'moe_qualifications', '', 'خدمة مؤهل', NULL, 'خدمة مؤهل', '', 'MOE – Qualifications Service', NULL, NULL, NULL, 'xxxxxx/yyyyy', ',110694,110735,110845,'),
 (3, 1, '2024-10-18 16:10:55', 1, '2024-10-19 08:43:30', 0, NULL, 'Y', 'Y', 3, NULL, NULL, NULL, 0, 'moi_personal', '', 'البيانات الشخصية - وزارة الداخلية', NULL, 'البيانات الشخصية - وزارة الداخلية', '', 'MOI – Personal', NULL, NULL, NULL, 'xxxxxx/yyyyy/zzzz', ',110395,110484,110299,110323,110324,110325,110401,110734,'),
