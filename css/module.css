@@ -5097,3 +5097,8 @@ h5.bluetitle.search {
 .form_right.form_wizard_body.form_wizard_apiendpoin {
     min-height: 1080px;
 }
+
+.hzm_data.hzm_data_application_step_id.inputreadonly.form-control {
+    background-color: #25b80b !important;
+    color: white;
+}

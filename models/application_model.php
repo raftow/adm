@@ -134,14 +134,14 @@
                 public function getAppModelApiOfStep($toStepNum)
                 {
                         if(!$toStepNum) $toStepNum = 0;
-                        $stepAppModelApiList = $this->getRelation("appModelApiList")->resetWhere("step_num=$toStepNum")->getList();
+                        $stepAppModelApiList = $this->getRelation("appModelApiList")->resetWhere("active='Y' and step_num=$toStepNum")->getList();
                         return $stepAppModelApiList;
                 }
 
                 public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar")
                 {
                         if(!$stepNum) $stepNum = 0;
-                        $applicationModelFieldList = $this->getRelation("applicationModelFieldList")->resetWhere("step_num<=$stepNum")->getList();
+                        $applicationModelFieldList = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum")->getList();
                         if(!$splitByTable) return $applicationModelFieldList;
                         else
                         {
@@ -234,6 +234,26 @@
 
                 }
 
+                public function getFieldApiEndpoint($field_name, $application_table_id)
+                {
+                        $application_fieldObj = ApplicationField::loadByMainIndex($field_name, $application_table_id);
+                        if(!$application_fieldObj) return null;
+                        // $appModelApiList = $this->objApplicationModel->getAppModelApiOfStep($nextStepNum);
+                        $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_fieldObj->id);
+                        if($amfObj) return $amfObj->het("api_endpoint_id");
+                        else return null;
+                }
+
+                public function getFieldExpiryDuration($field_name, $application_table_id)
+                {
+                        $application_fieldObj = ApplicationField::loadByMainIndex($field_name, $application_table_id);
+                        if(!$application_fieldObj) return null;
+                        // $appModelApiList = $this->objApplicationModel->getAppModelApiOfStep($nextStepNum);
+                        $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_fieldObj->id);
+                        if($amfObj) return $amfObj->getVal("duration_expiry");
+                        else return 0;
+                }
+
                 
 
                 public function genereApplicationModelConditionList($lang="ar")
@@ -279,7 +299,7 @@
                                         {
                                                 $application_field_id = $aconditionFieldItem["id"];
                                                 $application_field_name = $aconditionFieldItem["name"];
-                                                $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_field_id, $aconditionItem->id, true);
+                                                $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_field_id, $aconditionItem->id, 0, true);
                                                 if($amfObj->is_new) $fld_nb_inserted++;
                                                 else $fld_nb_updated++;
                                                 list($screen_model_id, $step_num, $generalScreen) = $this->findScreenForField($application_field_id);                                                
@@ -295,7 +315,7 @@
                                                          * @var ApiEndpoint $apiEndpoint
                                                          */
                                                         $apiEndpoint = $arr_api[0];
-                                                        $amfObj->set("api_endpoint_id",$apiEndpoint->id);
+                                                        $amfObj->set("api_endpoint_id",$apiEndpoint->id);                                                        
                                                 }
                                                 elseif(!$amfObj->getVal("api_endpoint_id"))
                                                 {
@@ -309,6 +329,7 @@
                                                                 if($apiEndpointObj->id == $amfObj->getVal("api_endpoint_id"))
                                                                 {
                                                                         $api_found = true;
+                                                                        $apiEndpoint = $apiEndpointObj;
                                                                 }
                                                         }
 
@@ -320,6 +341,7 @@
                                                                 $amfObj->set("api_endpoint_id",0);
                                                         }
                                                 }
+                                                if(!$amfObj->getVal("duration_expiry") and $apiEndpoint) $amfObj->set("duration_expiry",$apiEndpoint->getVal("duration_expiry"));
                                                 $amfObj->set("screen_model_id",$screen_model_id);
                                                 $amfObj->set("step_num",$step_num);
                                                 $amfObj->commit();
@@ -335,30 +357,34 @@
                         foreach($applicationModelFieldList as $applicationModelFieldItem)
                         {
                                 $api_endpoint_id = $applicationModelFieldItem->getVal("api_endpoint_id");
-                                $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
-                                $new_step_num = $applicationModelFieldItem->getVal("step_num");
-                                if(!$new_step_num) $new_step_num = 1;
-                                $amaObj = AppModelApi::loadByMainIndex($this->id, $api_endpoint_id, true);
-                                if($amaObj->is_new)
+                                if($api_endpoint_id>0)
                                 {
-                                        $amaObj->set("application_field_mfk", ",$application_field_id,");
-                                        // $amaObj->set("duration_expiry", 15);
-                                        $api_nb_inserted++;
+                                        $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
+                                        $new_step_num = $applicationModelFieldItem->getVal("step_num");
+                                        if(!$new_step_num) $new_step_num = 1;
+                                        $amaObj = AppModelApi::loadByMainIndex($this->id, $api_endpoint_id, true);
+                                        if($amaObj->is_new)
+                                        {
+                                                $amaObj->set("application_field_mfk", ",$application_field_id,");
+                                                // $amaObj->set("duration_expiry", 15);
+                                                $api_nb_inserted++;
+                                        }
+                                        else
+                                        {
+                                                $amaObj->addRemoveInMfk("application_field_mfk",[$application_field_id],[]);
+                                        }
+                                        
+                                        $amaObj->set("duration_expiry", 15);
+                                        $step_num = $amaObj->getVal("step_num");
+                                        if((!$step_num) or ($step_num>$new_step_num))
+                                        {
+                                                $step_num = $new_step_num;
+                                                $amaObj->set("step_num", $step_num);
+                                        }
+        
+                                        $amaObj->commit();
                                 }
-                                else
-                                {
-                                        $amaObj->addRemoveInMfk("application_field_mfk",[$application_field_id],[]);
-                                }
-                                
-                                $amaObj->set("duration_expiry", 15);
-                                $step_num = $amaObj->getVal("step_num");
-                                if((!$step_num) or ($step_num>$new_step_num))
-                                {
-                                        $step_num = $new_step_num;
-                                        $amaObj->set("step_num", $step_num);
-                                }
-
-                                $amaObj->commit();
+                                else $war_arr[] = "field ".$applicationModelFieldItem->getDisplay("en")." has no api_endpoint defined";
                         }
 
 
@@ -490,7 +516,7 @@
                         if($general) $gen = 'Y';
                         else $gen = 'N';
                         
-                        return $this->getRelation("applicationStepList")->resetWhere("general='$gen'")->func("max(step_num)");
+                        return $this->getRelation("applicationStepList")->resetWhere("active='Y' and general='$gen'")->func("max(step_num)");
                 }
 
                 public function getNextGeneralStepNumOf($step_num)

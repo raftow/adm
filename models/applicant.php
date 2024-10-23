@@ -558,6 +558,12 @@ class Applicant extends AdmObject
                         if($inf) $inf_arr[] = "$api_name : ".$inf;
                         if($war) $war_arr[] = "$api_name : ".$war;
                         if($tech) $tech_arr[] = $tech;
+
+                        if(!$err)
+                        {
+                            $applicantApiRequestItem->set("run_date", date("Y-m-d H:i:s"));
+                            $applicantApiRequestItem->commit();
+                        }
                     }
                     elseif(!$need_refresh) $war_arr[] = $apiEndPoint." doesn't need update as recently updated at $run_date";
                     elseif(!$can_refresh) $war_arr[] = $apiEndPoint." already called at $run_date and can not be refreshed";
@@ -579,8 +585,21 @@ class Applicant extends AdmObject
 
     }
 
+    public function getFieldUpdateDate($field_name)
+    {
+            $apiEndpoint = $this->getFieldApiEndpoint($field_name);
+            if($apiEndpoint) [$field_value_datetime, $api] = $this->applicantObj->getApiUpdateDate($apiEndpoint);                        
+            if(!$field_value_datetime) $field_value_datetime = $this->getVal($field_name."_update_date");
+            return [$field_value_datetime, $api];
+    }
 
-    public function getFieldsMatrix($applicantFieldsArr, $lang="ar")
+    /**
+     * @param Application $applicationObj
+     * 
+     */
+
+
+    public function getFieldsMatrix($applicantFieldsArr, $lang="ar", $applicationObj=null)
     {
         $matrix = [];
         // $this->updateCalculatedFields();
@@ -589,7 +608,7 @@ class Applicant extends AdmObject
             $row_matrix = [];
             $field_reel = $applicantFieldObj->_isReel();
             $row_matrix['reel'] = $field_reel;
-            $field_title = $applicantFieldObj->getDisplay($lang);
+            $field_title = $applicantFieldObj->getDisplay($lang)."<!-- $field_name -->";
             $row_matrix['title'] = $field_title;
             if($field_reel)
             {
@@ -608,19 +627,46 @@ class Applicant extends AdmObject
 
             $field_empty = ((!$field_value) or ($field_value==="W"));
             $row_matrix['empty'] = $field_empty;
+            $field_value_datetime = "";
             if(!$field_empty)
             {
-                $field_value_datetime = $this->getVal($this->fld_UPDATE_DATE());
-                if(!$field_value_datetime) $field_value_datetime = $this->getVal($this->fld_CREATION_DATE());
+                if($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name);
+                else $api = "no-applicationObj";
             }
-            else $field_value_datetime = "";
+            
 
             $row_matrix['datetime'] = $field_value_datetime;
+            $row_matrix['api'] = $api;
+
+            if($field_value_datetime and $applicationObj)
+            {
+                    $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
+                    $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
+                    if($field_value_datetime < $expiry_date) $row_matrix['status'] = self::needUpdateIcon($api);
+                    $row_matrix['status'] = self::updatedIcon($api);
+            }
+            else
+            {
+                    $row_matrix['status'] = self::needUpdateIcon($api);
+            }
 
             $matrix[] = $row_matrix;
         }
 
         return $matrix;
+    }
+
+
+    public function getApiUpdateDate($apiEndpoint)
+    {
+        $update_date = "";
+        $aarList = $this->getRelation("applicantApiRequestList")->resetWhere("api_endpoint_id=".$apiEndpoint->id)->getList();
+        foreach($aarList as $aarItem)
+        {
+            if($aarItem) $update_date = $aarItem->getVal("run_date");
+        }
+
+        return $update_date;
     }
 
     

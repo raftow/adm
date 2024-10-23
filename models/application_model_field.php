@@ -23,7 +23,7 @@ class ApplicationModelField extends AdmObject
         } else return null;
     }
 
-    public static function loadByMainIndex($application_model_id, $application_field_id, $acondition_id=0, $create_obj_if_not_found = false)
+    public static function loadByMainIndex($application_model_id, $application_field_id, $acondition_id=0, $duration_expiry=0, $create_obj_if_not_found = false)
     {
         if (!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
         if (!$application_field_id) throw new AfwRuntimeException("loadByMainIndex : application_field_id is mandatory field");
@@ -39,6 +39,8 @@ class ApplicationModelField extends AdmObject
             if ($create_obj_if_not_found) 
             {
                 if($acondition_id) $obj->set("acondition_id", $acondition_id);
+                if($duration_expiry) $obj->set("duration_expiry", $duration_expiry);
+                
                 $obj->activate();
             }
             return $obj;
@@ -48,6 +50,7 @@ class ApplicationModelField extends AdmObject
             $obj->set("application_model_id", $application_model_id);
             $obj->set("application_field_id", $application_field_id);
             if($acondition_id) $obj->set("acondition_id", $acondition_id);
+            if($duration_expiry) $obj->set("duration_expiry", $duration_expiry);
             $obj->insertNew();
             if (!$obj->id) return null; // means beforeInsert rejected insert operation
             $obj->is_new = true;

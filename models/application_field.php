@@ -128,5 +128,161 @@ class ApplicationField extends AdmObject
           return 0;
      }
 
+     public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+                       // adm.acondition-الحقل	afield_id  حقل يفلتر به (required field)
+                        // require_once "../adm/acondition.php";
+                        $obj = new Acondition();
+                        $obj->where("afield_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some application condition(s) as the condition field";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("afield_id = '$id' and active='N'");
+
+                       // adm.application_model_field-الحقل	application_field_id  أنا تفاصيل لها (required field)
+                        // require_once "../adm/application_model_field.php";
+                        $obj = new ApplicationModelField();
+                        $obj->where("application_field_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some application model field(s) as The field";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("application_field_id = '$id' and active='N'");
+
+
+                        
+                   // FK part of me - deletable 
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+                       // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/api_endpoint.php";
+                            ApiEndpoint::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.api_endpoint set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
+                        }
+                        
+                       // adm.app_model_api-الحقول المستعملة	application_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/app_model_api.php";
+                            AppModelApi::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
+                        }
+                        
+                       // adm.application_step-إظهار الحقول التالية	show_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_step.php";
+                            ApplicationStep::updateWhere(array('show_field_mfk'=>"REPLACE(show_field_mfk, ',$id,', ',')"), "show_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_step set show_field_mfk=REPLACE(show_field_mfk, ',$id,', ',') where show_field_mfk like '%,$id,%' ");
+                        }
+                        
+                       // adm.screen_model-الحقول المتوفرة في الشاشة	application_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/screen_model.php";
+                            ScreenModel::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.screen_model set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
+                        }
+                        
+
+               }
+               else
+               {
+                        // FK on me 
+ 
+
+                        // adm.acondition-الحقل	afield_id  حقل يفلتر به (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition.php";
+                            Acondition::updateWhere(array('afield_id'=>$id_replace), "afield_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition set afield_id='$id_replace' where afield_id='$id' ");
+                            
+                        } 
+                        
+
+ 
+
+                        // adm.application_model_field-الحقل	application_field_id  أنا تفاصيل لها (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::updateWhere(array('application_field_id'=>$id_replace), "application_field_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_field set application_field_id='$id_replace' where application_field_id='$id' ");
+                            
+                        } 
+                        
+
+
+                        
+                        // MFK
+                       // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/api_endpoint.php";
+                            ApiEndpoint::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.api_endpoint set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
+                        }
+                       // adm.app_model_api-الحقول المستعملة	application_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/app_model_api.php";
+                            AppModelApi::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
+                        }
+                       // adm.application_step-إظهار الحقول التالية	show_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_step.php";
+                            ApplicationStep::updateWhere(array('show_field_mfk'=>"REPLACE(show_field_mfk, ',$id,', ',$id_replace,')"), "show_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_step set show_field_mfk=REPLACE(show_field_mfk, ',$id,', ',$id_replace,') where show_field_mfk like '%,$id,%' ");
+                        }
+                       // adm.screen_model-الحقول المتوفرة في الشاشة	application_field_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/screen_model.php";
+                            ScreenModel::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.screen_model set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
+                        }
+
+                   
+               } 
+               return true;
+            }    
+	}
+
 
 }

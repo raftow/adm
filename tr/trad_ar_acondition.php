@@ -35,8 +35,8 @@
 
 	$trad["acondition"]["compare_id.short"] = "مقارنة";
 
-	$trad["acondition"]["acondition_name_ar.short"] = "المسمى عر";
-	$trad["acondition"]["acondition_name_en.short"] = "المسمى انج";
+	$trad["acondition"]["acondition_name_ar.short"] = "المسمى بالعربي";
+	$trad["acondition"]["acondition_name_en.short"] = "المسمى بالانجليزية";
 	
 	$trad["acondition"]["condition_1_id.short"] = "الجزء 1";
 	$trad["acondition"]["condition_2_id.short"] = "الجزء 2";

@@ -9,6 +9,10 @@ class Application extends AdmObject
          * @var ApplicationModel $objApplicationModel
          */
         private $objApplicationModel = null;
+        /**
+         * @var Applicant $applicantObj
+         */
+        private $applicantObj = null;
 
         public static $DATABASE                = "";
         public static $MODULE                    = "adm";
@@ -87,10 +91,10 @@ class Application extends AdmObject
                 
                 if(!$this->getVal("applicant_qualification_id"))
                 {
-                        $applicantObj = $this->het("applicant_id");
-                        if($applicantObj)
+                        if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                        if($this->applicantObj)
                         {
-                                $objApplicantQual = $applicantObj->getLastQualification(); 
+                                $objApplicantQual = $this->applicantObj->getLastQualification(); 
                                 if($objApplicantQual) 
                                 {
                                         $this->set("applicant_qualification_id", $objApplicantQual->id); 
@@ -180,8 +184,7 @@ class Application extends AdmObject
                 }
 
 
-                if($col_struct=="type" and $return != "INT") throw new AfwRuntimeException("debugg additional field $field_name col_struct=$col_struct return = $return params=".var_export($params,true));
-
+                //if($col_struct=="type" and $return != "INT") throw new AfwRuntimeException("debugg additional field $field_name col_struct=$col_struct return = $return params=".var_export($params,true));
                 //if(!$return) die("no param for additional($field_name, $col_struct) params=".var_export($params,true));
 
                 return $return;
@@ -254,9 +257,21 @@ class Application extends AdmObject
                 $methodName = "gotoNextStep";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_status_enum"));
                 
+                $color = "blue";
+                $title_ar = "تحديث البيانات عبر الخدمات الالكترونية"; 
+                $methodName = "runNeededApis";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_status_enum"));
                 
                 
                 return $pbms;
+        }
+
+        public function runNeededApis($lang="ar")
+        {
+                if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                if(!$this->applicantObj) return ["no-applicantObj",""];
+                
+                return $this->applicantObj->runNeededApis($lang); 
         }
 
         public function gotoNextStep($lang="ar")
@@ -328,8 +343,8 @@ class Application extends AdmObject
                 // die("appModelApiList ($appModelApiListCount apis) = objApplicationModel->getAppModelApiOfStep($nextStepNum) = ".var_export($appModelApiList,true));
                 // $api_runner_class = Applicant::loadApiRunner();
 
-                $applicantObj = $this->het("applicant_id");
-                if($applicantObj)
+                if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                if($this->applicantObj)
                 {
                         // create step apis call requests to be done by applicant-api-request-job            
                         foreach($appModelApiList as $appModelApiItem)
@@ -338,13 +353,70 @@ class Application extends AdmObject
                                 if($apiEndPointObj)
                                 {
                                         // $api_endpoint_code = $apiEndPointObj->getVal("api_endpoint_code");                                
-                                        ApplicantApiRequest::loadByMainIndex($applicantObj->id, $apiEndPointObj->id, true);
+                                        ApplicantApiRequest::loadByMainIndex($this->applicantObj->id, $apiEndPointObj->id, true);
                                 }
                                 
                         }
                 }
 
                 
+        
+        }
+
+        public function getFieldApiEndpoint($field_name, $application_table_id=3)
+        {
+                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                if(!$this->objApplicationModel) return null;
+                return $this->objApplicationModel->getFieldApiEndpoint($field_name, $application_table_id);
+        }
+
+        
+
+        public function getFieldExpiryDuration($field_name, $application_table_id=3)
+        {
+                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                if(!$this->objApplicationModel) return 0;
+                return $this->objApplicationModel->getFieldExpiryDuration($field_name, $application_table_id);
+        }
+
+        public function getFieldUpdateDate($field_name, $lang="ar")
+        {
+                if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                $apiEndpointDisplay = "";
+                if($this->applicantObj) 
+                {
+                        $apiEndpoint = $this->getFieldApiEndpoint($field_name);
+                        if($apiEndpoint) 
+                        {
+                                $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);                        
+                                $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
+                        }
+                        else $apiEndpointDisplay = "no-apiEndpoint for $field_name";
+                }
+                else $apiEndpointDisplay = "no-applicant";
+                if(!$field_value_datetime) $field_value_datetime = $this->getVal($field_name."_update_date");
+
+                return [$field_value_datetime, $apiEndpointDisplay];
+        }
+
+        public function getApplicantFieldUpdateDate($field_name, $lang="ar")
+        {
+                if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                $apiEndpointDisplay = "";
+                if($this->applicantObj) 
+                {
+                        $apiEndpoint = $this->getFieldApiEndpoint($field_name, 1);
+                        if($apiEndpoint) 
+                        {
+                                $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);                        
+                                $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
+                        }
+                        else $apiEndpointDisplay = "no-apiEndpoint for $field_name";
+                }
+                else $apiEndpointDisplay = "no-applicant";
+                if(!$field_value_datetime) $field_value_datetime = $this->applicantObj->getVal($field_name."_update_date");
+
+                return [$field_value_datetime, $apiEndpointDisplay];
         }
 
         public function getFieldsMatrix($applicationFieldsArr, $lang="ar")
@@ -356,7 +428,7 @@ class Application extends AdmObject
                         $row_matrix = [];
                         $field_reel = $applicationFieldObj->_isReel();
                         $row_matrix['reel'] = $field_reel;
-                        $field_title = $applicationFieldObj->getDisplay($lang);
+                        $field_title = $applicationFieldObj->getDisplay($lang)."<!-- $field_name -->";
                         $row_matrix['title'] = $field_title;
                         if($field_reel)
                         {
@@ -376,14 +448,31 @@ class Application extends AdmObject
 
                         $field_empty = ((!$field_value) or ($field_value==="W"));
                         $row_matrix['empty'] = $field_empty;
+
+                        $field_value_datetime = "";
+                        $api = "";
                         if(!$field_empty)
                         {
-                                $field_value_datetime = $this->getVal($this->fld_UPDATE_DATE());
-                                if(!$field_value_datetime) $field_value_datetime = $this->getVal($this->fld_CREATION_DATE());
+                                [$field_value_datetime, $api] = $this->getFieldUpdateDate($field_name);
                         }
-                        else $field_value_datetime = "";
+                        
 
                         $row_matrix['datetime'] = $field_value_datetime;
+                        $row_matrix['api'] = $api;
+                        if($field_value_datetime)
+                        {
+                                
+                                $duration_expiry = $this->getFieldExpiryDuration($field_name);
+                                $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
+                                if($field_value_datetime < $expiry_date) $row_matrix['status'] = self::needUpdateIcon($api);
+                                $row_matrix['status'] = self::updatedIcon($api);
+                        }
+                        else
+                        {
+                                $row_matrix['status'] = self::needUpdateIcon($api);
+                        }
+
+                        
 
                         $matrix[] = $row_matrix;
                 }
@@ -391,10 +480,10 @@ class Application extends AdmObject
                 return $matrix;
         }
 
-        public function fieldsMatrixForStep($stepNum)
+        public function fieldsMatrixForStep($stepNum, $lang="ar")
         {
-                $applicantObj = $this->het("applicant_id");
-                if(!$applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
+                if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                if(!$this->applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
                 
                 if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
                 list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true);
@@ -404,7 +493,7 @@ class Application extends AdmObject
                         throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
                 }
 
-                $fieldsMatrix_1 = $applicantObj->getFieldsMatrix($applicantFieldsArr);
+                $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this);
                 $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr);
 
                 $fieldsMatrix = array_merge($fieldsMatrix_1, $fieldsMatrix_2);
@@ -417,9 +506,9 @@ class Application extends AdmObject
                 global $lang;
 
                 $currentStepNum = $this->getVal("step_num");
-                $matrix = $this->fieldsMatrixForStep($currentStepNum);
+                $matrix = $this->fieldsMatrixForStep($currentStepNum, $lang);
 
-                $matrix_header = ['title'=>'الحقل', 'decode'=>'القيمة', 'datetime'=>'تاريخ التحديث', 'empty'=>'حالة التحديث', ];
+                $matrix_header = ['title'=>'الحقل', 'decode'=>'القيمة', 'datetime'=>'تاريخ التحديث', 'api'=>'الخدمة','status'=>'حالة التحديث', ];
 
                 
                 $return = AfwHtmlHelper::tableToHtml($matrix, $matrix_header);

@@ -19,11 +19,20 @@ $application_additional_fields = [
                             'title_ar' => 'مستوى المؤهل', 'title_en' => 'qualification age', 
                             'category' => 'FORMULA',
                             'formula' => 'calcQualificationLevel', ),
+
+    'attribute_4' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 1, 
+                            'field_code' => 'qualification_imported', 'optional' => false, 'readonly' =>true,
+                            'title_ar' => 'المؤهل المتقدم به مستورد', 'title_en' => 'qualification imported', 
+                            'category' => 'FORMULA',
+                            'formula' => 'calcQualificationImported', ),
+                            
     
 ];
 
 class ApplicationFormulaManager
 {
+
+    
     public static function calcApplicantAge($applicationObj)
     {
         // die("here calcApplicantAge");
@@ -126,6 +135,29 @@ class ApplicationFormulaManager
         catch(Error $e)
         {
             return -2;
+        }
+    }
+
+    public static function calcQualificationImported($applicationObj)
+    {
+        try
+        {
+            $qualifObj = $applicationObj->het("applicant_qualification_id"); 
+            if($qualifObj)
+            {
+                $imported = $qualifObj->getVal("imported");
+            }
+            else $imported = "N";
+
+            return $imported;
+        }
+        catch(Exception $e)
+        {
+            return 'W';
+        }
+        catch(Error $e)
+        {
+            return 'W';
         }
     }
     
