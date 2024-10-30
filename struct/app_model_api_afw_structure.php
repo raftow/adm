@@ -66,6 +66,7 @@
                                                 'QEDIT' => true, 'READONLY'=>true,
                                                 'EDIT' => true, 'CAN_ZERO' => true,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'CONSTRAINTS' => ['i-between;1,99'], 
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',

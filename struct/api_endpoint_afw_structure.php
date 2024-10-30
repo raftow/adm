@@ -15,7 +15,7 @@
 
                                 // $obj->editByStep = true;
                                 // $obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ApiEndpoint',"submit"=>true);
                         }
                         else
                         {
@@ -37,7 +37,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
-                                        'published' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'Y',  
+                                        'published' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -66,9 +66,14 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
+                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
 
-                                        'can_refresh' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
+
+                                        'can_refresh' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
@@ -89,7 +94,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'adm_file',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100', ),	
+                                                'CSS' => 'width_pct_50', ),	
                                                 
 
 
@@ -106,6 +111,13 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
+
+                                        'api_endpoint_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_100', ),
                                                 
 
                                         'application_field_mfk' => array(
@@ -131,10 +143,7 @@
 
 
 
-        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
-                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                'CSS' => 'width_pct_25',),
+        
 
         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  

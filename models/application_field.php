@@ -66,6 +66,11 @@ class ApplicationField extends AdmObject
           return $this->getVal("field_name");
      }
 
+     public function getDropDownDisplay($lang = "ar")
+     {
+          return $this->getVal("shortname")."-".$this->getVal("field_name")."-".$this->getVal("field_title_$lang");
+     }
+
      /*
         public function dynamicHelpCondition($attribute)
         {

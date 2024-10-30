@@ -20,6 +20,8 @@ class Application extends AdmObject
         public static $DB_STRUCTURE = null;
         // public static $copypast = true;
 
+        private $attribIsApplic = [];
+
         public function __construct()
         {
                 parent::__construct("application", "id", "adm");
@@ -72,6 +74,14 @@ class Application extends AdmObject
         public function stepsAreOrdered()
         {
                 return false;
+        }
+
+        protected function afterSetAttribute($attribute)
+        {
+                if($attribute=="step_num")
+                {
+                        $this->attribIsApplic = [];
+                }                
         }
 
         public function beforeMaj($id, $fields_updated)
@@ -204,7 +214,7 @@ class Application extends AdmObject
                         }
                         if($formulaMethod)
                         {
-                                return ApplicationFormulaManager::$formulaMethod($this);
+                                return ApplicationFormulaManager::$formulaMethod($this, $what);
                         }
                 }
                 return AfwFormulaHelper::calculateFormulaResult($this,$attribute, $what);
@@ -268,6 +278,11 @@ class Application extends AdmObject
 
         public function runNeededApis($lang="ar")
         {
+                for($s=1;$s<=$this->getVal("step_num");$s++)
+                {
+                        $this->requestAPIsOfStep($s);
+                }
+                
                 if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 if(!$this->applicantObj) return ["no-applicantObj",""];
                 
@@ -561,6 +576,44 @@ class Application extends AdmObject
                return true;
             }    
 	}
+
+        public function applicationAttributeIsApplicable($attribute)
+        {
+                if(!isset($this->attribIsApplic[$attribute])) 
+                {
+                        if($attribute == "program_id")
+                        {
+                                $application_field_id = 110809;
+                                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                                if(!$this->objApplicationModel) return false;
+                                $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num"))==1);                        
+                        }
+                        elseif($attribute == "applicant_qualification_id")
+                        {
+                                $application_field_id = 110694;
+                                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                                if(!$this->objApplicationModel) return false;
+                                $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num"))==1);                        
+                        }
+                        else
+                        {
+                                throw new AfwRuntimeException("$attribute is not a knwon application attribute");
+                        }
+                }
+
+                return $this->attribIsApplic[$attribute];
+        }
+
+        public function attributeIsApplicable($attribute)
+        {
+                 
+                if(($attribute == "program_id") or ($attribute == "applicant_qualification_id"))
+                {
+                        return $this->applicationAttributeIsApplicable($attribute);                        
+                }
+
+                return true;
+        }
 
         
 }

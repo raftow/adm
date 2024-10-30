@@ -8,6 +8,8 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = ['first_name_ar', 'father_name_ar', 'last_name_ar'];
+                                // $obj->AUTOCOMPLETE_FIELD = 'idn';
+                                $obj->FORMULA_DISPLAY_FIELD  = "concat(IF(ISNULL(first_name_ar), '', first_name_ar) , ' ' , IF(ISNULL(father_name_ar), '', father_name_ar) , ' ' , IF(ISNULL(last_name_ar), '', last_name_ar))";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('idn');
                                 // $obj->public_display = true;

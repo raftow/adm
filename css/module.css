@@ -5102,3 +5102,13 @@ h5.bluetitle.search {
     background-color: #25b80b !important;
     color: white;
 }
+
+tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_step_num,
+tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_api_endpoint_id,
+tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_id {
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}

@@ -25,6 +25,26 @@
                         else return null;
                 }
 
+                public function copyMeInto($application_model_id)
+                {
+                        try{
+                                $stp = clone $this;
+                                $stp->resetAsCopy();
+                                $stp->set("application_model_id", $application_model_id);
+                                $stp->commit();
+                                return $stp;
+                        }
+                        catch(Exception $e)
+                        {
+                                return null;
+                        }
+                        catch(Error $e)
+                        {
+                                return null;
+                        }
+                        return null;
+                }
+
                 public static function loadByMainIndex(
                         $application_model_id, 
                         $step_num,

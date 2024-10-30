@@ -27,35 +27,34 @@
 
 				
 
-		'acondition_origin_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'acondition_origin',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY' => true,
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),					
-				
 		'general' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  
-		        'DEFAULT' => 'W',  'READONLY' => true, // ::generalCondition
-				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+		        'DEFAULT' => 'W',  'READONLY' => false, // قد يكون الشرط يطبق في المراحل الخاصة وهو شرط عام على جميع فروع التقديم
+				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, /* 'DISABLE-READONLY-ADMIN' => true,*/
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25',),
+				'CSS' => 'width_pct_50',),
 		
 		
 		'acondition_type_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'UTF8' => false,  
-				'READONLY' => true,
+				'READONLY' => true, 'DISABLE-READONLY-ADMIN' => true,
 				'TYPE' => 'FK',  'ANSWER' => 'acondition_type',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAULT' => 1,    
 				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),	
+				'CSS' => 'width_pct_50', ),	
 		
+		'acondition_origin_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'acondition_origin',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY' => true, 'DISABLE-READONLY-ADMIN' => true,
+				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+				'CSS' => 'width_pct_50', ),					
 		
 		
 				
 		'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'DEFAUT' => 'Y',  
 				'TYPE' => 'YN',    'DISPLAY' => '',  'STEP' => 1, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25',),
+				'CSS' => 'width_pct_50',),
 
 
 		
@@ -127,7 +126,7 @@
 				'CSS' => 'width_pct_75', ),	
 
 				'application_table_id' => array(
-					'TYPE' => 'INT', 'NO-COTE' => true,   
+					'TYPE' => 'TEXT', 'NO-COTE' => true,   
 					'CATEGORY' => 'FORMULA',  'SEARCH-BY-ONE' => '',  'DISPLAY' => '', 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 					),	
@@ -136,7 +135,7 @@
 		'afield_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 
-				'WHERE' => "application_table_id in (§application_table_id§)", 
+				'WHERE' => "usable_in_conditions='Y' and application_table_id in (§application_table_id§)", 
 				'SIZE' => 40,  'DEFAUT' => 0,    
 				'DEPENDENT_OFME' => ['aparameter_id', ],
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 

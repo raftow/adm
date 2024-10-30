@@ -65,6 +65,9 @@
                 {                        
                         if($fields_updated["qualification_id"])
                         {
+                                /**
+                                 * @var Applicant $applicantObject
+                                 */
                                 $applicantObject = $this->get("applicant_id"); 
                                 $applicantObject->updateQualificationLevelFields();                                
                         }

@@ -14,10 +14,11 @@ class ApiEndpoint extends AdmObject
                 AdmApiEndpointAfwStructure::initInstance($this);
         }
 
-        public static function loadAll()
+        public static function loadAll($only_published=true)
         {
                 $obj = new ApiEndpoint();
                 $obj->select("active", 'Y');
+                if($only_published) $obj->select("published", 'Y');
 
                 $objList = $obj->loadMany();
 
@@ -77,4 +78,105 @@ class ApiEndpoint extends AdmObject
         {
                 return false;
         }
+
+        public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+
+                        
+                   // FK part of me - deletable 
+                       // adm.app_model_api-معرف API	api_endpoint_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/app_model_api.php";
+                            AppModelApi::removeWhere("api_endpoint_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.app_model_api where api_endpoint_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_model_field-الخدمة الالكترونية	api_endpoint_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::removeWhere("api_endpoint_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_model_field where api_endpoint_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.applicant_api_request-الخدمة الالكترونية	api_endpoint_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_api_request.php";
+                            ApplicantApiRequest::removeWhere("api_endpoint_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_api_request where api_endpoint_id = '$id' ");
+                            
+                        } 
+                        
+                        
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+                       // adm.app_model_api-معرف API	api_endpoint_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/app_model_api.php";
+                            AppModelApi::updateWhere(array('api_endpoint_id'=>$id_replace), "api_endpoint_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.app_model_api set api_endpoint_id='$id_replace' where api_endpoint_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_model_field-الخدمة الالكترونية	api_endpoint_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::updateWhere(array('api_endpoint_id'=>$id_replace), "api_endpoint_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_field set api_endpoint_id='$id_replace' where api_endpoint_id='$id' ");
+                            
+                        }
+                        
+                       // adm.applicant_api_request-الخدمة الالكترونية	api_endpoint_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_api_request.php";
+                            ApplicantApiRequest::updateWhere(array('api_endpoint_id'=>$id_replace), "api_endpoint_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.applicant_api_request set api_endpoint_id='$id_replace' where api_endpoint_id='$id' ");
+                            
+                        }
+                        
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	}
 }

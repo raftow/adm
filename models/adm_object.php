@@ -959,4 +959,9 @@ class AdmObject extends AFWObject{
             return "<img data-toggle='tooltip' data-placement='top' title='$help' width='32' height='32' src=\"pic/updated.png\" alt=\"\" title=\"\">";
         }
 
+        public function getCssClassName()
+        {
+            return $this->getTableName();
+        }
+
 }

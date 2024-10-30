@@ -14,6 +14,10 @@ $lookup[20]=['ar'=> 'المستوى الثانوي', 'en'=> 'Secondary',
                                                 ['attribute' => 'attribute_7', 'operator' => '='],
                                             ]
             ];
-$lookup[30]=['ar'=> 'درجة جامعية متوسطة', 'en'=> 'Intermediate university certificate'];
+$lookup[30]=['ar'=> 'درجة جامعية متوسطة', 'en'=> 'Intermediate university certificate', 
+                                            'attributes' =>    [
+                                                    ['attribute' => 'attribute_4', 'operator' => '>='],
+                                                ]
+];
 $lookup[40]=['ar'=> 'بكالوريوس', 'en'=> "Bachelor's"];
 $lookup[45]=['ar'=> 'دبلوم عالي', 'en'=> 'Higher Diploma'];

@@ -145,6 +145,11 @@ class AconditionOrigin extends AdmObject{
                 return 0;
         }
 
+        public function stepsAreOrdered()
+        {
+                return false;
+        }
+
         
 }
 ?>

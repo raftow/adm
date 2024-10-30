@@ -17,7 +17,7 @@
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 8; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ApplicationModel',"submit"=>true);
                         }
                         else 
                         {
@@ -310,6 +310,26 @@
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3,  'FORMAT' => 'icon', 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+
+                                        'application_field_mfk' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'QSEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'UTF8' => false,
+                                                'TYPE' => 'MFK',
+                                                'ANSWER' => 'application_field',
+                                                'ANSMODULE' => 'adm',
+                                                'WHERE' => "application_table_id = 1",
+                                                'DISPLAY' => true,
+                                                'STEP' => 3,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_75',
+                                        ),
 
 
                                         

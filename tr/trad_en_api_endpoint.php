@@ -16,6 +16,7 @@ class ApiEndpointEnTranslator{
 		$trad["api_endpoint"]["failure_text"] = "Failure text message";
 		$trad["api_endpoint"]["api_url"] = "API Url";
 		$trad["api_endpoint"]["step1"] = "Definition";
+		$trad["api_endpoint"]["api_endpoint_mfk"] = "Sub-API(s)";
         return $trad;
     }
 }

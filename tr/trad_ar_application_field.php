@@ -56,6 +56,8 @@ $trad["application_field"]["application_field"] = "حقول البيانات";
 $trad["application_field"]["unit"] = "وحدة القياس";
 $trad["application_field"]["unit_en"] = "وحدة القياس بالانجليزي";
 
+$trad["application_field"]["usable_in_conditions"] = "قابل للاستخدام في الشروط";
+
 
 
 $trad["application_field"]["answer_props"] = "قائمة الإختيار";

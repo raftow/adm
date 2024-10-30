@@ -39,17 +39,30 @@ class Acondition extends AdmObject{
                 else return null;
         }
         
-        public function getAllFields() 
+        public function getAllFields($amObj=null) 
         {
                 $return_arr = [];
-                if($this->_isComposed())
+                if($this->id==1)
+                {
+                        if($amObj)
+                        {
+                                $takeDefault = false;
+                                $boolIndex = false;
+                                $fieldsArr = $amObj->mfkValueToArrayOrBoolIndex("application_field_mfk", $boolIndex, $takeDefault);
+                                foreach($fieldsArr as $fieldId)
+                                {
+                                        $return_arr[] = ["id"=>$fieldId, "name"=>"af-".$fieldId];                
+                                }
+                        }
+                }
+                elseif($this->_isComposed())
                 {
                         if(!$this->cond1Obj) $this->cond1Obj = $this->het("condition_1_id");
                         if(!$this->cond2Obj) $this->cond2Obj = $this->het("condition_2_id");
                         $return_1_arr = [];
-                        if($this->cond1Obj) $return_1_arr = $this->cond1Obj->getAllFields();
+                        if($this->cond1Obj) $return_1_arr = $this->cond1Obj->getAllFields($amObj);
                         $return_2_arr = [];
-                        if($this->cond2Obj) $return_2_arr = $this->cond2Obj->getAllFields();
+                        if($this->cond2Obj) $return_2_arr = $this->cond2Obj->getAllFields($amObj);
 
                         $return_arr = array_merge($return_1_arr, $return_2_arr);
                         // die("getAllFields case _isComposed => ".var_export($return_arr, true));

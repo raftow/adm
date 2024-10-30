@@ -17,8 +17,13 @@ class ApiEndpointArTranslator{
 		$trad["api_endpoint"]["api_url"] = "عنوان Url";
 		$trad["api_endpoint"]["application_field_mfk"] = "الحقول المتوفرة";
 		$trad["api_endpoint"]["manadatory"] = "الزامي؟";
+		$trad["api_endpoint"]["published"] = "منشور";
 		$trad["api_endpoint"]["can_refresh"] = "يمكن التحديث";
+		$trad["api_endpoint"]["can_refresh.W"] = "ادخال يدوي";
+		$trad["api_endpoint"]["can_refresh.EUH"] = "ادخال يدوي";
 		$trad["api_endpoint"]["duration_expiry"] = "مدة الصلاحية";
+		$trad["api_endpoint"]["api_endpoint_mfk"] = "الخدمات الالكترونية الجزئية";
+		
 
 		$trad["api_endpoint"]["step1"] = "التعريف";
         return $trad;

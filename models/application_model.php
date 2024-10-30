@@ -18,6 +18,10 @@
                         
                 }
 
+                /**
+                 * @param integer $id (id of application model)
+                 */
+
                 public static function loadById($id)
                 {
                         $obj = new ApplicationModel();
@@ -47,6 +51,18 @@
                 public function convertStepNumToObject($step_num)
                 {
                         return ApplicationStep::loadByMainIndex($this->id, $step_num);
+                }
+
+                public function getBrothers()
+                {
+                        $this_id = $this->id;
+                        $academic_level_id = $this->getVal("academic_level_id");
+                        $obj = new ApplicationModel();
+                        $obj->select("academic_level_id",$academic_level_id);
+                        $obj->where("id != $this_id");
+                        $obj->get_visibilite_horizontale();
+                        return $obj->loadMany();
+                        
                 }
                 
                 public static function loadByMainIndex($academic_level_id, $gender_enum, $training_period_enum,$create_obj_if_not_found=false)
@@ -97,12 +113,16 @@
 
                 public function createDefaultSteps($lang="ar")
                 {
-                        $profileScreen = ScreenModel::loadByMainIndex("profile");
-                        if(!$profileScreen) return ["no profile screen", ""];
-                        $profileStepObj = ApplicationStep::loadByMainIndex($this->id, 0, "Y", $profileScreen, true);
-                        $info = "profile step";
-                        $info .= $profileStepObj->is_new ? " has been created" : " has been updated";
-                        return ["", $info];
+                        if($this->id)
+                        {
+                                $profileScreen = ScreenModel::loadByMainIndex("profile");
+                                if(!$profileScreen) return ["no profile screen", ""];
+                                $profileStepObj = ApplicationStep::loadByMainIndex($this->id, 0, "Y", $profileScreen, true);
+                                $info = "profile step";
+                                $info .= $profileStepObj->is_new ? " has been created" : " has been updated";
+                                return ["", $info];
+                        }
+                        
                 }
 
                 public function beforeMaj($id, $fields_updated)
@@ -124,7 +144,7 @@
                                 $this->createDefaultSteps($lang);
                         }
 
-                        $this->createDefaultSteps($lang);
+                        //$this->createDefaultSteps($lang);
 
                     
                         return true;
@@ -254,9 +274,12 @@
                         else return 0;
                 }
 
-                
+                public function genereScreensAndModels($lang="ar")
+                {
+                        return $this->genereApplicationModelConditionList($lang, $addNewConditions=false);
+                }
 
-                public function genereApplicationModelConditionList($lang="ar")
+                public function genereApplicationModelConditionList($lang="ar", $addNewConditions=true)
                 {
                         $err_arr = [];
                         $inf_arr = [];
@@ -272,6 +295,8 @@
                         // $api_nb_updated = 0;
                         $api_nb_inserted = 0;
 
+                        $this_disp = $this->getDisplay($lang);
+
                         $this->hideAllApplicationModelConditionList();
 
                         $aconditionOriginList = $this->get("aconditionOriginList");
@@ -282,7 +307,7 @@
                                 {
                                         $general = $aconditionItem->getVal("general");
                                         $acondition_origin_id = $aconditionItem->getVal("acondition_origin_id");
-                                        $amcObj = ApplicationModelCondition::loadByMainIndex($this->id, $aconditionItem->id, $acondition_origin_id, $general, true);
+                                        $amcObj = ApplicationModelCondition::loadByMainIndex($this->id, $aconditionItem->id, $acondition_origin_id, $general, $addNewConditions);
                                         if($amcObj->is_new) $cond_nb_inserted++;
                                         else $cond_nb_updated++;
 
@@ -290,7 +315,7 @@
                                          * @var ACondition $aconditionItem
                                          */
 
-                                        $aconditionFieldList = $aconditionItem->getAllFields();
+                                        $aconditionFieldList = $aconditionItem->getAllFields($this);
                                         // the condition should be executed in the max step num
                                         // when all fields have been recolted
                                         // but min step of exec of step should be 1
@@ -307,6 +332,7 @@
                                                 $count_api = count($arr_api);
                                                 if($count_api==0)
                                                 {
+                                                        $amfObj->set("api_endpoint_id",0);                                                        
                                                         $err_arr[] = "no api return the field $application_field_name/$application_field_id";
                                                 }
                                                 elseif($count_api==1)
@@ -335,7 +361,8 @@
 
                                                         if(!$api_found)
                                                         {
-                                                                $apiEndpointObjDisplay = $apiEndpointObj->getDisplay($lang);                                                                
+                                                                $amfObj->set("api_endpoint_id",0); 
+                                                                $apiEndpointObjDisplay = $amfObj->showAttribute("api_endpoint_id");                                                                
                                                                 $war_arr[] = "The api $apiEndpointObjDisplay can not manage the field $application_field_name/$application_field_id and will be removed";
                                                                 $war_arr[] = "field $application_field_name/$application_field_id returned by other $count_api api(s) please resolve this manually";
                                                                 $amfObj->set("api_endpoint_id",0);
@@ -376,7 +403,7 @@
                                         
                                         $amaObj->set("duration_expiry", 15);
                                         $step_num = $amaObj->getVal("step_num");
-                                        if((!$step_num) or ($step_num>$new_step_num))
+                                        if((!$step_num) or ($step_num<0) or ($step_num>$new_step_num))
                                         {
                                                 $step_num = $new_step_num;
                                                 $amaObj->set("step_num", $step_num);
@@ -387,13 +414,19 @@
                                 else $war_arr[] = "field ".$applicationModelFieldItem->getDisplay("en")." has no api_endpoint defined";
                         }
 
+                        if(!count($aconditionOriginList))
+                        {
+                                $err_arr[] = "لا يوجد مصادر للشروط لهذا النموذج $this_disp يرجى مراجعة مجال تطبيق اللوائح المعنية";   
+                        }
 
                         if($cond_nb_inserted) $inf_arr[] = "تم اضافة $cond_nb_inserted شرط";
-                        if($cond_nb_updated) $inf_arr[] = "تم تحديث $cond_nb_updated شرط";
+                        elseif($cond_nb_updated) $inf_arr[] = "تم تحديث $cond_nb_updated شرط";
+                        else $war_arr[] = "لم يتم تحديث أي شرط";
 
 
                         if($fld_nb_inserted) $inf_arr[] = "تم اضافة $fld_nb_inserted حقل";
-                        if($fld_nb_updated) $inf_arr[] = "تم تحديث $fld_nb_updated حقل";
+                        elseif($fld_nb_updated) $inf_arr[] = "تم تحديث $fld_nb_updated حقل";
+                        else $war_arr[] = "لم يتم تحديث أي حقل";
 
                         if($api_nb_inserted) $inf_arr[] = "تم اضافة $api_nb_inserted خدمة";
                         //if($cond_nb_inserted)  $inf_arr[] = "تم تحديث $cond_nb_inserted خدمة";
@@ -482,6 +515,7 @@
 
                 protected function getPublicMethods()
                 {
+                        global $lang;
                 
                         $pbms = array();
                         
@@ -497,13 +531,113 @@
                         $methodName = "genereApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
+
+                        $color = "blue";
+                        $title_ar = "انشاء جميع الخطوات الافتراضية"; 
+                        $methodName = "createDefaultSteps";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
+                        
+                        
+
                         $color = "orange";
                         $title_ar = "تحديث الشروط"; 
                         $methodName = "genereApplicationModelConditionList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelConditionList"));
                         
                         
+
+                        $color = "orange";
+                        $title_ar = "تحديث الشاشات والخدمات"; 
+                        $methodName = "genereScreensAndModels";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelFieldList"));
+                        
+                        $amList = $this->getBrothers();
+                        /**
+                         * @var ApplicationModel $amItem
+                         */
+                        foreach($amList as $amItem)
+                        {
+                                $application_field_mfk = $amItem->getVal("application_field_mfk");
+                                if(strlen($application_field_mfk)>2)
+                                {
+                                        $color = "yellow";
+                                        $title_ar = "نسخ حقول SIS من ".$amItem->getDisplay("ar"); 
+                                        $title_en = "copy SIS fields from ".$amItem->getDisplay("en"); 
+                                        $methodName = "copySISFieldsFrom".$amItem->id;
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_field_mfk"));
+                                }
+
+                                $thisAsCount = $this->getRelation("applicationStepList")->count();
+                                $asCount = $amItem->getRelation("applicationStepList")->count();
+                                if(($asCount>1) and ($thisAsCount<2 or !$this->isActive()))
+                                {
+                                        $color = "yellow";
+                                        $title_ar = "نسخ الخطوات من ".$amItem->getDisplay("ar"); 
+                                        $title_en = "copy steps from ".$amItem->getDisplay("en"); 
+                                        $methodName = "copyStepsFrom".$amItem->id;
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 
+                                }
+                                
+                        }
+                        
+                        
+                        
+                        
                         return $pbms;
+                }
+
+
+                protected function afwCall($name, $arguments) {
+                        if(substr($name, 0, 17)=="copySISFieldsFrom") 
+                        {
+                            $amId = intval(substr($name, 17));
+                            return $this->copySISFieldsFrom($amId, $arguments[0]);
+                        }
+
+                        if(substr($name, 0, 13)=="copyStepsFrom") 
+                        {
+                            $amId = intval(substr($name, 13));
+                            return $this->copyStepsFrom($amId, $arguments[0]);
+                        }
+
+                        
+        
+                        return false;
+                        // the above return should be keeped if not treated
+                }
+
+                public function copyStepsFrom($application_model_id, $lang="ar")
+                {
+                        if(!$this->id) return ["Application Model destination not found", ""];
+                        if(!$application_model_id) return ["Application Model source not found", ""];
+                        $amObj = self::loadById($application_model_id);
+                        if(!$amObj) return ["Application Model $application_model_id not found", ""];
+                        $asList = $amObj->get("applicationStepList");
+                        /**
+                         * @var ApplicationStep $asItem
+                         */
+                        $nb = 0;
+                        foreach($asList as $asItem)
+                        {
+                                $stepCopiedObj = $asItem->copyMeInto($this->id);
+                                if($stepCopiedObj) $nb += 1;
+                        }
+
+                        return ["", "$nb steps copied"];
+                }
+
+                public function copySISFieldsFrom($application_model_id, $lang="ar")
+                {
+                        $application_field_mfk = AfwDatabase::db_recup_value("select application_field_mfk from c0adm.application_model where id = $application_model_id");
+                        if(strlen($application_field_mfk)>2)
+                        {
+                                $this->set("application_field_mfk", $application_field_mfk);
+                                $this->commit();
+                                return ["", "copy of SIS fields done"];
+                        }
+
+                        return ["", "", "copy of incomplete SIS fields canceled"];
+                        
                 }
 
                 public function shouldBeCalculatedField($attribute){
@@ -517,6 +651,14 @@
                         else $gen = 'N';
                         
                         return $this->getRelation("applicationStepList")->resetWhere("active='Y' and general='$gen'")->func("max(step_num)");
+                }
+
+
+                public function getFieldInStep($application_field_id, $step_num)
+                {
+                       return $this->getRelation("applicationStepList")
+                                        ->resetWhere("active='Y' and step_num='$step_num' and show_field_mfk like '%,$application_field_id,%'")                                        
+                                        ->func("count(id)");
                 }
 
                 public function getNextGeneralStepNumOf($step_num)

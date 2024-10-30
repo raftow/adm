@@ -30,7 +30,7 @@ $additional_fields = [
     'attribute_15' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_PR_graduated_ind', 'optional' => false, 'title_ar' => 'خريج برامج المعاهد الصناعية', 'title_en' => 'Graduate of industrial institute programs', 'help' => ''),
     'attribute_16' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_AS_graduated_ind', 'optional' => false, 'title_ar' => 'خريج دبلوم الكلية التقنية', 'title_en' => 'Graduate of technical college diploma', 'help' => ''),
     'attribute_17' => array('type' => 'GDAT', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_activity_date', 'optional' => false, 'title_ar' => 'تاريخ الحركة في رايات', 'title_en' => 'Activity date', 'help' => ''),
-
+    //update `application_field` set shortname = 'rayat' WHERE `field_name` in ('attribute_5','attribute_6','attribute_8','attribute_9','attribute_10','attribute_11','attribute_12','attribute_13','attribute_14','attribute_15','attribute_16','attribute_17');
     'attribute_18' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'profile-other', 'field_code' => 'children_of_martyrs', 'optional' => false, 
             'title_ar' => 'المتقدم من أبناء شهداء الواجب', 'title_en' => 'Are you one of the children of martyrs of duty?', 'help' => 'هل أنت من ذوي شهداء الواجب'),
     'attribute_19' => array('type' => 'FK', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'profile-other', 'answer' => 'check_method', 'ansmodule' => 'adm', 'field_code' => 'children_of_martyrs_check_method_id', 'optional' => false, 

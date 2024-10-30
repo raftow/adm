@@ -33,7 +33,7 @@ class ApplicationFormulaManager
 {
 
     
-    public static function calcApplicantAge($applicationObj)
+    public static function calcApplicantAge($applicationObj, $what="value")
     {
         // die("here calcApplicantAge");
         try
@@ -70,7 +70,7 @@ class ApplicationFormulaManager
         }
     }
     
-    public static function calcQualificationAge($applicationObj)
+    public static function calcQualificationAge($applicationObj, $what="value")
     {
         try
         {
@@ -115,7 +115,7 @@ class ApplicationFormulaManager
         }
     }
 
-    public static function calcQualificationLevel($applicationObj)
+    public static function calcQualificationLevel($applicationObj, $what="value")
     {
         try
         {
@@ -138,7 +138,7 @@ class ApplicationFormulaManager
         }
     }
 
-    public static function calcQualificationImported($applicationObj)
+    public static function calcQualificationImported($applicationObj, $what="value")
     {
         try
         {
@@ -149,7 +149,13 @@ class ApplicationFormulaManager
             }
             else $imported = "N";
 
+            if($what=="decode" and $qualifObj) 
+            {
+                $imported = $qualifObj->showYNValueForAttribute($imported, "imported");
+            }
+            
             return $imported;
+            
         }
         catch(Exception $e)
         {

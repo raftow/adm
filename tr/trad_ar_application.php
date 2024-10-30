@@ -26,7 +26,10 @@ class ApplicationArTranslator{
 		$trad["application"]["qualification_id"] = "المؤهل";
 		$trad["application"]["major_category_id"] = "فئة التخصص";
 
+
 		$trad["application"]["program_id"] = "البرنامج";
+		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";
+		
         return $trad;
     }
 

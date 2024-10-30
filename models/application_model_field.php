@@ -68,6 +68,13 @@ class ApplicationModelField extends AdmObject
         return false;
     }
 
+    public function rowCategoryAttribute()
+    {
+        return 'step_num';
+    }
+
+    
+
     public function beforeDelete($id,$id_replace) 
         {
             $server_db_prefix = AfwSession::config("db_prefix","c0");

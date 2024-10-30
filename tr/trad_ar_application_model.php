@@ -20,6 +20,8 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["applicationModelBranchList"] = "قائمة فروع القبول المتاحة";
 		$trad["application_model"]["applicationModelFieldList"] = "قائمة الحقول المستخدمة";
 		$trad["application_model"]["appModelApiList"] = "الانخراط في الخدمات الالكترونية";
+		$trad["application_model"]["application_field_mfk"] = "قائمة الحقول التي سيتم ترحيلها الى SIS";
+		
 		
 		
 		
