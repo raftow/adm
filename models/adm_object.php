@@ -832,7 +832,65 @@ class AdmObject extends AFWObject{
                 
                 return $arr_list_of_entry_type;
         } 
+        
+        public static function list_of_payment_status_enum()
+        {
+            global $lang;
+            return self::payment_status()[$lang];
+        }
+        
+        public static function payment_status()
+        {
+                $arr_list_of_Payment_Status = array();
+                
+                $arr_list_of_Payment_Status["en"]  [1] = "Not Paid";
+                $arr_list_of_Payment_Status["ar"]  [1] = "غير مدفوع";
+                $arr_list_of_Payment_Status["code"][1] = "";
 
+                $arr_list_of_Payment_Status["en"]  [2] = "Totally Paid";
+                $arr_list_of_Payment_Status["ar"]  [2] = "تم الدفع كليا";
+                $arr_list_of_Payment_Status["code"][2] = "";
+
+                $arr_list_of_Payment_Status["en"]  [3] = "Partially Paid";
+                $arr_list_of_Payment_Status["ar"]  [3] = "تم الدفع جزئيا";
+                $arr_list_of_Payment_Status["code"][3] = "";
+
+                $arr_list_of_Payment_Status["en"]  [4] = "Exempt from payment";
+                $arr_list_of_Payment_Status["ar"]  [4] = "معفي من الدفع";
+                $arr_list_of_Payment_Status["code"][4] = "";
+                
+                
+                
+                
+                return $arr_list_of_Payment_Status;
+        }
+        public static function list_of_payment_method_enum()
+        {
+            global $lang;
+            return self::payment_method()[$lang];
+        }
+        
+        public static function payment_method()
+        {
+                $arr_list_of_payment_method = array();
+                
+                $arr_list_of_payment_method["en"]  [1] = "Electronic payment";
+                $arr_list_of_payment_method["ar"]  [1] = "دفع الكتروني";
+                $arr_list_of_payment_method["code"][1] = "";
+
+                $arr_list_of_payment_method["en"]  [2] = "Sadadd";
+                $arr_list_of_payment_method["ar"]  [2] = "سداد";
+                $arr_list_of_payment_method["code"][2] = "";
+
+                $arr_list_of_payment_method["en"]  [3] = "Cash";
+                $arr_list_of_payment_method["ar"]  [3] = "نقدا";
+                $arr_list_of_payment_method["code"][3] = "";
+                
+                
+                
+                
+                return $arr_list_of_payment_method;
+        }
         public static function executeIndicator($object, $indicator, $normal_class, $arrObjectsRelated, $sens="asc", $default_red_pct=0, $default_orange_pct=0)
         {
                 global $MODE_SQL_PROCESS_LOURD, $nb_queries_executed;
