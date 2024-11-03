@@ -48,7 +48,10 @@ if($modp and ($modp != $currmod)) AfwAutoLoader::addModule($modp);
 
 $qualification_id = $_GET['qualification_id'];
 
-$a_json = AfwDatabase::db_recup_value("select gpa_from from c0adm.qualification where id = '".$qualification_id."'");
+$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+
+$a_json = AfwDatabase::db_recup_value("select gpa_from from ".$server_db_prefix."adm.qualification where id = '".$qualification_id."'");
 
 $json = json_encode($a_json);
 print $json;

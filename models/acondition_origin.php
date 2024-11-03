@@ -1,8 +1,4 @@
 <?php
-// rafik , 10/9/2024
-// alter table c0adm.acondition_origin add   application_model_mfk varchar(255) DEFAULT NULL  after acondition_origin_desc_en;
-// alter table c0adm.acondition_origin add   academic_program_mfk varchar(255) DEFAULT NULL  after application_model_mfk;
-
 class AconditionOrigin extends AdmObject{
 
 	public static $DATABASE		= ""; 
@@ -93,7 +89,7 @@ class AconditionOrigin extends AdmObject{
 
         public function beforeDelete($id,$id_replace) 
         {
-            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            $server_db_prefix = AfwSession::config("db_prefix","default_db_");
             
             if(!$id)
             {

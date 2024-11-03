@@ -1,9 +1,9 @@
 <?php 
 // medali 15/09/2024
 /*
-DROP TABLE IF EXISTS c0adm.program_track;
+DROP TABLE IF EXISTS program_track;
 
-CREATE TABLE IF NOT EXISTS c0adm.`program_track` (
+CREATE TABLE IF NOT EXISTS `program_track` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS c0adm.`program_track` (
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
 
-create unique index uk_program_track on c0adm.program_track(track_code,track_name_ar,track_name_en,sorting_instructions,application_model_id,sorting_formula);
+create unique index uk_program_track on program_track(track_code,track_name_ar,track_name_en,sorting_instructions,application_model_id,sorting_formula);
 
 INSERT INTO `program_track` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `track_code`, `track_name_ar`, `track_name_en`, `sorting_instructions`, `application_model_id`, `sorting_formula`) VALUES
 (1, 1, '2024-09-15 14:53:24', 1, '2024-09-15 14:53:24', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 0, NULL, 'TECH', 'المسار التقني', 'Technical Track', '', NULL, NULL),
@@ -68,7 +68,7 @@ class ProgramTrack extends AFWObject{
 
  // lookup Value List codes 
   
-        public static $DATABASE		= "c0adm";
+        public static $DATABASE		= "";
         public static $MODULE		        = "adm";        
         public static $TABLE			= "program_track";
 
@@ -224,7 +224,7 @@ class ProgramTrack extends AFWObject{
         
         public function beforeDelete($id,$id_replace) 
         {
-            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            $server_db_prefix = AfwSession::config("db_prefix","default_db_");
             
             if(!$id)
             {

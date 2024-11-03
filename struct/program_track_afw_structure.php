@@ -1,8 +1,8 @@
 <?php 
         /**
          * add field by medali
-         * alter table c0adm.program_track add   sort_criteria text  DEFAULT NULL  after track_name_en;
-        * alter table c0adm.program_track change   sort_criteria sort_criteria text  DEFAULT NULL  after track_name_en;
+         * alter table §DBPREFIX§adm.program_track add   sort_criteria text  DEFAULT NULL  after track_name_en;
+        * alter table §DBPREFIX§adm.program_track change   sort_criteria sort_criteria text  DEFAULT NULL  after track_name_en;
          */
         class AdmProgramTrackAfwStructure
         {

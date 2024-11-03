@@ -60,7 +60,7 @@
                                         'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  
-                                                        'WHERE'=>"id in (select program_id from c0adm.application_plan_branch where active='Y' and application_plan_id = §application_plan_id§)",
+                                                        'WHERE'=>"id in (select program_id from §DBPREFIX§adm.application_plan_branch where active='Y' and application_plan_id = §application_plan_id§)",
                                                         'SIZE' => 40,  'DEFAUT' => 0,     
                                                         'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -119,6 +119,12 @@
                                         'sis_fields_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
 								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 3, 'READONLY'=>true,
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),
+
+                                        'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'INT',  'STEP' => 3, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 

@@ -1,6 +1,4 @@
 <?php
-        // medali 18/9/2024 : alter table c0adm.application_model add   web_application char(1) DEFAULT NULL  after upload_files;
-
         class ApplicationModel extends AdmObject{
 
 
@@ -115,11 +113,18 @@
                 {
                         if($this->id)
                         {
-                                $profileScreen = ScreenModel::loadByMainIndex("profile");
-                                if(!$profileScreen) return ["no profile screen", ""];
-                                $profileStepObj = ApplicationStep::loadByMainIndex($this->id, 0, "Y", $profileScreen, true);
-                                $info = "profile step";
-                                $info .= $profileStepObj->is_new ? " has been created" : " has been updated";
+                                $defaultScreensArr = ["profile","desire","sorting","final"];
+                                $info = "default steps : <br>\n";
+                                foreach($defaultScreensArr as $i => $defaultScreen)
+                                {
+                                        $objScreen = ScreenModel::loadByMainIndex($defaultScreen, true);
+                                        if(!$objScreen) return ["no `$defaultScreen` screen found", ""];
+                                        $stepObj = ApplicationStep::loadByMainIndex($this->id, $i*10, "Y", $objScreen, true);
+                                        $info .= "`$defaultScreen` step";
+                                        $info .= $stepObj->is_new ? " has been created" : " has been updated";
+                                        $info .= "<br>\n";
+                                }
+                                
                                 return ["", $info];
                         }
                         
@@ -297,7 +302,7 @@
 
                         $this_disp = $this->getDisplay($lang);
 
-                        $this->hideAllApplicationModelConditionList();
+                        if($addNewConditions) $this->hideAllApplicationModelConditionList();
 
                         $aconditionOriginList = $this->get("aconditionOriginList");
                         foreach($aconditionOriginList as $aconditionOriginItem)
@@ -628,7 +633,9 @@
 
                 public function copySISFieldsFrom($application_model_id, $lang="ar")
                 {
-                        $application_field_mfk = AfwDatabase::db_recup_value("select application_field_mfk from c0adm.application_model where id = $application_model_id");
+                        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                        $application_field_mfk = AfwDatabase::db_recup_value("select application_field_mfk from ".$server_db_prefix."adm.application_model where id = $application_model_id");
                         if(strlen($application_field_mfk)>2)
                         {
                                 $this->set("application_field_mfk", $application_field_mfk);

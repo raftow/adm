@@ -1,40 +1,5 @@
 <?php 
 // medali 17/10/2024
-/*
-DROP TABLE IF EXISTS c0adm.engagement;
-
-CREATE TABLE IF NOT EXISTS c0adm.`engagement` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default 'Y',
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-    
-   engagement_type_id int(11) DEFAULT NULL , 
-   engagement_name_ar text  DEFAULT NULL , 
-   engagement_name_en text  DEFAULT NULL , 
-   academic_level_mfk varchar(255) DEFAULT NULL , 
-
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
-
--- unique index : 
-create unique index uk_engagement on c0adm.engagement(engagement_name_ar);
-
-
-*/
-                
 $file_dir_name = dirname(__FILE__); 
                 
 // require_once("$file_dir_name/../afw/afw.php");
@@ -43,7 +8,7 @@ class Engagement extends AFWObject{
 
         public static $MY_ATABLE_ID=13921; 
   
-        public static $DATABASE		= "c0adm";
+        public static $DATABASE		= "";
         public static $MODULE		        = "adm";        
         public static $TABLE			= "engagement";
 
@@ -189,7 +154,7 @@ class Engagement extends AFWObject{
         
         public function beforeDelete($id,$id_replace) 
         {
-            $server_db_prefix = AfwSession::config("db_prefix","c0");
+            $server_db_prefix = AfwSession::config("db_prefix","default_db_");
             
             if(!$id)
             {

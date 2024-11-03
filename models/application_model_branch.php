@@ -1,13 +1,4 @@
 <?php
-        // rafik 12/02/2024
-        // alter table c0adm.application_model_branch add   branch_name_ar varchar(128)  DEFAULT NULL  after is_open;
-        // alter table c0adm.application_model_branch add   branch_name_en varchar(128)  DEFAULT NULL  after branch_name_ar;
-        //
-        // alter table c0adm.application_model_branch add   training_unit_id int(11) DEFAULT NULL  after program_offering_id;
-        // alter table c0adm.application_model_branch add   department_id int(11) DEFAULT NULL  after training_unit_id;
-        // update c0adm.application_model_branch mb set mb.training_unit_id = (select po.training_unit_id from c0adm.academic_program_offering po where id = mb.program_offering_id);
-        // update c0adm.application_model_branch mb set mb.department_id = (select po.department_id from c0adm.academic_program_offering po where id = mb.program_offering_id);
-        
         class ApplicationModelBranch extends AdmObject{
 
                 public static $DATABASE		= ""; 
@@ -171,7 +162,7 @@
 
                 public function beforeDelete($id,$id_replace) 
                 {
-                    $server_db_prefix = AfwSession::config("db_prefix","c0");
+                    $server_db_prefix = AfwSession::config("db_prefix","default_db_");
                     
                     if(!$id)
                     {

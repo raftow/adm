@@ -15,6 +15,11 @@
 					$obj->after_save_edit = array("class"=>'AconditionOrigin',"attribute"=>'acondition_origin_id', "currmod"=>'adm',"currstep"=>3);
 					$obj->public_display = true;
 				}
+				else 
+				{
+						AconditionArTranslator::initData();
+						AconditionEnTranslator::initData();
+				}
 			}
 			
                 public static $DB_STRUCTURE = array(
@@ -136,7 +141,7 @@
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 
 				'WHERE' => "usable_in_conditions='Y' and application_table_id in (§application_table_id§)", 
-				'SIZE' => 40,  'DEFAUT' => 0,    
+				'SIZE' => 40,  'DEFAUT' => 0, 'AUTOCOMPLETE' => true,   
 				'DEPENDENT_OFME' => ['aparameter_id', ],
 				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

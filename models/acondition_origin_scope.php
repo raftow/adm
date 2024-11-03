@@ -1,35 +1,4 @@
 <?php
-/*
-DROP TABLE IF EXISTS c0adm.acondition_origin_scope;
-
-CREATE TABLE IF NOT EXISTS c0adm.`acondition_origin_scope` ( 
-    `id` int(11) NOT NULL AUTO_INCREMENT, 
-    `created_by` int(11) NOT NULL, 
-    `created_at` datetime NOT NULL, 
-    `updated_by` int(11) NOT NULL, 
-    `updated_at` datetime NOT NULL, 
-    `validated_by` int(11) DEFAULT NULL, 
-    `validated_at` datetime DEFAULT NULL, 
-    `active` char(1) NOT NULL, 
-    `draft` char(1) NOT NULL default 'Y', 
-    `version` int(4) DEFAULT NULL, 
-    `update_groups_mfk` varchar(255) DEFAULT NULL, 
-    `delete_groups_mfk` varchar(255) DEFAULT NULL, 
-    `display_groups_mfk` varchar(255) DEFAULT NULL, 
-    `sci_id` int(11) DEFAULT NULL, 
-    
-    acondition_origin_id int(11) DEFAULT NULL , 
-    application_model_id int(11) DEFAULT NULL , 
-    training_unit_id int(11) DEFAULT NULL , 
-    department_id int(11) DEFAULT NULL , 
-    application_model_branch_id int(11) DEFAULT NULL , 
-    PRIMARY KEY (`id`) 
-    
-    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
-
-    
-    create unique index uk_acondition_origin_scope on c0adm.acondition_origin_scope(acondition_origin_id,application_model_id,training_unit_id,department_id,application_model_branch_id);
-*/
 class AconditionOriginScope extends AdmObject
 {
 
@@ -95,7 +64,7 @@ class AconditionOriginScope extends AdmObject
 
     public function beforeDelete($id, $id_replace)
     {
-        $server_db_prefix = AfwSession::config("db_prefix", "c0");
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
         if (!$id) {
             $id = $this->getId();

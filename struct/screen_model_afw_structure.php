@@ -14,7 +14,7 @@ class AdmScreenModelAfwStructure
 
             // $obj->editByStep = true;
             // $obj->editNbSteps = 1; 
-            // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+            $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ScreenModel',"submit"=>true);
         }
     }
 

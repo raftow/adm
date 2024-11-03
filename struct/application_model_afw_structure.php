@@ -1,6 +1,6 @@
 <?php 
 
-//alter table c0adm.application_model add   web_application char(1) DEFAULT NULL  after upload_files;
+//alter table §DBPREFIX§adm.application_model add   web_application char(1) DEFAULT NULL  after upload_files;
         class AdmApplicationModelAfwStructure
         {
         

@@ -1,36 +1,6 @@
 <?php 
 // created by medali
-/*CREATE TABLE IF NOT EXISTS c0adm.`applicant_evaluation` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `created_by` int(11) NOT NULL,
-    `created_at`   datetime NOT NULL,
-    `updated_by` int(11) NOT NULL,
-    `updated_at` datetime NOT NULL,
-    `validated_by` int(11) DEFAULT NULL,
-    `validated_at` datetime DEFAULT NULL,
-    `active` char(1) NOT NULL,
-    `draft` char(1) NOT NULL default 'Y',
-    `version` int(4) DEFAULT NULL,
-    `update_groups_mfk` varchar(255) DEFAULT NULL,
-    `delete_groups_mfk` varchar(255) DEFAULT NULL,
-    `display_groups_mfk` varchar(255) DEFAULT NULL,
-    `sci_id` int(11) DEFAULT NULL,
-    
-      
-     evaluation_id int(11) DEFAULT NULL , 
-     applicant_id int(11) DEFAULT NULL , 
-     eval_result float DEFAULT NULL , 
-     eval_date datetime DEFAULT NULL , 
-     eval_expired_date datetime DEFAULT NULL , 
-     eval_level varchar(10)  DEFAULT NULL , 
-  
-    
-    PRIMARY KEY (`id`)
-  ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
 
-
-  create unique index uk_applicant_evaluation on c0adm.applicant_evaluation(evaluation_id,applicant_id,eval_date);
-*/  
         class AdmApplicantEvaluationAfwStructure
         {
         
