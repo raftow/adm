@@ -145,7 +145,19 @@
         'CSS' => 'width_pct_25',),
         
 
-
+        'adress' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,
+                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,
+                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,
+                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
+                'CSS' => 'width_pct_75',),
+        
+        
+        
+        'postal_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,
+                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,
+                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,
+                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
+                'CSS' => 'width_pct_25',),        
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
