@@ -37,6 +37,10 @@ CREATE TABLE `institution` (
   `postal_code` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 create unique index uk_institution on c0adm.institution(institution_code);
+
+INSERT INTO `institution` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `country_id`, `institution_code`, `institution_name_ar`, `institution_name_en`, `map_location`, `website`, `logo_file_id`, `background_file_id`, `facebook_profile_link`, `linkedin_profile_link`, `youtube_profile_link`, `snapchat_profile_link`, `twitter_profile_link`, `instagram_profile_link`, `adress`, `postal_code`) VALUES
+(1, 1, '2024-02-12 15:01:04', 1, '2024-02-12 15:01:04', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 400, 183, 'TVTC', 'المؤسسة العامة للتدريب التقني والمهني', 'Technical and Vocational Training Corporation', 'https://maps.app.goo.gl/GyZcdQJ1dNZdDxsK9', 'tvtc.gov.sa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MP23+HH3, Al Washm St, Al Murabba, Riyadh 11564', NULL);
+
 */
 
         class Institution extends AdmObject{
