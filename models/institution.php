@@ -4,41 +4,38 @@
 /*
 DROP TABLE IF EXISTS c0adm.institution;
 
-CREATE TABLE IF NOT EXISTS c0adm.`institution` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `institution` (
+  `id` int(11) NOT NULL,
   `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
+  `created_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `validated_by` int(11) DEFAULT NULL,
   `validated_at` datetime DEFAULT NULL,
   `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default 'Y',
+  `draft` char(1) NOT NULL DEFAULT 'Y',
   `version` int(4) DEFAULT NULL,
   `update_groups_mfk` varchar(255) DEFAULT NULL,
   `delete_groups_mfk` varchar(255) DEFAULT NULL,
   `display_groups_mfk` varchar(255) DEFAULT NULL,
   `sci_id` int(11) DEFAULT NULL,
-  
-    
-   institution_code varchar(50)  DEFAULT NULL , 
-   institution_name_ar varchar(50)  DEFAULT NULL , 
-   institution_name_en varchar(30)  DEFAULT NULL , 
-   country_id varchar(50)  DEFAULT NULL , 
-   map_location varchar(100)  DEFAULT NULL , 
-   website varchar(30)  DEFAULT NULL , 
-   logo_file_id int(11) DEFAULT NULL , 
-   background_file_id int(11) DEFAULT NULL , 
-   facebook_profile_link varchar(50)  DEFAULT NULL , 
-   linkedin_profile_link varchar(50)  DEFAULT NULL , 
-   youtube_profile_link varchar(50)  DEFAULT NULL , 
-   snapchat_profile_link varchar(50)  DEFAULT NULL , 
-   twitter_profile_link varchar(50)  DEFAULT NULL , 
-   instagram_profile_link varchar(50)  DEFAULT NULL , 
-
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;
+  `country_id` int(11) DEFAULT NULL,
+  `institution_code` varchar(10) DEFAULT NULL,
+  `institution_name_ar` varchar(50) DEFAULT NULL,
+  `institution_name_en` varchar(50) DEFAULT NULL,
+  `map_location` varchar(60) DEFAULT NULL,
+  `website` varchar(50) DEFAULT NULL,
+  `logo_file_id` int(11) DEFAULT NULL,
+  `background_file_id` int(11) DEFAULT NULL,
+  `facebook_profile_link` varchar(255) DEFAULT NULL,
+  `linkedin_profile_link` varchar(255) DEFAULT NULL,
+  `youtube_profile_link` varchar(255) DEFAULT NULL,
+  `snapchat_profile_link` varchar(255) DEFAULT NULL,
+  `twitter_profile_link` varchar(255) DEFAULT NULL,
+  `instagram_profile_link` varchar(255) DEFAULT NULL,
+  `adress` varchar(100) DEFAULT NULL,
+  `postal_code` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 create unique index uk_institution on c0adm.institution(institution_code);
 */
 
