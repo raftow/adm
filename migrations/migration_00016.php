@@ -409,10 +409,10 @@ AfwDatabase::db_query("INSERT INTO $default_db.`academic_level_offering` (`id`, 
 (405, 1, '2024-11-05 13:10:24', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 0, NULL, NULL, NULL, NULL, 10, 273),
 (406, 1, '2024-11-05 13:10:24', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 0, NULL, NULL, NULL, NULL, 6, 273);");
 
-AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`academic_level_offering`;");
+AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`academic_program_offering`;");
 
 
-AfwDatabase::db_query("INSERT INTO $default_db.`academic_level_offering` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `academic_program_id`, `degree_id`, `department_id`, `major_id`, `academic_level_id`, `training_unit_id`, `gender_enum`, `program_name_ar`, `program_name_en`) VALUES
+AfwDatabase::db_query("INSERT INTO $default_db.`academic_program_offering` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `academic_program_id`, `degree_id`, `department_id`, `major_id`, `academic_level_id`, `training_unit_id`, `gender_enum`, `program_name_ar`, `program_name_en`) VALUES
 (256, 1, '2024-11-06 19:00:00', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 0, NULL, NULL, NULL, NULL, 530, NULL, NULL, NULL, NULL, 14, 0, NULL, NULL),
 (257, 1, '2024-11-06 19:00:00', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 0, NULL, NULL, NULL, NULL, 530, NULL, NULL, NULL, NULL, 12, 0, NULL, NULL),
 (258, 1, '2024-11-06 19:00:00', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 0, NULL, NULL, NULL, NULL, 541, NULL, NULL, NULL, NULL, 13, 0, NULL, NULL),
