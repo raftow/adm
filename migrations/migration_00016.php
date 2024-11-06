@@ -1,5 +1,6 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+// because this migration is only for TVTC
+$server_db_prefix = "tvtc_";
 
 $default_db = $server_db_prefix."adm";
 
