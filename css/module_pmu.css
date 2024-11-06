@@ -1,0 +1,11 @@
+header.top-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(to bottom, #fff, #fff);
+    z-index: 0;
+    padding-bottom: 0;
+    transition: all .3s ease-in;
+    max-height: 220px;
+}

@@ -18,6 +18,7 @@ $migrations = [
     '00012' => ['by'=>'rafik', 'title' => 'applicant fields ++'],
     '00013' => ['by'=>'rafik', 'title' => 'application step workflow'],
     '00014' => ['by'=>'medali', 'title' => 'recommendation letter'],
-    '00015' => ['by'=>'medali','title'=>'add transaction fees module']
+    '00015' => ['by'=>'medali','title'=>'add transaction fees module'],
+    '00016' => ['by'=>'rafik','title'=>'level offring and program offring fixed by amjad'],
 ];
 
