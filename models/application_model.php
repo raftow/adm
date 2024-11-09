@@ -447,6 +447,13 @@
                         
                 }
 
+                public function hideAllApplicationModelBranchList()
+                {
+                        $amcObj = new ApplicationModelBranch(); 
+                        $amcObj->select("application_model_id", $this->id);
+                        $amcObj->logicDelete(true,false);
+                }
+
 
                 public function genereApplicationModelBranchList($lang="ar")
                 {
@@ -466,7 +473,7 @@
                         $academic_level_id = $this->getVal("academic_level_id");
                         $gender_enum = $this->getVal("gender_enum");
 
-                        
+                        $this->hideAllApplicationModelBranchList();
                         
                         $trainingPeriodArr = [$this->getVal("training_period_enum")];
                         // $trainingPeriodArrCount = count($trainingPeriodArr);
@@ -539,7 +546,7 @@
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
                         
                         $color = "green";
-                        $title_ar = "انشاء جميع الفروع الممكنة"; 
+                        $title_ar = "تحديث فروع القبول حسب الاعدادات"; 
                         $methodName = "genereApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         

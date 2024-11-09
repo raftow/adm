@@ -79,6 +79,41 @@ class ApiEndpoint extends AdmObject
                 return false;
         }
 
+
+        /**
+        * switcherConfig
+        * @param string $col
+        * @param Auser $auser
+        * should be overridden in subclasses if more columns should be switchable
+        * return array[$switcher_authorized, $switcher_title, $switcher_text]
+        * 
+        * $switcher_authorized : if true means the column $col should be switchable
+        * $switcher_title, $switcher_text are the title and warning that will be shown by the confirmation popup before do the switch
+        */
+
+        public function switcherConfig($col, $auser=null)
+        {
+                global $lang;
+
+                $switcher_authorized = false;        
+                $switcher_title = "";
+                $switcher_text = "";
+
+                if($col== $this->fld_ACTIVE())
+                {
+                        $switcher_authorized = true;        
+                }
+
+                if($col == "published")
+                {
+                        $switcher_authorized = true;        
+                        $switcher_title = $this->tm("Are you sure ?", $lang);
+                        $switcher_text = $this->tm("This will enable or disable the use of this API to update applicant fields", $lang);
+                }
+
+                return [$switcher_authorized, $switcher_title, $switcher_text];
+        }
+
         public function beforeDelete($id,$id_replace) 
         {
             $server_db_prefix = AfwSession::config("db_prefix","default_db_");
