@@ -12,7 +12,7 @@ class Acondition extends AdmObject{
 
 	public static $DATABASE		= ""; 
         public static $MODULE		    = "adm"; 
-        public static $TABLE			= ""; 
+        public static $TABLE			= "acondition"; 
         public static $DB_STRUCTURE = null; 
 
 
@@ -717,6 +717,30 @@ class Acondition extends AdmObject{
         public function shouldBeCalculatedField($attribute){
                 if($attribute=="afield_type_id") return true;
                 return false;
+        }
+
+
+        public function switcherConfig($col, $auser=null)
+        {
+                global $lang;
+
+                $switcher_authorized = false;        
+                $switcher_title = "";
+                $switcher_text = "";
+
+                if($col== $this->fld_ACTIVE())
+                {
+                        $switcher_authorized = true;        
+                }
+
+                if($col == "show_fe")
+                {
+                        $switcher_authorized = true;        
+                        $switcher_title = $this->tm("Are you sure ?", $lang);
+                        $switcher_text = $this->tm("This will show or hide the appearance of this condition in gate frontend", $lang);
+                }
+
+                return [$switcher_authorized, $switcher_title, $switcher_text];
         }
 
         // generalCondition

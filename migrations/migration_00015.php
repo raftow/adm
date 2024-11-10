@@ -1,6 +1,8 @@
 <?php
+$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
 // medali transaction fees moodule
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`fin_transaction` (
+AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`fin_transaction` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `created_by` int(11) NOT NULL,
     `created_at`   datetime NOT NULL,
@@ -27,16 +29,16 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`fin_transaction` (
     PRIMARY KEY (`id`)
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
   
-  AfwDatabase::db_query("create unique index uk_fin_transaction on c0adm.fin_transaction(fee_code);");
+  AfwDatabase::db_query("create unique index uk_fin_transaction on ".$server_db_prefix."adm.fin_transaction(fee_code);");
 
-  AfwDatabase::db_query("INSERT INTO c0adm.fin_transaction (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `fee_code`, `fee_description_ar`, `fee_description_en`, `sis_charge_code`, `sis_payment_code`) VALUES
+  AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.fin_transaction (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `fee_code`, `fee_description_ar`, `fee_description_en`, `sis_charge_code`, `sis_payment_code`) VALUES
 (1, 1, '2024-11-02 14:51:01', 1, '2024-11-02 14:51:01', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 0, NULL, 'F001', 'رسوم التقديم', 'Application Fees', NULL, NULL),
 (2, 1, '2024-11-02 14:51:01', 1, '2024-11-02 14:51:01', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 0, NULL, 'F002', 'الرسوم الإدارية', 'inistrative Fees', NULL, NULL),
 (3, 1, '2024-11-02 14:51:01', 1, '2024-11-02 14:51:01', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 0, NULL, 'F003', 'رسوم اختبار الإنجليزية', 'English Test Evaluat', NULL, NULL),
 (4, 1, '2024-11-02 14:51:41', 1, '2024-11-02 14:51:41', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 0, NULL, 'F004', 'رسوم الدراسة', 'Tuition Fees', NULL, NULL);");
 
 
-  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`appmodel_fintran` (
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appmodel_fintran` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -63,11 +65,11 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`fin_transaction` (
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-AfwDatabase::db_query("create unique index uk_appmodel_fintran on c0adm.appmodel_fintran(fin_transaction_id,application_model_id);");
+AfwDatabase::db_query("create unique index uk_appmodel_fintran on ".$server_db_prefix."adm.appmodel_fintran(fin_transaction_id,application_model_id);");
 
 
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`applicant_fintrans` (
+AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_fintrans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -94,11 +96,11 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`applicant_fintrans` (
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_applicant_fintrans on c0adm.applicant_fintrans(applicant_id,application_id,appmodel_fintran_id);");
+AfwDatabase::db_query("create unique index uk_applicant_fintrans on ".$server_db_prefix."adm.applicant_fintrans(applicant_id,application_id,appmodel_fintran_id);");
 
 
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`fintrans_payment` (
+AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`fintrans_payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -124,7 +126,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS c0adm.`fintrans_payment` (
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_fintrans_payment on c0adm.fintrans_payment(applicant_fintrans_id,amount  ,payment_status_enum,payment_method_enum);");
+AfwDatabase::db_query("create unique index uk_fintrans_payment on ".$server_db_prefix."adm.fintrans_payment(applicant_fintrans_id,amount  ,payment_status_enum,payment_method_enum);");
 
 
 

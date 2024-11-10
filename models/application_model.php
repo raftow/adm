@@ -391,30 +391,37 @@
                                 $api_endpoint_id = $applicationModelFieldItem->getVal("api_endpoint_id");
                                 if($api_endpoint_id>0)
                                 {
-                                        $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
-                                        $new_step_num = $applicationModelFieldItem->getVal("step_num");
-                                        if(!$new_step_num) $new_step_num = 1;
-                                        $amaObj = AppModelApi::loadByMainIndex($this->id, $api_endpoint_id, true);
-                                        if($amaObj->is_new)
+                                        if($api_endpoint_id != 13)
                                         {
-                                                $amaObj->set("application_field_mfk", ",$application_field_id,");
-                                                // $amaObj->set("duration_expiry", 15);
-                                                $api_nb_inserted++;
+                                                $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
+                                                $new_step_num = $applicationModelFieldItem->getVal("step_num");
+                                                if(!$new_step_num) $new_step_num = 1;
+                                                $amaObj = AppModelApi::loadByMainIndex($this->id, $api_endpoint_id, true);
+                                                if($amaObj->is_new)
+                                                {
+                                                        $amaObj->set("application_field_mfk", ",$application_field_id,");
+                                                        // $amaObj->set("duration_expiry", 15);
+                                                        $api_nb_inserted++;
+                                                }
+                                                else
+                                                {
+                                                        $amaObj->addRemoveInMfk("application_field_mfk",[$application_field_id],[]);
+                                                }
+                                                
+                                                $amaObj->set("duration_expiry", 15);
+                                                $step_num = $amaObj->getVal("step_num");
+                                                if((!$step_num) or ($step_num<0) or ($step_num>$new_step_num))
+                                                {
+                                                        $step_num = $new_step_num;
+                                                        $amaObj->set("step_num", $step_num);
+                                                }
+                
+                                                $amaObj->commit();
                                         }
                                         else
                                         {
-                                                $amaObj->addRemoveInMfk("application_field_mfk",[$application_field_id],[]);
+                                                $inf_arr[] = "for field $application_field_id `manual entry` virtual API(13) has been ignored";
                                         }
-                                        
-                                        $amaObj->set("duration_expiry", 15);
-                                        $step_num = $amaObj->getVal("step_num");
-                                        if((!$step_num) or ($step_num<0) or ($step_num>$new_step_num))
-                                        {
-                                                $step_num = $new_step_num;
-                                                $amaObj->set("step_num", $step_num);
-                                        }
-        
-                                        $amaObj->commit();
                                 }
                                 else $war_arr[] = "field ".$applicationModelFieldItem->getDisplay("en")." has no api_endpoint defined";
                         }
@@ -440,6 +447,13 @@
                         
                 }
 
+                public function hideAllApplicationModelBranchList()
+                {
+                        $amcObj = new ApplicationModelBranch(); 
+                        $amcObj->select("application_model_id", $this->id);
+                        $amcObj->logicDelete(true,false);
+                }
+
 
                 public function genereApplicationModelBranchList($lang="ar")
                 {
@@ -459,7 +473,7 @@
                         $academic_level_id = $this->getVal("academic_level_id");
                         $gender_enum = $this->getVal("gender_enum");
 
-                        
+                        $this->hideAllApplicationModelBranchList();
                         
                         $trainingPeriodArr = [$this->getVal("training_period_enum")];
                         // $trainingPeriodArrCount = count($trainingPeriodArr);
@@ -532,7 +546,7 @@
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
                         
                         $color = "green";
-                        $title_ar = "انشاء جميع الفروع الممكنة"; 
+                        $title_ar = "تحديث فروع القبول حسب الاعدادات"; 
                         $methodName = "genereApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         

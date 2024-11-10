@@ -546,9 +546,17 @@ button.toggle-hzm-btn.on_late
     background-color: rgb(107, 119, 114);
 }
 
-.form-control{
+.form-control,
+.form-control-div,
+.mbsc-ios.mbsc-textarea-inner.mbsc-textfield-inner-outline, 
+.mbsc-ios.mbsc-textfield-outline {
     background-color: rgba(255, 255, 255, 0.58) !important;
-    border-color: rgba(125, 163, 183, 0.74) !important;
+    border-color: rgb(125 163 183 / 12%) !important;
+}
+
+.hzm_unit {
+    background-color: #ffffff8c;
+    border-right: 1px #b2aeae59 solid;
 }
 
 
@@ -598,37 +606,7 @@ div>a.downloadbtn>div.pdf_download {
     padding-right: 10px;
 }
 
-/**** swal popups : confirm etc .... **/
 
-.swal-title {
-    font-family: title;
-    font-size: 16px;
-}
-
-.swal-text {
-    font-size: 20px;
-    font-family: title;
-    color: #0d3c0d;
-}
-
-.swal-button {
-    background-color: #50c127;
-    color: #fff;
-    border: none;
-    box-shadow: none;
-    border-radius: 5px;
-    font-weight: normal;
-    font-size: 14px !important;
-    padding: 10px 24px;
-    margin: 0;
-    cursor: pointer;
-}
-
-.swal-button--danger {
-    background-color: #e64942 !important;
-}
-
-/**** end of swal popups : confirm etc .... **/
 
 /*****     start of upload files css   *********************/
 
@@ -1002,6 +980,19 @@ span.object_id {
         }
 
     } 
+
+
+    .hasCalendarsPicker {
+        padding-left: 24px;
+        width: 100%;
+        border: 1px solid #dbd9d9e8;
+        font-size: 16px !important;
+        background-image: url(../../lib/images/calendar.png) !important;
+        background-repeat: no-repeat !important;
+        background-position-x: 3px !important;
+        background-position-y: center !important;
+        background-size: 36px;
+    }
 
     @media screen and (max-width: 535px) {
             .calendar_bloc_g{
@@ -2149,12 +2140,7 @@ div.school_calendar {
 }
 
 
-.hzm_body.no_spaces {
-    background-image: url(../../adm/pic/home_banner_002.jpg) !important;
-    background-size: 100% 110% !important;
-    background-color: transparent !important;
-    background-position: left top !important;
-}
+
 
 label {
     padding-right: 20px;
@@ -2771,62 +2757,7 @@ td#bloc_result {
     background-color: transparent;
 }
 
-table.dataTable {
-    width: 90%;
-    margin: 0 auto;
-    clear: both;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-style: solid;
-    border-color: rgb(4 126 122);
-    background-color: rgb(185 223 226 / 43%);
-    box-shadow: 5px 6px 10px #bee5dfc9;
-    border-width: 1px;
-}
 
-table.dataTable thead th, table.dataTable thead td {
-    padding: 10px 10px 6px 18px;
-    border-bottom: 1px solid rgb(111 171 168 / 75%);
-    font-size: 100% !important;
-    font-family: title;
-    text-align: right;
-}
-
-table.dataTable thead th, table.dataTable tfoot th {
-    /* font-weight: bold; */
-    background-color: rgb(6 112 187) !important;
-    color: white;
-    font-weight: normal;
-    padding-right: 5px !important;
-}
-
-table.dataTable tbody tr {
-    background-color: rgb(233 244 255);
-}
-
-table.dataTable thead th.xqe_hf_z, table.dataTable tfoot th.xqe_hf_z {
-    background-color: #04605d !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-    cursor: default;
-    color: #6d9297 !important;
-    border: 1px solid transparent;
-    background: transparent;
-    box-shadow: none;
-    font-weight: normal;
-}
-
-.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
-    color: #0e6663e0;
-}
-.dataTables_wrapper .dataTables_info {
-    clear: both;
-    float: left;
-    padding: 7px;
-    font-weight: normal;
-    font-size: 95%;
-}
 
 input#save_form {
     font-size: 18px;
@@ -3242,23 +3173,6 @@ div.content-annonce>ul {
     padding: 0;
 }
 
-.footer_bg {
-    /* background-image: url(../../external/pic/bg-footer.jpg); */
-    background-color: #d1edfb;
-    background-size: contain;
-    float: right;
-    padding: 15px;
-    width: 100%;
-    margin-top: 0px;
-}
-
-.rowfooter {
-    max-width: 62.5rem;
-    margin-right: auto;
-    margin-left: auto;
-    background-color: #141414;
-    max-width: none;
-}
 
 .xqe_inputtext:active, .xqe_inputtext:focus {
     border-color: #6b930d !important;
@@ -3357,12 +3271,6 @@ a.hzm3-button.hzm3-block>.hzm4-title {
     font-size: 18px;
 }
 
-.bluebtn {
-    color: #fff;
-    background-color: #0880d4 !important;
-    border-color: #0880d4 !important;
-}
-
 #container_left_div {
     display: table-cell !important;
     border: 1px #c8cdafa8 solid;
@@ -3375,34 +3283,8 @@ div.content_form>form>.in-group-invester_data {
     width: 100%;
 }
 
-img.footer_img {
-    height: 34px !important;
-}
-
-table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
-    border-top: 2px solid rgb(119 165 155 / 37%);
-}
 
 
-div.footer_container > div.rowfooter {
-    background-color: #085d8b;
-}
-
-.rowfooter.footer {
-    background-color: #085d8b;
-    width: 100%;
-    max-width: none !important;
-    margin: 0;
-    float: right;
-    padding: 15px;
-}
-
-div.column-block>h3 {
-    color: #f1ca3b;
-    font-size: 1.3em;
-    width: 100%;
-    /* border-bottom: 1px solid #f1ca3b00; */
-}
 
 .small-up-1 > .column, .small-up-1 > .columns {
     float: right;
@@ -3494,31 +3376,6 @@ div.body_nav_hzm>p {
     margin-top: 140px;
 }*/
 
-.bluetitle {
-    font-size: 168%;
-    font-weight: normal !important;
-    color: #2967dd;
-    text-shadow: 4px 4px 8px #a7e3ff;
-    margin-bottom: 10px;
-    text-align: center;
-    padding-top: 19px;
-    padding-bottom: 10px;
-    background-color: #bdeaff63;
-}
-
-.bluetitle i {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    background: #50bef1;
-    margin-left: 10px;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #1387d9;
-    position: relative;
-    top: 0px;
-    border-radius: 50%;
-}
 
 .display>thead>tr>th {
     text-align: right;
@@ -3853,52 +3710,7 @@ label.error {
     margin-top: 0px;
 }
 
-ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a.aregister {
-    border: none !important;
-    background-color: #828991 !important;
-    color: #fff !important;
-    font-weight: normal;
-}
 
-ul.hzm_front_menu_bar>li {
-    border: none !important;
-    /* border-left: 1px #3567a56e solid !important; */
-    /* margin-left: 35px; */
-    background-color: #a1d0e5 !important;
-}
-
-.navbar-nav>li>a {
-    color: black !important;
-}
-
-
-
-.cms_container.navbar.navbar-inverse {
-    width: 86% !important;
-    margin-left: 7% !important;
-    margin-right: 7% !important;
-}
-
-.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
-    color: #ffffff !important;
-    background-color: #9d8f15 !important;
-}
-
-.navbar-nav>li>a.alogin {
-    background-color: #818010 !important;
-    color: #ffffff !important;
-}
-
-.navbar-nav>li>a.alogout {
-    background-color: #97fdb9 !important;
-    color: #1f5e12 !important;
-    text-shadow: 1px 0px #1f5e12;
-    border: none !important;
-    font-weight: normal;
-    min-height: 34px;
-    padding-top: 6px !important;
-    text-align: center !important;
-}
 
 a#ui-id-new {
     color: #818010;
@@ -4009,9 +3821,7 @@ div.my_school_ticket.title>h3 {
     border: none !important;
 }
 
-tr.altitem {
-    background-color: #c8e4ff8a;
-}
+
 
 ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li.hzm_logout>a:hover {
     color: #ffffff !important;
@@ -4084,10 +3894,6 @@ button.bf.hzm-otherlink {
     padding: 8px 15px !important;
 }
 
-.rowfooter:not(.expanded) .rowfooter {
-    max-width: none;
-    width: 100%;
-}
 
 .quick-links.column {
     width: 100%;
@@ -4902,32 +4708,6 @@ td.end.calculated>div, td.end.calculated>label {
     z-index: 9999;
 }
 
-.hzm-loading-div {
-    position: sticky;
-    top: 80px;
-    display: block;
-    left: 0px;
-    background-color: #edf8ff00;
-    background-image: url(../../lib/images/adm-loader.gif);
-    background-size: inherit;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 20%;
-    margin-left: 40%;
-    margin-right: 40%;
-    margin-top: 0;
-    height: 260px;
-    min-width: 400px;
-    min-height: 200px;
-    text-align: center;
-    font-size: 100%;
-    color: #c7eaff;
-    /* vertical-align: middle; */
-    padding-top: 25px;
-    padding-bottom: 10px;
-    z-index: 9999999;
-}
-
 th.col-qe.col-qe-active, th.col-qe.col-qe-is_open, th.col-qe.col-qe-deaf_specialty {
     width: 4%;
 }
@@ -4970,17 +4750,7 @@ h5.greentitle.idn-infos {
     min-height: 50px !important;
 }
 
-header.top-header {
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-image: linear-gradient(to bottom, #def5ff, #2f8bb4);
-    z-index: 0;
-    padding-bottom: 0;
-    transition: all .3s ease-in;
-    max-height: 220px;
-}
+
 
 .title_company {
     width: auto;
@@ -5060,13 +4830,7 @@ div.qfilter>h1 {
     border-bottom: 1px solid #07384e;
 }
 
-h5.bluetitle.search {
-    font-size: 200%;
-    font-weight: bold;
-    padding-right: 10px;
-    border-bottom: 1px solid #1280d2;
-    padding-bottom: 15px;
-}
+
 
 .fixmgrid td, .fixmgrid th {
     border: 1px #7fc5e5 solid !important;
@@ -5112,3 +4876,4 @@ tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_i
     border-bottom: 1px solid white;
     border-left: 1px solid white;
 }
+

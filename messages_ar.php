@@ -29,6 +29,10 @@
     $messages["condition part"] = "جزء الشرط";
     $messages["has failed"] = "فشل";
     $messages["has succeeded"] = "نجح";
+    $messages["Are you sure ?"] = "هل أنت متأكد؟";
+    $messages["This will enable or disable the use of this API to update applicant fields"] = "سوف تقوم بتفعيل أو تعطيل استخدام هذه الخدمة الالكترونية في تحديث بيانات المتقدم";
+    $messages["This will show or hide the appearance of this condition in gate frontend"] = "سوف تقوم باظهار أو اخفاء الشرط على المتقدم في الواجهة الرئيسية";
+    
     
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
