@@ -130,6 +130,7 @@
                                                 'QEDIT' => false,
                                                 'UTF8' => false,
                                                 'MANDATORY' => true,
+                                                "FORMAT"=>"mobiselector",
                                                 'TYPE' => 'MFK',
                                                 'ANSWER' => 'application_field',
                                                 'ANSMODULE' => 'adm',
