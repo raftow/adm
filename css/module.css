@@ -2525,10 +2525,6 @@ table.dataTable thead th.stats_orgunit_id, td.stats_orgunit_id {
     font-size: 110% !important;
 }
 
-table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-    background-color: rgb(169 253 102 / 42%);
-}
-
 a.btnbtsp.btn_link {
     color: #c2f9f0;
     /* font-weight: bold; */

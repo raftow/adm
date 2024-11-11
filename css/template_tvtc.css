@@ -605,3 +605,7 @@ div#footer_div {
     z-index: 9999999;
 }
 
+table.dataTable.hover tbody tr:hover>td, table.dataTable.display tbody tr:hover>td {
+    background-color: rgb(169 253 102 / 42%);
+}
+
