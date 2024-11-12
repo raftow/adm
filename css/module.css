@@ -546,14 +546,6 @@ button.toggle-hzm-btn.on_late
     background-color: rgb(107, 119, 114);
 }
 
-.form-control,
-.form-control-div,
-.mbsc-ios.mbsc-textarea-inner.mbsc-textfield-inner-outline, 
-.mbsc-ios.mbsc-textfield-outline {
-    background-color: rgba(255, 255, 255, 0.58) !important;
-    border-color: rgb(125 163 183 / 12%) !important;
-}
-
 .hzm_unit {
     background-color: #ffffff8c;
     border-right: 1px #b2aeae59 solid;
@@ -3177,35 +3169,6 @@ div.content-annonce>ul {
     background-color: #ffffffa1;
 }
 
-div.hzm_home_bloc>h3 {
-    font-size: 44px;
-    font-weight: bold;
-    color: #0670bb;
-    text-shadow: 4px 4px 4px #bdeafb;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.hzm-custom.hzm-custom-icon-container.only-border.border-primary i {
-    color: #0670bb;
-}
-
-.hzm-custom.hzm-custom-icon-container {
-    width: 80px;
-    height: 80px;
-}
-
-.hzm-custom.hzm-custom-icon-container i {
-    font-size: 42px;
-}
-
-.hzm-custom.hzm-custom-icon-container.only-border.border-primary {
-    border-color: #72b9e575;
-    border-radius: 50%;
-    border-width: 2px;
-    background-color: #cbe7fd6e;
-}
-
 ul.hzm_front_menu_bar>li:hover {
     border: 1px #0670bb solid;
 }
@@ -3224,15 +3187,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a:hover {
     margin-top: 130px !important;
 }
 
-.hzm3-col.m3.l3.s6 {
-    width: 10%;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 1%;
-    padding: 0 !important;
-    min-height: 190px !important;
-}
-
 .bf {
     background-color: transparent;
     margin: 10px;
@@ -3242,12 +3196,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a:hover {
 
 a.hzm3-button {
     background-color: transparent !important;
-}
-
-a.hzm3-button.hzm3-block>.hzm4-title {
-    color: #074d7e !important;
-    font-weight: bold;
-    font-size: 18px;
 }
 
 #container_left_div {
@@ -4545,7 +4493,7 @@ td.end.calculated>div, td.end.calculated>label {
 
 .bficon-104610:before,
 .bficon-104615:before {
-    content: "";
+    content: "\f19d";
 }
 
 .bficon-104760:before,
@@ -4837,4 +4785,11 @@ tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_i
     text-align: center;
     border-bottom: 1px solid white;
     border-left: 1px solid white;
+}
+
+.form-control-div.errors {
+    padding-top: 8px !important;
+    color: white;
+    background-color: red !important;
+    min-height: fit-content;
 }
