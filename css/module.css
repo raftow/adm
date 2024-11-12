@@ -2731,23 +2731,6 @@ input.respbtn {
     width: 48px;
 }
 
-.qfilter {
-    margin-top: 0px;
-    margin-bottom: 10px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    border-bottom: none;
-    background-color: #ffffff8f;
-    text-shadow: 4px 4px 8px white;
-}
-
-div.qsearch_page {
-    padding-left: 6% !important;
-    padding-right: 6% !important;
-    margin-top: 34px;
-}
-
-
 td#bloc_result {
     padding-right: 16px;
     background-color: transparent;
@@ -4809,13 +4792,6 @@ label.light_label {
 
 img.tooltip-icon {
     border: 1px solid white;
-}
-
-table.search_result_table {
-    margin-right: 6% !important;
-    margin-left: 6% !important;
-    width: 84%;
-    background-color: #ffffffc7;
 }
 
 div.qfilter>h1 {
