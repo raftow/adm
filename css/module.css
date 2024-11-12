@@ -4818,16 +4818,6 @@ table.search_result_table {
     background-color: #ffffffc7;
 }
 
-div.qfilter>h1 {
-    font-size: 200%;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #07384e;
-}
-
-
-
 .fixmgrid td, .fixmgrid th {
     border: 1px #7fc5e5 solid !important;
 }
