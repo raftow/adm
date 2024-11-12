@@ -4794,16 +4794,6 @@ img.tooltip-icon {
     border: 1px solid white;
 }
 
-div.qfilter>h1 {
-    font-size: 200%;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #07384e;
-}
-
-
-
 .fixmgrid td, .fixmgrid th {
     border: 1px #7fc5e5 solid !important;
 }
@@ -4848,4 +4838,3 @@ tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_i
     border-bottom: 1px solid white;
     border-left: 1px solid white;
 }
-
