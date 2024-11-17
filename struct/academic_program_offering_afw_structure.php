@@ -72,6 +72,7 @@
                                                         'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'WHERE'=>"id in (select major_id from §DBPREFIX§adm.academic_program where department_id = §department_id§ and genders_enum in (3,§gender_enum§) and active = 'Y')",
                                                         'DEPENDENCIES' => ['department_id', 'gender_enum',],
+                                                        'DEPENDENT_OFME' => array("academic_program_id"), 
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>false,
                                                         'CSS' => 'width_pct_50', ),	

@@ -22,5 +22,7 @@ $migrations = [
     '00016' => ['by'=>'rafik','title'=>'level offring and program offring fixed by amjad for TVTC executed'],
     '00017' => ['by'=>'rafik','title'=>'level offring and program offring fixed by amjad for PMU executed'],
     '00018' => ['by'=>'rafik','title'=>'program offring complete readonly calculted fields'],
+    '00019' => ['by'=>'medali','title'=>'application payment module change tables name'],
+
 ];
 
