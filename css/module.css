@@ -782,20 +782,6 @@ select.hzm_time>option {
 }
 
 
-.home_banner{
-    background-image: url(../pic/home_banner_001.jpg) !important;   
-    background-color: #c7e7f6;
-    background-size: 100% 110% !important;
-    background-repeat: no-repeat !important;
-    background-position-x: center !important;
-    background-position-y: 0px !important;
-    width: 100%;
-    min-height: 1150px !important;
-    float: right;
-    border: none !important;
-}
-
-
 
 li.hzm_login {
     float: left !important;
@@ -1147,55 +1133,8 @@ h2.school_question {
     color: #767816;
     text-shadow: #dbef96 1px 1px;
 }
+   
 
-.modal-dialog.popup-login {
-    background: transparent;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    padding-bottom: 30px;
-    float: right;
-    min-height: 700px;
-    min-width: 300px !important;
-    width: 80% !important;
-    max-width: 350px;
-    margin-right: 10% !important;
-    margin-left: 60px !important;
-    margin-top: 50px !important;
-}    
-
-  
-.modal-dialog.popup-register {
-    background: transparent;
-    padding-top: 15px;
-    padding-left: 280px;
-    padding-right: 50px;
-    padding-bottom: 180px;
-    float: right;
-    min-height: 1190px;
-    margin-right: 10% !important;
-    margin-left: 0% !important;
-    width: 80% !important;
-    min-width: 0px !important;
-    max-width: 630px !important;
-    
-}   
-
-@media (min-width:1671px)
-{
-    .modal-dialog.popup-register {
-        padding-left: 30px;
-        padding-right: 25px;
-    }
-}
-
-@media (max-width: 1670px)
-{
-    .modal-dialog.popup-register {
-        padding-left: 10px !important;
-        padding-right: 20px !important;
-    }
-
-}
 @media (max-width: 1100px)
 {
     .panel-heading {
@@ -2061,67 +2000,6 @@ div.school_calendar {
         float: right;
 }
 
-
-@media screen and (max-width: 980px) {
-    .modal-dialog.popup-login {
-        width: 36% !important;
-        margin-right: 32% !important;
-        margin-left: 32% !important;
-        max-width: none !important;
-        min-height: 650px !important;
-        padding-bottom: 50px !important;
-    }
-}
-
-.modal-content {
-    -webkit-box-shadow: 0px 8px 20px rgb(160 209 213);
-    box-shadow: 0px 8px 20px rgb(160 209 213);
-    border: 1px solid rgb(133 192 200);
-    max-width: 480px;
-}
-
-@media screen and (max-width: 767px) {
-        .school_data_props, .my_school_dates{
-                width: 100% !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important; 
-        }
-
-        .modal-dialog.popup-login {
-            width: 44% !important;
-            margin-right: 27% !important;
-            margin-left: 27% !important;
-            max-width: none !important;
-            min-height: 650px !important;
-            min-width: 320px !important;
-            padding-bottom: 50px !important;
-        }
-
-
-        .modal-content {
-            -webkit-box-shadow: 20px 60px 60px rgb(160 209 213);
-            box-shadow: 20px 60px 60px rgb(160 209 213);
-        }
-}
-
-@media screen and (max-width: 480px) {
-    .modal-dialog.popup-register {
-        padding-top: 15px !important;
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        padding-bottom: 15px !important;
-    }
-
-    .modal-dialog.popup-login {
-        width: 60% !important;
-        margin-right: 20% !important;
-        margin-left: 20% !important;
-        max-width: none !important;
-        min-height: 450px !important;
-        padding-bottom: 50px !important;
-    }
-}
-
 .school_small_calendar.calendar_left {
         margin-top: 4px;
         margin-bottom: 8px;
@@ -2130,9 +2008,6 @@ div.school_calendar {
         background-color: #fcfcd2;
         padding: 5px;
 }
-
-
-
 
 label {
     padding-right: 20px;
@@ -2996,48 +2871,7 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a.navbar-brand:hover 
     
 }
 
-@media screen and (max-width: 1100px) {
-    .home_banner.login_banner{
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 200% !important;
-        min-height: 380px !important;
-    }
-}
 
-@media screen and (max-width: 600px) {
-    .home_banner.login_banner{
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 300% !important;
-        min-height: 380px !important;
-    }
-}
-
-@media screen and (max-width: 510px)
-{
-    .home_banner.login_banner {
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 400% !important;
-        min-height: 380px !important;
-    }
-}
-
-@media screen and (max-width: 460px)
-{
-    .home_banner.login_banner {
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 500% !important;
-        min-height: 380px !important;
-    }
-}
-
-@media screen and (max-width: 410px)
-{
-    .home_banner.login_banner {
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 600% !important;
-        min-height: 340px !important;
-    }
-}
 
 .modal-content.content-annonce {
     margin-top: 20px;

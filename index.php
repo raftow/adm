@@ -8,11 +8,7 @@ if(!$lang) $lang = "ar";
 
 
 $Main_Page = "home.php";
-$My_Module = "adm";
-/*
-$cl = "Request";
-$currmod="crm";
-*/
+$MODULE = $My_Module = "adm";
 $studentMe = null;
 unset($_POST);
 unset($_GET);
