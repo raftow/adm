@@ -546,14 +546,6 @@ button.toggle-hzm-btn.on_late
     background-color: rgb(107, 119, 114);
 }
 
-.form-control,
-.form-control-div,
-.mbsc-ios.mbsc-textarea-inner.mbsc-textfield-inner-outline, 
-.mbsc-ios.mbsc-textfield-outline {
-    background-color: rgba(255, 255, 255, 0.58) !important;
-    border-color: rgb(125 163 183 / 12%) !important;
-}
-
 .hzm_unit {
     background-color: #ffffff8c;
     border-right: 1px #b2aeae59 solid;
@@ -787,20 +779,6 @@ select.hzm_time>option {
 .hzm_data.hzm_data_attendanceList.form-control.inputreadonly {
     display: inline-table;
     height: max-content;
-}
-
-
-.home_banner{
-    background-image: url(../pic/home_banner_001.jpg) !important;   
-    background-color: #c7e7f6;
-    background-size: 100% 110% !important;
-    background-repeat: no-repeat !important;
-    background-position-x: center !important;
-    background-position-y: 0px !important;
-    width: 100%;
-    min-height: 1150px !important;
-    float: right;
-    border: none !important;
 }
 
 
@@ -1155,55 +1133,8 @@ h2.school_question {
     color: #767816;
     text-shadow: #dbef96 1px 1px;
 }
+   
 
-.modal-dialog.popup-login {
-    background: transparent;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    padding-bottom: 30px;
-    float: right;
-    min-height: 700px;
-    min-width: 300px !important;
-    width: 80% !important;
-    max-width: 350px;
-    margin-right: 10% !important;
-    margin-left: 60px !important;
-    margin-top: 50px !important;
-}    
-
-  
-.modal-dialog.popup-register {
-    background: transparent;
-    padding-top: 15px;
-    padding-left: 280px;
-    padding-right: 50px;
-    padding-bottom: 180px;
-    float: right;
-    min-height: 1190px;
-    margin-right: 10% !important;
-    margin-left: 0% !important;
-    width: 80% !important;
-    min-width: 0px !important;
-    max-width: 630px !important;
-    
-}   
-
-@media (min-width:1671px)
-{
-    .modal-dialog.popup-register {
-        padding-left: 30px;
-        padding-right: 25px;
-    }
-}
-
-@media (max-width: 1670px)
-{
-    .modal-dialog.popup-register {
-        padding-left: 10px !important;
-        padding-right: 20px !important;
-    }
-
-}
 @media (max-width: 1100px)
 {
     .panel-heading {
@@ -2069,67 +2000,6 @@ div.school_calendar {
         float: right;
 }
 
-
-@media screen and (max-width: 980px) {
-    .modal-dialog.popup-login {
-        width: 36% !important;
-        margin-right: 32% !important;
-        margin-left: 32% !important;
-        max-width: none !important;
-        min-height: 650px !important;
-        padding-bottom: 50px !important;
-    }
-}
-
-.modal-content {
-    -webkit-box-shadow: 0px 8px 20px rgb(160 209 213);
-    box-shadow: 0px 8px 20px rgb(160 209 213);
-    border: 1px solid rgb(133 192 200);
-    max-width: 480px;
-}
-
-@media screen and (max-width: 767px) {
-        .school_data_props, .my_school_dates{
-                width: 100% !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important; 
-        }
-
-        .modal-dialog.popup-login {
-            width: 44% !important;
-            margin-right: 27% !important;
-            margin-left: 27% !important;
-            max-width: none !important;
-            min-height: 650px !important;
-            min-width: 320px !important;
-            padding-bottom: 50px !important;
-        }
-
-
-        .modal-content {
-            -webkit-box-shadow: 20px 60px 60px rgb(160 209 213);
-            box-shadow: 20px 60px 60px rgb(160 209 213);
-        }
-}
-
-@media screen and (max-width: 480px) {
-    .modal-dialog.popup-register {
-        padding-top: 15px !important;
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        padding-bottom: 15px !important;
-    }
-
-    .modal-dialog.popup-login {
-        width: 60% !important;
-        margin-right: 20% !important;
-        margin-left: 20% !important;
-        max-width: none !important;
-        min-height: 450px !important;
-        padding-bottom: 50px !important;
-    }
-}
-
 .school_small_calendar.calendar_left {
         margin-top: 4px;
         margin-bottom: 8px;
@@ -2138,9 +2008,6 @@ div.school_calendar {
         background-color: #fcfcd2;
         padding: 5px;
 }
-
-
-
 
 label {
     padding-right: 20px;
@@ -2525,10 +2392,6 @@ table.dataTable thead th.stats_orgunit_id, td.stats_orgunit_id {
     font-size: 110% !important;
 }
 
-table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-    background-color: rgb(169 253 102 / 42%);
-}
-
 a.btnbtsp.btn_link {
     color: #c2f9f0;
     /* font-weight: bold; */
@@ -2734,23 +2597,6 @@ input.respbtn {
     background-repeat: no-repeat;
     width: 48px;
 }
-
-.qfilter {
-    margin-top: 0px;
-    margin-bottom: 10px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    border-bottom: none;
-    background-color: #ffffff8f;
-    text-shadow: 4px 4px 8px white;
-}
-
-div.qsearch_page {
-    padding-left: 6% !important;
-    padding-right: 6% !important;
-    margin-top: 34px;
-}
-
 
 td#bloc_result {
     padding-right: 16px;
@@ -3025,48 +2871,7 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a.navbar-brand:hover 
     
 }
 
-@media screen and (max-width: 1100px) {
-    .home_banner.login_banner{
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 200% !important;
-        min-height: 380px !important;
-    }
-}
 
-@media screen and (max-width: 600px) {
-    .home_banner.login_banner{
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 300% !important;
-        min-height: 380px !important;
-    }
-}
-
-@media screen and (max-width: 510px)
-{
-    .home_banner.login_banner {
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 400% !important;
-        min-height: 380px !important;
-    }
-}
-
-@media screen and (max-width: 460px)
-{
-    .home_banner.login_banner {
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 500% !important;
-        min-height: 380px !important;
-    }
-}
-
-@media screen and (max-width: 410px)
-{
-    .home_banner.login_banner {
-        background-image: url(../pic/home_banner_001.jpg) !important;
-        background-size: 600% !important;
-        min-height: 340px !important;
-    }
-}
 
 .modal-content.content-annonce {
     margin-top: 20px;
@@ -3198,35 +3003,6 @@ div.content-annonce>ul {
     background-color: #ffffffa1;
 }
 
-div.hzm_home_bloc>h3 {
-    font-size: 44px;
-    font-weight: bold;
-    color: #0670bb;
-    text-shadow: 4px 4px 4px #bdeafb;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.hzm-custom.hzm-custom-icon-container.only-border.border-primary i {
-    color: #0670bb;
-}
-
-.hzm-custom.hzm-custom-icon-container {
-    width: 80px;
-    height: 80px;
-}
-
-.hzm-custom.hzm-custom-icon-container i {
-    font-size: 42px;
-}
-
-.hzm-custom.hzm-custom-icon-container.only-border.border-primary {
-    border-color: #72b9e575;
-    border-radius: 50%;
-    border-width: 2px;
-    background-color: #cbe7fd6e;
-}
-
 ul.hzm_front_menu_bar>li:hover {
     border: 1px #0670bb solid;
 }
@@ -3245,15 +3021,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a:hover {
     margin-top: 130px !important;
 }
 
-.hzm3-col.m3.l3.s6 {
-    width: 10%;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 1%;
-    padding: 0 !important;
-    min-height: 190px !important;
-}
-
 .bf {
     background-color: transparent;
     margin: 10px;
@@ -3263,12 +3030,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a:hover {
 
 a.hzm3-button {
     background-color: transparent !important;
-}
-
-a.hzm3-button.hzm3-block>.hzm4-title {
-    color: #074d7e !important;
-    font-weight: bold;
-    font-size: 18px;
 }
 
 #container_left_div {
@@ -4566,7 +4327,7 @@ td.end.calculated>div, td.end.calculated>label {
 
 .bficon-104610:before,
 .bficon-104615:before {
-    content: "";
+    content: "\f19d";
 }
 
 .bficon-104760:before,
@@ -4815,23 +4576,6 @@ img.tooltip-icon {
     border: 1px solid white;
 }
 
-table.search_result_table {
-    margin-right: 6% !important;
-    margin-left: 6% !important;
-    width: 84%;
-    background-color: #ffffffc7;
-}
-
-div.qfilter>h1 {
-    font-size: 200%;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #07384e;
-}
-
-
-
 .fixmgrid td, .fixmgrid th {
     border: 1px #7fc5e5 solid !important;
 }
@@ -4877,3 +4621,9 @@ tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_i
     border-left: 1px solid white;
 }
 
+.form-control-div.errors {
+    padding-top: 8px !important;
+    color: white;
+    background-color: red !important;
+    min-height: fit-content;
+}
