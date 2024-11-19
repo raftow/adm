@@ -15,7 +15,7 @@
 
                 public function stepsAreOrdered()
                 {
-                        return false;
+                        return true;
                 }
 
                 public static function loadById($id)

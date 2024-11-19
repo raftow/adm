@@ -43,7 +43,7 @@
                         $otherLinksArray = $this->getOtherLinksArrayStandard($mode,$genereLog,$step);
                         $my_id = $this->getId();
                         $displ = $this->getDisplay($lang);
-                        /*
+                        
                         if($mode=="mode_academicProgramOfferingList")
                         {
                                 unset($link);
@@ -54,7 +54,7 @@
                                 $link["TITLE"] = $title;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
-                        }*/
+                        }/**/
                         
                         if($mode=="mode_programQualificationList")
                         {
