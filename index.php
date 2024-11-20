@@ -6,13 +6,14 @@ $objme = AfwSession::getUserConnected();
 $studentMe = null;
 if(!$lang) $lang = "ar";
 
-
-$Main_Page = "home.php";
-$MODULE = $My_Module = "adm";
 $studentMe = null;
 unset($_POST);
 unset($_GET);
 $page_css_file = "content";
 
+$Main_Page = "home.php";
+$MODULE = $My_Module = "adm";
+
+
 // AfwRunHelper::simpleError("System under maintenance. contactez RB");
-AfwMainPage::echoMainPage($My_Module);
+AfwMainPage::echoMainPage($My_Module, $Main_Page, $file_dir_name);

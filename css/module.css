@@ -2999,10 +2999,6 @@ div.content-annonce>ul {
     height: fit-content;
 }
 
-.hzm_home_bloc {
-    background-color: #ffffffa1;
-}
-
 ul.hzm_front_menu_bar>li:hover {
     border: 1px #0670bb solid;
 }
