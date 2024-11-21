@@ -17,3 +17,4 @@
 	$trad["applicant_qualification"]["imported"] = "Imported";
 	$trad["applicant_qualification"]["import_utility_id"] = "Data Source";
 	$trad["applicant_qualification"]["qualification_major_desc"] = "Qualification major description";
+	$trad["applicant_evaluation"]["adm_file_id"] = "document";

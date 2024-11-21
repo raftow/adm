@@ -11,3 +11,4 @@
 	$trad["applicant_evaluation"]["eval_expired_date"] = "نهاية صلاحية الاختبار";
 	$trad["applicant_evaluation"]["eval_level"] = "مستوى الاختبار";
 	$trad["applicant_evaluation"]["imported"] = "تم التحقق";
+	$trad["applicant_evaluation"]["adm_file_id"] = "المرفق";

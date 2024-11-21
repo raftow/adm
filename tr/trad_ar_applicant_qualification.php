@@ -18,3 +18,4 @@
 	$trad["applicant_qualification"]["imported.help"] = "تم التحقق من المؤهلات";
 	$trad["applicant_qualification"]["import_utility_id"] = "مصدر استيراد البيانات";
 	$trad["applicant_qualification"]["qualification_major_desc"] = "وصف تخصص المؤهل";
+	$trad["applicant_qualification"]["adm_file_id"] = "المرفق";
