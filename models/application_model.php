@@ -57,7 +57,7 @@
                         $academic_level_id = $this->getVal("academic_level_id");
                         $obj = new ApplicationModel();
                         $obj->select("academic_level_id",$academic_level_id);
-                        $obj->where("id != $this_id");
+                        $obj->where("id != '$this_id'");
                         $obj->get_visibilite_horizontale();
                         return $obj->loadMany();
                         
