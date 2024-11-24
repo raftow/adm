@@ -28,7 +28,7 @@ class AconditionArTranslator{
 		$trad["acondition"]["excuse_text_ar"] = "نص الاعتذار بالعربية";
 		$trad["acondition"]["general"] = "الشرط يطبق في المراحل العامة";
 		$trad["acondition"]["acondition_type_id"] = "نوع الشرط";
-		$trad["acondition"]["acondition_origin_id"] = "اللائحة أو القرار";
+		$trad["acondition"]["acondition_origin_id"] = "اللائحة ";
 		$trad["acondition"]["excuse_text_en"] = "نص الاعتذار بالانجليزية";
 		$trad["acondition"]["priority"] = "الأولوية";
 		$trad["acondition"]["unique_apply"] = "يتم تطبيقه على كل فرع";

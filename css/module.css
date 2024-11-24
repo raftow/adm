@@ -520,14 +520,6 @@ button.toggle-hzm-btn.on_late
     min-height: 780px;
 }
 
-.rea_filebox {
-    padding: 7px;
-    height: 100%;
-    min-height: 600px;
-    background-color: rgba(255, 255, 255, 0.65);
-    transition: all ease-in-out 0.5s;
-}
-
 .grid tr.item td {
     background-color: transparent !important;
 }
@@ -815,10 +807,6 @@ li.hzm_login {
     font-size: 18px;
 }
 
-button, input, select, textarea{
-    font-size: 16px !important;
-}
-
 .grid tr.alterr td {
     background-color: rgba(255, 255, 255, 0.61) !important;
     padding: 10px 6px !important;
@@ -851,33 +839,11 @@ div.modal-dialog {
     min-height: 128px;
 }
 
-
-    
-.panel-heading {
-    color: #1169d3;
-    background-color: transparent;
-    min-height: 80px;
-    padding: 5px 15px;
-    margin-top: 20px;
-    border: none;
-    width: 100%;
-}
-
 .filebox h3 {
     text-align: center;
     padding-bottom: 10px;
     margin-bottom: 10px;
     /* margin-top: 25px;*/
-}
-
-.panel-heading>h3>span {
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: 16px;
-    font-family: title;
-    line-height: 28px;
-    font-weight: bold;
-    color: #1275bb;
 }
 
 span.object_id {
@@ -893,23 +859,9 @@ span.object_id {
     border-width: 0px !important;
 }
 
-.wizardv1 {
-    width: 100%;
-}
-
-
 .hzm_data {
     font-size: 15px;
     font-family: title;
-}
-
-.hzm_label {
-    font-family: title;
-    color: #161718;
-    font-size: 13px;
-    font-weight: bold !important;
-    text-shadow: #c6f7f4 1px 2px;
-    padding-right: 15px !important;
 }
 
 @media screen and (max-width: 390px) {
@@ -958,19 +910,6 @@ span.object_id {
         }
 
     } 
-
-
-    .hasCalendarsPicker {
-        padding-left: 24px;
-        width: 100%;
-        border: 1px solid #dbd9d9e8;
-        font-size: 16px !important;
-        background-image: url(../../lib/images/calendar.png) !important;
-        background-repeat: no-repeat !important;
-        background-position-x: 3px !important;
-        background-position-y: center !important;
-        background-size: 36px;
-    }
 
     @media screen and (max-width: 535px) {
             .calendar_bloc_g{
@@ -2784,10 +2723,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a.navbar-brand:hover 
     }
 }
 
-.wizardv1 {
-    background-color: #ffffffbd;
-}
-
 .hzm_data.hzm_data_easy_fast.hzm_value_easy_fast_Y {
     color: #06742b;
     font-weight: bold;
@@ -3017,13 +2952,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a:hover {
     margin-top: 130px !important;
 }
 
-.bf {
-    background-color: transparent;
-    margin: 10px;
-    border: none;
-    padding: 25px !important;
-}
-
 a.hzm3-button {
     background-color: transparent !important;
 }
@@ -3051,11 +2979,6 @@ div.content_form>form>.in-group-invester_data {
 
 .filebox.editcard.adm.schoolychannel {
     width: 60%;
-}
-
-.wizardv1.adm {
-    padding: 0;
-    border: 1px solid #99cbd2;
 }
 
 span.channel_title {
@@ -3110,12 +3033,6 @@ input.form-control.invester_cpt {
     margin-right: 3%;
 }
 
-div.body_nav_hzm>p {
-    background-color: #ffffff;
-    border-bottom: none;
-    border-top: 1px solid #b9dfe2;
-}
-
 .hzm_panel_link_bar {
     float: right;
     padding: 8px 8px 8px 8px;
@@ -3156,14 +3073,6 @@ table.dataTable.display>tfoot>tr>th
 }
 
 
-.editcard {
-    width: 94%;
-    min-height: 650px;
-    min-width: 400px;
-    margin: auto;
-    margin-top: 20px;
-    background-color: #ffffffc2;
-}
 
 @media (max-width:1300px)
 {
@@ -3218,14 +3127,6 @@ div.filebox.editcard>div.panel-heading {
     margin-bottom: 8px;
     border: 1px solid #a9d4da;
     background-color: white;
-}
-
-.hzm_form_panel {
-    border: none;
-    padding: 0;
-    height: 80%;
-    width: 100%;
-    background-color: #ffffff;
 }
 
 .form_wizard_body {
@@ -3326,17 +3227,6 @@ p.for_file {
     padding-top: 1px;
 }
 
-.greentitle i {
-    background: #a3c5e7;
-    border-color: #3a86d3;
-}
-
-.greentitle {
-    color: #2e75bf;
-    padding-bottom: 3px;
-    font-weight: bold !important;
-    text-shadow: #c6f7f4 1px 2px;
-}
 
 input#save_form.wizardbtn {
     margin-top: 13px;
@@ -3585,24 +3475,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li.hzm_logout>a:hover {
     background-color: #ef8735 !important;
 }
 
-button.bf.hzm-specialmethod.bf-default, button.bf.hzm-specialmethod.bf- {
-    color: #127bbb;
-    text-shadow: 1px 1px #c3d7f9;
-    font-weight: bold;
-}
-
-button.bf.hzm-specialmethod {
-    /* width: 85%; */
-    width: 90%;
-    border: 1px #4795c2 solid;
-    background-color: #d2e4f9;
-    float: right;
-    max-width: 380px;
-    /* align-items: center; */
-    /* margin-right: 12%; */
-    margin-left: auto;
-}
-
 td.col-importance-high.text_ltr.srch-result-col-status_date {
     min-width: 125px;
 }
@@ -3638,18 +3510,6 @@ a.sy {
     color: white !important;
 }
 
-button.bf.hzm-otherlink {
-    width: 85%;
-    border: 1px #aed8fbb0 solid;
-    background-color: #f5faff;
-    color: #0c5cb1;
-    margin-bottom: 35px;
-    float: right;
-    max-width: 400px;
-    height: 120px;
-    overflow: hidden;
-    padding: 8px 15px !important;
-}
 
 
 .quick-links.column {
@@ -3730,30 +3590,6 @@ div.hzm_school_class_container {
 
 .in-group-homework {
     border: 6px solid #1c8acc;
-}
-
-h5.greentitle.mainwork {
-    color: green;
-}
-
-h5.greentitle.mainwork i {
-    background: green;
-}
-
-h5.greentitle.homework {
-    color: #1c8acc;
-}
-
-h5.greentitle.homework i {
-    background: #1c8acc;
-}
-
-h5.greentitle.homework2 {
-    color: #98a021;
-}
-
-h5.greentitle.homework2 i {
-    background: #98a021;
 }
 
 
@@ -4542,18 +4378,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li.navbar-header>a {
     color: white !important;
     font-size: 100% !important;
     border: none !important;
-}
-
-.modal-content {
-    position: relative;
-    background-color: #ffffff69;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    border: 3px solid #308cb5 !important;
-    border-radius: 6px;
-    outline: 0;
-    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 
 label.light_label {

@@ -28,19 +28,19 @@
                 
                 
                 public static $DB_STRUCTURE = array(
-                                        'id' => array('SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  
+                                        'id' => array('FGROUP'=>'idn-infos', 'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  
                                                 'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25'),
 
                                         
-                                        
-                                        'idn' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'RETRIEVE' => true, "CLAUSE-WHERE-COL" => 'id', 
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '16', 'MAXLENGTH' => '16', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'REQUIRED' => true, 'READONLY-AFTER-INSERT'=>true, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'TEXT-SEARCHABLE-SEPARATED'=>true, 'FORMAT' => 'SA-IDN', 
-                                                'CSS' => 'width_pct_50'),
+                                        'country_id' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 
+                                                'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),	
 
                                         'idn_type_id' => array('FGROUP'=>'idn-infos', 
                                                 'IMPORTANT' => 'IN',
@@ -53,9 +53,16 @@
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_50'),
+                                                'CSS' => 'width_pct_25'),
+                                        
+                                        
+                                        'idn' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
+                                                'RETRIEVE' => true, "CLAUSE-WHERE-COL" => 'id', 
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '32', 'MAXLENGTH' => '32',
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'REQUIRED' => true, 'READONLY-AFTER-INSERT'=>true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'TEXT-SEARCHABLE-SEPARATED'=>true, 'FORMAT' => '::idnFormat', 
+                                                'CSS' => 'width_pct_25'),
 
-                                                
 
 
                                         'id_issue_place' => array('FGROUP'=>'idn-infos', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
@@ -127,13 +134,6 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
-                                        'country_id' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  'SEARCH' => true, 
-                                                'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
 
 
                                         'birth_date' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  

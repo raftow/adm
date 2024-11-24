@@ -24,5 +24,6 @@ $migrations = [
     '00018' => ['by'=>'rafik','title'=>'program offring complete readonly calculted fields'],
     '00019' => ['by'=>'medali','title'=>'application payment module change tables name'],
     '00020' => ['by'=>'medali','title'=>'add adm file field to qualification and evaluation'],
+    '00021' => ['by'=>'rafik', 'title' => 'bug fixes'],
 ];
 

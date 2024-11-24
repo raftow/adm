@@ -9,6 +9,6 @@ if($_REQUEST["Main_Page"])
 }
 else
 {
-    $Main_Page = "";
+    $Main_Page = "home.php";
 }
 AfwMainPage::echoMainPage($MODULE, $Main_Page, $file_dir_name);

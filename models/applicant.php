@@ -26,7 +26,27 @@ class Applicant extends AdmObject
         // when we select IDN we select ID also to use the partionning concept
         if($attribute=="idn")
         {
-            $this->select("id", $value);
+            $idn = $value;
+            list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
+            $id = 0;
+            if(($idn_type_id==1) or ($idn_type_id==2))
+            {
+                if(is_numeric($idn) and $idn_correct) $id = $idn;
+            }
+            else
+            {
+                $country_id = $this->getSelectedValueForAttribute("country_id");
+                if($country_id)
+                {
+                    $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
+                }
+                else
+                {
+                    // we can not optimize query and select the id while passport number entered without country specified
+                    $id = 0; 
+                }
+            }
+            if($id>0) $this->select("id", $id);
         }
     }
 
@@ -98,10 +118,10 @@ class Applicant extends AdmObject
     public function beforeMaj($id, $fields_updated)
     {
         $idn = $this->getVal("idn");
-
-        if (!$idn) // should never happen but ....                    
+        $idn_type_id = $this->getVal("idn_type_id");
+        if ((!$idn) or (!$idn_type_id)) // should never happen but ....                    
         {
-            return false;
+            throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
         }
         
         $first_register = false;
@@ -109,7 +129,25 @@ class Applicant extends AdmObject
 
         if (!$id) // the ID of an applicant is his IDN
         {
-            $this->set("id", $idn);
+            if($idn_type_id==3) $idn_type_id=2;
+            if(($idn_type_id==1) or ($idn_type_id==2))
+            {
+                if(!is_numeric($idn)) throw new AfwRuntimeException("IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC");
+                list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
+                if($type != $idn_type_id) throw new AfwRuntimeException("IDN $idn is not of type $idn_type_id but of type $type");
+                if (!$idn_correct) throw new AfwRuntimeException("IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT");
+                $this->set("id", $idn);
+            }
+            else
+            {
+                $country_id = $this->getVal("country_id");
+                if(!$country_id) throw new  AfwRuntimeException("For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED");
+                $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
+                if(!$id) throw new  AfwRuntimeException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
+                $this->set("id", $id);
+            }
+    
+            
             $id = $this->id;
             $first_register = true;
             // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") after set id=".var_export($id,true));
@@ -314,6 +352,16 @@ class Applicant extends AdmObject
 
 
         return true;
+    }
+
+    
+    public function idnFormat($field_name, $col_struct)
+    {
+        if($field_name == "idn")
+        {
+            return ($this->getVal("idn_type_id")<=3) ? 'SA-IDN' : 'ALPHA-NUMERIC';
+        }
+        return '';
     }
 
     public function disableOrReadonlyForInput ($field_name, $col_struct)
