@@ -38,6 +38,7 @@
                                                 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'country',  'ANSMODULE' => 'ums',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'READONLY-AFTER-INSERT'=>true, 
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
@@ -46,7 +47,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true, 'SEARCH' => true, 'QSEARCH' => false,
                                                 'RETRIEVE' => false,
-                                                'QEDIT' => true,
+                                                'QEDIT' => true, 'READONLY-AFTER-INSERT'=>true, 
                                                 'EDIT' => true,
                                                 'TYPE' => 'FK', 'ANSWER'=>'identity_type', 'ANSMODULE'=>'adm', 
                                                 'REQUIRED' => true, 
@@ -187,14 +188,7 @@
                                         
                                            
 
-                                        'religion_enum' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  
-                                            'SEARCH' => false,  'SHOW' => true, 'RETRIEVE' => false,  
-                                            'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                            'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                            'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
-                                            'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                            'CSS' => 'width_pct_25', ),	
-
+                                        
                                         'profile_approved' => array('FGROUP'=>'profile', 'RETRIEVE' => false, 'SHOW' => false, 'EDIT' => false,  'DEFAUT' => 'N',  
                                             'TYPE' => 'YN',    'DISPLAY' => false,  'STEP' => 2, 'MANDATORY' => false, 'QSEARCH' => false, 
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
@@ -267,6 +261,13 @@
                                                 'CSS' => 'width_pct_25',),
                                                 
 
+                                        'religion_enum' => array('FGROUP'=>'profile', 'IMPORTANT' => 'IN',  
+                                            'SEARCH' => false,  'SHOW' => true, 'RETRIEVE' => false,  
+                                            'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => false,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                            'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                            'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
+                                            'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                            'CSS' => 'width_pct_25', ),	
 
 
 

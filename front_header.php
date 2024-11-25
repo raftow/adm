@@ -387,9 +387,9 @@ if(!$config["img-company-path"]) $config["img-company-path"] = $config["img-path
    {
 ?>
                 <div class="alert messages messages--warning alert-dismissable" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <div class="swal2-hzm swal2-icon swal2-warning swal2-icon-show" style="display: flex; color: orange; border-color: orange;">
+                <!--<div class="swal2-hzm swal2-icon swal2-warning swal2-icon-show" style="display: flex; color: orange; border-color: orange;">
                         <div class="swal2-icon-content">!</div>
-                </div>
+                </div>-->
 
                 <?php 
                   $cnt = count(explode("<br>",AfwSession::getSessionVar("warning")));
@@ -409,9 +409,9 @@ if(!$config["img-company-path"]) $config["img-company-path"] = $config["img-path
    {
 ?>
                 <div class="alert messages messages--status  alert-dismissable <?=AfwSession::getSessionVar("information-class")?>" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <div class="swal2-hzm swal2-icon swal2-info swal2-icon-show" style="display: flex;">
+                <!--<div class="swal2-hzm swal2-icon swal2-info swal2-icon-show" style="display: flex;">
                         <div class="swal2-icon-content">i</div>
-                </div>
+                </div>-->
 
                 <?php echo AfwSession::pullSessionVar("information","header");?>
                 </div><br>

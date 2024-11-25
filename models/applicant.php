@@ -72,7 +72,7 @@ class Applicant extends AdmObject
             return $obj;
         } elseif ($create_obj_if_not_found) {
             $obj->set("idn", $idn);
-            $obj->set("id", $idn);
+            //$obj->set("xxid", $idn);
             $obj->insertNew();
             if (!$obj->id) return null; // means beforeInsert rejected insert operation
             $obj->is_new = true;
@@ -124,6 +124,10 @@ class Applicant extends AdmObject
             throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
         }
         
+        if(($idn_type_id==4) and (!trim($this->getVal("passeport_num"))))
+        {
+            $this->set("passeport_num", $idn);
+        }
         $first_register = false;
         // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") before set id=".var_export($id,true));
 
@@ -152,7 +156,7 @@ class Applicant extends AdmObject
             $first_register = true;
             // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") after set id=".var_export($id,true));
         }
-        else
+        elseif(($idn_type_id==1) or ($idn_type_id==2) or ($idn_type_id==3))
         {
             if($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id");
         }
@@ -344,11 +348,11 @@ class Applicant extends AdmObject
 
     public function attributeIsApplicable($attribute)
     {
-        /* 
+         
         if(($attribute == "mother_birth_date") or ($attribute == "mother_idn"))
         {
             return ($this->getVal("idn_type_id")==3);
-        }*/
+        }
 
 
         return true;
@@ -382,12 +386,22 @@ class Applicant extends AdmObject
     ) {
         global $objme;
         $sp_errors = [];
+        $birth_gdate_step = $this->stepOfAttribute('birth_gdate');
+        $birth_gdate_is_in_step = $this->stepContainAttribute($step, 'birth_gdate');
+        $no_step_scope = (!$start_step and !$end_step);
+        $step_in_scope = (($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step));
+        $birth_gdate_is_in_steps_scope = ($birth_gdate_is_in_step and ($no_step_scope or $step_in_scope));
+        
 
-        $birth_gdate = $this->getVal('birth_gdate');
-        $birth_date = $this->getVal('birth_date');
+        if ($birth_gdate_is_in_steps_scope) 
+        {
+            $birth_gdate = $this->getVal('birth_gdate');
+            $birth_date = $this->getVal('birth_date');
 
-        if (!$birth_gdate and !$birth_date) {
-            $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+            if (!$birth_gdate and !$birth_date) {
+                $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+                // $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = birth_gdate_is_in_step and (no_step_scope or step_in_scope) \n $birth_gdate_is_in_steps_scope = $birth_gdate_is_in_step and ($no_step_scope or $step_in_scope)</pre>";
+            }
         }
 
         return $sp_errors;
