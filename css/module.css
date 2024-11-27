@@ -1996,17 +1996,7 @@ div.row.odd.school_data.school_response.type1 > div.hzm_small_calendar > label {
     border-color: #a7ab4f !important;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #4ed157 !important;
-    border-color: #4fab9c !important;
-}
 
-.btn-primary:hover {
-    color: #fff;
-    background-color: #3ac4e1 !important;
-    border-color: #21899f !important;
-}
 input.btnbtsp.btn-primary.btnregister {
     width: 90%;
     margin-left: 5%;
@@ -3153,42 +3143,6 @@ div.filebox.editcard>div.panel-heading {
         font-size: 14px !important;
         min-width: 100px !important;
     }
-}
-
-/*   module_mobile.css end  */ 
-
-/* ______________________________________________________________________________________________________ */
-
-/****************************  company colors different items ******************************************/
-/*
-table.dataTable thead .sorting {
-	background-image: url(../pic/sort_both.png);
-        background-position-x: 5px;
-}
-table.dataTable thead .sorting_asc {
-	background-image: url(../pic/sort_asc.png);
-        background-position-x: 5px;
-}
-table.dataTable thead .sorting_desc {
-	background-image: url(../pic/sort_desc.png);
-        background-position-x: 5px;
-}
-table.dataTable thead .sorting_asc_disabled {
-	background-image: url(../pic/sort_asc_disabled.png);
-        background-position-x: 5px;
-}
-table.dataTable thead .sorting_desc_disabled {
-	background-image: url(../pic/sort_desc_disabled.png);
-        background-position-x: 5px;
-}*/
-
-
-.form-group.submit-login>input {
-    width: 60%;
-    margin-right: 20%;
-    margin-left: 20%;
-    border-radius: 0px;
-    margin-top: 29px;
 }
 
 #fg-reqstatus {
