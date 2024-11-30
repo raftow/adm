@@ -208,16 +208,16 @@ class Application extends AdmObject
                 if(AfwStringHelper::stringStartsWith($attribute,"attribute_"))
                 {
                         $params = self::getApplicationAdditionalFieldParams($attribute); 
-                        $formulaMethod = $params["formula"];
-                        if(!class_exists('ApplicationFormulaManager'))
-                        {
-                                $main_company = AfwSession::config("main_company", "all");
-                                $file_dir_name = dirname(__FILE__);
-                                require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");  
-                        }
+                        $formulaMethod = $params["formula"];                        
                         if($formulaMethod)
                         {
+                                $main_company = AfwSession::config("main_company", "all");
                                 $classFM = AfwStringHelper::firstCharUpper($main_company)."ApplicationFormulaManager";
+                                if(!class_exists($classFM))
+                                {
+                                        $file_dir_name = dirname(__FILE__);
+                                        require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");  
+                                }
                                 return $classFM::$formulaMethod($this, $what);
                         }
                 }

@@ -167,6 +167,15 @@
                         }
                 }
 
+                public function fixMyData($lang="ar")
+                {
+                        $this->afterSetAttribute("training_unit_id");
+                        $this->afterSetAttribute("academic_program_id");
+                        $this->commit();
+
+                        return ["", "done"];
+                }
+
                 public function afterMaj($id, $fields_updated)
                 {
                         /*

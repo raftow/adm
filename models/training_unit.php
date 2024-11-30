@@ -126,9 +126,9 @@ class TrainingUnit extends AdmObject
         $pbms = array();
 
         $color = "green";
-        $title_ar = "xxxxxxxxxxxxxxxxxxxx";
-        $methodName = "mmmmmmmmmmmmmmmmmmmmmmm";
-        //$pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("xxyy"));
+        $title_ar = "تصحيح البيانات";
+        $methodName = "fixMyData";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("academicProgramOfferingList"));
 
 
 
@@ -307,9 +307,22 @@ class TrainingUnit extends AdmObject
                     $this->initAllColleges();
                 }
                 
+
+                $this->fixMyData("ar");
             }
 
             return true;
+    }
+
+    public function fixMyData($lang="ar")
+    {
+        $academicProgramOfferingList = $this->get("academicProgramOfferingList");
+        foreach($academicProgramOfferingList as $academicProgramOfferingItem)
+        {
+            $academicProgramOfferingItem->fixMyData($lang);
+        }
+
+        return ["", "done"];
     }
 
     // training_unit 

@@ -738,6 +738,27 @@ class Applicant extends AdmObject
         return $update_date;
     }
 
+    public function getFormuleResult($attribute, $what = "value")
+    {
+            if(AfwStringHelper::stringStartsWith($attribute,"attribute_"))
+            {
+                    $params = self::getAdditionalFieldParams($attribute); 
+                    $formulaMethod = $params["formula"];                    
+                    if($formulaMethod)
+                    {
+                        $main_company = AfwSession::config("main_company", "all");
+                        $classFM = AfwStringHelper::firstCharUpper($main_company)."ApplicantFormulaManager";
+                        if(!class_exists($classFM))
+                        {
+                                $file_dir_name = dirname(__FILE__);
+                                require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");  
+                        }
+                        return $classFM::$formulaMethod($this, $what);
+                    }
+            }
+            return AfwFormulaHelper::calculateFormulaResult($this,$attribute, $what);
+    }
+
     
 }
 

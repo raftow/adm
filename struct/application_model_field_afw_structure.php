@@ -10,7 +10,8 @@
                                 // $obj->DISPLAY_FIELD = "application_model_field_name_ar";
                                 $obj->ORDER_BY_FIELDS = "api_endpoint_id, step_num, screen_model_id";
                                 $obj->UNIQUE_KEY = array('application_model_id','application_field_id');
-                                // $obj->public_display = true;
+                                // tempo for demo
+                                $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 // $obj->editByStep = true;

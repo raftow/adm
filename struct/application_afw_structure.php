@@ -178,13 +178,12 @@
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
 
-                                        /*
+                                        
                                         'attribute_6' => array('FGROUP'=>'::additional', 'OBSOLETE'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => '::additional',  'RETRIEVE' => false,  
                                                                         'EDIT' => '::additional',  'QEDIT' => true,  'UTF8' => false,  
                                                                         'TYPE' => '::additional', 'ANSWER' => '::additional',  'ANSMODULE' => '::additional',  'STEP' => '::additional',    'DISPLAY' => true, 'MANDATORY' => false,                                 
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
-
 
                                         'attribute_7' => array('FGROUP'=>'::additional', 'OBSOLETE'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => '::additional',  'RETRIEVE' => false,  
                                                                         'EDIT' => '::additional',  'QEDIT' => true,  'UTF8' => false,  
@@ -192,6 +191,7 @@
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => '::additional',
                                                                         'CSS' => '::additional', 'CATEGORY' => '::additional', 'FORMULA' => '::additional',),
 
+/*
 
                                         'attribute_8' => array('FGROUP'=>'::additional', 'OBSOLETE'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => '::additional',  'RETRIEVE' => false,  
                                                                         'EDIT' => '::additional',  'QEDIT' => true,  'UTF8' => false,  

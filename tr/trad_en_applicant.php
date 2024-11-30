@@ -63,6 +63,8 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["guardian_id_date"] = "The expiry date of the guardian’s ID";
 		$trad["applicant"]["guardian_id_place"] = "Place of issuing the guardian’s ID";
 		$trad["applicant"]["relationship_enum"] = "relative relationship";
+
+		$trad["applicant"]["eval"] = "Test scores approved by the academic institution";
 		return $trad;
     }
 

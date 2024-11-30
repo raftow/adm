@@ -215,6 +215,17 @@
                         }    
                 }
 
+                protected function userCanEditMeWithoutRole($auser)
+                {
+                        // @todo this temporary for demo of amjad
+                        return [true, 'for demo'];
+                }
+
+                public function canBeDeletedWithoutRoleBy($auser)
+                {
+                        return [true, 'for demo'];
+                }
+
                 public function applyMyGeneralConditionsOn($applicationObject, $lang)
                 {
                         $err_arr = [];

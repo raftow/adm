@@ -543,32 +543,32 @@
                         $color = "gray";
                         $title_ar = "تصفير مسمى النموذج"; 
                         $methodName = "resetNames";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
                         
                         $color = "green";
                         $title_ar = "تحديث فروع القبول حسب الاعدادات"; 
                         $methodName = "genereApplicationModelBranchList";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
 
                         $color = "blue";
                         $title_ar = "انشاء جميع الخطوات الافتراضية"; 
                         $methodName = "createDefaultSteps";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
                         
                         
 
                         $color = "orange";
                         $title_ar = "تحديث الشروط"; 
                         $methodName = "genereApplicationModelConditionList";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelConditionList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelConditionList"));
                         
                         
 
                         $color = "orange";
                         $title_ar = "تحديث الشاشات والخدمات"; 
                         $methodName = "genereScreensAndModels";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelFieldList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelFieldList"));
                         
                         $amList = $this->getBrothers();
                         /**
@@ -583,7 +583,7 @@
                                         $title_ar = "نسخ حقول SIS من ".$amItem->getDisplay("ar"); 
                                         $title_en = "copy SIS fields from ".$amItem->getDisplay("en"); 
                                         $methodName = "copySISFieldsFrom".$amItem->id;
-                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_field_mfk"));
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_field_mfk"));
                                 }
 
                                 $thisAsCount = $this->getRelation("applicationStepList")->count();
@@ -594,7 +594,7 @@
                                         $title_ar = "نسخ الخطوات من ".$amItem->getDisplay("ar"); 
                                         $title_en = "copy steps from ".$amItem->getDisplay("en"); 
                                         $methodName = "copyStepsFrom".$amItem->id;
-                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 
                                 }
                                 
                         }
@@ -709,6 +709,7 @@
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicLevelPrivilege&currmod=adm&sel_academic_level_id=$my_id";
                                 $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
 
@@ -731,6 +732,7 @@
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicLevelOffering&currmod=adm&sel_academic_level_id=$my_id";
                                 $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
                         }
@@ -746,6 +748,7 @@
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationStep&currmod=adm&sel_application_model_id=$my_id&sel_step_num=$nextStep";
                                 $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
                         }
@@ -758,6 +761,7 @@
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AppModelApi&currmod=adm&sel_application_model_id=$my_id";
                                 $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
                         }*/

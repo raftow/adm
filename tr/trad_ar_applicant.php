@@ -71,7 +71,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["job_status"] = "بيانات حالة التوظيف";
 		$trad["applicant"]["profile-other"] = "بيانات أخرى";
 
-		
+		$trad["applicant"]["eval"] = "درجات الاختبارات المعتمدة للمؤسسة الأكاديمية";
 		
 		
 		

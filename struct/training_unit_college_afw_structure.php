@@ -10,7 +10,7 @@
                                 $obj->DISPLAY_FIELD = "training_unit_college_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 // $obj->UNIQUE_KEY = array('xxxx','yyyy');
-                                // $obj->public_display = true;
+                                $obj->public_display = true;
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 2; 

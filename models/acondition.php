@@ -100,10 +100,10 @@ class Acondition extends AdmObject{
         public function getDropdownDisplay($lang="ar")
         {
                if($lang=="fr") $lang = "en";
-               list($data,$link) = $this->displayAttribute("acondition_origin_id");
+               // list($data,$link) = $this->displayAttribute("acondition_origin_id");
                $data2 = $this->getVal("acondition_name_$lang");
                // $data3 = $this->getVal("acondition_order");
-               return $data." ← ".$data2;
+               return $data2;
         }
 
         public static function loadByMainIndex($acondition_origin_id,$acondition_order,$create_obj_if_not_found=false)
@@ -682,7 +682,13 @@ class Acondition extends AdmObject{
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
                 $my_id = $this->getId();
 
-                if($my_id and (($mode=="mode_condition_1_id") or ($mode=="mode_condition_2_id")))
+                if(
+                        $my_id and (
+                                (($mode=="mode_condition_1_id") and (!$this->getVal("condition_1_id"))) or 
+                                (($mode=="mode_condition_2_id") and (!$this->getVal("condition_2_id")))
+                               )
+                        )
+
                 {
                         $aco_id = $this->getVal("acondition_origin_id");
                         unset($link);

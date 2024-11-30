@@ -31,12 +31,35 @@ $application_additional_fields = [
                             'title_ar' => 'درجة المؤهل', 'title_en' => 'qualification grade', 
                             'category' => 'FORMULA', 'unit' => '%',
                             'formula' => 'calcQualificationGrade', ),
+
+    'attribute_6' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 1, 
+                            'field_code' => 'required_docs_good', 'optional' => false, 'readonly' =>true,
+                            'title_ar' => 'الوثائق المطلوبة متوفرة وصحيحة', 'title_en' => 'The required documents are available and correct', 
+                            'category' => 'FORMULA', 'unit' => '%',
+                            'formula' => 'calcRequiredDocumentsAreAvailableAndCorrect', ),
+
+    'attribute_7' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 1, 
+                            'field_code' => 'app_fees_paid', 'optional' => false, 'readonly' =>true,
+                            'title_ar' => 'رسوم التقديم مدفوعة', 'title_en' => 'The application fees are paid', 
+                            'category' => 'FORMULA', 'unit' => '%',
+                            'formula' => 'calcApplicationFeesPaid', ),
                             
     
 ];
 
 class PmuApplicationFormulaManager
 {
+
+    public static function calcApplicationFeesPaid($applicationObj, $what="value")
+    {
+        return 'N';
+    }
+
+    public static function calcRequiredDocumentsAreAvailableAndCorrect($applicationObj, $what="value")
+    {
+        return 'N';
+    }
+
 
     
     public static function calcApplicantAge($applicationObj, $what="value")

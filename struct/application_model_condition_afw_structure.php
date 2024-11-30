@@ -10,7 +10,7 @@
                                 // $obj->DISPLAY_FIELD = "application_model_condition_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('application_model_id','acondition_id');
-                                // $obj->public_display = true;
+                                $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 // $obj->editByStep = true;
