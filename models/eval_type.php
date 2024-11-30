@@ -34,5 +34,11 @@
                         return false;
                 }
 
+                protected function userCanEditMeWithoutRole($auser)
+                {
+                        // @todo this temporary for demo of amjad
+                        return [true, 'for demo'];
+                }
+
         }
 ?>

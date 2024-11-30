@@ -35,7 +35,7 @@ $application_additional_fields = [
     
 ];
 
-class ApplicationFormulaManager
+class PmuApplicationFormulaManager
 {
 
     

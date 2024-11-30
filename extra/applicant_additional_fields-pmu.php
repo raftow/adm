@@ -25,9 +25,9 @@ $additional_fields = [
     'attribute_9' => array('type' => 'TEXT','css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_dismissed_semester', 'optional' => false, 'title_ar' => 'الفصل التدريبي لاجراء الفصل من التدريب', 'title_en' => 'Training class to conduct a class from training', 'help' => ''),
     */
 
-    //'attribute_10' => array( 'type'=> '',   'size'=> 64, 'step' => 2,  'fgroup' => 'rayat', 'field_code' => 'tobe_used', 'optional' => FALSE, 'title_ar' => '', 'title_en' => '', 'help' => '' ),
+    'attribute_10' => array('category' => 'FORMULA', 'formula' => 'calcApplicantToeflIBTDegree', 'type'=> 'FLOAT',   'size'=> 64, 'step' => 2,  'fgroup' => 'eval', 'field_code' => 'toefl_degree', 'optional' => FALSE, 'title_ar' => 'درجة توفل اي بي تي', 'title_en' => 'TOEFL iBT degree', 'help' => '' ),
+    'attribute_11' => array('category' => 'FORMULA', 'formula' => 'calcIelts_degree', 'type'=> 'FLOAT',   'size'=> 64, 'step' => 2,  'fgroup' => 'eval', 'field_code' => 'ielts_degree', 'optional' => FALSE, 'title_ar' => 'درجة ايالتياس', 'title_en' => 'IELTS degree', 'help' => '' ),
     /*
-    'attribute_11' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_continuing_ind', 'optional' => false, 'title_ar' => 'مستمرّ في التدريب', 'title_en' => 'Continuing training', 'help' => ''),
     'attribute_12' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_EN_graduated_ind', 'optional' => false, 'title_ar' => 'خريج برنامج الإنجليزية المكثف', 'title_en' => 'raduate of the Intensive English Program', 'help' => ''),
     'attribute_13' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_DP_graduated_ind', 'optional' => false, 'title_ar' => 'خريج دبلوم المعاهد الصناعية الثانوية', 'title_en' => 'Diploma graduate of secondary industrial institutes', 'help' => ''),
     'attribute_14' => array('type' => 'YN', 'css' => 'width_pct_25', 'size' => 64, 'step' => 2, 'fgroup' => 'rayat', 'field_code' => 'rayat_UG_graduated_ind', 'optional' => false, 'title_ar' => 'خريج دبلوم بكالوريوس الكلية التقنية', 'title_en' => 'Graduate of Bachelor s Degree in Technical College', 'help' => ''),
@@ -68,3 +68,47 @@ $additional_fields = [
     'attribute_36' => array('type' => 'GDAT', 'css' => 'width_pct_25', 'size' => 24, 'step' => 2, 'fgroup' => 'qiyas', 'field_code' => 'qiyas_achievement_sc_date', 'optional' => false, 'title_ar' => 'تاريخ اختبار التحصيلي-التخصصات العلمية', 'title_en' => 'Date of the achievement test - scientific', 'help' => ''),
     //'attribute_37' => array('type' => 'GDAT', 'css' => 'width_pct_25', 'size' => 24, 'step' => 2, 'fgroup' => 'qiyas', 'field_code' => 'qiyas_activity_date', 'optional' => false, 'title_ar' => 'تاريخ الحركة', 'title_en' => 'History of the movement', 'help' => ''),
 ];
+
+class PmuApplicantFormulaManager
+{
+    /**
+     * @param Applicant $applicantObj
+     *  */    
+    private static function calcApplicantEvalDegree($applicantObj, $eval_id)
+    {
+        try
+        {
+            list($evalObj, ) = $applicantObj->getRelation("applicantEvaluationList")->resetWhere("evaluation_id = $eval_id")->getFirst();
+            if($evalObj)
+            {
+                $eval = $evalObj->getVal("eval_result");
+            }
+            else $eval = 0;
+    
+            return $eval;
+        }
+        catch(Exception $e)
+        {
+            return -99;
+        }
+        catch(Error $e)
+        {
+            return -88;
+        }
+    }
+    
+    public static function calcApplicantToeflIBTDegree($applicantObj, $what="value")
+    {
+        $eval_id = Evaluation::EvalNameToId("TOEFL iBT");
+        return self::calcApplicantEvalDegree($applicantObj, $eval_id);
+    }
+
+    public static function calcApplicantIeltsDegree($applicantObj, $what="value")
+    {
+        $eval_id = Evaluation::EvalNameToId("IELTS certificate");
+        return self::calcApplicantEvalDegree($applicantObj, $eval_id);
+    }
+
+    
+    
+}

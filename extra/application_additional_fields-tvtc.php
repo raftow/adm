@@ -29,7 +29,7 @@ $application_additional_fields = [
     
 ];
 
-class ApplicationFormulaManager
+class TvtcApplicationFormulaManager
 {
 
     

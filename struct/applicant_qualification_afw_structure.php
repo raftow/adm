@@ -10,7 +10,8 @@
                                 // $obj->DISPLAY_FIELD = "applicant_qualification_name_ar";
                                 $obj->ORDER_BY_FIELDS = "applicant_id, date desc";
                                 $obj->UNIQUE_KEY = array('applicant_id','qualification_id','major_category_id');
-                                // $obj->public_display = true;
+                                // tempo for amjad demo @todo
+                                $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 // $obj->editByStep = true;

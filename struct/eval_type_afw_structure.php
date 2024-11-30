@@ -10,11 +10,11 @@
                                 $obj->DISPLAY_FIELD = "eval_type_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 // $obj->UNIQUE_KEY = array('eval_type_name_ar','eval_type_name_ar');
-                                // $obj->public_display = true;
-                                // $obj->IS_LOOKUP = true;
+                                $obj->public_display = true;
+                                $obj->IS_LOOKUP = true;
 
-                                $obj->editByStep = true;
-                                $obj->editNbSteps = 1; 
+                                //$obj->editByStep = true;
+                                //$obj->editNbSteps = 1; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -42,16 +42,16 @@
 
                                         'eval_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '3', 'UTF8' => false,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,   
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,   
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',), 
+                                                'CSS' => 'width_pct_25',), 
                                                 
 
 
                                         'eval_group_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'eval_group',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 

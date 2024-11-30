@@ -10,11 +10,11 @@
                                 $obj->DISPLAY_FIELD = "eval_group_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 // $obj->UNIQUE_KEY = array('eval_group_name_ar');
-                                // $obj->public_display = true;
-                                // $obj->IS_LOOKUP = true;
+                                $obj->public_display = true;
+                                $obj->IS_LOOKUP = true;
 
-                                $obj->editByStep = true;
-                                $obj->editNbSteps = 1; 
+                                //$obj->editByStep = true;
+                                //$obj->editNbSteps = 1; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }

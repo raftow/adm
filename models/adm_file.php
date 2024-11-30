@@ -8,7 +8,7 @@
                 
 // old include of afw.php
 
-class AdmFile extends AFWObject{
+class AdmFile extends AdmObject{
 
 	public static $DATABASE		= ""; 
         public static $MODULE		    = "adm"; 

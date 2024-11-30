@@ -217,7 +217,8 @@ class Application extends AdmObject
                         }
                         if($formulaMethod)
                         {
-                                return ApplicationFormulaManager::$formulaMethod($this, $what);
+                                $classFM = AfwStringHelper::firstCharUpper($main_company)."ApplicationFormulaManager";
+                                return $classFM::$formulaMethod($this, $what);
                         }
                 }
                 return AfwFormulaHelper::calculateFormulaResult($this,$attribute, $what);

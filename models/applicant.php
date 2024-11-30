@@ -299,6 +299,8 @@ class Applicant extends AdmObject
             // $title_detailed = $title . "لـ : " . $displ;
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantQualification&currmod=adm&sel_applicant_id=$my_id";
             $link["TITLE"] = $title;
+            // tempo for demo @todo
+            $link["PUBLIC"] = true;
             $link["UGROUPS"] = array();
             $otherLinksArray[] = $link;
         }
@@ -336,6 +338,8 @@ class Applicant extends AdmObject
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm&sel_applicant_id=$my_id";
             $link["TITLE"] = $title;
             $link["UGROUPS"] = array();
+            // tempo for demo @todo
+            $link["PUBLIC"] = true;
             $otherLinksArray[] = $link;
         }
        

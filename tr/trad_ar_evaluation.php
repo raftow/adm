@@ -7,7 +7,7 @@
 
 	$trad["evaluation"]["evaluation_name_ar"] = "مسمى الاختبار-العربي";
 	$trad["evaluation"]["evaluation_name_en"] = "مسمى الاختبار-الإنجليزي";
-	$trad["evaluation"]["eval_type_id"] = "معرف نوع الاختبار";
+	$trad["evaluation"]["eval_type_id"] = "نوع الاختبار";
 	$trad["evaluation"]["maxexamresult"] = "الدرجة الاجمالية";
 	$trad["evaluation"]["examresulttype"] = "نوع الدرجة";
 	$trad["evaluation"]["validity_days"] = "عدد ايام صلاحية الاختبار";
