@@ -11,7 +11,7 @@
                                 $obj->DISPLAY_FIELD = "branch_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('program_offering_id','application_model_id',);
-                                // $obj->public_display = true;
+                                $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 //$obj->editByStep = true;
