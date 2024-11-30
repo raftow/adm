@@ -174,6 +174,9 @@ class Application extends AdmObject
                 $params = self::getApplicationAdditionalFieldParams($field_name);
 
                 $col_struct = strtolower($col_struct);
+                if ($col_struct == "obsolete") return (!$params["type"]);
+                if ($col_struct == "show") return ($params["type"] != "");
+                if ($col_struct == "edit") return ($params["type"] != "");
                 if ($col_struct == "mandatory") return (!$params["optional"]);
                 if ($col_struct == "required") return (!$params["optional"]);
 
@@ -220,7 +223,7 @@ class Application extends AdmObject
                 return AfwFormulaHelper::calculateFormulaResult($this,$attribute, $what);
         }
 
-        protected function paggableAttribute($attribute)
+        protected function paggableAttribute($attribute, $structure)
         {
                 if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) 
                 {

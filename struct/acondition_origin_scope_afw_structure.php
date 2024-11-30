@@ -10,7 +10,9 @@
                                 // $obj->DISPLAY_FIELD = "acondition_origin_scope_name_ar";
                                 $obj->ORDER_BY_FIELDS = "acondition_origin_id,application_model_id,training_unit_id,department_id,application_model_branch_id";
                                 $obj->UNIQUE_KEY = array('acondition_origin_id','application_model_id','training_unit_id','department_id','application_model_branch_id');
-                                // $obj->public_display = true;
+                                
+                                // temp for demo amjad @todo : to remove and make previleges
+                                $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;

@@ -41,26 +41,23 @@ class AconditionOriginScope extends AdmObject
 
     public function beforeMaj($id, $fields_updated)
     {
-            if(!$this->getVal("training_unit_id"))
-            {
-                $this->setForce("training_unit_id", 0, true); 
-            }
+        if (!$this->getVal("training_unit_id")) {
+            $this->setForce("training_unit_id", 0, true);
+        }
 
-            if(!$this->getVal("department_id"))
-            {
-                $this->setForce("department_id", 0, true); 
-            }
+        if (!$this->getVal("department_id")) {
+            $this->setForce("department_id", 0, true);
+        }
 
-            if(!$this->getVal("application_model_branch_id"))
-            {
-                $this->setForce("application_model_branch_id", 0, true); 
-            }
+        if (!$this->getVal("application_model_branch_id")) {
+            $this->setForce("application_model_branch_id", 0, true);
+        }
 
 
-            
 
-            return true;
-    }   
+
+        return true;
+    }
 
     public function beforeDelete($id, $id_replace)
     {
@@ -100,10 +97,16 @@ class AconditionOriginScope extends AdmObject
     }
 
     // acondition_origin_scope 
-   public function getScenarioItemId($currstep)
-   {
-      if ($currstep == 1) return 472;
+    public function getScenarioItemId($currstep)
+    {
+        if ($currstep == 1) return 472;
 
-      return 0;
-   }
+        return 0;
+    }
+
+    protected function userCanEditMeWithoutRole($auser)
+    {
+        // @todo this temporary for demo of amjad
+        return [true, 'for demo'];
+    }
 }

@@ -10,7 +10,7 @@
                                 // $obj->DISPLAY_FIELD = "aparameter_value_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('aparameter_id','application_model_id','application_plan_id','training_unit_id','department_id','application_model_branch_id');
-                                // $obj->public_display = true;
+                                $obj->public_display = true;
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 2; 

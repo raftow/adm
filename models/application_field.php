@@ -86,7 +86,7 @@ class ApplicationField extends AdmObject
           $me = ($objme) ? $objme->id : 0;
           $this->select_visibilite_horizontale_default();
           if (!$objme->isSuperAdmin()) {
-               $this->where("(${server_db_prefix}adm.fnGetModuleId(id) in (select mu.id_module from ${server_db_prefix}ums.module_auser mu where mu.id_auser = '$me' and mu.avail='Y'))");
+               $this->select("active",'Y');
           }
      }
 
@@ -288,6 +288,12 @@ class ApplicationField extends AdmObject
                return true;
             }    
 	}
+
+     /**
+      * To do Static public method That execute
+      * update pmu_adm.application_field af set af.active = (select f.avail from pmu_pag.afield f where f.id = af.id);
+
+      */
 
 
 }

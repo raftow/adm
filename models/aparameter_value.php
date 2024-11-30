@@ -288,4 +288,11 @@ class AparameterValue extends AdmObject
                 }
         }
 
+
+        protected function userCanEditMeWithoutRole($auser)
+        {
+                // @todo this temporary for demo of amjad
+                return [true, 'for demo'];
+        }
+
 }

@@ -6,7 +6,7 @@
 	$trad["training_unit"]["step5"] = "الأقسام";
 	$trad["training_unit"]["step6"] = "البرامج المتاحة";
 
-    $trad["training_unit"]["trainingUnitCollegeList"] = "الكليات";
+    $trad["training_unit"]["trainingUnitCollegeList"] = "تفعيل الكليات";
 	$trad["training_unit"]["academicLevelOfferingList"] = "المراحل التدريبية المنفذة";
 	$trad["training_unit"]["academicProgramOfferingList"] = "قائمة البرامج المتاحة";
 	

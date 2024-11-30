@@ -73,18 +73,18 @@
 				 
 				'RELATION' => 'ManyToOne',  'SEARCH-BY-ONE' => false,  'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  'MANDATORY' => false,  'ERROR-CHECK' => true, 
-				'CSS' => 'width_pct_33',
+				'CSS' => 'width_pct_50',
 				),
 
 			'valid_from_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
 				'TYPE' => 'DATE',  'STEP' => 1,    'DISPLAY' => true, 'MANDATORY' => true, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_33',),
+				'CSS' => 'width_pct_25',),
 
 			'valid_to_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
 				'TYPE' => 'DATE',  'STEP' => 1,    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_33',),
+				'CSS' => 'width_pct_25',),
 				
 			'cvalid' => array('SHOW-ADMIN' => true, 'SEARCH' => true, 'QSEARCH' => true, 'RETRIEVE' => false, 'SHOW' => false, 'EDIT' => false, 'READONLY' => true,  'DEFAUT' => 'N',  
 				'TYPE' => 'YN',    'CATEGORY' => 'FORMULA',  "FIELD-FORMULA"=> "IF(§hijri_current§ between valid_from_date and valid_to_date, 'Y', 'N')",
@@ -96,33 +96,33 @@
 				'EDIT' => true,  'SIZE' => 'AEREA',  'UTF8' => true,  
 				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'QEDIT' => false,   
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_100',),
+				'CSS' => 'width_pct_50',),
 
 			'acondition_origin_desc_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
 				'EDIT' => true,  'SIZE' => 'AEREA',  'UTF8' => true,  
 				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'QEDIT' => false,    
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_100',),
+				'CSS' => 'width_pct_50',),
 
 			'application_model_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
+                                                'EDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  'QEDIT' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',   
-                                                'WHERE' => 'id < 10 ', 'QEDIT' => false,  
+                                                // 'WHERE' => '', 
                                                 // 'DEPENDENT_OFME' => array("zzz", ),
                                                 // 'DEPENDENCIES' => ['qualification_id',],
                                                 'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),				
+                                                'CSS' => 'width_pct_50',),				
 
 			'academic_program_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
+                                                'EDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  'QEDIT' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',   
-                                                'WHERE' => 'id < 550', 'QEDIT' => false,  
+                                                // 'WHERE' => '', 
                                                 // 'DEPENDENT_OFME' => array("zzz", ),
                                                 // 'DEPENDENCIES' => ['qualification_id',],
                                                 'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
+                                                'CSS' => 'width_pct_50',),
 
 			'aconditionOriginScopeList' => array('TYPE' => 'FK', 'ANSWER' => 'acondition_origin_scope', 'ANSMODULE' => 'adm', 
 												'CATEGORY' => 'ITEMS', 'ITEM' => 'acondition_origin_id', 'STEP' => 2, 'QEDIT' => false,   

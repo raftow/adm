@@ -79,6 +79,7 @@ class AconditionOrigin extends AdmObject{
                         $title_detailed = $title ."لـ : ". $displ;
                         $link["URL"] = "main.php?mp=ed&cl=AconditionOriginScope&cm=adm&sel_acondition_origin_id=$my_id";
                         $link["TITLE"] = $title;
+                        $link["PUBLIC"] = true;
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;     
 

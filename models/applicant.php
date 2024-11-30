@@ -205,6 +205,9 @@ class Applicant extends AdmObject
         $params = self::getAdditionalFieldParams($field_name);
 
         $col_struct = strtolower($col_struct);
+        if ($col_struct == "obsolete") return (!$params["type"]);
+        if ($col_struct == "show") return ($params["type"] != "");
+        if ($col_struct == "edit") return ($params["type"] != "");
         if ($col_struct == "mandatory") return (!$params["optional"]);
         if ($col_struct == "required") return (!$params["optional"]);
 
@@ -233,7 +236,7 @@ class Applicant extends AdmObject
     }
 
 
-    protected function paggableAttribute($attribute)
+    protected function paggableAttribute($attribute, $structure)
     {
         if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) {
             $params = self::getAdditionalFieldParams($attribute);

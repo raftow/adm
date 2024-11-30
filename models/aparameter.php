@@ -157,6 +157,7 @@ class Aparameter extends AdmObject
                         $title_detailed = $title . "لـ : " . $displ;
                         $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AparameterValue&currmod=adm&sel_aparameter_id=$my_id";
                         $link["TITLE"] = $title;
+                        $link["PUBLIC"] = true;
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
                 }
