@@ -117,7 +117,7 @@
             $methodName = "close";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("valid"));
             
-            if($this->est("active"))
+            if($this->sureIs("active"))
             {
                 $color = "red";
                 $title_ar = "تعطيل الخطة"; 

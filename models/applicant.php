@@ -590,8 +590,8 @@ class Applicant extends AdmObject
                  * @var ApiEndpoint $apiEndPoint
                  */
                 $apiEndPoint = $applicantApiRequestItem->het("api_endpoint_id"); 
-                $need_refresh = $applicantApiRequestItem->est("need_refresh"); 
-                if($apiEndPoint and $apiEndPoint->est("published"))
+                $need_refresh = $applicantApiRequestItem->sureIs("need_refresh"); 
+                if($apiEndPoint and $apiEndPoint->sureIs("published"))
                 {
                     $run_date = $applicantApiRequestItem->getVal("run_date");
                     if($run_date=="0000-00-00") $run_date = "";
@@ -612,7 +612,7 @@ class Applicant extends AdmObject
                     
                     
 
-                    if($run_date) $can_refresh = $apiEndPoint->est("can_refresh");
+                    if($run_date) $can_refresh = $apiEndPoint->sureIs("can_refresh");
                     else $can_refresh = true;
 
                     if($need_refresh and $can_refresh)
