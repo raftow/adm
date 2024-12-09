@@ -68,7 +68,7 @@
 
 			'afile_id' => array('SHORTNAME' => 'file',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'RETRIEVE' => false,  
 				'EDIT' => true,  'INPUT_WIDE' => true,    'SIZE' => 255, 'QEDIT' => false,   
-				'TYPE' => 'FK',  'ANSWER' => 'adm_file',  'ANSMODULE' => 'adm',  
+				'TYPE' => 'FK',  'ANSWER' => 'workflow_file',  'ANSMODULE' => 'workflow',  
 				'WHERE' => "doc_type_id = 555", 'UTF8' => false,  
 				 
 				'RELATION' => 'ManyToOne',  'SEARCH-BY-ONE' => false,  'DISPLAY' => true,  'STEP' => 1,  

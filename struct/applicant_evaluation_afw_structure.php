@@ -184,9 +184,9 @@ class AdmApplicantEvaluationAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-                'adm_file_id' => array(
+                'workflow_file_id' => array(
                         'STEP' => 1,
-                        'SHORTNAME' => 'adm_file',
+                        'SHORTNAME' => 'workflow_file',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -199,8 +199,8 @@ class AdmApplicantEvaluationAfwStructure
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
                         'UTF8' => false,
                         'TYPE' => 'FK',
-                        'ANSWER' => 'adm_file',
-                        'ANSMODULE' => 'adm',
+                        'ANSWER' => 'workflow_file',
+                        'ANSMODULE' => 'workflow',
                         'RELATION' => 'ManyToOne',
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
