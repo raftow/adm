@@ -49,7 +49,10 @@
   array (
     'name' => 'acondition_type',
   ),
-  
+  13910 => 
+  array (
+    'name' => 'adm_file',
+  ),
   13858 => 
   array (
     'name' => 'aparameter',
@@ -66,6 +69,10 @@
   array (
     'name' => 'applicant',
   ),
+  13930 => 
+  array (
+    'name' => 'applicant_api_request',
+  ),
   13929 => 
   array (
     'name' => 'applicant_evaluation',
@@ -77,6 +84,10 @@
   13917 => 
   array (
     'name' => 'application',
+  ),
+  13931 => 
+  array (
+    'name' => 'application_desire',
   ),
   13912 => 
   array (
@@ -740,7 +751,50 @@
       'id' => -1,
     ),
   ),
-  
+  'adm_file' => 
+  array (
+    'id' => '13910',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'aparameter' => 
   array (
     'id' => '13858',
@@ -917,6 +971,50 @@
       'id' => '104741',
     ),
   ),
+  'applicant_api_request' => 
+  array (
+    'id' => '13930',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'applicant_evaluation' => 
   array (
     'id' => '13929',
@@ -1008,6 +1106,50 @@
   'application' => 
   array (
     'id' => '13917',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
+  'application_desire' => 
+  array (
+    'id' => '13931',
     'display' => 
     array (
       'id' => -1,
@@ -2508,13 +2650,14 @@
     'name' => 
     array (
       'ar' => 'إعدادات القبول',
-      'en' => 'arole.382',
+      'en' => 'Admission settings',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '382',
-      'menu_name' => 'إعدادات القبول',
+      'menu_name_ar' => 'إعدادات القبول',
+      'menu_name_en' => 'Admission settings',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=382',
       'css' => 'info',
       'icon' => ' icon-382',
@@ -2524,7 +2667,8 @@
         104643 => 
         array (
           'id' => '104643',
-          'menu_name' => 'القرارات و اللوائح',
+          'menu_name_ar' => 'القرارات و اللوائح',
+          'menu_name_en' => 'Regulations',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AconditionOrigin&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104643 bfc-',
@@ -2532,7 +2676,8 @@
         104636 => 
         array (
           'id' => '104636',
-          'menu_name' => 'الشروط',
+          'menu_name_ar' => 'الشروط',
+          'menu_name_en' => 'Conditions',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Acondition&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104636 bfc-',
@@ -2540,7 +2685,8 @@
         104650 => 
         array (
           'id' => '104650',
-          'menu_name' => 'القيم المعلمة',
+          'menu_name_ar' => 'القيم المعلمة',
+          'menu_name_en' => 'Parameters',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Aparameter&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104650 bfc-',
@@ -2548,7 +2694,8 @@
         104685 => 
         array (
           'id' => '104685',
-          'menu_name' => 'السنوات التدريبية',
+          'menu_name_ar' => 'السنوات الدراسية',
+          'menu_name_en' => 'Academic years',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicYear&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104685 bfc-',
@@ -2556,7 +2703,8 @@
         104699 => 
         array (
           'id' => '104699',
-          'menu_name' => 'نماذج القبول',
+          'menu_name_ar' => 'نماذج القبول',
+          'menu_name_en' => 'Application models',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationModel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104699 bfc-',
@@ -2564,7 +2712,8 @@
         104723 => 
         array (
           'id' => '104723',
-          'menu_name' => 'خطط التقديم',
+          'menu_name_ar' => 'خطط التقديم',
+          'menu_name_en' => 'Application plans',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationPlan&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104723 bfc-',
@@ -2572,7 +2721,8 @@
         104800 => 
         array (
           'id' => '104800',
-          'menu_name' => 'الخدمات الاكترونية',
+          'menu_name_ar' => 'الخدمات الاكترونية',
+          'menu_name_en' => 'Api endpoints',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApiEndpoint&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104800 bfc-',
@@ -2580,7 +2730,8 @@
         104793 => 
         array (
           'id' => '104793',
-          'menu_name' => 'خدمات نماذج التقديم',
+          'menu_name_ar' => 'خدمات نماذج التقديم',
+          'menu_name_en' => 'App model apis',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AppModelApi&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104793 bfc-',
@@ -2588,7 +2739,8 @@
         104807 => 
         array (
           'id' => '104807',
-          'menu_name' => 'حقول البيانات',
+          'menu_name_ar' => 'حقول البيانات',
+          'menu_name_en' => '???? ????????',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationField&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104807 bfc-',
@@ -2596,7 +2748,8 @@
         104815 => 
         array (
           'id' => '104815',
-          'menu_name' => 'شاشات الإدخال',
+          'menu_name_ar' => 'شاشات الإدخال',
+          'menu_name_en' => 'Screen models',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ScreenModel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104815 bfc-',
@@ -2612,13 +2765,14 @@
     'name' => 
     array (
       'ar' => 'ادارة المتقدمين',
-      'en' => 'arole.386',
+      'en' => 'Manage applicants',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '386',
-      'menu_name' => 'ادارة المتقدمين',
+      'menu_name_ar' => 'ادارة المتقدمين',
+      'menu_name_en' => 'Manage applicants',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=386',
       'css' => 'info',
       'icon' => ' icon-386',
@@ -2628,7 +2782,8 @@
         104744 => 
         array (
           'id' => '104744',
-          'menu_name' => 'المتقدمون',
+          'menu_name_ar' => 'المتقدمون',
+          'menu_name_en' => 'Applicants',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Applicant&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104744 bfc-',
@@ -2644,13 +2799,14 @@
     'name' => 
     array (
       'ar' => 'البرامج',
-      'en' => 'arole.384',
+      'en' => 'Programs',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '384',
-      'menu_name' => 'البرامج',
+      'menu_name_ar' => 'البرامج',
+      'menu_name_en' => 'Programs',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=384',
       'css' => 'info',
       'icon' => ' icon-384',
@@ -2660,7 +2816,8 @@
         104608 => 
         array (
           'id' => '104608',
-          'menu_name' => 'المراحل التدريبية',
+          'menu_name_ar' => 'المراحل الدراسية',
+          'menu_name_en' => 'Academic levels',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104608 bfc-',
@@ -2668,7 +2825,8 @@
         104615 => 
         array (
           'id' => '104615',
-          'menu_name' => 'الشهادات',
+          'menu_name_ar' => 'الشهادات',
+          'menu_name_en' => 'Degrees',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Degree&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104615 bfc-',
@@ -2676,7 +2834,8 @@
         104622 => 
         array (
           'id' => '104622',
-          'menu_name' => 'التخصصات',
+          'menu_name_ar' => 'التخصصات',
+          'menu_name_en' => 'Majors',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Major&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104622 bfc-',
@@ -2684,7 +2843,8 @@
         104678 => 
         array (
           'id' => '104678',
-          'menu_name' => 'البرامج التدريبية',
+          'menu_name_ar' => 'البرامج الدراسية',
+          'menu_name_en' => 'Academic programs',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgram&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104678 bfc-',
@@ -2692,7 +2852,8 @@
         104716 => 
         array (
           'id' => '104716',
-          'menu_name' => 'البرامج المتاحة',
+          'menu_name_ar' => 'البرامج المتاحة',
+          'menu_name_en' => 'Academic program offerings',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgramOffering&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104716 bfc-',
@@ -2708,13 +2869,14 @@
     'name' => 
     array (
       'ar' => 'البيانات المرجعية',
-      'en' => 'lookup data',
+      'en' => 'Reference data',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '387',
-      'menu_name' => 'البيانات المرجعية',
+      'menu_name_ar' => 'البيانات المرجعية',
+      'menu_name_en' => 'Reference data',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=387',
       'css' => 'info',
       'icon' => ' icon-387',
@@ -2724,7 +2886,8 @@
         104688 => 
         array (
           'id' => '104688',
-          'menu_name' => 'إدارة المسارات',
+          'menu_name_ar' => 'إدارة المسارات',
+          'menu_name_en' => 'Program tracks administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ProgramTrack&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
           'icon' => ' bficon-104688 bfc-',
@@ -2732,7 +2895,8 @@
         104761 => 
         array (
           'id' => '104761',
-          'menu_name' => 'إدارة المؤهلات',
+          'menu_name_ar' => 'إدارة المؤهلات',
+          'menu_name_en' => 'Qualifications administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Qualification&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
           'icon' => ' bficon-104761 bfc-',
@@ -2740,7 +2904,8 @@
         104747 => 
         array (
           'id' => '104747',
-          'menu_name' => 'إدارة مجموعات التأهيل',
+          'menu_name_ar' => 'إدارة مجموعات التأهيل',
+          'menu_name_en' => 'Major paths administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=MajorPath&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
           'icon' => ' bficon-104747 bfc-',
@@ -2748,7 +2913,8 @@
         104768 => 
         array (
           'id' => '104768',
-          'menu_name' => 'إدارة تخصصات المؤهلات',
+          'menu_name_ar' => 'إدارة تخصصات المؤهلات',
+          'menu_name_en' => 'Qualification majors administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=QualificationMajor&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
           'icon' => ' bficon-104768 bfc-',
@@ -2763,14 +2929,15 @@
   array (
     'name' => 
     array (
-      'ar' => 'التقويم التدريبي',
-      'en' => 'arole.383',
+      'ar' => 'التقويم الدراسي',
+      'en' => 'Training calendar',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '383',
-      'menu_name' => 'التقويم التدريبي',
+      'menu_name_ar' => 'التقويم الدراسي',
+      'menu_name_en' => 'Training calendar',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=383',
       'css' => 'info',
       'icon' => ' icon-383',
@@ -2780,7 +2947,8 @@
         104685 => 
         array (
           'id' => '104685',
-          'menu_name' => 'السنوات التدريبية',
+          'menu_name_ar' => 'السنوات الدراسية',
+          'menu_name_en' => 'Academic years',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicYear&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104685 bfc-',
@@ -2788,7 +2956,8 @@
         104708 => 
         array (
           'id' => '104708',
-          'menu_name' => 'الفصول التدريبية',
+          'menu_name_ar' => 'الفصول الدراسية',
+          'menu_name_en' => 'Academic terms',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicTerm&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104708 bfc-',
@@ -2804,13 +2973,14 @@
     'name' => 
     array (
       'ar' => 'المؤهلات',
-      'en' => 'arole.385',
+      'en' => 'Qualifications',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '385',
-      'menu_name' => 'المؤهلات',
+      'menu_name_ar' => 'المؤهلات',
+      'menu_name_en' => 'Qualifications',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=385',
       'css' => 'info',
       'icon' => ' icon-385',
@@ -2820,7 +2990,8 @@
         104615 => 
         array (
           'id' => '104615',
-          'menu_name' => 'الشهادات',
+          'menu_name_ar' => 'الشهادات',
+          'menu_name_en' => 'Degrees',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Degree&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104615 bfc-',
@@ -2828,7 +2999,8 @@
         104786 => 
         array (
           'id' => '104786',
-          'menu_name' => 'مصادر المؤهلات',
+          'menu_name_ar' => 'مصادر المؤهلات',
+          'menu_name_en' => 'Qual sources',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualSource&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104786 bfc-',
@@ -2836,7 +3008,8 @@
         104779 => 
         array (
           'id' => '104779',
-          'menu_name' => 'مسارات تأهيل التخصصات',
+          'menu_name_ar' => 'مسارات تأهيل التخصصات',
+          'menu_name_en' => 'Qual major paths',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualMajorPath&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104779 bfc-',
@@ -2844,7 +3017,8 @@
         104758 => 
         array (
           'id' => '104758',
-          'menu_name' => 'مسارات البرامج الاكاديمية',
+          'menu_name_ar' => 'مسارات البرامج الاكاديمية',
+          'menu_name_en' => 'Program qualifications',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramQualification&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104758 bfc-',
@@ -2860,13 +3034,14 @@
     'name' => 
     array (
       'ar' => 'الهيكل الأكاديمي',
-      'en' => 'arole.381',
+      'en' => 'Academic structure',
     ),
     'menu' => 
     array (
       'need_admin' => false,
       'id' => '381',
-      'menu_name' => 'الهيكل الأكاديمي',
+      'menu_name_ar' => 'الهيكل الأكاديمي',
+      'menu_name_en' => 'Academic structure',
       'page' => 'main.php?Main_Page=fm.php&a=1282&r=381',
       'css' => 'info',
       'icon' => ' icon-381',
@@ -2876,7 +3051,8 @@
         104608 => 
         array (
           'id' => '104608',
-          'menu_name' => 'المراحل التدريبية',
+          'menu_name_ar' => 'المراحل الدراسية',
+          'menu_name_en' => 'Academic levels',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104608 bfc-',
@@ -2884,7 +3060,8 @@
         104622 => 
         array (
           'id' => '104622',
-          'menu_name' => 'التخصصات',
+          'menu_name_ar' => 'التخصصات',
+          'menu_name_en' => 'Majors',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Major&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104622 bfc-',
@@ -2892,7 +3069,8 @@
         104629 => 
         array (
           'id' => '104629',
-          'menu_name' => 'الأقسام',
+          'menu_name_ar' => 'الأقسام',
+          'menu_name_en' => 'xxxxx',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Department&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104629 bfc-',
@@ -2900,7 +3078,8 @@
         104657 => 
         array (
           'id' => '104657',
-          'menu_name' => 'أنواع المنشآت التدريبية',
+          'menu_name_ar' => 'الكليات',
+          'menu_name_en' => 'xxxxx',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnitType&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104657 bfc-',
@@ -2908,7 +3087,8 @@
         104671 => 
         array (
           'id' => '104671',
-          'menu_name' => 'المنشآت التدريبية',
+          'menu_name_ar' => 'الجامعات',
+          'menu_name_en' => 'Training units',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnit&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104671 bfc-',
@@ -2916,7 +3096,8 @@
         104664 => 
         array (
           'id' => '104664',
-          'menu_name' => 'المؤسسات التدريبية',
+          'menu_name_ar' => 'المؤسسات الدراسية',
+          'menu_name_en' => 'Institutions',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Institution&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104664 bfc-',
@@ -2924,7 +3105,8 @@
         104678 => 
         array (
           'id' => '104678',
-          'menu_name' => 'البرامج التدريبية',
+          'menu_name_ar' => 'البرامج الدراسية',
+          'menu_name_en' => 'Academic programs',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgram&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104678 bfc-',

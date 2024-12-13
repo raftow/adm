@@ -30,6 +30,9 @@ class ApplicationArTranslator{
 		$trad["application"]["program_id"] = "البرنامج";
 		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";
 		$trad["application"]["nb_desires"] = "عدد الرغبات";
+		$trad["application"]["satisfaction"] = "نسبة رضا العملاء";
+		$trad["application"]["tasks"] = "مهام بالانتظار";
+		
 		
 		
         return $trad;

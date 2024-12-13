@@ -1,3 +1,4 @@
+<span class='cms-title'>[adm_stats_title]</span>
 <div class="row justify-content-center">    
 <div class="col-lg-12">
                     <div class="single_element">
@@ -10,8 +11,8 @@
                                                 <img src="pic/man.svg" alt="">
                                             </div>
                                             <div class="count_content">
-                                                <h3><span class="counter">[applicant_nb]</span> </h3>
-                                                <p>[applicants_title]</p>
+                                                <h3><span class="counter">[adm_stats_applicant_nb]</span> </h3>
+                                                <p>[adm_stats_applicants_title]</p>
                                             </div>
                                         </div>
                                         <div class="single_quick_activity d-flex">
@@ -19,8 +20,8 @@
                                                 <img src="pic/request.svg" alt="">
                                             </div>
                                             <div class="count_content">
-                                                <h3><span class="counter">[application_nb]</span> </h3>
-                                                <p>[applications_title]</p>
+                                                <h3><span class="counter">[adm_stats_application_nb]</span> </h3>
+                                                <p>[adm_stats_applications_title]</p>
                                             </div>
                                         </div>
                                         <div class="single_quick_activity d-flex">
@@ -28,8 +29,8 @@
                                                 <img src="pic/university.svg" alt="">
                                             </div>
                                             <div class="count_content">
-                                                <h3><span class="counter">[unit_nb]</span> </h3>
-                                                <p>[units_title]</p>
+                                                <h3><span class="counter">[adm_stats_unit_nb]</span> </h3>
+                                                <p>[adm_stats_units_title]</p>
                                             </div>
                                         </div>
                                         <div class="single_quick_activity d-flex">
@@ -37,8 +38,8 @@
                                                 <img src="pic/branch.svg" alt="">
                                             </div>
                                             <div class="count_content">
-                                                <h3><span class="counter">[major_nb]</span> </h3>
-                                                <p>[majors_title]</p>
+                                                <h3><span class="counter">[adm_stats_major_nb]</span> </h3>
+                                                <p>[adm_stats_majors_title]</p>
                                             </div>
                                         </div>
                                         <div class="single_quick_activity d-flex">
@@ -46,8 +47,8 @@
                                                 <img src="pic/feedback.svg" alt="">
                                             </div>
                                             <div class="count_content">
-                                                <h3><span class="counter">[satisfaction_pct]</span> </h3>
-                                                <p>[satisfaction_title]</p>
+                                                <h3><span class="counter">[adm_stats_satisfaction_pct]</span> </h3>
+                                                <p>[adm_stats_satisfaction_title]</p>
                                             </div>
                                         </div>
                                         <div class="single_quick_activity d-flex">
@@ -55,8 +56,8 @@
                                                 <img src="pic/tasks.svg" alt="">
                                             </div>
                                             <div class="count_content">
-                                                <h3><span class="counter">[mytasks_nb]</span> </h3>
-                                                <p>[mytasks_title]</p>
+                                                <h3><span class="counter">[adm_stats_mytasks_nb]</span> </h3>
+                                                <p>[adm_stats_mytasks_title]</p>
                                             </div>
                                         </div>
 
