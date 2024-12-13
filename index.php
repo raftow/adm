@@ -4,10 +4,6 @@ include("$file_dir_name/adm_start.php");
 $objme = AfwSession::getUserConnected();
 //if(!$objme) $studentMe = AfwSession::getStudentConnected();
 $studentMe = null;
-if(!$lang) $lang = "ar";
-
-unset($_POST);
-unset($_GET);
 $page_css_file = "content";
 
 $Main_Page = "home.php";
