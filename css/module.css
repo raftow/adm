@@ -2432,21 +2432,6 @@ a.btnbtsp.btn_link:hover {
     text-shadow: 4px 2px 3px #b9dfe2;
 }
 
-.optionenabled.hzm-custom.hzm-custom-icon-container.only-border.border-primary {
-    border-color: #15dbd2;
-    background-color: transparent;
-}
-
-.optiondisabled.hzm-custom.hzm-custom-icon-container.only-border.border-primary i {
-    color: #cdcdcd;
-    text-shadow: none;
-}
-
-.optiondisabled.hzm-custom.hzm-custom-icon-container.only-border.border-primary {
-    border-color: #d7d5d5;
-    background-color: transparent;
-}
-
 .adm-information.hzm-info {
     padding: 20px;
     margin-top: 30px;
