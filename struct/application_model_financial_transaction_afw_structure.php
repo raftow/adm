@@ -31,41 +31,42 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-                                        'financial_transaction_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'financial_transaction',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+                                        'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),	
 
-
-'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
-
-
-'amount' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'SIZE' => 32, 
-        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => true, 
-        'STEP' => 1,
-        'DISPLAY' => true,
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
+                                                                'financial_transaction_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'FK',  'ANSWER' => 'financial_transaction',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),	
 
 
 
-'process_enabled' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-        'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
+
+                        'amount' => array(
+                                'IMPORTANT' => 'IN',
+                                'SHOW' => true,
+                                'RETRIEVE' => false,
+                                'QEDIT' => true,
+                                'EDIT' => true,
+                                'SIZE' => 32, 
+                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => true, 
+                                'STEP' => 1,
+                                'DISPLAY' => true,
+                                'EDIT-UGROUPS' => '',
+                                'CSS' => 'width_pct_25',),
+
+
+
+                        'process_enabled' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25',),
 
 
 

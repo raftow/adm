@@ -11,6 +11,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["step6"] = "الشروط";
 		$trad["application_model"]["step7"] = "الشاشات والخدمات";
 		$trad["application_model"]["step8"] = "خطط التقديم";
+		$trad["application_model"]["step9"] = "البنود المالية";
 		
 		$trad["application_model"]["aconditionOriginList"] = "مصادر الشروط";
 		$trad["application_model"]["applicationModelConditionList"] = "قائمة الشروط المطلوبة";
@@ -21,7 +22,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["applicationModelFieldList"] = "قائمة الحقول المستخدمة";
 		$trad["application_model"]["appModelApiList"] = "الانخراط في الخدمات الالكترونية";
 		$trad["application_model"]["application_field_mfk"] = "قائمة الحقول التي سيتم ترحيلها الى SIS";
-		
+		$trad["application_model"]["financialTransactionList"] = "قائمة البنود المالية";
 		
 		
 		

@@ -752,6 +752,19 @@
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
                         }
+                        if($mode=="mode_financialTransactionList")
+                        {
+                                unset($link);
+                                $link = array();
+                                $title = "إضافة بند جديد";
+                                $title_detailed = $title ."لـ : ". $displ;
+                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationModelFinancialTransaction&currmod=adm&sel_application_model_id=$my_id";
+                                $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
+                                $link["UGROUPS"] = array();
+                                $otherLinksArray[] = $link;
+                        }
+
                         /*
                         if($mode=="mode_appModelApiList")
                         {
