@@ -43,7 +43,7 @@
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => '30', 'MAXLENGTH' => '30', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
+        'CSS' => 'width_pct_50',),
         
 
 
@@ -51,7 +51,7 @@
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => '20', 'MAXLENGTH' => '20', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
+        'CSS' => 'width_pct_50',),
         
 
 
@@ -59,7 +59,7 @@
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => '20', 'MAXLENGTH' => '20', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
+        'CSS' => 'width_pct_50',),
         
 
 
@@ -67,8 +67,13 @@
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => '20', 'MAXLENGTH' => '20', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
+        'CSS' => 'width_pct_50',),
         
+'financial_element_unit_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '20', 'MAXLENGTH' => '20', 'UTF8' => true,  
+        'TYPE' => 'ENUM', 'ANSWER'=>'FUNCTION',   'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_50'),
 
 
 

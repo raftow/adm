@@ -1000,6 +1000,32 @@ class AdmObject extends AFWObject{
                 return $arr_list_of_answer_table;
         }
 
+        public static function list_of_financial_element_unit_enum()
+        {
+            global $lang;
+            return self::financial_element_unit()[$lang];
+        }
+        
+        public static function financial_element_unit()
+        {
+                $arr_list_of_unit = array();
+                
+                
+                $arr_list_of_unit["en"][1] = "credit hours";
+                $arr_list_of_unit["ar"][1] = "الساعة المعتمدة";
+                
+                $arr_list_of_unit["en"][2] = "courses";
+                $arr_list_of_unit["ar"][2] = "المقرر";
+                
+                $arr_list_of_unit["en"][3] = "terms";
+                $arr_list_of_unit["ar"][3] = "الفصل الدراسي";
+                
+                $arr_list_of_unit["en"][4] = "one-time payment";
+                $arr_list_of_unit["ar"][5] = "الدفع مرة واحدة";
+
+                
+                return $arr_list_of_unit;
+        }
 
         public function calcHijri_current()
         {
