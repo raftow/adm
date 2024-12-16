@@ -23,6 +23,7 @@
 	$trad["acondition_origin"]["aconditionOriginScopeList"] = "مجالات التطبيق";
 
 	$trad["acondition_origin"]["general"] = "عام على جميع الفروع";
+	
 	$trad["acondition_origin"]["general.short"] = "عام";
 	$trad["acondition_origin"]["afile_id"] = "الملف";
 	$trad["acondition_origin"]["valid_from_date"] = "الصلاحية من تاريخ";
