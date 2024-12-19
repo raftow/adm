@@ -47,6 +47,7 @@ $reqList = Request::loadRecords($where_old_still_not_assigned, $limit="5", $orde
 
 $header_trad = array("missed"=>"عدد الطلبات", "name" => 'الادارة - المشرف');
 */
+if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
 if(!$lang) $lang = "ar";
 $out_scr .= Page::showPage("adm", "main-page", $lang);
 
