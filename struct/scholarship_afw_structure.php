@@ -101,21 +101,6 @@
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25', ),	
 
-
-'scholarship_type' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'TYPE' => 'INT', 'MANDATORY' => true, 
-        'STEP' => 1,
-        'DISPLAY-UGROUPS' => '',
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
-
-
-
 'scholarship_date' => [
         'IMPORTANT' => 'IN',
         'SEARCH' => true,
@@ -138,7 +123,7 @@
 
 'adm_file_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'adm_file',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+        'TYPE' => 'FK',  'ANSWER' => 'workflow_file',  'ANSMODULE' => 'workflow',  'SIZE' => 40,  'DEFAUT' => 0,    
         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25', ),	
@@ -191,32 +176,28 @@
     ],
 
 
-'academic_year' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'TYPE' => 'INT', 'MANDATORY' => false, 
-        'STEP' => 1,
-        'DISPLAY-UGROUPS' => '',
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
+'academic_year_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+        'TYPE' => 'FK',  'ANSWER' => 'academic_year',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_25', ),	
 
 
+'academic_term_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+        'TYPE' => 'FK',  'ANSWER' => 'academic_term',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_25', ),	
 
-'academic_term' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'TYPE' => 'INT', 'MANDATORY' => false, 
-        'STEP' => 1,
-        'DISPLAY-UGROUPS' => '',
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
 
+'academic_program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+        'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_25', ),	
 
 
 

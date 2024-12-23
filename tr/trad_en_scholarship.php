@@ -21,8 +21,9 @@ class ScholarshipEnTranslator{
 	$trad["scholarship"]["publish"] = "Publish to Portal";
 	$trad["scholarship"]["application_start_date"] = "Application Start Date";
 	$trad["scholarship"]["application_end_date"] = "Application End Date";
-	$trad["scholarship"]["academic_year"] = "Academic year";
-	$trad["scholarship"]["academic_term"] = "Academic term";
+	$trad["scholarship"]["academic_year_id"] = "Academic year";
+	$trad["scholarship"]["academic_term_id"] = "Academic term";
+	$trad["scholarship"]["academic_program_id"] = "acasemic_program";
         return $trad;
         }
 

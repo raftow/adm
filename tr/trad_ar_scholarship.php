@@ -21,8 +21,9 @@ class ScholarshipArTranslator{
 	$trad["scholarship"]["publish"] = "تفعيل النشر";
 	$trad["scholarship"]["application_start_date"] = "تاريخ بداية التقديم";
 	$trad["scholarship"]["application_end_date"] = "تاريخ نهاية التقديم";
-	$trad["scholarship"]["academic_year"] = "العام الأكاديمي";
-	$trad["scholarship"]["academic_term"] = "الفصل الدراسي";
+	$trad["scholarship"]["academic_year_id"] = "العام الأكاديمي";
+	$trad["scholarship"]["academic_term_id"] = "الفصل الدراسي";
+	$trad["scholarship"]["academic_program_id"] = "البرنامج";
         return $trad;
         }
 
