@@ -27,6 +27,5 @@ $migrations = [
     '00021' => ['by'=>'rafik', 'title' => 'bug fixes'],
     '00022' => ['by'=>'medali', 'title' => 'add financial transaction unit'],
     '00023' => ['by'=>'medali', 'title' => 'manage scholarship'],
-    '00024' => ['by'=>'medali', 'title' => 'add scholarship type'],
 ];
 
