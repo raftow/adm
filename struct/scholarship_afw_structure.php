@@ -58,7 +58,7 @@
 
 'scholarship_type' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
-        'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+        'TYPE' => 'FK','ANSWER'=>"scholarship_type",'ANSMODULE'=>'adm',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),
         
