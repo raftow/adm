@@ -63,4 +63,5 @@ $additional_fields = [
     'attribute_35' => array('type' => 'INT', 'css' => 'width_pct_25', 'size' => 24, 'step' => 2, 'fgroup' => 'qiyas', 'field_code' => 'qiyas_achievement_sc', 'optional' => false, 'title_ar' => 'درجةاختبار التحصيل الدراسي-التخصصات العلمية', 'title_en' => 'Academic achievement test score - scientific', 'help' => ''),
     'attribute_36' => array('type' => 'GDAT', 'css' => 'width_pct_25', 'size' => 24, 'step' => 2, 'fgroup' => 'qiyas', 'field_code' => 'qiyas_achievement_sc_date', 'optional' => false, 'title_ar' => 'تاريخ اختبار التحصيلي-التخصصات العلمية', 'title_en' => 'Date of the achievement test - scientific', 'help' => ''),
     'attribute_37' => array('type' => 'GDAT', 'css' => 'width_pct_25', 'size' => 24, 'step' => 2, 'fgroup' => 'qiyas', 'field_code' => 'qiyas_activity_date', 'optional' => false, 'title_ar' => 'تاريخ الحركة', 'title_en' => 'History of the movement', 'help' => ''),
+    'dragDropDiv' => array('step' => 3,)
 ];

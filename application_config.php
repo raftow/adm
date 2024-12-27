@@ -73,6 +73,11 @@ $config_arr = array(
         // APPLICATION SETTINGS
         'MODE_DEVELOPMENT' => true,
 
+        'adm-AfileClass' => "WorkflowFile",
+
+        'adm-file_types' => [7,20,6,28,18,27,29],
+
+
         // SIS settings
         'default_course_mfk' => ',1,',
 

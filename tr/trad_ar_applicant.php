@@ -10,8 +10,10 @@ class ApplicantArTranslator{
 		$trad["applicant"]["step3"] = "المؤهلات العلمية والاختبارات";
 		$trad["applicant"]["step4"] = "بيانات الحالة الاكاديمية";
 		$trad["applicant"]["step5"] = "بيانات التقديم";
+		$trad["applicant"]["step6"] = "رفع المرفقات";
+		$trad["applicant"]["step7"] = "استخدام المرفقات";
 		$trad["applicant"]["apis"] = "الخدمات الالكترونية";
-		
+		$trad["applicant"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		
 		$trad["applicant"]["applicationList"] = "طلبات التقديم";
 		$trad["applicant"]["applicantApiRequestList"] = "طلبات تحديث بيانات متقدم";
