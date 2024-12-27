@@ -50,7 +50,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'WHERE' => 'id in (select major_id from §DBPREFIX§adm.academic_program where academic_level_id = §academic_level_id§ and (id = §academic_program_id§ or §academic_program_id§ = 0))',
                                                 'DEPENDENCIES' => ['academic_level_id','academic_program_id',],
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true, 
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
 

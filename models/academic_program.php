@@ -62,7 +62,8 @@
                                 $link = array();
                                 $title = "إضافة مسار برنامج اكاديمي جديد";
                                 $title_detailed = $title ."لـ : ". $displ;
-                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ProgramQualification&currmod=adm&sel_academic_program_id=$my_id";
+                                $level_id = $this->getVal("academic_level_id");
+                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ProgramQualification&currmod=adm&sel_academic_program_id=$my_id&sel_academic_level_id=$level_id";
                                 $link["TITLE"] = $title;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
