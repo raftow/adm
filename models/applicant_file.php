@@ -185,9 +185,9 @@ class ApplicantFile extends AFWObject
         }
     }
 
-    public function shouldBeCalculatedField($attribute)
-    {
-        if ($attribute == "afile_ext") return true;
+    public function shouldBeCalculatedField($attribute){
+        if($attribute=="download_light") return true;
+        if($attribute=="afile_ext") return true;
         return false;
     }
 }
