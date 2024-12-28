@@ -33,8 +33,6 @@ class ApplicantFile extends AFWObject
 
     public static function loadByMainIndex($applicant_id, $workflow_file_id, $create_obj_if_not_found = false)
     {
-
-
         $obj = new ApplicantFile();
         $obj->select("applicant_id", $applicant_id);
         $obj->select("workflow_file_id", $workflow_file_id);

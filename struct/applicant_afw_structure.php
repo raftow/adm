@@ -6,7 +6,8 @@ class AdmApplicantAfwStructure
         {
                 if ($obj instanceof Applicant) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                        $obj->DISPLAY_FIELD = ['first_name_ar', 'father_name_ar', 'last_name_ar'];
+                        $obj->DISPLAY_FIELD_BY_LANG = array('ar'=> ['first_name_ar', 'father_name_ar', 'last_name_ar'],
+                                                            'en'=> ['first_name_en', 'father_name_en', 'last_name_en']);
                         // $obj->AUTOCOMPLETE_FIELD = 'idn';
                         $obj->FORMULA_DISPLAY_FIELD  = "concat(IF(ISNULL(first_name_ar), '', first_name_ar) , ' ' , IF(ISNULL(father_name_ar), '', father_name_ar) , ' ' , IF(ISNULL(last_name_ar), '', last_name_ar))";
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";

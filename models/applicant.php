@@ -86,7 +86,7 @@ class Applicant extends AdmObject
     public function getDisplay($lang = 'ar')
     {
         $return = trim($this->getDefaultDisplay($lang));
-        if (!$return) return $this->tm("identity") . " : " . $this->id;
+        if (!$return) return $this->tm("identity",$lang) . " : " . $this->id;
         else return $return;
     }
 
