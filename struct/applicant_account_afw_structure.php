@@ -36,7 +36,7 @@
         'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=>true,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+        'CSS' => 'width_pct_50', ),	
 
 
 'application_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -44,7 +44,7 @@
         'TYPE' => 'FK',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+        'CSS' => 'width_pct_50', ),	
 
 
 'application_model_financial_transaction_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -52,9 +52,17 @@
         'TYPE' => 'FK',  'ANSWER' => 'application_model_financial_transaction',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+        'CSS' => 'width_pct_50' ),	
 
-
+'activated_fee' => array('IMPORTANT' => 'IN','SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '', 'DISPLAY' => true,  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+'due_date' => array('IMPORTANT' => 'IN','SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true,  
+                                                'TYPE' => 'GDAT',    'DISPLAY' => true,  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+        
 'total_amount' => array(
         'IMPORTANT' => 'IN',
         'SHOW' => true,

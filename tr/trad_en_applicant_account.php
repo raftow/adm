@@ -13,6 +13,8 @@ class ApplicantAccountEnTranslator{
 	$trad["applicant_account"]["application_model_financial_transaction_id"] = "Application Model Finacial Transaction";
 	$trad["applicant_account"]["total_amount"] = "Total Amount";
 	$trad["applicant_account"]["payment_status_enum"] = "Payment Status";
+	$trad["applicant_account"]["activated_fee"] = "Activate payment for the applicant";
+	$trad["applicant_account"]["due_date"] = "due date";
         return $trad;
         }
 

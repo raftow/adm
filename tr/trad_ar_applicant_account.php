@@ -13,6 +13,8 @@ class ApplicantAccountArTranslator{
 	$trad["applicant_account"]["application_model_financial_transaction_id"] = "نوع الحركة المالية";
 	$trad["applicant_account"]["total_amount"] = "المبلغ الإجمالي";
 	$trad["applicant_account"]["payment_status_enum"] = "حالة الدفع";
+	$trad["applicant_account"]["activated_fee"] = "تفعيل الدفع للمتقدم";
+	$trad["applicant_account"]["due_date"] = "تاريخ الاستحقاق";
         return $trad;
         }
 
