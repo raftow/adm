@@ -10,4 +10,4 @@
 	$trad["applicant_evaluation"]["eval_date"] = "Evaluation Date";
 	$trad["applicant_evaluation"]["eval_expired_date"] = "expiry validity date";
 	$trad["applicant_evaluation"]["eval_level"] = "Evaluation level";
-	$trad["applicant_evaluation"]["adm_file_id"] = "document";
+	$trad["applicant_evaluation"]["adm_file_id"] = "The document";

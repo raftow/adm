@@ -6,7 +6,20 @@ class ApplicantEnTranslator{
         $trad = [];
 		$trad["applicant"]["step1"] = "Indetity infos";
 		$trad["applicant"]["step2"] = "Personal infos";
-		$trad["applicant"]["step3"] = "Advanced infos";
+		$trad["applicant"]["step3"] = "Qualifications & tests";
+		$trad["applicant"]["step4"] = "Academic status data";
+		$trad["applicant"]["step5"] = "Submission data";
+		$trad["applicant"]["apis"] = "Electronic services";
+		
+		$trad["applicant"]["applicationList"] = "Applications";
+		$trad["applicant"]["applicantApiRequestList"] = "Applicant data update requests";
+
+		$trad["applicant"]["applicantQualificationList"] = "Applicant Qualifications";
+		$trad["applicant"]["qualif"] = "Academic qualifications";
+		$trad["applicant"]["appl"] = "Submission data";
+		$trad["applicant"]["applicantEvaluationList"] = "Achievement and aptitude tests";
+		$trad["applicant"]["evaluation"] = "Achievement and aptitude tests";
+		
 		$trad["applicant"]["step6"] = "Attachments";
 		$trad["applicant"]["step7"] = "Use of attachments";
 		$trad["applicant"]["apis"] = "Apis";
@@ -69,6 +82,14 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["relationship_enum"] = "relative relationship";
 
 		$trad["applicant"]["eval"] = "Test scores approved by the academic institution";
+
+		$trad["applicant"]["rayat"] = "Academic status in the training system";
+		$trad["applicant"]["hrsd"] = "Data imported from the Ministry of Human Resources";
+		$trad["applicant"]["moe"] = "Attendance at university";
+		$trad["applicant"]["moegraduate"] = "University graduate status";
+		$trad["applicant"]["qiyas"] = "Data imported from Qyias";
+
+		
 		return $trad;
     }
 

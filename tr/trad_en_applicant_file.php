@@ -21,6 +21,7 @@ class ApplicantFileEnTranslator{
 
     public static function getInstance()
 	{
+		if(false) return new ApplicantFileArTranslator();
 		return new ApplicantFile();
 	}
 }

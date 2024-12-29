@@ -185,10 +185,21 @@ class ApplicantFile extends AFWObject
         }
     }
 
-    public function shouldBeCalculatedField($attribute){
-        if($attribute=="download_light") return true;
-        if($attribute=="afile_ext") return true;
+    public function shouldBeCalculatedField($attribute)
+    {
+        if ($attribute == "download_light") return true;
+        if ($attribute == "afile_ext") return true;
         return false;
+    }
+
+
+    public function afterMaj($id, $fields_updated)
+    {
+        if ($fields_updated["doc_type_id"]) {
+            $wfObj = $this->het("workflow_file_id");
+            $wfObj->set("doc_type_id", $this->v("doc_type_id"));
+            $wfObj->commit();
+        }
     }
 }
 

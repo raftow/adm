@@ -360,6 +360,7 @@ class AdmApplicantQualificationAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'workflow_file',
+                        'WHERE' => 'id in (select workflow_file_id from §DBPREFIX§adm.applicant_file where applicant_id = §applicant_id§ and doc_type_id = 6)', // DOC_TYPE_DIPLOMA = 6
                         'ANSMODULE' => 'workflow',
                         'RELATION' => 'ManyToOne',
                         'READONLY' => false,

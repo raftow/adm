@@ -67,7 +67,7 @@ class AdmApplicantFileAfwStructure
                         'TYPE' => 'FK',
                         'ANSWER' => 'workflow_file',
                         'ANSMODULE' => 'workflow',
-                        'RELATION' => 'ManyToOne',
+                        'RELATION' => 'OneToMany',
                         'READONLY' => true,
                         'CSS' => 'width_pct_50',
                 ),
