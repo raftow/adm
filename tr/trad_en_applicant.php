@@ -7,6 +7,10 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["step1"] = "Indetity infos";
 		$trad["applicant"]["step2"] = "Personal infos";
 		$trad["applicant"]["step3"] = "Advanced infos";
+		$trad["applicant"]["step6"] = "Attachments";
+		$trad["applicant"]["step7"] = "Use of attachments";
+		$trad["applicant"]["apis"] = "Apis";
+		$trad["applicant"]["applicantFileList"] = "List of attachments";
 
 		$trad["applicant"]["applicant.single"] = "Applicant";
 		$trad["applicant"]["applicant.new"] = "new";

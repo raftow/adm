@@ -721,7 +721,7 @@ class Acondition extends AdmObject{
         }
 
         public function shouldBeCalculatedField($attribute){
-                if($attribute=="afield_type_id") return true;
+                if($attribute=="afile_ext") return true;
                 return false;
         }
 

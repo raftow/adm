@@ -911,59 +911,60 @@ span.object_id {
 
     } 
 
-    @media screen and (max-width: 535px) {
-            .calendar_bloc_g{
-               display : none;
-               visibility:hidden;
-               width: 0px !important;
-               height: 0px !important;
-            }
+    @media screen and (max-width: 1000px) {
+        .calendar_bloc_g{
+           display:none;
+           visibility:hidden;
+           width: 0px !important;
+           height: 0px !important;
+        }
     }
-    
-    
+
+
+
+
     .calendar_bloc_g {
-        height: 96px;
-        background-image: url(../../external/pic/calendar_school.png) !important;
-        background-repeat: no-repeat;
-        background-size: 75%;
-        background-position: 10px 10px;
-        padding-top: 33px;
-        font-family: saharat;
-        font-size: 14px;
-        font-weight: bold;
-        width: 105px;
-        float: left;
-        margin-top: -4px;
+            height: 96px;
+            background-image: url(../../external/pic/calendar_school.png);
+            background-repeat: no-repeat;
+            background-size: 60%;
+            background-position: 10px 10px;
+            padding-top: 23px;
+            font-family: saharat;
+            font-size: 14px;
+            font-weight: bold;
+            width: 135px;
+            float: left;
+            margin-top: -4px;
     }
-    
+
     .calendar_year {
         text-align: center;
-        color: #0670bb;
-        font-family: digi !important;
-        font-weight: bold !important;
-        font-size: 15px !important;
-        margin-left: -7px !important;
-        margin-top: -2px !important;
-        line-height: 16px;
+        color: #09709c;
+        font-family: digi, Montserrat !important;
+        font-weight: normal !important;
+        font-size: 14px !important;
+        margin-left: -32px !important;
+        margin-top: 11px !important;
     }
     
     .calendar_day {
         height: 60px;
         text-align: center;
-        color: #333;
-        margin-left: -7px !important;
-        font-family: title, courrier,arial,rgt;
-        font-weight: bold;
-        font-size: 11px;
-        padding-top: 0px;
-        line-height: 11px;
-    }   
+        color: #0670bb !important;
+        font-family: title, courrier, arial, rgt;
+        font-weight: normal !important;
+        font-size: 12px !important;
+        padding-top: 0px!important;
+        line-height: 13px;
+    }
     
     span.dday {
-        font-size: 14px !important;
-        font-family: DIGI !important;
-        color: #ce641b !important;
-        padding: 0px 1px !important;
+        font-size: 12px;
+        font-family: digi, Montserrat !important;
+        background-color: #0670bb !important;
+        padding: 0px 3px !important;
+        color: white !important;
     }
 
 
