@@ -30,7 +30,7 @@ $migrations = [
     '00024' => ['by'=>'rafik', 'title' => 'file manager'],
     '00025' => ['by'=>'medali', 'title' => 'manage scholarship'],
     '00026' => ['by'=>'rafik', 'title' => 'files upload management for workflow module'],
-
+    '00027' => ['by'=>'medali', 'title' => 'id in applicant_file auto increment'],
 
 ];
 
