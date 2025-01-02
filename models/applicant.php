@@ -756,10 +756,18 @@ class Applicant extends AdmObject
         list($can, $message_upload_blocked_reason) = $this->canUploadFiles();
         if ($can) 
         {
+            $obj = new ApplicantFile();
+            $col = "doc_type_id";
+            $col_structure = $obj->getMyDbStructure('structure', $col);
+            $col_structure["NO-FGROUP"] = true;
+            $openedInGroupDiv = false;
+            list($htmlDiv, $openedInGroupDiv, $fgroup) = attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
+            // die("htmlDiv start here :".$htmlDiv);
             return "
                              </form>
                              <link href='../lib/assets/css/style.css' rel='stylesheet' />
                              <form id='upload' method='post' action='afw_my_upload.php' enctype='multipart/form-data'>
+                    $htmlDiv          
         			<div id='drop'>
         				$help_instruction
                                         <br>
