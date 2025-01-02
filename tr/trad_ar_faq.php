@@ -5,9 +5,9 @@ class FaqArTranslator{
     {
         $trad = [];
 
-	$trad["faq"]["faq.single"] = "سؤال متكرر";
+	$trad["faq"]["faq.single"] = "سؤال شائع";
 	$trad["faq"]["faq.new"] = "جديد";
-	$trad["faq"]["faq"] = "الأسئلة المتكررة";
+	$trad["faq"]["faq"] = "الأسئلة الشائعة";
 	$trad["faq"]["question_ar"] = "نص السؤال - عربي";
 	$trad["faq"]["question_en"] = "نص السؤال - انجليزي";
 	$trad["faq"]["answer_ar"] = "نص الإجابة - عربي";
