@@ -32,5 +32,6 @@ $migrations = [
     '00026' => ['by'=>'rafik', 'title' => 'files upload management for workflow module'],
     '00027' => ['by'=>'medali', 'title' => 'id in applicant_file auto increment'],
     '00028' => ['by'=>'medali', 'title' => 'faq module'],
+    '00029' => ['by'=>'medali', 'title' => 'populate major qualification tables'],
 ];
 
