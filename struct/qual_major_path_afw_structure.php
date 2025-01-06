@@ -11,7 +11,7 @@
                                 $obj->ORDER_BY_FIELDS = "qualification_id, qualification_major_id, major_path_id";
                                 $obj->UNIQUE_KEY = array('qualification_id', 'qualification_major_id','major_path_id');
                                 // $obj->public_display = true;
-                                // $obj->IS_LOOKUP = true;
+                                 $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = false;
                                 $obj->editNbSteps = 0; 
