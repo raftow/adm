@@ -1,6 +1,6 @@
 <?php
 
-class ApplicantQualificationArTranslator{
+class ApplicantEvaluationArTranslator{
     public static function initData()
     {
         $trad = [];
@@ -22,8 +22,8 @@ class ApplicantQualificationArTranslator{
 
     public static function getInstance()
 	{
-        if(false) return new ApplicantQualificationEnTranslator();
-		return new ApplicantQualification();
+        if(false) return new ApplicantEvaluationEnTranslator();
+		return new ApplicantEvaluation();
 	}
 }
 

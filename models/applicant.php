@@ -83,6 +83,17 @@ class Applicant extends AdmObject
         } else return null;
     }
 
+    public function getMissedDocument($lang)
+    {
+        $aqObj = ApplicantQualification::getMyQualificationNeedingFileAttachment($this->id);
+        if($aqObj) return [DocType::$DOC_TYPE_DIPLOMA, $aqObj->id, $aqObj->getDisplay($lang)];
+
+        $aeObj = ApplicantEvaluation::getMyEvaluationNeedingFileAttachment($this->id);
+        if($aeObj) return [DocType::$DOC_TYPE_DIPLOMA, $aeObj->id, $aeObj->getDisplay($lang)];
+
+        return [0, 0, ''];
+    }
+
     public function getDisplay($lang = 'ar')
     {
         $return = trim($this->getDefaultDisplay($lang));
@@ -350,6 +361,15 @@ class Applicant extends AdmObject
             return ($this->getVal("idn_type_id") == 3);
         }
 
+        if ($attribute == "applicantQualificationsNoFile")
+        {
+            return ($this->getRelation("applicantQualificationsNoFile")->count()>0);
+        }
+
+        if ($attribute == "applicantEvaluationsNoFile")
+        {
+            return ($this->getRelation("applicantEvaluationsNoFile")->count()>0);
+        }
 
         return true;
     }
@@ -756,19 +776,41 @@ class Applicant extends AdmObject
         list($can, $message_upload_blocked_reason) = $this->canUploadFiles();
         if ($can) 
         {
-            $obj = new ApplicantFile();
-            $col = "doc_type_id";
-            $col_structure = $obj->getMyDbStructure('structure', $col);
-            $col_structure["NO-FGROUP"] = true;
-            $openedInGroupDiv = false;
-            list($htmlDiv, $openedInGroupDiv, $fgroup) = attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
+            
+            
+            list($doc_type_id, $doc_attach_id, $doc_attach_name) = $this->getMissedDocument($lang);
+            // die("(doc_type_id, doc_attach_id, doc_attach_name) = ($doc_type_id, $doc_attach_id, , $doc_attach_name)")
+            if($doc_type_id)
+            {
+                $whendone = "submit";
+                $drop_class = "dc-$doc_type_id";
+                $please_mess = $this->tm("Please upload the following document", $lang);
+                $htmlDiv = "<div id='fg-doc_type_id' class='attrib-doc_type_id form-group width_pct_100 '>
+  <label for='doc_type_id' class='hzm_label hzm_label_doc_type_id'>$please_mess :</label>
+  <input type='hidden' name='doc_type_id' id='doc_type_id' value='$doc_type_id' />
+  <input type='hidden' name='doc_attach_id' id='doc_attach_id' value='$doc_attach_id' />
+  <div id='div_doc_type_name' class='btn btn-full col-doc_type_id btn-primary'>$doc_attach_name</div>
+</div>";
+            }
+            else
+            {
+                $obj = new ApplicantFile();
+                $col = "doc_type_id";
+                $col_structure = $obj->getMyDbStructure('structure', $col);
+                $col_structure["NO-FGROUP"] = true;
+                $openedInGroupDiv = false;
+                list($htmlDiv, $openedInGroupDiv, $fgroup) = attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
+                $whendone = "hide";
+                $drop_class = "hide";
+            }
+            
             // die("htmlDiv start here :".$htmlDiv);
             return "
                              </form>
                              <link href='../lib/assets/css/style.css' rel='stylesheet' />
                              <form id='upload' method='post' action='afw_my_upload.php' enctype='multipart/form-data'>
                     $htmlDiv          
-        			<div id='drop'>
+        			<div id='drop' whendone='$whendone' class='$drop_class'>
         				$help_instruction
                                         <br>
         				<a>$files_upload_title</a>
@@ -796,7 +838,7 @@ class Applicant extends AdmObject
         		<script src='../lib/assets/js/jquery.fileupload.js'></script>
         		
         		<!-- Our main JS file -->
-        		<script src='../lib/assets/js/script.js'></script>
+        		<script src='../lib/assets/js/script-whs.js'></script>
                         ";
         } 
         else 
@@ -839,18 +881,136 @@ class Applicant extends AdmObject
         return $doc_type_arr;
     }
 
-    public function attach_file($af)
+    public function myNeedEvaluationIds($from_name)
+    {
+        // parse the file name of qualification may be we find a meaning that
+        // allow us to deduce qualification id
+        // @todo
+        // otherwise  we take the default configured for the academic institute
+
+        $usedEvaluationIds = explode(",", AfwSession::config("used_evaluation_ids", "1,2"));
+
+        return $usedEvaluationIds;
+    }
+    
+
+    public function mySuggestedEvaluationId($from_name)
+    {
+        $usedEvaluationIds = $this->myNeedEvaluationIds($from_name);
+
+        // depending on my applications that miss some Evaluation Ids decide which one to take
+        // @todo
+
+        // or take the first one
+
+        return $usedEvaluationIds[0];
+    }
+
+
+    public function mySuggestedMajorCategoryId($qualification_id, $from_name)
+    {
+        // @todo
+        return 0;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    public function myNeedQualficationIds($from_name)
+    {
+        // parse the file name of qualification may be we find a meaning that
+        // allow us to deduce qualification id
+        // @todo
+        // otherwise  we take the default configured for the academic institute
+
+        $usedQualficationIds = explode(",", AfwSession::config("used_qualfication_ids", "49,75"));
+
+        return $usedQualficationIds;
+    }
+    
+
+    public function mySuggestedQualficationId($from_name)
+    {
+        $usedQualficationIds = $this->myNeedQualficationIds($from_name);
+
+        // depending on my applications that miss some Qualfication Ids decide which one to take
+        // @todo
+
+        // or take the first one
+
+        return $usedQualficationIds[0];
+    }
+
+    public function parseEvalDate($qualification_id, $from_name)
+    {
+        // parse the file name of qualification may be we find a meaning that 
+        // allow us to deduce Eval Date
+        // @todo
+
+        // if not return null
+        return null;
+    }
+
+    public function attach_file($af, $doc_type_id=0, $doc_attach_id=0)
     {
             
         $afObj = ApplicantFile::loadByMainIndex($this->getId(), $af->getId(), $create_obj_if_not_found=true);
             
-        $doc_type_id = $af->getAvailableDocTypeId($this->getAvailableDocTypes());
+        if(!$doc_type_id) $doc_type_id = $af->getVal("doc_type_id");
         $afObj->set("doc_type_id",$doc_type_id);
         $afObj->set("desc_ar",$afObj->showAttribute("doc_type_id")." : ".$af->getVal("afile_name"));
         //$afObj->set("afile_ext",$af->getVal("afile_ext"));
         //$objme = AfwSession::getUserConnected();
         // "تم تحميله من طرف ".$objme->getDisplay($lang)." بتاريخ ".date("d/m/Y")
         $afObj->commit();
+
+        $dtObj = $afObj->het("doc_type_id");
+        $doc_type_lookup_code = $dtObj->getVal("lookup_code");
+        if(!$doc_type_lookup_code) $doc_type_lookup_code = "other";
+        $from_name = $af->getVal("afile_name") . " " . $af->getVal("original_name")." ".$af->getParsedText();
+        if($doc_type_id == DocType::$DOC_TYPE_DIPLOMA)
+        {
+            if($doc_attach_id)
+            {
+                $myQualObj = ApplicantQualification::loadById($doc_attach_id);
+                if($myQualObj)
+                {
+                    $myQualObj->set("adm_file_id", $af->id);
+                    $myQualObj->commit();
+                }
+            }
+            else
+            {
+                $qualification_id = $this->mySuggestedQualficationId($from_name);
+                $major_category_id = $this->mySuggestedMajorCategoryId($qualification_id, $from_name);
+                $myQualObj = ApplicantQualification::getMyQualificationNeedingFileAttachment($this->id, $af, $qualification_id, $major_category_id);
+            }            
+        }
+        elseif($doc_type_id == DocType::$DOC_TYPE_EXAM)
+        {
+            if($doc_attach_id)
+            {
+                $myEvalObj = ApplicantQualification::loadById($doc_attach_id);
+                if($myEvalObj)
+                {
+                    $myEvalObj->set("workflow_file_id", $af->id);
+                    $myEvalObj->commit();
+                }
+            }
+            else
+            {
+                $evaluation_id = $this->mySuggestedEvaluationId($from_name);
+                $eval_date = $this->parseEvalDate($evaluation_id, $from_name);
+                $myEvalObj = ApplicantEvaluation::getMyEvaluationNeedingFileAttachment($this->id, $af, $evaluation_id, $eval_date);
+            }
+        }
+        else
+        {
+            
+        }
+
+        $afile_name = $doc_type_lookup_code."-".$afObj->id;
+
+        return $afile_name;
 
     }
 

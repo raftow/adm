@@ -23,6 +23,34 @@ class ApplicantEvaluation extends AdmObject
                 } else return null;
         }
 
+        public static function getMyEvaluationNeedingFileAttachment($applicant_id, $afObj=null, $evaluation_id=0, $eval_date=null)
+        {
+                if (!$applicant_id) throw new AfwRuntimeException("getMyQualificationNeedingFileAttachment : applicant_id is mandatory field");
+                
+                $obj = new ApplicantEvaluation();
+                $obj->select("applicant_id", $applicant_id);
+                if ($evaluation_id) $obj->select("evaluation_id", $evaluation_id);
+                if ($eval_date) $obj->select("eval_date", $eval_date);
+                $obj->where("workflow_file_id = 0 or workflow_file_id is null");
+                
+                $obj->select("active", "Y");
+                $objNeedFound = $obj->load();
+                if($afObj)
+                {
+                        if(!$objNeedFound)
+                        {
+                                $obj->set("applicant_id", $applicant_id);
+                                $obj->set("evaluation_id", $evaluation_id);
+                                $obj->set("eval_date", $eval_date);
+                        }
+                        $obj->set("workflow_file_id", $afObj->id);
+                        $obj->commit();
+                        return $obj;
+                }
+                else return $objNeedFound ? $obj : null;
+                
+        }
+
         public static function loadByMainIndex($evaluation_id, $applicant_id, $eval_date, $create_obj_if_not_found = false)
         {
                 if (!$evaluation_id) throw new AfwRuntimeException("loadByMainIndex : evaluation_id is mandatory field");

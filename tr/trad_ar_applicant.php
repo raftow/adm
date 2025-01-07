@@ -12,16 +12,21 @@ class ApplicantArTranslator{
 		$trad["applicant"]["step5"] = "بيانات التقديم";
 		$trad["applicant"]["step6"] = "رفع المرفقات";
 		$trad["applicant"]["step7"] = "استخدام المرفقات";
+		$trad["applicant"]["step8"] = "التحقق من الربط";
+
 		$trad["applicant"]["apis"] = "الخدمات الالكترونية";
 		$trad["applicant"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		
 		$trad["applicant"]["applicationList"] = "طلبات التقديم";
 		$trad["applicant"]["applicantApiRequestList"] = "طلبات تحديث بيانات متقدم";
 
+		$trad["applicant"]["applicantEvaluationList"] = "اختبارات التحصيلي و القدرات";
 		$trad["applicant"]["applicantQualificationList"] = "مؤهلات المتقدم";
+
+		$trad["applicant"]["applicantEvaluationsNoFile"] = "اختبارات التحصيلي و القدرات التي لا تزال تحتاج الربط مع الملف المرفق";
+		$trad["applicant"]["applicantQualificationsNoFile"] = "مؤهلات المتقدم التي لا تزال تحتاج الربط مع الملف المرفق";
 		$trad["applicant"]["qualif"] = "المؤهلات العلمية";
 		$trad["applicant"]["appl"] = "بيانات التقديم";
-		$trad["applicant"]["applicantEvaluationList"] = "اختبارات التحصيلي و القدرات";
 		$trad["applicant"]["evaluation"] = "اختبارات التحصيلي و القدرات";
 		
 

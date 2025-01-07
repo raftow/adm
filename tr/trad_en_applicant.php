@@ -9,6 +9,10 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["step3"] = "Qualifications & tests";
 		$trad["applicant"]["step4"] = "Academic status data";
 		$trad["applicant"]["step5"] = "Submission data";
+		$trad["applicant"]["step6"] = "Attachments";
+		$trad["applicant"]["step7"] = "Use attachments";
+		$trad["applicant"]["step8"] = "Link attachments";
+
 		$trad["applicant"]["apis"] = "Electronic services";
 		
 		$trad["applicant"]["applicationList"] = "Applications";
@@ -20,8 +24,6 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["applicantEvaluationList"] = "Achievement and aptitude tests";
 		$trad["applicant"]["evaluation"] = "Achievement and aptitude tests";
 		
-		$trad["applicant"]["step6"] = "Attachments";
-		$trad["applicant"]["step7"] = "Use of attachments";
 		$trad["applicant"]["apis"] = "Apis";
 		$trad["applicant"]["applicantFileList"] = "List of attachments";
 

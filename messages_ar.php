@@ -37,6 +37,7 @@
     $messages["Click on [File upload] to select the file or drag and drop it directly to this area to upload it"] = "اضغط على [رفع الملفات] لاختيار الملف أو اسحب الملف مباشرة إلى هذه المنطقة لتحميله";
     $messages["Files upload"] = "رفع الملفات";
     $messages["Can't upload files if size exceed"] = "لا يمكن  تحميل ملفات يتجاوز حجمها";
+    $messages["Please upload the following document"] = "رجاء ارفاق المستند التالي";
     $messages["Mega Bytes"] = "ميجابايت";
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       

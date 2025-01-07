@@ -16,7 +16,7 @@ class AdmApplicantAfwStructure
                         // $obj->IS_LOOKUP = true;
 
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 7;
+                        $obj->editNbSteps = 8;
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                 } else {
                         ApplicantArTranslator::initData();
@@ -1241,7 +1241,7 @@ class AdmApplicantAfwStructure
 
 
                 'dragDropDiv' => array(
-                        'STEP' => '6',
+                        'STEP' => 6,
                         'TYPE' => 'TEXT',
                         'CATEGORY' => 'FORMULA',
                         'SHOW' => true,
@@ -1254,7 +1254,7 @@ class AdmApplicantAfwStructure
                 ),
 
                 'applicantFileList' => array(
-                        'STEP' => '7',
+                        'STEP' => 6,
                         'SHOW' => true,
                         'FORMAT' => 'retrieve',
                         'ICONS' => true,
@@ -1283,6 +1283,67 @@ class AdmApplicantAfwStructure
                 ),
 
 
+                'applicantQualificationsNoFile' => array(
+                        'STEP' => 8,
+                        'FGROUP' => 'qualif',
+                        'SHOW' => true,
+                        'FORMAT' => 'retrieve',
+                        'ICONS' => true,
+                        'DELETE-ICON' => true,
+                        'BUTTONS' => true,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'CATEGORY' => 'ITEMS',
+                        'ANSWER' => 'applicant_qualification',
+                        'ANSMODULE' => 'adm',
+                        'ITEM' => 'applicant_id',
+                        'WHERE' => 'adm_file_id is null or adm_file_id = 0',
+                        'READONLY' => true,
+                        'CAN-BE-SETTED' => true,
+                        'CSS' => 'width_pct_100',
+                ),
+
+                'applicantEvaluationsNoFile' => array(
+                        'STEP' => 8,
+                        'FGROUP' => 'evaluation',
+                        'SHOW' => true,
+                        'FORMAT' => 'retrieve',
+                        'ICONS' => true,
+                        'DELETE-ICON' => true,
+                        'BUTTONS' => true,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'CATEGORY' => 'ITEMS',
+                        'ANSWER' => 'applicant_evaluation',
+                        'ANSMODULE' => 'adm',
+                        'ITEM' => 'applicant_id',
+                        'WHERE' => 'workflow_file_id is null or workflow_file_id = 0',
+                        'READONLY' => true,
+                        'CAN-BE-SETTED' => true,
+                        'CSS' => 'width_pct_100',
+                ),
 
                 'attribute_1' => array(
                         'FGROUP' => '::additional',

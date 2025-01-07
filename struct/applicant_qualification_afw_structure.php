@@ -58,7 +58,7 @@ class AdmApplicantQualificationAfwStructure
                         'AUTOCOMPLETE-SEARCH' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
 
@@ -87,7 +87,7 @@ class AdmApplicantQualificationAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'DEPENDENT_OFME' => array("major_category_id", "source", "qualification_major_id"),
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
                 'level_enum' => array(
@@ -132,7 +132,7 @@ class AdmApplicantQualificationAfwStructure
                         'WHERE' => 'id in (select major_category_id from §DBPREFIX§adm.major_path where qualification_id=§qualification_id§ and active="Y")',
                         'DEPENDENCIES' => ['qualification_id'],
                         'DEPENDENT_OFME' => array("qualification_major_id"),
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
 
@@ -158,7 +158,7 @@ class AdmApplicantQualificationAfwStructure
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
                 // @todo  rafik dependency with major_category_id
@@ -189,7 +189,7 @@ class AdmApplicantQualificationAfwStructure
                         'WHERE' => ' id in (select qualification_major_id from §DBPREFIX§adm.qual_major_path mp inner join §DBPREFIX§adm.major_path m on mp.major_path_id=m.id where m.qualification_id=§qualification_id§ and m.major_category_id=§major_category_id§)',
                         'DEPENDENCIES' => ['qualification_id', 'major_category_id'],
                         'DEPENDENT_OFME' => array(),
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
 
@@ -246,7 +246,7 @@ class AdmApplicantQualificationAfwStructure
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-
+                        'DEFAUT' => '',
                         'CSS' => 'width_pct_25',
                 ],
 
@@ -356,6 +356,7 @@ class AdmApplicantQualificationAfwStructure
                         'QEDIT' => true,
                         'SIZE' => 40,
                         'MAXLENGTH' => 32,
+                        'DEFAUT' => 0,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
                         'UTF8' => false,
                         'TYPE' => 'FK',
