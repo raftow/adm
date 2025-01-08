@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = "pmu_";
 
 AfwDatabase::db_query("truncate ".$server_db_prefix."adm.qualification_major");
 
