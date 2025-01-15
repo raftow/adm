@@ -67,7 +67,7 @@ class AdmApplicantFileAfwStructure
                         'TYPE' => 'FK',
                         'ANSWER' => 'workflow_file',
                         'ANSMODULE' => 'workflow',
-                        'RELATION' => 'OneToMany',
+                        'RELATION' => 'OneToOneU',
                         'READONLY' => true,
                         'CSS' => 'width_pct_50',
                 ),
@@ -85,24 +85,6 @@ class AdmApplicantFileAfwStructure
                         'MIN-SIZE' => 5,
                         'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",
                         'MANDATORY' => true,
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'desc_ar' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 'AREA',
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'READONLY' => false,
@@ -127,6 +109,26 @@ class AdmApplicantFileAfwStructure
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
+
+                'desc_ar' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 'AREA',
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                
 
                 'desc_en' => array(
                         'SEARCH' => true,

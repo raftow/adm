@@ -160,6 +160,14 @@ class ApplicantFile extends AFWObject
         }
 
         if ($id) {
+
+            // as the workflow file is used only by me (OneToOneU) delete it
+            $wfObj = $this->het("workflow_file_id");
+            if($wfObj and ($wfObj->id>0))
+            {
+                $wfObj->delete();
+            }
+
             if ($id_replace == 0) {
                 // FK part of me - not deletable 
 

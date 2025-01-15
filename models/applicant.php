@@ -89,7 +89,7 @@ class Applicant extends AdmObject
         if($aqObj) return [DocType::$DOC_TYPE_DIPLOMA, $aqObj->id, $aqObj->getDisplay($lang)];
 
         $aeObj = ApplicantEvaluation::getMyEvaluationNeedingFileAttachment($this->id);
-        if($aeObj) return [DocType::$DOC_TYPE_DIPLOMA, $aeObj->id, $aeObj->getDisplay($lang)];
+        if($aeObj) return [DocType::$DOC_TYPE_EXAM, $aeObj->id, $aeObj->getDisplay($lang)];
 
         return [0, 0, ''];
     }
@@ -769,8 +769,8 @@ class Applicant extends AdmObject
 
         list($html_doc_types,  $f_ids) = AfwHtmlHelper::tableToHtml($module_doc_types, $module_doc_types_header);
         $details_title = $this->tm("Files upload conditions details", $lang);
-        $help_instruction = $this->tm("Click on [File upload] to select the file or drag and drop it directly to this area to upload it", $lang);
-        $files_upload_title = $this->tm("Files upload", $lang);
+        $help_instruction = $this->tm("Click on [Select file] or drag and drop it directly to this area to upload it", $lang);
+        $file_select = $this->tm("Select the file", $lang);
         $file_size_condition = $this->tm("Can't upload files if size exceed", $lang);
         $MB = $this->tm("Mega Bytes", $lang);
         list($can, $message_upload_blocked_reason) = $this->canUploadFiles();
@@ -813,7 +813,7 @@ class Applicant extends AdmObject
         			<div id='drop' whendone='$whendone' class='$drop_class'>
         				$help_instruction
                                         <br>
-        				<a>$files_upload_title</a>
+        				<a>$file_select</a>
                                         <input type='hidden' name='module' value='adm' />
                                         <input type='hidden' name='afup' value='applicant' />
                                         <input type='hidden' name='afup_objid' value='$this_id' />
@@ -950,14 +950,21 @@ class Applicant extends AdmObject
         return null;
     }
 
-    public function attach_file($af, $doc_type_id=0, $doc_attach_id=0)
+    /**
+     * @param WorkflowFile $wf
+     */
+
+    public function attach_file($wf, $doc_type_id=0, $doc_attach_id=0)
     {
             
-        $afObj = ApplicantFile::loadByMainIndex($this->getId(), $af->getId(), $create_obj_if_not_found=true);
+        $afObj = ApplicantFile::loadByMainIndex($this->getId(), $wf->getId(), $create_obj_if_not_found=true);
             
-        if(!$doc_type_id) $doc_type_id = $af->getVal("doc_type_id");
+        if(!$doc_type_id) $doc_type_id = $wf->getVal("doc_type_id");
         $afObj->set("doc_type_id",$doc_type_id);
-        $afObj->set("desc_ar",$afObj->showAttribute("doc_type_id")." : ".$af->getVal("afile_name"));
+        $afObj->set("name_ar",$afObj->showAttribute("doc_type_id",null,true,'ar'));
+        $afObj->set("name_en",$afObj->showAttribute("doc_type_id",null,true,'en'));        
+        $afObj->set("desc_ar",$afObj->showAttribute("doc_type_id",null,true,'ar')." : ".$wf->getVal("afile_name"));
+        $afObj->set("desc_en",$afObj->showAttribute("doc_type_id",null,true,'en')." : ".$wf->getVal("afile_name"));
         //$afObj->set("afile_ext",$af->getVal("afile_ext"));
         //$objme = AfwSession::getUserConnected();
         // "تم تحميله من طرف ".$objme->getDisplay($lang)." بتاريخ ".date("d/m/Y")
@@ -966,7 +973,7 @@ class Applicant extends AdmObject
         $dtObj = $afObj->het("doc_type_id");
         $doc_type_lookup_code = $dtObj->getVal("lookup_code");
         if(!$doc_type_lookup_code) $doc_type_lookup_code = "other";
-        $from_name = $af->getVal("afile_name") . " " . $af->getVal("original_name")." ".$af->getParsedText();
+        $from_name = $wf->getVal("afile_name") . " " . $wf->getVal("original_name")." ".$wf->getParsedText();
         if($doc_type_id == DocType::$DOC_TYPE_DIPLOMA)
         {
             if($doc_attach_id)
@@ -974,25 +981,30 @@ class Applicant extends AdmObject
                 $myQualObj = ApplicantQualification::loadById($doc_attach_id);
                 if($myQualObj)
                 {
-                    $myQualObj->set("adm_file_id", $af->id);
+                    $myQualObj->set("adm_file_id", $wf->id);
                     $myQualObj->commit();
+                    $afObj->set("name_ar",$myQualObj->getShortDisplay('ar'));
+                    $afObj->set("name_en",$myQualObj->getShortDisplay('en'));        
+                    $afObj->set("desc_ar",$myQualObj->getDisplay('ar'));
+                    $afObj->set("desc_en",$myQualObj->getDisplay('en'));        
+                    $afObj->commit();
                 }
             }
             else
             {
                 $qualification_id = $this->mySuggestedQualficationId($from_name);
                 $major_category_id = $this->mySuggestedMajorCategoryId($qualification_id, $from_name);
-                $myQualObj = ApplicantQualification::getMyQualificationNeedingFileAttachment($this->id, $af, $qualification_id, $major_category_id);
+                $myQualObj = ApplicantQualification::getMyQualificationNeedingFileAttachment($this->id, $wf, $qualification_id, $major_category_id);
             }            
         }
         elseif($doc_type_id == DocType::$DOC_TYPE_EXAM)
         {
             if($doc_attach_id)
             {
-                $myEvalObj = ApplicantQualification::loadById($doc_attach_id);
+                $myEvalObj = ApplicantEvaluation::loadById($doc_attach_id);
                 if($myEvalObj)
                 {
-                    $myEvalObj->set("workflow_file_id", $af->id);
+                    $myEvalObj->set("workflow_file_id", $wf->id);
                     $myEvalObj->commit();
                 }
             }
@@ -1000,7 +1012,7 @@ class Applicant extends AdmObject
             {
                 $evaluation_id = $this->mySuggestedEvaluationId($from_name);
                 $eval_date = $this->parseEvalDate($evaluation_id, $from_name);
-                $myEvalObj = ApplicantEvaluation::getMyEvaluationNeedingFileAttachment($this->id, $af, $evaluation_id, $eval_date);
+                $myEvalObj = ApplicantEvaluation::getMyEvaluationNeedingFileAttachment($this->id, $wf, $evaluation_id, $eval_date);
             }
         }
         else

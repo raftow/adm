@@ -34,8 +34,9 @@
     $messages["This will show or hide the appearance of this condition in gate frontend"] = "سوف تقوم باظهار أو اخفاء الشرط على المتقدم في الواجهة الرئيسية";
     
     $messages["Files upload conditions details"] = "تفاصيل وشروط رفع المرفقات";
-    $messages["Click on [File upload] to select the file or drag and drop it directly to this area to upload it"] = "اضغط على [رفع الملفات] لاختيار الملف أو اسحب الملف مباشرة إلى هذه المنطقة لتحميله";
+    $messages["Click on [Select file] or drag and drop it directly to this area to upload it"] = "اضغط على [اختيار الملف] أو اسحب الملف مباشرة إلى هذه المنطقة لتحميله";
     $messages["Files upload"] = "رفع الملفات";
+    $messages["Select the file"] = "اختيار الملف";
     $messages["Can't upload files if size exceed"] = "لا يمكن  تحميل ملفات يتجاوز حجمها";
     $messages["Please upload the following document"] = "رجاء ارفاق المستند التالي";
     $messages["Mega Bytes"] = "ميجابايت";

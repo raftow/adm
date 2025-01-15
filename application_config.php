@@ -87,6 +87,14 @@ $config_arr = array(
         'school_year_end' => 'CY-06-30',
         'school_year_date_current_year' => 'CY-02-01',
 
+
+        "workfile_settings"=>[
+                "Applicant"=>["fields"=>["employer_approval_afile_id"]],
+                "ApplicantQualification"=>["fields"=>["adm_file_id"]],
+                "ApplicantEvaluation"=>["fields"=>["workflow_file_id"]],
+                "ApplicantFile"=>["fields"=>["workflow_file_id"]],                                                
+        ],
+
         );
 
 //$sql_capture_and_backtrace = "or (session_date =";
