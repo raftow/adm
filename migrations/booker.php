@@ -35,5 +35,6 @@ $migrations = [
     '00029' => ['by'=>'medali', 'title' => 'populate major qualification tables'],
     '00030' => ['by'=>'rafik', 'title' => 'files upload management for applicant'],
     '00031' => ['by'=>'medali', 'title' => 'add instructions table'],
+    '00032' => ['by'=>'rafik', 'title' => 'work on UOH needs'],
 ];
 

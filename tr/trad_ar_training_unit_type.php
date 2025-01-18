@@ -9,5 +9,6 @@
 	$trad["training_unit_type"]["training_unit_typ_name_en"] = "مسمى نوع المنشاة التدريبية - اتجليزي";
 	$trad["training_unit_type"]["maqbool_id"] = "الربط مع خدمة مقبول";
     $trad["training_unit_type"]["can_apply"] = "التقديم على المنصة";
+	$trad["training_unit_type"]["program_track_id"] = "مسار المنشأة";
 
     
