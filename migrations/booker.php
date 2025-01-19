@@ -36,6 +36,7 @@ $migrations = [
     '00030' => ['by'=>'rafik', 'title' => 'files upload management for applicant'],
     '00031' => ['by'=>'medali', 'title' => 'add instructions table'],
     '00032' => ['by'=>'rafik', 'title' => 'work on UOH needs'],
-    '00033' => ['by'=>'rafik', 'title' => 'UOH needed previleges'],
+    '00033' => ['by'=>'rafik', 'title' => 'UOH needed previleges + prog track new logic and design'],
+    '00034' => ['by'=>'rafik', 'title' => 'workflow file + other UOH needs'],
 ];
 
