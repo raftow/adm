@@ -3023,7 +3023,7 @@
         array (
           'id' => '104688',
           'code' => 'f2-a-program_track/qedit',
-          'menu_name_ar' => 'إدارة المسارات',
+          'menu_name_ar' => 'إدارة المسارات الأكاديمية',
           'menu_name_en' => 'Program tracks administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ProgramTrack&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
@@ -3251,8 +3251,8 @@
         array (
           'id' => '104692',
           'code' => 'f2-a-program_track/qsearch',
-          'menu_name_ar' => 'المسارات',
-          'menu_name_en' => '????????',
+          'menu_name_ar' => 'المسارات الأكاديمية',
+          'menu_name_en' => 'Program tracks',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramTrack&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104692 bfc-',
