@@ -25,7 +25,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`spon
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_sponsor_type on ".$server_db_prefix."adm.sponsor_type(sponsor_type_name_ar,sponsor_type_name_en)");
+// AfwDatabase::db_query("create unique index uk_sponsor_type on ".$server_db_prefix."adm.sponsor_type(sponsor_type_name_ar,sponsor_type_name_en)");
 
 
 
@@ -57,7 +57,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`spon
     PRIMARY KEY (`id`)
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
   
-  AfwDatabase::db_query("create unique index uk_sponsor on ".$server_db_prefix."adm.sponsor(sponsor_name_ar,sponsor_name_en);");
+  // AfwDatabase::db_query("create unique index uk_sponsor on ".$server_db_prefix."adm.sponsor(sponsor_name_ar,sponsor_name_en);");
 
 
   AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`scholarship` (
@@ -98,7 +98,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`spon
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
   
   
-  AfwDatabase::db_query("create unique index uk_scholarship on ".$server_db_prefix."adm.scholarship(scholarship_name_ar,scholarship_name_en,scholarship_code);");
+  // AfwDatabase::db_query("create unique index uk_scholarship on ".$server_db_prefix."adm.scholarship(scholarship_name_ar,scholarship_name_en,scholarship_code);");
 
 
   AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`scholarship_bill` (
@@ -128,7 +128,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`spon
     PRIMARY KEY (`id`)
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
   
-  AfwDatabase::db_query("create unique index uk_scholarship_bill on ".$server_db_prefix."adm.scholarship_bill(scholarship_id,financial_transaction_id);");
+  // AfwDatabase::db_query("create unique index uk_scholarship_bill on ".$server_db_prefix."adm.scholarship_bill(scholarship_id,financial_transaction_id);");
 
 
   AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_scholarship_status` (
@@ -155,7 +155,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`spon
     PRIMARY KEY (`id`)
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
   
-  AfwDatabase::db_query("create unique index uk_applicant_scholarship_status on ".$server_db_prefix."adm.applicant_scholarship_status(scholarship_status_ar,scholarship_status_en);");
+  // AfwDatabase::db_query("create unique index uk_applicant_scholarship_status on ".$server_db_prefix."adm.applicant_scholarship_status(scholarship_status_ar,scholarship_status_en);");
 
   AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_scholarship` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -187,7 +187,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`spon
     PRIMARY KEY (`id`)
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
   
-   AfwDatabase::db_query("create unique index uk_applicant_scholarship on pmu_adm.applicant_scholarship(applicant_id,scholarship_id);");
+   AfwDatabase::db_query("create unique index uk_applicant_scholarship on ".$server_db_prefix."adm.applicant_scholarship(applicant_id,scholarship_id);");
   
     
   

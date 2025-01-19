@@ -25,9 +25,9 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`scho
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_scholarship_type on ".$server_db_prefix."adm.scholarship_type(scholarship_type_name_ar,scholarship_type_name_en);");
+// AfwDatabase::db_query("create unique index uk_scholarship_type on ".$server_db_prefix."adm.scholarship_type(scholarship_type_name_ar,scholarship_type_name_en);");
 
 
 
-AfwDatabase::db_query("ALTER TABLE pmu_adm.scholarship change   scholarship_type scholarship_type int(11) NOT NULL  AFTER scholarship_code;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.scholarship change   scholarship_type scholarship_type int(11) NOT NULL  AFTER scholarship_code;");
    
