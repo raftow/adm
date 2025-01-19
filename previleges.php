@@ -49,10 +49,6 @@
   array (
     'name' => 'acondition_type',
   ),
-  13910 => 
-  array (
-    'name' => 'adm_file',
-  ),
   13858 => 
   array (
     'name' => 'aparameter',
@@ -201,9 +197,21 @@
   array (
     'name' => 'qual_source',
   ),
+  13933 => 
+  array (
+    'name' => 'scholarship',
+  ),
+  13934 => 
+  array (
+    'name' => 'scholarship_type',
+  ),
   13922 => 
   array (
     'name' => 'screen_model',
+  ),
+  13935 => 
+  array (
+    'name' => 'sponsor',
   ),
   13871 => 
   array (
@@ -710,50 +718,6 @@
   'acondition_type' => 
   array (
     'id' => '13859',
-    'display' => 
-    array (
-      'id' => -1,
-    ),
-    'search' => 
-    array (
-      'id' => -1,
-    ),
-    'qsearch' => 
-    array (
-      'id' => -1,
-    ),
-    'edit' => 
-    array (
-      'id' => -1,
-    ),
-    'qedit' => 
-    array (
-      'id' => -1,
-    ),
-    'crossed' => 
-    array (
-      'id' => -1,
-    ),
-    'stats' => 
-    array (
-      'id' => -1,
-    ),
-    'ddb' => 
-    array (
-      'id' => -1,
-    ),
-    'minibox' => 
-    array (
-      'id' => -1,
-    ),
-    'delete' => 
-    array (
-      'id' => -1,
-    ),
-  ),
-  'adm_file' => 
-  array (
-    'id' => '13910',
     'display' => 
     array (
       'id' => -1,
@@ -2423,6 +2387,94 @@
       'id' => '104783',
     ),
   ),
+  'scholarship' => 
+  array (
+    'id' => '13933',
+    'display' => 
+    array (
+      'id' => '104823',
+    ),
+    'search' => 
+    array (
+      'id' => '104824',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104825',
+    ),
+    'edit' => 
+    array (
+      'id' => '104820',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104821',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104826',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104822',
+    ),
+  ),
+  'scholarship_type' => 
+  array (
+    'id' => '13934',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'screen_model' => 
   array (
     'id' => '13922',
@@ -2465,6 +2517,50 @@
     'delete' => 
     array (
       'id' => '104812',
+    ),
+  ),
+  'sponsor' => 
+  array (
+    'id' => '13935',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
     ),
   ),
   'training_unit' => 
@@ -2647,6 +2743,7 @@
 	$role_info = array (
   382 => 
   array (
+    'code' => 'goal-dev',
     'name' => 
     array (
       'ar' => 'إعدادات القبول',
@@ -2667,6 +2764,7 @@
         104643 => 
         array (
           'id' => '104643',
+          'code' => 'f2-a-acondition_origin/qsearch',
           'menu_name_ar' => 'القرارات و اللوائح',
           'menu_name_en' => 'Regulations',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AconditionOrigin&currmod=adm',
@@ -2676,6 +2774,7 @@
         104636 => 
         array (
           'id' => '104636',
+          'code' => 'f2-a-acondition/qsearch',
           'menu_name_ar' => 'الشروط',
           'menu_name_en' => 'Conditions',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Acondition&currmod=adm',
@@ -2685,6 +2784,7 @@
         104650 => 
         array (
           'id' => '104650',
+          'code' => 'f2-a-aparameter/qsearch',
           'menu_name_ar' => 'القيم المعلمة',
           'menu_name_en' => 'Parameters',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Aparameter&currmod=adm',
@@ -2694,6 +2794,7 @@
         104685 => 
         array (
           'id' => '104685',
+          'code' => 'f2-a-academic_year/qsearch',
           'menu_name_ar' => 'السنوات الدراسية',
           'menu_name_en' => 'Academic years',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicYear&currmod=adm',
@@ -2703,6 +2804,7 @@
         104699 => 
         array (
           'id' => '104699',
+          'code' => 'f2-a-application_model/qsearch',
           'menu_name_ar' => 'نماذج القبول',
           'menu_name_en' => 'Application models',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationModel&currmod=adm',
@@ -2712,6 +2814,7 @@
         104723 => 
         array (
           'id' => '104723',
+          'code' => 'f2-a-application_plan/qsearch',
           'menu_name_ar' => 'خطط التقديم',
           'menu_name_en' => 'Application plans',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationPlan&currmod=adm',
@@ -2721,6 +2824,7 @@
         104800 => 
         array (
           'id' => '104800',
+          'code' => 'f2-a-api_endpoint/qsearch',
           'menu_name_ar' => 'الخدمات الاكترونية',
           'menu_name_en' => 'Api endpoints',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApiEndpoint&currmod=adm',
@@ -2730,6 +2834,7 @@
         104793 => 
         array (
           'id' => '104793',
+          'code' => 'f2-a-app_model_api/qsearch',
           'menu_name_ar' => 'خدمات نماذج التقديم',
           'menu_name_en' => 'App model apis',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AppModelApi&currmod=adm',
@@ -2739,6 +2844,7 @@
         104807 => 
         array (
           'id' => '104807',
+          'code' => 'f2-a-application_field/qsearch',
           'menu_name_ar' => 'حقول البيانات',
           'menu_name_en' => '???? ????????',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationField&currmod=adm',
@@ -2748,6 +2854,7 @@
         104815 => 
         array (
           'id' => '104815',
+          'code' => 'f2-a-screen_model/qsearch',
           'menu_name_ar' => 'شاشات الإدخال',
           'menu_name_en' => 'Screen models',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ScreenModel&currmod=adm',
@@ -2762,6 +2869,7 @@
   ),
   386 => 
   array (
+    'code' => 'goal-applicant',
     'name' => 
     array (
       'ar' => 'ادارة المتقدمين',
@@ -2782,6 +2890,7 @@
         104744 => 
         array (
           'id' => '104744',
+          'code' => 'f2-a-applicant/qsearch',
           'menu_name_ar' => 'المتقدمون',
           'menu_name_en' => 'Applicants',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Applicant&currmod=adm',
@@ -2796,6 +2905,7 @@
   ),
   384 => 
   array (
+    'code' => 'goal-programs',
     'name' => 
     array (
       'ar' => 'البرامج',
@@ -2816,6 +2926,7 @@
         104608 => 
         array (
           'id' => '104608',
+          'code' => 'f2-a-academic_level/qsearch',
           'menu_name_ar' => 'المراحل الدراسية',
           'menu_name_en' => 'Academic levels',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
@@ -2825,6 +2936,7 @@
         104615 => 
         array (
           'id' => '104615',
+          'code' => 'f2-a-degree/qsearch',
           'menu_name_ar' => 'الشهادات',
           'menu_name_en' => 'Degrees',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Degree&currmod=adm',
@@ -2834,6 +2946,7 @@
         104622 => 
         array (
           'id' => '104622',
+          'code' => 'f2-a-major/qsearch',
           'menu_name_ar' => 'التخصصات',
           'menu_name_en' => 'Majors',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Major&currmod=adm',
@@ -2843,6 +2956,7 @@
         104678 => 
         array (
           'id' => '104678',
+          'code' => 'f2-a-academic_program/qsearch',
           'menu_name_ar' => 'البرامج الدراسية',
           'menu_name_en' => 'Academic programs',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgram&currmod=adm',
@@ -2852,11 +2966,22 @@
         104716 => 
         array (
           'id' => '104716',
+          'code' => 'f2-a-academic_program_offering/qsearch',
           'menu_name_ar' => 'البرامج المتاحة',
           'menu_name_en' => 'Academic program offerings',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgramOffering&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104716 bfc-',
+        ),
+        104825 => 
+        array (
+          'id' => '104825',
+          'code' => 'f2-a-scholarship/qsearch',
+          'menu_name_ar' => 'منح',
+          'menu_name_en' => '???',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Scholarship&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104825 bfc-',
         ),
       ),
       'sub-folders' => 
@@ -2866,6 +2991,7 @@
   ),
   387 => 
   array (
+    'code' => 'goal-ADM-LOOKUP',
     'name' => 
     array (
       'ar' => 'البيانات المرجعية',
@@ -2883,9 +3009,20 @@
       'showme' => true,
       'items' => 
       array (
+        104653 => 
+        array (
+          'id' => '104653',
+          'code' => 'f2-a-training_unit_type/qedit',
+          'menu_name_ar' => 'إدارة الكليات',
+          'menu_name_en' => '????? ??????? ????????? administration',
+          'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=TrainingUnitType&currmod=adm&ids=all&newo=3',
+          'css' => 'bf',
+          'icon' => ' bficon-104653 bfc-',
+        ),
         104688 => 
         array (
           'id' => '104688',
+          'code' => 'f2-a-program_track/qedit',
           'menu_name_ar' => 'إدارة المسارات',
           'menu_name_en' => 'Program tracks administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ProgramTrack&currmod=adm&ids=all&newo=3',
@@ -2895,6 +3032,7 @@
         104761 => 
         array (
           'id' => '104761',
+          'code' => 'f2-a-qualification/qedit',
           'menu_name_ar' => 'إدارة المؤهلات',
           'menu_name_en' => 'Qualifications administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Qualification&currmod=adm&ids=all&newo=3',
@@ -2904,6 +3042,7 @@
         104747 => 
         array (
           'id' => '104747',
+          'code' => 'f2-a-major_path/qedit',
           'menu_name_ar' => 'إدارة مجموعات التأهيل',
           'menu_name_en' => 'Major paths administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=MajorPath&currmod=adm&ids=all&newo=3',
@@ -2913,6 +3052,7 @@
         104768 => 
         array (
           'id' => '104768',
+          'code' => 'f2-a-qualification_major/qedit',
           'menu_name_ar' => 'إدارة تخصصات المؤهلات',
           'menu_name_en' => 'Qualification majors administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=QualificationMajor&currmod=adm&ids=all&newo=3',
@@ -2927,6 +3067,7 @@
   ),
   383 => 
   array (
+    'code' => 'goal-calendar',
     'name' => 
     array (
       'ar' => 'التقويم الدراسي',
@@ -2947,6 +3088,7 @@
         104685 => 
         array (
           'id' => '104685',
+          'code' => 'f2-a-academic_year/qsearch',
           'menu_name_ar' => 'السنوات الدراسية',
           'menu_name_en' => 'Academic years',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicYear&currmod=adm',
@@ -2956,6 +3098,7 @@
         104708 => 
         array (
           'id' => '104708',
+          'code' => 'f2-a-academic_term/qsearch',
           'menu_name_ar' => 'الفصول الدراسية',
           'menu_name_en' => 'Academic terms',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicTerm&currmod=adm',
@@ -2970,6 +3113,7 @@
   ),
   385 => 
   array (
+    'code' => 'goal-diploma',
     'name' => 
     array (
       'ar' => 'المؤهلات',
@@ -2990,6 +3134,7 @@
         104615 => 
         array (
           'id' => '104615',
+          'code' => 'f2-a-degree/qsearch',
           'menu_name_ar' => 'الشهادات',
           'menu_name_en' => 'Degrees',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Degree&currmod=adm',
@@ -2999,6 +3144,7 @@
         104786 => 
         array (
           'id' => '104786',
+          'code' => 'f2-a-qual_source/qsearch',
           'menu_name_ar' => 'مصادر المؤهلات',
           'menu_name_en' => 'Qual sources',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualSource&currmod=adm',
@@ -3008,6 +3154,7 @@
         104779 => 
         array (
           'id' => '104779',
+          'code' => 'f2-a-qual_major_path/qsearch',
           'menu_name_ar' => 'مسارات تأهيل التخصصات',
           'menu_name_en' => 'Qual major paths',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualMajorPath&currmod=adm',
@@ -3017,6 +3164,7 @@
         104758 => 
         array (
           'id' => '104758',
+          'code' => 'f2-a-program_qualification/qsearch',
           'menu_name_ar' => 'مسارات البرامج الاكاديمية',
           'menu_name_en' => 'Program qualifications',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramQualification&currmod=adm',
@@ -3031,6 +3179,7 @@
   ),
   381 => 
   array (
+    'code' => 'goal-struct',
     'name' => 
     array (
       'ar' => 'الهيكل الأكاديمي',
@@ -3051,42 +3200,27 @@
         104608 => 
         array (
           'id' => '104608',
+          'code' => 'f2-a-academic_level/qsearch',
           'menu_name_ar' => 'المراحل الدراسية',
           'menu_name_en' => 'Academic levels',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104608 bfc-',
         ),
-        104622 => 
-        array (
-          'id' => '104622',
-          'menu_name_ar' => 'التخصصات',
-          'menu_name_en' => 'Majors',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Major&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104622 bfc-',
-        ),
         104629 => 
         array (
           'id' => '104629',
+          'code' => 'f2-a-department/qsearch',
           'menu_name_ar' => 'الأقسام',
           'menu_name_en' => 'xxxxx',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Department&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104629 bfc-',
         ),
-        104657 => 
-        array (
-          'id' => '104657',
-          'menu_name_ar' => 'الكليات',
-          'menu_name_en' => 'xxxxx',
-          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnitType&currmod=adm',
-          'css' => 'bf',
-          'icon' => ' bficon-104657 bfc-',
-        ),
         104671 => 
         array (
           'id' => '104671',
+          'code' => 'f2-a-training_unit/qsearch',
           'menu_name_ar' => 'الجامعات',
           'menu_name_en' => 'Training units',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnit&currmod=adm',
@@ -3096,6 +3230,7 @@
         104664 => 
         array (
           'id' => '104664',
+          'code' => 'f2-a-institution/qsearch',
           'menu_name_ar' => 'المؤسسات الدراسية',
           'menu_name_en' => 'Institutions',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Institution&currmod=adm',
@@ -3105,11 +3240,22 @@
         104678 => 
         array (
           'id' => '104678',
+          'code' => 'f2-a-academic_program/qsearch',
           'menu_name_ar' => 'البرامج الدراسية',
           'menu_name_en' => 'Academic programs',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgram&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104678 bfc-',
+        ),
+        104692 => 
+        array (
+          'id' => '104692',
+          'code' => 'f2-a-program_track/qsearch',
+          'menu_name_ar' => 'المسارات',
+          'menu_name_en' => '????????',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramTrack&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104692 bfc-',
         ),
       ),
       'sub-folders' => 
