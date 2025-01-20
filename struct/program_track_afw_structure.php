@@ -14,13 +14,14 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "track_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                // $obj->UNIQUE_KEY = array('xxxx','yyyy');
+                                $obj->UNIQUE_KEY = array('track_code');
                                 $obj->public_display = true;
                                 $obj->IS_LOOKUP = true;
-
+                                /*
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 2; 
+                                $obj->editNbSteps = 1; */
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ProgramTrack',"submit"=>true);
                         }
                 }
                 
@@ -53,7 +54,7 @@
                                         
                                         
 
-                                        'track_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+                                        'track_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -61,7 +62,7 @@
                                                 
                                         
                                         
-                                        'track_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => true,  
+                                        'track_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -69,15 +70,15 @@
                                                 
                                         
                                         
-                                        'sorting_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '200', 'UTF8' => true,  
+                                        'sorting_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => 'AREA', 'MAXLENGTH' => '200', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
                                                 
                                         
-                                        'sorting_formula' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '256', 'MAXLENGTH' => '256', 'UTF8' => true,  
+                                        'sorting_formula' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '256', 'MAXLENGTH' => '256', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),

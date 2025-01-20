@@ -39,5 +39,6 @@ $migrations = [
     '00033' => ['by'=>'rafik', 'title' => 'UOH needed previleges'],
     '00034' => ['by'=>'rafik', 'title' => 'workflow file + other UOH needs'],
     '00035' => ['by'=>'rafik', 'title' => 'prog track new logic and design'],
+    '00036' => ['by'=>'rafik', 'title' => 'UOH more previleges'],
 ];
 
