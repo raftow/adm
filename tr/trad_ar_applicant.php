@@ -5,10 +5,10 @@ class ApplicantArTranslator{
     {
         $trad = [];
       
-		$trad["applicant"]["step1"] = "إعدادات ملف المتقدم";
+		$trad["applicant"]["step1"] = "إعدادات المتقدم";
 		$trad["applicant"]["step2"] = "بيانات المتقدم";
-		$trad["applicant"]["step3"] = "المؤهلات العلمية والاختبارات";
-		$trad["applicant"]["step4"] = "بيانات الحالة الاكاديمية";
+		$trad["applicant"]["step3"] = "المؤهلات والاختبارات";
+		$trad["applicant"]["step4"] = "الحالة الاكاديمية";
 		$trad["applicant"]["step5"] = "بيانات التقديم";
 		$trad["applicant"]["step6"] = "رفع المرفقات";
 		$trad["applicant"]["step7"] = "استخدام المرفقات";
@@ -112,12 +112,12 @@ class ApplicantArTranslator{
 		$trad["applicant"]["qiyas"] = "بيانات مستوردة من هيئة قياس";
 
 		// additional fields steps
-		$start_additional_step = 2;
-		$additional_step = $start_additional_step + 1;
-		$trad["applicant"]["step".$additional_step] = "المؤهلات العلمية والاختبارات";// "التربية والتعليم";
-		$additional_step++;
-		$trad["applicant"]["step".$additional_step] = "بيانات الحالة الاكاديمية";//"نظام رايات";
-		$additional_step++;
+		// $start_additional_step = 2;
+		// $additional_step = $start_additional_step + 1;
+		// $trad["applicant"]["step".$additional_step] = "المؤهلات العلمية والاختبارات";// "التربية والتعليم";
+		// $additional_step++;
+		// $trad["applicant"]["step".$additional_step] = "بيانات الحالة الاكاديمية";//"نظام رايات";
+		// $additional_step++;
 		/*$trad["applicant"]["step".$additional_step] = "الموارد البشرية";
 		$additional_step++;
 		$trad["applicant"]["step".$additional_step] = "هيئة قياس";

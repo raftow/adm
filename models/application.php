@@ -505,11 +505,13 @@ class Application extends AdmObject
                 if(!$this->applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
                 
                 if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                if(!$this->objApplicationModel) throw new AfwRuntimeException("Can't retrieve fields matrix without any Application Model defined");
                 list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true);
                 if(count($applicationDesireFieldsArr)>0)
                 {
                         $applicationDesireFieldsArrKeys = array_keys($applicationDesireFieldsArr);
-                        throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
+                        AfwSession::pushWarning("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
+                        // throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
                 }
 
                 $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this);
