@@ -27,7 +27,7 @@
                                 $obj->UNIQUE_KEY = array('academic_program_id','training_unit_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
-
+                                $obj->OwnedBy = array('module' => "adm", 'afw' => "AcademicProgram", 'afw2' => "TrainingUnit");
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 3; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
