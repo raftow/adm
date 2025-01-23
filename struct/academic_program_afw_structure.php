@@ -74,8 +74,8 @@
                                         
                                         'program_track_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 
+                                                'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
@@ -109,7 +109,7 @@
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_50',),
                                         
                                         'program_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '16', 'MAXLENGTH' => '16', 'UTF8' => true,  
