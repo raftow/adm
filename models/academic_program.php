@@ -5,7 +5,7 @@
                 public static $MODULE		    = "adm"; 
                 public static $TABLE			= "academic_program"; 
                 public static $DB_STRUCTURE = null;
-                // public static $copypast = true;
+                public static $copypast = true;
 
                 public function __construct(){
                         parent::__construct("academic_program","id","adm");

@@ -22,7 +22,7 @@
                 {
                         if ($obj instanceof TrainingUnit) 
                         {
-                                $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
+                                $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 10;
                                 $obj->DISPLAY_FIELD = "training_unit_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('institution_id','training_unit_code');
@@ -57,10 +57,12 @@
                                                 'CSS' => 'width_pct_50', ),	
 
 
+                                        // this attribute is applicable or no depend on system config of config->amd_options->tu_college is one or many
                                         'training_unit_type_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => '::applicable',  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'training_unit_type',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
@@ -74,7 +76,7 @@
                                         
                                         
                                         'sis_unit_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
@@ -104,14 +106,14 @@
                                                 'CSS' => 'width_pct_50',),
                                                 
                                         'maqbool_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '6', 'MAXLENGTH' => '6', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '6', 'MAXLENGTH' => '6', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
                                                 
                                         
                                         'description' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_75',),
@@ -121,7 +123,7 @@
                                         
                                         
                                         'map_location' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '60', 'MAXLENGTH' => '60', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '60', 'MAXLENGTH' => '60', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -129,7 +131,7 @@
                                         
                                         
                                         'website' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -137,7 +139,7 @@
                                         
                                         
                                         'adress' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_75',),
@@ -145,13 +147,13 @@
                                         
                                         
                                         'postal_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,    
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
                                         'national_adress' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
@@ -163,7 +165,7 @@
                                         
                                         
                                         'email' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '64', 'MAXLENGTH' => '64', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '64', 'MAXLENGTH' => '64', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -172,7 +174,7 @@
                                         
                                         
                                         'phone' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true, 
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '12', 'MAXLENGTH' => '12', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '12', 'MAXLENGTH' => '12', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
@@ -193,12 +195,14 @@
                                                     'READONLY' => true,  
                                                     'CSS' => 'width_pct_100', ),
 
+                                                // this attribute is applicable or no depend on system config of config->amd_options->tu_college is many or one   
                                                 'trainingUnitCollegeList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => false,  'DELETE-ICON' => false,  'BUTTONS' => true,  
                                                     'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                     'EDIT' => false,  'QEDIT' => false, 'STEP' => 4, 
                                                     'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                     'TYPE' => 'FK',  'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
                                                     'CATEGORY' => 'ITEMS',  'ANSWER' => 'training_unit_college',  'ANSMODULE' => 'adm',  'ITEM' => 'training_unit_id',  
+                                                    'LOGICAL_DELETED_ITEMS_ALSO' => true,
                                                     'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                     'CSS' => 'width_pct_100', 
                                                 ),

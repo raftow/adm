@@ -2978,7 +2978,7 @@
           'id' => '104825',
           'code' => 'f2-a-scholarship/qsearch',
           'menu_name_ar' => 'منح',
-          'menu_name_en' => '???',
+          'menu_name_en' => 'Scholarships',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Scholarship&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104825 bfc-',
@@ -3014,7 +3014,7 @@
           'id' => '104653',
           'code' => 'f2-a-training_unit_type/qedit',
           'menu_name_ar' => 'إدارة الكليات',
-          'menu_name_en' => '????? ??????? ????????? administration',
+          'menu_name_en' => 'Colleges administration',
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=TrainingUnitType&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
           'icon' => ' bficon-104653 bfc-',
@@ -3216,6 +3216,16 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Department&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104629 bfc-',
+        ),
+        104657 => 
+        array (
+          'id' => '104657',
+          'code' => 'f2-a-training_unit_type/qsearch',
+          'menu_name_ar' => 'الكليات',
+          'menu_name_en' => 'Colleges',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnitType&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104657 bfc-',
         ),
         104671 => 
         array (

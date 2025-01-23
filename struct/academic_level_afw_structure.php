@@ -9,6 +9,8 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 10;
                                 $obj->DISPLAY_FIELD = "academic_level_name_ar";
                                 $obj->ORDER_BY_FIELDS = "id";
+                                $obj->IS_LOOKUP = true;
+                                $obj->IS_SMALL = true;
                                 // $obj->UNIQUE_KEY = array('xxxx','yyyy');
                                 // $obj->public_display = true;
 

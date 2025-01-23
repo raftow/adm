@@ -77,17 +77,7 @@ class TrainingUnit extends AdmObject
             $link["UGROUPS"] = array();
             $otherLinksArray[] = $link;
         }
-        /*
-        if ($mode == "mode_trainingUnitCollegeList") {
-            unset($link);
-            $link = array();
-            $title = "إضافة علاقة بكلية جديدة";
-            $title_detailed = $title . "لـ : " . $displ;
-            $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=TrainingUnitCollege&currmod=adm&sel_training_unit_id=$my_id";
-            $link["TITLE"] = $title;
-            $link["UGROUPS"] = array();
-            $otherLinksArray[] = $link;
-        }*/
+        
 
         if ($mode == "mode_academicLevelOfferingList") {
             unset($link);
@@ -99,6 +89,18 @@ class TrainingUnit extends AdmObject
             $link["UGROUPS"] = array();
             $otherLinksArray[] = $link;
         }
+
+        /* all colleges are inserted active = N just you need to active/disactive what you want
+        if ($mode == "mode_trainingUnitCollegeList") {
+            unset($link);
+            $link = array();
+            $title = "تفعيل كلية جديدة";
+            $title_detailed = $title . "لـ : " . $displ;
+            $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=TrainingUnitCollege&currmod=adm&sel_training_unit_id=$my_id";
+            $link["TITLE"] = $title;
+            $link["UGROUPS"] = array();
+            $otherLinksArray[] = $link;
+        }*/
 
 
         if ($mode == "mode_academicProgramOfferingList") {
@@ -262,7 +264,7 @@ class TrainingUnit extends AdmObject
 
         return true;
     }
-
+    /*
     public function initMyCollege($active="Y")
     {
         $tut_id = $this->getVal("training_unit_type_id");
@@ -276,7 +278,7 @@ class TrainingUnit extends AdmObject
             }
         }
         
-    }
+    }*/
 
     public function initAllColleges($active="N")
     {
