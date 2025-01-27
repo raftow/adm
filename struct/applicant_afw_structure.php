@@ -17,6 +17,8 @@ class AdmApplicantAfwStructure
 
                         $obj->editByStep = true;
                         $obj->editNbSteps = 8;
+                        $obj->STEP_OPTIONS = [2=> ['TEMPLATE'=>'accordion'],];
+                        
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                 } else {
                         ApplicantArTranslator::initData();
