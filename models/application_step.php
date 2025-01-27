@@ -233,9 +233,9 @@
                         $war_arr = [];
                         $tech_arr = [];
 
-                        $application_model_id = $this->getVal("application_model_id");
-                        $application_plan_id = $this->getVal("application_plan_id");
-                        $step_num = $this->getVal("step_num");
+                        $application_model_id = $applicationObject->getVal("application_model_id");
+                        $application_plan_id = $applicationObject->getVal("application_plan_id");
+                        $step_num = $applicationObject->getVal("step_num");
                         $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, true);
                         /**
                          *

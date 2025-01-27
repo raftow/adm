@@ -51,7 +51,8 @@ class Acondition extends AdmObject{
                                 $fieldsArr = $amObj->mfkValueToArrayOrBoolIndex("application_field_mfk", $boolIndex, $takeDefault);
                                 foreach($fieldsArr as $fieldId)
                                 {
-                                        $return_arr[] = ["id"=>$fieldId, "name"=>"af-".$fieldId];                
+                                        $objAF = ApplicationField::loadById($fieldId);
+                                        $return_arr[] = ["id"=>$fieldId, "name"=>$objAF->getVal("field_name")];                
                                 }
                         }
                 }
@@ -75,10 +76,17 @@ class Acondition extends AdmObject{
                 return $return_arr;
         }
 
-        public function getExcuseText($lang="ar")
+        /**
+         * @param AFWObject $objToApplyOn
+         * 
+         */
+
+        public function getExcuseText($lang="ar", $objToApplyOn=null)
         {
                if($lang=="fr") $lang = "en";
-               return $this->getVal("excuse_text_$lang");
+               $return = $this->getVal("excuse_text_$lang"); 
+               if($objToApplyOn) $return = $objToApplyOn->decodeTpl($return,[],$lang);
+               return $return;
         }
         
 
@@ -360,7 +368,11 @@ class Acondition extends AdmObject{
                 }
                 catch(Exception $e)
                 {
-                        $err_arr[] = $e->getMessage();
+                        $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                        if($devMode) $error_message = $e->getMessage()."<br> trace is : <br>".$e->getTraceAsString();
+                        else $error_message = $this->translate("error-occured-try-later",$lang);
+
+                        $err_arr[] = $error_message;
                 }
                 // die("war_arr=".var_export($war_arr));
                 return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
@@ -484,6 +496,7 @@ class Acondition extends AdmObject{
                         $field_title = $this->afObj->getDisplay($lang);
                         $field_reel = $this->afObj->_isReel();
                         $application_table_id = $this->afObj->getVal("application_table_id");
+                        $objToApplyOn = null;
                         if($application_table_id==1)
                         {
                                 $objApplicant->updateCalculatedFields();
@@ -497,6 +510,7 @@ class Acondition extends AdmObject{
                                         $field_value = $objApplicant->calc($field_name);
                                         $field_value_case = "calc";
                                 }
+                                $objToApplyOn =& $objApplicant;
                         }
                         elseif($application_table_id==3)
                         {
@@ -519,6 +533,7 @@ class Acondition extends AdmObject{
                                         $field_value = $objApplication->calc($field_name);
                                         $field_value_case = "calc";
                                 }
+                                $objToApplyOn =& $objApplication;
                         }
                         elseif($application_table_id==2)
                         {
@@ -538,6 +553,7 @@ class Acondition extends AdmObject{
                                         $field_value = $objDesire->calc($field_name);
                                         $field_value_case = "calc";
                                 }
+                                $objToApplyOn =& $objDesire;
                         }
    
                         if(is_string($field_value) and (strlen($field_value)>15))
@@ -555,9 +571,10 @@ class Acondition extends AdmObject{
                         {
                                 $param_value = $param_valueObj->getVal("value");
                                 list($exec_result, $tech) = $this->applyComparison($field_value, $comparator, $param_value, $lang, $field_title);
-                                $excuseText = $this->getExcuseText($lang);
-                                
-                                if(!$excuseText) $excuseText = $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
+                                $excuseText = $this->getExcuseText($lang, $objToApplyOn);
+                                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                                if(!$excuseText or $devMode) $excuseText .= " " . $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
+                                if($devMode) $excuseText .= " [[$tech]]";
                                 $successText = $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_succeeded;
                                 $comments = $exec_result ? $successText : $excuseText;
                         } 
@@ -720,8 +737,10 @@ class Acondition extends AdmObject{
                 return $otherLinksArray;          
         }
 
+
         public function shouldBeCalculatedField($attribute){
                 if($attribute=="afile_ext") return true;
+                if($attribute=="afield_type_id") return true;
                 return false;
         }
 

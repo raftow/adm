@@ -61,4 +61,53 @@ class ApplicantApiRequest extends AdmObject
     {
         return true;
     }
+
+    public function calcExpiry_date($what="value")
+    {
+        $aepObj = $this->het("api_endpoint_id");
+        if(!$aepObj) return "0000-00-00";
+        $duration_expiry = $aepObj->getVal("duration_expiry");
+        if (!$duration_expiry) $duration_expiry = 15;
+        return AfwDateHelper::shiftGregDate('', -$duration_expiry);
+    }
+
+
+    public function calcRefresh_needed($what="value", $lang = "")
+    {
+        list($yes,$no) = AfwLanguageHelper::translateYesNo($what, $lang);
+        if($this->sureIs("need_refresh")) 
+        {
+            // $need_refresh = $this->getVal("need_refresh");
+            // die("calcRefresh_needed => need_refresh=$need_refresh => $yes");
+            return $yes;
+        }
+        $expiry_date = $this->calcExpiry_date();
+        $run_date = $this->getVal("run_date");
+        // if($run_date<$expiry_date) 
+        // die("calcRefresh_needed => ($run_date<$expiry_date) => $yes : $no");
+        return ($run_date<$expiry_date) ? $yes : $no;  // run date is too much old
+    }
+
+    public function shouldBeCalculatedField($attribute){
+        if($attribute=="expiry_date") return true;
+        if($attribute=="refresh_needed") return true;
+        return false;
+    }
+
+    public function switcherConfig($col, $auser = null)
+    {
+        $switcher_authorized = false;
+        $switcher_title = "";
+        $switcher_text = "";
+
+        if ($col == "need_refresh") {
+            $switcher_authorized = true;
+        }
+
+        if ($col == $this->fld_ACTIVE()) {
+            $switcher_authorized = true;
+        }
+
+        return [$switcher_authorized, $switcher_title, $switcher_text];
+    }
 }

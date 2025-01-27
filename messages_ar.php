@@ -40,6 +40,11 @@
     $messages["Can't upload files if size exceed"] = "لا يمكن  تحميل ملفات يتجاوز حجمها";
     $messages["Please upload the following document"] = "رجاء ارفاق المستند التالي";
     $messages["Mega Bytes"] = "ميجابايت";
+
+    $messages["doesn't need update as recently updated at"] = "لا يحتاج إلى التحديث كما تم تحديثه مؤخرًا في";
+    $messages["can not be refreshed and already called at"] = "لا يمكن تحديثه وقد تم تنفيذه سابقا في";
+    $messages["is not published"] = "غير منشور(ة)";
+
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
     

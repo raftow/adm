@@ -41,6 +41,13 @@
                         return true;
                 }
 
+                public function getFirstStep()
+                {
+                     $result = $this->convertStepNumToObject(0);   
+                     if(!$result) $result = $this->convertStepNumToObject(1);   
+                     return $result;
+                }
+
                 /**
                  * 
                  * @return ApplicationStep
@@ -179,7 +186,7 @@
                                         if($applicationFieldObj)
                                         {
                                                 $field_name = $applicationFieldObj->getVal("field_name");
-                                                $field_title = $applicationFieldObj->getDisplay($lang);
+                                                $field_title = $applicationFieldObj->getDisplay($lang)."/".$applicationFieldObj->id;
                                                 // $field_reel = $applicationFieldObj->_isReel();
                                                 $application_table_id = $applicationFieldObj->getVal("application_table_id");
                                                 if($application_table_id==1)
@@ -196,6 +203,7 @@
                                                 {
                                                         if($onlyTitles) $applicationDesireFieldsArr[$field_name] = $field_title;
                                                         else $applicationDesireFieldsArr[$field_name] = $applicationFieldObj;
+                                                        // die("desire field $field_name / $field_title => <br> ".var_export($applicationFieldObj,true));
                                                 }
                                                 else
                                                 {
@@ -223,6 +231,29 @@
                         return [true, ''];
                 }
 
+
+                public function reorderSteps($lang="ar")
+                {
+                        $applicationStepList = $this->get("applicationStepList");   
+                        $step_num = -1;
+                        foreach($applicationStepList as $applicationStepItem)
+                        {
+                                if($step_num<0) {
+                                        $step_num = $applicationStepItem->getVal("step_num");  
+                                        if($step_num<0) $step_num = 0;
+                                        if($step_num>1) $step_num = 1;
+                                        $step_from = $step_num;
+                                }
+                                
+                                
+                                $applicationStepItem->set("step_num", $step_num);  
+                                $applicationStepItem->commit();
+                                $step_to = $step_num;
+                        }
+
+                        return ["reordered from $step_from to $step_to"];
+                }
+
                 public function findScreenForField($application_field_id)
                 {
                         $applicationStepList = $this->get("applicationStepList");   
@@ -236,6 +267,15 @@
                                 {
                                         return [$screen_model_id, $step_num, $general];
                                 }
+                                else
+                                {
+                                        /*
+                                        if(($application_field_id=="110312") and ($screen_model_id==3))
+                                        {
+                                                die("findScreenForField failed to find $application_field_id in ".$applicationStepItem->getVal("show_field_mfk"));
+                                        }
+                                                */
+                                }                                
                         }
 
                         return [0,-1,'W'];
@@ -272,11 +312,15 @@
                 public function getFieldExpiryDuration($field_name, $application_table_id)
                 {
                         $application_fieldObj = ApplicationField::loadByMainIndex($field_name, $application_table_id);
-                        if(!$application_fieldObj) return null;
+                        if(!$application_fieldObj) return 8888;
                         // $appModelApiList = $this->objApplicationModel->getAppModelApiOfStep($nextStepNum);
                         $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_fieldObj->id);
-                        if($amfObj) return $amfObj->getVal("duration_expiry");
-                        else return 0;
+                        if($amfObj) {
+                                $return = $amfObj->getVal("duration_expiry");
+                                if(!$return) $return = 180; // 6 months by default or should be customized
+                                return $return;
+                        }
+                        else return 9988;
                 }
 
                 public function genereScreensAndModels($lang="ar")
@@ -313,75 +357,88 @@
                                         $general = $aconditionItem->getVal("general");
                                         $acondition_origin_id = $aconditionItem->getVal("acondition_origin_id");
                                         $amcObj = ApplicationModelCondition::loadByMainIndex($this->id, $aconditionItem->id, $acondition_origin_id, $general, $addNewConditions);
-                                        if($amcObj->is_new) $cond_nb_inserted++;
-                                        else $cond_nb_updated++;
-
-                                        /**
-                                         * @var ACondition $aconditionItem
-                                         */
-
-                                        $aconditionFieldList = $aconditionItem->getAllFields($this);
-                                        // the condition should be executed in the max step num
-                                        // when all fields have been recolted
-                                        // but min step of exec of step should be 1
-                                        $step_num_max = 1;
-                                        foreach($aconditionFieldList as $aconditionFieldItem)
+                                        if($amcObj)
                                         {
-                                                $application_field_id = $aconditionFieldItem["id"];
-                                                $application_field_name = $aconditionFieldItem["name"];
-                                                $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_field_id, $aconditionItem->id, 0, true);
-                                                if($amfObj->is_new) $fld_nb_inserted++;
-                                                else $fld_nb_updated++;
-                                                list($screen_model_id, $step_num, $generalScreen) = $this->findScreenForField($application_field_id);                                                
-                                                $arr_api = ApiEndpoint::findAllApiEndpointForField($application_field_id);                                                
-                                                $count_api = count($arr_api);
-                                                if($count_api==0)
+                                                if($amcObj->is_new) $cond_nb_inserted++;
+                                                else $cond_nb_updated++;
+
+                                                /**
+                                                 * @var ACondition $aconditionItem
+                                                 */
+
+                                                $aconditionFieldList = $aconditionItem->getAllFields($this);
+                                                // the condition should be executed in the max step num
+                                                // when all fields have been recolted
+                                                // but min step of exec of step should be 1
+                                                $step_num_max = 1;
+                                                foreach($aconditionFieldList as $aconditionFieldItem)
                                                 {
-                                                        $amfObj->set("api_endpoint_id",0);                                                        
-                                                        $err_arr[] = "no api return the field $application_field_name/$application_field_id";
-                                                }
-                                                elseif($count_api==1)
-                                                {
-                                                        /**
-                                                         * @var ApiEndpoint $apiEndpoint
-                                                         */
-                                                        $apiEndpoint = $arr_api[0];
-                                                        $amfObj->set("api_endpoint_id",$apiEndpoint->id);                                                        
-                                                }
-                                                elseif(!$amfObj->getVal("api_endpoint_id"))
-                                                {
-                                                        $war_arr[] = "field $application_field_name/$application_field_id returned by $count_api api(s) please resolve this manually";
-                                                }
-                                                else
-                                                {
-                                                        $api_found = false;
-                                                        foreach($arr_api as $apiEndpointObj)
+                                                        $application_field_id = $aconditionFieldItem["id"];
+                                                        $application_field_name = $aconditionFieldItem["name"];
+                                                        $amfObj = ApplicationModelField::loadByMainIndex($this->id, $application_field_id, $aconditionItem->id, 0, true);
+                                                        if($amfObj->is_new) $fld_nb_inserted++;
+                                                        else $fld_nb_updated++;
+                                                        list($screen_model_id, $step_num, $generalScreen) = $this->findScreenForField($application_field_id);                                                
+                                                        if(!$screen_model_id)
                                                         {
-                                                                if($apiEndpointObj->id == $amfObj->getVal("api_endpoint_id"))
+                                                                $err_arr[] = "no screen manage the field $application_field_name/$application_field_id";
+                                                        }
+                                                        $arr_api = ApiEndpoint::findAllApiEndpointForField($application_field_id);                                                
+                                                        /*
+                                                        if($application_field_name=="لائق طبيا")
+                                                        {
+                                                                die("$application_field_name => ApiEndpoint::findAllApiEndpointForField($application_field_id) => ".var_export($arr_api,true));
+                                                        }*/
+                                                        $count_api = count($arr_api);
+                                                        if($count_api==0)
+                                                        {
+                                                                $amfObj->set("api_endpoint_id",0);                                                        
+                                                                $err_arr[] = "no api return the field $application_field_name/$application_field_id";
+                                                        }
+                                                        elseif($count_api==1)
+                                                        {
+                                                                /**
+                                                                 * @var ApiEndpoint $apiEndpoint
+                                                                 */
+                                                                $apiEndpoint = $arr_api[0];
+                                                                $amfObj->set("api_endpoint_id",$apiEndpoint->id); 
+                                                                $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة ".$apiEndpoint->getDisplay($lang);
+                                                        }
+                                                        elseif(!$amfObj->getVal("api_endpoint_id"))
+                                                        {
+                                                                $war_arr[] = "for field $application_field_name/$application_field_id returned by $count_api api(s) please resolve this manually";
+                                                        }
+                                                        else
+                                                        {
+                                                                $api_found = false;
+                                                                foreach($arr_api as $apiEndpointObj)
                                                                 {
-                                                                        $api_found = true;
-                                                                        $apiEndpoint = $apiEndpointObj;
+                                                                        if($apiEndpointObj->id == $amfObj->getVal("api_endpoint_id"))
+                                                                        {
+                                                                                $api_found = true;
+                                                                                $apiEndpoint = $apiEndpointObj;
+                                                                                $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة ".$apiEndpoint->getDisplay($lang);
+                                                                        }
+                                                                }
+
+                                                                if(!$api_found)
+                                                                {
+                                                                        $amfObj->set("api_endpoint_id",0); 
+                                                                        $apiEndpointObjDisplay = $amfObj->showAttribute("api_endpoint_id");                                                                
+                                                                        $war_arr[] = "The api $apiEndpointObjDisplay can not manage the field $application_field_name/$application_field_id and will be removed";
+                                                                        $war_arr[] = "field $application_field_name/$application_field_id returned by other $count_api api(s) please resolve this manually";                                                                
                                                                 }
                                                         }
-
-                                                        if(!$api_found)
-                                                        {
-                                                                $amfObj->set("api_endpoint_id",0); 
-                                                                $apiEndpointObjDisplay = $amfObj->showAttribute("api_endpoint_id");                                                                
-                                                                $war_arr[] = "The api $apiEndpointObjDisplay can not manage the field $application_field_name/$application_field_id and will be removed";
-                                                                $war_arr[] = "field $application_field_name/$application_field_id returned by other $count_api api(s) please resolve this manually";
-                                                                $amfObj->set("api_endpoint_id",0);
-                                                        }
+                                                        if(!$amfObj->getVal("duration_expiry") and $apiEndpoint) $amfObj->set("duration_expiry",$apiEndpoint->getVal("duration_expiry"));
+                                                        $amfObj->set("screen_model_id",$screen_model_id);
+                                                        $amfObj->set("step_num",$step_num);
+                                                        $amfObj->commit();
+                                                        if($step_num_max < $step_num) $step_num_max = $step_num;
                                                 }
-                                                if(!$amfObj->getVal("duration_expiry") and $apiEndpoint) $amfObj->set("duration_expiry",$apiEndpoint->getVal("duration_expiry"));
-                                                $amfObj->set("screen_model_id",$screen_model_id);
-                                                $amfObj->set("step_num",$step_num);
-                                                $amfObj->commit();
-                                                if($step_num_max < $step_num) $step_num_max = $step_num;
-                                        }
 
-                                        $amcObj->set("step_num",$step_num_max);
-                                        $amcObj->commit();
+                                                $amcObj->set("step_num",$step_num_max);
+                                                $amcObj->commit();
+                                        }
                                 }
                         }
 
@@ -556,6 +613,10 @@
                         $methodName = "createDefaultSteps";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
                         
+                        $color = "green";
+                        $title_ar = "اعادة ترتيب جميع الخطوات"; 
+                        $methodName = "reorderSteps";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
                         
 
                         $color = "orange";
@@ -588,11 +649,11 @@
 
                                 $thisAsCount = $this->getRelation("applicationStepList")->count();
                                 $asCount = $amItem->getRelation("applicationStepList")->count();
-                                if(($asCount>1) and ($thisAsCount<2 or !$this->isActive()))
+                                if(($asCount>1) and ($thisAsCount<$asCount or !$this->isActive()))
                                 {
                                         $color = "yellow";
-                                        $title_ar = "نسخ الخطوات من ".$amItem->getDisplay("ar"); 
-                                        $title_en = "copy steps from ".$amItem->getDisplay("en"); 
+                                        $title_ar = "تحديث الخطوات من ".$amItem->getDisplay("ar")." من $thisAsCount إلى $asCount خطوات"; 
+                                        $title_en = "copy steps from ".$amItem->getDisplay("en")." from $thisAsCount to $asCount steps"; 
                                         $methodName = "copyStepsFrom".$amItem->id;
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 
                                 }
@@ -751,7 +812,18 @@
                                 $link["PUBLIC"] = true;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
+                        
+                                unset($link);
+                                $link = array();
+                                $title = "إعادة ترتيب خطوات التقديم";
+                                $title_detailed = $title ."لـ : ". $displ;
+                                $link["URL"] = "main.php?Main_Page=afw_mode_qedit.php&cl=ApplicationStep&currmod=adm&fixm=application_model_id=$my_id&sel_application_model_id=$my_id&id_origin=$my_id&class_origin=ApplicationModel&module_origin=adm&step_origin=5&newo=-1";
+                                $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
+                                $link["UGROUPS"] = array();
+                                $otherLinksArray[] = $link;
                         }
+
                         if($mode=="mode_financialTransactionList")
                         {
                                 unset($link);

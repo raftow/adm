@@ -328,7 +328,7 @@
                                                 'STEP' => 3,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_75',
+                                                'CSS' => 'width_pct_100',
                                         ),
 
 

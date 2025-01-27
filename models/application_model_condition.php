@@ -40,8 +40,8 @@ class ApplicationModelCondition extends AdmObject
 
     public static function loadStepNumConditions($application_model_id, $step_num, $general=null)
     {
-        if (!$application_model_id) throw new AfwRuntimeException("loadStepNumConditions : application_model_id is mandatory field");
-        if (!$step_num) throw new AfwRuntimeException("loadStepNumConditions : step_num is mandatory field");
+        if (!$application_model_id) throw new AfwRuntimeException("loadStepNumConditions($application_model_id, $step_num, $general) : application_model_id is mandatory field");
+        if (!$step_num) $step_num = 0; // throw new AfwRuntimeException("loadStepNumConditions($application_model_id, $step_num, $general) : step_num is mandatory field");
 
 
         $obj = new ApplicationModelCondition();

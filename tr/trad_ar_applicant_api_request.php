@@ -12,7 +12,10 @@ class ApplicantApiRequestArTranslator
         $trad["applicant_api_request"]["applicant_id"] = "المتقدم";
         $trad["applicant_api_request"]["api_endpoint_id"] = "الخدمة الالكترونية";
         $trad["applicant_api_request"]["run_date"] = "تاريخ  التنفيذ";
-        $trad["applicant_api_request"]["need_refresh"] = "يحتاج تحديث";
+        $trad["applicant_api_request"]["expiry_date"] = "تاريخ  الانتهاء";
+        $trad["applicant_api_request"]["need_refresh"] = "طلب تحديث";
+        $trad["applicant_api_request"]["refresh_needed"] = "يحتاج تحديث";
+        
         return $trad;
     }
 

@@ -56,7 +56,7 @@
 
 
                                         	
-
+                                        /* obsolete this field program_id here because the academic_program is selected with the desire not the application (contain major etc...)
                                         'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  
@@ -64,7 +64,7 @@
                                                         'SIZE' => 40,  'DEFAUT' => 0,     
                                                         'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        'CSS' => 'width_pct_50', ),
+                                                        'CSS' => 'width_pct_50', ),*/
 
 
                                         'applicant_qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -121,6 +121,12 @@
 								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 3, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
+
+                                        'sis_fields_not_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'TEXT',  'STEP' => 3, 'READONLY'=>true,
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),                                                                
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 

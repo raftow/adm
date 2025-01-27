@@ -44,9 +44,14 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
-
-
+                                                'CSS' => 'width_pct_25', ),
+                                                
+                                        'expiry_date' => array('CATEGORY' => 'FORMULA', 'IMPORTANT' => 'IN', 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'READONLY' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 
+                                                'TYPE' => 'GDAT', 'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+                                                
                                         'run_date' => [
                                                 'IMPORTANT' => 'IN',
                                                 'SEARCH' => true,
@@ -68,11 +73,14 @@
                                             
 
                                         'need_refresh' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN', 'FORMAT' => 'icon',   'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
+                                                'TYPE' => 'YN', 'FORMAT' => 'icon', 'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-
+                                        'refresh_needed' => array('CATEGORY' => 'FORMULA','RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',  'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'QSEARCH' => false, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
 
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  

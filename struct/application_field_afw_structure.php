@@ -39,13 +39,14 @@
 			
 
 
-			'application_table_id' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'ALL-RETRIEVE' => false,  'QEDIT' => true,  'EDIT' => true,  
-				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'READONLY' => true,
+			'application_table_id' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'QEDIT' => true,  'EDIT' => true,  
+				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'READONLY' => true, 'DISABLE-READONLY-ADMIN'=> true,
 				/*'ANSWER' => 'application_table',  'ANSMODULE' => 'adm', */
 				'SIZE' => 40,  'DEFAUT' => 0,   
 				'WHERE' => "", 'CSS' => 'width_pct_25',
 				 
-				'RELATION' => 'OneToMany',  'CONTEXT-ANSWER' => 'getContextTables',  'SEARCH' => true,  'SEARCH-BY-ONE' => true,  'QSEARCH' => true,  'AUTOCOMPLETE-SEARCH' => true,  'DISPLAY' => true,  'STEP' => 1,  
+				'RELATION' => 'OneToMany',  'CONTEXT-ANSWER' => 'getContextTables',  'SEARCH' => true,  
+				'SEARCH-BY-ONE' => true,  'QSEARCH' => true,  'AUTOCOMPLETE-SEARCH' => true,  'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				),
 
@@ -64,13 +65,13 @@
 				'QEDIT' => false,  'EDIT' => true,  'UTF8' => true,  'SIZE' => 64,  
 				'TYPE' => 'TEXT',    'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  
 				'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1, 'CSS' => 'width_pct_50', 
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 
+				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'DISABLE-READONLY-ADMIN'=> true,
 				),
 
 			'field_title_en' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'SEARCH-EN' => true,  'RETRIEVE' => false,  
 				'QEDIT' => false,  'EDIT' => true,  'SIZE' => 64, 'CSS' => 'width_pct_50', 
 				'TYPE' => 'TEXT',    'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 
+				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'DISABLE-READONLY-ADMIN'=> true,
 				),
 
 			'usable_in_conditions' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'SEARCH' => true,  'QSEARCH' => true,  'RETRIEVE' => true,  'EDIT' => true,  'QEDIT' => false,  

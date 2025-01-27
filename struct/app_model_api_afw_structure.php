@@ -15,7 +15,7 @@
 
                                 // $obj->editByStep = true;
                                 // $obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("class"=>'ApplicationModel',"attribute"=>'application_model_id', "currmod"=>'adm',"currstep"=>7);
                         }
                         else 
                         {

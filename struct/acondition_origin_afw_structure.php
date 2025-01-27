@@ -112,7 +112,7 @@
                                                 // 'DEPENDENCIES' => ['qualification_id',],
                                                 'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),				
+                                                'CSS' => 'width_pct_100',),				
 
 			'academic_program_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  'QEDIT' => false,  
@@ -122,7 +122,7 @@
                                                 // 'DEPENDENCIES' => ['qualification_id',],
                                                 'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
+                                                'CSS' => 'width_pct_100',),
 
 			'aconditionOriginScopeList' => array('TYPE' => 'FK', 'ANSWER' => 'acondition_origin_scope', 'ANSMODULE' => 'adm', 
 												'CATEGORY' => 'ITEMS', 'ITEM' => 'acondition_origin_id', 'STEP' => 2, 'QEDIT' => false,   

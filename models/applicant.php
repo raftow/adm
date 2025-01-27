@@ -24,6 +24,9 @@ class Applicant extends AdmObject
     // attachement - مرفق توضيحي
     public static $doc_type_attachement = 7;     
 
+
+    public $update_date = [];
+
     public function __construct()
     {
         parent::__construct("applicant", "id", "adm");
@@ -130,6 +133,21 @@ class Applicant extends AdmObject
 
     public function beforeMaj($id, $fields_updated)
     {
+        $birth_gdate = $this->getVal("birth_gdate");
+        $birth_date = $this->getVal("birth_date");
+
+        if((!$birth_gdate) and $birth_date)
+        {
+            $birth_gdate = AfwDateHelper::hijriToGreg($birth_date);
+            $this->set("birth_gdate", $birth_gdate);
+        }
+
+        if((!$birth_date) and $birth_gdate)
+        {
+            $birth_date = AfwDateHelper::to_hijri($birth_gdate);
+            $this->set("birth_date", $birth_date);
+        }
+
         $idn = $this->getVal("idn");
         $idn_type_id = $this->getVal("idn_type_id");
         if ((!$idn) or (!$idn_type_id)) // should never happen but ....                    
@@ -160,6 +178,7 @@ class Applicant extends AdmObject
                 $this->set("id", $id);
             }
 
+            
 
             $id = $this->id;
             $first_register = true;
@@ -402,20 +421,20 @@ class Applicant extends AdmObject
     ) {
         global $objme;
         $sp_errors = [];
-        $birth_gdate_step = $this->stepOfAttribute('birth_gdate');
-        $birth_gdate_is_in_step = $this->stepContainAttribute($step, 'birth_gdate');
+        $birth_gdatee_step = $this->stepOfAttribute('birth_gdatee');
+        $birth_gdatee_is_in_step = $this->stepContainAttribute($step, 'birth_gdatee');
         $no_step_scope = (!$start_step and !$end_step);
-        $step_in_scope = (($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step));
-        $birth_gdate_is_in_steps_scope = ($birth_gdate_is_in_step and ($no_step_scope or $step_in_scope));
+        $step_in_scope = (($birth_gdatee_step >= $start_step) and ($birth_gdatee_step <= $end_step));
+        $birth_gdatee_is_in_steps_scope = ($birth_gdatee_is_in_step and ($no_step_scope or $step_in_scope));
 
 
-        if ($birth_gdate_is_in_steps_scope) {
-            $birth_gdate = $this->getVal('birth_gdate');
+        if ($birth_gdatee_is_in_steps_scope) {
+            $birth_gdatee = $this->getVal('birth_gdatee');
             $birth_date = $this->getVal('birth_date');
 
-            if (!$birth_gdate and !$birth_date) {
-                $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
-                // $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = birth_gdate_is_in_step and (no_step_scope or step_in_scope) \n $birth_gdate_is_in_steps_scope = $birth_gdate_is_in_step and ($no_step_scope or $step_in_scope)</pre>";
+            if (!$birth_gdatee and !$birth_date) {
+                $sp_errors['birth_gdatee'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+                // $sp_errors['birth_gdatee'] .= "<pre dir='ltr'> dbg : birth_gdatee_is_in_steps_scope = birth_gdatee_is_in_step and (no_step_scope or step_in_scope) \n $birth_gdatee_is_in_steps_scope = $birth_gdatee_is_in_step and ($no_step_scope or $step_in_scope)</pre>";
             }
         }
 
@@ -586,20 +605,13 @@ class Applicant extends AdmObject
                  * @var ApiEndpoint $apiEndPoint
                  */
                 $apiEndPoint = $applicantApiRequestItem->het("api_endpoint_id");
-                $need_refresh = $applicantApiRequestItem->sureIs("need_refresh");
+                //
                 if ($apiEndPoint and $apiEndPoint->sureIs("published")) {
                     $run_date = $applicantApiRequestItem->getVal("run_date");
                     if ($run_date == "0000-00-00") $run_date = "";
                     if ($run_date == "0000-00-00 00:00:00") $run_date = "";
 
-                    if (!$need_refresh) {
-                        if ($run_date) {
-                            $duration_expiry = $apiEndPoint->getVal("duration_expiry");
-                            if (!$duration_expiry) $duration_expiry = 15;
-                            $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
-                            $need_refresh = ($expiry_date > $run_date); // run date is very old
-                        } else $need_refresh = true;
-                    }
+                    $refresh_needed = $applicantApiRequestItem->sureIs("refresh_needed");
 
 
 
@@ -607,7 +619,7 @@ class Applicant extends AdmObject
                     if ($run_date) $can_refresh = $apiEndPoint->sureIs("can_refresh");
                     else $can_refresh = true;
 
-                    if ($need_refresh and $can_refresh) {
+                    if ($refresh_needed and $can_refresh) {
                         $api_name = $apiEndPoint->getShortDisplay($lang);
                         $api_endpoint_code = $apiEndPoint->getVal("api_endpoint_code");
                         $api_runner_method = "run_api_" . $api_endpoint_code;
@@ -620,12 +632,13 @@ class Applicant extends AdmObject
                         if ($tech) $tech_arr[] = $tech;
 
                         if (!$err) {
+                            $applicantApiRequestItem->set("need_refresh", "N");
                             $applicantApiRequestItem->set("run_date", date("Y-m-d H:i:s"));
                             $applicantApiRequestItem->commit();
                         }
-                    } elseif (!$need_refresh) $war_arr[] = $apiEndPoint . " doesn't need update as recently updated at $run_date";
-                    elseif (!$can_refresh) $war_arr[] = $apiEndPoint . " already called at $run_date and can not be refreshed";
-                } else $war_arr[] = $apiEndPoint . " is not published";
+                    } elseif (!$refresh_needed) $war_arr[] = $apiEndPoint . " ".$this->tm("doesn't need update as recently updated at")." $run_date";
+                    elseif (!$can_refresh) $war_arr[] = $apiEndPoint . " ".$this->tm("can not be refreshed and already called at")." $run_date";
+                } else $war_arr[] = $apiEndPoint . " " . $this->tm("is not published");
             }
         } catch (Exception $e) {
             $err_arr[] = $e->getMessage();
@@ -650,9 +663,12 @@ class Applicant extends AdmObject
      */
 
 
-    public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", $applicationObj = null)
+    public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", $applicationObj = null, $onlyIfTheyAreUpdated=false)
     {
+        
         $matrix = [];
+        $theyAreUpdated=true;
+        $not_avail = [];
         // $this->updateCalculatedFields();
         foreach ($applicantFieldsArr as $field_name => $applicantFieldObj) {
             $row_matrix = [];
@@ -675,26 +691,51 @@ class Applicant extends AdmObject
             $field_empty = ((!$field_value) or ($field_value === "W"));
             $row_matrix['empty'] = $field_empty;
             $field_value_datetime = "";
-            if (!$field_empty) {
-                if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name);
-                else $api = "no-applicationObj";
+            
+            if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
+            else $api = "no-applicationObj";
+            if ($field_empty) {
+                $api .= ", field value is empty";
+                $field_value_datetime = "";
             }
+
 
 
             $row_matrix['datetime'] = $field_value_datetime;
             $row_matrix['api'] = $api;
 
-            if ($field_value_datetime and $applicationObj) {
-                $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
-                $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
-                if ($field_value_datetime < $expiry_date) $row_matrix['status'] = self::needUpdateIcon($api);
-                $row_matrix['status'] = self::updatedIcon($api);
+            if ($field_value_datetime) {
+                if ($applicationObj)
+                {
+                    $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
+                    $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
+                    if ($field_value_datetime < $expiry_date) 
+                    {
+                        $row_matrix['status'] = self::needUpdateIcon($api . " $field_value_datetime < $expiry_date  (duration_expiry=$duration_expiry)");
+                        $theyAreUpdated = false;
+                        $not_avail[] = $field_title;
+                    }
+                    else
+                    {
+                        $row_matrix['status'] = self::updatedIcon($api);
+                    }
+                }
+                else
+                {
+                    $row_matrix['status'] = self::needUpdateIcon($api . " no application Object");
+                }
+                
             } else {
-                $row_matrix['status'] = self::needUpdateIcon($api);
+                $row_matrix['status'] = self::needUpdateIcon($api . " => never updated");
+                $theyAreUpdated = false;
+                $not_avail[] = $field_title;
             }
 
             $matrix[] = $row_matrix;
         }
+
+        if($onlyIfTheyAreUpdated===true) return $theyAreUpdated;
+        if($onlyIfTheyAreUpdated==="list-fields-not-available") return implode(",",$not_avail);
 
         return $matrix;
     }
@@ -702,13 +743,16 @@ class Applicant extends AdmObject
 
     public function getApiUpdateDate($apiEndpoint)
     {
-        $update_date = "";
-        $aarList = $this->getRelation("applicantApiRequestList")->resetWhere("api_endpoint_id=" . $apiEndpoint->id)->getList();
-        foreach ($aarList as $aarItem) {
-            if ($aarItem) $update_date = $aarItem->getVal("run_date");
+        if(!$this->update_date[$apiEndpoint->id])
+        {
+            $aarList = $this->getRelation("applicantApiRequestList")->resetWhere("api_endpoint_id=" . $apiEndpoint->id)->getList();
+            foreach ($aarList as $aarItem) {
+                if ($aarItem) $this->update_date[$apiEndpoint->id] = $aarItem->getVal("run_date");
+            } 
         }
+        
 
-        return $update_date;
+        return $this->update_date[$apiEndpoint->id];
     }
 
     public function getFormuleResult($attribute, $what = "value")

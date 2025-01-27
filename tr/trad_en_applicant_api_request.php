@@ -12,7 +12,10 @@ class ApplicantApiRequestEnTranslator
         $trad["applicant_api_request"]["applicant_id"] = "The applicant";
         $trad["applicant_api_request"]["api_endpoint_id"] = "Api";
         $trad["applicant_api_request"]["run_date"] = "Run Date";
-        $trad["applicant_api_request"]["need_refresh"] = "need refresh";
+        $trad["applicant_api_request"]["expiry_date"] = "Expiry Date";
+        $trad["applicant_api_request"]["need_refresh"] = "";
+        $trad["applicant_api_request"]["need_refresh"] = "refresh requested";
+        $trad["applicant_api_request"]["refresh_needed"] = "need refresh";
         return $trad;
     }
 

@@ -304,13 +304,21 @@ class Application extends AdmObject
                 // $nb_inserted = 0;
                 try
                 {
+                        
+                        if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                        if(!$this->objApplicationModel) return [$this->tm("Error happened, no application model defined for this application", $lang), ""];
                         /**
                          * @var ApplicationStep $currentStepObj
                          */
                         $currentStepObj = $this->het("application_step_id");
                         $currentStepNum = $this->getVal("step_num");
 
-                        if(!$currentStepObj) return [$this->tm("No current step defined for this application", $lang), ""];
+                        $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated=true);
+                        if(!$dataReady) return [$this->tm("The data is not updated we can not apply conditions", $lang), ""];
+                        $currentStepId = $this->getVal("application_step_id");
+                        // die("before currentStepObj=$currentStepObj->id currentStepNum=$currentStepNum currentStepId=$currentStepId");
+                        if(!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationModel->getFirstStep(); 
+                        if(!$currentStepObj) return [$this->tm("No current step defined for this application model, you may need to reorder the steps to have step num=0 or step num = 1", $lang), ""];
 
                         // to go to next step we should apply conditions of the current step
                         $applyResult = $currentStepObj->applyMyGeneralConditionsOn($this, $lang);
@@ -319,7 +327,7 @@ class Application extends AdmObject
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
                         if($success)
                         {
-                                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                                
                                 $nextStepNum = $this->objApplicationModel->getNextGeneralStepNumOf($currentStepNum);
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
@@ -334,7 +342,7 @@ class Application extends AdmObject
                         }
                         else
                         {
-                                $err_arr[]  = $this->tm("The move from step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has failed for the following reason", $lang)." : "; 
+                                $war_arr[]  = $this->tm("The move from step", $lang)." : ".$currentStepObj->getDisplay($lang)." ".$this->tm("has failed for the following reason", $lang)." : "; 
                                 $war_arr[]  = $fail_message;
                                 $tech_arr[] = $tech;
                         }
@@ -394,7 +402,7 @@ class Application extends AdmObject
         public function getFieldExpiryDuration($field_name, $application_table_id=3)
         {
                 if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
-                if(!$this->objApplicationModel) return 0;
+                if(!$this->objApplicationModel) return 9999;
                 return $this->objApplicationModel->getFieldExpiryDuration($field_name, $application_table_id);
         }
 
@@ -410,7 +418,7 @@ class Application extends AdmObject
                                 $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);                        
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
                         }
-                        else $apiEndpointDisplay = "no-apiEndpoint for $field_name";
+                        else $apiEndpointDisplay = "> no-apiEndpoint for $field_name";
                 }
                 else $apiEndpointDisplay = "no-applicant";
                 if(!$field_value_datetime) $field_value_datetime = $this->getVal($field_name."_update_date");
@@ -430,7 +438,7 @@ class Application extends AdmObject
                                 $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);                        
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
                         }
-                        else $apiEndpointDisplay = "no-apiEndpoint for $field_name";
+                        else $apiEndpointDisplay = ">> no-apiEndpoint for $field_name";
                 }
                 else $apiEndpointDisplay = "no-applicant";
                 if(!$field_value_datetime) $field_value_datetime = $this->applicantObj->getVal($field_name."_update_date");
@@ -438,9 +446,11 @@ class Application extends AdmObject
                 return [$field_value_datetime, $apiEndpointDisplay];
         }
 
-        public function getFieldsMatrix($applicationFieldsArr, $lang="ar")
+        public function getFieldsMatrix($applicationFieldsArr, $lang="ar", $onlyIfTheyAreUpdated=false)
         {
                 $matrix = [];
+                $theyAreUpdated=true;
+                $not_avail = [];
                 // $this->updateCalculatedFields();
                 foreach($applicationFieldsArr as $field_name => $applicationFieldObj)
                 {
@@ -482,13 +492,24 @@ class Application extends AdmObject
                         {
                                 
                                 $duration_expiry = $this->getFieldExpiryDuration($field_name);
+                                if(!$duration_expiry) $duration_expiry = 180;
                                 $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
-                                if($field_value_datetime < $expiry_date) $row_matrix['status'] = self::needUpdateIcon($api);
-                                $row_matrix['status'] = self::updatedIcon($api);
+                                if($field_value_datetime < $expiry_date) 
+                                {
+                                        $row_matrix['status'] = self::needUpdateIcon($api . " $field_value_datetime < $expiry_date (duration_expiry=$duration_expiry)");
+                                        $theyAreUpdated = false;
+                                        $not_avail[] = $field_title;
+                                }
+                                else 
+                                {
+                                        $row_matrix['status'] = self::updatedIcon($api);
+                                }
                         }
                         else
                         {
-                                $row_matrix['status'] = self::needUpdateIcon($api);
+                                $row_matrix['status'] = self::needUpdateIcon($api . " => never updated");
+                                $not_avail[] = $field_title;
+                                $theyAreUpdated = false;
                         }
 
                         
@@ -496,10 +517,13 @@ class Application extends AdmObject
                         $matrix[] = $row_matrix;
                 }
 
+                if($onlyIfTheyAreUpdated===true) return $theyAreUpdated;
+                if($onlyIfTheyAreUpdated==="list-fields-not-available") return implode(",",$not_avail);
+
                 return $matrix;
         }
 
-        public function fieldsMatrixForStep($stepNum, $lang="ar")
+        public function fieldsMatrixForStep($stepNum, $lang="ar", $onlyIfTheyAreUpdated=false)
         {
                 if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 if(!$this->applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
@@ -510,16 +534,23 @@ class Application extends AdmObject
                 if(count($applicationDesireFieldsArr)>0)
                 {
                         $applicationDesireFieldsArrKeys = array_keys($applicationDesireFieldsArr);
-                        AfwSession::pushWarning("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
+                        AfwSession::pushWarning("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys)." => ".implode(",",$applicationDesireFieldsArr));
                         // throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
                 }
 
-                $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this);
-                $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr);
+                $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated);
+                $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr, $onlyIfTheyAreUpdated);
+
+                if($onlyIfTheyAreUpdated) return ($fieldsMatrix_1 and $fieldsMatrix_2);
 
                 $fieldsMatrix = array_merge($fieldsMatrix_1, $fieldsMatrix_2);
 
                 return $fieldsMatrix;
+        }
+
+        public function fieldsMatrixNeedUpdate()
+        {
+
         }
 
         public function calcCurrent_fields_matrix()
@@ -619,6 +650,98 @@ class Application extends AdmObject
                 }
 
                 return true;
+        }
+
+
+        public function fieldDataAvailable($field, $application_table_id = 3)
+        {
+                $applicationFieldsArr = [];
+                if(is_string($field))
+                {
+                        $field_name = $field;
+                        $applicationFieldItem = ApplicationField::loadByMainIndex($field_name, $application_table_id);
+                        if(!$applicationFieldItem) return false;
+                        $applicationFieldsArr[$field_name] = $applicationFieldItem;
+                }
+                else
+                {
+                        $applicationFieldItem = $field; 
+                        $field_name = $applicationFieldItem->getVal("field_name"); 
+                        $application_table_id = $applicationFieldItem->getVal("application_table_id"); 
+                        $applicationFieldsArr[$field_name] = $applicationFieldItem;
+                }
+                
+                return $this->getFieldsMatrix($applicationFieldsArr, $lang="ar", $onlyIfTheyAreUpdated=true);
+
+        }
+
+        public function calcSis_fields_available($what="value", $lang = "")
+        {
+                list($yes,$no) = AfwLanguageHelper::translateYesNo($what, $lang);
+                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                if(!$this->objApplicationModel) return $no;
+
+                $applicationFieldList = $this->objApplicationModel->get("application_field_mfk");
+                $applicationFieldsArr = [];
+                $applicantFieldsArr = [];
+                foreach($applicationFieldList as $applicationFieldItem)
+                {
+                        $field_name = $applicationFieldItem->getVal("field_name"); 
+                        $application_table_id = $applicationFieldItem->getVal("application_table_id"); 
+                        if($application_table_id==3) $applicationFieldsArr[$field_name] = $applicationFieldItem;
+                        elseif($application_table_id==1) $applicantFieldsArr[$field_name] = $applicationFieldItem;
+                        else throw new AfwRuntimeException("The field $field_name is not related neither Applicant nor Application entities so can not be in the SIS-fields");
+                }
+                if(count($applicantFieldsArr)>0)
+                {
+                        if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                        if(!$this->applicantObj) $applicantAvail = false; 
+                        else $applicantAvail = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang="ar", $this, $onlyIfTheyAreUpdated=true);
+                }
+                else
+                {
+                        $applicantAvail = true;
+                }
+                
+                $applicationAvail = $this->getFieldsMatrix($applicationFieldsArr, $lang="ar", $onlyIfTheyAreUpdated=true);
+
+                return ($applicantAvail and $applicationAvail) ? $yes : $no;
+                  
+        }
+
+        public function calcSis_fields_not_available($what="value", $lang = "")
+        {
+                if(!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                if(!$this->objApplicationModel) return "No Application Model Object";
+
+                $applicationFieldList = $this->objApplicationModel->get("application_field_mfk");
+                $applicationFieldsArr = [];
+                $applicantFieldsArr = [];
+                foreach($applicationFieldList as $applicationFieldItem)
+                {
+                        $field_name = $applicationFieldItem->getVal("field_name"); 
+                        $application_table_id = $applicationFieldItem->getVal("application_table_id"); 
+                        if($application_table_id==3) $applicationFieldsArr[$field_name] = $applicationFieldItem;
+                        elseif($application_table_id==1) $applicantFieldsArr[$field_name] = $applicationFieldItem;
+                        else throw new AfwRuntimeException("The field $field_name is not related neither Applicant nor Application entities so can not be in the SIS-fields");                        
+                }
+
+                $returnApplication = $this->getFieldsMatrix($applicationFieldsArr, $lang="ar", $onlyIfTheyAreUpdated="list-fields-not-available");
+                if(count($applicantFieldsArr)>0)
+                {
+                        if(!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                        if(!$this->applicantObj) $returnApplicant = "applicantObj not correct"; 
+                        else $returnApplicant = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang="ar", $this, $onlyIfTheyAreUpdated="list-fields-not-available");
+                }
+                else
+                {
+                        $returnApplicant = "";
+                }
+                
+                if($returnApplicant) $returnApplication .= "," . $returnApplicant;
+
+                return $returnApplication;
+                  
         }
 
         

@@ -27,7 +27,7 @@ class ApiEndpoint extends AdmObject
 
         public static function findAllApiEndpointForField($application_field_id)
         {
-                $apiEndpointList = ApiEndpoint::loadAll();
+                $apiEndpointList = ApiEndpoint::loadAll(false);
                 $arr_result = [];
                 foreach ($apiEndpointList as $apiEndpointItem) {
                         $field_exists    = $apiEndpointItem->findInMfk("application_field_mfk", $application_field_id);
@@ -214,4 +214,6 @@ class ApiEndpoint extends AdmObject
                return true;
             }    
 	}
+
+        
 }
