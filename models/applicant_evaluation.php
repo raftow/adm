@@ -51,6 +51,14 @@ class ApplicantEvaluation extends AdmObject
                 
         }
 
+        public static function loadMaxScoreFor($applicant_id, $eval_id_list)
+        {
+                $obj = new ApplicantEvaluation();
+                $obj->select("applicant_id", $applicant_id);
+                $obj->where("evaluation_id in ($eval_id_list)");
+                return $obj->func("max(eval_result)");
+        }
+
         public static function loadByMainIndex($evaluation_id, $applicant_id, $eval_date, $create_obj_if_not_found = false)
         {
                 if (!$evaluation_id) throw new AfwRuntimeException("loadByMainIndex : evaluation_id is mandatory field");

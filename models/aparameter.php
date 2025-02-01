@@ -6,7 +6,7 @@ class Aparameter extends AdmObject
         public static $MODULE                    = "adm";
         public static $TABLE                        = "aparameter";
         public static $DB_STRUCTURE = null;
-
+        private static $subContextValueArray = [];
         private $contextValueArray = [];
 
         public function __construct()
@@ -22,6 +22,18 @@ class Aparameter extends AdmObject
                 if ($obj->load($id)) {
                         return $obj;
                 } else return null;
+        }
+
+        public static function getMyValueForSubContext($aparameter_id, $major_path_id, $program_track_id, $application_model_id=0, $application_plan_id=0, $training_unit_id=0, $department_id=0, $application_model_branch_id=0)
+        {
+                $subContext = "AP$aparameter_id-MP$major_path_id-PT$program_track_id+AMD$application_model_id-APL$application_plan_id-TUN$training_unit_id-DEP$department_id-AMB$application_model_branch_id";
+                if(!self::$subContextValueArray[$subContext]) 
+                {
+                        $paramValueObj = AparameterValue::loadByMainIndex($aparameter_id, $application_model_id, $application_plan_id, $training_unit_id, $department_id, $application_model_branch_id, $major_path_id, $program_track_id);                
+                        if($paramValueObj) self::$subContextValueArray[$subContext] = $paramValueObj->getVal("value");
+                        else throw new AfwRuntimeException("no parameter value object for sub-context $subContext");
+                }
+                return self::$subContextValueArray[$subContext];
         }
 
         public function getMyValueForContext($application_model_id, $application_plan_id, $obj)
@@ -272,7 +284,7 @@ class Aparameter extends AdmObject
 
         public function afterMaj($id, $fields_updated)
         {
-                $obj = AparameterValue::loadByMainIndex($this->id,0,0,0,0,0,true);
+                $obj = AparameterValue::loadByMainIndex($this->id,0,0,0,0,0,0,0,true);
                 /*
                 if($fields_updated["xxxx"])
                 {

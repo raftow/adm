@@ -79,6 +79,8 @@ class ApplicantArTranslator{
 		$trad["applicant"]["profile-other"] = "بيانات أخرى";
 
 		$trad["applicant"]["eval"] = "درجات الاختبارات المعتمدة للمؤسسة الأكاديمية";
+		$trad["applicant"]["weighted_percentage"] = "النسبة الموزونة";
+		$trad["applicant"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
 		
 		
 		
@@ -110,7 +112,8 @@ class ApplicantArTranslator{
 		$trad["applicant"]["moe"] = "الانتظام بالجامعة";
 		$trad["applicant"]["moegraduate"] = "حالة الخريج من الجامعة";
 		$trad["applicant"]["qiyas"] = "بيانات مستوردة من هيئة قياس";
-
+		$trad["applicant"]["preferred_program_track_id"] = "المسار المفضل";
+		
 		// additional fields steps
 		// $start_additional_step = 2;
 		// $additional_step = $start_additional_step + 1;

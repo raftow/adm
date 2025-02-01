@@ -236,22 +236,26 @@
                 {
                         $applicationStepList = $this->get("applicationStepList");   
                         $step_num = -1;
+                        $log_arr = [];
                         foreach($applicationStepList as $applicationStepItem)
                         {
+                                $old_step_num = $applicationStepItem->getVal("step_num"); 
                                 if($step_num<0) {
-                                        $step_num = $applicationStepItem->getVal("step_num");  
+                                        $step_num = $old_step_num; 
                                         if($step_num<0) $step_num = 0;
                                         if($step_num>1) $step_num = 1;
                                         $step_from = $step_num;
                                 }
+                                else $step_num++;
                                 
+                                $log_arr[] = "from $old_step_num to $step_num";
                                 
                                 $applicationStepItem->set("step_num", $step_num);  
                                 $applicationStepItem->commit();
                                 $step_to = $step_num;
                         }
 
-                        return ["reordered from $step_from to $step_to"];
+                        return ["", "reordered from $step_from to $step_to ".implode("<br>\n", $log_arr)];
                 }
 
                 public function findScreenForField($application_field_id)
@@ -609,12 +613,12 @@
                         
 
                         $color = "blue";
-                        $title_ar = "انشاء جميع الخطوات الافتراضية"; 
+                        $title_ar = "انشاء جميع المراحل الافتراضية"; 
                         $methodName = "createDefaultSteps";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
                         
                         $color = "green";
-                        $title_ar = "اعادة ترتيب جميع الخطوات"; 
+                        $title_ar = "اعادة ترتيب جميع المراحل"; 
                         $methodName = "reorderSteps";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
                         
@@ -652,7 +656,7 @@
                                 if(($asCount>1) and ($thisAsCount<$asCount or !$this->isActive()))
                                 {
                                         $color = "yellow";
-                                        $title_ar = "تحديث الخطوات من ".$amItem->getDisplay("ar")." من $thisAsCount إلى $asCount خطوات"; 
+                                        $title_ar = "تحديث المراحل من ".$amItem->getDisplay("ar")." من $thisAsCount إلى $asCount خطوات"; 
                                         $title_en = "copy steps from ".$amItem->getDisplay("en")." from $thisAsCount to $asCount steps"; 
                                         $methodName = "copyStepsFrom".$amItem->id;
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 

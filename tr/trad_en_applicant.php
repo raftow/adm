@@ -84,6 +84,8 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["relationship_enum"] = "relative relationship";
 
 		$trad["applicant"]["eval"] = "Test scores approved by the academic institution";
+		$trad["applicant"]["weighted_percentage"] = "weighted percentage";
+		$trad["applicant"]["weighted_percentage_details"] = "weighted percentage calculation details";
 
 		$trad["applicant"]["rayat"] = "Academic status in the training system";
 		$trad["applicant"]["hrsd"] = "Data imported from the Ministry of Human Resources";

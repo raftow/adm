@@ -25,6 +25,9 @@ class ApplicantQualification extends AdmObject
                 } else return null;
         }
 
+
+        
+
         public static function getMyQualificationNeedingFileAttachment($applicant_id, $afObj=null, $qualification_id=0, $major_category_id=0)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("getMyQualificationNeedingFileAttachment : applicant_id is mandatory field");
@@ -222,5 +225,35 @@ class ApplicantQualification extends AdmObject
         public function canBeDeletedWithoutRoleBy($auser)
         {
                 return [true, 'for demo'];
+        }
+
+        public function getInfo($info)
+        {
+                if($info=="secondary_cumulative_pct")
+                {
+                        // $qualificationId = $this->getVal("qualification_id");                        
+                        $qualificationObj = $this->het("qualification_id");
+                        $qualificationLevel = $qualificationObj->getVal("level_enum");
+                        if($qualificationObj->sureIs("active") and ($qualificationLevel==20))
+                        {
+                                $gpa_from = $this->getVal("gpa_from");
+                                if(!$gpa_from) $gpa_from = 100;
+                                $gpa = $this->getVal("gpa");
+                                return $gpa * 100 / $gpa_from;
+                        }
+                        else 
+
+                        return -999;
+                }
+                
+           
+                if($info=="secondary_major_path")
+                {
+                       return $this->getVal("major_path_id");
+                }
+
+
+                
+                
         }
 }

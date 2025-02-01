@@ -96,6 +96,14 @@ class TvtcApiRunner {
         return ["", "done", "", ""];
     }
 
+
+    public static function run_api_noor_api($applicantObject)
+    {
+        // return [$error, $info, $warning, $tech]
+        // return ["not implemented", "", "", ""];
+        return ["", "done", "", ""];
+    }
+
     
 
     

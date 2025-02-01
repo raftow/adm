@@ -32,6 +32,9 @@ class ApplicationArTranslator{
 		$trad["application"]["nb_desires"] = "عدد الرغبات";
 		$trad["application"]["satisfaction"] = "نسبة رضا العملاء";
 		$trad["application"]["tasks"] = "مهام بالانتظار";
+
+		$trad["application"]["weighted_percentage"] = "النسبة الموزونة";
+		$trad["application"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
 		
 		
 		

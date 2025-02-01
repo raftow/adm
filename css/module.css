@@ -4379,3 +4379,9 @@ tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_i
     background-color: red !important;
     min-height: fit-content;
 }
+
+div#div_data_weighted_percentage_details {
+    direction: ltr;
+    text-align: left;
+    min-height: 120px;
+}

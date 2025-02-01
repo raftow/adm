@@ -15,6 +15,7 @@ class AdmEvaluationAfwStructure
                         $obj->editByStep = true;
                         $obj->editNbSteps = 1;
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                        $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'Evaluation',"submit"=>true);
                 }
         }
 
@@ -23,58 +24,14 @@ class AdmEvaluationAfwStructure
                 'id' => array(
                         'SHOW' => false,
                         'RETRIEVE' => true,
-                        'EDIT' => false,
+                        'EDIT' => true,
                         'TYPE' => 'PK',
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
-
-                'evaluation_name_ar' => array(
-                        'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => '100',
-                        'MAXLENGTH' => '100',
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'DISPLAY' => true,
-                        'STEP' => 1,
-                        'MANDATORY' => true,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
-                ),
-
-
-
-                'evaluation_name_en' => array(
-                        'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => '100',
-                        'MAXLENGTH' => '100',
-                        'UTF8' => false,
-                        'TYPE' => 'TEXT',
-                        'DISPLAY' => true,
-                        'STEP' => 1,
-                        'MANDATORY' => true,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
-                ),
-
-
 
                 'eval_type_id' => array(
                         'IMPORTANT' => 'IN',
@@ -100,14 +57,60 @@ class AdmEvaluationAfwStructure
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
+
+                'evaluation_name_ar' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => '100',
+                        'MAXLENGTH' => '100',
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'MANDATORY' => true,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
+
+
+
+                'evaluation_name_en' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => '100',
+                        'MAXLENGTH' => '100',
+                        'UTF8' => false,
+                        'TYPE' => 'TEXT',
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'MANDATORY' => true,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
+
+
+
+                
 
 
                 'maxexamresult' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,
-                        'RETRIEVE' => false,
+                        'RETRIEVE' => true,
                         'QEDIT' => true,
                         'EDIT' => true,
                         'TYPE' => 'INT',
@@ -125,7 +128,7 @@ class AdmEvaluationAfwStructure
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE-AR' => true,
+                        'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '100',
@@ -195,7 +198,7 @@ class AdmEvaluationAfwStructure
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE-AR' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '10',
@@ -217,7 +220,7 @@ class AdmEvaluationAfwStructure
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE-AR' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '100',
@@ -229,7 +232,7 @@ class AdmEvaluationAfwStructure
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
 
@@ -239,7 +242,7 @@ class AdmEvaluationAfwStructure
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE-AR' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => 'AREA',
@@ -251,7 +254,7 @@ class AdmEvaluationAfwStructure
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_100',
                 ),
 
 

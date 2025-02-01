@@ -17,7 +17,7 @@ class AdmApplicantAfwStructure
 
                         $obj->editByStep = true;
                         $obj->editNbSteps = 8;
-                        $obj->STEP_OPTIONS = [2=> ['TEMPLATE'=>'accordion'],];
+                        $obj->STEP_OPTIONS = [2=> ['TEMPLATE'=>'accordion'], /* 3=> ['TEMPLATE'=>'accordion'],*/];
                         
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                 } else {
@@ -226,6 +226,13 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
+
+                'preferred_program_track_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50', ),
 
                 'gender_enum' => array(
                         'FGROUP' => 'profile',
@@ -1179,7 +1186,31 @@ class AdmApplicantAfwStructure
                         'CSS' => 'width_pct_100',
                 ),
 
+                'weighted_percentage' => array(
+                        'FGROUP' => 'weighted_percentage',
+                        'STEP' => 3,
+                        'TYPE' => 'FLOAT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
 
+                'weighted_percentage_details' => array(
+                        'FGROUP' => 'weighted_percentage',
+                        'STEP' => 3,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_75',
+                ),
 
                 'applicantQualificationList' => array(
                         'STEP' => 3,

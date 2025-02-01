@@ -76,7 +76,31 @@
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_50', ),
                                                 
-                                                
+                                       'weighted_percentage' => array(
+                                                'FGROUP' => 'weighted_percentage',
+                                                'STEP' => 3,
+                                                'TYPE' => 'FLOAT',
+                                                'CATEGORY' => 'FORMULA',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                "CAN-BE-SETTED" => false,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),
+
+                                        'weighted_percentage_details' => array(
+                                                'FGROUP' => 'weighted_percentage',
+                                                'STEP' => 3,
+                                                'TYPE' => 'TEXT',
+                                                'CATEGORY' => 'FORMULA',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                "CAN-BE-SETTED" => false,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_75',
+                                        ),         
                                                
 
                                         'application_status_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  

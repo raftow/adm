@@ -90,7 +90,7 @@ class AconditionOrigin extends AdmObject{
 
         public function beforeDelete($id,$id_replace) 
         {
-            $server_db_prefix = AfwSession::config("db_prefix","default_db_");
+            $server_db_prefix = AfwSession::config("db_prefix","uoh_");
             
             if(!$id)
             {
@@ -107,9 +107,43 @@ class AconditionOrigin extends AdmObject{
                if($id_replace==0)
                {
                    // FK part of me - not deletable 
+                       // adm.acondition-اللائحة	acondition_origin_id  أنا تفاصيل لها (required field)
+                        // require_once "../adm/acondition.php";
+                        $obj = new Acondition();
+                        $obj->where("acondition_origin_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some Aconditions(s) as Acondition origin";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("acondition_origin_id = '$id' and active='N'");
+
 
                         
                    // FK part of me - deletable 
+                       // adm.acondition_origin_scope-اللائحة أو القرار	acondition_origin_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition_origin_scope.php";
+                            AconditionOriginScope::removeWhere("acondition_origin_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.acondition_origin_scope where acondition_origin_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_model_condition-مصدر الشرط	acondition_origin_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_condition.php";
+                            ApplicationModelCondition::removeWhere("acondition_origin_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_model_condition where acondition_origin_id = '$id' ");
+                            
+                        } 
+                        
+                        
 
                    
                    // FK not part of me - replaceable 
@@ -122,6 +156,36 @@ class AconditionOrigin extends AdmObject{
                else
                {
                         // FK on me 
+ 
+
+                        // adm.acondition-اللائحة	acondition_origin_id  أنا تفاصيل لها (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition.php";
+                            Acondition::updateWhere(array('acondition_origin_id'=>$id_replace), "acondition_origin_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition set acondition_origin_id='$id_replace' where acondition_origin_id='$id' ");
+                            
+                        } 
+                        
+
+                       // adm.acondition_origin_scope-اللائحة أو القرار	acondition_origin_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition_origin_scope.php";
+                            AconditionOriginScope::updateWhere(array('acondition_origin_id'=>$id_replace), "acondition_origin_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition_origin_scope set acondition_origin_id='$id_replace' where acondition_origin_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_model_condition-مصدر الشرط	acondition_origin_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_condition.php";
+                            ApplicationModelCondition::updateWhere(array('acondition_origin_id'=>$id_replace), "acondition_origin_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_condition set acondition_origin_id='$id_replace' where acondition_origin_id='$id' ");
+                            
+                        }
+                        
 
                         
                         // MFK

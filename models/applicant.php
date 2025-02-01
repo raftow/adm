@@ -24,6 +24,9 @@ class Applicant extends AdmObject
     // attachement - مرفق توضيحي
     public static $doc_type_attachement = 7;     
 
+    public $secondary_cumulative_pct = null;
+    public $secondary_major_path = null;
+    public $secondary_program_track = null;
 
     public $update_date = [];
 
@@ -549,6 +552,17 @@ class Applicant extends AdmObject
         $this->commit();
     }
 
+    public function getSecondaryQualification()
+    {
+        $obj = new ApplicantQualification();
+        $obj->select("applicant_id", $this->id);
+        $obj->select("qualification_id", 49);        
+        $obj->select("active", "Y");
+
+        if ($obj->load()) {
+            return $obj;
+        } else return null;
+    }
 
     public function getLastQualification()
     {
@@ -778,7 +792,102 @@ class Applicant extends AdmObject
         return [true, ""];
     }
 
-    public function calcDragDropDiv()
+    public function calcSecondary_major_path($what="value")
+    {
+        return $this->calcSecondary_info($info="secondary_major_path", $what);
+    }
+
+    
+    public function calcAptitude_Score($what="value")
+    {
+        return ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list="1,2");
+    }
+
+    public function calcAchievement_Score($what="value")
+    {
+        return ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list="3,4");
+    }
+
+    public function calcSecondary_cumulative_pct($what="value", $objSQ = null)
+    {
+        return $this->calcSecondary_info($info="secondary_cumulative_pct", $what, $objSQ);
+    }
+
+    public function calcSecondary_info($info, $what="value", $objSQ = null)
+    {
+        if(!$this->$info)
+        {
+           if(!$objSQ) $objSQ = $this->getSecondaryQualification();
+           $this->$info = $objSQ->getInfo($info);
+           
+        }
+        return $this->$info; 
+    }
+
+    public function calcWeighted_percentage_details($what="value")
+    {
+        return $this->weighted_percentage("details");
+    }
+
+    public function calcWeighted_percentage($what="value")
+    {
+        return $this->weighted_percentage($what);
+    }
+
+    public function weighted_percentage($what="value", $program_track_id=null, $major_path_id=null, $objSQ = null)
+    {
+        try
+        {
+            if($program_track_id===null) $program_track_id = $this->getVal("preferred_program_track_id");
+            /* incorrect the weighted_percentage in level of application doesn't contain track and can be calculated
+            if(!$program_track_id) 
+            {
+                if($what=="details") return $this->tm("select your preferred program track", "ar");
+                else return -999;
+            }*/
+            if($major_path_id===null) $major_path_id = $this->calcSecondary_major_path();
+            if(!$major_path_id) 
+            {
+                if($what=="details") return $this->tm("No major path defined", "ar");
+                else return -888;
+            }
+
+            $coef_cumulative_pct_aparameter_id = 19;
+            $coef_aptitude_aparameter_id = 20;
+            $coef_achievement_aparameter_id = 21;
+            
+            
+            $a = $this->calcSecondary_cumulative_pct("value", $objSQ);
+            if(!$a) $a = "0.0";            
+            $b = $this->calcAptitude_Score();
+            if(!$b) $b = "0.0";
+            $c = $this->calcAchievement_Score();
+            if(!$c) $c = "0.0";
+            $coefAPct = Aparameter::getMyValueForSubContext($coef_cumulative_pct_aparameter_id, $major_path_id, $program_track_id, $application_model_id=0, $application_plan_id=0, $training_unit_id=0, $department_id=0, $application_model_branch_id=0);
+            $coefBPct = Aparameter::getMyValueForSubContext($coef_aptitude_aparameter_id, $major_path_id, $program_track_id, $application_model_id=0, $application_plan_id=0, $training_unit_id=0, $department_id=0, $application_model_branch_id=0);
+            $coefCPct = Aparameter::getMyValueForSubContext($coef_achievement_aparameter_id, $major_path_id, $program_track_id, $application_model_id=0, $application_plan_id=0, $training_unit_id=0, $department_id=0, $application_model_branch_id=0);
+
+            $coefA = $coefAPct/100;
+            $coefB = $coefBPct/100;
+            $coefC = $coefCPct/100;
+            $pct = ($coefA*$a + $coefB*$b + $coefC*$c);
+            if($what=="details") return "$pct = $coefAPct% x $a + $coefBPct% x $b + $coefCPct% x $c<br>\n
+                                                a=$a : cumulative percentage<br>\n
+                                                b=$b : aptitude score <br>\n
+                                                c=$c : achievement score";
+            else return $pct;
+        }
+        catch(Exception $e)
+        {
+            $err_message = "";
+            $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+            if($devMode) $err_message = $e->getMessage()."<br> trace is : <br>".$e->getTraceAsString();
+            if($what=="details") return $this->tm("error happened <!-- $err_message -->", "ar");
+            else return -99;
+        }
+    }
+
+    public function calcDragDropDiv($what="value")
     {
         $lang = AfwSession::getSessionVar("current_lang");
         if(!$lang) $lang = "ar";
@@ -1081,4 +1190,6 @@ class Applicant extends AdmObject
         //if($afObj->getId()<=0) die("pfObj($type) = ".var_export($afObj,true));
         return $afObj;
     }
+
+
 }

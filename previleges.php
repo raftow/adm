@@ -1732,23 +1732,23 @@
     'id' => '13908',
     'display' => 
     array (
-      'id' => -1,
+      'id' => '104830',
     ),
     'search' => 
     array (
-      'id' => -1,
+      'id' => '104831',
     ),
     'qsearch' => 
     array (
-      'id' => -1,
+      'id' => '104832',
     ),
     'edit' => 
     array (
-      'id' => -1,
+      'id' => '104827',
     ),
     'qedit' => 
     array (
-      'id' => -1,
+      'id' => '104828',
     ),
     'crossed' => 
     array (
@@ -1756,7 +1756,7 @@
     ),
     'stats' => 
     array (
-      'id' => -1,
+      'id' => '104833',
     ),
     'ddb' => 
     array (
@@ -1768,7 +1768,7 @@
     ),
     'delete' => 
     array (
-      'id' => -1,
+      'id' => '104829',
     ),
   ),
   'eval_group' => 
@@ -3141,6 +3141,16 @@
           'css' => 'bf',
           'icon' => ' bficon-104615 bfc-',
         ),
+        104765 => 
+        array (
+          'id' => '104765',
+          'code' => 'f2-a-qualification/qsearch',
+          'menu_name_ar' => 'المؤهلات',
+          'menu_name_en' => 'Qualifications',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Qualification&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104765 bfc-',
+        ),
         104786 => 
         array (
           'id' => '104786',
@@ -3170,6 +3180,16 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramQualification&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104758 bfc-',
+        ),
+        104832 => 
+        array (
+          'id' => '104832',
+          'code' => 'f2-a-evaluation/qsearch',
+          'menu_name_ar' => 'الاختبارات',
+          'menu_name_en' => 'Evaluations',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Evaluation&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104832 bfc-',
         ),
       ),
       'sub-folders' => 

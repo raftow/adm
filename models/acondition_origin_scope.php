@@ -30,12 +30,13 @@ class AconditionOriginScope extends AdmObject
 
     public function stepsAreOrdered()
     {
-        return false;
+        return true;
     }
 
     public function shouldBeCalculatedField($attribute)
     {
-        if ($attribute == "application_model_mfk") return true;
+        if($attribute == "application_model_mfk") return true;
+        if($attribute=="program_track_mfk") return true;
         return false;
     }
 

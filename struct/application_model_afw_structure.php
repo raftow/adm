@@ -198,7 +198,8 @@
                                                 'CSS' => 'width_pct_25',),
 
 
-
+                                        /* These, in our system concept, should be parameter values 
+                                        so the 2 below fields are to be removed from here        
                                         'min_desire' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
@@ -223,7 +224,7 @@
                                                 'STEP' => 2,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_25',), */
 
 
                                         'tuituin_fees_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  

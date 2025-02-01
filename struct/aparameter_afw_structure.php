@@ -23,13 +23,13 @@
                                         'id' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true,  
                                                 'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33',),
+                                                'CSS' => 'width_pct_100',),
 
                                         'aparameter_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '64', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33',),
+                                                'CSS' => 'width_pct_100',),
                                                 
                                                 
 
@@ -37,7 +37,7 @@
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '', 'MAXLENGTH' => '64', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33',),
+                                                'CSS' => 'width_pct_100',),
 
 
                                         'aparam_use_scope_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
@@ -45,14 +45,14 @@
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33', ),                                                
+                                                'CSS' => 'width_pct_100', ),                                                
                                                 
 
 
                                         'customizable' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33',),
+                                                'CSS' => 'width_pct_50',),
 
 
 
@@ -62,7 +62,7 @@
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_33', ),	
+                                                'CSS' => 'width_pct_50', ),	
 
 
                                         'answer_table_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
@@ -94,7 +94,10 @@
                                                 'CSS' => 'width_pct_50',),
 
 
-                                        'aparameterValueList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                        'aparameterValueList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                'ICONS' => true,  'EDIT-ICON' => 2, /* means goto directly step 2 */
+                                                'DELETE-ICON' => true,  'BUTTONS' => true,  
+                                                'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'STEP' => 3,  

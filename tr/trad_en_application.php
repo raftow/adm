@@ -4,6 +4,13 @@ class ApplicationEnTranslator{
     public static function initData()
     {
         $trad = [];
+		
+		$trad["application"]["step1"] = "Submission data";
+		$trad["application"]["step2"] = "General path";
+		$trad["application"]["step3"] = "Choose desires";
+		$trad["application"]["step4"] = "Technical information";
+		$trad["application"]["step5"] = "Advanced information";
+
 		$trad["application"]["application.single"] = "Application";
 		$trad["application"]["application.new"] = "new";
 		$trad["application"]["application"] = "Applications";
@@ -20,6 +27,9 @@ class ApplicationEnTranslator{
 		$trad["application"]["sis_fields_available"] = "SIS fields available";
 		$trad["application"]["tasks"] = "waiting tasks";
 		$trad["application"]["satisfaction"] = "Applicants satisfaction percentage";
+
+		$trad["application"]["weighted_percentage"] = "weighted percentage";
+		$trad["application"]["weighted_percentage_details"] = "weighted percentage calculation details";
 		return $trad;
     }
 

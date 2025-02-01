@@ -124,6 +124,16 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
 
+			'program_track_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  'QEDIT' => false,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',   
+                                                // 'WHERE' => '', 
+                                                // 'DEPENDENT_OFME' => array("zzz", ),
+                                                // 'DEPENDENCIES' => ['qualification_id',],
+                                                'DISPLAY' => true,  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_100',),												
+
 			'aconditionOriginScopeList' => array('TYPE' => 'FK', 'ANSWER' => 'acondition_origin_scope', 'ANSMODULE' => 'adm', 
 												'CATEGORY' => 'ITEMS', 'ITEM' => 'acondition_origin_id', 'STEP' => 2, 'QEDIT' => false,   
 												// 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
@@ -141,7 +151,7 @@
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
 					'WHERE' => "acondition_type_id = 1 and composed != 'Y'", 'HIDE_COLS' => ['condition_1_id','operator_id','condition_2_id',],
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
-					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
+					'DELETE-ICON' => true,  'BUTTONS' => true,    'DISPLAY' => true, 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 					'CSS' => 'width_pct_100',),
 
@@ -150,7 +160,7 @@
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
 					'WHERE' => "acondition_type_id = 1 and composed='Y'", 'HIDE_COLS' => ['afield_id','compare_id','aparameter_id',],
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
-					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
+					'DELETE-ICON' => true,  'BUTTONS' => true,    'DISPLAY' => true, 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 					'CSS' => 'width_pct_100',),
 

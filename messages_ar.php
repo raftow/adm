@@ -23,7 +23,7 @@
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
     
     $messages["has been successfully done"] = "تمت بنجاح";
-    $messages["The move from step"] = "عملية الانتقال من الخطوة";
+    $messages["The move from step"] = "عملية الانتقال من المرحلة";
     $messages["has failed for the following reason"] = "فشلت للأسباب التالية";
     $messages["The condition"] = "الشرط";
     $messages["condition part"] = "جزء الشرط";

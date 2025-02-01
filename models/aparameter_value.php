@@ -37,7 +37,9 @@ class AparameterValue extends AdmObject
 
         public static function loadByMainIndex($aparameter_id, $application_model_id=0, 
                          $application_plan_id=0, $training_unit_id=0, 
-                         $department_id=0, $application_model_branch_id=0, $create_obj_if_not_found = false)
+                         $department_id=0, $application_model_branch_id=0, 
+                         $major_path_id=0, $program_track_id=0, 
+                         $create_obj_if_not_found = false)
         {
                 $obj = new AparameterValue();
                 $obj->select("aparameter_id", $aparameter_id);
@@ -46,6 +48,8 @@ class AparameterValue extends AdmObject
                 $obj->select("training_unit_id", $training_unit_id);
                 $obj->select("department_id", $department_id);
                 $obj->select("application_model_branch_id", $application_model_branch_id);
+                $obj->select("major_path_id", $major_path_id);
+                $obj->select("program_track_id", $program_track_id);
 
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) $obj->activate();
@@ -57,7 +61,9 @@ class AparameterValue extends AdmObject
                         $obj->set("training_unit_id", $training_unit_id);
                         $obj->set("department_id", $department_id);
                         $obj->set("application_model_branch_id", $application_model_branch_id);
-
+                        $obj->set("major_path_id", $major_path_id);
+                        $obj->set("program_track_id", $program_track_id);
+        
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
@@ -276,10 +282,13 @@ class AparameterValue extends AdmObject
                 $training_unit_id = $this->getVal('training_unit_id');
                 $department_id = $this->getVal('department_id');
                 $application_model_branch_id = $this->getVal('application_model_branch_id');
+                $major_path_id = $this->getVal('major_path_id');
+                $program_track_id = $this->getVal('program_track_id');
 
                 $pvObj = AparameterValue::loadByMainIndex($newParamId,$application_model_id, 
                                                 $application_plan_id, $training_unit_id, 
-                                                $department_id, $application_model_branch_id, $create_obj_if_not_found =true);
+                                                $department_id, $application_model_branch_id, 
+                                                $major_path_id, $program_track_id, $create_obj_if_not_found =true);
 
                 if($erase_existing or $pvObj->is_new)
                 {
@@ -288,6 +297,10 @@ class AparameterValue extends AdmObject
                 }
         }
 
+        public function stepsAreOrdered()
+        {
+                return true;
+        }
 
         protected function userCanEditMeWithoutRole($auser)
         {

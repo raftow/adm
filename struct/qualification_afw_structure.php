@@ -14,7 +14,7 @@
                                 $obj->IS_LOOKUP = true;
                                 $obj->IS_SMALL = true;
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 2; 
+                                $obj->editNbSteps = 4; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -86,15 +86,26 @@
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'qualification_id', 'STEP' => 2,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
-                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false,
+                                                'CSS' => 'width_pct_100',),
         
                                         'qualMajorPathList' => array('TYPE' => 'FK', 'ANSWER' => 'qual_major_path', 'ANSMODULE' => 'adm', 
-                                                    'CATEGORY' => 'ITEMS', 'ITEM' => 'qualification_id', 'STEP' => 3,
-                                                    // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
-                                                    'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
-                                                    'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'qualification_id', 'STEP' => 3,
+                                                // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false,
+                                                'CSS' => 'width_pct_100',),
 
-
+                                        'majorPathList' => array('SHORTNAME' => 'majorPaths',  'SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                        'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  
+                                                        'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                        'EDIT' => false,  'QEDIT' => false, 'STEP' => 4,  
+                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+                                                        'MANDATORY' => false,  'UTF8' => false,  
+                                                        'TYPE' => 'FK', 'CATEGORY' => 'ITEMS',   
+                                                        'ANSWER' => 'major_path',  'ANSMODULE' => 'adm',  'ITEM' => 'qualification_id',  
+                                                        'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                        'CSS' => 'width_pct_100', ),
 
                                         
         

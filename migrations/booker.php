@@ -41,5 +41,6 @@ $migrations = [
     '00035' => ['by'=>'rafik', 'title' => 'prog track new logic and design'],
     '00036' => ['by'=>'rafik', 'title' => 'UOH more previleges'],
     '00037' => ['by'=>'medali', 'title' => 'default value + column password length'],
+    '00038' => ['by'=>'rafik', 'title' => 'UOH more settings'],
 ];
 

@@ -43,6 +43,15 @@
                                                         'DISPLAY' => true,  'STEP' => 99,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_100',),
+
+                                                'program_track_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => false,  'RETRIEVE' => false,  
+                                                        'EDIT' => false,  'QEDIT' => false,  'UTF8' => false, 'CATEGORY' => 'SHORTCUT',  'SHORTCUT' => 'acondition_origin_id.program_track_mfk',
+                                                        'TYPE' => 'MFK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',   
+                                                        'WHERE' => 'id < 10 ',
+                                                     
+                                                        'DISPLAY' => true,  'STEP' => 99,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_100',),
                                                         
 
                                         'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -108,6 +117,17 @@
                                                 'AUTOCOMPLETE' => false, 'AUTOCOMPLETE-SEARCH' => true,'EMPTY_IS_ALL' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),	
+
+                                        'program_track_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => "active = 'Y' and §program_track_mfk§ like concat('%,',id,',%')",
+                                                // 'DEPENDENT_OFME' => array("xxxx"),
+                                                'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 
+                                                'READONLY'=>false, 'READONLY-AFTER-INSERT'=>true, 'AUTOCOMPLETE' => false,'EMPTY_IS_ALL' => true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50', ),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2,  

@@ -1,7 +1,11 @@
 <?php
     $trad["qualification"]["step1"] = "المؤهل";   
     $trad["qualification"]["step2"] = "المصادر";   
-    $trad["qualification"]["step3"] = "المسارات";   
+    $trad["qualification"]["step3"] = "المسارات";  
+	$trad["qualification"]["step4"] = "الشعب";  
+
+	$trad["qualification"]["majorPathList"] = "الشعب";  
+	 
     
 	$trad["qualification"]["qualification.single"] = "مؤهل";
 	$trad["qualification"]["qualification.new"] = "جديد";

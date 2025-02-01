@@ -3,6 +3,12 @@
 
 	$trad["major_path"]["step1"] = "التعريف";
 	$trad["major_path"]["step2"] = "المسارات";
+	$trad["major_path"]["step3"] = "الاعدادات";
+
+	$trad["major_path"]["aparameterValueList"] = "الاعدادات";
+
+	
+	
 
 	$trad["major_path"]["majorpath.single"] = "مجموعة تأهيل";
 	$trad["major_path"]["majorpath.new"] = "جديدة";

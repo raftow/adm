@@ -31,7 +31,7 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,'CSS' => 'width_pct_25',
 				),
 
-			'field_name' => array('SHOW' => true,  'SEARCH' => true,  'RETRIEVE' => false,  'QEDIT' => true,  'EDIT' => true,  
+			'field_name' => array('SHOW' => true,  'SEARCH' => true,  'RETRIEVE' => true,  'QEDIT' => true,  'EDIT' => true,  
 				'TYPE' => 'TEXT',  'SIZE' => 25,  'STYLE' => 'width:150px', 'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'CSS' => 'width_pct_25',
 				),
@@ -108,7 +108,7 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 
 				),
 
-			'field_order' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'EXCEL' => false,  'EDIT' => true,  'QEDIT' => true,  'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'QEDIT_ALL_FGROUP' => true,  
+			'field_order' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  'EXCEL' => false,  'EDIT' => true,  'QEDIT' => true,  'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'QEDIT_ALL_FGROUP' => true,  
 				'TYPE' => 'INT',    'MANDATORY' => true,  'STEP' => 3,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,  'ERROR-CHECK' => true, 
 				),

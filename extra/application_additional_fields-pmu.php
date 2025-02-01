@@ -72,7 +72,7 @@ class PmuApplicationFormulaManager
             $application_model_id = $applicationObj->getVal("application_model_id");
             $application_plan_id = $applicationObj->getVal("application_plan_id");
             // date of calculation of age
-            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
+            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id);
             if($objPV)
             {
                 $start_gdate = $objPV->getVal("value");
@@ -108,7 +108,7 @@ class PmuApplicationFormulaManager
             $application_model_id = $applicationObj->getVal("application_model_id");
             $application_plan_id = $applicationObj->getVal("application_plan_id");
             // date of calculation of age
-            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
+            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id);
             if($objPV)
             {
                 $start_gdate = $objPV->getVal("value");

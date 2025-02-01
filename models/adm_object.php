@@ -43,11 +43,30 @@ class AdmObject extends AfwMomkenObject{
         } 
 
 
+        /*
 
+        public static function list_of_qualification_track_enum()
+        {
+            global $lang;
+            return self::qualification_track()[$lang];
+        }
 
+        
+        public static function qualification_track()
+        {
+                $arr_list_of_qualification_track = array();
+                
+                        
+                $arr_list_of_qualification_track["en"][1] = "literary";
+                $arr_list_of_qualification_track["ar"][1] = "أدبي";
+                $arr_list_of_qualification_track["code"][1] = "literary";
 
+                $arr_list_of_qualification_track["en"][2] = "";
+                $arr_list_of_qualification_track["ar"][2] = "علمي";
+                $arr_list_of_qualification_track["code"][2] = "Book";
 
-
+                return $arr_list_of_qualification_track;
+        } */
 
 
 

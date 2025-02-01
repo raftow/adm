@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 // $obj->DISPLAY_FIELD = "aparameter_value_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                $obj->UNIQUE_KEY = array('aparameter_id','application_model_id','application_plan_id','training_unit_id','department_id','application_model_branch_id');
+                                $obj->UNIQUE_KEY = array('aparameter_id','application_model_id','application_plan_id','training_unit_id','department_id','application_model_branch_id','major_path_id','program_track_id');
                                 $obj->public_display = true;
 
                                 $obj->editByStep = true;
@@ -98,13 +98,49 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
 
+                                        'major_path_id' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => false,
+                                                'QSEARCH' => false,
+                                                'SHOW' => false,
+                                                'RETRIEVE' => true,
+                                                'EDIT' => true,
+                                                'QEDIT' => false,
+                                                'UTF8' => false,
+                                                'TYPE' => 'FK',
+                                                'ANSWER' => 'major_path',
+                                                'ANSMODULE' => 'adm',
+                                                'SIZE' => 40,
+                                                'DEFAUT' => 0,
+                                                'DISPLAY' => true,
+                                                'STEP' => 1,
+                                                'RELATION' => 'OneToMany',
+                                                'MANDATORY' => false,
+                                                'EMPTY_IS_ALL' => true,
+                                                'READONLY' => false, 'READONLY-AFTER-INSERT'=>true, 
+                                                'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_50',
+                                        ),
 
+                                        'program_track_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 
+                                                'SHOW' => true,  'RETRIEVE' => true, 'EDIT' => true,  'QEDIT' => true,  
+                                                'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => "active = 'Y'",
+                                                // 'DEPENDENT_OFME' => array("xxxx"),
+                                                'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 
+                                                'READONLY'=>false, 'READONLY-AFTER-INSERT'=>true, 'AUTOCOMPLETE' => false,'EMPTY_IS_ALL' => true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50', ),
 
                                         'value' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '255', 'MAXLENGTH' => '255', 'UTF8' => true,  
                                                 'TYPE' => '::dynamic', 'ANSWER' => '::dynamic',  'ANSMODULE' => '::dynamic', 'FUNCTION_COL_NAME' => '::dynamic',  
                                                 'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'CAN_ZERO' => true, 
                                                 'CSS' => 'width_pct_50',),
                                                 
 

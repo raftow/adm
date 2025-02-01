@@ -18,7 +18,7 @@ class AconditionArTranslator{
 		$trad["acondition"]["acondition_desc_ar"] = "وصف الشرط بالعربية";
 		$trad["acondition"]["acondition_desc_en"] = "وصف الشرط بالانجليزية";
 		$trad["acondition"]["radical"] = "شرط قطعي";
-		$trad["acondition"]["composed"] = "شرط مركب";
+		$trad["acondition"]["composed"] =  "صنف الشرط";
 		$trad["acondition"]["condition_1_id"] = "الجزء الأول من الشرط";
 		$trad["acondition"]["operator_id"] = "الأداة المنطقية";
 		$trad["acondition"]["condition_2_id"] = "الجزء الثاني من الشرط";
@@ -35,6 +35,10 @@ class AconditionArTranslator{
 		$trad["acondition"]["known_already"] = "قيمة الحقل معلومة مسبقا";
 		$trad["acondition"]["show_fe"] = "الاضهار في الواجهة";
 		$trad["acondition"]["bfunction_id"] = "الخدمة العملية";
+
+		$trad["acondition"]["composed.YES"] = "شرط مركب";
+		$trad["acondition"]["composed.NO"]  = "شرط بسيط";
+		$trad["acondition"]["composed.EUH"] = "شرط يدوي";
 
 
 		$trad["acondition"]["compare_id.short"] = "مقارنة";

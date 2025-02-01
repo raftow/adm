@@ -243,12 +243,12 @@ class Acondition extends AdmObject{
 
                 if (($attribute == "condition_1_id") or ($attribute == "operator_id") or ($attribute == "condition_2_id")) 
                 {
-                        return $this->_isComposed();
+                        return $this->sureIs("composed");
                 }
 
                 if (($attribute == "afield_id") or ($attribute == "compare_id") or ($attribute == "aparameter_id")) 
                 {
-                        return (!$this->_isComposed());
+                        return (!$this->mayBe("composed"));
                 }
 
                 return true;
@@ -767,6 +767,107 @@ class Acondition extends AdmObject{
 
                 return [$switcher_authorized, $switcher_title, $switcher_text];
         }
+
+        public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","uoh_");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+
+                        
+                   // FK part of me - deletable 
+                       // adm.acondition-الجزء 1	condition_1_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition.php";
+                            Acondition::removeWhere("condition_1_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.acondition where condition_1_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.acondition-الجزء 2	condition_2_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition.php";
+                            Acondition::removeWhere("condition_2_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.acondition where condition_2_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_model_field-الشرط	acondition_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::removeWhere("acondition_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_model_field where acondition_id = '$id' ");
+                            
+                        } 
+                        
+                        
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+                       // adm.acondition-الجزء 1	condition_1_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition.php";
+                            Acondition::updateWhere(array('condition_1_id'=>$id_replace), "condition_1_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition set condition_1_id='$id_replace' where condition_1_id='$id' ");
+                            
+                        }
+                        
+                       // adm.acondition-الجزء 2	condition_2_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition.php";
+                            Acondition::updateWhere(array('condition_2_id'=>$id_replace), "condition_2_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition set condition_2_id='$id_replace' where condition_2_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_model_field-الشرط	acondition_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::updateWhere(array('acondition_id'=>$id_replace), "acondition_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_field set acondition_id='$id_replace' where acondition_id='$id' ");
+                            
+                        }
+                        
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	}
 
         // generalCondition
         /*

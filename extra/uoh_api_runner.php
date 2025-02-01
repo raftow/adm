@@ -1,5 +1,5 @@
 <?php
-class TvtcApiRunner {
+class UohApiRunner {
 
     public static function register_apis()
     {

@@ -12,3 +12,14 @@
     $trad["qualification"]["qualSourceList"] = "List of qualification sources";
     $trad["qualification"]["qualMajorPathList"] = "List of Qual major paths";
 	$trad["qualification"]["gpa_from"] = "gpa from";
+
+	
+	
+	
+	
+	$trad["qualification"]["step1"] = "Qualification";   
+    $trad["qualification"]["step2"] = "Sources";   
+    $trad["qualification"]["step3"] = "Tracks"; 
+	$trad["qualification"]["step4"] = "Divisions";  
+
+	$trad["qualification"]["majorPathList"] = "Divisions";  

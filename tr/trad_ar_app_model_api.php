@@ -15,8 +15,8 @@ class AppModelApiArTranslator{
 		$trad["app_model_api"]["duration_expiry"] = "مدة الصلاحية";
 		$trad["app_model_api"]["published"] = "تم النشر";
 		$trad["app_model_api"]["application_field_mfk"] = "الحقول المستعملة";
-		$trad["app_model_api"]["step_num"] = "أثناء الانتقال الى الخطوة";
-		$trad["app_model_api"]["step_num.short"] = "الى الخطوة";
+		$trad["app_model_api"]["step_num"] = "أثناء الانتقال الى المرحلة";
+		$trad["app_model_api"]["step_num.short"] = "الى المرحلة";
 		// steps
 		$trad["app_model_api"]["step1"] = "step1";
         return $trad;

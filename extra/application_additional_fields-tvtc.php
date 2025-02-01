@@ -43,7 +43,7 @@ class TvtcApplicationFormulaManager
             $application_model_id = $applicationObj->getVal("application_model_id");
             $application_plan_id = $applicationObj->getVal("application_plan_id");
             // date of calculation of age
-            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
+            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id);
             if($objPV)
             {
                 $start_gdate = $objPV->getVal("value");
@@ -79,7 +79,7 @@ class TvtcApplicationFormulaManager
             $application_model_id = $applicationObj->getVal("application_model_id");
             $application_plan_id = $applicationObj->getVal("application_plan_id");
             // date of calculation of age
-            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
+            $objPV = AparameterValue::loadByMainIndex($age_aparameter_id, $application_model_id, $application_plan_id);
             if($objPV)
             {
                 $start_gdate = $objPV->getVal("value");
@@ -142,18 +142,14 @@ class TvtcApplicationFormulaManager
     {
         try
         {
+            list($yes,$no) = AfwLanguageHelper::translateYesNo($what);
             $qualifObj = $applicationObj->het("applicant_qualification_id"); 
             if($qualifObj)
             {
-                $imported = $qualifObj->getVal("imported");
+                $imported = ($qualifObj->getVal("imported")=="Y") ? $yes : $no;
             }
-            else $imported = "N";
+            else $imported = $no;
 
-            if($what=="decode" and $qualifObj) 
-            {
-                $imported = $qualifObj->showYNValueForAttribute($imported, "imported");
-            }
-            
             return $imported;
             
         }
