@@ -372,8 +372,15 @@ class Application extends AdmObject
                 if ($this->applicantObj) {
                         $apiEndpoint = $this->getFieldApiEndpoint($field_name);
                         if ($apiEndpoint) {
-                                $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
+                                if($apiEndpoint->id!=13)
+                                {
+                                        $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
+                                }
+                                else
+                                {
+                                        $field_value_datetime = $this->getVal("created_at");
+                                }
                         } else $apiEndpointDisplay = "> no-apiEndpoint for $field_name";
                 } else $apiEndpointDisplay = "no-applicant";
                 if (!$field_value_datetime) $field_value_datetime = $this->getVal($field_name . "_update_date");
@@ -388,8 +395,16 @@ class Application extends AdmObject
                 if ($this->applicantObj) {
                         $apiEndpoint = $this->getFieldApiEndpoint($field_name, 1);
                         if ($apiEndpoint) {
-                                $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
+                                if($apiEndpoint->id!=13)
+                                {
+                                        $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
+                                }
+                                else
+                                {
+                                        $field_value_datetime = $this->applicantObj->getVal("updated_at");
+                                }
+                                
                         } else $apiEndpointDisplay = ">> no-apiEndpoint for $field_name";
                 } else $apiEndpointDisplay = "no-applicant";
                 if (!$field_value_datetime) $field_value_datetime = $this->applicantObj->getVal($field_name . "_update_date");
