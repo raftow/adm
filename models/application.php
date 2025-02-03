@@ -244,16 +244,31 @@ class Application extends AdmObject
 
                 $pbms = array();
 
-                $color = "orange";
-                $title_ar = "الانتقال الى المرحلة الموالية";
-                $methodName = "gotoNextStep";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_status_enum"));
-
-                $color = "blue";
-                $title_ar = "تحديث البيانات عبر الخدمات الالكترونية";
-                $methodName = "runNeededApis";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_status_enum"));
-
+                
+                $currentStepNum = $this->getVal("step_num");
+                $nextStepNum = $currentStepNum+1;
+                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                if ($this->objApplicationModel)
+                {
+                        $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
+                        
+                        $color = "green";
+                        $title_ar = $asObj->tm("go to next step",'ar')." '".$asObj->getDisplay("ar")."'";                
+                        $title_en = $asObj->tm("go to next step",'en')." '".$asObj->getDisplay("en")."'";                
+                        $methodName = "gotoNextStep";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                                "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, "ADMIN-ONLY" => true, 
+                                                                "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_status_enum"));
+        
+                        $color = "blue";
+                        $title_ar = $asObj->tm("Updating data via electronic services",'ar');
+                        $title_en = $asObj->tm("Updating data via electronic services",'en');
+                        $methodName = "runNeededApis";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                        "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_status_enum"));
+        
+                }
+                
 
                 return $pbms;
         }
@@ -607,8 +622,14 @@ class Application extends AdmObject
                 return $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
         }
 
+        public function calcNb_desires($what = "value")
+        {
+                return $this->getRelation("applicationDesireList")->count();
+        }
+
         public function calcSis_fields_available($what = "value", $lang = "")
         {
+                //die("rafik debugg 20250203");
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
                 if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
                 if (!$this->objApplicationModel) return $no;
@@ -632,7 +653,7 @@ class Application extends AdmObject
                 }
 
                 $applicationAvail = $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
-
+                // die("applicantAvail and applicationAvail => $applicantAvail and $applicationAvail");
                 return ($applicantAvail and $applicationAvail) ? $yes : $no;
         }
 

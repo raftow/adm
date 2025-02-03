@@ -46,7 +46,10 @@
     $messages["is not published"] = "غير منشور(ة)";
 
     $messages["nb of Academic Program Offering for"] = "عدد البرامج المتاحة ل";
+    $messages["go to next step"] = "الانتقال الى المرحلة الموالية";
+    $messages["Updating data via electronic services"] = "تحديث البيانات عبر الخدمات الالكترونية";
 
+    
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
     

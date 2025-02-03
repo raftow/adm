@@ -55,7 +55,7 @@
                                                 'CSS' => 'width_pct_25', ),	
 
                                                 'allow_add_qualification' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>'application_model_id.allow_add_qualification', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N','QEDIT' => false,   
-                                                        'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3,  'FORMAT' => 'icon', 'MANDATORY' => false, 'QSEARCH' => false, 
+                                                        'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 99,  'FORMAT' => 'icon', 'MANDATORY' => false, 'QSEARCH' => false, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25',),
                                         	
@@ -145,15 +145,26 @@
 
                                         'sis_fields_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 3, 'READONLY'=>true,
+								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 2, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
                                         'sis_fields_not_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'TEXT',  'STEP' => 3, 'READONLY'=>true,
+								'TYPE' => 'TEXT',  'STEP' => 2, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-								'CSS' => 'width_pct_25',),                                                                
+								'CSS' => 'width_pct_25',),   
+                                                                
+                                        'applicationDesireList' => array('STEP' => 3, 'SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                        'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  
+                                                        'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                        'EDIT' => false,  'QEDIT' => false,  
+                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+                                                        'MANDATORY' => false,  'UTF8' => false,  
+                                                        'TYPE' => 'FK',  
+                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id',  
+                                                        'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                        'CSS' => 'width_pct_100', ),                                                                
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 

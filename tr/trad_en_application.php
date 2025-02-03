@@ -27,6 +27,8 @@ class ApplicationEnTranslator{
 		$trad["application"]["sis_fields_available"] = "SIS fields available";
 		$trad["application"]["tasks"] = "waiting tasks";
 		$trad["application"]["satisfaction"] = "Applicants satisfaction percentage";
+		$trad["application"]["applicationDesireList"] = "Desires";
+		$trad["application"]["nb_desires"] = "Number of desires";
 
 		$trad["application"]["weighted_percentage"] = "weighted percentage";
 		$trad["application"]["weighted_percentage_details"] = "weighted percentage calculation details";

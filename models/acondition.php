@@ -433,7 +433,7 @@ class Acondition extends AdmObject{
                 $has_failed = $this->tm("has failed");
                 $has_succeeded = $this->tm("has succeeded");
 
-                if($this->_isComposed())
+                if($this->sureIs("composed"))
                 {
                         // to avoid for big loops to recreate the composing objects for each iteration
                         // save it inside a private attribute
@@ -480,7 +480,7 @@ class Acondition extends AdmObject{
                                 
                         }
                 }
-                else
+                elseif($this->isNot("composed"))
                 {
                         if(!$this->afObj) $this->afObj = $this->get("afield_id");
                         if(!$this->aparamObj) $this->aparamObj = $this->get("aparameter_id");
@@ -601,6 +601,10 @@ class Acondition extends AdmObject{
 
 
                         return [$exec_result, $comments, $tech];
+                }
+                else
+                {
+                        return [true, "manual condition ignored", ""];
                 }
         }
 
