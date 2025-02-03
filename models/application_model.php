@@ -385,7 +385,7 @@
                                                         list($screen_model_id, $step_num, $generalScreen) = $this->findScreenForField($application_field_id);                                                
                                                         if(!$screen_model_id)
                                                         {
-                                                                $err_arr[] = "no screen manage the field $application_field_name/$application_field_id";
+                                                                $err_arr[] = "no step/screen manage the field $application_field_name/$application_field_id";
                                                         }
                                                         $arr_api = ApiEndpoint::findAllApiEndpointForField($application_field_id);                                                
                                                         /*
@@ -516,6 +516,18 @@
                 }
 
 
+                public function testOpenApplicationModelBranchList($lang="ar")
+                {
+                        $capacity = AfwSession::config("capacity-default",10);
+                        $application_model_id = $this->id;
+                        $obj = new ApplicationModelBranch();
+                        $obj->select("application_model_id", $application_model_id);
+                        $obj->where("seats_capacity is null or seats_capacity = 0");
+                        $obj->set("seats_capacity",$capacity); 
+                        $obj->update(false);
+                        return ["","done"];
+                }
+
                 public function genereApplicationModelBranchList($lang="ar")
                 {
 
@@ -532,7 +544,9 @@
                         $nb_inserted = 0;
 
                         $academic_level_id = $this->getVal("academic_level_id");
+                        $academic_level_display = $this->decode("academic_level_id");
                         $gender_enum = $this->getVal("gender_enum");
+                        $gender_enum_display = $this->decode("gender_enum");
 
                         $this->hideAllApplicationModelBranchList();
                         
@@ -541,7 +555,7 @@
                         foreach($trainingPeriodArr as $training_period_enum)
                         {
                                 $progOffList = AcademicProgramOffering::loadListeForModel($academic_level_id, $gender_enum);
-                                $inf_arr[] = $this->tm("nb of Academic Program Offering")." : ".count($progOffList);
+                                $inf_arr[] = $this->tm("nb of Academic Program Offering for")." ($academic_level_display / $gender_enum_display) : ".count($progOffList);
                                 foreach($progOffList as $progOffItem)
                                 {
                                         $seats_capacity = $this->getVal("seats_capacity_$training_period_enum");
@@ -554,7 +568,7 @@
                                                 $appModelBr->set("gender_enum", $progOffItem->getVal("gender_enum"));
                                                 $appModelBr->set("major_id", $progOffItem->getVal("major_id"));
                                                 $appModelBr->set("academic_program_id", $progOffItem->getVal("academic_program_id"));  
-                                                $appModelBr->commit();
+                                                $appModelBr->genereName($lang);
                                                 if($appModelBr->is_new)
                                                 {
                                                         $nb_inserted++; 
@@ -566,7 +580,7 @@
                                                         // $inf_arr[] = $appModelBr->tm("updated branch")." : ".$appModelBr->getDisplay($lang);  
                                                 }
 
-                                                $appModelBr->genereName($lang="ar");
+                                                
                                         }
                                         /*else 
                                         {
@@ -607,8 +621,14 @@
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
                         
                         $color = "green";
-                        $title_ar = "تحديث فروع القبول حسب الاعدادات"; 
+                        $title_ar = "تحديث فروع القبول حسب البرامج المتاحة وباقي الاعدادات"; 
                         $methodName = "genereApplicationModelBranchList";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                        
+
+                        $color = "blue";
+                        $title_ar = "فتح جميع فروع القبول بطاقة استيعابية تجريبية"; 
+                        $methodName = "testOpenApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
 

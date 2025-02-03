@@ -169,7 +169,7 @@
 					'CATEGORY' => 'ITEMS',  'ITEM' => 'acondition_origin_id',  
 					'WHERE' => "acondition_type_id != 1", 
 					'SHOW' => true,  'FORMAT' => 'retrieve',  'EDIT' => false,  'ICONS' => true,  
-					'DELETE-ICON' => false,  'BUTTONS' => true,    'DISPLAY' => true, 
+					'DELETE-ICON' => true,  'BUTTONS' => true,    'DISPLAY' => true, 
 					'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 					'CSS' => 'width_pct_100',),
 

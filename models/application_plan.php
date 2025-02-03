@@ -140,7 +140,7 @@
 
             if($this->canApply())
             {
-                $color = "orange";
+                $color = "blue";
                 $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج"; 
                 $methodName = "addPossibleBranchs";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
@@ -185,6 +185,7 @@
                 $application_model_id = $this->getVal("application_model_id");
                 
                 $gender_enum = $this->getVal("gender_enum");
+                $gender_enum_decoded = $this->decode("gender_enum");
                 $term_id = $this->getVal("term_id");
 
                 
@@ -216,7 +217,7 @@
                                                 apb.program_offering_id = amb.program_offering_id and
                                                 apb.application_plan_id = $this_id                                                        
                                 where amb.application_model_id = $application_model_id
-                                  and amb.gender_enum = $gender_enum
+                                  and (amb.gender_enum = $gender_enum or $gender_enum > 2)
                                   and amb.active = 'Y'
                                   and amb.seats_capacity > 0
                                   and apb.id is null";
@@ -226,7 +227,15 @@
                 
                 $this->repareAllHijriApplicationEndDate($lang);
 
-                $inf_arr[] = $this->getDisplay($lang) . " : " . $this->tm('عدد سجلات فروع التقديم التي تم توليدها : ', $lang) . $affected_row_count;
+                if($affected_row_count>0)
+                {
+                    $inf_arr[] = $this->getDisplay($lang) . " : " . $this->tm('عدد سجلات فروع التقديم التي تم توليدها : ', $lang) . $affected_row_count;
+                }
+                else
+                {
+                    $war_arr[] = "في نموذج القبول ". $this->getDisplay($lang) . " لا يوجد فروع قبول مفتوحة بطاقة استيعابية محددة على جنس الطلاب : $gender_enum_decoded";
+                }
+                
                 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }

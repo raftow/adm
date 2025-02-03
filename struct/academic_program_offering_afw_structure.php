@@ -30,7 +30,7 @@
                                 $obj->OwnedBy = array('module' => "adm", 'afw' => "AcademicProgram", 'afw2' => "TrainingUnit");
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 3; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("class"=>'TrainingUnit',"attribute"=>'training_unit_id', "currmod"=>'adm',"currstep"=>6);
                         }
                 }
                 
@@ -44,7 +44,7 @@
                                         'training_unit_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY' => true,
+                                                'DISPLAY' => true,  'STEP' => '1',  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_75', ),	
 
@@ -53,7 +53,7 @@
                                                 'gender_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'READONLY' => true,
+                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'READONLY' => false,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25', ),
 
@@ -81,7 +81,7 @@
                                         'academic_program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,    'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,   
-                                                'WHERE'=>"department_id = §department_id§ and major_id = §major_id§ and genders_enum in (3,§gender_enum§)",
+                                                'WHERE'=>"(academic_level_id in (select academic_level_id from §DBPREFIX§adm.academic_level_offering where training_unit_id = §training_unit_id§)) and (department_id = §department_id§ or §department_id§=0) and (major_id = §major_id§ or §major_id§ = 0) and genders_enum in (3,§gender_enum§)",
                                                 'DEPENDENCIES' => array("major_id", "department_id", 'academic_level_id', 'gender_enum',),
                                                 'DEPENDENT_OFME' => array("training_unit_id", ), 
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'AUTOCOMPLETE' => false,
@@ -92,18 +92,18 @@
                                                 'academic_level_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true,    'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'academic_level',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
+                                                        'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
-                                                        'CSS' => 'width_pct_25', ),	
+                                                        'CSS' => 'width_pct_50', ),	
 
                                                         
                                                         
                                                 'degree_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                         'EDIT' => true,  'QEDIT' => true,    'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'degree',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
+                                                        'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
-                                                        'CSS' => 'width_pct_25', ),	
+                                                        'CSS' => 'width_pct_50', ),	
 
 
                                         /*

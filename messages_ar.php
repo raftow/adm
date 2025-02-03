@@ -45,6 +45,8 @@
     $messages["can not be refreshed and already called at"] = "لا يمكن تحديثه وقد تم تنفيذه سابقا في";
     $messages["is not published"] = "غير منشور(ة)";
 
+    $messages["nb of Academic Program Offering for"] = "عدد البرامج المتاحة ل";
+
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
     

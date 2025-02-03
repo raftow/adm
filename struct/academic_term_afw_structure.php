@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "term_code";
                                 $obj->ORDER_BY_FIELDS = "term_code";
-                                $obj->UNIQUE_KEY = array('term_code');
+                                $obj->UNIQUE_KEY = array('academic_year_id', 'term_code');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 

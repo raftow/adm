@@ -99,6 +99,7 @@
                                                 'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
+                                                'DEFAULT' => 0,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',

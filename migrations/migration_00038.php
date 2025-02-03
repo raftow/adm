@@ -60,3 +60,11 @@ AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`application_field` 
                         NULL, NULL, NULL, NULL, 
                         'weighted_percentage', '', 3, 16, 'النسبة الموزونة', 'weighted percentage', 
                         'Y', 'N', 'N', '', '', 50, NULL, 32, NULL, NULL, NULL, NULL); ");  
+
+AfwDatabase::db_query("update ".$server_db_prefix."adm.applicant set employer_approval = 'N' where employer_approval is null or employer_approval != 'N';");  
+
+/**
+ * INSERT INTO uoh_adm.`aparameter` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `aparameter_name_ar`, `aparameter_name_en`, `customizable`, `afield_type_id`, `answer_table_id`, `measurement_unit_ar`, `measurement_unit_en`, `tprogram_mfk`, `aparam_use_scope_id`, `readonly`) VALUES
+ * (22, 1, '2025-02-01 13:41:03', 1, '2025-02-01 13:41:13', 0, NULL, 'Y', 'Y', 2, NULL, NULL, NULL, 380, 'النسبة الموزونة الأدنى المشروطة', 'Conditional minimum weighted ratio', 'Y', 7, NULL, '%', '%', NULL, 1, NULL);
+ * 
+ */

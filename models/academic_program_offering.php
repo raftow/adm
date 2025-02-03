@@ -53,7 +53,7 @@
                 {
                         $obj = new AcademicProgramOffering();
                         $obj->select("academic_level_id",$academic_level_id);
-                        $obj->select("gender_enum",$gender_enum);
+                        if($gender_enum<=2) $obj->select("gender_enum",$gender_enum);
                         
                         return $obj->loadMany();
 
@@ -62,7 +62,10 @@
 
                 public function getDisplay($lang="ar")
                 {
-                    return $this->getVal("program_name_$lang");
+                        $data = [];
+                        list($data[0],$link) = $this->displayAttribute("training_unit_id");
+                        $data[1] = $this->getVal("program_name_$lang");                    
+                        return implode("-",$data);                    
                 }
 
                 public function stepsAreOrdered()
@@ -270,6 +273,11 @@
 
                 public function attributeIsApplicable($attribute)
                 {
+                        if($attribute=="applicationModelBranchList")
+                        {
+                                $applicationModelBranchListCount = $this->getRelation("applicationModelBranchList")->count(); 
+                                return ($applicationModelBranchListCount>0);
+                        }
                         /*
                         for($d=1;$d<=3;$d++)
                         {

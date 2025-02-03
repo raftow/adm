@@ -26,7 +26,7 @@
 
                 public function getDisplay($lang = 'ar')
                 {
-                        return $this->getVal("term_code");
+                        return $this->t("year",$lang)." ".$this->decode("academic_year_id") ."-". $this->t("term",$lang). " ".$this->getVal("term_code");
                 }
 
                 public function stepsAreOrdered()

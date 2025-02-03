@@ -461,16 +461,16 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_gender = array();
                 
                 
-                $arr_list_of_gender["en"][1] = "Male";
-                $arr_list_of_gender["ar"][1] = "بنين";
+                $arr_list_of_gender["en"][1] = "Male Students";
+                $arr_list_of_gender["ar"][1] = "طلاب";
                 $arr_list_of_gender["code"][1] = "M";
 
-                $arr_list_of_gender["en"][2] = "Female";
-                $arr_list_of_gender["ar"][2] = "بنات";
+                $arr_list_of_gender["en"][2] = "Female Students";
+                $arr_list_of_gender["ar"][2] = "طالبات";
                 $arr_list_of_gender["code"][2] = "F";
 
-                $arr_list_of_gender["en"][4] = "Mixed";
-                $arr_list_of_gender["ar"][4] = "بنين وبنات";
+                $arr_list_of_gender["en"][4] = "Male & Female Students";
+                $arr_list_of_gender["ar"][4] = "طلاب وطالبات";
                 $arr_list_of_gender["code"][4] = "X";
 
                 
@@ -491,15 +491,15 @@ class AdmObject extends AfwMomkenObject{
                 
                 
                 $arr_list_of_genders["en"][1] = "Male";
-                $arr_list_of_genders["ar"][1] = "البنين";
+                $arr_list_of_genders["ar"][1] = "الطلاب";
                 $arr_list_of_genders["code"][1] = "M";
 
                 $arr_list_of_genders["en"][2] = "Female";
-                $arr_list_of_genders["ar"][2] = "البنات";
+                $arr_list_of_genders["ar"][2] = "الطالبات";
                 $arr_list_of_genders["code"][2] = "F";
 
                 $arr_list_of_genders["en"][3] = "Male & Female";
-                $arr_list_of_genders["ar"][3] = "البنين و البنات";
+                $arr_list_of_genders["ar"][3] = "الطلاب و الطالبات";
                 $arr_list_of_genders["code"][3] = "MF";
 
                 

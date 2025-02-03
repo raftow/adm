@@ -59,6 +59,11 @@ class Applicant extends AdmObject
         }
     }
 
+    public function hasEvaluation()
+    {
+        return 'Y'; // @todo
+    }
+
     public static function loadById($id)
     {
         $obj = new Applicant();

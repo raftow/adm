@@ -54,20 +54,13 @@ class UohApiRunner {
 
     public static function run_api_qiyas_exam_result($applicantObject)
     {
-        
         $at27 = $applicantObject->getVal("attribute_27");
-        if($at27==0)
-        {
-            $new_at27 ="N";
-            
-        }
-        else 
-        {
-            $r = random_int(0,100);
-            $new_at27 = ($r < 93) ? "Y" : "N";
-            
-        }
+        $at28 = $applicantObject->getVal("attribute_28");
+        $new_at27 = $applicantObject->hasEvaluation();
         $applicantObject->set("attribute_27", $new_at27);
+
+        $new_at28 = $applicantObject->hasEvaluation();
+        $applicantObject->set("attribute_28", $new_at28);
 
         $at11 = $applicantObject->getVal("attribute_11");
         if($at11==0)

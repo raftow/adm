@@ -54,7 +54,10 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
-
+                                                'allow_add_qualification' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>'application_model_id.allow_add_qualification', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N','QEDIT' => false,   
+                                                        'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3,  'FORMAT' => 'icon', 'MANDATORY' => false, 'QSEARCH' => false, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_25',),
                                         	
                                         /* obsolete this field program_id here because the academic_program is selected with the desire not the application (contain major etc...)
                                         'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -70,7 +73,7 @@
                                         'applicant_qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'applicant_qualification',  'ANSMODULE' => 'adm',  
-                                                        'WHERE'=> "applicant_id = §applicant_id§",
+                                                        'WHERE'=> "applicant_id = §applicant_id§ and (imported='Y' or §allow_add_qualification§='Y')",
                                                         'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false,                                                 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

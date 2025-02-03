@@ -2,8 +2,8 @@
 	$trad["acondition_origin_scope"]["step1"] = "المجال";
 	$trad["acondition_origin_scope"]["step2"] = "الفروع المتوقعة";
 	
-	$trad["acondition_origin_scope"]["aconditionoriginscope.single"] = "مجال تطبيق اللائحة ";
-	$trad["acondition_origin_scope"]["aconditionoriginscope.new"] = "جديدة";
+	$trad["acondition_origin_scope"]["aconditionoriginscope.single"] = "مجال تطبيق";
+	$trad["acondition_origin_scope"]["aconditionoriginscope.new"] = "جديد";
 	$trad["acondition_origin_scope"]["acondition_origin_scope"] = "مجالات تطبيق اللوائح والقرارات";
 
 	$trad["acondition_origin_scope"]["acondition_origin_id"] = "اللائحة ";

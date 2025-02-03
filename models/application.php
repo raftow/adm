@@ -671,5 +671,10 @@ class Application extends AdmObject
                 return $this->applicantObj->weighted_percentage($what, $program_track_id, $major_path_id, $applicantQualificationObj);
         }
 
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="allow_add_qualification") return true;
+                return false;
+        }
+
         
 }
