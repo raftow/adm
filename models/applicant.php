@@ -753,6 +753,7 @@ class Applicant extends AdmObject
         {
                 if (!$this->update_date[$apiEndpoint->id]) {
                         $aarList = $this->getRelation("applicantApiRequestList")->resetWhere("api_endpoint_id=" . $apiEndpoint->id)->getList();
+                        $this->update_date[$apiEndpoint->id] = "1900-01-01";
                         foreach ($aarList as $aarItem) {
                                 if ($aarItem) $this->update_date[$apiEndpoint->id] = $aarItem->getVal("run_date");
                         }
