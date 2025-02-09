@@ -43,6 +43,6 @@ $migrations = [
     '00037' => ['by'=>'medali', 'title' => 'default value + column password length'],
     '00038' => ['by'=>'rafik', 'title' => 'UOH more customization of settings'],
     '00039' => ['by'=>'medali', 'title' => 'add prospect applicant table'],
-
+    '00040' => ['by'=>'medali', 'title' => 'add prospect qualification table'],
 ];
 
