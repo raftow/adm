@@ -254,10 +254,26 @@ class Acondition extends AdmObject{
                 return true;
         }
 
+        public function isApplicableOnApplicantOnly()
+        {
+                return $this->sureIs("general");
+        }
+
+        public function isApplicableOnApplicationOnly()
+        {
+                return (!$this->isApplicableOnApplicantOnly() and !$this->isApplicableOnDesireOnly());
+        }
+
+        public function isApplicableOnDesireOnly()
+        {
+                return $this->isNot("general");
+        }
 
         public function calcApplication_table_id()
         {
-               return $this->_isGeneral() ? '1,3' : '1,2,3';
+               if($this->isApplicableOnDesireOnly()) return '1,2,3';
+               if($this->isApplicableOnApplicantOnly()) return '1';
+               return '1,3';
         }
 
         protected function getPublicMethods()
@@ -290,11 +306,12 @@ class Acondition extends AdmObject{
                 try{
                         // from simulation config get data :
                         // load simulation applicants
-                        $simulation_applicants_ids = AfwSession::config("simulation_applicants","");
-                        // simulation_application_plan_id
-                        $simulation_application_plan_id = AfwSession::config("simulation_application_plan_id",0);
+                        $simulation_applicants_ids = Institution::simulationApplicantsIds();
                         // simulation_application_model_id 
-                        $simulation_application_model_id = AfwSession::config("simulation_application_model_id",0);
+                        $simulation_application_model_id = Institution::simulationApplicationModelId();
+                        // simulation_application_plan_id
+                        $simulation_application_plan_id = Institution::simulationApplicationPlanId();
+                        
                         $appObj = new Applicant();
                         $appObj->where("id in ($simulation_applicants_ids)");
                         $appList = $appObj->loadMany();
@@ -303,9 +320,9 @@ class Acondition extends AdmObject{
                         {
                                 foreach($appList as $appItem)
                                 {
-                                        if($this->_isGeneral())
+                                        if($this->isApplicableOnApplicantOnly())
                                         {
-                                                // if this is a general condition we apply on simulation applicant
+                                                // if this is an Applicable On Applicant Only condition we apply on simulation applicant
                                                 $err = "";
                                                 $inf = "";
                                                 $war = "";
@@ -324,6 +341,35 @@ class Acondition extends AdmObject{
                                                 if($inf) $inf_arr[] = $inf;
                                                 if($war) $war_arr[] = $war;
                                         }
+                                        elseif($this->isApplicableOnApplicationOnly())
+                                        {
+                                                $applicationItem = $appItem->getMyApplication($simulation_application_plan_id);
+                                                if(!$applicationItem) 
+                                                {
+                                                        $err_arr[] = "لا يوجد ملف ترشح لهذا المتقدم ".$appItem->getWideDisplay($lang)." على حملة القبول ".$simulation_application_plan_id;
+                                                }
+                                                else
+                                                {
+                                                        // if this is an Applicable On Application Only condition we apply on application Item
+                                                        $err = "";
+                                                        $inf = "";
+                                                        $war = "";
+                                                        
+                                                        list($res, $comments) = $this->applyOnObject($lang, $applicationItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                        if($res)
+                                                        {
+                                                                $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." على الملف " .$applicationItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                        }
+                                                        else
+                                                        {
+                                                                $war = "<b>$cond_name</b> غير متحقق في : ".$appItem->getWideDisplay($lang)." على الملف " .$applicationItem->getDisplay($lang)." <i>".$comments."</i>";      
+                                                        }
+        
+                                                        if($err) $err_arr[] = $err;
+                                                        if($inf) $inf_arr[] = $inf;
+                                                        if($war) $war_arr[] = $war;
+                                                }
+                                        }
                                         else
                                         {
                                                 // if this is a special condition we apply on desires of these simulation applicant 
@@ -334,7 +380,7 @@ class Acondition extends AdmObject{
                                                 }
                                                 foreach($desireList as $desireItem)
                                                 {
-                                                        // if this is a general condition we apply on simulation applicant
+                                                        // if this is a special condition we apply on desire
                                                         $err = "";
                                                         $inf = "";
                                                         $war = "";
@@ -402,33 +448,44 @@ class Acondition extends AdmObject{
 
                 $objApplicant = null;
                 $objApplication = null;
+                $objDesire = null;
+                $applicant_id = 0;
                 $application_id = 0;
-
+                $adesire_id = 0;
                 if($obj instanceof Applicant)
                 {                       
                         $objApplicant = $obj;
-                        $applicant_id = $obj->id;
-                        $adesire_id = 0;
-                        
                 }
                 elseif($obj instanceof Application)
                 {
                         $objApplication = $obj;
-                        $application_id = $obj->id;
-                        $objApplicant = $obj->het("applicant_id");
-                        $applicant_id = $obj->getVal("applicant_id");
-                        $adesire_id = 0;
                 }
-                /*
                 elseif($obj instanceof ApplicationDesire)
                 {
-                        $applicant_id = $obj->getVal("applicant_id");
-                        $adesire_id = $obj->id;
-                }*/
+                        $objDesire = $obj;
+                }
                 else
                 {
                         throw new AfwRuntimeException("unknown class for applying condition : ".get_class($obj));
                 }
+
+                if($objDesire)
+                {
+                        $objApplication = $objDesire->het("application_id");
+                        $adesire_id = $objDesire->id;
+                }
+
+                if($objApplication)
+                {
+                        $application_id = $objApplication->id;
+                        $objApplicant = $objApplication->het("applicant_id");
+                } 
+                if($objApplicant)
+                {
+                        $applicant_id = $objApplicant->id;
+                }
+
+                
 
                 $has_failed = $this->tm("has failed");
                 $has_succeeded = $this->tm("has succeeded");
@@ -497,9 +554,12 @@ class Acondition extends AdmObject{
                         $field_reel = $this->afObj->_isReel();
                         $application_table_id = $this->afObj->getVal("application_table_id");
                         $objToApplyOn = null;
+                        // if($field_name=="sis_fields_available") die("$field_name application_table_id => $application_table_id");
                         if($application_table_id==1)
                         {
                                 $objApplicant->updateCalculatedFields();
+                                $major_path_id = $objApplicant->calcSecondary_major_path();
+                                $program_track_id = 0;
                                 if($field_reel)
                                 {
                                         $field_value = $objApplicant->getVal($field_name);
@@ -514,8 +574,10 @@ class Acondition extends AdmObject{
                         }
                         elseif($application_table_id==3)
                         {
+                                
                                 // die("here rafik applicant_id=$applicant_id application_table_id=$application_table_id application_plan_id=$application_plan_id field_name=$field_name field_reel=$field_reel");
                                 if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate);
+                                list($program_track_id, $major_path_id, $qualObj) = $objApplication->calcTrackAndMajorPath();
                                 if(!$objApplication)
                                 {
                                         // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate) keyf failed ??");
@@ -533,25 +595,29 @@ class Acondition extends AdmObject{
                                         $field_value = $objApplication->calc($field_name);
                                         $field_value_case = "calc";
                                 }
+                                // if($field_name=="sis_fields_available") die("$field_name $field_value_case => $field_value");
                                 $objToApplyOn =& $objApplication;
                         }
                         elseif($application_table_id==2)
                         {
-                                $objDesire = ApplicationDesire::loadById(1);
                                 if(!$objDesire)
                                 {
                                         $field_value = null;
                                         $field_value_case = "ApplicationDesire::loadByMainIndex return null"; 
                                 }
-                                elseif($field_reel)
-                                {
-                                        $field_value = $objDesire->getVal($field_name);
-                                        $field_value_case = "getVal";
-                                }
                                 else
                                 {
-                                        $field_value = $objDesire->calc($field_name);
-                                        $field_value_case = "calc";
+                                        list($program_track_id, $major_path_id, $qualObj) = $objDesire->calcTrackAndMajorPath();
+                                        if($field_reel)
+                                        {
+                                                $field_value = $objDesire->getVal($field_name);
+                                                $field_value_case = "getVal";
+                                        }
+                                        else
+                                        {
+                                                $field_value = $objDesire->calc($field_name);
+                                                $field_value_case = "calc";
+                                        }
                                 }
                                 $objToApplyOn =& $objDesire;
                         }
@@ -561,15 +627,26 @@ class Acondition extends AdmObject{
                                 throw new AfwRuntimeException("not valid field value : $field_value = <br> $obj => <br> $field_value_case($field_name)");        
                         }
                         $param_valueObj = $this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
-
                         if(!$param_valueObj) 
                         {
-                                $exec_result = false;
-                                $comments = $this->tm("no general or customized value for parameter", $lang)." : ".$this->aparamObj->getDisplay($lang);
+                                $param_value = Aparameter::getMyValueForSubContext($this->aparamObj->id, $major_path_id, $program_track_id);
                         }
                         else
                         {
                                 $param_value = $param_valueObj->getVal("value");
+                        }
+
+                        if(!$param_value) 
+                        {
+                                $exec_result = false;
+                                $comments = $this->tm("no general or customized value for parameter", $lang)." : ".$this->aparamObj->getDisplay($lang)
+                                      ."<br>\ncontext am-id=$application_model_id, ap-id=$application_plan_id"
+                                      ."<br>\nsub-context am-id=$application_model_id, ap-id=$application_plan_id"
+                                      ;
+                        }
+                        else
+                        {
+                                
                                 list($exec_result, $tech) = $this->applyComparison($field_value, $comparator, $param_value, $lang, $field_title);
                                 $excuseText = $this->getExcuseText($lang, $objToApplyOn);
                                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);

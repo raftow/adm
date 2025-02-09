@@ -46,7 +46,7 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25',),	
 				
-			'general' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'N',  
+			'general' => array('SHOW-ADMIN' => true,  'RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'N',  
 				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25',),

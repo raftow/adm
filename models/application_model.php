@@ -48,6 +48,16 @@
                      return $result;
                 }
 
+                public function getFirstApplicationStep()
+                {
+                        return ApplicationStep::loadFirstStep($this->id, "W");
+                }
+
+                public function getFirstDesireStep()
+                {
+                        return ApplicationStep::loadFirstStep($this->id, "N");
+                }
+
                 /**
                  * 
                  * @return ApplicationStep
@@ -363,6 +373,7 @@
                                         $amcObj = ApplicationModelCondition::loadByMainIndex($this->id, $aconditionItem->id, $acondition_origin_id, $general, $addNewConditions);
                                         if($amcObj)
                                         {
+                                                $inf_arr[] = "تم الأخذ بعين االاعتبار الشرط : " . $aconditionItem->getDisplay($lang);
                                                 if($amcObj->is_new) $cond_nb_inserted++;
                                                 else $cond_nb_updated++;
 
@@ -839,7 +850,7 @@
                         
                                 unset($link);
                                 $link = array();
-                                $title = "إعادة ترتيب خطوات التقديم";
+                                $title = "تعديل سريع على خطوات التقديم";
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_qedit.php&cl=ApplicationStep&currmod=adm&fixm=application_model_id=$my_id&sel_application_model_id=$my_id&id_origin=$my_id&class_origin=ApplicationModel&module_origin=adm&step_origin=5&newo=-1";
                                 $link["TITLE"] = $title;

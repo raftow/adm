@@ -42,19 +42,21 @@ class ApplicationModelCondition extends AdmObject
     {
         if (!$application_model_id) throw new AfwRuntimeException("loadStepNumConditions($application_model_id, $step_num, $general) : application_model_id is mandatory field");
         if (!$step_num) $step_num = 0; // throw new AfwRuntimeException("loadStepNumConditions($application_model_id, $step_num, $general) : step_num is mandatory field");
-
+        
+        // init        
+        $general0 = ""; $general1 = "";
+        
+        // desire step accept desire and application and applicant conditions
+        if($general == "N") { $general0 = "W"; $general1 = "Y"; }
+        // application step accept application and applicant conditions
+        elseif($general == "W") { $general0 = "Y";}
+        // applicant step accept only applicant conditions
+        elseif($general == "Y") {}
 
         $obj = new ApplicationModelCondition();
         $obj->select("application_model_id", $application_model_id);
         $obj->where("step_num <= $step_num");
-        if($general===true)
-        {
-            $obj->select("general", "Y");
-        }
-        elseif($general===false)
-        {
-            $obj->select("general", "N");
-        }
+        if($general) $obj->where("general in ('$general', '$general0', '$general1')");
 
         return $obj->loadMany();
         

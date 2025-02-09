@@ -1,5 +1,11 @@
 <?php
 	$trad["institution"]["step1"] = "Definition";
+	$trad["institution"]["step2"] = "Adresses";
+	$trad["institution"]["step3"] = "Settings";
+
+	$trad["institution"]["application_plan_id"] = "Simulate the application plan";
+	$trad["institution"]["application_model_id"] = "Simulate the application model";
+	$trad["institution"]["simulation_applicants_ids.tooltip"] = "The ID numbers of the applicants whose application is to be simulated. If there is more than one ID, a separator `,` is placed between each ID and the one that follows it. For example : 1029397112,1033406602,1010066577";
 
 	$trad["institution"]["institution.single"] = "Institution";
 	$trad["institution"]["institution.new"] = "new";

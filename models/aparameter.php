@@ -66,8 +66,12 @@ class Aparameter extends AdmObject
                                 elseif ($application_model_id) $application_model_id = 0;
                                 else $widing = false;
                         } while ((!$paramValueObj) and ($widing or $application_model_id or $application_plan_id or $training_unit_id or $department_id or $application_model_branch_id));
-                        $paramValueObj->optimizeMemory();
-                        $this->contextValueArray[$context] = $paramValueObj;
+                        if($paramValueObj)
+                        {
+                                $paramValueObj->optimizeMemory();
+                                $this->contextValueArray[$context] = $paramValueObj;
+                        }
+                        
                 }
                 return $this->contextValueArray[$context];
         }
@@ -149,6 +153,11 @@ class Aparameter extends AdmObject
                 }
                 // die("calling getAttributeLabel($attribute, $lang, short=$short)");
                 return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
+        }
+
+        public function getDisplay($lang = 'ar')
+        {
+                return $this->getDefaultDisplay($lang)." [".$this->id."]";
         }
 
         protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")

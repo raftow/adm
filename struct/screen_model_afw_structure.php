@@ -32,6 +32,7 @@ class AdmScreenModelAfwStructure
             'CSS' => 'width_pct_25',
         ),
 
+
         'screen_code' => array(
             'IMPORTANT' => 'IN',
             'SEARCH' => true,
@@ -49,10 +50,25 @@ class AdmScreenModelAfwStructure
             'MANDATORY' => true,
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
-            'CSS' => 'width_pct_25',
+            'CSS' => 'width_pct_50',
         ),
 
+        
+        'active' => array(
+            'SHOW' => true,
+            'RETRIEVE' => true,
+            'EDIT' => true,
+            'QEDIT' => true,
+            'DEFAUT' => 'Y',
+            'TYPE' => 'YN',
+            'FORMAT' => 'icon',
+            'STEP' => 1,
+            'DISPLAY-UGROUPS' => '',
+            'EDIT-UGROUPS' => '',
+            'CSS' => 'width_pct_50',
+        ),
 
+/*
 
         'screen_title' => array(
             'IMPORTANT' => 'IN',
@@ -72,7 +88,7 @@ class AdmScreenModelAfwStructure
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
             'CSS' => 'width_pct_25',
-        ),
+        ),*/
 
 
 
@@ -93,7 +109,7 @@ class AdmScreenModelAfwStructure
             'MANDATORY' => true,
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
-            'CSS' => 'width_pct_25',
+            'CSS' => 'width_pct_50',
         ),
 
 
@@ -115,7 +131,7 @@ class AdmScreenModelAfwStructure
             'MANDATORY' => true,
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
-            'CSS' => 'width_pct_25',
+            'CSS' => 'width_pct_50',
         ),
 
 
@@ -137,25 +153,13 @@ class AdmScreenModelAfwStructure
             'STEP' => 1,
             'DISPLAY-UGROUPS' => '',
             'EDIT-UGROUPS' => '',
-            'CSS' => 'width_pct_75',
+            'CSS' => 'width_pct_100',
         ),
 
 
 
 
-        'active' => array(
-            'SHOW' => true,
-            'RETRIEVE' => true,
-            'EDIT' => true,
-            'QEDIT' => true,
-            'DEFAUT' => 'Y',
-            'TYPE' => 'YN',
-            'FORMAT' => 'icon',
-            'STEP' => 1,
-            'DISPLAY-UGROUPS' => '',
-            'EDIT-UGROUPS' => '',
-            'CSS' => 'width_pct_25',
-        ),
+        
 
         'created_by' => array(
             'SHOW-ADMIN' => true,

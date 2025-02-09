@@ -25,7 +25,10 @@ class AconditionOriginArTranslator{
 		
 		$trad["acondition_origin"]["aconditionOriginScopeList"] = "مجالات التطبيق";
 
-		$trad["acondition_origin"]["general"] = "عام على جميع الفروع";
+		$trad["acondition_origin"]["general"] = "تطبيق الشروط على مستوى";
+		$trad["acondition_origin"]["general.YES"] = "المتقدم";
+		$trad["acondition_origin"]["general.EUH"]  = "المتقدم وملف الترشح";
+		$trad["acondition_origin"]["general.NO"] = "المتقدم وملف الترشح والرغبة";
 		
 		$trad["acondition_origin"]["general.short"] = "عام";
 		$trad["acondition_origin"]["afile_id"] = "الملف";

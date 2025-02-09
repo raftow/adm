@@ -8,7 +8,7 @@ class ApplicationEnTranslator{
 		$trad["application"]["step1"] = "Submission data";
 		$trad["application"]["step2"] = "General path";
 		$trad["application"]["step3"] = "Choose desires";
-		$trad["application"]["step4"] = "Technical information";
+		$trad["application"]["step4"] = "Sort desires";
 		$trad["application"]["step5"] = "Advanced information";
 
 		$trad["application"]["application.single"] = "Application";
@@ -28,6 +28,7 @@ class ApplicationEnTranslator{
 		$trad["application"]["tasks"] = "waiting tasks";
 		$trad["application"]["satisfaction"] = "Applicants satisfaction percentage";
 		$trad["application"]["applicationDesireList"] = "Desires";
+		$trad["application"]["application_plan_branch_mfk"] = "Application desires";
 		$trad["application"]["nb_desires"] = "Number of desires";
 
 		$trad["application"]["weighted_percentage"] = "weighted percentage";
