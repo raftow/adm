@@ -44,5 +44,6 @@ $migrations = [
     '00038' => ['by'=>'rafik', 'title' => 'UOH more customization of settings'],
     '00039' => ['by'=>'medali', 'title' => 'add prospect applicant table'],
     '00040' => ['by'=>'medali', 'title' => 'add prospect qualification table'],
+    '00041' => ['by'=>'rafik', 'title' => 'UOH+TVTC more settings'],
 ];
 
