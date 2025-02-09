@@ -11,7 +11,9 @@
                                 $obj->ORDER_BY_FIELDS = "application_model_id, step_num";
                                 $obj->UNIQUE_KEY = array('application_model_id','step_num');
                                 $obj->public_display = true;
-                                // $obj->IS_LOOKUP = true;
+                                $obj->MOVE_UP_ACTION = true;
+                                //$obj->MOVE_DOWN_ACTION = true;
+                                $obj->MOVE_QUESTION = 1;
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 2; 
@@ -38,7 +40,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => true,
-                                                'QEDIT' => true,
+                                                'READONLY' => true,
                                                 'EDIT' => true, 'CAN_ZERO' => true,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
                                                 'STEP' => 1,

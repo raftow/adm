@@ -22,6 +22,19 @@ class Application extends AdmObject
 
         private $attribIsApplic = [];
 
+
+        public function getApplicant()
+        {
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                return $this->applicantObj;
+        }
+
+        public function getApplicationModel()
+        {
+                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                return $this->objApplicationModel;
+        }
+
         public function __construct()
         {
                 parent::__construct("application", "id", "adm");
@@ -78,6 +91,9 @@ class Application extends AdmObject
                 }
         }
 
+
+
+
         public function beforeMaj($id, $fields_updated)
         {
                 $objApplicantQual = null;
@@ -92,7 +108,7 @@ class Application extends AdmObject
                 }
 
                 if (!$this->getVal("applicant_qualification_id")) {
-                        if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                        $this->getApplicant();
                         if ($this->applicantObj) {
                                 $objApplicantQual = $this->applicantObj->getLastQualification();
                                 if ($objApplicantQual) {
@@ -125,11 +141,15 @@ class Application extends AdmObject
                 // if(!$objApplicationPlan) $objApplicationPlan = $this->het("application_plan_id");
 
                 if ($fields_updated["step_num"] or (!$this->getVal("application_step_id"))) {
-                        if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
-                        $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
-                        if ($appStepObj) {
-                                $application_step_id = $appStepObj->id;
-                                $this->set("application_step_id", $application_step_id);
+                        $this->getApplicationModel();
+                        if ($this->objApplicationModel) {
+                                $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
+                                if ($appStepObj) {
+                                        $application_step_id = $appStepObj->id;
+                                        $this->set("application_step_id", $application_step_id);
+                                }
+                        } else {
+                                AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
                         }
                 }
                 return true;
@@ -244,31 +264,42 @@ class Application extends AdmObject
 
                 $pbms = array();
 
-                
+
                 $currentStepNum = $this->getVal("step_num");
-                $nextStepNum = $currentStepNum+1;
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
-                if ($this->objApplicationModel)
-                {
+                $nextStepNum = $currentStepNum + 1;
+                $this->getApplicationModel();
+                if ($this->objApplicationModel) {
                         $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
-                        
+
                         $color = "green";
-                        $title_ar = $asObj->tm("go to next step",'ar')." '".$asObj->getDisplay("ar")."'";                
-                        $title_en = $asObj->tm("go to next step",'en')." '".$asObj->getDisplay("en")."'";                
+                        $title_ar = $asObj->tm("go to next step", 'ar') . " '" . $asObj->getDisplay("ar") . "'";
+                        $title_en = $asObj->tm("go to next step", 'en') . " '" . $asObj->getDisplay("en") . "'";
                         $methodName = "gotoNextStep";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                                "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, "ADMIN-ONLY" => true, 
-                                                                "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_status_enum"));
-        
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("application_status_enum")
+                        );
+
                         $color = "blue";
-                        $title_ar = $asObj->tm("Updating data via electronic services",'ar');
-                        $title_en = $asObj->tm("Updating data via electronic services",'en');
+                        $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
+                        $title_en = $asObj->tm("Updating data via electronic services", 'en');
                         $methodName = "runNeededApis";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                        "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_status_enum"));
-        
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("application_status_enum")
+                        );
                 }
-                
+
 
                 return $pbms;
         }
@@ -279,7 +310,7 @@ class Application extends AdmObject
                         $this->requestAPIsOfStep($s);
                 }
 
-                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                $this->getApplicant();
                 if (!$this->applicantObj) return ["no-applicantObj", ""];
 
                 return $this->applicantObj->runNeededApis($lang);
@@ -296,7 +327,7 @@ class Application extends AdmObject
                 // $nb_inserted = 0;
                 try {
 
-                        if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                        $this->getApplicationModel();
                         if (!$this->objApplicationModel) return [$this->tm("Error happened, no application model defined for this application", $lang), ""];
                         /**
                          * @var ApplicationStep $currentStepObj
@@ -343,30 +374,34 @@ class Application extends AdmObject
 
         public function requestAPIsOfStep($nextStepNum)
         {
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
-                $appModelApiList = $this->objApplicationModel->getAppModelApiOfStep($nextStepNum);
+                $this->getApplicationModel();
+                if ($this->objApplicationModel) {
+                        $appModelApiList = $this->objApplicationModel->getAppModelApiOfStep($nextStepNum);
 
-                $appModelApiListCount = count($appModelApiList);
+                        $appModelApiListCount = count($appModelApiList);
 
-                // die("appModelApiList ($appModelApiListCount apis) = objApplicationModel->getAppModelApiOfStep($nextStepNum) = ".var_export($appModelApiList,true));
-                // $api_runner_class = Applicant::loadApiRunner();
+                        // die("appModelApiList ($appModelApiListCount apis) = objApplicationModel->getAppModelApiOfStep($nextStepNum) = ".var_export($appModelApiList,true));
+                        // $api_runner_class = Applicant::loadApiRunner();
 
-                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
-                if ($this->applicantObj) {
-                        // create step apis call requests to be done by applicant-api-request-job            
-                        foreach ($appModelApiList as $appModelApiItem) {
-                                $apiEndPointObj = $appModelApiItem->het("api_endpoint_id");
-                                if ($apiEndPointObj) {
-                                        // $api_endpoint_code = $apiEndPointObj->getVal("api_endpoint_code");                                
-                                        ApplicantApiRequest::loadByMainIndex($this->applicantObj->id, $apiEndPointObj->id, true);
+                        if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                        if ($this->applicantObj) {
+                                // create step apis call requests to be done by applicant-api-request-job            
+                                foreach ($appModelApiList as $appModelApiItem) {
+                                        $apiEndPointObj = $appModelApiItem->het("api_endpoint_id");
+                                        if ($apiEndPointObj) {
+                                                // $api_endpoint_code = $apiEndPointObj->getVal("api_endpoint_code");                                
+                                                ApplicantApiRequest::loadByMainIndex($this->applicantObj->id, $apiEndPointObj->id, true);
+                                        }
                                 }
                         }
+                } else {
+                        AfwSession::pushError("requestAPIsOfStep : " . $this->getDisplay("en") . " :Application Model Not Found : " . $this->getVal("application_model_id"));
                 }
         }
 
         public function getFieldApiEndpoint($field_name, $application_table_id = 3)
         {
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                $this->getApplicationModel();
                 if (!$this->objApplicationModel) return null;
                 return $this->objApplicationModel->getFieldApiEndpoint($field_name, $application_table_id);
         }
@@ -375,7 +410,7 @@ class Application extends AdmObject
 
         public function getFieldExpiryDuration($field_name, $application_table_id = 3)
         {
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                $this->getApplicationModel();
                 if (!$this->objApplicationModel) return 9999;
                 return $this->objApplicationModel->getFieldExpiryDuration($field_name, $application_table_id);
         }
@@ -388,12 +423,9 @@ class Application extends AdmObject
                         $apiEndpoint = $this->getFieldApiEndpoint($field_name);
                         if ($apiEndpoint) {
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
-                                if($apiEndpoint->id!=13)
-                                {
+                                if ($apiEndpoint->id != 13) {
                                         $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
-                                }
-                                else
-                                {
+                                } else {
                                         $field_value_datetime = $this->getVal("created_at");
                                 }
                         } else $apiEndpointDisplay = "> no-apiEndpoint for $field_name";
@@ -411,15 +443,11 @@ class Application extends AdmObject
                         $apiEndpoint = $this->getFieldApiEndpoint($field_name, 1);
                         if ($apiEndpoint) {
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
-                                if($apiEndpoint->id!=13)
-                                {
+                                if ($apiEndpoint->id != 13) {
                                         $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
-                                }
-                                else
-                                {
+                                } else {
                                         $field_value_datetime = $this->applicantObj->getVal("updated_at");
                                 }
-                                
                         } else $apiEndpointDisplay = ">> no-apiEndpoint for $field_name";
                 } else $apiEndpointDisplay = "no-applicant";
                 if (!$field_value_datetime) $field_value_datetime = $this->applicantObj->getVal($field_name . "_update_date");
@@ -428,6 +456,11 @@ class Application extends AdmObject
         }
 
         public function getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false)
+        {
+                return self::getObjectFieldsMatrix($this, $applicationFieldsArr, $lang, $onlyIfTheyAreUpdated);
+        }
+        
+        public static function getObjectFieldsMatrix($object, $applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false)
         {
                 $matrix = [];
                 $theyAreUpdated = true;
@@ -440,13 +473,13 @@ class Application extends AdmObject
                         $field_title = $applicationFieldObj->getDisplay($lang) . "<!-- $field_name -->";
                         $row_matrix['title'] = $field_title;
                         if ($field_reel) {
-                                $field_value = $this->getVal($field_name);
+                                $field_value = $object->getVal($field_name);
                                 $field_value_case = "getVal";
                         } else {
-                                $field_value = $this->calc($field_name);
+                                $field_value = $object->calc($field_name);
                                 $field_value_case = "calc";
                         }
-                        $field_decode = $this->decode($field_name);
+                        $field_decode = $object->decode($field_name);
                         $row_matrix['decode'] = $field_decode . "<!-- $field_value -->";
                         $row_matrix['value'] = $field_value;
                         $row_matrix['case'] = $field_value_case;
@@ -457,7 +490,7 @@ class Application extends AdmObject
                         $field_value_datetime = "";
                         $api = "";
                         if (!$field_empty) {
-                                [$field_value_datetime, $api] = $this->getFieldUpdateDate($field_name);
+                                [$field_value_datetime, $api] = $object->getFieldUpdateDate($field_name);
                         }
 
 
@@ -465,7 +498,7 @@ class Application extends AdmObject
                         $row_matrix['api'] = $api;
                         if ($field_value_datetime) {
 
-                                $duration_expiry = $this->getFieldExpiryDuration($field_name);
+                                $duration_expiry = $object->getFieldExpiryDuration($field_name);
                                 if (!$duration_expiry) $duration_expiry = 180;
                                 $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
                                 if ($field_value_datetime < $expiry_date) {
@@ -497,7 +530,7 @@ class Application extends AdmObject
                 if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 if (!$this->applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
 
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                $this->getApplicationModel();
                 if (!$this->objApplicationModel) throw new AfwRuntimeException("Can't retrieve fields matrix without any Application Model defined");
                 list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true);
                 if (count($applicationDesireFieldsArr) > 0) {
@@ -577,12 +610,12 @@ class Application extends AdmObject
                 if (!isset($this->attribIsApplic[$attribute])) {
                         if ($attribute == "program_id") {
                                 $application_field_id = 110809;
-                                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                                $this->getApplicationModel();
                                 if (!$this->objApplicationModel) return false;
                                 $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num")) == 1);
                         } elseif ($attribute == "applicant_qualification_id") {
                                 $application_field_id = 110694;
-                                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                                $this->getApplicationModel();
                                 if (!$this->objApplicationModel) return false;
                                 $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num")) == 1);
                         } else {
@@ -631,7 +664,7 @@ class Application extends AdmObject
         {
                 //die("rafik debugg 20250203");
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                $this->getApplicationModel();
                 if (!$this->objApplicationModel) return $no;
 
                 $applicationFieldList = $this->objApplicationModel->get("application_field_mfk");
@@ -659,7 +692,7 @@ class Application extends AdmObject
 
         public function calcSis_fields_not_available($what = "value", $lang = "")
         {
-                if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                $this->getApplicationModel();
                 if (!$this->objApplicationModel) return "No Application Model Object";
 
                 $applicationFieldList = $this->objApplicationModel->get("application_field_mfk");
@@ -687,30 +720,114 @@ class Application extends AdmObject
                 return $returnApplication;
         }
 
-        public function calcWeighted_percentage_details($what="value")
+        public function calcWeighted_percentage_details($what = "value")
         {
                 return $this->calcWeighted_percentage("details");
         }
 
-        public function calcWeighted_percentage($what="value")
+        public function calcTrackAndMajorPath()
         {
                 $applicantQualificationObj = $this->het("applicant_qualification_id");
                 $major_path_id = 0;
-                if($applicantQualificationObj)
-                {
-                      $major_path_id = $applicantQualificationObj->getInfo("secondary_major_path");
-                }
-                if (!$applicantQualificationObj) return ($what=="value") ? -88 : "No applicant qualification object";
-                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
-                if (!$this->applicantObj) return ($what=="value") ? -99 : "No applicant object";
                 $program_track_id = 0; // no program track in level of application (only level of desire)
+                if ($applicantQualificationObj) {
+                        $major_path_id = $applicantQualificationObj->getInfo("secondary_major_path");
+                }
+
+                return [$program_track_id, $major_path_id, $applicantQualificationObj];
+        }
+
+        public function calcWeighted_percentage($what = "value")
+        {
+                list($program_track_id, $major_path_id, $applicantQualificationObj) = $this->calcTrackAndMajorPath($what);
+                if (!$applicantQualificationObj) return ($what == "value") ? -88 : "No applicant qualification object";
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                if (!$this->applicantObj) return ($what == "value") ? -99 : "No applicant object";
+
                 return $this->applicantObj->weighted_percentage($what, $program_track_id, $major_path_id, $applicantQualificationObj);
         }
 
-        public function shouldBeCalculatedField($attribute){
-                if($attribute=="allow_add_qualification") return true;
+        public function shouldBeCalculatedField($attribute)
+        {
+                if ($attribute == "allow_add_qualification") return true;
                 return false;
         }
 
-        
+        public function getApplicationDesireByNum($desire_num)
+        {
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+
+                return ApplicationDesire::loadByMainIndex($applicant_id, $application_plan_id, $desire_num);
+        }
+
+        public function getApplicationDesireByBranchId($application_plan_branch_id, $create_obj_if_not_found = false)
+        {
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+
+                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $create_obj_if_not_found, $this);
+        }
+
+
+        public function afterMaj($id, $fields_updated)
+        {
+                if ($fields_updated["application_plan_branch_mfk"]) {
+                        $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
+                        $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
+                        foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
+                                $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, true);
+                                $applicationDesireObj->repareData();
+                        }
+                        // what is not in application_plan_branch_mfk should be removed
+                        $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 $application_plan_branch_mfk 0)")->getList();
+                        /**
+                         * @var ApplicationDesire $applicationDesireItem
+                         */
+                        foreach ($applicationDesireList as $applicationDesireItem) {
+                                if ($applicationDesireItem->delete()) {
+                                        // has been deleted successfully
+                                } else {
+                                        // the delete is refused we put back the application_plan_branch_id in application_plan_branch_mfk
+                                        // to synchronize both fields
+                                        $this->addRemoveInMfk("application_plan_branch_mfk", [$applicationDesireItem->getVal("application_plan_branch_id")], []);
+                                }
+                        }
+
+                        $this->reorderDesires();
+                }
+        }
+
+        public function reorderDesires($lang = "ar")
+        {
+                $applicationDesireList = $this->get("applicationDesireList");
+                $desire_num = -1;
+                $log_arr = [];
+                foreach ($applicationDesireList as $applicationDesireItem) {
+                        $old_desire_num = $applicationDesireItem->getVal("desire_num");
+                        if ($desire_num < 0) {
+                                $desire_num = $old_desire_num;
+                                if ($desire_num < 0) $desire_num = 0;
+                                if ($desire_num > 1) $desire_num = 1;
+                                $step_from = $desire_num;
+                        } else $desire_num++;
+
+                        $log_arr[] = "from $old_desire_num to $desire_num";
+
+                        $applicationDesireItem->set("desire_num", $desire_num);
+                        $applicationDesireItem->commit();
+                        $step_to = $desire_num;
+                }
+
+                return ["", "reordered from $step_from to $step_to " . implode("<br>\n", $log_arr)];
+        }
+
+        public function applyApplicationConditionsOn($lang)
+        {
+                $application_model_id = $this->getVal("application_model_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $step_num = $this->getVal("step_num");
+                $general="W";
+                return ApplicationStep::applyObjectConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang);
+        }
 }

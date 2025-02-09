@@ -1,5 +1,13 @@
 <?php
 	$trad["institution"]["step1"] = "التعريف";
+	$trad["institution"]["step2"] = "العناوين";
+	$trad["institution"]["step3"] = "الاعدادات";
+
+	$trad["institution"]["application_plan_id"] = "محاكاة حملة التقديم";
+	$trad["institution"]["application_model_id"] = "محاكاة نموذج القبول";
+	$trad["institution"]["simulation_applicants_ids"] = "محاكاة بعض المتقدمين";
+	$trad["institution"]["simulation_applicants_ids.tooltip"] = "أرقام هويات المتقدمين المراد محاكاة التقديم عليهم وإذا كانت أكثر من هوية واحدة فيوضع بين كل هوية والتي تليها فاصل `,` مثال ذلك : 1029397112,1033406602,1010066577";
+	
 
 	$trad["institution"]["institution.single"] = "مؤسسة اكاديمية";
 	$trad["institution"]["institution.new"] = "جديدة";
@@ -20,3 +28,4 @@
 	$trad["institution"]["snapchat_profile_link"] = "رابطالحساب على سناب شات";
 	$trad["institution"]["twitter_profile_link"] = "رابط الحساب على تويتر";
 	$trad["institution"]["instagram_profile_link"] = "رابط الحساب على انستجرام";
+	

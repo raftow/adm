@@ -19,6 +19,10 @@ class AconditionArTranslator{
 		$trad["acondition"]["acondition_desc_en"] = "وصف الشرط بالانجليزية";
 		$trad["acondition"]["radical"] = "شرط قطعي";
 		$trad["acondition"]["composed"] =  "صنف الشرط";
+		$trad["acondition"]["composed.YES"] = "شرط مركب";
+		$trad["acondition"]["composed.NO"]  = "شرط بسيط";
+		$trad["acondition"]["composed.EUH"] = "شرط يدوي";
+
 		$trad["acondition"]["condition_1_id"] = "الجزء الأول من الشرط";
 		$trad["acondition"]["operator_id"] = "الأداة المنطقية";
 		$trad["acondition"]["condition_2_id"] = "الجزء الثاني من الشرط";
@@ -26,7 +30,13 @@ class AconditionArTranslator{
 		$trad["acondition"]["compare_id"] = "أداة المقارنة";
 		$trad["acondition"]["aparameter_id"] = "القيمة المقارنة";
 		$trad["acondition"]["excuse_text_ar"] = "نص الاعتذار بالعربية";
-		$trad["acondition"]["general"] = "الشرط يطبق في المراحل العامة";
+		$trad["acondition"]["general"] = "الشرط يطبق على";
+		$trad["acondition"]["general.YES"] = "المتقدم";
+		$trad["acondition"]["general.EUH"]  = "ملف الترشح";
+		$trad["acondition"]["general.NO"] = "الرغبة";
+		$trad["acondition"]["general.short"] = "يطبق على";
+		
+
 		$trad["acondition"]["acondition_type_id"] = "نوع الشرط";
 		$trad["acondition"]["acondition_origin_id"] = "اللائحة ";
 		$trad["acondition"]["excuse_text_en"] = "نص الاعتذار بالانجليزية";
@@ -36,9 +46,7 @@ class AconditionArTranslator{
 		$trad["acondition"]["show_fe"] = "الاضهار في الواجهة";
 		$trad["acondition"]["bfunction_id"] = "الخدمة العملية";
 
-		$trad["acondition"]["composed.YES"] = "شرط مركب";
-		$trad["acondition"]["composed.NO"]  = "شرط بسيط";
-		$trad["acondition"]["composed.EUH"] = "شرط يدوي";
+		
 
 
 		$trad["acondition"]["compare_id.short"] = "مقارنة";
@@ -49,7 +57,7 @@ class AconditionArTranslator{
 		$trad["acondition"]["condition_1_id.short"] = "الجزء 1";
 		$trad["acondition"]["condition_2_id.short"] = "الجزء 2";
 		
-		$trad["acondition"]["general.short"] = "شرط عام";
+		
 		// $trad["acondition"]["unique_apply.short"] = "يتم تطبيقه على كل فرع";
 		$trad["acondition"]["known_already.short"] = "معلومة مسبقا";
 		$trad["acondition"]["show_fe.short"] = "الاضهار";

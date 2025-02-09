@@ -7,7 +7,7 @@
                         if ($obj instanceof Application) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "application_name_ar";
+                                $obj->DISPLAY_FIELD = array('applicant_id','application_plan_id');
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('applicant_id','application_plan_id');
                                 // $obj->public_display = true;
@@ -153,10 +153,19 @@
 								'EDIT' => true,  'READONLY' => true, 
 								'TYPE' => 'TEXT',  'STEP' => 2, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-								'CSS' => 'width_pct_25',),   
+								'CSS' => 'width_pct_75',),   
+
+                                        'application_plan_branch_mfk' => array('STEP' => 3, 'SEARCH' => true,  'QSEARCH' => false,  
+                                                'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'READONLY' => false,  
+                                                'WHERE' => "application_plan_id = §application_plan_id§",
+                                                'DNA' => true, 
+                                                'CSS' => 'width_pct_100', ),                                                                
                                                                 
-                                        'applicationDesireList' => array('STEP' => 3, 'SHOW' => true,  'FORMAT' => 'retrieve',  
-                                                        'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  
+                                        'applicationDesireList' => array('STEP' => 4, 'SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                        'ICONS' => true,  'DE'.'LETE-ICON' => false,  'BUTTONS' => true,  
                                                         'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                         'EDIT' => false,  'QEDIT' => false,  
                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
@@ -168,7 +177,7 @@
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'INT',  'STEP' => 3, 'READONLY'=>true,
+								'TYPE' => 'INT',  'STEP' => 4, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 

@@ -14,6 +14,11 @@
                         
                 }
 
+                public function moveColumn()
+                {
+                        return "step_num";
+                }
+
                 public static function loadById($id)
                 {
                         $obj = new ApplicationStep();
@@ -43,6 +48,14 @@
                                 return null;
                         }
                         return null;
+                }
+
+                public static function loadFirstStep($application_model_id, $general='Y')
+                {
+                        $obj = new ApplicationStep();  
+                        $obj->select("application_model_id",$application_model_id);
+                        $obj->select("general",$general);
+                        if($obj->load()) return $obj; else return null;
                 }
 
                 public static function loadByMainIndex(
@@ -226,17 +239,18 @@
                         return [true, 'for demo'];
                 }
 
-                public function applyMyGeneralConditionsOn($applicationObject, $lang)
+                
+                
+                public static function applyObjectConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang)
                 {
+                        
                         $err_arr = [];
                         $inf_arr = [];
                         $war_arr = [];
                         $tech_arr = [];
 
-                        $application_model_id = $applicationObject->getVal("application_model_id");
-                        $application_plan_id = $applicationObject->getVal("application_plan_id");
-                        $step_num = $applicationObject->getVal("step_num");
-                        $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, true);
+                        
+                        $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general);
                         /**
                          *
                          * @var ApplicationModelCondition $aModelCondItem
@@ -253,7 +267,56 @@
                                 if($acondItem)
                                 {
                                         $c++;
-                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $applicationObject, $application_plan_id, $application_model_id, $simulate = false); 
+                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate = false); 
+                                        if($exec_result) 
+                                        {
+                                                $inf_arr[] = "($c) ".$comments;
+                                        } 
+                                        else 
+                                        {
+                                                $success = false;
+                                                $war_arr[] = $comments;
+                                        }
+                                        if($tech)  $tech_arr[] = $tech;
+                                }
+                                else
+                                {
+                                        $err_arr[] = "model condition item has not valid condition : id=".$aModelCondItem->id;
+                                }
+                        }
+
+                        
+                        return ['success'=>$success, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
+                }
+
+                public function applyMyDesireConditionsOn($desireObject, $lang)
+                {
+                        $err_arr = [];
+                        $inf_arr = [];
+                        $war_arr = [];
+                        $tech_arr = [];
+
+                        $application_model_id = $desireObject->getVal("application_model_id");
+                        $application_plan_id = $desireObject->getVal("application_plan_id");
+                        $step_num = $desireObject->getVal("step_num");
+                        $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, false);
+                        /**
+                         *
+                         * @var ApplicationModelCondition $aModelCondItem
+                         * 
+                         */
+                        $success = true; // if one condition fail so all fail
+                        $c = 0;
+                        foreach($acondList as $aModelCondItem)
+                        {
+                                /**
+                                 * @var Acondition $acondItem 
+                                 */
+                                $acondItem = $aModelCondItem->het("acondition_id");
+                                if($acondItem)
+                                {
+                                        $c++;
+                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $desireObject, $application_plan_id, $application_model_id, $simulate = false); 
                                         if($exec_result) 
                                         {
                                                 $inf_arr[] = "($c) ".$comments;

@@ -93,11 +93,11 @@ class UohApplicationFormulaManager
                         $age = round(10 * $ageInDays / 365) / 10;
                         if($age<=0) $age = 0;
                     }
-                    else $age = 666;                    
+                    else $age = ($what=="value") ? 666 : "incorrect date format<!-- $qual_date or $start_gdate is not correct greg date -->";                    
                 }
-                else $age = 777;
+                else $age = ($what=="value") ? 777 : "please select your qualification";     
             }
-            else $age = 888; // no start date to calculate age
+            else $age = ($what=="value") ? 888 : "no start date param value to calculate qualification age (aparameter_id=$age_aparameter_id)"; // 
             /*
             if(!is_numeric($age))
             {
@@ -142,28 +142,24 @@ class UohApplicationFormulaManager
     {
         try
         {
+            list($yes,$no) = AfwLanguageHelper::translateYesNo($what);
             $qualifObj = $applicationObj->het("applicant_qualification_id"); 
             if($qualifObj)
             {
-                $imported = $qualifObj->getVal("imported");
+                $imported = ($qualifObj->getVal("imported")=="Y") ? $yes : $no;
             }
-            else $imported = "N";
+            else $imported = $no;
 
-            if($what=="decode" and $qualifObj) 
-            {
-                $imported = $qualifObj->showYNValueForAttribute($imported, "imported");
-            }
-            
             return $imported;
             
         }
         catch(Exception $e)
         {
-            return 'W';
+            return $what=="value" ? 'W' : 'Exception';
         }
         catch(Error $e)
         {
-            return 'W';
+            return $what=="value" ? 'W' : 'Error';
         }
     }
     

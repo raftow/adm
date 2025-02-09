@@ -7,7 +7,7 @@ class ApplicationArTranslator{
 		$trad["application"]["step1"] = "بيانات التقديم";
 		$trad["application"]["step2"] = "المسار العام";
 		$trad["application"]["step3"] = "اختيار الرغبات";
-		$trad["application"]["step4"] = "معلومات فنية";
+		$trad["application"]["step4"] = "ترتيب الرغبات";
 		$trad["application"]["step5"] = "معلومات متقدمة";
 
 		$trad["application"]["application.single"] = "طلب تقديم";
@@ -31,6 +31,7 @@ class ApplicationArTranslator{
 		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";
 		$trad["application"]["nb_desires"] = "عدد الرغبات";
 		$trad["application"]["applicationDesireList"] = "الرغبات";
+		$trad["application"]["application_plan_branch_mfk"] = "الرغبات";
 		
 		$trad["application"]["satisfaction"] = "نسبة رضا العملاء";
 		$trad["application"]["tasks"] = "مهام بالانتظار";
@@ -38,6 +39,7 @@ class ApplicationArTranslator{
 		$trad["application"]["weighted_percentage"] = "النسبة الموزونة";
 		$trad["application"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
 		
+		$trad["application"]["sis_fields_not_available"] = "الحقول الغير متوفرة للترحيل لنظام بيانات الطالب";
 		
 		
         return $trad;

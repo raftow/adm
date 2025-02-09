@@ -61,7 +61,13 @@ AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`application_field` 
                         'weighted_percentage', '', 3, 16, 'النسبة الموزونة', 'weighted percentage', 
                         'Y', 'N', 'N', '', '', 50, NULL, 32, NULL, NULL, NULL, NULL); ");  
 
-AfwDatabase::db_query("update ".$server_db_prefix."adm.applicant set employer_approval = 'N' where employer_approval is null or employer_approval != 'N';");  
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set employer_approval = 'N' where employer_approval is null or employer_approval != 'N';");  
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.institution add   application_model_id int(11) NOT NULL  AFTER postal_code;");  
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.institution add   application_plan_id int(11) NOT NULL  AFTER application_model_id;");  
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.institution add   simulation_applicants_ids text  DEFAULT NULL  AFTER application_plan_id;");  
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.institution change   country_id country_id int(11) NOT NULL  AFTER institution_code;");  
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add   application_plan_branch_mfk text DEFAULT NULL  AFTER major_category_id;");  
 
 /**
  * INSERT INTO uoh_adm.`aparameter` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `aparameter_name_ar`, `aparameter_name_en`, `customizable`, `afield_type_id`, `answer_table_id`, `measurement_unit_ar`, `measurement_unit_en`, `tprogram_mfk`, `aparam_use_scope_id`, `readonly`) VALUES

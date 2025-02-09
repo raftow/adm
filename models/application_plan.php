@@ -7,10 +7,21 @@
                 public static $DB_STRUCTURE = null;
                 // public static $copypast = true;
 
+                /**
+                 * @var ApplicationModel $objApplicationModel
+                 */
+                private $objApplicationModel = null;
+
                 public function __construct(){
                         parent::__construct("application_plan","id","adm");
                         AdmApplicationPlanAfwStructure::initInstance($this);
                         
+                }
+
+                public function getApplicationModel()
+                {
+                    if (!$this->objApplicationModel) $this->objApplicationModel = $this->het("application_model_id");
+                    return $this->objApplicationModel;
                 }
 
                 public static function loadById($id)

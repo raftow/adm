@@ -12,6 +12,7 @@
 							$obj->ORDER_BY_FIELDS = "application_table_id, field_order, id";
 							$obj->UNIQUE_KEY = array("application_table_id","field_name");
 							$obj->editByStep = true;
+							$obj->IS_LOOKUP = true;
 							$obj->editNbSteps = 3;
 							$obj->showQeditErrors = true;
 							$obj->showRetrieveErrors = true;

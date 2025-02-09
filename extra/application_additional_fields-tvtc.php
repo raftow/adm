@@ -155,11 +155,11 @@ class TvtcApplicationFormulaManager
         }
         catch(Exception $e)
         {
-            return 'W';
+            return $what=="value" ? 'W' : 'Exception';
         }
         catch(Error $e)
         {
-            return 'W';
+            return $what=="value" ? 'W' : 'Error';
         }
     }
     
