@@ -7,7 +7,7 @@ class UohCopyFromProspect {
         return $prospect;
     }
 
-    public static function copy_from_prospect($idn)
+    public static function copyFromProspect($idn)
     {
         $prospect = $this->checkProspect($idn);
         if($prospect["id"]){
