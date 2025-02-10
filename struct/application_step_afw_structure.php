@@ -7,7 +7,7 @@
                         if ($obj instanceof ApplicationStep) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "step_name_ar";
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"step_name_ar", 'en'=>"step_name_en",];
                                 $obj->ORDER_BY_FIELDS = "application_model_id, step_num";
                                 $obj->UNIQUE_KEY = array('application_model_id','step_num');
                                 $obj->public_display = true;

@@ -34,7 +34,8 @@
 
 		'general' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  
 		        'DEFAULT' => 'W',  'READONLY' => false, // قد يكون الشرط يطبق في المراحل الخاصة وهو شرط عام على جميع فروع التقديم
-				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, /* 'DISABLE-READONLY-ADMIN' => true,*/
+				'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'W-IS-VALUE' => true, 
+				/* 'DISABLE-READONLY-ADMIN' => true,*/
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_50',),
 		

@@ -6,7 +6,7 @@ class AdmApplicantQualificationAfwStructure
         {
                 if ($obj instanceof ApplicantQualification) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                        // $obj->DISPLAY_FIELD = "applicant_qualification_name_ar";
+                        $obj->DISPLAY_FIELD = array('applicant_id', 'qualification_id', 'major_category_id');
                         $obj->ORDER_BY_FIELDS = "applicant_id, date desc";
                         $obj->UNIQUE_KEY = array('applicant_id', 'qualification_id', 'major_category_id');
                         // tempo for amjad demo @todo
@@ -23,7 +23,7 @@ class AdmApplicantQualificationAfwStructure
         public static $DB_STRUCTURE = array(
                 'id' => array(
                         'SHOW' => false,
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => false,
                         'TYPE' => 'PK',
                         'DISPLAY' => true,
