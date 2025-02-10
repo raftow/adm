@@ -40,9 +40,11 @@ class UohApiRunner {
 
     public static function run_api_offline_data($applicantObject)
     {
+        $res = UohCopyFromProspect::copyFromProspect($applicantObject->id, $applicantObject);
         // return [$error, $info, $warning, $tech]
         // return ["not implemented", "", "", ""];
-        return ["", "done", "", ""];
+        if($res) return ["", "done", "", ""];
+        else return ["not found in prospect data", "", "", ""];
     }
 
     public static function run_api_msc_employee_info($applicantObject)

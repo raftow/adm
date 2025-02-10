@@ -3,17 +3,17 @@ class UohCopyFromProspect {
 
     public static function checkProspect($idn)
     {
-        $prospect = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_applicant where idn = '".$idn."'");
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $prospect = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_applicant where idn = '".$idn."'");
         return $prospect;
     }
 
-    public static function copyFromProspect($idn)
+    public static function copyFromProspect($idn, $applicantObj=null)
     {
-        $prospect = $this->checkProspect($idn);
+        $prospect = self::checkProspect($idn);
         if($prospect["id"]){
-            $applicantObj = Applicant::loadByMainIndex($idn);
+            if(!$applicantObj) $applicantObj = Applicant::loadByMainIndex($idn);
             
-            $applicantObj->set("id",$prospect["idn"]);
             $applicantObj->set("created_at",$prospect["created_at"]);
             $applicantObj->set("email",$prospect["email"]);
             $applicantObj->set("mobile",$prospect["mobile"]);
@@ -24,7 +24,7 @@ class UohCopyFromProspect {
             $applicantObj->set("id_issue_date",$prospect["id_issue_date"]);
             $applicantObj->set("id_expiry_date",$prospect["id_expiry_date"]);
             $applicantObj->set("gender_enum",$prospect["gender_enum"]);
-            $applicantObj->set("mother_saudi_ind",$prospect["mother_saudi_ind"]);
+            $applicantObj->set("mother_saudi_ind",$prospect["mother_saudi_ind"]>0 ? "Y":"N");
             $applicantObj->set("mother_idn",$prospect["mother_idn"]);
             $applicantObj->set("mother_birth_date",$prospect["mother_birth_date"]);
             $applicantObj->set("passeport_num",$prospect["passeport_num"]);
@@ -65,32 +65,32 @@ class UohCopyFromProspect {
             $applicantObj->set("guardian_id_place",$prospect["guardian_id_place"]);
             $applicantObj->set("relationship_enum",$prospect["relationship_enum"]);
             
-            $applicantObj->set("attribute_1",$prospect["mohe_regular"]);
+            $applicantObj->set("attribute_1",$prospect["mohe_regular"]>0 ? "Y":"N");
             $applicantObj->set("attribute_2",$prospect["mohe_Institution"]);
             $applicantObj->set("attribute_3",$prospect["mohe_activity_date"]);
-            $applicantObj->set("attribute_4",$prospect["Universities_Graduated_ind"]);
-            $applicantObj->set("attribute_5",$prospect["rayat_closed"]);
+            $applicantObj->set("attribute_4",$prospect["Universities_Graduated_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_5",$prospect["rayat_closed"]>0 ? "Y":"N");
             $applicantObj->set("attribute_6",$prospect["rayat_closed_semester"]);
-            $applicantObj->set("attribute_8",$prospect["rayat_dismissed"]);
+            $applicantObj->set("attribute_8",$prospect["rayat_dismissed"]>0 ? "Y":"N");
             $applicantObj->set("attribute_9",$prospect["rayat_dismissed_semester"]);
-            $applicantObj->set("attribute_11",$prospect["rayat_continuing_ind"]);
-            $applicantObj->set("attribute_12",$prospect["rayat_EN_graduated_ind"]);
-            $applicantObj->set("attribute_13",$prospect["rayat_DP_graduated_ind"]);
-            $applicantObj->set("attribute_14",$prospect["rayat_UG_graduated_ind"]);
-            $applicantObj->set("attribute_15",$prospect["rayat_PR_graduated_ind"]);
-            $applicantObj->set("attribute_16",$prospect["rayat_AS_graduated_ind"]);
+            $applicantObj->set("attribute_11",$prospect["rayat_continuing_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_12",$prospect["rayat_EN_graduated_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_13",$prospect["rayat_DP_graduated_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_14",$prospect["rayat_UG_graduated_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_15",$prospect["rayat_PR_graduated_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_16",$prospect["rayat_AS_graduated_ind"]>0 ? "Y":"N");
             $applicantObj->set("attribute_17",$prospect["rayat_activity_date"]);
             $applicantObj->set("attribute_18",$prospect["children_of_martyrs"]);
             $applicantObj->set("attribute_19",$prospect["children_of_martyrs_check_method_id"]);
             $applicantObj->set("attribute_20",$prospect["children_of_martyrs_afile_id"]);
-            $applicantObj->set("attribute_21",$prospect["saudi_ind"]);
-            $applicantObj->set("attribute_22",$prospect["is_deaf"]);
-            $applicantObj->set("attribute_23",$prospect["high_inst_qualified_ind"]);
-            $applicantObj->set("attribute_24",$prospect["medium_Proficiency_cert_ind"]);
-            $applicantObj->set("attribute_25",$prospect["tech_College_diploma_ind"]);
-            $applicantObj->set("attribute_26",$prospect["sec_school_ind"]);
-            $applicantObj->set("attribute_27",$prospect["qiyas_aptitude_ind"]);
-            $applicantObj->set("attribute_28",$prospect["qiyas_achievement_ind"]);
+            $applicantObj->set("attribute_21",$prospect["saudi_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_22",$prospect["is_deaf"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_23",$prospect["high_inst_qualified_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_24",$prospect["medium_Proficiency_cert_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_25",$prospect["tech_College_diploma_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_26",$prospect["sec_school_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_27",$prospect["qiyas_aptitude_ind"]>0 ? "Y":"N");
+            $applicantObj->set("attribute_28",$prospect["qiyas_achievement_ind"]>0 ? "Y":"N");
             $applicantObj->set("attribute_29",$prospect["qiyas_achievement_th"]);
             $applicantObj->set("attribute_30",$prospect["qiyas_achievement_th_date"]);
             $applicantObj->set("attribute_31",$prospect["qiyas_aptitude_sc"]);
@@ -103,7 +103,7 @@ class UohCopyFromProspect {
             $applicantObj->set("sci_id",$prospect["SISId"]); 
             
             $applicantObj->commit();
-            $qualifications = $this->getProspectQualification($prospect["id"]);
+            $qualifications = self::getProspectQualification($prospect["id"]);
             foreach($qualifications as $qual){
                 $applicant_qualification = ApplicantQualification::loadByMainIndex($prospect["idn"], $prospect["qualification_id"], $prospect["major_category_id"], true);
                 $applicant_qualification->set("applicant_id",$prospect["idn"]);
@@ -126,9 +126,10 @@ class UohCopyFromProspect {
         }
     }
 
-    public function getProspectQualification($id){
-        $prospect_qualification = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_qualification where applicant_id = '".$id."'");
-        return $prospect_qualification;
+    public static function getProspectQualification($id){
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $prospect_qualifications = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_qualification where applicant_id = '".$id."'");
+        return $prospect_qualifications;
     }
      
 

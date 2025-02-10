@@ -286,9 +286,23 @@ class Application extends AdmObject
                         );
 
                         $color = "blue";
+                        $title_ar = $asObj->tm("Force updating data via electronic services", 'ar');
+                        $title_en = $asObj->tm("Force updating data via electronic services", 'en');
+                        $methodName = "runNeededApis";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("application_status_enum")
+                        );
+
+                        $color = "gray";
                         $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
                         $title_en = $asObj->tm("Updating data via electronic services", 'en');
-                        $methodName = "runNeededApis";
+                        $methodName = "runOnlyNeedUpdateApis";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                 "METHOD" => $methodName,
                                 "COLOR" => $color,
@@ -304,7 +318,12 @@ class Application extends AdmObject
                 return $pbms;
         }
 
-        public function runNeededApis($lang = "ar")
+        public function runOnlyNeedUpdateApis($lang = "ar")
+        {
+                return $this->runNeededApis($lang, false);
+        }
+
+        public function runNeededApis($lang = "ar", $force=true)
         {
                 for ($s = 1; $s <= $this->getVal("step_num"); $s++) {
                         $this->requestAPIsOfStep($s);
@@ -313,7 +332,7 @@ class Application extends AdmObject
                 $this->getApplicant();
                 if (!$this->applicantObj) return ["no-applicantObj", ""];
 
-                return $this->applicantObj->runNeededApis($lang);
+                return $this->applicantObj->runNeededApis($lang, $force);
         }
 
         public function gotoNextStep($lang = "ar")

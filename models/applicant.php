@@ -588,19 +588,34 @@ class Applicant extends AdmObject
 
 
 
-                $color = "green";
-                $title_ar = "تحديث البيانات من الخدمات الالكترونية";
+                $color = "blue";
+                $title_ar = $this->tm("Force updating data via electronic services", 'ar');
+                $title_en = $this->tm("Force updating data via electronic services", 'en');
                 $methodName = "runNeededApis";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                        "LABEL_AR" => $title_ar, 
+                                        "LABEL_EN" => $title_en, 
+                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
 
-
+                $color = "green";
+                $title_ar = $this->tm("Updating data via electronic services", 'ar');
+                $title_en = $this->tm("Updating data via electronic services", 'en');
+                $methodName = "runOnlyNeedUpdateApis";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                        "LABEL_AR" => $title_ar, 
+                                        "LABEL_EN" => $title_en, 
+                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
 
 
                 return $pbms;
         }
 
+        public function runOnlyNeedUpdateApis($lang = "ar")
+        {
+                return $this->runNeededApis($lang, false);
+        }
 
-        public function runNeededApis($lang = "ar")
+        public function runNeededApis($lang = "ar", $force=true)
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -626,7 +641,7 @@ class Applicant extends AdmObject
                                         if ($run_date == "0000-00-00") $run_date = "";
                                         if ($run_date == "0000-00-00 00:00:00") $run_date = "";
 
-                                        $refresh_needed = $applicantApiRequestItem->sureIs("refresh_needed");
+                                        $refresh_needed = ($applicantApiRequestItem->sureIs("refresh_needed") or $force);
 
 
 
@@ -710,7 +725,7 @@ class Applicant extends AdmObject
                         if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
                         else $api = "no-applicationObj";
                         if ($field_empty) {
-                                $api .= ", field value is empty";
+                                $api .= " ".$applicationObj->tm("can not find the field value", $lang);
                                 $field_value_datetime = "";
                         }
 

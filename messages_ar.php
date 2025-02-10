@@ -10,7 +10,8 @@
     $messages["does'nt very the condition that"] = "لا ينطبق عليها شرط أنها";
     $messages["very the condition that"] = "ينطبق عليها شرط أنها";
     $messages["the following field value"] = "قيمة الحقل التالية";
-
+    $messages["can not find the field value"] = "لم تجلب أي قيمة لهذا الحقل";
+    $messages["can be entered manually"] = "يمكن ادخاله يدويا";
 
     $messages["the application plan has been successfully validated"] = "تم اعتماد خطة القبول بنجاح";
     $messages["the application plan has been successfully unvalidated"] = "تم الغاء اعتماد خطة القبول";
@@ -47,7 +48,8 @@
 
     $messages["nb of Academic Program Offering for"] = "عدد البرامج المتاحة ل";
     $messages["go to next step"] = "الانتقال الى المرحلة الموالية";
-    $messages["Updating data via electronic services"] = "تحديث البيانات عبر الخدمات الالكترونية";
+    $messages["Updating data via electronic services"] = "تحديث البيانات التي تحتاج تحديث عبر الخدمات الالكترونية";
+    $messages["Force updating data via electronic services"] = "إعادة تحديث كل البيانات عبر الخدمات الالكترونية";
 
     
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
