@@ -90,6 +90,13 @@
                         return true;
                 }
 
+                public function getShortDisplay($lang="ar")
+                {
+                        $progOffr = $this->het("program_offering_id");            
+                        if(!$progOffr) return $this->tm("Incorrect branch settings",$lang);   
+                        return $progOffr->getDisplay($lang);
+                }
+
                 public function genereName($lang="ar", $which="all", $commit=true)
                 {
                     $progOffr = $this->het("program_offering_id");            

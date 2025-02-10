@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 5; 
+                                $obj->editNbSteps = 6; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -504,7 +504,7 @@
                                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                                         'TYPE' => 'FK', 'STEP' => 6, 
                                                                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
-                                                                        'CSS' => 'width_pct_50', ),
+                                                                        'CSS' => 'width_pct_100', ),
 
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  

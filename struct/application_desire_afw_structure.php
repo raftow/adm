@@ -7,7 +7,7 @@
                         if ($obj instanceof ApplicationDesire) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "application_desire_name_ar";
+                                $obj->DISPLAY_FIELD = ["desire_num", "application_plan_branch_id"];
                                 $obj->ORDER_BY_FIELDS = "applicant_id, application_plan_id, desire_num";
                                 // $obj->UNIQUE_KEY = array('applicant_id','application_plan_id','application_plan_branch_id'); big one
                                 $obj->UNIQUE_KEY = array('applicant_id','application_plan_id','desire_num');

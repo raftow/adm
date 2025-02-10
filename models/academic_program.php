@@ -27,9 +27,15 @@
                 public function getDisplay($lang="ar")
                 {
                         $data = [];
-                        list($data[0],$link) = $this->displayAttribute("academic_level_id");
+                        list($data[0],$link) = $this->displayAttribute("academic_level_id",false,$lang);
                         $data[1] = $this->getVal("program_name_$lang");                    
                         return implode("-",$data);
+                }
+
+                public function getShortDisplay($lang="ar")
+                {
+                        $return = $this->getVal("program_name_$lang");                    
+                        return $return;
                 }
 
                 public function stepsAreOrdered()

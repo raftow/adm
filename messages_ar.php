@@ -51,6 +51,8 @@
     $messages["Updating data via electronic services"] = "تحديث البيانات التي تحتاج تحديث عبر الخدمات الالكترونية";
     $messages["Force updating data via electronic services"] = "إعادة تحديث كل البيانات عبر الخدمات الالكترونية";
 
+    $messages["All steps are general & There are no special steps to be the path of application desires"] = "كل المراحل عامة ولا يوجد مراحل خاصة مسارا للرغبات";
+
     
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       

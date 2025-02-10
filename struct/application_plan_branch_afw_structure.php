@@ -7,7 +7,7 @@
                         if ($obj instanceof ApplicationPlanBranch) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                // $obj->DISPLAY_FIELD = "application_plan_branch_name_ar";
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"name_ar", 'en'=>"name_en"];
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('application_plan_id','program_offering_id');
                                 // $obj->public_display = true;
@@ -132,17 +132,17 @@
 
                                         'name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_50',),
                                                 
 
 
                                         'name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => false,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_50',),
                                                 
 
 

@@ -68,6 +68,12 @@
                         return implode("-",$data);                    
                 }
 
+                public function getShortDisplay($lang="ar")
+                {                        
+                        $return = $this->getVal("program_name_$lang");                    
+                        return $return; 
+                }
+
                 public function stepsAreOrdered()
                 {
                         return false;
@@ -127,14 +133,16 @@
                     
                     if(($which=="all") or ($which=="ar"))
                     {
-                        $new_name = $tunitObj->getDisplay("ar")."-".$acadProg->getDisplay("ar");
+                        // $new_name = $tunitObj->getDisplay("ar")."-".$acadProg->getDisplay("ar");
+                        $new_name = $acadProg->getShortDisplay("ar");
                         $this->set("program_name_ar", $new_name);                        
                         // die("reset name to : ".$new_name);
                     }
         
                     if(($which=="all") or ($which=="en"))
                     {
-                        $new_name = $tunitObj->getDisplay("en")."-".$acadProg->getDisplay("en");
+                        // $new_name = $tunitObj->getDisplay("en")."-".$acadProg->getDisplay("en");
+                        $new_name = $acadProg->getShortDisplay("en");
                         $this->set("program_name_en", $new_name); 
                     }
 
@@ -234,6 +242,8 @@
 
                 public static function genereAllNames($lang="ar")
                 {
+                        global $MODE_BATCH_LOURD;
+                        $MODE_BATCH_LOURD = true;
                         $obj = new AcademicProgramOffering();
                         // $obj->select_visibilite_horizontale();
                         $objList = $obj->loadMany();
