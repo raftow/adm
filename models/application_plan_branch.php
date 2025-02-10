@@ -52,7 +52,7 @@
                                 }
                         }
 
-                        if($fields_updated["program_id"] or $fields_updated["training_unit_id"])
+                        if($fields_updated["program_id"] or $fields_updated["training_unit_id"] or true)
                         {
                                 if($this->getVal("program_id") and $this->getVal("training_unit_id"))
                                 {
@@ -65,6 +65,14 @@
                                                 $applicationPlanObj = $this->het("application_plan_id");
                                                 $applicationModelBranchObj = ApplicationModelBranch::loadByMainIndex($progOffObj->id, $applicationPlanObj->getVal("application_model_id"));
                                                 if($applicationModelBranchObj) $this->set("application_model_branch_id", $applicationModelBranchObj->id);
+                                                if(!$this->getVal("name_ar") or ($this->getVal("name_ar")=="--"))
+                                                {
+                                                        $this->set("name_ar", $progOffObj->getShortDisplay("ar"));
+                                                }
+                                                if(!$this->getVal("name_en") or ($this->getVal("name_en")=="--"))
+                                                {
+                                                        $this->set("name_en", $progOffObj->getShortDisplay("en"));
+                                                }
                                         }
                                         
                                         

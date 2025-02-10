@@ -214,14 +214,22 @@ class ApplicationDesire extends AdmObject
         public function repareData()
         {
                 $is_to_commit = false;
-                
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 $step_num = $this->getVal("step_num"); 
                 if((!$step_num) or ($step_num=="0"))
                 {                        
                         $objStep = $this->getApplicationPlan()->getApplicationModel()->getFirstDesireStep();
-                        $this->set("step_num", $objStep->getVal("step_num"));
-                        $this->set("application_step_id", $objStep->id);
-                        $is_to_commit = true;     
+                        if($objStep)
+                        {
+                                $this->set("step_num", $objStep->getVal("step_num"));
+                                $this->set("application_step_id", $objStep->id);
+                                $is_to_commit = true;     
+                        }
+                        else
+                        {
+                                AfwSession::pushWarning($this->getDisplay($lang)." : ".$this->tm("All steps are general & There are no special steps to be the path of application desires", $lang));
+                        }
+                        
                 }
 
                 $desire_status_enum = $this->getVal("desire_status_enum"); 
@@ -241,7 +249,7 @@ class ApplicationDesire extends AdmObject
         {
             $server_db_prefix = AfwSession::config("db_prefix","uoh_");
             $objFirstStep = $this->getApplicationPlan()->getApplicationModel()->getFirstDesireStep();
-            $first_step_num = $objFirstStep->getVal("step_num");
+            $first_step_num = $objFirstStep ? $objFirstStep->getVal("step_num") : 9999;
             $desire_status_enum = $this->getVal("desire_status_enum");
             $step_num = $this->getVal("step_num");
             if (($step_num > $first_step_num) or ($desire_status_enum > 1)) {

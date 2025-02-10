@@ -73,6 +73,10 @@ if(true)
 
 
 $out_scr .= "</div>";
+list($error, $info, $warn, $technical) = AcademicProgramOffering::genereAllNames($lang="ar");
+AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
+// list($error, $info, $warn, $technical) = ApplicationModelBranch::genereAllNames($lang="ar");
+// AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 
 /*
 if(!class_exists("AfwSession")) die("page-not-found");
@@ -96,11 +100,7 @@ $out_scr .= $myEmplObj->showMinibox();
 global $MODE_SQL_PROCESS_LOURD;
 
 $MODE_SQL_PROCESS_LOURD = true;
-//AcademicProgramOffering::genereAllNames($lang="ar");
-/*
-list($error, $info, $warn, $technical) = ApplicationModelBranch::genereAllNames($lang="ar");
-AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
-*/
+
 /*
 $schoolList = SchoolEmployee::getSchoolList($myEmplId);    
 $structure = [];
