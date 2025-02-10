@@ -103,7 +103,7 @@ class UohCopyFromProspect {
             $applicantObj->set("sci_id",$prospect["SISId"]); 
             
             $applicantObj->commit();
-            $qualifications = $this->addProspectQualification($prospect["id"]);
+            $qualifications = $this->getProspectQualification($prospect["id"]);
             foreach($qualifications as $qual){
                 $applicant_qualification = ApplicantQualification::loadByMainIndex($prospect["idn"], $prospect["qualification_id"], $prospect["major_category_id"], true);
                 $applicant_qualification->set("applicant_id",$prospect["idn"]);
@@ -126,7 +126,7 @@ class UohCopyFromProspect {
         }
     }
 
-    public function addProspectQualification($id){
+    public function getProspectQualification($id){
         $prospect_qualification = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_qualification where applicant_id = '".$id."'");
         return $prospect_qualification;
     }
