@@ -454,7 +454,7 @@ class Application extends AdmObject
                 if ($this->applicantObj) {
                         $apiEndpoint = $this->getFieldApiEndpoint($field_name);
                         if ($apiEndpoint) {
-                                $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
+                                $apiEndpointDisplay = $apiEndpoint->getDisplay($lang)." <!-- ".$apiEndpoint->getVal("api_endpoint_code")." -->";;
                                 if ($apiEndpoint->id != 13) {
                                         $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
                                 } else {
@@ -474,7 +474,7 @@ class Application extends AdmObject
                 if ($this->applicantObj) {
                         $apiEndpoint = $this->getFieldApiEndpoint($field_name, 1);
                         if ($apiEndpoint) {
-                                $apiEndpointDisplay = $apiEndpoint->getDisplay($lang);
+                                $apiEndpointDisplay = $apiEndpoint->getDisplay($lang)." <!-- ".$apiEndpoint->getVal("api_endpoint_code")." -->";
                                 if ($apiEndpoint->id != 13) {
                                         $field_value_datetime = $this->applicantObj->getApiUpdateDate($apiEndpoint);
                                 } else {

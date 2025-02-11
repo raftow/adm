@@ -194,12 +194,11 @@ class Applicant extends AdmObject
                 }
 
                 $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", true);
-
+                $api_runner_class = self::loadApiRunner();
                 if ($this->id and ($first_register or $register_apis_need_refresh)) {
-                        $api_runner_class = self::loadApiRunner();
-
-                        // create register apis call requests to be done by applicant-api-request-job
+                        
                         $register_apis = $api_runner_class::register_apis();
+                        // create register apis call requests to be done by applicant-api-request-job                        
                         foreach ($register_apis as $register_api) {
                                 $aepObj = ApiEndpoint::loadByMainIndex($register_api);
                                 if (!$aepObj) throw new AfwRuntimeException("the register API $register_api is not found in DB");
@@ -207,9 +206,19 @@ class Applicant extends AdmObject
                         }
                 }
 
+                
+                
+
                 return true;
         }
 
+        public function afterMaj($id, $fields_updated)
+        {
+                if((!$this->getVal("first_name_ar")) or (!$this->getVal("father_name_ar")) or (!$this->getVal("last_name_ar")))
+                {
+                        $this->runNeededApis();
+                }
+        }
 
 
         public static function getAdditionalFieldParams($field_name)
@@ -446,59 +455,184 @@ class Applicant extends AdmObject
         }
 
 
-        public function beforeDelete($id, $id_replace)
+        public function beforeDelete($id,$id_replace) 
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-
-                if (!$id) {
-                        $id = $this->getId();
-                        $simul = true;
-                } else {
-                        $simul = false;
-                }
-
-                if ($id) {
-                        if ($id_replace == 0) {
-                                // FK part of me - not deletable 
-
-
-                                // FK part of me - deletable 
-                                // adm.applicant_qualification-Applicant	applicant_id  OneToMany
-                                if (!$simul) {
-                                        // require_once "../adm/applicant_qualification.php";
-                                        ApplicantQualification::removeWhere("applicant_id='$id'");
-                                        // $this->execQuery("delete from ${server_db_prefix}adm.applicant_qualification where applicant_id = '$id' ");
-
-                                }
-
-
-
-
-                                // FK not part of me - replaceable 
-
-
-
-                                // MFK
-
-                        } else {
-                                // FK on me 
-                                // adm.applicant_qualification-Applicant	applicant_id  OneToMany
-                                if (!$simul) {
-                                        // require_once "../adm/applicant_qualification.php";
-                                        ApplicantQualification::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
-                                        // $this->execQuery("update ${server_db_prefix}adm.applicant_qualification set applicant_id='$id_replace' where applicant_id='$id' ");
-
-                                }
-
-
-
-                                // MFK
-
-
+            $server_db_prefix = AfwSession::config("db_prefix","tvtc_");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+                       // adm.application-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                        // require_once "../adm/application.php";
+                        $obj = new Application();
+                        $obj->where("applicant_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some Applications(s) as applicant id";
+                            return false;
                         }
-                        return true;
-                }
-        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
+
+                       // adm.application_desire-المتفدم	applicant_id  حقل يفلتر به (required field)
+                        // require_once "../adm/application_desire.php";
+                        $obj = new ApplicationDesire();
+                        $obj->where("applicant_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some ????? ?????????(s) as applicant id";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
+
+                       // adm.applicant_file-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                        // require_once "../adm/applicant_file.php";
+                        $obj = new ApplicantFile();
+                        $obj->where("applicant_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some applicant file(s) as The applicant";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
+
+
+                        
+                   // FK part of me - deletable 
+                       // adm.applicant_qualification-المتقدم	applicant_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_qualification.php";
+                            ApplicantQualification::removeWhere("applicant_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_qualification where applicant_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.applicant_evaluation-المتقدم	applicant_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_evaluation.php";
+                            ApplicantEvaluation::removeWhere("applicant_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_evaluation where applicant_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.applicant_api_request-المتقدم	applicant_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_api_request.php";
+                            ApplicantApiRequest::removeWhere("applicant_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_api_request where applicant_id = '$id' ");
+                            
+                        } 
+                        
+                        
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+ 
+
+                        // adm.application-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application.php";
+                            Application::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application set applicant_id='$id_replace' where applicant_id='$id' ");
+                            
+                        } 
+                        
+
+ 
+
+                        // adm.application_desire-المتفدم	applicant_id  حقل يفلتر به (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_desire.php";
+                            ApplicationDesire::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_desire set applicant_id='$id_replace' where applicant_id='$id' ");
+                            
+                        } 
+                        
+
+ 
+
+                        // adm.applicant_file-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_file.php";
+                            ApplicantFile::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.applicant_file set applicant_id='$id_replace' where applicant_id='$id' ");
+                            
+                        } 
+                        
+
+                       // adm.applicant_qualification-المتقدم	applicant_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_qualification.php";
+                            ApplicantQualification::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.applicant_qualification set applicant_id='$id_replace' where applicant_id='$id' ");
+                            
+                        }
+                        
+                       // adm.applicant_evaluation-المتقدم	applicant_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_evaluation.php";
+                            ApplicantEvaluation::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.applicant_evaluation set applicant_id='$id_replace' where applicant_id='$id' ");
+                            
+                        }
+                        
+                       // adm.applicant_api_request-المتقدم	applicant_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_api_request.php";
+                            ApplicantApiRequest::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.applicant_api_request set applicant_id='$id_replace' where applicant_id='$id' ");
+                            
+                        }
+                        
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	}
 
         // applicant 
         public function getScenarioItemId($currstep)
@@ -714,7 +848,7 @@ class Applicant extends AdmObject
                                 $field_value_case = "calc";
                         }
                         $field_decode = $this->decode($field_name);
-                        $row_matrix['decode'] = $field_decode . "<!-- $field_value -->";
+                        $row_matrix['decode'] = $field_decode . "<!-- `$field_value` -->";
                         $row_matrix['value'] = $field_value;
                         $row_matrix['case'] = $field_value_case;
 

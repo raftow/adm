@@ -40,6 +40,10 @@ class UohApiRunner {
 
     public static function run_api_offline_data($applicantObject)
     {
+        if (!class_exists("UohCopyFromProspect", false)) {
+            $file_dir_name = dirname(__FILE__);
+            require($file_dir_name . "/uoh_copy_from_prospect.php");
+        }
         $res = UohCopyFromProspect::copyFromProspect($applicantObject->id, $applicantObject);
         // return [$error, $info, $warning, $tech]
         // return ["not implemented", "", "", ""];

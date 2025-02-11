@@ -1,5 +1,5 @@
 <?php
-class UohCopyFromProspect {
+class TvtcCopyFromProspect {
 
     public static function checkProspect($idn)
     {
