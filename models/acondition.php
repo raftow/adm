@@ -608,6 +608,7 @@ class Acondition extends AdmObject{
                                 else
                                 {
                                         list($program_track_id, $major_path_id, $qualObj) = $objDesire->calcTrackAndMajorPath();
+                                        die("list($program_track_id, $major_path_id, $qualObj->id) = $objDesire => calcTrackAndMajorPath()");
                                         if($field_reel)
                                         {
                                                 $field_value = $objDesire->getVal($field_name);

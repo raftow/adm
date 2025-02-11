@@ -73,8 +73,10 @@ if(true)
 
 
 $out_scr .= "</div>";
-list($error, $info, $warn, $technical) = AcademicProgramOffering::genereAllNames($lang="ar");
+list($error, $info, $warn, $technical) = ApplicationPlanBranch::genereAllNames($lang="ar");
 AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
+// list($error, $info, $warn, $technical) = AcademicProgramOffering::genereAllNames($lang="ar");
+// AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 // list($error, $info, $warn, $technical) = ApplicationModelBranch::genereAllNames($lang="ar");
 // AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 

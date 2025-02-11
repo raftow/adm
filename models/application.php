@@ -74,9 +74,22 @@ class Application extends AdmObject
                 } else return null;
         }
 
-        public function getDisplay($lang = 'ar')
+        public function getDisplay($lang = "ar")
         {
-                return $this->getDefaultDisplay($lang);
+
+                $data = array();
+                $link = array();
+
+                //list($data[0], $link[0]) = $this->displayAttribute("qualification_id", false, $lang);
+                $data[0] = $this->singleTranslation($lang)." ".$this->translateOperator("on",$lang);
+                list($data[1], $link[1]) = $this->displayAttribute("application_plan_id", false, $lang);
+
+                // die("AQ::getDisplay = ".var_export($data,true));
+                $return = implode(" ", $data);
+
+                // die("return=$return AQ::getDisplay = ".var_export($data,true));
+
+                return $return;
         }
 
         public function stepsAreOrdered()
@@ -362,7 +375,7 @@ class Application extends AdmObject
                         if (!$currentStepObj) return [$this->tm("No current step defined for this application model, you may need to reorder the steps to have step num=0 or step num = 1", $lang), ""];
 
                         // to go to next step we should apply conditions of the current step
-                        $applyResult = $currentStepObj->applyMyGeneralConditionsOn($this, $lang);
+                        $applyResult = $this->applyMyCurrentStepConditions($lang, false);
                         $success = $applyResult['success'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
@@ -841,12 +854,15 @@ class Application extends AdmObject
                 return ["", "reordered from $step_from to $step_to " . implode("<br>\n", $log_arr)];
         }
 
-        public function applyApplicationConditionsOn($lang)
+        public function applyMyCurrentStepConditions($lang="ar", $pbm=true)
         {
                 $application_model_id = $this->getVal("application_model_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $step_num = $this->getVal("step_num");
                 $general="W";
-                return ApplicationStep::applyObjectConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang);
+                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang);
+
+                if($pbm) return $return["res"];
+                else return $return;
         }
 }

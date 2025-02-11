@@ -39,6 +39,7 @@
 
                 public function beforeMaj($id, $fields_updated)
                 {  
+                        $lang = AfwLanguageHelper::getGlobalLanguage();
                         $applicationPlanObj = null;
                         if($fields_updated["application_plan_id"] and $this->getVal("application_plan_id"))
                         {
@@ -65,14 +66,7 @@
                                                 $applicationPlanObj = $this->het("application_plan_id");
                                                 $applicationModelBranchObj = ApplicationModelBranch::loadByMainIndex($progOffObj->id, $applicationPlanObj->getVal("application_model_id"));
                                                 if($applicationModelBranchObj) $this->set("application_model_branch_id", $applicationModelBranchObj->id);
-                                                if(!$this->getVal("name_ar") or ($this->getVal("name_ar")=="--"))
-                                                {
-                                                        $this->set("name_ar", $progOffObj->getShortDisplay("ar"));
-                                                }
-                                                if(!$this->getVal("name_en") or ($this->getVal("name_en")=="--"))
-                                                {
-                                                        $this->set("name_en", $progOffObj->getShortDisplay("en"));
-                                                }
+                                                $this->genereNames($lang, $progOffObj, false);
                                         }
                                         
                                         
@@ -88,7 +82,37 @@
                     return true;
                 }
 
-                
+                public function genereNames($lang="ar", $progOffObj=null, $commit=true, $force=false)
+                {
+                        if(!$progOffObj) $progOffObj = $this->het("program_offering_id");
+
+                        if($progOffObj)
+                        {
+                                if(!$this->getVal("name_ar") or ($this->getVal("name_ar")=="--") or $force)
+                                {
+                                        $this->set("name_ar", $progOffObj->getShortDisplay("ar"));
+                                }
+                                if(!$this->getVal("name_en") or ($this->getVal("name_en")=="--") or $force)
+                                {
+                                        $this->set("name_en", $progOffObj->getShortDisplay("en"));
+                                }
+                        }
+                        if($commit) $this->commit();
+                }
+
+                public static function genereAllNames($lang="ar")
+                {
+                        global $MODE_BATCH_LOURD;
+                        $MODE_BATCH_LOURD = true;
+                        $obj = new ApplicationPlanBranch();
+                        // $obj->select_visibilite_horizontale();
+                        $objList = $obj->loadMany();
+
+                        foreach($objList as $objItem)
+                        {
+                                $objItem->genereNames($lang);
+                        }
+                }
 
                 public function repareHijriApplicationEndDate($lang="ar", $commit=true)
                 {

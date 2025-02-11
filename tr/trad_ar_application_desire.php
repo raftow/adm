@@ -22,6 +22,9 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["major_category_id"] = "فئة التخصص";
 		$trad["application_desire"]["health_ind"] = "لائق طبيا";    
 		$trad["application_desire"]["desire_num"] = "ترتيب الرغبة";    
+
+		$trad["application_desire"]["weighted_percentage"] = "النسبة الموزونة";
+		$trad["application_desire"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
 		
 		return $trad;
     }

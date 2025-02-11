@@ -108,7 +108,11 @@ class ApplicationDesire extends AdmObject
                         $obj->set("application_plan_id", $application_plan_id);
                         $obj->set("application_plan_branch_id", $application_plan_branch_id);
                         $obj->set("application_id", $applicationObj->id);
+                        $obj->set("applicant_qualification_id", $applicationObj->getVal("applicant_qualification_id"));
+                        $obj->set("qualification_id", $applicationObj->getVal("qualification_id"));
+                        $obj->set("major_category_id", $applicationObj->getVal("major_category_id"));
                         $obj->set("desire_num", $desire_num);
+                          
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
@@ -172,7 +176,7 @@ class ApplicationDesire extends AdmObject
                         if (!$currentStepObj) return [$this->tm("No current step defined for this application model, you may need to reorder the steps to have step num=0 or step num = 1", $lang), ""];
 
                         // to go to next step we should apply conditions of the current step
-                        $applyResult = $currentStepObj->applyMyGeneralConditionsOn($this, $lang);
+                        $applyResult = $this->applyMyCurrentStepConditions($lang, false);
                         $success = $applyResult['success'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
@@ -243,6 +247,66 @@ class ApplicationDesire extends AdmObject
                 
         }
 
+        protected function getPublicMethods()
+        {
+
+                $pbms = array();
+
+
+                $currentStepNum = $this->getVal("step_num");
+                $nextStepNum = $currentStepNum + 1;
+                $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                //$objFirstStep = $objApplicationModel->getFirstDesireStep();
+                if ($objApplicationModel) {
+                        $asObj = ApplicationStep::loadByMainIndex($objApplicationModel->id, $nextStepNum);
+
+                        $color = "green";
+                        $title_ar = $asObj->tm("go to next step", 'ar') . " '" . $asObj->getDisplay("ar") . "'";
+                        $title_en = $asObj->tm("go to next step", 'en') . " '" . $asObj->getDisplay("en") . "'";
+                        $methodName = "gotoNextDesireStep";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEP' => '1'
+                        );
+
+                        $color = "blue";
+                        $title_ar = $asObj->tm("Force updating data via electronic services", 'ar');
+                        $title_en = $asObj->tm("Force updating data via electronic services", 'en');
+                        $methodName = "runNeededApis";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEP' => '1'
+                        );
+
+                        $color = "gray";
+                        $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
+                        $title_en = $asObj->tm("Updating data via electronic services", 'en');
+                        $methodName = "runOnlyNeedUpdateApis";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEP' => '1'
+                        );
+                }
+                else die("no ApplicationModel for this desire");
+
+                return $pbms;
+        }
+
         
 
         public function beforeDelete($id,$id_replace)         
@@ -296,4 +360,66 @@ class ApplicationDesire extends AdmObject
                return true;
             }    
 	}
+
+
+        public function calcWeighted_percentage_details($what = "value")
+        {
+                return $this->calcWeighted_percentage("details");
+        }
+
+        public function calcProgram_track_id($what = "value")
+        {
+                $program_track_id = 0;
+                $branchObj = $this->het("application_plan_branch_id"); 
+                if(!$branchObj) return $program_track_id;
+                $programObj = $branchObj->het("program_id"); 
+                if($programObj) 
+                {
+                        $program_track_id = $programObj->getVal("program_track_id");
+                }
+                
+                return $program_track_id;
+                
+        }
+
+        public function calcTrackAndMajorPath()
+        {
+                $applicantQualificationObj = $this->het("applicant_qualification_id");
+                $major_path_id = 0;
+                $program_track_id = $this->calcProgram_track_id(); 
+                if ($applicantQualificationObj) {
+                        $major_path_id = $applicantQualificationObj->getInfo("secondary_major_path");
+                }
+
+                return [$program_track_id, $major_path_id, $applicantQualificationObj];
+        }
+
+        public function calcWeighted_percentage($what = "value")
+        {
+                list($program_track_id, $major_path_id, $applicantQualificationObj) = $this->calcTrackAndMajorPath($what);
+                if (!$applicantQualificationObj) return ($what == "value") ? -88 : "No applicant qualification object";
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                if (!$this->applicantObj) return ($what == "value") ? -99 : "No applicant object";
+
+                return $this->applicantObj->weighted_percentage($what, $program_track_id, $major_path_id, $applicantQualificationObj);
+        }
+
+
+        public function applyMyCurrentStepConditions($lang="ar", $pbm=true)
+        {
+                $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                if (!$objApplicationModel)
+                {
+                        if($pbm) return ["Strange Error : no ApplicationModel object for this desire"];
+                        else return [];  
+                }
+                $application_model_id = $objApplicationModel->id;
+                $application_plan_id = $this->getVal("application_plan_id");
+                $step_num = $this->getVal("step_num");
+                $general="N";
+                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang);
+
+                if($pbm) return $return["res"];
+                else return $return;
+        }
 }

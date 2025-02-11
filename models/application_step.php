@@ -241,7 +241,7 @@
 
                 
                 
-                public static function applyObjectConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang)
+                public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang)
                 {
                         
                         $err_arr = [];
@@ -288,7 +288,7 @@
                         
                         return ['success'=>$success, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
                 }
-
+                /* replaced by generic applyStepConditionsOn above
                 public function applyMyDesireConditionsOn($desireObject, $lang)
                 {
                         $err_arr = [];
@@ -304,14 +304,14 @@
                          *
                          * @var ApplicationModelCondition $aModelCondItem
                          * 
-                         */
+                         *
                         $success = true; // if one condition fail so all fail
                         $c = 0;
                         foreach($acondList as $aModelCondItem)
                         {
                                 /**
                                  * @var Acondition $acondItem 
-                                 */
+                                 *
                                 $acondItem = $aModelCondItem->het("acondition_id");
                                 if($acondItem)
                                 {
@@ -336,7 +336,7 @@
 
                         
                         return ['success'=>$success, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
-                }
+                }*/
 
         }
 ?>

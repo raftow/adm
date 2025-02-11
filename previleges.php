@@ -73,6 +73,10 @@
   array (
     'name' => 'applicant_evaluation',
   ),
+  13937 => 
+  array (
+    'name' => 'applicant_file',
+  ),
   13904 => 
   array (
     'name' => 'applicant_qualification',
@@ -1023,6 +1027,50 @@
       'id' => -1,
     ),
   ),
+  'applicant_file' => 
+  array (
+    'id' => '13937',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'applicant_qualification' => 
   array (
     'id' => '13904',
@@ -1072,23 +1120,23 @@
     'id' => '13917',
     'display' => 
     array (
-      'id' => -1,
+      'id' => '104837',
     ),
     'search' => 
     array (
-      'id' => -1,
+      'id' => '104838',
     ),
     'qsearch' => 
     array (
-      'id' => -1,
+      'id' => '104839',
     ),
     'edit' => 
     array (
-      'id' => -1,
+      'id' => '104834',
     ),
     'qedit' => 
     array (
-      'id' => -1,
+      'id' => '104835',
     ),
     'crossed' => 
     array (
@@ -1096,7 +1144,7 @@
     ),
     'stats' => 
     array (
-      'id' => -1,
+      'id' => '104840',
     ),
     'ddb' => 
     array (
@@ -1108,7 +1156,7 @@
     ),
     'delete' => 
     array (
-      'id' => -1,
+      'id' => '104836',
     ),
   ),
   'application_desire' => 
@@ -2896,6 +2944,16 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Applicant&currmod=adm',
           'css' => 'bf',
           'icon' => ' bficon-104744 bfc-',
+        ),
+        104839 => 
+        array (
+          'id' => '104839',
+          'code' => 'f2-a-application/qsearch',
+          'menu_name_ar' => 'طلبات التقديم',
+          'menu_name_en' => 'Applications',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Application&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104839 bfc-',
         ),
       ),
       'sub-folders' => 
