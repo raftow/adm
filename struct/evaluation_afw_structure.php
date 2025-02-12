@@ -413,9 +413,7 @@ class AdmEvaluationAfwStructure
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'scenario_item',
-                        'ANSMODULE' => 'ums',
+                        'TYPE' => 'INT', /*stepnum-not-the-object*/
                         'FGROUP' => 'tech_fields'
                 ),
 

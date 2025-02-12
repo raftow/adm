@@ -561,12 +561,17 @@
             return 0;
         }
 
-        public static function getCurrentApplicationPlans()
+        public static function getCurrentApplicationPlans($except_already_applied_plan_ids="")
         {
                 $obj = new ApplicationPlan();
                 $obj->select("published","Y");
                 $obj->select("active","Y");
                 $obj->select("closed","N");
+
+                if($except_already_applied_plan_ids)
+                {
+                    $obj->where("id not in ($except_already_applied_plan_ids)");
+                }
 
                 return $obj->loadMany();  
         }

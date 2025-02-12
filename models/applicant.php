@@ -321,6 +321,20 @@ class Applicant extends AdmObject
                 return $attribute;
         }
 
+        public function getAlreadyPlanIds($implode=",")
+        {
+                $already_plan_ids_arr = [];
+                $applicationList = $this->get("applicationList");
+                foreach($applicationList as $applicationItem)
+                {
+                        $already_plan_ids_arr[] = $applicationItem->getVal("application_plan_id");
+                }
+
+                if(!$implode) return $already_plan_ids_arr;
+                else return implode($implode, $already_plan_ids_arr);
+
+        }
+
         protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")
         {
                 global $lang;
@@ -345,7 +359,8 @@ class Applicant extends AdmObject
                 }
 
                 if ($mode == "mode_applicationList") {
-                        $aplanList = ApplicationPlan::getCurrentApplicationPlans();
+                        $already_plan_ids = $this->getAlreadyPlanIds();
+                        $aplanList = ApplicationPlan::getCurrentApplicationPlans($already_plan_ids);
                         $color = 'blue';
                         foreach ($aplanList as $aplanItem) {
                                 $application_plan_id = $aplanItem->id;
@@ -854,12 +869,18 @@ class Applicant extends AdmObject
 
                         $field_empty = ((!$field_value) or ($field_value === "W"));
                         $row_matrix['empty'] = $field_empty;
+                        $row_matrix['error'] = $this->getAttributeError($field_name);
                         $field_value_datetime = "";
 
                         if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
                         else $api = "no-applicationObj";
-                        if ($field_empty) {
+                        if ($row_matrix['empty']) {
                                 $api .= " ".$applicationObj->tm("can not find the field value", $lang);
+                                $field_value_datetime = "";
+                        }
+
+                        if ($row_matrix['error']) {
+                                $api .= " ".$row_matrix['error'];
                                 $field_value_datetime = "";
                         }
 

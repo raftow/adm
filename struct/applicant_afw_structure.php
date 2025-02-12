@@ -11,7 +11,7 @@ class AdmApplicantAfwStructure
                         // $obj->AUTOCOMPLETE_FIELD = 'idn';
                         $obj->FORMULA_DISPLAY_FIELD  = "concat(IF(ISNULL(first_name_ar), '', first_name_ar) , ' ' , IF(ISNULL(father_name_ar), '', father_name_ar) , ' ' , IF(ISNULL(last_name_ar), '', last_name_ar))";
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                        $obj->UNIQUE_KEY = array('idn');
+                        $obj->UNIQUE_KEY = array('country_id', 'idn_type_id', 'idn');
                         // $obj->public_display = true;
                         // $obj->IS_LOOKUP = true;
 
@@ -2494,7 +2494,7 @@ class AdmApplicantAfwStructure
                         'RETRIEVE' => false,
                         'EDIT' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'GDAT',
+                        'TYPE' => 'GDAT', 'FORMAT' => 'DATETIME',
                         'DISPLAY' => '',
                         'STEP' => 99,
                         'DISPLAY-UGROUPS' => '',
@@ -2519,10 +2519,9 @@ class AdmApplicantAfwStructure
 
                 'updated_at' => array(
                         'SHOW-ADMIN' => true,
-                        'RETRIEVE' => false,
-                        'EDIT' => false,
+                        'RETRIEVE' => false,                        
                         'QEDIT' => false,
-                        'TYPE' => 'GDAT',
+                        'TYPE' => 'GDAT', 'FORMAT' => 'DATETIME',
                         'DISPLAY' => '',
                         'STEP' => 99,
                         'DISPLAY-UGROUPS' => '',
@@ -2613,9 +2612,7 @@ class AdmApplicantAfwStructure
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'scenario_item',
-                        'ANSMODULE' => 'ums',
+                        'TYPE' => 'INT', /*stepnum-not-the-object*/
                         'FGROUP' => 'tech_fields'
                 ),
 
