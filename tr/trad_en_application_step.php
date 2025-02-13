@@ -10,3 +10,4 @@
 	$trad["application_step"]["step_name_en"] = "step name english";
 	$trad["application_step"]["application_field_mfk"] = "application field";
 	$trad["application_step"]["api_endpoint_mfk"] = "api endpoint";
+	$trad["application_step"]["step_code"] = "step code";

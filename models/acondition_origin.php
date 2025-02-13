@@ -211,6 +211,17 @@ class AconditionOrigin extends AdmObject{
                 return false;
         }
 
+
+        public function calcCvalid($what="value")
+        {
+            list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+            $hijri_current_date = AfwDateHelper::currentHijriDate();
+            $valid_from_date = $this->getVal("valid_from_date"); 
+            $valid_to_date = $this->getVal("valid_from_date"); 
+
+            return ((!$valid_from_date or ($hijri_current_date>=$valid_from_date)) and (!$valid_to_date or ($hijri_current_date<=$valid_to_date))) ? $yes : $no;
+        }
+
         
 }
 ?>
