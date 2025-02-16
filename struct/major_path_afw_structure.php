@@ -7,7 +7,7 @@
                         if ($obj instanceof MajorPath) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "major_path_name_ar";
+                                $obj->DISPLAY_FIELD = ["major_path_name_ar", "id"];
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('qualification_id', 'major_category_id');
                                 // $obj->public_display = true;

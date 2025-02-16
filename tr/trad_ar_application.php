@@ -14,7 +14,7 @@ class ApplicationArTranslator{
 		$trad["application"]["application.new"] = "جديد";
 		$trad["application"]["application"] = "طلبات التقديم";
 
-		$trad["application"]["applicant_id"] = "المتقدم";
+		$trad["application"]["applicant_id"] = "رقم هوية المتقدم";
 		$trad["application"]["application_plan_id"] = "حملة التقديم";
 		$trad["application"]["application_model_id"] = "نموذج القبول";
 		$trad["application"]["step_num"] = "رقم المرحلة الحالية";

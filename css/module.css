@@ -1,6 +1,6 @@
 /* CSS Document */
 .technical {
-    display: block;
+    display: none;
     background-color: #f6f6cf;
     padding: 8px;
 }
@@ -4383,5 +4383,5 @@ tr.application_model_field.csr_step_num.hzm_row__1>td.hzm_col_afw_screen_model_i
 div#div_data_weighted_percentage_details {
     direction: ltr;
     text-align: left;
-    min-height: 120px;
+    min-height: 180px;
 }

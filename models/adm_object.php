@@ -142,26 +142,52 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_application_status_enum = array();
                 
                         
-                $arr_list_of_desire_status_enum["en"][1] = "candidat";
+                $arr_list_of_desire_status_enum["en"][1] = "candidate";
                 $arr_list_of_desire_status_enum["ar"][1] = "مترشح";
+                $arr_list_of_desire_status_enum["code"][1] = "candidate";
+                                                       
+                $arr_list_of_desire_status_enum["en"][2] = "initial acceptance";
+                $arr_list_of_desire_status_enum["ar"][2] = "قبول مبدئي";
+                $arr_list_of_desire_status_enum["code"][2] = "initial-acceptance";
+                                                       
+                $arr_list_of_desire_status_enum["en"][3] = "final acceptance";
+                $arr_list_of_desire_status_enum["ar"][3] = "قبول نهائي";
+                $arr_list_of_desire_status_enum["code"][3] = "final-acceptance";
+                                                       
+                $arr_list_of_desire_status_enum["en"][4] = "withdrawn";
+                $arr_list_of_desire_status_enum["ar"][4] = "منسحب";
+                $arr_list_of_desire_status_enum["code"][4] = "withdrawn";
+                                                       
+                $arr_list_of_desire_status_enum["en"][5] = "rejected";
+                $arr_list_of_desire_status_enum["ar"][5] = "مرفوض";
+                $arr_list_of_desire_status_enum["code"][5] = "rejected";
+                                                       
+                $arr_list_of_desire_status_enum["en"][6] = "data review";
+                $arr_list_of_desire_status_enum["ar"][6] = "مراجعة البيانات";
+                $arr_list_of_desire_status_enum["code"][6] = "data-review";
 
-                $arr_list_of_desire_status_enum["en"][2] = "excluded";
-                $arr_list_of_desire_status_enum["ar"][2] = "مستبعد";
-
-                $arr_list_of_desire_status_enum["en"][3] = "initial acceptance";
-                $arr_list_of_desire_status_enum["ar"][3] = "قبول مبدئي";
+                $arr_list_of_desire_status_enum["en"][7] = "excluded";
+                $arr_list_of_desire_status_enum["ar"][7] = "مستبعد";
+                $arr_list_of_desire_status_enum["code"][7] = "excluded";
                 
-                $arr_list_of_desire_status_enum["en"][4] = "final acceptance";
-                $arr_list_of_desire_status_enum["ar"][4] = "قبول نهائي";
-
-                $arr_list_of_desire_status_enum["en"][5] = "withdrawn";
-                $arr_list_of_desire_status_enum["ar"][5] = "منسحب";
-
                 
                 return $arr_list_of_desire_status_enum;
         }
         
+        public static function desire_status_enum_by_code($the_code=null)        
+        {
+            $result = [];
+            $arr = self::desire_status_enum();
+            foreach($arr['code'] as $eid => $code)
+            {
+                if($the_code and ($the_code==$code)) return $eid;
+                elseif(!$the_code) $result[$code] = $eid;
+            }
 
+
+            if($the_code) return 0;
+            else return $result;
+        }
 
 
 

@@ -103,11 +103,11 @@
         'CSS' => 'width_pct_25', ),	
 
 
-'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
         'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '30', 'UTF8' => true,  
         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
+        'CSS' => 'width_pct_100',),
         
 
 

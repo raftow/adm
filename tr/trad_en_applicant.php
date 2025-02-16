@@ -33,6 +33,7 @@ class ApplicantEnTranslator{
 
 		$trad["applicant"]["applicantApiRequestList"] = "List of data refresh requests";
 
+		$trad["applicant"]["id"] = "ID Number";
 		$trad["applicant"]["idn"] = "ID Number";
 		$trad["applicant"]["idn_type"] = "Identity type";
 		$trad["applicant"]["id_issue_place"] = "Place of issuing the ID";

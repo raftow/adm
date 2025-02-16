@@ -51,7 +51,7 @@
 
                 public function getDisplay($lang = 'ar')
                 {
-                        return $this->getDefaultDisplay($lang);
+                        return $this->getDefaultDisplay($lang)." [".$this->id."]";
                 }
 
                 public function stepsAreOrdered()

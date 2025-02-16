@@ -828,10 +828,19 @@ class Applicant extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
+        public function getFieldApiEndpoint($field_name)
+        {
+                $application_fieldObj = ApplicationField::loadByMainIndex($field_name, 1);
+                if(!$application_fieldObj) return null;
+
+                $arr = ApiEndpoint::findAllApiEndpointForField($application_fieldObj->id,1);
+                return $arr[0];
+        }
+
         public function getFieldUpdateDate($field_name)
         {
                 $apiEndpoint = $this->getFieldApiEndpoint($field_name);
-                if ($apiEndpoint) [$field_value_datetime, $api] = $this->applicantObj->getApiUpdateDate($apiEndpoint);
+                if ($apiEndpoint) [$field_value_datetime, $api] = $this->getApiUpdateDate($apiEndpoint);
                 if (!$field_value_datetime) $field_value_datetime = $this->getVal($field_name . "_update_date");
                 return [$field_value_datetime, $api];
         }
@@ -999,6 +1008,7 @@ class Applicant extends AdmObject
         public function weighted_percentage($what = "value", $program_track_id = null, $major_path_id = null, $objSQ = null)
         {
                 try {
+                        $sub_context_log = "preferred_program_track_id amd secondary_major_path of applicant";
                         if ($program_track_id === null) $program_track_id = $this->getVal("preferred_program_track_id");
                         /* incorrect the weighted_percentage in level of application doesn't contain track and can be calculated
             if(!$program_track_id) 
@@ -1023,9 +1033,11 @@ class Applicant extends AdmObject
                         if (!$b) $b = "0.0";
                         $c = $this->calcAchievement_Score();
                         if (!$c) $c = "0.0";
-                        $coefAPct = Aparameter::getMyValueForSubContext($coef_cumulative_pct_aparameter_id, $major_path_id, $program_track_id, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
-                        $coefBPct = Aparameter::getMyValueForSubContext($coef_aptitude_aparameter_id, $major_path_id, $program_track_id, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
-                        $coefCPct = Aparameter::getMyValueForSubContext($coef_achievement_aparameter_id, $major_path_id, $program_track_id, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0);
+
+                         
+                        list($coefAPct, $coefAPctSubContext) = Aparameter::getMyValueForSubContext($coef_cumulative_pct_aparameter_id, $major_path_id, $program_track_id, $sub_context_log, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0, false, true);
+                        list($coefBPct, $coefBPctSubContext) = Aparameter::getMyValueForSubContext($coef_aptitude_aparameter_id, $major_path_id, $program_track_id, $sub_context_log, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0, false, true);
+                        list($coefCPct, $coefCPctSubContext) = Aparameter::getMyValueForSubContext($coef_achievement_aparameter_id, $major_path_id, $program_track_id, $sub_context_log, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0, false, true);
 
                         $coefA = $coefAPct / 100;
                         $coefB = $coefBPct / 100;
@@ -1034,7 +1046,10 @@ class Applicant extends AdmObject
                         if ($what == "details") return "$pct = $coefAPct% x $a + $coefBPct% x $b + $coefCPct% x $c<br>\n
                                                 a=$a : cumulative percentage<br>\n
                                                 b=$b : aptitude score <br>\n
-                                                c=$c : achievement score";
+                                                c=$c : achievement score <br>\n
+                                                coefAPct=$coefAPct% <!-- coefAPct for sub-context $coefAPctSubContext --><br>\n
+                                                coefBPct=$coefBPct% <!-- coefBPct for sub-context $coefBPctSubContext --><br>\n
+                                                coefCPct=$coefCPct% <!-- coefCPct for sub-context $coefCPctSubContext --><br>\n";
                         else return $pct;
                 } catch (Exception $e) {
                         $err_message = "";

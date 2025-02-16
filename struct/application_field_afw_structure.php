@@ -8,7 +8,8 @@
                         {
                             $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 5;
 							$obj->CORRECT_IF_ERRORS = true;
-							$obj->DISPLAY_FIELD = "field_title_ar"; //["field_title_ar", "field_title_en"];
+							$obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"field_title_ar", 'en'=>"field_title_en"];
+							$obj->AUTOCOMPLETE_FIELD = "field_title_ar";
 							$obj->ORDER_BY_FIELDS = "application_table_id, field_order, id";
 							$obj->UNIQUE_KEY = array("application_table_id","field_name");
 							$obj->editByStep = true;
@@ -27,7 +28,7 @@
                 public static $DB_STRUCTURE = array(
 
                         
-			'id' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  'EXCEL' => false,  'EDIT' => true,  'QEDIT' => false,  
+			'id' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'EXCEL' => false,  'EDIT' => true,  'QEDIT' => false,  
 				'TYPE' => 'PK',    'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,'CSS' => 'width_pct_25',
 				),

@@ -49,7 +49,7 @@ $header_trad = array("missed"=>"عدد الطلبات", "name" => 'الادار�
 */
 if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
 if(!$lang) $lang = "ar";
-$out_scr .= Page::showPage("adm", "main-page", $lang);
+// $out_scr .= Page::showPage("adm", "main-page", $lang);
 
 
 
@@ -73,8 +73,9 @@ if(true)
 
 
 $out_scr .= "</div>";
-list($error, $info, $warn, $technical) = ApplicationPlanBranch::genereAllNames($lang="ar");
-AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
+// Generations
+// list($error, $info, $warn, $technical) = ApplicationPlanBranch::genereAllNames($lang="ar");
+// AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 // list($error, $info, $warn, $technical) = AcademicProgramOffering::genereAllNames($lang="ar");
 // AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 // list($error, $info, $warn, $technical) = ApplicationModelBranch::genereAllNames($lang="ar");

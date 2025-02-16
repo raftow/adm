@@ -24,16 +24,21 @@ class Aparameter extends AdmObject
                 } else return null;
         }
 
-        public static function getMyValueForSubContext($aparameter_id, $major_path_id, $program_track_id, $application_model_id=0, $application_plan_id=0, $training_unit_id=0, $department_id=0, $application_model_branch_id=0)
+        public static function getMyValueForSubContext($aparameter_id, $major_path_id, $program_track_id, $sub_context_log, 
+                                        $application_model_id=0, $application_plan_id=0, $training_unit_id=0, $department_id=0, $application_model_branch_id=0, 
+                                        $throwErrorIfNotFound=false, $returnSubContext=false)
         {
-                $subContext = "AP$aparameter_id-MP$major_path_id-PT$program_track_id+AMD$application_model_id-APL$application_plan_id-TUN$training_unit_id-DEP$department_id-AMB$application_model_branch_id";
+                if(!$major_path_id) throw new AfwRuntimeException("major_path_id is mandatory to define a sub-context, log : <br>$sub_context_log <br>");
+                $subContext = "APARAM$aparameter_id-MAJPTH$major_path_id-PRGTRK$program_track_id+APPMDL$application_model_id-APPLAN$application_plan_id-TRUNIT$training_unit_id-DEPMNT$department_id-APMDLB$application_model_branch_id";
                 if(!self::$subContextValueArray[$subContext]) 
                 {
                         $paramValueObj = AparameterValue::loadByMainIndex($aparameter_id, $application_model_id, $application_plan_id, $training_unit_id, $department_id, $application_model_branch_id, $major_path_id, $program_track_id);                
                         if($paramValueObj) self::$subContextValueArray[$subContext] = $paramValueObj->getVal("value");
-                        else throw new AfwRuntimeException("no parameter value object for sub-context $subContext");
+                        elseif($throwErrorIfNotFound) throw new AfwRuntimeException("no parameter value object for sub-context $subContext, log : <br>$sub_context_log <br>");
+                        else return $returnSubContext ? [null, $subContext] : null;
                 }
-                return self::$subContextValueArray[$subContext];
+                $val = self::$subContextValueArray[$subContext];
+                return $returnSubContext ? [$val, $subContext] : $val;
         }
 
         public function getMyValueForContext($application_model_id, $application_plan_id, $obj)

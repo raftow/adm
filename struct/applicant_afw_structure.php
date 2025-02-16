@@ -35,6 +35,7 @@ class AdmApplicantAfwStructure
                         'EDIT' => false,
                         'TYPE' => 'PK',
                         'DISPLAY' => true,
+                        'QSEARCH' => true,  'TEXT-SEARCHABLE-SEPARATED'=>true,
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',

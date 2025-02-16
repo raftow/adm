@@ -50,6 +50,10 @@ class Application extends AdmObject
                 } else return null;
         }
 
+        /**
+         * @return Application
+         */
+
         public static function loadByMainIndex($applicant_id, $application_plan_id, $create_obj_if_not_found = false)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
@@ -283,48 +287,71 @@ class Application extends AdmObject
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
                         $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
-
-                        $color = "green";
-                        $title_ar = $asObj->tm("go to next step", 'ar') . " '" . $asObj->getDisplay("ar") . "'";
-                        $title_en = $asObj->tm("go to next step", 'en') . " '" . $asObj->getDisplay("en") . "'";
-                        $methodName = "gotoNextStep";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                "METHOD" => $methodName,
-                                "COLOR" => $color,
-                                "LABEL_AR" => $title_ar,
-                                "LABEL_EN" => $title_en,
-                                "ADMIN-ONLY" => true,
-                                "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("application_status_enum")
-                        );
-
-                        $color = "blue";
-                        $title_ar = $asObj->tm("Force updating data via electronic services", 'ar');
-                        $title_en = $asObj->tm("Force updating data via electronic services", 'en');
-                        $methodName = "runNeededApis";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                "METHOD" => $methodName,
-                                "COLOR" => $color,
-                                "LABEL_AR" => $title_ar,
-                                "LABEL_EN" => $title_en,
-                                "ADMIN-ONLY" => true,
-                                "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("application_status_enum")
-                        );
-
-                        $color = "gray";
-                        $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
-                        $title_en = $asObj->tm("Updating data via electronic services", 'en');
-                        $methodName = "runOnlyNeedUpdateApis";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                "METHOD" => $methodName,
-                                "COLOR" => $color,
-                                "LABEL_AR" => $title_ar,
-                                "LABEL_EN" => $title_en,
-                                "ADMIN-ONLY" => true,
-                                "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("application_status_enum")
-                        );
+                        if($asObj)
+                        {
+                                if($asObj->sureIs("general"))
+                                {
+                                        $color = "green";
+                                        $title_ar = $asObj->tm("go to next step", 'ar') . " '" . $asObj->getDisplay("ar") . "'";
+                                        $title_en = $asObj->tm("go to next step", 'en') . " '" . $asObj->getDisplay("en") . "'";
+                                        $methodName = "gotoNextStep";
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                "METHOD" => $methodName,
+                                                "COLOR" => $color,
+                                                "LABEL_AR" => $title_ar,
+                                                "LABEL_EN" => $title_en,
+                                                "ADMIN-ONLY" => true,
+                                                "BF-ID" => "",
+                                                'STEP' => $this->stepOfAttribute("application_status_enum")
+                                        );
+                
+                                        $color = "blue";
+                                        $title_ar = $asObj->tm("Force updating data via electronic services", 'ar');
+                                        $title_en = $asObj->tm("Force updating data via electronic services", 'en');
+                                        $methodName = "runNeededApis";
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                "METHOD" => $methodName,
+                                                "COLOR" => $color,
+                                                "LABEL_AR" => $title_ar,
+                                                "LABEL_EN" => $title_en,
+                                                "ADMIN-ONLY" => true,
+                                                "BF-ID" => "",
+                                                'STEP' => $this->stepOfAttribute("application_status_enum")
+                                        );
+                
+                                        $color = "gray";
+                                        $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
+                                        $title_en = $asObj->tm("Updating data via electronic services", 'en');
+                                        $methodName = "runOnlyNeedUpdateApis";
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                "METHOD" => $methodName,
+                                                "COLOR" => $color,
+                                                "LABEL_AR" => $title_ar,
+                                                "LABEL_EN" => $title_en,
+                                                "ADMIN-ONLY" => true,
+                                                "BF-ID" => "",
+                                                'STEP' => $this->stepOfAttribute("application_status_enum")
+                                        );
+                                }
+                                else
+                                {
+                                        $color = "blue";
+                                        $title_ar = $asObj->tm("Crowd desires", 'ar');
+                                        $title_en = $asObj->tm("Crowd desires", 'en');
+                                        $methodName = "crowdDesires";
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                "METHOD" => $methodName,
+                                                "COLOR" => $color,
+                                                "LABEL_AR" => $title_ar,
+                                                "LABEL_EN" => $title_en,
+                                                "ADMIN-ONLY" => true,
+                                                "BF-ID" => "",
+                                                'STEP' => $this->stepOfAttribute("nb_desires")
+                                        );
+                                }
+                                
+                        }
+                        
                 }
 
 
@@ -348,9 +375,60 @@ class Application extends AdmObject
                 return $this->applicantObj->runNeededApis($lang, $force);
         }
 
+
+        public function crowdDesires($lang = "ar")
+        {
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];  
+                // $nb_updated = 0;
+                // $nb_inserted = 0;
+                try {
+
+                        $applicationDesireList = $this->get("applicationDesireList");
+                        /**
+                         * @var ApplicationDesire $applicationDesireItem
+                         */
+                        $to_stop_crowd = [];
+
+                        while(count($applicationDesireList)>0)
+                        {
+                                foreach($to_stop_crowd as $sadid)
+                                {
+                                        unset($applicationDesireList[$sadid]);
+                                }
+                                $to_stop_crowd = [];
+                                foreach ($applicationDesireList as $adid => $applicationDesireItem) 
+                                {
+                                        $desire_name = $applicationDesireItem->getShortDisplay($lang);
+                                        $old_step_num = $applicationDesireItem->getVal("step_num");
+                                        list($err, $inf, $war, $tech) = $applicationDesireItem->gotoNextDesireStep($lang);
+                                        
+                                        if ($err) $err_arr[] = "$desire_name : " . $err;
+                                        if ($inf) $inf_arr[] = "$desire_name : " . $inf;
+                                        if ($war) $war_arr[] = "$desire_name : " . $war;
+                                        if ($tech) $tech_arr[] = "$desire_name : " . $tech;
+                                        $new_step_num = $applicationDesireItem->getVal("step_num");
+                                        if($new_step_num==$old_step_num)
+                                        {
+                                                // stop crowd for this desire
+                                                $to_stop_crowd[] = $adid;
+                                        }
+                                }
+                        }
+
+                } catch (Exception $e) {
+                        $err_arr[] = $e->getMessage();
+                } catch (Error $e) {
+                        $err_arr[] = $e->__toString();
+                }
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+        }
+
         public function gotoNextStep($lang = "ar")
         {
-
+                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
@@ -368,7 +446,15 @@ class Application extends AdmObject
                         $currentStepNum = $this->getVal("step_num");
 
                         $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
-                        if (!$dataReady) return [$this->tm("The data is not updated we can not apply conditions", $lang), ""];
+                        if (!$dataReady) 
+                        {
+                                $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
+                                // $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
+                                // $this->set("comments", $message_war);
+                                // $this->commit();
+                                return ["", "", $message_war];
+                        }
+                        
                         $currentStepId = $this->getVal("application_step_id");
                         // die("before currentStepObj=$currentStepObj->id currentStepNum=$currentStepNum currentStepId=$currentStepId");
                         if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationModel->getFirstStep();
@@ -381,7 +467,7 @@ class Application extends AdmObject
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
                         if ($success) {
 
-                                $nextStepNum = $this->objApplicationModel->getNextGeneralStepNumOf($currentStepNum);
+                                $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,false);
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
                                 $this->commit();
@@ -397,8 +483,10 @@ class Application extends AdmObject
                                 $tech_arr[] = $tech;
                         }
                 } catch (Exception $e) {
+                        if($devMode) throw $e;
                         $err_arr[] = $e->getMessage();
                 } catch (Error $e) {
+                        if($devMode) throw $e;
                         $err_arr[] = $e->__toString();
                 }
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
@@ -447,12 +535,12 @@ class Application extends AdmObject
                 return $this->objApplicationModel->getFieldExpiryDuration($field_name, $application_table_id);
         }
 
-        public function getFieldUpdateDate($field_name, $lang = "ar")
+        public function getFieldUpdateDate($field_name, $lang = "ar", $application_table_id = 3)
         {
                 if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 $apiEndpointDisplay = "";
                 if ($this->applicantObj) {
-                        $apiEndpoint = $this->getFieldApiEndpoint($field_name);
+                        $apiEndpoint = $this->getFieldApiEndpoint($field_name, $application_table_id);
                         if ($apiEndpoint) {
                                 $apiEndpointDisplay = $apiEndpoint->getDisplay($lang)." <!-- ".$apiEndpoint->getVal("api_endpoint_code")." -->";;
                                 if ($apiEndpoint->id != 13) {
@@ -460,7 +548,7 @@ class Application extends AdmObject
                                 } else {
                                         $field_value_datetime = $this->getVal("created_at");
                                 }
-                        } else $apiEndpointDisplay = "> no-apiEndpoint for $field_name";
+                        } else $apiEndpointDisplay = get_class($this)."[$this->id] > no-apiEndpoint for $field_name";
                 } else $apiEndpointDisplay = "no-applicant";
                 if (!$field_value_datetime) $field_value_datetime = $this->getVal($field_name . "_update_date");
 
@@ -761,12 +849,15 @@ class Application extends AdmObject
         {
                 $applicantQualificationObj = $this->het("applicant_qualification_id");
                 $major_path_id = 0;
+                $major_path_name = "all";
                 $program_track_id = 0; // no program track in level of application (only level of desire)
+                $program_track_name = "all";
                 if ($applicantQualificationObj) {
                         $major_path_id = $applicantQualificationObj->getInfo("secondary_major_path");
+                        $major_path_name = $applicantQualificationObj->getInfo("secondary_major_path_decoded");
                 }
 
-                return [$program_track_id, $major_path_id, $applicantQualificationObj];
+                return [$program_track_id, $major_path_id, $applicantQualificationObj, $program_track_name, $major_path_name];
         }
 
         public function calcWeighted_percentage($what = "value")

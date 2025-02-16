@@ -4,7 +4,7 @@ class ApplicationDesireArTranslator{
     public static function initData()
     {
         $trad = [];
-		$trad["application_desire"]["step1"] = "التعريف";
+		
 
 		$trad["application_desire"]["applicationdesire.single"] = "رغبة متقدم";
 		$trad["application_desire"]["applicationdesire.new"] = "جديدة";
@@ -21,10 +21,19 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["qualification_id"] = "المؤهل";
 		$trad["application_desire"]["major_category_id"] = "فئة التخصص";
 		$trad["application_desire"]["health_ind"] = "لائق طبيا";    
-		$trad["application_desire"]["desire_num"] = "ترتيب الرغبة";    
+		$trad["application_desire"]["desire_num"] = "ترتيب الرغبة"; 
+		$trad["application_desire"]["comments"] = "ملاحظات";     
+		  
 
 		$trad["application_desire"]["weighted_percentage"] = "النسبة الموزونة";
 		$trad["application_desire"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
+
+		$trad["application_desire"]["current_fields_matrix"] = "حالة تحديث البيانات";
+		$trad["application_desire"]["applicationConditionExecList"] = "تطبيق الشروط";
+
+		$trad["application_desire"]["step1"] = "التعريف بالرغبة";
+		$trad["application_desire"]["step2"] = "البيانات";
+		$trad["application_desire"]["step3"] = "تطبيق الشروط";
 		
 		return $trad;
     }

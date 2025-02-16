@@ -16,7 +16,7 @@
                                 // $obj->IS_LOOKUP = true;
                                 $obj->MOVE_UP_ACTION = true;
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 1; 
+                                $obj->editNbSteps = 3; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                         else 
@@ -76,46 +76,12 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
                                                 
-                                        'health_ind' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),     
+                                        
 
-
-                                        'step_num' => array(
-                                                'IMPORTANT' => 'IN',
-                                                'SHOW' => true,
-                                                'RETRIEVE' => true,
-                                                'QEDIT' => true, 'READONLY'=>true,
-                                                'EDIT' => true, 
-                                                'TYPE' => 'INT', 'MANDATORY' => true, 
-                                                'STEP' => 1,
-                                                'DISPLAY-UGROUPS' => '',
-                                                'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
-
-                                           
-                                                
-
-
-                                        'application_step_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
-
-
-                                        'desire_status_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'READONLY'=>true,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
-
+                                        
                                                 
                                         'applicant_qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => false,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'UTF8' => false,  
+                                                'EDIT' => false,  'QEDIT' => true, 'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant_qualification',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=> true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -140,7 +106,7 @@
 
                                         'weighted_percentage' => array(
                                                                 'FGROUP' => 'weighted_percentage',
-                                                                'STEP' => 1,
+                                                                'STEP' => 2,
                                                                 'TYPE' => 'FLOAT',
                                                                 'CATEGORY' => 'FORMULA',
                                                                 'SHOW' => true,
@@ -153,7 +119,7 @@
 
                                         'weighted_percentage_details' => array(
                                                 'FGROUP' => 'weighted_percentage',
-                                                'STEP' => 1,
+                                                'STEP' => 2,
                                                 'TYPE' => 'TEXT',
                                                 'CATEGORY' => 'FORMULA',
                                                 'SHOW' => true,
@@ -162,7 +128,58 @@
                                                 "CAN-BE-SETTED" => false,
                                                 'SIZE' => 255,
                                                 'CSS' => 'width_pct_75',
-                                        ),                                                
+                                        ), 
+
+                                        'health_ind' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),     
+
+                                        
+                                        'current_fields_matrix' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'TEXT',  'SIZE' => 'AREA', 'FORMAT' => 'HTML', 'STEP' => 2,
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_100',),
+
+                                        'step_num' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'QEDIT' => true, 'READONLY'=>true,
+                                                'EDIT' => true, 
+                                                'TYPE' => 'INT', 'MANDATORY' => true, 
+                                                'STEP' => 3,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_50',),
+                                                
+                                        'application_step_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 3,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50', ),	
+
+                                        'desire_status_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => true, 'READONLY'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),	
+
+                                        'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false, 'READONLY'=>true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_75',),                                                                
+
+                                        'applicationConditionExecList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 3, 
+                                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                                'TYPE' => 'FK',  
+                                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_condition_exec',  'ANSMODULE' => 'adm',  'ITEM' => 'adesire_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                                'CSS' => 'width_pct_100', ),
 
 
 

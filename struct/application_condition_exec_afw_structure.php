@@ -32,14 +32,14 @@
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
 		
-		'application_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'application_plan_id' => array('STEP' => 1,  'SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'ManyToOne',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'applicant_id' => array('STEP' => 1,  'SHORTNAME' => 'applicant',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'applicant_id' => array('STEP' => 1,  'SHORTNAME' => 'applicant',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  
@@ -49,8 +49,8 @@
 		'adesire_id' => array('STEP' => 1,  'SHORTNAME' => 'adesire',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'integer',/*  'ANSWER' => 'adesire',  'ANSMODULE' => 'adm', */ 
-				'RELATION' => 'ManyToOne',  'READONLY' => false, 
+				'TYPE' => 'FK', 'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',
+				'RELATION' => 'OneToMany',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
 		'acondition_id' => array('STEP' => 1,  'SHORTNAME' => 'acondition',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
@@ -66,7 +66,7 @@
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'field_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'field_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 10,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'GDAT',  'READONLY' => false, 
@@ -78,7 +78,7 @@
 				'TYPE' => 'GDAT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'aparameter_id' => array('STEP' => 1,  'SHORTNAME' => 'aparameter',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'aparameter_id' => array('STEP' => 1,  'SHORTNAME' => 'aparameter',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'aparameter',  'ANSMODULE' => 'adm',  
@@ -91,7 +91,7 @@
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'aparameter_value_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'aparameter_value_date' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 10,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'GDAT',  'READONLY' => false, 

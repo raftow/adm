@@ -252,6 +252,11 @@ class ApplicantQualification extends AdmObject
                        return $this->getVal("major_path_id");
                 }
 
+                if($info=="secondary_major_path_decoded")
+                {
+                       return $this->decode("major_path_id");
+                }
+
 
                 
                 

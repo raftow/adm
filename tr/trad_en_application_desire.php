@@ -4,7 +4,7 @@ class ApplicationDesireEnTranslator{
     public static function initData()
     {
         $trad = [];	
-		$trad["application_desire"]["step1"] = "Definition";
+		
 
 		$trad["application_desire"]["applicationdesire.single"] = "Application desire";
 		$trad["application_desire"]["applicationdesire.new"] = "new";
@@ -20,6 +20,13 @@ class ApplicationDesireEnTranslator{
 		$trad["application_desire"]["applicant_qualification_id"] = "applicant qualification id";
 		$trad["application_desire"]["qualification_id"] = "qualification id";
 		$trad["application_desire"]["major_category_id"] = "major cathegory id";
+
+		$trad["application_desire"]["applicationConditionExecList"] = "Conditions Applied";
+
+		$trad["application_desire"]["step1"] = "Desire definition";
+		$trad["application_desire"]["step2"] = "Data";
+		$trad["application_desire"]["step3"] = "Conditions Applied";
+
 		return $trad;
     }
 

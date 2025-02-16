@@ -63,7 +63,8 @@ class ApplicationField extends AdmObject
      public function getDisplay($lang = "ar")
      {
           if ($this->getVal("field_title_$lang")) return $this->getVal("field_title_$lang");
-          return $this->getVal("field_name");
+          if($lang!="ar") throw new AfwRuntimeException("getDisplay failed for lang= $lang : this=".var_export($this, true));
+          return $this->getVal("field_name")." [".$this->id." / ".$this->getVal("application_table_id")."]";
      }
 
      public function getDropDownDisplay($lang = "ar")
@@ -187,7 +188,7 @@ class ApplicationField extends AdmObject
                    
                    // FK not part of me - replaceable 
 
-                        
+                   
                    
                    // MFK
                        // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به

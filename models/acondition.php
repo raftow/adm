@@ -444,7 +444,11 @@ class Acondition extends AdmObject{
                 {
                         throw new AfwRuntimeException("no valid object given for applying condition");
                 }
-
+                /**
+                 * @var Applicant $objApplicant
+                 * @var Application $objApplication
+                 * @var ApplicationDesire $objDesire
+                 */
 
                 $objApplicant = null;
                 $objApplication = null;
@@ -557,9 +561,13 @@ class Acondition extends AdmObject{
                         // if($field_name=="sis_fields_available") die("$field_name application_table_id => $application_table_id");
                         if($application_table_id==1)
                         {
+                                $objApplicantDisp = $objApplicant->getDisplay("ar");
                                 $objApplicant->updateCalculatedFields();
                                 $major_path_id = $objApplicant->calcSecondary_major_path();
+                                $major_path_name = $objApplicant->calcSecondary_major_path();
                                 $program_track_id = 0;
+                                $program_track_name = "all";
+                                $sub_context_log = "$major_path_id = $objApplicantDisp => calcSecondary_major_path() / program_track_id = 0 hard";
                                 if($field_reel)
                                 {
                                         $field_value = $objApplicant->getVal($field_name);
@@ -570,6 +578,7 @@ class Acondition extends AdmObject{
                                         $field_value = $objApplicant->calc($field_name);
                                         $field_value_case = "calc";
                                 }
+                                list($field_date,) = $objApplicant->getFieldUpdateDate($field_name);
                                 $objToApplyOn =& $objApplicant;
                         }
                         elseif($application_table_id==3)
@@ -577,7 +586,10 @@ class Acondition extends AdmObject{
                                 
                                 // die("here rafik applicant_id=$applicant_id application_table_id=$application_table_id application_plan_id=$application_plan_id field_name=$field_name field_reel=$field_reel");
                                 if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate);
-                                list($program_track_id, $major_path_id, $qualObj) = $objApplication->calcTrackAndMajorPath();
+                                list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objApplication->calcTrackAndMajorPath();
+                                $objApplicationDisp = $objApplication->getDisplay("ar");                                
+                                $sub_context_log = "list(program_track_id=$program_track_id, major_path_id=$major_path_id, qual_id=$qualObj->id) = objApplication($objApplicationDisp) => calcTrackAndMajorPath()";
+
                                 if(!$objApplication)
                                 {
                                         // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate) keyf failed ??");
@@ -595,6 +607,7 @@ class Acondition extends AdmObject{
                                         $field_value = $objApplication->calc($field_name);
                                         $field_value_case = "calc";
                                 }
+                                list($field_date,) = $objApplication->getFieldUpdateDate($field_name, $lang);
                                 // if($field_name=="sis_fields_available") die("$field_name $field_value_case => $field_value");
                                 $objToApplyOn =& $objApplication;
                         }
@@ -607,8 +620,9 @@ class Acondition extends AdmObject{
                                 }
                                 else
                                 {
-                                        list($program_track_id, $major_path_id, $qualObj) = $objDesire->calcTrackAndMajorPath();
-                                        die("list($program_track_id, $major_path_id, $qualObj->id) = $objDesire => calcTrackAndMajorPath()");
+                                        $objDesireDisp = $objDesire->getDisplay("ar");
+                                        list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objDesire->calcTrackAndMajorPath();
+                                        $sub_context_log = "list(program_track_id=$program_track_id, major_path_id=$major_path_id, qual_id=$qualObj->id) = objDesire($objDesireDisp) => calcTrackAndMajorPath()";
                                         if($field_reel)
                                         {
                                                 $field_value = $objDesire->getVal($field_name);
@@ -619,6 +633,7 @@ class Acondition extends AdmObject{
                                                 $field_value = $objDesire->calc($field_name);
                                                 $field_value_case = "calc";
                                         }
+                                        list($field_date,) = $objDesire->getFieldUpdateDate($field_name, $lang);
                                 }
                                 $objToApplyOn =& $objDesire;
                         }
@@ -628,19 +643,24 @@ class Acondition extends AdmObject{
                                 throw new AfwRuntimeException("not valid field value : $field_value = <br> $obj => <br> $field_value_case($field_name)");        
                         }
                         $param_valueObj = $this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
+                        $comments = "";
                         if(!$param_valueObj) 
                         {
-                                $param_value = Aparameter::getMyValueForSubContext($this->aparamObj->id, $major_path_id, $program_track_id);
+                                $param_value = Aparameter::getMyValueForSubContext($this->aparamObj->id, $major_path_id, $program_track_id, $sub_context_log);
+                                if($param_value===null)
+                                {
+                                        $comments = $this->tm("This track is not available", $lang) . " : $major_path_name - $program_track_name" ;
+                                }
                         }
                         else
                         {
                                 $param_value = $param_valueObj->getVal("value");
                         }
-
+                        
                         if(!$param_value) 
                         {
                                 $exec_result = false;
-                                $comments = $this->tm("no general or customized value for parameter", $lang)." : ".$this->aparamObj->getDisplay($lang)
+                                if(!$comments) $comments = $this->tm("no general or customized value for parameter", $lang)." : ".$this->aparamObj->getDisplay($lang)
                                       ."<br>\ncontext am-id=$application_model_id, ap-id=$application_plan_id"
                                       ."<br>\nsub-context am-id=$application_model_id, ap-id=$application_plan_id"
                                       ;
@@ -662,7 +682,7 @@ class Acondition extends AdmObject{
                         if(!$simulate or true)
                         {
                                 $acondition_id = $this->id;
-                                $aparameter_value_date = $field_date = $condition_exec_date = date("Y-m-d H:i:s");
+                                $aparameter_value_date = $condition_exec_date = date("Y-m-d H:i:s");
                                 $acExecObj = ApplicationConditionExec::loadByMainIndex($application_plan_id,$applicant_id,$adesire_id,$acondition_id, true);
                                 $acExecObj->set("field_value",$field_value);
                                 $acExecObj->set("condition_exec_date",$condition_exec_date);

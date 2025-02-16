@@ -778,9 +778,9 @@
                                         ->func("count(id)");
                 }
 
-                public function getNextGeneralStepNumOf($step_num)
+                public function getNextStepNumOf($step_num, $general)
                 {
-                        if(!$this->stepMax) $this->stepMax = $this->getStepMax(true);
+                        if(!$this->stepMax) $this->stepMax = $this->getStepMax($general);
                         $return = $step_num + 1;
                         if($return > $this->stepMax) $return = $this->stepMax;
                         return $return;

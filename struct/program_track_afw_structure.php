@@ -12,7 +12,7 @@
                         if ($obj instanceof ProgramTrack) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "track_name_ar";
+                                $obj->DISPLAY_FIELD = ["track_name_ar", "id"];
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('track_code');
                                 $obj->public_display = true;

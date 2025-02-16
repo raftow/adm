@@ -36,6 +36,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["applicant_"] = "المتقدمين";
 		$trad["applicant"]["applicant.short_"] = "المتقدمين";
 
+		$trad["applicant"]["id"] = "رقم الهوية";
 		$trad["applicant"]["idn"] = "رقم الهوية";
 		$trad["applicant"]["idn-infos"] = "اعدادات ملف المتقدم"; //معلومات الهوية
 		$trad["applicant"]["idn_type_id"] = "نوع الهوية";
