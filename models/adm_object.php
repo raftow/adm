@@ -2,6 +2,28 @@
 
 class AdmObject extends AfwMomkenObject{
 
+        public static function userConnectedIsSupervisor($objme = null)
+        {
+                if (!$objme) $objme = AfwSession::getUserConnected();
+                if (!$objme) return 0;
+
+                $employee_id = $objme->getEmployeeId();
+                if (!$employee_id) return 0;
+
+                return AdmEmployee::isAdmin($employee_id);
+        }
+
+        public static function userConnectedIsGeneralSupervisor($objme = null)
+        {
+                if (!$objme) $objme = AfwSession::getUserConnected();
+                if (!$objme) return 0;
+
+                $employee_id = $objme->getEmployeeId();
+                if (!$employee_id) return 0;
+
+                return AdmEmployee::isGeneralAdmin($employee_id);
+        }
+
         public static function code_of_training_period_enum($lkp_id=null)
         {
             global $lang;
@@ -930,6 +952,57 @@ class AdmObject extends AfwMomkenObject{
         public function getCssClassName()
         {
             return $this->getTableName();
+        }
+
+        public static function loadApiRunner()
+        {
+                $main_company = AfwSession::config("main_company", "all");
+                $api_runner_file = $main_company . "_api_runner";
+                $api_runner_class = AfwStringHelper::tableToClass($api_runner_file);
+                if (!class_exists($api_runner_class, false)) {
+                        $file_dir_name = dirname(__FILE__);
+                        require($file_dir_name . "/../extra/$api_runner_file.php");
+                }
+
+                return $api_runner_class;
+        }
+
+        public static function loadUnitManager()
+        {
+                $main_company = AfwSession::config("main_company", "all");
+                $tunit_to_orgunit_file = $main_company . "_tunit_to_orgunit";
+                $tunit_to_orgunit_class = AfwStringHelper::tableToClass($tunit_to_orgunit_file);
+                if (!class_exists($tunit_to_orgunit_class, false)) {
+                        $file_dir_name = dirname(__FILE__);
+                        require($file_dir_name . "/../extra/$tunit_to_orgunit_file.php");
+                }
+
+                return $tunit_to_orgunit_class;
+        }
+
+        public static function list_of_hierarchy_level_enum()
+        {
+            global $lang;
+            return self::hierarchy_level()[$lang];
+        }
+        
+        public static function hierarchy_level()
+        {
+                $arr_list_of_hierarchy_level = array();
+
+                $main_company = AfwSession::config("main_company","all");
+                $current_domain = 25;
+                $file_dir_name = dirname(__FILE__);        
+                include($file_dir_name."/../../ums/extra/hierarchy_level-$main_company.php");
+
+                foreach($hierarchy_level as $id => $lookup_row)
+                {
+                    $arr_list_of_hierarchy_level["ar"][$id] = $lookup_row["ar"];
+                    $arr_list_of_hierarchy_level["en"][$id] = $lookup_row["en"];
+                }
+
+                
+                return $arr_list_of_hierarchy_level;
         }
 
 }

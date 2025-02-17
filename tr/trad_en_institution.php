@@ -26,3 +26,4 @@
 	$trad["institution"]["snapchat_profile_link"] = "Snapchat";
 	$trad["institution"]["twitter_profile_link"] = "Twitter";
 	$trad["institution"]["instagram_profile_link"] = "Instagram";
+	

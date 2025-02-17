@@ -16,7 +16,7 @@
 	$trad["institution"]["institution_code"] = "رمز المؤسسة";
 	$trad["institution"]["institution_name_ar"] = "الاسم العربي";
 	$trad["institution"]["institution_name_en"] = "الاسم الإنجليزي";
-	$trad["institution"]["sci_id"] = "";
+	$trad["institution"]["orgunit_id"] = "العنصر في نظام الموارد البشرية";
 	$trad["institution"]["country_id"] = "الدولة";
 	$trad["institution"]["map_location"] = "احداثيات الخريطة";
 	$trad["institution"]["website"] = "رابط موقع الواب  Url";

@@ -36,4 +36,6 @@
 	$trad["training_unit"]["gender_enum"] = "جنس المتدربين";
 	$trad["training_unit"]["phone"] = "الهاتف";
 	$trad["training_unit"]["email"] = "البريد الالكتروني";
+	$trad["training_unit"]["orgunit_id"] = "العنصر في نظام الموارد البشرية";
+	$trad["training_unit"]["adm_orgunit_id"] = "إدارة التسجيل والقبول";
     

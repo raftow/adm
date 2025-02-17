@@ -126,18 +126,7 @@ class Applicant extends AdmObject
                 return false;
         }
 
-        public static function loadApiRunner()
-        {
-                $main_company = AfwSession::config("main_company", "all");
-                $api_runner_file = $main_company . "_api_runner";
-                $api_runner_class = AfwStringHelper::tableToClass($api_runner_file);
-                if (!class_exists($api_runner_class, false)) {
-                        $file_dir_name = dirname(__FILE__);
-                        require($file_dir_name . "/../extra/$api_runner_file.php");
-                }
-
-                return $api_runner_class;
-        }
+        
 
         public function beforeMaj($id, $fields_updated)
         {

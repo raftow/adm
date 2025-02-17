@@ -1,6 +1,8 @@
 <?php
 class TrainingUnitType extends AdmObject
 {
+        
+
 
         public static $DATABASE                = "";
         public static $MODULE                    = "adm";

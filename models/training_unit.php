@@ -127,10 +127,16 @@ class TrainingUnit extends AdmObject
 
         $pbms = array();
 
-        $color = "green";
+        $color = "blue";
         $title_ar = "تصحيح البيانات";
         $methodName = "fixMyData";
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("academicProgramOfferingList"));
+
+        $color = "green";
+        $title_ar = "احداث/تحديث عنصر الموارد البشرية"; 
+        $methodName = "updateOrgunit";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>1);
+        
 
 
 
@@ -295,6 +301,11 @@ class TrainingUnit extends AdmObject
         }
     }
 
+    public function initMyCollege($active="N")
+    {
+        // @what to do ?
+    }
+
     public function afterMaj($id, $fields_updated)
     {
             if(true)
@@ -337,5 +348,65 @@ class TrainingUnit extends AdmObject
         if ($currstep == 5) return 421;
 
         return 0;
+    }
+
+    public function calcAdm_orgunit_id($what = "value")
+    {
+        $orgunit_id = $this->getVal("orgunit_id");
+        if(!$orgunit_id) return ($what == "value") ? 0 : null;
+        $returnObj = AdmOrgunit::loadByMainIndex($orgunit_id, true);
+
+        return ($what == "value") ? $returnObj->id : $returnObj;
+    }
+
+    
+
+
+    public function updateOrgunit($lang = "ar")
+    {
+            $hrm_code = $this->getVal("training_unit_code");
+            if(!$hrm_code) return ["please define training unit code before and if the training unit is already in HRM system use the same hrm-code to avoid create a duplicated orgunit"];
+
+            $institutionObj = $this->het("institution_id");
+            $parent_orgunit_id = 0;
+            if($institutionObj) $parent_orgunit_id = $institutionObj->getVal("orgunit_id");;
+            $UnitManager = self::loadUnitManager();
+            $id_sh_org = 0;
+            $tu_type = $this->getVal("training_unit_type_id");
+            $id_sh_type = 0;
+            if($UnitManager::convertTunitTypeToOrgunitType($tu_type) == "college") $id_sh_type = OrgunitType::$ORGUNIT_TYPE_COLLEGE;
+            if($UnitManager::convertTunitTypeToOrgunitType($tu_type) == "institute") $id_sh_type = OrgunitType::$ORGUNIT_TYPE_INSTITUTE;
+            $id_domain = Domain::$DOMAIN_ADMISSION;
+            
+            
+            $titre_short_ar = $titre_ar = $this->getVal("training_unit_name_ar");
+            $titre_short_en = $titre_en = $this->getVal("training_unit_name_en");
+            $orgunitObj = Orgunit::findOrgunit($id_sh_type, $id_sh_org, $hrm_code, 
+                            $titre_short_ar, $titre_ar, $titre_short_en, $titre_en, $id_domain, $hrm_crm = "crm", $create_obj_if_not_found = false);
+            if($orgunitObj)
+            {
+                    $orgunitObj = Orgunit::findOrgunit($id_sh_type, $id_sh_org, $hrm_code, 
+                            $titre_short_ar, $titre_ar, $titre_short_en, $titre_en, $id_domain, $hrm_crm = "hrm", $create_obj_if_not_found = true);
+            }
+            
+            $orgunitObj->set("gender_id", $this->getVal("gender_enum"));
+            $orgunitObj->set("id_sh_parent", $parent_orgunit_id);
+            $orgunitObj->set("addresse", $this->getVal("adress")); 
+            $city_id = $this->getVal("city_id");
+            if ($city_id > 0) $city_name = $this->get("city_id")->getDisplay($lang);
+            else $city_name = "";
+            $orgunitObj->set("city_name", $city_name);
+            $orgunitObj->set("cp", $this->getVal("postal_code"));
+            $orgunitObj->set("quarter", $this->getVal("quarter"));
+            $orgunitObj->commit();
+            $this->set("orgunit_id", $orgunitObj->getId());
+            $this->commit();
+
+            AdmOrgunit::loadByMainIndex($orgunitObj->id, true);
+
+            $return = $orgunitObj->is_new ? "New HRM Organization created" : "Existing HRM Organization found ";
+            $return .= " with ID = ".$orgunitObj->id;
+
+            return ["", $return];
     }
 }

@@ -68,7 +68,7 @@
 
 
                                         'institution_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => true,
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '30', 'MAXLENGTH' => '30', 'UTF8' => false,
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => false,
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_50',),
@@ -116,13 +116,41 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_75',),
                                         
-                                        
+                                                
                                         
                                         'postal_code' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',), 
+
+
+                                        'orgunit_id' => array(
+                                                'SHORTNAME' => 'orgunit',
+                                                'SEARCH' => true,
+                                                'QSEARCH' => true,
+                                                'INTERNAL_QSEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'EDIT' => true,
+                                                'QEDIT' => false,
+                                                'EDIT_IF_EMPTY' => true,
+                                                'SIZE' => 40,
+                                                'MANDATORY' => false,
+                                                'UTF8' => false,
+                                                'CSS' => 'width_pct_25',
+                                                'TYPE' => 'FK',
+                                                'ANSWER' => 'orgunit',
+                                                'ANSMODULE' => 'hrm',
+                                                'RELATION' => 'OneToOne',
+                                                'READONLY' => true,
+                                                'SEARCH-BY-ONE' => true,
+                                                'DISPLAY' => true,
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'ERROR-CHECK' => true,
+                                        ),                                                
 
 
                                         'facebook_profile_link' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,
@@ -198,7 +226,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',), 
 
-                      
+                                        
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
