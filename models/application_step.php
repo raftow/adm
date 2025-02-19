@@ -239,6 +239,16 @@
                         return [true, 'for demo'];
                 }
 
+
+                public function isTheSortingStep()
+                {
+                        return ($this->getVal("step_code") == "SRT");
+                }
+
+                public function isTheDesireSelectStep()
+                {
+                        return ($this->getVal("step_code") == "DSR");
+                }
                 
                 
                 public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang)

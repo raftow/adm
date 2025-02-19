@@ -55,7 +55,7 @@
     $messages["Repare data"] = "تصحيح البيانات";
     $messages["Crowd desires"] = "دفع الرغبات إلى الأمام";
     $messages["This track is not available"] = "هذا المسار غير متوفر";
-    $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا تطبيق الشروط لعدم تحديث البيانات";
+    $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تطبيق الشروط لعدم توفر بيانات محدثة";
     
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       

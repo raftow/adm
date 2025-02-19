@@ -749,8 +749,22 @@ class Application extends AdmObject
         public function attributeIsApplicable($attribute)
         {
 
-                if (($attribute == "program_id") or ($attribute == "applicant_qualification_id")) {
+                if (($attribute == "program_id") or ($attribute == "applicant_qualification_id")) 
+                {
                         return $this->applicationAttributeIsApplicable($attribute);
+                }
+
+                // nb_desires -- عدد الرغبات
+		// applicationDesireList -- ترتيب الرغبات
+		// application_plan_branch_mfk -- اختيار الرغبات
+                if (($attribute == "nb_desires") or 
+                    ($attribute == "applicationDesireList") or 
+                    ($attribute == "application_plan_branch_mfk")) 
+                {
+                        // current step should be desire step or the desire select/sort step
+                        $currentStepObj = $this->het("application_step_id");
+                        if(!$currentStepObj) return false;
+                        if($currentStepObj->sureIs("general") and (!$currentStepObj->isTheDesireSelectStep())) return false;                        
                 }
 
                 return true;

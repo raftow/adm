@@ -3,8 +3,8 @@
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
 /**/
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_step add step_code varchar(3)  NOT NULL  AFTER step_name_en;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   comments varchar(128)  DEFAULT NULL  AFTER desire_status_enum;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_step add step_code varchar(3)  NOT NULL  AFTER step_name_en;");
 
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."ums.jobrole SET id=214, jobrole_code = 'roles-prev', titre_short = _utf8'الصلاحيات والإمتيازات', titre_short_en = 'Roles & Privileges', titre = _utf8'الصلاحيات والإمتيازات', titre_en = 'Roles & Privileges', id_sh_org = 0, id_sh_div = 0, avail = 'Y', id_aut = 1, id_mod = 1, id_valid = 0, id_domain = 25, date_aut = '2025-02-16 15:16:35', date_mod = '2025-02-16 15:16:35', version = 1");
 

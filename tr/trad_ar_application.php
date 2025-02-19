@@ -4,11 +4,11 @@ class ApplicationArTranslator{
     public static function initData()
     {
         $trad = [];
-		$trad["application"]["step1"] = "بيانات التقديم";
+		$trad["application"]["step1"] = "المعلومات الأساسية";
 		$trad["application"]["step2"] = "المسار العام";
 		$trad["application"]["step3"] = "اختيار الرغبات";
 		$trad["application"]["step4"] = "ترتيب الرغبات";
-		$trad["application"]["step5"] = "معلومات متقدمة";
+		$trad["application"]["step5"] = "بيانات المتقدم";
 
 		$trad["application"]["application.single"] = "طلب تقديم";
 		$trad["application"]["application.new"] = "جديد";
@@ -30,8 +30,8 @@ class ApplicationArTranslator{
 		$trad["application"]["program_id"] = "البرنامج";
 		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";
 		$trad["application"]["nb_desires"] = "عدد الرغبات";
-		$trad["application"]["applicationDesireList"] = "الرغبات";
-		$trad["application"]["application_plan_branch_mfk"] = "الرغبات";
+		$trad["application"]["applicationDesireList"] = "ترتيب الرغبات";
+		$trad["application"]["application_plan_branch_mfk"] = "اختيار الرغبات";
 		
 		$trad["application"]["satisfaction"] = "نسبة رضا العملاء";
 		$trad["application"]["tasks"] = "مهام بالانتظار";

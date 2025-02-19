@@ -155,6 +155,7 @@ class AdmApplicantAfwStructure
                         //'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+                        'DISPLAY' => true,
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -167,9 +168,10 @@ class AdmApplicantAfwStructure
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
-                        'SHOW' => false,
+                        'SHOW' => true,
+                        'DISPLAY' => true,
                         'RETRIEVE' => false,
-                        'EDIT' => false,
+                        'EDIT' => true,
                         'QEDIT' => true,
                         'SEARCH-ADMIN' => true,
                         'SHOW-ADMIN' => true,
@@ -671,6 +673,7 @@ class AdmApplicantAfwStructure
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'SHOW' => true,
+                        'DISPLAY' => true,
                         'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
@@ -678,15 +681,15 @@ class AdmApplicantAfwStructure
                         'SHOW-ADMIN' => true,
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
-                        'TYPE' => 'GDAT',
+                        'TYPE' => 'GDATE',
                         'STEP' => 2,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-
+                        'MANDATORY' => false,
                         'CSS' => 'width_pct_25',
                 ],
 
-
+                
 
 
                 'address_type_enum' => array(

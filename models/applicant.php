@@ -919,14 +919,29 @@ class Applicant extends AdmObject
 
         public function getApiUpdateDate($apiEndpoint)
         {
+                
+                
+
                 if (!$this->update_date[$apiEndpoint->id]) {
+
+                        /*global $dbg_counter;
+                        if($apiEndpoint->id==6)
+                        {                        
+                                if(!$dbg_counter) $dbg_counter = 1;
+                                else $dbg_counter++;
+                        }*/
+
                         $aarList = $this->getRelation("applicantApiRequestList")->resetWhere("api_endpoint_id=" . $apiEndpoint->id)->getList();
                         $this->update_date[$apiEndpoint->id] = "1900-01-01";
                         foreach ($aarList as $aarItem) {
-                                if ($aarItem) $this->update_date[$apiEndpoint->id] = $aarItem->getVal("run_date");
+                                if ($aarItem and $aarItem->getVal("run_date")) $this->update_date[$apiEndpoint->id] = $aarItem->getVal("run_date");
                         }
                 }
 
+                /*if($apiEndpoint->id==6)
+                {
+                        if($dbg_counter>5) die("dbg counter exceeded :: this->update_date => ".var_export($this->update_date,true));
+                }*/
 
                 return $this->update_date[$apiEndpoint->id];
         }

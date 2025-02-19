@@ -48,7 +48,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["mother_idn"] = "هوية الام";
 		$trad["applicant"]["mother_birth_date"] = "تاريخ ميلاد الام";
 		$trad["applicant"]["passeport_num"] = "جواز السفر";
-		$trad["applicant"]["passeport_expiry_gdate"] = "تاريخ صلاحية جواز السفر";
+		$trad["applicant"]["passeport_expiry_gdate"] = "تاريخ إنتهاء جواز السفر";
 		$trad["applicant"]["username"] = "اسم المستخدم";
 		$trad["applicant"]["password"] = "كلمة المرور";
 		$trad["applicant"]["email"] = "البريد الالكتروني الشخصي";

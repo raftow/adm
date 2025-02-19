@@ -82,7 +82,7 @@
                                                 
                                        'weighted_percentage' => array(
                                                 'FGROUP' => 'weighted_percentage',
-                                                'STEP' => 3,
+                                                'STEP' => 5,
                                                 'TYPE' => 'FLOAT',
                                                 'CATEGORY' => 'FORMULA',
                                                 'SHOW' => true,
@@ -95,7 +95,7 @@
 
                                         'weighted_percentage_details' => array(
                                                 'FGROUP' => 'weighted_percentage',
-                                                'STEP' => 3,
+                                                'STEP' => 5,
                                                 'TYPE' => 'TEXT',
                                                 'CATEGORY' => 'FORMULA',
                                                 'SHOW' => true,
@@ -118,7 +118,7 @@
                                         'qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 3,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 5,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
@@ -126,7 +126,7 @@
                                         'major_category_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'major_category',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 3,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 5,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
 
@@ -284,31 +284,31 @@
                                                 */
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 3, 'READONLY'=>true,  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 5, 'READONLY'=>true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_33',),
         
                                         'created_by' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => true,  
-                                                'STEP' => 3,  'STEP-CUSTOMIZED' => true,
+                                                'STEP' => 5,  'STEP-CUSTOMIZED' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true, 
                                                 'CSS' => 'width_pct_33',),
 
                                         'created_at' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false,  
                                                 'TYPE' => 'GDAT',  'FORMAT' => 'DATETIME',  'DISPLAY' => true,  'READONLY'=>true,   
-                                                'STEP' => 3,  'STEP-CUSTOMIZED' => true, 
+                                                'STEP' => 5,  'STEP-CUSTOMIZED' => true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_33',),
 
                                         'updated_by' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => true,  
-                                                'STEP' => 3,  'STEP-CUSTOMIZED' => true,
+                                                'STEP' => 5,  'STEP-CUSTOMIZED' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true, 
                                                 'CSS' => 'width_pct_33',),
 
                                         'updated_at' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false,  
                                                 'TYPE' => 'GDAT',  'FORMAT' => 'DATETIME',  'DISPLAY' => true,  
-                                                'STEP' => 3,  'STEP-CUSTOMIZED' => true, 'READONLY'=>true,  
+                                                'STEP' => 5,  'STEP-CUSTOMIZED' => true, 'READONLY'=>true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_33',),
 
