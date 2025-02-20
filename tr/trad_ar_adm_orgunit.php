@@ -11,7 +11,12 @@
 	$trad["adm_orgunit"]["requests_count.tooltip"] = "الطلبات الجارية هي التي جاري العمل عليها ولم تقفل بعد بغض النظر عن كونها عند المنسق حاليا أو عند المشرف أو حتى عند العميل لاستكمال بعض النواقص";
 	$trad["adm_orgunit"]["new_requests_count"] = "مجموع عدد الطلبات الجديدة";
 	$trad["adm_orgunit"]["new_requests_count.tooltip"] = "تعريف الطلبات الجديدة هي التي لم يعين عليها مشرف أو لم تعين لها إدارة قبول وتسجيل";
-	$trad["adm_orgunit"]["allEmployeeList"] = "الموظفين المنسقين لدى مركز خدمة العملاء";
+	$trad["adm_orgunit"]["allEmployeeList"] = "الموظفين المكلفين";
+	$trad["adm_orgunit"]["allEmployeeRequestList"] = "الموظفين في طور الاعتماد";
+        
+        
+        
+        
 	$trad["adm_orgunit"]["unAssignedRequests"] = "طلبات يجب العمل عليها واسنادها";
 	$trad["adm_orgunit"]["currentRequests"] = "الطلبات الجارية";
 	

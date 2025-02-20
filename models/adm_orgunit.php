@@ -151,6 +151,21 @@ class AdmOrgunit extends AdmObject{
                         $link['ATTRIBUTE_WRITEABLE'] = 'allEmployeeList';
                         $otherLinksArray[] = $link;
                 }
+
+                if($mode=="mode_allEmployeeRequestList")
+                {
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة طلب تعيين منسق ";
+                        $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AdmEmpRequest&currmod=adm&sel_orgunit_id=$orgunit_id";
+                        $link["TITLE"] = $title;
+                        $link["TARGET"] = "newEmployeeReq";
+                        $link["PUBLIC"] = true;
+                        $link["UGROUPS"] = array();
+                        $link['ATTRIBUTE_WRITEABLE'] = 'allEmployeeRequestList';
+                        $otherLinksArray[] = $link;
+                }
              
              
              

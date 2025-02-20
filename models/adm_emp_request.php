@@ -212,8 +212,8 @@ class AdmEmpRequest extends AdmObject
                                 list($err, $info) = $emplObj->updateMyInfosFromExternalSources($lang);
                                 if ($err) {
                                         $this->set("approved", "W");
-                                        $this->set("reject_reason_ar", $err);
-                                        $this->set("reject_reason_en", $err);
+                                        if($lang=="ar") $this->set("reject_reason", $err);
+                                        else $this->set("reject_reason", $err);
                                 } else {
                                         $emplObj_name_ar = $emplObj->getDisplay("ar");
                                         $emplObj_name_en = $emplObj->getDisplay("en");
@@ -222,8 +222,8 @@ class AdmEmpRequest extends AdmObject
                                         $id_sh_div = $emplObj->getVal("id_sh_div");
                                         if (($id_sh_org == $orgunit_id) or ($id_sh_dep == $orgunit_id) or ($id_sh_div == $orgunit_id)) {
                                                 $this->set("approved", "Y");
-                                                $this->set("reject_reason_ar", "لا ينطبق");
-                                                $this->set("reject_reason_en", "N/A");
+                                                if($lang=="ar")  $this->set("reject_reason", "لا ينطبق");
+                                                else $this->set("reject_reason", "N/A");
                                                 $employee_id = $emplObj->id;
                                                 $this->set("employee_id", $employee_id);
                                         } else {
@@ -235,8 +235,8 @@ class AdmEmpRequest extends AdmObject
                                                 $reject_reason_ar = $emplObj_name_ar . " : " . $this->tm("This employee is not from", "ar") . " $org_name_ar " . $this->tm("but from", "ar") . " $sh_name_ar";
                                                 $reject_reason_en = $emplObj_name_en . " : " . $this->tm("This employee is not from", "en") . " $org_name_en " . $this->tm("but from", "en") . " $sh_name_en";
                                                 $this->set("approved", "N");
-                                                $this->set("reject_reason_ar", $reject_reason_ar);
-                                                $this->set("reject_reason_en", $reject_reason_en);
+                                                if($lang=="ar") $this->set("reject_reason", $reject_reason_ar);
+                                                else $this->set("reject_reason", $reject_reason_en);
                                         }
                                 }
                         }

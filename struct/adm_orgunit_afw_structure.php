@@ -77,9 +77,15 @@
 							'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 							),
 
-
-							'archive_date' => array('CATEGORY' => 'FORMULA', 'TYPE' => "DATE", ), 			
-
+					'allEmployeeRequestList' => array('STEP' => 2, 'FGROUP' => 'allEmployeeList',  
+							'TYPE' => 'FK',  'ANSWER' => 'adm_emp_request',  'ANSMODULE' => 'adm',  
+							'CATEGORY' => 'ITEMS',  'ITEM' => '',  
+							'WHERE' => "orgunit_id = §orgunit_id§", 
+							'HIDE_COLS' => ["orgunit_id"],
+							// 'FORCE_COLS' => ["inbox_count"],
+							'FORMAT' => 'retrieve',  'SHOW' => true, 'RETRIEVE' => false,  'EDIT' => false,  'ICONS' => true,  'DELETE-ICON' => false,  'BUTTONS' => true,  'NO-LABEL' => false,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
+							'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  			
+						),
 
 					/*	'currentRequests' => array('STEP' => 3,  
 							'TYPE' => 'FK',  'ANSWER' => 'request',  'ANSMODULE' => 'adm',  

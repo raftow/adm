@@ -21,14 +21,14 @@ class AdmAdmEmpRequestAfwStructure
 
 			$obj->OwnedBy = array('module' => "adm", 'afw' => "AdmOrgunit");
 			$obj->editByStep = true;
-			$obj->editNbSteps = 3;
+			$obj->editNbSteps = 2;
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
 			// $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
 		} else {
 			AdmEmpRequestArTranslator::initData();
-			//AdmEmpRequestEnTranslator::initData();
+			AdmEmpRequestEnTranslator::initData();
 		}
 	}
 
@@ -76,23 +76,24 @@ class AdmAdmEmpRequestAfwStructure
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_50',
 		),
 
 
 
-		'adm_orgunit_id' => array(
-			'SHORTNAME' => 'corgunit',
-			'SIZE' => 40,
-			'CSS' => 'width_pct_25',
-			'TYPE' => 'FK',
-			'ANSWER' => 'adm_orgunit',
-			'ANSMODULE' => 'adm',
-			'CATEGORY' => 'FORMULA',
-			'RELATION' => 'OneToMany',
-			'DISPLAY-UGROUPS' => '',
-			'EDIT-UGROUPS' => '',
-			'ERROR-CHECK' => true,
-		),
+					'adm_orgunit_id' => array(
+						'SHORTNAME' => 'corgunit',
+						'SIZE' => 40,
+						'CSS' => 'width_pct_25',
+						'TYPE' => 'FK',
+						'ANSWER' => 'adm_orgunit',
+						'ANSMODULE' => 'adm',
+						'CATEGORY' => 'FORMULA',
+						'RELATION' => 'OneToMany',
+						'DISPLAY-UGROUPS' => '',
+						'EDIT-UGROUPS' => '',
+						'ERROR-CHECK' => true,
+					),
 
 		'employee_id' => array(
 			'SHORTNAME' => 'employee',
@@ -106,7 +107,7 @@ class AdmAdmEmpRequestAfwStructure
 			'EDIT_IF_EMPTY' => true,
 			'CSS' => 'width_pct_25',
 			'SIZE' => 40,
-			'MANDATORY' => true,
+			'MANDATORY' => false,
 			'UTF8' => false,
 			'TYPE' => 'FK',
 			'ANSWER' => 'employee',
@@ -120,6 +121,7 @@ class AdmAdmEmpRequestAfwStructure
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_50',
 		),
 
 		'email' => array(
@@ -136,7 +138,143 @@ class AdmAdmEmpRequestAfwStructure
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_75',
 		),
+
+		'gender_id' => array(
+			'IMPORTANT' => 'IN',
+			'SEARCH' => false,
+			'SHOW' => true,
+			'MANDATORY' => true,
+			'EDIT' => true,
+			'QEDIT' => false,
+			'SIZE' => 16,
+			'UTF8' => false,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'enum',
+			'ANSWER' => 'FUNCTION',
+			'DEFAUT' => 1,
+			'STEP' => 2,
+			'SEARCH-BY-ONE' => '',
+			'DISPLAY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_25',
+		),
+
+		'firstname' => array(
+			'IMPORTANT' => 'IN',
+			'SEARCH' => true,
+			'QSEARCH' => true,
+			'SHOW' => true,
+			'RETRIEVE' => true,
+			'EDIT' => true,
+			'MANDATORY' => true,
+			'QEDIT' => true,
+			'SIZE' => 32,
+			'CSS' => 'width_pct_25',
+			'UTF8' => true,
+			'TYPE' => 'TEXT',
+			'STEP' => 2,
+			'SEARCH-BY-ONE' => true,
+			'DISPLAY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_50',
+		),
+
+		'lastname' => array(
+			'IMPORTANT' => 'IN',
+			'SEARCH' => true,
+			'QSEARCH' => true,
+			'SHOW' => true,
+			'RETRIEVE' => true,
+			'EDIT' => true,
+			'MANDATORY' => true,
+			'QEDIT' => true,
+			'SIZE' => 32,
+			'CSS' => 'width_pct_25',
+			'UTF8' => true,
+			'TYPE' => 'TEXT',
+			'STEP' => 2,
+			'SEARCH-BY-ONE' => true,
+			'DISPLAY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_50',
+		),
+
+		'lastname_en' => array(
+			'TYPE' => 'TEXT',
+			'EDIT' => true,
+			'QEDIT' => true,
+			'CATEGORY' => '',
+			'SHOW' => false,
+			'RETRIEVE' => false,
+			'UTF8' => false,
+			'SIZE' => 32,
+			'MANDATORY' => true,
+			'STEP' => 2,
+			'SEARCH-BY-ONE' => '',
+			'DISPLAY' => false,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_50',
+		),
+
+		'firstname_en' => array(
+			'TYPE' => 'TEXT',
+			'EDIT' => true,
+			'QEDIT' => true,
+			'SHOW' => false,
+			'RETRIEVE' => false,
+			'UTF8' => false,
+			'SIZE' => 32,
+			'MANDATORY' => true,
+			'STEP' => 2,
+			'SEARCH-BY-ONE' => '',
+			'DISPLAY' => false,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_50',
+		),
+
+		'jobrole_mfk' => array(
+			'SEARCH' => true,
+			'QSEARCH' => false,
+			'SHOW' => true,
+			'RETRIEVE' => false,
+			'EDIT' => true,
+			'QEDIT' => false,
+			'SIZE' => 32,
+			'MANDATORY' => true,
+			'UTF8' => false,
+			'TYPE' => 'MFK',
+			'ANSWER' => 'jobrole',
+			'DEFAUT' => '',
+			'ANSMODULE' => 'ums',
+			'WHERE' => "id_domain = 25", // DOMAIN_ADMISSION=25
+			'READONLY' => false,
+			'SEARCH-BY-ONE' => false,
+			'DISPLAY' => true,
+			'STEP' => 2,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+			'CSS' => 'width_pct_100',
+		),
+
+		'hierarchy_level_enum' => array('SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'SIZE' => 40,  'SEARCH-ADMIN' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',   'DEFAUT' => 1,  'SHORTNAME' => 'lang',  
+				'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 2,  'MANDATORY' => true,
+				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  'DEFAUT' => 1, 
+				'CSS' => 'width_pct_50',
+				),
 
 		'approved' => array(
 			'SHOW' => true,
@@ -149,11 +287,30 @@ class AdmAdmEmpRequestAfwStructure
 			'TYPE' => 'YN',
 			'SEARCH-BY-ONE' => true,
 			'DISPLAY' => true,
-			'STEP' => 1,
+			'STEP' => 2,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'READONLY' => true,
+			'CSS' => 'width_pct_50',
 		),
+
+		'reject_reason' => array(
+			'SHOW' => true,
+			'EDIT' => true,
+			'QEDIT' => false,
+			'UTF8' => true,
+			'SIZE' => 'AEREA',
+			'CSS' => 'width_pct_100',
+			'MB_CSS' => 'width_pct_100',
+			'ROWS' => 7,
+			'TYPE' => 'TEXT',
+			'STEP' => 2,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			//'ERROR-CHECK' => true,
+			'READONLY' => true,
+		),
+
 
 		'active' => array(
 			'SHOW' => true,
@@ -172,41 +329,8 @@ class AdmAdmEmpRequestAfwStructure
 		),
 
 
-		'reject_reason_ar' => array(
-			'SHOW' => true,
-			'EDIT' => true,
-			'QEDIT' => false,
-			'UTF8' => true,
-			'SIZE' => 'AEREA',
-			'CSS' => 'width_pct_100',
-			'MB_CSS' => 'width_pct_100',
-			'FORMAT' => 'EMAIL',
-			'ROWS' => 7,
-			'TYPE' => 'TEXT',
-			'STEP' => 1,
-			'DISPLAY-UGROUPS' => '',
-			'EDIT-UGROUPS' => '',
-			//'ERROR-CHECK' => true,
-			'READONLY' => true,
-		),
-
-		'reject_reason_en' => array(
-			'SHOW' => true,
-			'EDIT' => true,
-			'QEDIT' => false,
-			'UTF8' => false,
-			'SIZE' => 'AEREA',
-			'CSS' => 'width_pct_100',
-			'MB_CSS' => 'width_pct_100',
-			'FORMAT' => 'EMAIL',
-			'ROWS' => 7,
-			'TYPE' => 'TEXT',
-			'STEP' => 1,
-			'DISPLAY-UGROUPS' => '',
-			'EDIT-UGROUPS' => '',
-			//'ERROR-CHECK' => true,
-			'READONLY' => true,
-		),
+		
+		
 		
 
 		'created_by'         => array(
