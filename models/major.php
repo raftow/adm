@@ -40,7 +40,7 @@
                     $my_id = $this->getId();
                     $displ = $this->getDisplay($lang);
                     
-                    if($mode=="mode_majorDepartmentList")
+                    if($this->id and ($mode=="mode_majorDepartmentList"))
                     {
                         unset($link);
                         $link = array();

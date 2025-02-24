@@ -2,6 +2,17 @@
 
 class AdmObject extends AfwMomkenObject{
 
+        public function calcAdm_orgunit_id($what = "value")
+        {
+            $orgunit_id = $this->getVal("orgunit_id");
+            if(!$orgunit_id) return ($what == "value") ? 0 : null;
+            $returnObj = AdmOrgunit::loadByMainIndex($orgunit_id, true);
+            
+            $return =  ($what == "value") ? $returnObj->id : $returnObj;
+            // throw new AfwRuntimeException("calcAdm_orgunit_id($what) = $return");
+            return $return;
+        }
+
         public static function userConnectedIsSupervisor($objme = null)
         {
                 if (!$objme) $objme = AfwSession::getUserConnected();
@@ -63,6 +74,13 @@ class AdmObject extends AfwMomkenObject{
                 
                 return $arr_list_of_training_period;
         } 
+
+        public function settings($field_name, $col_struct)
+        {
+            $col_struct = strtolower($col_struct);
+            $table_name = $this->getTableName();
+            return AfwSession::config("setting-$table_name-$field_name-$col_struct", null);
+        }
 
 
         /*
@@ -495,7 +513,28 @@ class AdmObject extends AfwMomkenObject{
         }
 
 
+        public static function list_of_genre_enum()
+        {
+            global $lang;
+            return self::genre()[$lang];
+        }
         
+        public static function genre()
+        {
+                $arr_list_of_gender = array();
+                
+                
+                $arr_list_of_gender["en"][1] = "Male";
+                $arr_list_of_gender["ar"][1] = "طالب";
+                $arr_list_of_gender["code"][1] = "M";
+
+                $arr_list_of_gender["en"][2] = "Female";
+                $arr_list_of_gender["ar"][2] = "طالبة";
+                $arr_list_of_gender["code"][2] = "F";
+
+                
+                return $arr_list_of_gender;
+        }
 
 
         public static function list_of_gender_enum()

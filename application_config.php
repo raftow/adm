@@ -1,6 +1,7 @@
 <?php
 $config_arr = array(
         'application_id' => 1282,
+        'adm_application_id' => 1282,
 
         'application_code' => 'adm',
 

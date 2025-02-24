@@ -14,8 +14,8 @@ class AdmAdmEmployeeAfwStructure
 			$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
 			$obj->DISPLAY_FIELD = "";
 			$obj->ORDER_BY_FIELDS = "orgunit_id, employee_id";
-			$obj->IS_LOOKUP = true;
-			$obj->IS_SMALL_LOOKUP = true;
+			// $obj->IS_LOOKUP = true;
+			// $obj->IS_SMALL_LOOKUP = true;
 
 			$obj->UNIQUE_KEY = array('orgunit_id', 'employee_id');
 
@@ -23,12 +23,12 @@ class AdmAdmEmployeeAfwStructure
 			$obj->showRetrieveErrors = true;
 
 			$obj->OwnedBy = array('module' => "adm", 'afw' => "AdmOrgunit");
-			$obj->editByStep = true;
-			$obj->editNbSteps = 3;
+			// $obj->editByStep = true;
+			// $obj->editNbSteps = 3;
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
-			// $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
+			$obj->after_save_edit = array("class"=>'AdmOrgunit',"formulaAttribute"=>'adm_orgunit_id', "currmod"=>'adm',"currstep"=>2);
 		} else {
 			AdmEmployeeArTranslator::initData();
 			//AdmEmployeeEnTranslator::initData();
@@ -60,7 +60,7 @@ class AdmAdmEmployeeAfwStructure
 			'RETRIEVE' => true,
 			'EDIT' => true,
 			'QEDIT' => false,
-			'EDIT_IF_EMPTY' => true,
+			
 			'SIZE' => 40,
 			'MANDATORY' => true,
 			'UTF8' => false,
@@ -73,6 +73,7 @@ class AdmAdmEmployeeAfwStructure
 
 			'RELATION' => 'ManyToOne',
 			'READONLY' => true,
+			'EDIT_IF_EMPTY' => true,
 			'SEARCH-BY-ONE' => true,
 			'DISPLAY' => true,
 			'STEP' => 1,
@@ -106,6 +107,7 @@ class AdmAdmEmployeeAfwStructure
 					'RETRIEVE' => true,
 					'EDIT' => true,
 					'QEDIT' => false,
+					'READONLY' => true,
 					'EDIT_IF_EMPTY' => true,
 					'CSS' => 'width_pct_25',
 					'SIZE' => 40,
@@ -114,10 +116,10 @@ class AdmAdmEmployeeAfwStructure
 					'TYPE' => 'FK',
 					'ANSWER' => 'employee',
 					'ANSMODULE' => 'hrm',
-					// 'WHERE' => "id_sh_div = §orgunit_id§ or id_sh_dep = §orgunit_id§", /* and jobrole_mfk like '%,117,%'*/
+					'WHERE' => "id_sh_div = §orgunit_id§ or id_sh_dep = §orgunit_id§", /* and jobrole_mfk like '%,117,%'*/
 					'DEPENDENCY' => 'orgunit_id',
 					'RELATION' => 'ManyToOne',
-					'READONLY' => true,
+					
 					'SEARCH-BY-ONE' => false,
 					'DISPLAY' => true,
 					'STEP' => 1,
@@ -144,7 +146,7 @@ class AdmAdmEmployeeAfwStructure
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
 		),
-
+/*
 		'jobrole_mfk' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -195,7 +197,7 @@ class AdmAdmEmployeeAfwStructure
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
-		),
+		),*/
 
 		'active' => array(
 			'SHOW' => true,
@@ -213,7 +215,8 @@ class AdmAdmEmployeeAfwStructure
 			'EDIT-UGROUPS' => '',
 		),
 
-		'approved' => array(
+		/*
+		'appointment' => array(
 			'SHOW' => true,
 			'RETRIEVE' => true,
 			'SEARCH' => true,
@@ -229,7 +232,8 @@ class AdmAdmEmployeeAfwStructure
 			'EDIT-UGROUPS' => '',
 		),
 
-		'admin' => array(
+		
+		'files' => array(
 			'SHOW' => true,
 			'RETRIEVE' => true,
 			'SEARCH' => true,
@@ -404,7 +408,7 @@ class AdmAdmEmployeeAfwStructure
 			'DISPLAY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
-		),
+		),*/
 
 		'created_by'         => array(
 			'STEP' => 99,

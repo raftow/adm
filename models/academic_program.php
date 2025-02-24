@@ -52,18 +52,18 @@
                         $otherLinksArray = $this->getOtherLinksArrayStandard($mode,$genereLog,$step);
                         $my_id = $this->getId();
                         $displ = $this->getDisplay($lang);
-                        
+                        /*
                         if($mode=="mode_academicProgramOfferingList")
                         {
                                 unset($link);
                                 $link = array();
-                                $title = "إضافة فرع تقديم جديد";
+                                $title = "إضافة منشأة منفذة جديدة";
                                 $title_detailed = $title ."لـ : ". $displ;
                                 $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicProgramOffering&currmod=adm&sel_academic_program_id=$my_id";
                                 $link["TITLE"] = $title;
                                 $link["UGROUPS"] = array();
                                 $otherLinksArray[] = $link;
-                        }/**/
+                        }*/
                         
                         if($mode=="mode_programQualificationList")
                         {

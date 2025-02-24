@@ -350,14 +350,7 @@ class TrainingUnit extends AdmObject
         return 0;
     }
 
-    public function calcAdm_orgunit_id($what = "value")
-    {
-        $orgunit_id = $this->getVal("orgunit_id");
-        if(!$orgunit_id) return ($what == "value") ? 0 : null;
-        $returnObj = AdmOrgunit::loadByMainIndex($orgunit_id, true);
-
-        return ($what == "value") ? $returnObj->id : $returnObj;
-    }
+    
 
     
 
@@ -409,4 +402,9 @@ class TrainingUnit extends AdmObject
 
             return ["", $return];
     }
+
+    public function shouldBeCalculatedField($attribute){
+        if($attribute=="adm_orgunit_id") return true;
+        return false;
+     }
 }

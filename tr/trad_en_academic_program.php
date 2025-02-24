@@ -12,6 +12,7 @@
 	$trad["academic_program"]["sis_program_code"] = "Sis Code";
 	$trad["academic_program"]["major_id"] = "Program Major";
 	$trad["academic_program"]["degree_id"] = "Degree";
+	$trad["academic_program"]["degree_id.tooltip"] = "The certificates that appear here are the only active certificates. They are a graduation certificate granted after completing the academic stage";
 	$trad["academic_program"]["program_track_id"] = "Program_Track";
 	$trad["academic_program"]["academic_level_id"] = "Academic_Level";
 	$trad["academic_program"]["department_id"] = "Department";

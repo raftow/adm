@@ -104,11 +104,6 @@ class AdmEmployee extends AdmObject
 
            if($obj->load())
            {
-                if(!$obj->getVal("service_category_mfk")) $obj->set("service_category_mfk", ",1,");
-                if(!$obj->getVal("service_mfk")) $obj->set("service_mfk", ",1,");                 
-                if(!$obj->getVal("requests_nb")) $obj->set("requests_nb", 15);                 
-                
-		
                 if($create_obj_if_not_found) $obj->activate();
                 return $obj;
            }
@@ -116,10 +111,7 @@ class AdmEmployee extends AdmObject
            {
                 $obj->set("orgunit_id",$orgunit_id);
                 $obj->set("employee_id",$employee_id);
-                $obj->set("service_category_mfk", ",1,");
-                $obj->set("service_mfk", ",1,");
-                $obj->set("requests_nb", 15);                 
-
+                
                 $obj->insert();
                 $obj->is_new = true;
                 return $obj;
@@ -323,15 +315,6 @@ class AdmEmployee extends AdmObject
 
 
         
-
-
-        public function  calcAdm_orgunit_id()        
-        {
-                if(!$this->getVal("orgunit_id")) return null;
-                $obj = AdmOrgunit::loadByMainIndex($this->getVal("orgunit_id"));
-                return $obj;
-        }
-
         
 
 

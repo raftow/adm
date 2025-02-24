@@ -5,11 +5,9 @@ $objme = AfwSession::getUserConnected();
 //if(!$objme) $studentMe = AfwSession::getStudentConnected();
 $page_css_file = "content";
 
-$Main_Page = "home.php";
-$MODULE = $My_Module = "adm";
+$Main_Page = "auser_show.php";
+$MODULE = $My_Module = "ums";
 $options = [];
-$options["dashboard-stats"] = true;
-$options["chart-js"] = true;
+// $options["dashboard-stats"] = true;
+// $options["chart-js"] = true;
 AfwMainPage::echoMainPage($My_Module, $Main_Page, $file_dir_name, $options);
-
-

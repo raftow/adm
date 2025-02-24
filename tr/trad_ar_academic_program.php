@@ -20,6 +20,7 @@
 	$trad["academic_program"]["sis_program_code"] = "الربط مع نظام معلومات المتدربين";
 	$trad["academic_program"]["major_id"] = "تخصص البرنامح";
 	$trad["academic_program"]["degree_id"] = "الشهادة";
+	$trad["academic_program"]["degree_id.tooltip"] = "الشهادات التي تظهر هنا هي فقط الشهادات المفعلة أنها شهادة تخرج ممنوحة بعد اكمال المرحلة الدراسية";
 	$trad["academic_program"]["program_track_id"] = "مسار البرنامج";
 	$trad["academic_program"]["academic_level_id"] = "المرحلة التدريبية";
 	$trad["academic_program"]["department_id"] = "القسم";
@@ -29,6 +30,8 @@
 	$trad["academic_program"]["program_tuition_fees"] = "رسوم التدريب";
 	$trad["academic_program"]["maqbool_id"] = "الربط مع خدمة مقبول";
     $trad["academic_program"]["old_name_ar"] = "الاسم القديم للبرنامج التدريبي"; //  بالعربية
+	$trad["academic_program"]["program_title"] = "مسمى آخر للبرنامج التدريبي"; //  to see with amjad where we need this field ???
+	
 
 
 

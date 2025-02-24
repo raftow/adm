@@ -10,7 +10,7 @@ class AdmAdmEmpRequestAfwStructure
 	{
 		if ($obj instanceof AdmEmpRequest) {
 			$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-			$obj->DISPLAY_FIELD = "";
+			$obj->DISPLAY_FIELD_BY_LANG = array('ar'=>['firstname','lastname', 'email'], 'en'=>['firstname_en','lastname_en', 'email'],);
 			$obj->ORDER_BY_FIELDS = "orgunit_id, employee_id, email";
 
 
@@ -25,7 +25,7 @@ class AdmAdmEmpRequestAfwStructure
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
-			// $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
+			$obj->after_save_edit = array("class"=>'AdmOrgunit',"formulaAttribute"=>'adm_orgunit_id', "currmod"=>'adm',"currstep"=>2);
 		} else {
 			AdmEmpRequestArTranslator::initData();
 			AdmEmpRequestEnTranslator::initData();
@@ -57,7 +57,7 @@ class AdmAdmEmpRequestAfwStructure
 			'RETRIEVE' => true,
 			'EDIT' => true,
 			'QEDIT' => false,
-			'EDIT_IF_EMPTY' => true,
+
 			'SIZE' => 40,
 			'MANDATORY' => true,
 			'UTF8' => false,
@@ -67,9 +67,9 @@ class AdmAdmEmpRequestAfwStructure
 			'ANSMODULE' => 'hrm',
 			'DEPENDENT_OFME' => ['employee_id'],
 			'WHERE' => "me.id in (select orgunit_id from §DBPREFIX§adm.adm_orgunit where active='Y')",
-
 			'RELATION' => 'ManyToOne',
 			'READONLY' => true,
+			/*'EDIT_IF_EMPTY' => true,*/
 			'SEARCH-BY-ONE' => true,
 			'DISPLAY' => true,
 			'STEP' => 1,
@@ -81,19 +81,19 @@ class AdmAdmEmpRequestAfwStructure
 
 
 
-					'adm_orgunit_id' => array(
-						'SHORTNAME' => 'corgunit',
-						'SIZE' => 40,
-						'CSS' => 'width_pct_25',
-						'TYPE' => 'FK',
-						'ANSWER' => 'adm_orgunit',
-						'ANSMODULE' => 'adm',
-						'CATEGORY' => 'FORMULA',
-						'RELATION' => 'OneToMany',
-						'DISPLAY-UGROUPS' => '',
-						'EDIT-UGROUPS' => '',
-						'ERROR-CHECK' => true,
-					),
+		'adm_orgunit_id' => array(
+			'SHORTNAME' => 'corgunit',
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'FK',
+			'ANSWER' => 'adm_orgunit',
+			'ANSMODULE' => 'adm',
+			'CATEGORY' => 'FORMULA',
+			'RELATION' => 'OneToMany',
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+		),
 
 		'employee_id' => array(
 			'SHORTNAME' => 'employee',
@@ -104,7 +104,8 @@ class AdmAdmEmpRequestAfwStructure
 			'RETRIEVE' => true,
 			'EDIT' => true,
 			'QEDIT' => false,
-			'EDIT_IF_EMPTY' => true,
+			'READONLY' => true,
+			/* 'EDIT_IF_EMPTY' => true, */
 			'CSS' => 'width_pct_25',
 			'SIZE' => 40,
 			'MANDATORY' => false,
@@ -114,7 +115,7 @@ class AdmAdmEmpRequestAfwStructure
 			'ANSMODULE' => 'hrm',
 			'WHERE' => "id_sh_div = §orgunit_id§ or id_sh_dep = §orgunit_id§", /* and jobrole_mfk like '%,117,%'*/
 			'DEPENDENCY' => 'orgunit_id',
-			'RELATION' => 'ManyToOne',			
+			'RELATION' => 'ManyToOne',
 			'SEARCH-BY-ONE' => false,
 			'DISPLAY' => true,
 			'STEP' => 1,
@@ -151,8 +152,9 @@ class AdmAdmEmpRequestAfwStructure
 			'SIZE' => 16,
 			'UTF8' => false,
 			'CSS' => 'width_pct_25',
-			'TYPE' => 'enum',
+			'TYPE' => 'ENUM',
 			'ANSWER' => 'FUNCTION',
+			'FUNCTION_COL_NAME' => 'genre_enum',
 			'DEFAUT' => 1,
 			'STEP' => 2,
 			'SEARCH-BY-ONE' => '',
@@ -160,7 +162,32 @@ class AdmAdmEmpRequestAfwStructure
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
-			'CSS' => 'width_pct_25',
+			'CSS' => 'width_pct_50',
+		),
+		
+		'hierarchy_level_enum' => array(
+			'SEARCH' => true,
+			'SHOW' => true,
+			'RETRIEVE' => false,
+			'EDIT' => true,
+			'QEDIT' => true,
+			'SIZE' => 40,
+			'SEARCH-ADMIN' => true,
+			'SHOW-ADMIN' => true,
+			'EDIT-ADMIN' => true,
+			'UTF8' => false,
+			'TYPE' => 'ENUM',
+			'ANSWER' => 'FUNCTION',
+			'DEFAUT' => 1,
+			'SHORTNAME' => 'lang',
+			'SEARCH-BY-ONE' => '',
+			'DISPLAY' => true,
+			'STEP' => 2,
+			'MANDATORY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'DEFAUT' => 0,
+			'CSS' => 'width_pct_50',
 		),
 
 		'firstname' => array(
@@ -206,7 +233,7 @@ class AdmAdmEmpRequestAfwStructure
 			'ERROR-CHECK' => true,
 			'CSS' => 'width_pct_50',
 		),
-
+		
 		'lastname_en' => array(
 			'TYPE' => 'TEXT',
 			'EDIT' => true,
@@ -269,12 +296,7 @@ class AdmAdmEmpRequestAfwStructure
 			'CSS' => 'width_pct_100',
 		),
 
-		'hierarchy_level_enum' => array('SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'SIZE' => 40,  'SEARCH-ADMIN' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',   'DEFAUT' => 1,  'SHORTNAME' => 'lang',  
-				'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 2,  'MANDATORY' => true,
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  'DEFAUT' => 1, 
-				'CSS' => 'width_pct_50',
-				),
+		
 
 		'approved' => array(
 			'SHOW' => true,
@@ -291,7 +313,7 @@ class AdmAdmEmpRequestAfwStructure
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'READONLY' => true,
-			'CSS' => 'width_pct_50',
+			'CSS' => 'width_pct_25',
 		),
 
 		'reject_reason' => array(
@@ -299,7 +321,7 @@ class AdmAdmEmpRequestAfwStructure
 			'EDIT' => true,
 			'QEDIT' => false,
 			'UTF8' => true,
-			'SIZE' => 'AEREA',
+			'SIZE' => '128',
 			'CSS' => 'width_pct_100',
 			'MB_CSS' => 'width_pct_100',
 			'ROWS' => 7,
@@ -309,6 +331,7 @@ class AdmAdmEmpRequestAfwStructure
 			'EDIT-UGROUPS' => '',
 			//'ERROR-CHECK' => true,
 			'READONLY' => true,
+			'CSS' => 'width_pct_75',
 		),
 
 
@@ -329,9 +352,9 @@ class AdmAdmEmpRequestAfwStructure
 		),
 
 
-		
-		
-		
+
+
+
 
 		'created_by'         => array(
 			'STEP' => 99,

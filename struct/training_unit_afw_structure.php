@@ -155,7 +155,7 @@
                                                         'CSS' => 'width_pct_75',
                                                         'TYPE' => 'FK',
                                                         'ANSWER' => 'adm_orgunit',
-                                                        'ANSMODULE' => 'hrm',
+                                                        'ANSMODULE' => 'adm',
                                                         'CATEGORY' => 'FORMULA',
                                                         'RELATION' => 'OneToOneU',
                                                         'OTM-NO-LABEL' => true,

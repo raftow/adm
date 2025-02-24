@@ -31,6 +31,8 @@
     $messages["has failed"] = "فشل";
     $messages["has succeeded"] = "نجح";
     $messages["Are you sure ?"] = "هل أنت متأكد؟";
+    $messages["You formally agree that this employee belongs to this organization"] = "أنت توافق بشكل رسمي على أن هذا الموظف ينتمي إلى هذه المؤسسة";
+    $messages["Are you sure you want to do this approve ?"] = "هل أنت متأكد من أنك تريد اجراء هذا الاعتماد؟";
     $messages["This will enable or disable the use of this API to update applicant fields"] = "سوف تقوم بتفعيل أو تعطيل استخدام هذه الخدمة الالكترونية في تحديث بيانات المتقدم";
     $messages["This will show or hide the appearance of this condition in gate frontend"] = "سوف تقوم باظهار أو اخفاء الشرط على المتقدم في الواجهة الرئيسية";
     
@@ -56,6 +58,9 @@
     $messages["Crowd desires"] = "دفع الرغبات إلى الأمام";
     $messages["This track is not available"] = "هذا المسار غير متوفر";
     $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تطبيق الشروط لعدم توفر بيانات محدثة";
+    $messages["This employee is not from"] = "هذا الموظف ليس من";  
+    $messages["but from"] = "وإنما من";
+    $messages["The empolyee account has been approved, he can use it now"] = "تم اعتماد حساب الموظف يمكنه استخدامه الآن";
     
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       

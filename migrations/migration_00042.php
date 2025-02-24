@@ -2,7 +2,7 @@
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
-/**/
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   comments varchar(128)  DEFAULT NULL  AFTER desire_status_enum;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_step add step_code varchar(3)  NOT NULL  AFTER step_name_en;");
 
@@ -11,7 +11,7 @@ AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."ums.jobrole SET id=214, 
 
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.adm_emp_request;");  
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."`adm_emp_request` (
+AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`adm_emp_request` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -115,3 +115,4 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`adm_
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."hrm.orgunit add   titre_en varchar(48)  DEFAULT NULL  AFTER titre_short_en;");
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.institution add   orgunit_id int(11) NOT NULL  AFTER simulation_applicants_ids;");
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.training_unit add orgunit_id int(11) DEFAULT NULL  AFTER `description`;");
+  AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program_offering add   program_track_id int(11) DEFAULT NULL  AFTER academic_program_id;");

@@ -15,10 +15,16 @@ class AdmEmpRequestArTranslator{
         
         $trad["adm_emp_request"]["employee_id"] = "الموظف";
 
-
+        
+        $trad["adm_emp_request"]["gender_id"] = "الجنس";
         $trad["adm_emp_request"]["active"] = "نشط";
-        $trad["adm_emp_request"]["approved"] = "طلب مقبول؟"; 
-        $trad["adm_emp_request"]["reject_reason"] = "سبب الرفض ";
+        $trad["adm_emp_request"]["approved"] = "تم عكس البيانات على حساب الموظف؟"; 
+        $trad["adm_emp_request"]["approved.YES"] = "نعم";
+		$trad["adm_emp_request"]["approved.NO"]  = "لا";
+		$trad["adm_emp_request"]["approved.EUH"] = "جاري العمل عليه";
+
+
+        $trad["adm_emp_request"]["reject_reason"] = "ملاحظات";
 
         $trad["adm_emp_request"]["firstname"] = "الاسم الأول";
 		$trad["adm_emp_request"]["lastname"] = "اسم العائلة";
@@ -30,7 +36,7 @@ class AdmEmpRequestArTranslator{
         $trad["adm_emp_request"]["hierarchy_level_enum"] = "المستوى في الهيكل الوظيفي";
 
         $trad["adm_emp_request"]["step1"] = "بيانات التعريف";
-        $trad["adm_emp_request"]["step2"] = "البيانات الشخصية";
+        $trad["adm_emp_request"]["step2"] = "بيانات الموظف";
 
         
         return $trad;

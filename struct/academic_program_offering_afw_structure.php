@@ -13,6 +13,8 @@
         update academic_program_offering set active='Y', version=0,created_by=1,created_at='2024-04-15';
 
         update `academic_program_offering` po set po.`gender_enum` = (select gender_enum from training_unit t where t.id = po.training_unit_id);
+
+        update uoh_adm.`academic_program_offering` po set po.`program_track_id` = (select program_track_id from uoh_adm.academic_program t where t.id = po.academic_program_id);
         */
         class AdmAcademicProgramOfferingAfwStructure
         {
@@ -81,12 +83,20 @@
                                         'academic_program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,    'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,   
-                                                'WHERE'=>"(academic_level_id in (select academic_level_id from §DBPREFIX§adm.academic_level_offering where training_unit_id = §training_unit_id§)) and (department_id = §department_id§ or §department_id§=0) and (major_id = §major_id§ or §major_id§ = 0) and genders_enum in (3,§gender_enum§)",
-                                                'DEPENDENCIES' => array("major_id", "department_id", 'academic_level_id', 'gender_enum',),
-                                                'DEPENDENT_OFME' => array("training_unit_id", ), 
+                                                'WHERE'=>"(academic_level_id in (select academic_level_id from §DBPREFIX§adm.academic_level_offering where training_unit_id = §training_unit_id§)) and (department_id = §department_id§ or §department_id§=0) and (major_id = §major_id§ or §major_id§ = 0) and genders_enum in (3,4,§gender_enum§)",
+                                                'DEPENDENCIES' => array("major_id", "department_id", 'academic_level_id', 'gender_enum', 'training_unit_id',),
+                                                // 'DEPENDENT_OFME' => array(, ), 
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),	
+                                                'CSS' => 'width_pct_50', ),
+                                                
+                                                'program_track_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 99,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'DEPENDENT_OFME' => array("college_id"),
+                                                        'CSS' => 'width_pct_50', ),	
 
                                         
                                                 'academic_level_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -115,7 +125,7 @@
                                                 'CSS' => 'width_pct_75', ),*/
                                                 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1, 'CHECKBOX' => true,
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 

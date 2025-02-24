@@ -4089,6 +4089,19 @@ td.end.calculated>div, td.end.calculated>label {
     font-weight: normal;
 }
 
+
+.icon-387:before {
+    content: "\f1ad";
+    font-weight: normal;
+}
+
+
+.icon-388:before {
+    content: "\f2bd";
+    font-weight: normal;
+}
+
+
 .bficon-104610:before,
 .bficon-104615:before {
     content: "\f19d";
@@ -4384,4 +4397,9 @@ div#div_data_weighted_percentage_details {
     direction: ltr;
     text-align: left;
     min-height: 180px;
+}
+
+div#fg-majorDepartmentList .fright.otln {
+    width: 50% !important;
+    height: 44px;
 }

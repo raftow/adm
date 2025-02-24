@@ -49,6 +49,18 @@
   array (
     'name' => 'acondition_type',
   ),
+  13940 => 
+  array (
+    'name' => 'adm_employee',
+  ),
+  13941 => 
+  array (
+    'name' => 'adm_emp_request',
+  ),
+  13939 => 
+  array (
+    'name' => 'adm_orgunit',
+  ),
   13858 => 
   array (
     'name' => 'aparameter',
@@ -84,6 +96,10 @@
   13917 => 
   array (
     'name' => 'application',
+  ),
+  13938 => 
+  array (
+    'name' => 'application_condition_exec',
   ),
   13931 => 
   array (
@@ -763,6 +779,138 @@
       'id' => -1,
     ),
   ),
+  'adm_employee' => 
+  array (
+    'id' => '13940',
+    'display' => 
+    array (
+      'id' => '104844',
+    ),
+    'search' => 
+    array (
+      'id' => '104845',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104846',
+    ),
+    'edit' => 
+    array (
+      'id' => '104841',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104842',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104847',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104843',
+    ),
+  ),
+  'adm_emp_request' => 
+  array (
+    'id' => '13941',
+    'display' => 
+    array (
+      'id' => '104851',
+    ),
+    'search' => 
+    array (
+      'id' => '104852',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104853',
+    ),
+    'edit' => 
+    array (
+      'id' => '104848',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104849',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104854',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104850',
+    ),
+  ),
+  'adm_orgunit' => 
+  array (
+    'id' => '13939',
+    'display' => 
+    array (
+      'id' => '104858',
+    ),
+    'search' => 
+    array (
+      'id' => '104859',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104860',
+    ),
+    'edit' => 
+    array (
+      'id' => '104855',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104856',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104861',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104857',
+    ),
+  ),
   'aparameter' => 
   array (
     'id' => '13858',
@@ -1157,6 +1305,50 @@
     'delete' => 
     array (
       'id' => '104836',
+    ),
+  ),
+  'application_condition_exec' => 
+  array (
+    'id' => '13938',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
     ),
   ),
   'application_desire' => 
@@ -2955,6 +3147,55 @@
           'css' => 'bf',
           'icon' => ' bficon-104839 bfc-',
         ),
+      ),
+      'sub-folders' => 
+      array (
+      ),
+    ),
+  ),
+  388 => 
+  array (
+    'code' => 'goal-supervisor',
+    'name' => 
+    array (
+      'ar' => 'الاشراف العام',
+      'en' => 'arole.388',
+    ),
+    'menu' => 
+    array (
+      'need_admin' => false,
+      'id' => '388',
+      'menu_name_ar' => 'الاشراف العام',
+      'menu_name_en' => 'arole.388',
+      'page' => 'main.php?Main_Page=fm.php&a=1282&r=388',
+      'css' => 'info',
+      'icon' => ' icon-388',
+      'showme' => true,
+      'items' => 
+      array (
+        104860 => 
+        array (
+          'id' => '104860',
+          'code' => 'f2-a-adm_orgunit/qsearch',
+          'menu_name_ar' => 'إدارات قبول وتسجيل الطلاب',
+          'menu_name_en' => 'Adm orgunits',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmOrgunit&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104860 bfc-',
+        ),
+       
+        104846 => 
+        array (
+          'id' => '104846',
+          'code' => 'f2-a-adm_employee/qsearch',
+          'menu_name_ar' => 'منسقي القبول والتسجيل',
+          'menu_name_en' => 'Adm employees',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmEmployee&currmod=adm',
+          'css' => 'bf',
+          'icon' => ' bficon-104846 bfc-',
+        ),
+        
+        
       ),
       'sub-folders' => 
       array (

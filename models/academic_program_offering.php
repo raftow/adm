@@ -174,6 +174,7 @@
                                         $this->set("department_id", $acadProg->getVal("department_id"));
                                         $this->set("major_id", $acadProg->getVal("major_id"));
                                         $this->set("degree_id", $acadProg->getVal("degree_id"));
+                                        $this->set("program_track_id", $acadProg->getVal("program_track_id"));
                                 }
                         }
                 }

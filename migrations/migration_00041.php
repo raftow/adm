@@ -5,3 +5,5 @@ $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
 // 198 ادارة المتقدمين 
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'application', 198, "+t", "qsearch", null);
+
+$migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'application', 198, "+t", "qsearch", null);

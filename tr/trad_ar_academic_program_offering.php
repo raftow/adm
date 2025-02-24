@@ -17,7 +17,7 @@
 	$trad["academic_program_offering"]["academic_program_id"] = "البرنامج الأكاديمي";
 	$trad["academic_program_offering"]["degree_id"] = "شهادة التخرج";
 	$trad["academic_program_offering"]["training_unit_id"] = "المنشأة المنفذة";
-	
+	$trad["academic_program_offering"]["program_track_id"] =  "مسار البرنامج";
 	$trad["academic_program_offering"]["gender_enum"] = "جنس المتدربين";
 	$trad["academic_program_offering"]["department_id"] = "القسم";
 	$trad["academic_program_offering"]["major_id"] = "تخصص البرنامح";

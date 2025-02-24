@@ -218,7 +218,7 @@
                                 seats_capacity, direct_adm_capacity, deaf_specialty,is_open,allow_direct_adm,
                                 confirmation_days, application_end_date, hijri_application_end_date)
                                 select $me, now(), $me, now(), amb.active, 0 as version, 431 as sci_id,
-                                        $academic_level_id, $gender_enum, $term_id, $this_id, 
+                                        $academic_level_id, amb.gender_enum, $term_id, $this_id, 
                                         amb.academic_program_id, amb.training_unit_id, amb.department_id, amb.major_id,  
                                         amb.program_offering_id, amb.id,
                                         amb.seats_capacity, amb.direct_adm_capacity, amb.deaf_specialty, amb.is_open, IF(amb.direct_adm_capacity>0, 'Y','N') as allow_direct_adm,

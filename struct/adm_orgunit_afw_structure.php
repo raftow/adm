@@ -67,7 +67,7 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',  'ERROR-CHECK' => true, 
 				),*/
 
-					'allEmployeeList' => array('STEP' => 2, 'FGROUP' => 'allEmployeeList',  
+					'allEmployeeList' => array('STEP' => 3, 'FGROUP' => 'allEmployeeList',  
 							'TYPE' => 'FK',  'ANSWER' => 'adm_employee',  'ANSMODULE' => 'adm',  
 							'CATEGORY' => 'ITEMS',  'ITEM' => '',  
 							'WHERE' => "orgunit_id = §orgunit_id§", 
