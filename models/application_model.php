@@ -908,6 +908,278 @@
                         return 0;
                 }
 
+                public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","uoh_");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+                       // adm.institution-محاكاة نموذج القبول	application_model_id  أنا تفاصيل لها (required field)
+                        // require_once "../adm/institution.php";
+                        $obj = new Institution();
+                        $obj->where("application_model_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some Institutions(s) as Simulate the application model";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("application_model_id = '$id' and active='N'");
+
+
+                        
+                   // FK part of me - deletable 
+                       // adm.program_track-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/program_track.php";
+                            ProgramTrack::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.program_track where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_plan-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_plan.php";
+                            ApplicationPlan::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_plan where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_model_branch-نموذج القبول	application_model_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_branch.php";
+                            ApplicationModelBranch::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_model_branch where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.app_model_api-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/app_model_api.php";
+                            AppModelApi::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.app_model_api where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.acondition_origin_scope-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition_origin_scope.php";
+                            AconditionOriginScope::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.acondition_origin_scope where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application.php";
+                            Application::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_step-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_step.php";
+                            ApplicationStep::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_step where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_model_condition-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_condition.php";
+                            ApplicationModelCondition::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_model_condition where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+                       // adm.application_model_field-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::removeWhere("application_model_id='$id'");
+                            // $this->execQuery("delete from ${server_db_prefix}adm.application_model_field where application_model_id = '$id' ");
+                            
+                        } 
+                        
+                        
+
+                   
+                   // FK not part of me - replaceable 
+                       // adm.aparameter_value-تخصيص على نموذج القبول	application_model_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/aparameter_value.php";
+                            AparameterValue::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.aparameter_value set application_model_id='$id_replace' where application_model_id='$id' ");
+                        }
+
+                        
+                   
+                   // MFK
+                       // adm.acondition_origin-نماذج القبول المعنية	application_model_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition_origin.php";
+                            AconditionOrigin::updateWhere(array('application_model_mfk'=>"REPLACE(application_model_mfk, ',$id,', ',')"), "application_model_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition_origin set application_model_mfk=REPLACE(application_model_mfk, ',$id,', ',') where application_model_mfk like '%,$id,%' ");
+                        }
+                        
+
+               }
+               else
+               {
+                        // FK on me 
+ 
+
+                        // adm.institution-محاكاة نموذج القبول	application_model_id  أنا تفاصيل لها (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/institution.php";
+                            Institution::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.institution set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        } 
+                        
+
+                       // adm.program_track-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/program_track.php";
+                            ProgramTrack::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.program_track set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_plan-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_plan.php";
+                            ApplicationPlan::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_plan set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_model_branch-نموذج القبول	application_model_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_branch.php";
+                            ApplicationModelBranch::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_branch set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.app_model_api-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/app_model_api.php";
+                            AppModelApi::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.acondition_origin_scope-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition_origin_scope.php";
+                            AconditionOriginScope::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition_origin_scope set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application.php";
+                            Application::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_step-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_step.php";
+                            ApplicationStep::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_step set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_model_condition-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_condition.php";
+                            ApplicationModelCondition::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_condition set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.application_model_field-نموذج القبول	application_model_id  أنا تفاصيل لها
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_model_field.php";
+                            ApplicationModelField::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_model_field set application_model_id='$id_replace' where application_model_id='$id' ");
+                            
+                        }
+                        
+                       // adm.aparameter_value-تخصيص على نموذج القبول	application_model_id  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/aparameter_value.php";
+                            AparameterValue::updateWhere(array('application_model_id'=>$id_replace), "application_model_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.aparameter_value set application_model_id='$id_replace' where application_model_id='$id' ");
+                        }
+
+                        
+                        // MFK
+                       // adm.acondition_origin-نماذج القبول المعنية	application_model_mfk  حقل يفلتر به
+                        if(!$simul)
+                        {
+                            // require_once "../adm/acondition_origin.php";
+                            AconditionOrigin::updateWhere(array('application_model_mfk'=>"REPLACE(application_model_mfk, ',$id,', ',$id_replace,')"), "application_model_mfk like '%,$id,%'");
+                            // $this->execQuery("update ${server_db_prefix}adm.acondition_origin set application_model_mfk=REPLACE(application_model_mfk, ',$id,', ',$id_replace,') where application_model_mfk like '%,$id,%' ");
+                        }
+
+                   
+               } 
+               return true;
+            }    
+	}
+
 
         }
+
+        
 ?>
