@@ -189,6 +189,26 @@
                                                 'CSS' => 'width_pct_50',),
 
 
+                                        'program_rank' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'UTF8' => true,  
+                                                'TYPE' => 'INT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+
+
+                                        'program_file_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'workflow_file',  'ANSMODULE' => 'workflow',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50', ),
+                                        
+                                        'program_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '100', 'UTF8' => false,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+                                        
                                         'academicProgramOfferingList' => array('TYPE' => 'FK', 'ANSWER' => 'academic_program_offering', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'academic_program_id', 'STEP' => 3,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
