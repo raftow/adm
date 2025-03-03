@@ -60,7 +60,7 @@
                 $student_title = "المتقدم";                                                        
                 
                 $config["img-path"] = "pic/";
-                $config["img-company-path"] = "../external/pic/";
+                // $config["img-company-path"] = "../exte-rnal/pic/";
                 
                 $display_in_edit_mode["*"] = true;
 
