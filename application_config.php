@@ -69,8 +69,6 @@ $config_arr = array(
         'register_file' => "customer_register",
 
         
-        // smtp email config can be found in external folder
-        
         // APPLICATION SETTINGS
         'MODE_DEVELOPMENT' => true,
 
