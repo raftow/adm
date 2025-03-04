@@ -32,7 +32,10 @@
     $trad["academic_program"]["old_name_ar"] = "الاسم القديم للبرنامج التدريبي"; //  بالعربية
 	$trad["academic_program"]["program_title"] = "مسمى آخر للبرنامج التدريبي"; //  to see with amjad where we need this field ???
 	
-
+	$trad["academic_program"]["program_rank"] = "ترتيب البرنامج"; 
+	$trad["academic_program"]["program_file_id"] = "صورة البرنامج";
+	$trad["academic_program"]["program_instructions"] = "وصف البرنامج"; 
+	
 
 
 	 
