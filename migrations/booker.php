@@ -46,5 +46,7 @@ $migrations = [
     '00040' => ['by'=>'medali', 'title' => 'add prospect qualification table'],
     '00041' => ['by'=>'rafik', 'title' => 'UOH+TVTC more settings'],
     '00042' => ['by'=>'rafik', 'title' => 'Check program track availability & do sorting (farz)'],
+    '00043' => ['by'=>'medali', 'title' => 'add column to academic_program'],
+
 ];
 
