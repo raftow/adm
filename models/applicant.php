@@ -1,9 +1,5 @@
 <?php
 // rafik 18/9/2024 : ALTER TABLE `applicant` CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;
-/*
-$main_company = AfwSession::config("main_company", "all");
-$file_dir_name = dirname(__FILE__);
-require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");*/
 
 class Applicant extends AdmObject
 {
@@ -216,7 +212,7 @@ class Applicant extends AdmObject
                 if (!$additional_fields) {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
+                        require_once($file_dir_name . "/..../client-$main_company/extra/applicant_additional_fields-$main_company.php");
                 }
 
                 $return = $additional_fields[$field_name];
@@ -297,7 +293,7 @@ class Applicant extends AdmObject
                 if (!$additional_fields) {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
+                        require_once($file_dir_name . "/../../client-$main_company/extra/applicant_additional_fields-$main_company.php");
                 }
 
                 if ($additional_fields) {
@@ -664,7 +660,7 @@ class Applicant extends AdmObject
         {
                 $main_company = AfwSession::config("main_company", "all");
                 $file_dir_name = dirname(__FILE__);
-                require_once($file_dir_name . "/../extra/qualification_level-$main_company.php");
+                require_once($file_dir_name . "/../../client-$main_company/extra/qualification_level-$main_company.php");
                 // $lookup
                 foreach ($lookup as $lookup_level => $lookupItem) {
                         foreach ($lookupItem["attributes"] as $attributeConfig) {
@@ -956,7 +952,7 @@ class Applicant extends AdmObject
                                 $classFM = AfwStringHelper::firstCharUpper($main_company) . "ApplicantFormulaManager";
                                 if (!class_exists($classFM)) {
                                         $file_dir_name = dirname(__FILE__);
-                                        require_once($file_dir_name . "/../extra/applicant_additional_fields-$main_company.php");
+                                        require_once($file_dir_name . "/../../client-$main_company/extra/applicant_additional_fields-$main_company.php");
                                 }
                                 return $classFM::$formulaMethod($this, $what);
                         }

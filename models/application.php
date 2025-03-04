@@ -1,8 +1,4 @@
 <?php
-$main_company = AfwSession::config("main_company", "all");
-$file_dir_name = dirname(__FILE__);
-require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");
-
 class Application extends AdmObject
 {
         /**
@@ -178,7 +174,7 @@ class Application extends AdmObject
                 if (!$application_additional_fields) {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");
+                        require_once($file_dir_name . "/../../client-$main_company/extra/application_additional_fields-$main_company.php");
                 }
 
                 $return = $application_additional_fields[$field_name];
@@ -232,7 +228,7 @@ class Application extends AdmObject
                                 $classFM = AfwStringHelper::firstCharUpper($main_company) . "ApplicationFormulaManager";
                                 if (!class_exists($classFM)) {
                                         $file_dir_name = dirname(__FILE__);
-                                        require_once($file_dir_name . "/../extra/application_additional_fields-$main_company.php");
+                                        require_once($file_dir_name . "/../../client-$main_company/extra/application_additional_fields-$main_company.php");
                                 }
                                 return $classFM::$formulaMethod($this, $what);
                         }

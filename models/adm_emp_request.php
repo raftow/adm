@@ -262,7 +262,8 @@ class AdmEmpRequest extends AdmObject
                                                 if($lang=="ar") $reject_reason = $emplObj_name_ar . " : " . $this->tm("This employee is not from", "ar") . " $org_name_ar " . $this->tm("but from", "ar") . " $sh_name_ar";
                                                 else $reject_reason = $emplObj_name_en . " : " . $this->tm("This employee is not from", "en") . " $org_name_en " . $this->tm("but from", "en") . " $sh_name_en";
                                                 $this->set("approved", "N");
-                                                $technical = $this->set("reject_reason", $reject_reason);
+                                                $this->set("reject_reason", $reject_reason);
+                                                $technical = $reject_reason;
                                                 $warning = $this->tm("The empolyee account has been rejected", $lang);
                                         }
                                 }
