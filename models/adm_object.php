@@ -469,7 +469,7 @@ class AdmObject extends AfwMomkenObject{
 
                 $main_company = AfwSession::config("main_company","all");
                 $file_dir_name = dirname(__FILE__);        
-                include($file_dir_name."/../extra/qualification_level-$main_company.php");
+                include($file_dir_name."/../../client-$main_company/extra/qualification_level-$main_company.php");
 
                 foreach($lookup as $id => $lookup_row)
                 {
@@ -1000,7 +1000,7 @@ class AdmObject extends AfwMomkenObject{
                 $api_runner_class = AfwStringHelper::tableToClass($api_runner_file);
                 if (!class_exists($api_runner_class, false)) {
                         $file_dir_name = dirname(__FILE__);
-                        require($file_dir_name . "/../extra/$api_runner_file.php");
+                        require($file_dir_name . "/../../client-$main_company/extra/$api_runner_file.php");
                 }
 
                 return $api_runner_class;
@@ -1013,7 +1013,7 @@ class AdmObject extends AfwMomkenObject{
                 $tunit_to_orgunit_class = AfwStringHelper::tableToClass($tunit_to_orgunit_file);
                 if (!class_exists($tunit_to_orgunit_class, false)) {
                         $file_dir_name = dirname(__FILE__);
-                        require($file_dir_name . "/../extra/$tunit_to_orgunit_file.php");
+                        require($file_dir_name . "/../../client-$main_company/extra/$tunit_to_orgunit_file.php");
                 }
 
                 return $tunit_to_orgunit_class;
@@ -1032,7 +1032,7 @@ class AdmObject extends AfwMomkenObject{
                 $main_company = AfwSession::config("main_company","all");
                 $current_domain = 25;
                 $file_dir_name = dirname(__FILE__);        
-                include($file_dir_name."/../../ums/extra/hierarchy_level-$main_company.php");
+                include($file_dir_name."/../../client-$main_company/extra/hierarchy_level-$main_company.php");
 
                 foreach($hierarchy_level as $id => $lookup_row)
                 {

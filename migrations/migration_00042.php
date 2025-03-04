@@ -116,3 +116,102 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`adm_
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.institution add   orgunit_id int(11) NOT NULL  AFTER simulation_applicants_ids;");
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.training_unit add orgunit_id int(11) DEFAULT NULL  AFTER `description`;");
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program_offering add   program_track_id int(11) DEFAULT NULL  AFTER academic_program_id;");
+
+  AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."ums.ugroup;");
+
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."ums.`ugroup` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id_aut` int(11) NOT NULL,
+    `date_aut`   datetime NOT NULL,
+    `id_mod` int(11) NOT NULL,
+    `date_mod` datetime NOT NULL,
+    `id_valid` int(11) DEFAULT NULL,
+    `date_valid` datetime DEFAULT NULL,
+    `avail` char(1) NOT NULL,
+    `draft` char(1) NOT NULL default  'Y' ,
+    `version` int(4) DEFAULT NULL,
+    `update_groups_mfk` varchar(255) DEFAULT NULL,
+    `delete_groups_mfk` varchar(255) DEFAULT NULL,
+    `display_groups_mfk` varchar(255) DEFAULT NULL,
+    `sci_id` int(11) DEFAULT NULL,
+    
+      
+     titre_short_ar varchar(32)  DEFAULT NULL , 
+     titre_short_en varchar(48)  DEFAULT NULL ,  
+     module_id int(11) NOT NULL , 
+     ugroup_type_id int(11) DEFAULT NULL , 
+     ugroup_scope_id int(11) DEFAULT NULL , 
+     definition varchar(32)  DEFAULT NULL , 
+  
+    
+    PRIMARY KEY (`id`)
+  ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
+  
+  AfwDatabase::db_query("CREATE unique index uk_ugroup on ".$server_db_prefix."ums.ugroup((module_id,ugroup_type_id,ugroup_scope_id,definition);");
+
+
+  AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."ums.ugroup_type;");
+
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."ums.`ugroup_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aut` int(11) NOT NULL,
+  `date_aut`   datetime NOT NULL,
+  `id_mod` int(11) NOT NULL,
+  `date_mod` datetime NOT NULL,
+  `id_valid` int(11) DEFAULT NULL,
+  `date_valid` datetime DEFAULT NULL,
+  `avail` char(1) NOT NULL,
+  `draft` char(1) NOT NULL default  'Y',
+  `version` int(4) DEFAULT NULL,
+  `update_groups_mfk` varchar(255) DEFAULT NULL,
+  `delete_groups_mfk` varchar(255) DEFAULT NULL,
+  `display_groups_mfk` varchar(255) DEFAULT NULL,
+  `sci_id` int(11) DEFAULT NULL,
+  
+    
+   lkp_code varchar(16)  DEFAULT NULL , 
+   titre_short_ar varchar(32)  DEFAULT NULL , 
+   titre_short_en varchar(48)  DEFAULT NULL , 
+
+  
+  PRIMARY KEY (`id`)
+) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
+
+
+
+
+AfwDatabase::db_query("CREATE unique index uk_ugroup_type on ".$server_db_prefix."ums.ugroup_type(lkp_code);");
+
+
+AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."ums.ugroup_scope;");
+
+AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."ums.`ugroup_scope` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aut` int(11) NOT NULL,
+  `date_aut`   datetime NOT NULL,
+  `id_mod` int(11) NOT NULL,
+  `date_mod` datetime NOT NULL,
+  `id_valid` int(11) DEFAULT NULL,
+  `date_valid` datetime DEFAULT NULL,
+  `avail` char(1) NOT NULL,
+  `draft` char(1) NOT NULL default  'Y' ,
+  `version` int(4) DEFAULT NULL,
+  `update_groups_mfk` varchar(255) DEFAULT NULL,
+  `delete_groups_mfk` varchar(255) DEFAULT NULL,
+  `display_groups_mfk` varchar(255) DEFAULT NULL,
+  `sci_id` int(11) DEFAULT NULL,
+  
+    
+   titre_short_ar varchar(32)  DEFAULT NULL , 
+   titre_short_en varchar(48)  DEFAULT NULL , 
+   ugroup_scope_fn varchar(32)  DEFAULT NULL , 
+   
+
+  
+  PRIMARY KEY (`id`)
+) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
+
+AfwDatabase::db_query("CREATE unique index uk_ugroup_scope on ".$server_db_prefix."ums.ugroup_scope(ugroup_scope_fn);");
+
+
+

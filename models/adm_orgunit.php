@@ -27,7 +27,7 @@ class AdmOrgunit extends AdmObject{
                 $this->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
                 $this->DISPLAY_FIELD = "";
                 $this->ORDER_BY_FIELDS = "orgunit_id";
-                 
+                $this->OwnedBy = array('module' => "adm", 'afw' => "Institution", 'afw2' => "TrainingUnit"); 
                 
                 $this->UNIQUE_KEY = array('orgunit_id');
                 $this->editByStep = true;
