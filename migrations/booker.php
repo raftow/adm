@@ -48,6 +48,7 @@ $migrations = [
     '00042' => ['by'=>'rafik', 'title' => 'Check program track availability & do sorting (farz)'],
     '00043' => ['by'=>'medali', 'title' => 'add column to academic_program'],
     '00044' => ['by'=>'rafik', 'title' => 'UMS and Scope for Admission'],
+    '00045' => ['by'=>'medali','title'=>'add educational zone table'],
 
 ];
 
