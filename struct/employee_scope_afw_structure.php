@@ -16,7 +16,7 @@ class AdmEmployeeScopeAfwStructure
 
 
                         $obj->UNIQUE_KEY = array('start_date', 'end_date');
-
+                        $obj->OwnedBy = array('module' => "adm", 'afw' => "AdmEmployee");
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
@@ -36,7 +36,7 @@ class AdmEmployeeScopeAfwStructure
                 'adm_employee_id' => array(
                         'SHORTNAME' => 'employee',
                         'SEARCH' => true,
-                        'QSEARCH' => false,
+                        'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => true,
@@ -95,7 +95,7 @@ class AdmEmployeeScopeAfwStructure
                 'academic_level_id' => array(
                         'SHORTNAME' => 'level',
                         'SEARCH' => true,
-                        'QSEARCH' => false,
+                        'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => true,
@@ -120,7 +120,7 @@ class AdmEmployeeScopeAfwStructure
                 'application_model_id' => array(
                         'SHORTNAME' => 'model',
                         'SEARCH' => true,
-                        'QSEARCH' => false,
+                        'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => true,
@@ -145,8 +145,8 @@ class AdmEmployeeScopeAfwStructure
 
                 'gender_enum' => array(
                         'SHORTNAME' => 'gender',
-                        'SEARCH' => false,
-                        'QSEARCH' => false,
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
                         'SHOW' => false,
                         'AUDIT' => false,
                         'RETRIEVE' => false,
@@ -167,7 +167,7 @@ class AdmEmployeeScopeAfwStructure
                 'training_unit_type_id' => array(
                         'SHORTNAME' => 'unit_type',
                         'SEARCH' => true,
-                        'QSEARCH' => false,
+                        'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => true,
@@ -191,7 +191,7 @@ class AdmEmployeeScopeAfwStructure
 
                 'training_unit_id' => array(
                         'SHORTNAME' => 'unit',
-                        'SEARCH' => true,
+                        'SEARCH' => false,
                         'QSEARCH' => false,
                         'SHOW' => true,
                         'AUDIT' => false,
