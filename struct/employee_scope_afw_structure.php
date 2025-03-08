@@ -1,26 +1,30 @@
 <?php
 
 
-class AdmApplicantFileAfwStructure
+class AdmEmployeeScopeAfwStructure
 {
         // token separator = §
         public static function initInstance(&$obj)
         {
-                if ($obj instanceof ApplicantFile) {
+                if ($obj instanceof EmployeeScope) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD = "name_ar";
-                        $obj->ORDER_BY_FIELDS = "name_ar";
-                        $obj->UNIQUE_KEY = array('applicant_id', 'workflow_file_id');
+                        $obj->DISPLAY_FIELD = "";
 
-                        $obj->OwnedBy = array('module' => "adm", 'afw' => "Applicant");
+                        // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
+                        $obj->ORDER_BY_FIELDS = "start_date, end_date";
+
+
+
+                        $obj->UNIQUE_KEY = array('start_date', 'end_date');
+
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
-                        $obj->after_save_edit = array("class"=>'Applicant',"attribute"=>'applicant_id', "currmod"=>'adm',"currstep"=>7);
-                        // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicantFile', "submit" => true);
+                        $obj->after_save_edit = array("class"=>'AdmEmployee',"attribute"=>'adm_employee_id', "currmod"=>'adm',"currstep"=>2);
+                        // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'EmployeeScope', "submit" => true);
                 } else {
-                        ApplicantFileArTranslator::initData();
-                        ApplicantFileEnTranslator::initData();
+                        EmployeeScopeArTranslator::initData();
+                        EmployeeScopeEnTranslator::initData();
                 }
         }
 
@@ -29,53 +33,30 @@ class AdmApplicantFileAfwStructure
         array(
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
-                'applicant_id' => array(
-                        'SHORTNAME' => 'applicant',
+                'adm_employee_id' => array(
+                        'SHORTNAME' => 'employee',
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => true,
                         'EDIT' => true,
-                        'QEDIT' => true,
+                        'QEDIT' => false,
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
                         'UTF8' => false,
                         'TYPE' => 'FK',
-                        'ANSWER' => 'applicant',
+                        'ANSWER' => 'adm_employee',
                         'ANSMODULE' => 'adm',
                         'RELATION' => 'OneToMany',
                         'READONLY' => true,
+                        'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
 
-                'idn' => array(
-                        'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
-                        "CLAUSE-WHERE-COL" => 'id',
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => '32',
-                        'MAXLENGTH' => '32',
-                        'TYPE' => 'TEXT',
-                        'DISPLAY' => true,
-                        'STEP' => 1,
-                        'REQUIRED' => true,
-                        'READONLY' => true,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'TEXT-SEARCHABLE-SEPARATED' => true,
-                        'FORMAT' => 'ALPHA-NUMERIC',
-                        'CSS' => 'width_pct_50'
-                ),
-
-                'workflow_file_id' => array(
-                        'SHORTNAME' => 'file',
+                'start_date' => array(
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -83,99 +64,36 @@ class AdmApplicantFileAfwStructure
                         'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
+                        'SIZE' => 10,
+                        'MAXLENGTH' => 10,
                         'MIN-SIZE' => 1,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'FORMAT' => 'LONG',
                         'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'workflow_file',
-                        'ANSMODULE' => 'workflow',
-                        'RELATION' => 'OneToOneU',
-                        'READONLY' => true,
-                        'CSS' => 'width_pct_50',
+                        'TYPE' => 'DATE',
+                        'CSS' => 'width_pct_25',
                 ),
 
-                'name_ar' => array(
+                'end_date' => array(
                         'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE-AR' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 128,
-                        'MAXLENGTH' => 128,
-                        'MIN-SIZE' => 5,
-                        'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",
-                        'MANDATORY' => true,
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'name_en' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE-EN' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 128,
-                        'MAXLENGTH' => 128,
-                        'MIN-SIZE' => 5,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'MANDATORY' => true,
-                        'UTF8' => false,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'desc_ar' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 'AREA',
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                
-
-                'desc_en' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
+                        'QSEARCH' => false,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => false,
                         'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 'AREA',
-                        'MAXLENGTH' => 32,
+                        'QEDIT' => true,
+                        'SIZE' => 10,
+                        'MAXLENGTH' => 10,
                         'MIN-SIZE' => 1,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'FORMAT' => 'LONG',
                         'UTF8' => false,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
+                        'TYPE' => 'DATE',
+                        'CSS' => 'width_pct_25',
                 ),
 
-                
-
-                'doc_type_id' => array(
-                        'SHORTNAME' => 'type',
+                'academic_level_id' => array(
+                        'SHORTNAME' => 'level',
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -187,30 +105,117 @@ class AdmApplicantFileAfwStructure
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'FORMAT-INPUT' => 'btn-bootstrap',
                         'UTF8' => false,
                         'TYPE' => 'FK',
-                        'ANSWER' => 'doc_type',
-                        'WHERE' => "('§afile_ext§'='' or concat(',',valid_ext,',') like '%,§afile_ext§,%') and id in (§file_types§)",
-                        'ANSMODULE' => 'ums',
-                        'RELATION' => 'unkn',
+                        'ANSWER' => 'academic_level',
+                        'ANSMODULE' => 'adm',
+                        'DEPENDENT_OFME' => array("application_model_id"),
+                        'RELATION' => 'ManyToOne',
+                        'EMPTY_IS_ALL' => true,
                         'READONLY' => false,
-                        'CSS' => 'width_pct_100',
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
                 ),
 
-                'download_light' => array('STEP' => 1,  
-				'TYPE' => 'TEXT',  
-				'SHORTCUT_CATEGORY' => 'FORMULA', 'CATEGORY' => 'SHORTCUT', 
-                                'SHORTCUT'=>"workflow_file_id.download_light", 'SHOW' => true,  
-                                'RETRIEVE' => true,  'EDIT' => true,  'QEDIT' => false,  'READONLY' => true,  
-                                'RO_DIV_CLASS' => 'empty_div',  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
-				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',),
+                'application_model_id' => array(
+                        'SHORTNAME' => 'model',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_model',
+                        'ANSMODULE' => 'adm',
+                        'WHERE' => "academic_level_id = §academic_level_id§",
+                        'DEPENDENCIES' => ['academic_level_id'],
+                        'RELATION' => 'ManyToOne',
+                        'EMPTY_IS_ALL' => true,
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
 
-                'afile_ext' => array('TYPE' => 'TEXT', 'CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>"workflow_file_id.afile_ext","CAN-BE-SETTED"=>false,"NO-COTE"=>true,),                
+                'gender_enum' => array(
+                        'SHORTNAME' => 'gender',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => 'LOOKUP_TABLE',
+                        'READONLY' => true,
+                        'EMPTY_IS_ALL' => true,
+                        'CSS' => 'width_pct_50',
+                ),
 
-                'approved'           => array('STEP' => 1, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'QSEARCH' => true,
-                                                'RETRIEVE' => true, 'EDIT' => true, 
-                                                'QEDIT' => false, "DEFAULT" => 'W', 'TYPE' => 'YN', ),
+                'training_unit_type_id' => array(
+                        'SHORTNAME' => 'unit_type',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'training_unit_type',
+                        'ANSMODULE' => 'adm',
+                        'DEPENDENT_OFME' => array("training_unit_id"),
+                        'RELATION' => 'ManyToOne',
+                        'EMPTY_IS_ALL' => true,
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'training_unit_id' => array(
+                        'SHORTNAME' => 'unit',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'training_unit',
+                        'ANSMODULE' => 'adm',
+                        'WHERE' => "(§training_unit_type_id§ = 0 or id in (select tuc.training_unit_id from §DBPREFIX§adm.training_unit_college tuc where tuc.college_id = §training_unit_type_id§ and tuc.active='Y'))",
+                        'DEPENDENCIES' => ['training_unit_type_id'],
+                        'RELATION' => 'ManyToOne',
+                        'EMPTY_IS_ALL' => true,
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),
@@ -224,7 +229,7 @@ class AdmApplicantFileAfwStructure
                 'update_groups_mfk' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
                 'delete_groups_mfk' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
                 'display_groups_mfk' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-                'sci_id'            => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'INT', /*stepnum-not-the-object*/ 'FGROUP' => 'tech_fields'),
+                'sci_id'            => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'scenario_item', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'tech_notes'               => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'TYPE' => 'TEXT', 'CATEGORY' => 'FORMULA', "SHOW-ADMIN" => true, 'TOKEN_SEP' => "§", 'READONLY' => true, "NO-ERROR-CHECK" => true, 'FGROUP' => 'tech_fields'),
         );
 }

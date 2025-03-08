@@ -13,8 +13,13 @@ class ApplicantFileArTranslator{
 		$trad["applicant_file"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["applicant_file"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["applicant_file"]["applicant_id"] = "المتقدم";
+		$trad["applicant_file"]["idn"] = "رقم هوية المتقدم";
 		$trad["applicant_file"]["workflow_file_id"] = "الملف";
 		$trad["applicant_file"]["doc_type_id"] = "نوع المستند";
+		$trad["applicant_file"]["approved"] = "حالة الاعتماد";
+		$trad["applicant_file"]["approved.YES"] = "تم الاعتماد";
+		$trad["applicant_file"]["approved.NO"]  = "تم الرفض";
+		$trad["applicant_file"]["approved.EUH"] = "جاري العمل عليه";
         // steps
         return $trad;
     }

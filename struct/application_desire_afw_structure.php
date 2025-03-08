@@ -33,12 +33,34 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-                                        'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                        'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                                'CSS' => 'width_pct_25', ),
+                                                
+                                        'idn' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'QSEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'SIZE' => '32',
+                                                'MAXLENGTH' => '32',
+                                                'TYPE' => 'TEXT',
+                                                'DISPLAY' => true,
+                                                'STEP' => 1,
+                                                'REQUIRED' => true,
+                                                'READONLY' => true,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'TEXT-SEARCHABLE-SEPARATED' => true,
+                                                'FORMAT' => 'ALPHA-NUMERIC',
+                                                'CSS' => 'width_pct_50'
+                                        ),
 
 
                                         'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
@@ -61,15 +83,23 @@
                                                 'CSS' => 'width_pct_25',),
 
 
-                                        'application_plan_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'application_plan_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                                'CSS' => 'width_pct_25', ),
+                                                
+                                                'training_unit_id' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_plan_branch_id.training_unit_id', 'SHOW' => true,  'RETRIEVE' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
+                                                        'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_50', ),
 
 
-                                        'application_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
+                                        'application_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
@@ -80,7 +110,7 @@
 
                                         
                                                 
-                                        'applicant_qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
+                                        'applicant_qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => true, 'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant_qualification',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=> true,
@@ -88,7 +118,7 @@
                                                 'CSS' => 'width_pct_25', ),	
 
 
-                                        'qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                        'qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
@@ -96,7 +126,7 @@
                                                 'CSS' => 'width_pct_25', ),	
 
 
-                                        'major_category_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                        'major_category_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'major_category',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,

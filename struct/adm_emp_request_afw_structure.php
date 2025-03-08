@@ -128,6 +128,7 @@ class AdmAdmEmpRequestAfwStructure
 		'email' => array(
 			'SHOW' => true,
 			'EDIT' => true,
+			'RETRIEVE' => true,
 			'QEDIT' => false,
 			'SIZE' => 64,
 			'CSS' => 'width_pct_50',

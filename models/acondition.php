@@ -487,6 +487,7 @@ class Acondition extends AdmObject{
                 if($objApplicant)
                 {
                         $applicant_id = $objApplicant->id;
+                        $applicant_idn = $objApplicant->getVal("idn");
                 }
 
                 
@@ -585,16 +586,19 @@ class Acondition extends AdmObject{
                         {
                                 
                                 // die("here rafik applicant_id=$applicant_id application_table_id=$application_table_id application_plan_id=$application_plan_id field_name=$field_name field_reel=$field_reel");
-                                if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate);
-                                list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objApplication->calcTrackAndMajorPath();
-                                $objApplicationDisp = $objApplication->getDisplay("ar");                                
-                                $sub_context_log = "list(program_track_id=$program_track_id, major_path_id=$major_path_id, qual_id=$qualObj->id) = objApplication($objApplicationDisp) => calcTrackAndMajorPath()";
-
+                                if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $applicant_idn, $simulate);
+                                if($objApplication)
+                                {
+                                        list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objApplication->calcTrackAndMajorPath();
+                                        $objApplicationDisp = $objApplication->getDisplay("ar");                                
+                                        $sub_context_log = "list(program_track_id=$program_track_id, major_path_id=$major_path_id, qual_id=$qualObj->id) = objApplication($objApplicationDisp) => calcTrackAndMajorPath()";        
+                                }
+                                
                                 if(!$objApplication)
                                 {
-                                        // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $simulate) keyf failed ??");
+                                        // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $applicant_idn, $simulate) keyf failed ??");
                                         $field_value = null;
-                                        $field_value_case = "Application::loadByMainIndex($applicant_id, $application_plan_id) return null"; 
+                                        $field_value_case = "Application::loadByMainIndex($applicant_id, $application_plan_id, $applicant_idn, $simulate) has returned null"; 
                                 }
                                 elseif($field_reel)
                                 {
@@ -616,7 +620,7 @@ class Acondition extends AdmObject{
                                 if(!$objDesire)
                                 {
                                         $field_value = null;
-                                        $field_value_case = "ApplicationDesire::loadByMainIndex return null"; 
+                                        $field_value_case = "objDesire has not been defined"; 
                                 }
                                 else
                                 {

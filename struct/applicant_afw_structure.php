@@ -100,7 +100,11 @@ class AdmApplicantAfwStructure
                         'QSEARCH' => true,
                         'SHOW' => true,
                         'RETRIEVE' => true,
+                        // we dont know thw country id of applicant in qsearch mode to be able 
+                        // to convert IDN to ID except if it SAUDI IDN
                         "CLAUSE-WHERE-COL" => 'id',
+                        "CLAUSE-WHERE-COL-VALUE-CONVERT-CLASS" => 'Applicant',
+                        "CLAUSE-WHERE-COL-VALUE-CONVERT-METHOD" => 'tryConvertIdnToID',
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '32',

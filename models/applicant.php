@@ -32,25 +32,45 @@ class Applicant extends AdmObject
                 AdmApplicantAfwStructure::initInstance($this);
         }
 
+
+        public static function tryConvertIdnToID($value)
+        {
+                $idn = $value;
+                list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
+                $id = null;
+                if (($idn_type_id == 1) or ($idn_type_id == 2)) {
+                        if (is_numeric($idn) and $idn_correct) $id = $idn;
+                } 
+
+                return $id;
+        }
+
+
+        public function convertIdnToID($value)
+        {
+                $idn = $value;
+                list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
+                $id = 0;
+                if (($idn_type_id == 1) or ($idn_type_id == 2)) {
+                        if (is_numeric($idn) and $idn_correct) $id = $idn;
+                } else {
+                        $country_id = $this->getSelectedValueForAttribute("country_id");
+                        if ($country_id) {
+                                $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
+                        } else {
+                                // we can not optimize query and select the id while passport number entered without country specified
+                                $id = 0;
+                        }
+                }
+
+                return $id;
+        }
         public function afterSelect($attribute, $value)
         {
                 // As we have a partion by ID and ID = IDN,
                 // when we select IDN we select ID also to use the partionning concept
                 if ($attribute == "idn") {
-                        $idn = $value;
-                        list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
-                        $id = 0;
-                        if (($idn_type_id == 1) or ($idn_type_id == 2)) {
-                                if (is_numeric($idn) and $idn_correct) $id = $idn;
-                        } else {
-                                $country_id = $this->getSelectedValueForAttribute("country_id");
-                                if ($country_id) {
-                                        $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
-                                } else {
-                                        // we can not optimize query and select the id while passport number entered without country specified
-                                        $id = 0;
-                                }
-                        }
+                        $id = $this->convertIdnToID($value);
                         if ($id > 0) $this->select("id", $id);
                 }
         }
@@ -1277,7 +1297,7 @@ class Applicant extends AdmObject
         public function attach_file($wf, $doc_type_id = 0, $doc_attach_id = 0)
         {
 
-                $afObj = ApplicantFile::loadByMainIndex($this->getId(), $wf->getId(), $create_obj_if_not_found = true);
+                $afObj = ApplicantFile::loadByMainIndex($this->getId(), $wf->getId(), $this->getVal("idn"), $create_obj_if_not_found = true);
 
                 if (!$doc_type_id) $doc_type_id = $wf->getVal("doc_type_id");
                 $afObj->set("doc_type_id", $doc_type_id);

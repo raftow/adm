@@ -12,7 +12,10 @@ class AdmAdmEmployeeAfwStructure
 	{
 		if ($obj instanceof AdmEmployee) {
 			$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-			$obj->DISPLAY_FIELD = "";
+			$obj->DISPLAY_FIELD_BY_LANG = array('ar' => ['firstname', 'lastname'],
+                                                'en' => ['firstname_en', 'lastname_en']);
+            // $obj->FORMULA_DISPLAY_FIELD  = "concat(IF(ISNULL(firstname), '', firstname) , ' ' , IF(ISNULL(last_name), '', last_name))";
+                        
 			$obj->ORDER_BY_FIELDS = "orgunit_id, employee_id";
 			// $obj->IS_LOOKUP = true;
 			// $obj->IS_SMALL_LOOKUP = true;
@@ -23,15 +26,15 @@ class AdmAdmEmployeeAfwStructure
 			$obj->showRetrieveErrors = true;
 
 			$obj->OwnedBy = array('module' => "adm", 'afw' => "AdmOrgunit");
-			// $obj->editByStep = true;
-			// $obj->editNbSteps = 3;
+			$obj->editByStep = true;
+			$obj->editNbSteps = 2;
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
 			$obj->after_save_edit = array("class"=>'AdmOrgunit',"formulaAttribute"=>'adm_orgunit_id', "currmod"=>'adm',"currstep"=>2);
 		} else {
 			AdmEmployeeArTranslator::initData();
-			//AdmEmployeeEnTranslator::initData();
+			AdmEmployeeEnTranslator::initData();
 		}
 	}
 
@@ -128,9 +131,91 @@ class AdmAdmEmployeeAfwStructure
 					'ERROR-CHECK' => true,
 				),
 
+					'firstname' => array(
+						'IMPORTANT' => 'IN',
+						'SEARCH' => true,
+						'QSEARCH' => true,
+						'SHOW' => true,
+						'RETRIEVE' => true,
+						'EDIT' => true,
+						'MANDATORY' => true,
+						'QEDIT' => true,
+						'SIZE' => 32,
+						'CSS' => 'width_pct_25',
+						'UTF8' => true,
+						'TYPE' => 'TEXT',
+						'STEP' => 1,
+						'SEARCH-BY-ONE' => true,
+						'DISPLAY' => true,
+						'DISPLAY-UGROUPS' => '',
+						'EDIT-UGROUPS' => '',
+						'ERROR-CHECK' => true,
+						'CSS' => 'width_pct_50',
+					),
+
+					'lastname' => array(
+						'IMPORTANT' => 'IN',
+						'SEARCH' => true,
+						'QSEARCH' => true,
+						'SHOW' => true,
+						'RETRIEVE' => true,
+						'EDIT' => true,
+						'MANDATORY' => true,
+						'QEDIT' => true,
+						'SIZE' => 32,
+						'CSS' => 'width_pct_25',
+						'UTF8' => true,
+						'TYPE' => 'TEXT',
+						'STEP' => 1,
+						'SEARCH-BY-ONE' => true,
+						'DISPLAY' => true,
+						'DISPLAY-UGROUPS' => '',
+						'EDIT-UGROUPS' => '',
+						'ERROR-CHECK' => true,
+						'CSS' => 'width_pct_50',
+					),
+					
+					'lastname_en' => array(
+						'TYPE' => 'TEXT',
+						'EDIT' => true,
+						'QEDIT' => true,
+						'CATEGORY' => '',
+						'SHOW' => false,
+						'RETRIEVE' => false,
+						'UTF8' => false,
+						'SIZE' => 32,
+						'MANDATORY' => true,
+						'STEP' => 1,
+						'SEARCH-BY-ONE' => '',
+						'DISPLAY' => false,
+						'DISPLAY-UGROUPS' => '',
+						'EDIT-UGROUPS' => '',
+						'ERROR-CHECK' => true,
+						'CSS' => 'width_pct_50',
+					),
+
+					'firstname_en' => array(
+						'TYPE' => 'TEXT',
+						'EDIT' => true,
+						'QEDIT' => true,
+						'SHOW' => false,
+						'RETRIEVE' => false,
+						'UTF8' => false,
+						'SIZE' => 32,
+						'MANDATORY' => true,
+						'STEP' => 1,
+						'SEARCH-BY-ONE' => '',
+						'DISPLAY' => false,
+						'DISPLAY-UGROUPS' => '',
+						'EDIT-UGROUPS' => '',
+						'ERROR-CHECK' => true,
+						'CSS' => 'width_pct_50',
+					),
+
 		'email' => array(
 			'SHOW' => true,
 			'EDIT' => true,
+			'RETRIEVE' => true,
 			'QEDIT' => false,
 			'READONLY' => true,
 			'SIZE' => 64,
@@ -146,6 +231,17 @@ class AdmAdmEmployeeAfwStructure
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
 		),
+
+		'employeeScopeList' => array('STEP' => 2, 'EDIT' => true,  'QEDIT' => false, 
+				'SHORTNAME' => 'employeeScopes',  'SHOW' => true,  
+				'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  
+				'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  				
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+				'MANDATORY' => false,  'UTF8' => false,  
+				'TYPE' => 'FK',  
+				'CATEGORY' => 'ITEMS',  'ANSWER' => 'employee_scope',  'ANSMODULE' => 'adm',  'ITEM' => 'adm_employee_id',  
+				'READONLY' => true,  'CAN-BE-SETTED' => false, 
+				'CSS' => 'width_pct_100', ),
 /*
 		'jobrole_mfk' => array(
 			'SEARCH' => true,

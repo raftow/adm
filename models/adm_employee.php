@@ -162,17 +162,7 @@ class AdmEmployee extends AdmObject
         }
 
 
-        protected function getOtherLinksArray($mode, $genereLog = false, $step="all")      
-        {
-             global $me, $objme, $lang;
-             $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
-             $my_id = $this->getId();
-             $displ = $this->getDisplay($lang);
-             
-             
-             
-             return $otherLinksArray;
-        }
+        
         
         protected function getPublicMethods()
         {
@@ -686,7 +676,35 @@ class AdmEmployee extends AdmObject
                 return $attribute;
         }
 
-        
+        protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
+        {
+             global $lang;
+             // $objme = AfwSession::getUserConnected();
+             // $me = ($objme) ? $objme->id : 0;
+
+             $otherLinksArray = $this->getOtherLinksArrayStandard($mode,$genereLog,$step);
+             $my_id = $this->getId();
+             $displ = $this->getDisplay($lang);
+             
+             if($mode=="mode_employeeScopeList")
+             {
+                   unset($link);
+                   $link = array();
+                   $title = "إضافة مجال عمل جديد";
+                   $title_detailed = $title ."لـ : ". $displ;
+                   $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=EmployeeScope&currmod=adm&sel_adm_employee_id=$my_id";
+                   $link["TITLE"] = $title;
+                   $link["UGROUPS"] = array();
+                   $otherLinksArray[] = $link;
+             }
+             
+             
+             
+             // check errors on all steps (by default no for optimization)
+             // rafik don't know why this : \//  = false;
+             
+             return $otherLinksArray;
+        }      
              
 }
 ?>

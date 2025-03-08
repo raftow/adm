@@ -11,6 +11,13 @@ class AdmEmployeeArTranslator{
         $trad["adm_employee"]["adm_employee.short"] = "المنسقين";
         $trad["adm_employee"]["orgunit_id"] = "إدارة القبول والتسجيل";
         $trad["adm_employee"]["adm_orgunit_id"] = "الإدارة التابع لها";
+
+
+        $trad["adm_employee"]["firstname"] = "الاسم الأول";
+		$trad["adm_employee"]["lastname"] = "اسم العائلة";
+
+		$trad["adm_employee"]["firstname_en"] = "الاسم الأول بالانجليزي";
+		$trad["adm_employee"]["lastname_en"] = "اسم العائلة بالانجليزي";
         
         // $trad["adm_employee"]["service_category_mfk"] = "المسؤوليات المناطة به";
         // $trad["adm_employee"]["service_category_mfk_tooltip"] = "أصناف الخدمات  التي يقدمها";
@@ -40,9 +47,12 @@ class AdmEmployeeArTranslator{
         $trad["adm_employee"]["admin"] = "مشرف تنسيق";
         $trad["adm_employee"]["super_admin"] = "مشرف عام";
         $trad["adm_employee"]["approved"] = "منسق معتمد"; 
+        $trad["adm_employee"]["employeeScopeList"] = "قائمة مجالات عمل الموظف";
+
+
         $trad["adm_employee"]["step1"] = "البيانات العامة";
-        $trad["adm_employee"]["step2"] = "الملفات المسندة";
-        $trad["adm_employee"]["step3"] = "إدارات القبول والتسجيل";
+        $trad["adm_employee"]["step2"] = "مجالات العمل";
+        // $trad["adm_employee"]["step3"] = "الملفات المسندة";
     
         return $trad;
     }

@@ -73,13 +73,16 @@ class ApplicationDesire extends AdmObject
                 $obj->select("desire_num", $desire_num);
 
                 if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
+                        if ($create_obj_if_not_found) 
+                        {
+                                
+                                $obj->activate();
+                        }
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);                        
                         $obj->set("desire_num", $desire_num);
-
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
@@ -88,7 +91,7 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public static function loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $create_obj_if_not_found, $applicationObj)
+        public static function loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $applicationObj)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
@@ -101,6 +104,11 @@ class ApplicationDesire extends AdmObject
                 $obj->select("application_plan_branch_id", $application_plan_branch_id);
 
                 if ($obj->load()) {
+                        if ($create_obj_if_not_found) 
+                        {
+                                $obj->set("idn", $idn);                                 
+                                $obj->activate();
+                        }
                         return $obj;
                 } elseif ($create_obj_if_not_found and $applicationObj) {
                         $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)")+1;
@@ -112,7 +120,7 @@ class ApplicationDesire extends AdmObject
                         $obj->set("qualification_id", $applicationObj->getVal("qualification_id"));
                         $obj->set("major_category_id", $applicationObj->getVal("major_category_id"));
                         $obj->set("desire_num", $desire_num);
-                          
+                        $obj->set("idn", $idn);  
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
@@ -539,6 +547,14 @@ class ApplicationDesire extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
+                $objApplicant = null;
+                if (!$this->getVal("idn")) {
+                        if(!$objApplicant) $objApplicant = $this->het("applicant_id");
+                        if ($objApplicant) {
+                                $this->set("idn", $objApplicant->getVal("idn"));
+                                $fields_updated["idn"] = "@WasEmpty";
+                        }
+                }
                 if ($fields_updated["step_num"]) $this->requestAPIsOfStep($this->getVal("step_num"));
                 if ($fields_updated["step_num"] or (!$this->getVal("application_step_id"))) 
                 {
@@ -554,5 +570,13 @@ class ApplicationDesire extends AdmObject
                         }
                 }
                 return true;
+        }
+
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="training_unit_id") return true;
+                if($attribute=="weighted_percentage") return true;
+                if($attribute=="weighted_percentage_details") return true;
+                if($attribute=="current_fields_matrix") return true;
+                return false;
         }
 }

@@ -187,7 +187,7 @@ class AdmEmpRequest extends AdmObject
         }
 
         public function afterUpdate($id, $fields_updated) {}
-
+        /*
         public function updateFromExternalSources($lang="ar", $resetExisting=true, $commit=true, $forceDoApproval=false)
         {
                 $doApproval = false;   
@@ -277,13 +277,7 @@ class AdmEmpRequest extends AdmObject
                         }
                         
                 }
-                /*
-                $empl = $this->het("employee_id");
-                if($empl)
-                {
-                        $empl->addMeThisJobrole(self::$JOBROLE_CRM_INVESTIGATOR);
-                        $empl->updateMyUserInformation();
-                }*/
+                
                 
                 
                 
@@ -303,13 +297,13 @@ class AdmEmpRequest extends AdmObject
                                 }
                                 if($war) $warning .= " war : $war";
                         }
-                        AdmEmployee::loadByMainIndex($orgunit_id, $emplObj->id, true);
+                        AdmEmployee::loadBy MainIndex($orgunit_id, $emplObj->id, true);
                 }
 
                 if($commit) $this->commit();
 
                 return [$error, $information, $warning, $technical];
-        }
+        }*/
 
         public function approveAndUpdataDataAndRoles($lang="ar", $create_obj_if_not_found = true, $regenereCacheFile=true)
         {
@@ -382,7 +376,12 @@ class AdmEmpRequest extends AdmObject
                 $this->commit();
                 $employee_id = $employeeObj->id;
                 if ($this->sureIs("active") and $this->sureIs("approved") and ($orgunit_id > 0) and ($employee_id > 0)) {
-                        AdmEmployee::loadByMainIndex($orgunit_id, $employee_id, true);
+                        $admEmplObj = AdmEmployee::loadByMainIndex($orgunit_id, $employee_id, true);
+                        $admEmplObj->set("firstname", $firstname);
+                        $admEmplObj->set("lastname", $lastname);
+                        $admEmplObj->set("lastname_en", $lastname_en);
+                        $admEmplObj->set("firstname_en", $firstname_en);
+                        $admEmplObj->commit();
                 }
 
                 return ["", $this->tm("The empolyee account has been approved, he can use it now", $lang), $warning, $technical];

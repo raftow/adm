@@ -31,18 +31,22 @@ class ApplicantFile extends AFWObject
         } else return null;
     }
 
-    public static function loadByMainIndex($applicant_id, $workflow_file_id, $create_obj_if_not_found = false)
+    public static function loadByMainIndex($applicant_id, $workflow_file_id, $idn, $create_obj_if_not_found = false)
     {
         $obj = new ApplicantFile();
         $obj->select("applicant_id", $applicant_id);
         $obj->select("workflow_file_id", $workflow_file_id);
-
         if ($obj->load()) {
-            if ($create_obj_if_not_found) $obj->activate();
+            if ($create_obj_if_not_found and $idn) 
+            {
+                $obj->set("idn", $idn);
+                $obj->activate();
+            }
             return $obj;
-        } elseif ($create_obj_if_not_found) {
+        } elseif ($create_obj_if_not_found and $idn) {
             $obj->set("applicant_id", $applicant_id);
             $obj->set("workflow_file_id", $workflow_file_id);
+            $obj->set("idn", $idn);
 
             $obj->insertNew();
             if (!$obj->id) return null; // means beforeInsert rejected insert operation

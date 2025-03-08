@@ -36,8 +36,31 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH' => true,
-                                                'QSEARCH' => true,  'TEXT-SEARCHABLE-SEPARATED'=>true, 'OTM-NO-LABEL' => true,
+                                                'QSEARCH' => false, 'OTM-NO-LABEL' => true,
                                                 'CSS' => 'width_pct_25', ),	
+
+                                        'idn' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'QSEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'SIZE' => '32',
+                                                'MAXLENGTH' => '32',
+                                                'TYPE' => 'TEXT',
+                                                'DISPLAY' => true,
+                                                'STEP' => 1,
+                                                'REQUIRED' => true,
+                                                'READONLY' => true,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'TEXT-SEARCHABLE-SEPARATED' => true,
+                                                'FORMAT' => 'ALPHA-NUMERIC',
+                                                'CSS' => 'width_pct_50'
+                                        ),
+
 
 
                                         'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  

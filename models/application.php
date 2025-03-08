@@ -50,7 +50,7 @@ class Application extends AdmObject
          * @return Application
          */
 
-        public static function loadByMainIndex($applicant_id, $application_plan_id, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $idn, $create_obj_if_not_found = false)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
@@ -61,12 +61,16 @@ class Application extends AdmObject
                 $obj->select("application_plan_id", $application_plan_id);
 
                 if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
+                        if ($create_obj_if_not_found) 
+                        {
+                                $obj->set("idn", $idn);                                 
+                                $obj->activate();
+                        }
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);
-
+                        $obj->set("idn", $idn);                                 
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
@@ -109,6 +113,7 @@ class Application extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
+                $objApplicant = null;
                 $objApplicantQual = null;
                 $objApplicationPlan = null;
 
@@ -117,6 +122,14 @@ class Application extends AdmObject
                         if ($objApplicationPlan) {
                                 $this->set("application_model_id", $objApplicationPlan->getVal("application_model_id"));
                                 $fields_updated["application_model_id"] = "@WasEmpty";
+                        }
+                }
+
+                if (!$this->getVal("idn")) {
+                        if(!$objApplicant) $objApplicant = $this->het("applicant_id");
+                        if ($objApplicant) {
+                                $this->set("idn", $objApplicant->getVal("idn"));
+                                $fields_updated["idn"] = "@WasEmpty";
                         }
                 }
 
@@ -889,17 +902,18 @@ class Application extends AdmObject
         public function getApplicationDesireByNum($desire_num)
         {
                 $applicant_id = $this->getVal("applicant_id");
+                //$applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
 
                 return ApplicationDesire::loadByMainIndex($applicant_id, $application_plan_id, $desire_num);
         }
 
-        public function getApplicationDesireByBranchId($application_plan_branch_id, $create_obj_if_not_found = false)
+        public function getApplicationDesireByBranchId($application_plan_branch_id, $idn, $create_obj_if_not_found = false)
         {
                 $applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
 
-                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $create_obj_if_not_found, $this);
+                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $this);
         }
 
 
@@ -909,7 +923,8 @@ class Application extends AdmObject
                         $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
                         $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
                         foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
-                                $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, true);
+                                $idn = $this->getVal("idn");                                 
+                                $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, true);
                                 $applicationDesireObj->repareData();
                         }
                         // what is not in application_plan_branch_mfk should be removed
