@@ -209,7 +209,30 @@ class AdmApplicantQualificationAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-
+'educational_zone_id' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'educational_zone',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => false,
+                        'STEP' => 1,
+                        'RELATION' => 'ManyToOne',
+                        'MANDATORY' => true,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
 
                 'gpa_from' => array(
                         'IMPORTANT' => 'IN',
