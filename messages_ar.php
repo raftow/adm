@@ -45,7 +45,7 @@
     $messages["Mega Bytes"] = "ميجابايت";
 
     $messages["doesn't need update as recently updated at"] = "لا يحتاج إلى التحديث كما تم تحديثه مؤخرًا في";
-    $messages["can not be refreshed and already called at"] = "لا يمكن تحديثه وقد تم تنفيذه سابقا في";
+    $messages["can not be refreshed and already called at"] = "في اعداداته لا يسمح بتحديثه وقد تم تنفيذه سابقا في";
     $messages["is not published"] = "غير منشور(ة)";
 
     $messages["nb of Academic Program Offering for"] = "عدد البرامج المتاحة ل";
@@ -56,12 +56,14 @@
     $messages["All steps are general & There are no special steps to be the path of application desires"] = "كل المراحل عامة ولا يوجد مراحل خاصة مسارا للرغبات";
     $messages["Repare data"] = "تصحيح البيانات";
     $messages["Crowd desires"] = "دفع الرغبات إلى الأمام";
-    $messages["This track is not available"] = "هذا المسار غير متوفر";
+    $messages["This track is not available, going to"] = "هذا المسار غير متوفر، ذهابا إلى";
+    $messages["coming from"] = "قدوما من";
     $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تطبيق الشروط لعدم توفر بيانات محدثة";
     $messages["This employee is not from"] = "هذا الموظف ليس من";  
     $messages["but from"] = "وإنما من";
     $messages["The empolyee account has been approved, he can use it now"] = "تم اعتماد حساب الموظف يمكنه استخدامه الآن";
-    
+    $messages["Waiting to apply conditions ..."] = "بانتظار تطبيق الشروط ...";
+    $messages["Waiting to apply sorting process ..."] = "بانتظار تطبيق الفرز ...";
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
       
     

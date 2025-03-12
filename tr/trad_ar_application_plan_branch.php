@@ -1,6 +1,10 @@
 <?php
 	$trad["application_plan_branch"]["step1"] = "التعريف";
-    $trad["application_plan_branch"]["step2"] = "خصائص متقدمة";
+    $trad["application_plan_branch"]["step2"] = "إعدادات الفرع";
+	$trad["application_plan_branch"]["step3"] = "إعدادات الفرز";
+	$trad["application_plan_branch"]["step4"] = "المرشحين";
+
+	$trad["application_plan_branch"]["applicationDesireList"] = "المرشحين";
 
 	$trad["application_plan_branch"]["applicationplanbranch.single"] = "فرع تقديم";
 	$trad["application_plan_branch"]["applicationplanbranch.new"] = "جديد";
@@ -26,3 +30,7 @@
 	$trad["application_plan_branch"]["application_end_date"] = "تاريخ نهاية التقديم ميلادي";
 	$trad["application_plan_branch"]["is_open"] = "البرنامج مفتوح";
 	$trad["application_plan_branch"]["allow_direct_adm"] = "تفعيل القبول المباشر";
+	$trad["application_plan_branch"]["application_model_branch_id"] = "فرع القبول";
+
+	$trad["application_plan_branch"]["sortingBranchList"] = "اعدادات الطاقة الاستعابية والفرز";
+	

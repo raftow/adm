@@ -16,7 +16,7 @@
                                 // $obj->IS_LOOKUP = true;
                                 $obj->MOVE_UP_ACTION = true;
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 3; 
+                                $obj->editNbSteps = 4; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                         else 
@@ -32,6 +32,28 @@
                                                 'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+
+                                        'gender_enum' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => false,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'QSEARCH' => false,
+                                                'REQUIRED' => true,
+                                                'UTF8' => false,
+                                                'TYPE' => 'ENUM',
+                                                'ANSWER' => 'FUNCTION',
+                                                'SIZE' => 40,
+                                                'DEFAUT' => 0,
+                                                'DISPLAY' => true,
+                                                'STEP' => 1,
+                                                'READONLY' => true,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',
+                                        ),
 
                                         'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
@@ -68,7 +90,22 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                                'CSS' => 'width_pct_25', ),
+                                                
+                                        'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),
+
+                                        'academic_level_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'academic_level',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 
+                                                'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),
 
                                         'desire_num' => array(
                                                 'IMPORTANT' => 'IN',
@@ -86,17 +123,27 @@
                                         'application_plan_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
-                                                
-                                                'training_unit_id' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_plan_branch_id.training_unit_id', 'SHOW' => true,  'RETRIEVE' => false,  
+                                        
+                                        // 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_plan_branch_id.training_unit_id',                                                
+
+                                        'training_unit_id' => array('SHOW' => true,  'RETRIEVE' => false,  
                                                         'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
                                                         'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_50', ),
+
+                                        'training_unit_type_id' => array('SHOW' => true,  'RETRIEVE' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'training_unit_type',  'ANSMODULE' => 'adm',  
+                                                        'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_50', ),                                                        
 
 
                                         'application_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
@@ -205,7 +252,7 @@
                                                 'CSS' => 'width_pct_75',),                                                                
 
                                         'applicationConditionExecList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 3, 
+                                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 4, 
                                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                                 'TYPE' => 'FK',  
                                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_condition_exec',  'ANSMODULE' => 'adm',  'ITEM' => 'adesire_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 

@@ -5,24 +5,24 @@ $file_dir_name = dirname(__FILE__);
                 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class EmployeeScope extends AFWObject{
+class SortingGroup extends AFWObject{
 
-        public static $MY_ATABLE_ID=13944; 
+        public static $MY_ATABLE_ID=13945; 
   
         public static $DATABASE		= "uoh_adm";
         public static $MODULE		        = "adm";        
-        public static $TABLE			= "employee_scope";
+        public static $TABLE			= "sorting_group";
 
 	    public static $DB_STRUCTURE = null;
 	
 	    public function __construct(){
-		parent::__construct("employee_scope","id","adm");
-            AdmEmployeeScopeAfwStructure::initInstance($this);    
+		parent::__construct("sorting_group","id","adm");
+            AdmSortingGroupAfwStructure::initInstance($this);    
 	    }
         
         public static function loadById($id)
         {
-           $obj = new EmployeeScope();
+           $obj = new SortingGroup();
            $obj->select_visibilite_horizontale();
            if($obj->load($id))
            {
@@ -39,56 +39,15 @@ class EmployeeScope extends AFWObject{
                     return 0;
                 }
         
-        public static function loadByMainIndex($start_date, $end_date,$create_obj_if_not_found=false)
-        {
-
-
-           $obj = new EmployeeScope();
-           $obj->select("start_date",$start_date);
-           $obj->select("end_date",$end_date);
-
-           if($obj->load())
-           {
-                if($create_obj_if_not_found) $obj->activate();
-                return $obj;
-           }
-           elseif($create_obj_if_not_found)
-           {
-                $obj->set("start_date",$start_date);
-                $obj->set("end_date",$end_date);
-
-                $obj->insertNew();
-                if(!$obj->id) return null; // means beforeInsert rejected insert operation
-                $obj->is_new = true;
-                return $obj;
-           }
-           else return null;
-           
-        }
-
-
+        
         public function getDisplay($lang="ar")
         {
-               
-               $data = array();
-               $link = array();
-               
-
-
-               
-               return implode(" - ",$data);
+               return $this->getVal("name_$lang");
         }
         
         
         
-/*        public function list_of_gender_enum() { 
-            $list_of_items = array(); 
-            $list_of_items[1] = "LOOKUP_TABLE";  //     code : ... not defined ... 
-           return  $list_of_items;
-        } 
 
-
-*/
         
         protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
         {
@@ -211,62 +170,6 @@ class EmployeeScope extends AFWObject{
                return true;
             }    
 	}
-
-    
-
-    public static function scopeListToSQL($scopeList) 
-    {
-        $sqlList = [];
-        foreach($scopeList as $scope)
-        {
-            $sqlList[] = "(".self::scopeToSQL($scope).")"; 
-        }
-
-        return implode(' or ', $sqlList);
-    }
-
-    public static function scopeToSQL($scope, $me="me.") 
-    {
-        foreach($scope as $key => $val)
-        {
-            if(!$val) $val = 0;
-            $$key = $val;
-        } 
-        
-        return "($academic_level_id=0 or ".$me."academic_level_id = $academic_level_id) and
-                ($application_model_id=0 or ".$me."application_model_id = $application_model_id) and
-                ($gender_enum=0 or ".$me."gender_enum = $gender_enum) and
-                ($training_unit_type_id=0 or ".$me."training_unit_type_id = $training_unit_type_id) and
-                ($training_unit_id=0 or ".$me."academic_level_id = $training_unit_id)";
-    }
-
-    public function retrieveScope() 
-    {
-        $currDate = AfwDateHelper::currentHijriDate();
-        $start_date = $this->getVal("start_date");
-        $end_date = $this->getVal("end_date");
-        $academic_level_id = $this->getVal("academic_level_id");
-        $application_model_id = $this->getVal("application_model_id");
-        $gender_enum = $this->getVal("gender_enum");
-        $training_unit_type_id = $this->getVal("training_unit_type_id");
-        $training_unit_id = $this->getVal("training_unit_id");
-        
-        if(((!$start_date) or ($start_date<=$currDate)) and
-            ((!$end_date) or ($end_date>=$currDate)))
-            {
-                return [
-                        'academic_level_id' => $academic_level_id,
-                        'application_model_id' => $application_model_id,
-                        'gender_enum' => $gender_enum,
-                        'training_unit_type_id' => $training_unit_type_id,
-                        'training_unit_id' => $training_unit_id,
-                ];
-            }
-            else
-            {
-                return null;
-            }
-    }
              
 }
 

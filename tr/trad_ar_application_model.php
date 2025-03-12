@@ -25,7 +25,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["financialTransactionList"] = "قائمة البنود المالية";
 		
 		
-		
+		$trad["application_model"]["split_sorting_by_enum"] = "تقسيم مسارات الفرز حسب";
 
 		$trad["application_model"]["applicationmodel.single"] = "نموذج قبول";
 		$trad["application_model"]["applicationmodel.new"] = "جديد";

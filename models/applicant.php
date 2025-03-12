@@ -820,7 +820,8 @@ class Applicant extends AdmObject
                                                         $applicantApiRequestItem->set("run_date", date("Y-m-d H:i:s"));
                                                         $applicantApiRequestItem->commit();
                                                 }
-                                        } elseif (!$refresh_needed) $war_arr[] = $apiEndPoint . " " . $this->tm("doesn't need update as recently updated at") . " $run_date";
+                                        } 
+                                        elseif (!$refresh_needed) $war_arr[] = $apiEndPoint . " " . $this->tm("doesn't need update as recently updated at") . " $run_date";
                                         elseif (!$can_refresh) $war_arr[] = $apiEndPoint . " " . $this->tm("can not be refreshed and already called at") . " $run_date";
                                 } else $war_arr[] = $apiEndPoint . " " . $this->tm("is not published");
                         }

@@ -653,7 +653,7 @@ class Acondition extends AdmObject{
                                 $param_value = Aparameter::getMyValueForSubContext($this->aparamObj->id, $major_path_id, $program_track_id, $sub_context_log);
                                 if($param_value===null)
                                 {
-                                        $comments = $this->tm("This track is not available", $lang) . " : $major_path_name - $program_track_name" ;
+                                        $comments = $this->tm("This track is not available, going to", $lang) . " $major_path_name ".$this->tm("coming from", $lang)." $program_track_name" ;
                                 }
                         }
                         else

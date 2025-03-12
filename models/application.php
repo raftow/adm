@@ -631,7 +631,7 @@ class Application extends AdmObject
                                 if (!$duration_expiry) $duration_expiry = 180;
                                 $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
                                 if ($field_value_datetime < $expiry_date) {
-                                        $row_matrix['status'] = self::needUpdateIcon($api . " $field_value_datetime < $expiry_date (duration_expiry=$duration_expiry)");
+                                        $row_matrix['status'] = self::needUpdateIcon($api . " $field_value_datetime < $expiry_date (duration_expiry of $field_name =$duration_expiry)");
                                         $theyAreUpdated = false;
                                         $not_avail[] = $field_title;
                                 } else {

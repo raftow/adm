@@ -1,5 +1,10 @@
 <?php
 	$trad["application_plan_branch"]["step1"] = "Definition";
+	$trad["application_plan_branch"]["step2"] = "Branch Settings";
+	$trad["application_plan_branch"]["step3"] = "Sorting Settings";
+	$trad["application_plan_branch"]["step4"] = "Candidates";
+
+	$trad["application_plan_branch"]["applicationDesireList"] = "Candidates";
 
 	$trad["application_plan_branch"]["applicationplanbranch.single"] = "Application plan branch";
 	$trad["application_plan_branch"]["applicationplanbranch.new"] = "new";
@@ -24,3 +29,7 @@
 	$trad["application_plan_branch"]["application_end_date"] = "Application End date";
 	$trad["application_plan_branch"]["is_open"] = "Program Open";
 	$trad["application_plan_branch"]["allow_direct_adm"] = "Allow direct admission";
+
+	$trad["application_plan_branch"]["application_model_branch_id"] = "application branch";
+
+	$trad["application_plan_branch"]["sortingBranchList"] = "Capacity and sorting settings";

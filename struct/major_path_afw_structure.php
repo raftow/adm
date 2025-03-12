@@ -79,7 +79,7 @@
                                                 'CSS' => 'width_pct_100', ),
 
 
-                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                        'active' => array('SHOW' => true, 'SEARCH' => true, 'QSEARCH' => true, 'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),

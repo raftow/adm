@@ -225,7 +225,17 @@ class ApplicationDesire extends AdmObject
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
                                 $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
-                                $this->set("comments", "--");
+                                
+                                // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
+                                if($currentStepCode!="SRT")
+                                {
+                                        $message_war = $this->tm("Waiting to apply conditions ...", $lang);
+                                }
+                                else
+                                {
+                                        $message_war = $this->tm("Waiting to apply sorting process ...", $lang);
+                                }
+                                $this->set("comments", $message_war);
                                 $this->commit();
                                 if ($nextStepNum != $currentStepNum) {
                                         $this->requestAPIsOfStep($nextStepNum);
@@ -548,17 +558,54 @@ class ApplicationDesire extends AdmObject
         public function beforeMaj($id, $fields_updated)
         {
                 $objApplicant = null;
-                if (!$this->getVal("idn")) {
+                $objApplicationModel = null;
+                $objApplicationPlanBranch = null;
+                $objProgram = null;
+                if ($fields_updated["applicant_id"] or !$this->getVal("idn")) {
                         if(!$objApplicant) $objApplicant = $this->het("applicant_id");
                         if ($objApplicant) {
                                 $this->set("idn", $objApplicant->getVal("idn"));
                                 $fields_updated["idn"] = "@WasEmpty";
                         }
                 }
+
+                if ($fields_updated["applicant_id"] or !$this->getVal("gender_enum"))
+                {
+                        if(!$objApplicant) $objApplicant = $this->het("applicant_id");
+                        if ($objApplicant) {
+                                $this->set("gender_enum", $objApplicant->getVal("gender_enum"));
+                        }
+                }
+
+                if ($fields_updated["application_plan_id"] or !$this->getVal("application_model_id") or !$this->getVal("academic_level_id"))
+                {
+                        if(!$objApplicationModel) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                        if ($objApplicationModel) {
+                                $this->set("application_model_id", $objApplicationModel->id);
+                                $this->set("academic_level_id", $objApplicationModel->getVal("academic_level_id"));
+                                
+                        }
+                }
+
+                if ($fields_updated["application_plan_branch_id"] or !$this->getVal("training_unit_type_id") or !$this->getVal("training_unit_id"))
+                {
+                        if(!$objApplicationPlanBranch) $objApplicationPlanBranch = $this->het("application_plan_branch_id");
+                        if ($objApplicationPlanBranch) {
+                                $this->set("training_unit_id", $objApplicationPlanBranch->getVal("training_unit_id"));
+                                if(!$objProgram) $objProgram = $objApplicationPlanBranch->het("program_id");
+                                if($objProgram)
+                                {
+                                        $this->set("training_unit_type_id", $objProgram->getVal("college_id"));
+                                }
+                        }
+                }
+
+                
+
                 if ($fields_updated["step_num"]) $this->requestAPIsOfStep($this->getVal("step_num"));
                 if ($fields_updated["step_num"] or (!$this->getVal("application_step_id"))) 
                 {
-                        $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                        if(!$objApplicationModel) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                         if ($objApplicationModel) {
                                 $appStepObj = $objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
                                 if ($appStepObj) {
@@ -578,5 +625,25 @@ class ApplicationDesire extends AdmObject
                 if($attribute=="weighted_percentage_details") return true;
                 if($attribute=="current_fields_matrix") return true;
                 return false;
+        }
+
+
+        public function select_visibilite_horizontale($dropdown=false)
+        {
+                $objme = AfwSession::getUserConnected();
+                
+                if($objme and $objme->isAdmin()) 
+                {
+                        // no VH for system admin
+                }
+                else
+                {
+                        $scopeList = self::getAuthenticatedUserScopeList();                        
+                        $scopeSQL = EmployeeScope::scopeListToSQL($scopeList);
+                        if($scopeSQL) $this->where($scopeSQL);                         
+                }
+                        
+                $selects = array();
+                $this->select_visibilite_horizontale_default($dropdown, $selects);
         }
 }

@@ -268,9 +268,6 @@
                                                 'CSS' => 'width_pct_25',),
 
 
-
-                                        
-
                                         'print_application_doc' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N', 'QEDIT' => false,   
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3,  'FORMAT' => 'icon', 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -311,6 +308,13 @@
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3,  'FORMAT' => 'icon', 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+
+                                        'split_sorting_by_enum' => array('SHORTNAME' => 'sorting_by',  'SEARCH' => true,  
+                                                'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false, 'STEP' => 3, 'DEFAUT' => 1,
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'READONLY' => false,  'DNA' => true,  'MANDATORY' => true,  
+                                                'CSS' => 'width_pct_50', ),
 
                                         'application_field_mfk' => array(
                                                 'IMPORTANT' => 'IN',

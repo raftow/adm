@@ -155,7 +155,7 @@ class AdmAdmEmpRequestAfwStructure
 			'CSS' => 'width_pct_25',
 			'TYPE' => 'ENUM',
 			'ANSWER' => 'FUNCTION',
-			'FUNCTION_COL_NAME' => 'genre_enum',
+			'FUNCTION_COL_NAME' => 'sex_enum',
 			'DEFAUT' => 1,
 			'STEP' => 2,
 			'SEARCH-BY-ONE' => '',

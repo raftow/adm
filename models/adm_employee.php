@@ -91,6 +91,28 @@ class AdmEmployee extends AdmObject
                 $this->select_visibilite_horizontale_default($dropdown, $selects);
         }
         
+        public static function loadMyEmployeeAccounts($employee_id)
+        {
+                $obj = new AdmEmployee();
+                if(!$employee_id) throw new AfwRuntimeException("loadMyEmployeeAccounts : employee_id is mandatory field");
+                $obj->select("employee_id",$employee_id);
+
+                return $obj->loadMany();
+        }
+
+        public function getMyScopes()
+        {
+                $myScopes = [];
+                
+                $employeeScopeList = $this->get("employeeScopeList");
+                foreach($employeeScopeList as $employeeScopeItem)
+                {
+                        $scope = $employeeScopeItem->retrieveScope();
+                        if($scope) $myScopes[] = $scope; 
+                }
+
+                return $myScopes;
+        }
         
         public static function loadByMainIndex($orgunit_id, $employee_id, $create_obj_if_not_found=false)
         {

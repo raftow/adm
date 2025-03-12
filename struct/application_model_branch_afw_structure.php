@@ -14,8 +14,8 @@
                                 $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
-                                //$obj->editByStep = true;
-                                //$obj->editNbSteps = 2; 
+                                $obj->editByStep = true;
+                                $obj->editNbSteps = 2; 
                                 if(($_GET["class_parent"]=="AcademicProgramOffering") or
                                    ($_POST["class_parent"]=="AcademicProgramOffering"))
                                 {
@@ -44,23 +44,23 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
 
-                                                'training_unit_id' => array('IMPORTANT' => 'IN',  
+                                                'training_unit_id' => array('IMPORTANT' => 'IN', 'SHOW' => true, 
                                                         'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
                                                         'READONLY' => true,  'STEP' => 99,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                          ),	
 
-                                                'department_id' => array('IMPORTANT' => 'IN', 'STEP' => 99,  
+                                                'department_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 'SHOW' => true, 
                                                                 'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  
                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
                                                                 ),
 
-                                                'major_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 
+                                                'major_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 'SHOW' => true,
                                                                 'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  
                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
                                                                 ),
 
-                                                'academic_program_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 
+                                                'academic_program_id' => array('IMPORTANT' => 'IN', 'STEP' => 99, 'SHOW' => true,
                                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  
                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
                                                                 ),
@@ -165,6 +165,10 @@
                                                 'CSS' => 'width_pct_25',),
 
                                         
+                                        'applicationPlanBranchList' => array('TYPE' => 'FK', 'ANSWER' => 'application_plan_branch', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_branch_id', 'STEP' => 2,                                                
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                
 
 
 

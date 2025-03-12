@@ -36,6 +36,7 @@ class ApplicationModelEnTranslator
 		$trad["application_model"]["print_admission_agreement"] = "Enable printing of acceptance agreement";
 		$trad["application_model"]["training_mode_enum"] = "Training Mode";
 		$trad["application_model"]["web_application"] = "Allow publishing on the web";
+		$trad["application_model"]["split_sorting_by_enum"] = "Split sorting by enum";
 		return $trad;
 	}
 }	

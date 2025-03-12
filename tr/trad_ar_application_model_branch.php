@@ -1,6 +1,6 @@
 <?php
 	$trad["application_model_branch"]["step1"] = "التعريف";
-    $trad["application_model_branch"]["step2"] = "خصائص متقدمة";
+    $trad["application_model_branch"]["step2"] = "الفروع";
 
 	$trad["application_model_branch"]["applicationmodelbranch.single"] = "فرع قبول";
 	$trad["application_model_branch"]["applicationmodelbranch.new"] = "جديد";
@@ -8,6 +8,8 @@
 
 	$trad["application_model_branch"]["application_model_id"] = "نموذج القبول";
 	$trad["application_model_branch"]["program_offering_id"] = "البرنامج المتاح";
+
+	$trad["application_model_branch"]["applicationPlanBranchList"] = "فروع التقديم";
 	/*
 	$trad["application_model_branch"]["gender_enum"] = "الجنس";
 	$trad["application_model_branch"]["academic_level_id"] = "المرحلة التدريبية";

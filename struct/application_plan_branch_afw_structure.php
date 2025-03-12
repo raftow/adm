@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 2; 
+                                $obj->editNbSteps = 4; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                 }
@@ -63,7 +63,8 @@
                                                         'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'WHERE'=>"id in (select department_id from §DBPREFIX§adm.academic_program where academic_level_id = §academic_level_id§ and genders_enum in (3,§gender_enum§) and active = 'Y')",
                                                         'DEPENDENCIES' => ['academic_level_id', 'gender_enum',],
-                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                        'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'DEPENDENT_OFME' => array("major_id", "program_id", "training_unit_id",),
                                                         'CSS' => 'width_pct_50', ),	
@@ -71,10 +72,10 @@
                                 'major_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                        'WHERE'=>"id in (select major_id from §DBPREFIX§adm.academic_program where department_id = §department_id§ and academic_level_id = §academic_level_id§ and genders_enum in (3,§gender_enum§) and active = 'Y')",
-                                                         // id in (select major_id from §DBPREFIX§adm.major_department where department_id = §department_id§ and active = 'Y') and 
+                                                        // 'WHERE'=>"id in (select major_id from §DBPREFIX§adm.academic_program where department_id = §department_id§ and academic_level_id = §academic_level_id§ and genders_enum in (3,§gender_enum§) and active = 'Y')",
+                                                        // id in (select major_id from §DBPREFIX§adm.major_department where department_id = §department_id§ and active = 'Y') and 
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne',                                                         
-                                                        'READONLY'=>false, 'AUTOCOMPLETE' => false, 'MANDATORY' => true,
+                                                        'READONLY'=>true, 'AUTOCOMPLETE' => false, 'MANDATORY' => false,
                                                         'DEPENDENCIES' => ['department_id','academic_level_id', 'gender_enum',],
                                                         'DEPENDENT_OFME' => array("program_id", "training_unit_id", ),
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -83,11 +84,12 @@
                                 'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  
-                                                        'WHERE'=>"academic_level_id = §academic_level_id§ and department_id = §department_id§ and major_id = §major_id§ and genders_enum in (3,§gender_enum§)",
+                                                        // 'WHERE'=>"academic_level_id = §academic_level_id§ and department_id = §department_id§ and major_id = §major_id§ and genders_enum in (3,§gender_enum§)",
                                                         'DEPENDENCIES' => array("major_id", "department_id", 'academic_level_id', 'gender_enum',),
                                                         'DEPENDENT_OFME' => array("training_unit_id", ),
                                                         'SIZE' => 40,  'DEFAUT' => 0,     
-                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                        'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_50', ),
         
@@ -98,7 +100,8 @@
                                                 'WHERE'=>"id in (select training_unit_id from §DBPREFIX§adm.academic_program_offering where academic_level_id = §academic_level_id§ and department_id = §department_id§ and major_id = §major_id§ and gender_enum=§gender_enum§ and academic_program_id = §program_id§ and active = 'Y') and gender_enum=§gender_enum§",
                                                 'DEPENDENCIES' => array("major_id", "department_id", 'academic_level_id', 'gender_enum', 'program_id',),
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
+                                                'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),	
 
@@ -115,7 +118,7 @@
                                                         'EDIT' => false,  'QEDIT' => false, 'UTF8' => false,  
                                                         /* 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  */
                                                         'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0, 
-                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_100', ),
 
@@ -235,7 +238,20 @@
                                                 'CSS' => 'width_pct_25',),
 
 
+                                        'sortingBranchList' => array('SHORTNAME' => 'sortingBranchs',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK', 'STEP' => 3,  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_branch',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_branch_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_50', ),
 
+
+                                        'applicationDesireList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK', 'STEP' => 4,  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_branch_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_50', ),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  

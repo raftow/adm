@@ -1,30 +1,30 @@
 <?php
 
 
-class AdmEmployeeScopeAfwStructure
+class AdmSortingGroupAfwStructure
 {
         // token separator = §
         public static function initInstance(&$obj)
         {
-                if ($obj instanceof EmployeeScope) {
+                if ($obj instanceof SortingGroup) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD = "";
+                        $obj->DISPLAY_FIELD = "name_ar";
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
-                        $obj->ORDER_BY_FIELDS = "start_date, end_date";
+                        $obj->ORDER_BY_FIELDS = "name_ar";
 
 
 
-                        $obj->UNIQUE_KEY = array('start_date', 'end_date');
-                        $obj->OwnedBy = array('module' => "adm", 'afw' => "AdmEmployee");
+                        // $obj->UNIQUE_KEY = array('XXX', 'YYY');
+
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
-                        $obj->after_save_edit = array("class"=>'AdmEmployee',"attribute"=>'adm_employee_id', "currmod"=>'adm',"currstep"=>2);
-                        // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'EmployeeScope', "submit" => true);
+                        // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
+                        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingGroup', "submit" => true);
                 } else {
-                        EmployeeScopeArTranslator::initData();
-                        EmployeeScopeEnTranslator::initData();
+                        SortingGroupArTranslator::initData();
+                        SortingGroupEnTranslator::initData();
                 }
         }
 
@@ -33,189 +33,156 @@ class AdmEmployeeScopeAfwStructure
         array(
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
-                'adm_employee_id' => array(
-                        'SHORTNAME' => 'employee',
+
+                'name_ar' => array(
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE' => true,
+                        'RETRIEVE-AR' => true,
                         'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'adm_employee',
-                        'ANSMODULE' => 'adm',
-                        'RELATION' => 'OneToMany',
-                        'READONLY' => true,
-                        'DNA' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 128,
+                        'MAXLENGTH' => 128,
+                        'MIN-SIZE' => 5,
+                        'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
 
-                'start_date' => array(
+                'name_en' => array(
                         'SEARCH' => true,
-                        'QSEARCH' => false,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE-EN' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 128,
+                        'MAXLENGTH' => 128,
+                        'MIN-SIZE' => 5,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'desc_ar' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => false,
                         'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 10,
-                        'MAXLENGTH' => 10,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'FORMAT' => 'LONG',
-                        'UTF8' => false,
-                        'TYPE' => 'DATE',
-                        'CSS' => 'width_pct_25',
-                ),
-                
-                'end_date' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => false,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 10,
-                        'MAXLENGTH' => 10,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'FORMAT' => 'LONG',
-                        'UTF8' => false,
-                        'TYPE' => 'DATE',
-                        'CSS' => 'width_pct_25',
-                ),
-
-                'academic_level_id' => array(
-                        'SHORTNAME' => 'level',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'academic_level',
-                        'ANSMODULE' => 'adm',
-                        'DEPENDENT_OFME' => array("application_model_id"),
-                        'RELATION' => 'ManyToOne',
-                        'EMPTY_IS_ALL' => true,
-                        'READONLY' => false,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'application_model_id' => array(
-                        'SHORTNAME' => 'model',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'application_model',
-                        'ANSMODULE' => 'adm',
-                        'WHERE' => "academic_level_id = §academic_level_id§",
-                        'DEPENDENCIES' => ['academic_level_id'],
-                        'RELATION' => 'ManyToOne',
-                        'EMPTY_IS_ALL' => true,
-                        'READONLY' => false,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'gender_enum' => array(
-                        'SHORTNAME' => 'gender',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => false,
-                        'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => false,
                         'QEDIT' => false,
-                        'SIZE' => 32,
+                        'SIZE' => 'AREA',
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'ENUM',
-                        'ANSWER' => 'LOOKUP_TABLE',
-                        'READONLY' => true,
-                        'EMPTY_IS_ALL' => true,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'training_unit_type_id' => array(
-                        'SHORTNAME' => 'unit_type',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'training_unit_type',
-                        'ANSMODULE' => 'adm',
-                        'DEPENDENT_OFME' => array("training_unit_id"),
-                        'RELATION' => 'ManyToOne',
-                        'EMPTY_IS_ALL' => true,
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
                         'READONLY' => false,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'training_unit_id' => array(
-                        'SHORTNAME' => 'unit',
-                        'SEARCH' => false,
-                        'QSEARCH' => false,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'training_unit',
-                        'ANSMODULE' => 'adm',
-                        'WHERE' => "(§training_unit_type_id§ = 0 or id in (select tuc.training_unit_id from §DBPREFIX§adm.training_unit_college tuc where tuc.college_id = §training_unit_type_id§ and tuc.active='Y'))",
-                        'DEPENDENCIES' => ['training_unit_type_id'],
-                        'RELATION' => 'ManyToOne',
-                        'EMPTY_IS_ALL' => true,
-                        'READONLY' => false,
-                        'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
 
                 
+
+                'desc_en' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 'AREA',
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'sorting_field_1_id' => array(
+                        'SHORTNAME' => 'field_1',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'REQUIRED' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_field',
+                        'ANSMODULE' => 'adm',
+                        'RELATION' => 'ManyToOne',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'AUTOCOMPLETE' => true,
+                        'CSS' => 'width_pct_33',
+                ),
+
+                'sorting_field_2_id' => array(
+                        'SHORTNAME' => 'field_2',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_field',
+                        'ANSMODULE' => 'adm',
+                        'RELATION' => 'ManyToOne',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'AUTOCOMPLETE' => true,
+                        'CSS' => 'width_pct_33',
+                ),
+
+                'sorting_field_3_id' => array(
+                        'SHORTNAME' => 'field_3',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_field',
+                        'ANSMODULE' => 'adm',
+                        'RELATION' => 'ManyToOne',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'AUTOCOMPLETE' => true,
+                        'CSS' => 'width_pct_33',
+                ),
+
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

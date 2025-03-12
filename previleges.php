@@ -237,6 +237,10 @@
   array (
     'name' => 'screen_model',
   ),
+  13945 => 
+  array (
+    'name' => 'sorting_group',
+  ),
   13935 => 
   array (
     'name' => 'sponsor',
@@ -2855,6 +2859,50 @@
       'id' => '104812',
     ),
   ),
+  'sorting_group' => 
+  array (
+    'id' => '13945',
+    'display' => 
+    array (
+      'id' => '104972',
+    ),
+    'search' => 
+    array (
+      'id' => '104973',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104974',
+    ),
+    'edit' => 
+    array (
+      'id' => '104969',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104970',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104975',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104971',
+    ),
+  ),
   'sponsor' => 
   array (
     'id' => '13935',
@@ -3206,6 +3254,17 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ScreenModel&currmod=adm',
           'css' => 'bf',
           'icon' => 'bficon-104815 bfc-',
+        ),
+        104974 => 
+        array (
+          'id' => '104974',
+          'code' => 'f2-a-sorting_group/qsearch',
+          'level' => '1',
+          'menu_name_ar' => 'مجموعات الفرز',
+          'menu_name_en' => 'Sorting groups',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=SortingGroup&currmod=adm',
+          'css' => 'bf',
+          'icon' => 'bficon-104974 bfc-',
         ),
       ),
       'sub-folders' => 

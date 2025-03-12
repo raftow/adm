@@ -13,6 +13,28 @@ class AdmObject extends AfwMomkenObject{
             return $return;
         }
 
+        public static function getAuthenticatedUserScopeList($objme = null)
+        {
+            $scopeList = [];
+
+            if (!$objme) $objme = AfwSession::getUserConnected();
+            if ($objme) 
+            {
+                $employee_id = $objme->getEmployeeId();
+                if ($employee_id)
+                {
+                    $empAccountList = AdmEmployee::loadMyEmployeeAccounts($employee_id);
+                    foreach($empAccountList as $empAccountItem)
+                    {
+                        $tmpScopes = $empAccountItem->getMyScopes();
+                        $scopeList = array_merge($scopeList, $tmpScopes);
+                    }
+                }
+            }
+            
+            return $scopeList;
+        }
+
         public static function userConnectedIsSupervisor($objme = null)
         {
                 if (!$objme) $objme = AfwSession::getUserConnected();
@@ -33,6 +55,49 @@ class AdmObject extends AfwMomkenObject{
                 if (!$employee_id) return 0;
 
                 return AdmEmployee::isGeneralAdmin($employee_id);
+        }
+
+        public static function code_of_split_sorting_by_enum($lkp_id=null)
+        {
+            global $lang;
+            if($lkp_id) return self::split_sorting_by()['code'][$lkp_id];
+            else return self::split_sorting_by()['code'];
+        }
+
+        public static function name_of_split_sorting_by_enum($split_sorting_by_enum, $lang="ar")
+        {
+            return self::split_sorting_by()[$lang][$split_sorting_by_enum];            
+        }
+        
+        public static function list_of_split_sorting_by_enum()
+        {
+            global $lang;
+            return self::split_sorting_by()[$lang];
+        }
+        
+        public static function split_sorting_by()
+        {
+                $arr_list_of_split_sorting_by = array();
+                
+                        
+                $arr_list_of_split_sorting_by["code"][1] = "NS";
+                $arr_list_of_split_sorting_by["ar"][1] = "بدون تقسيم";
+                $arr_list_of_split_sorting_by["en"][1] = "No split";
+
+                $arr_list_of_split_sorting_by["code"][2] = "MPS";
+                $arr_list_of_split_sorting_by["ar"][2] = "تقسيم حسب مجموعة التأهيل";
+                $arr_list_of_split_sorting_by["en"][2] = "Split with major path";
+
+                $arr_list_of_split_sorting_by["en"][3] = "Split with gender";
+                $arr_list_of_split_sorting_by["ar"][3] = "تقسيم حسب الجنس";
+                $arr_list_of_split_sorting_by["code"][3] = "GND";
+
+                $arr_list_of_split_sorting_by["en"][4] = "Split with gender and major path";
+                $arr_list_of_split_sorting_by["ar"][4] = "تقسيم حسب الجنس ومجموعة التأهيل";
+                $arr_list_of_split_sorting_by["code"][4] = "GNDMP";
+
+                
+                return $arr_list_of_split_sorting_by;
         }
 
         public static function code_of_training_period_enum($lkp_id=null)
@@ -510,6 +575,29 @@ class AdmObject extends AfwMomkenObject{
 
                 
                 return $arr_list_of_job_status;
+        }
+
+        public static function list_of_sex_enum()
+        {
+            global $lang;
+            return self::sex()[$lang];
+        }
+        
+        public static function sex()
+        {
+                $arr_list_of_gender = array();
+                
+                
+                $arr_list_of_gender["en"][1] = "Male";
+                $arr_list_of_gender["ar"][1] = "ذكر";
+                $arr_list_of_gender["code"][1] = "M";
+
+                $arr_list_of_gender["en"][2] = "Female";
+                $arr_list_of_gender["ar"][2] = "أنثى";
+                $arr_list_of_gender["code"][2] = "F";
+
+                
+                return $arr_list_of_gender;
         }
 
 
