@@ -3537,7 +3537,7 @@ div.hzm_data.inputreadonly.form-control {
     background-color: rgb(203 206 209 / 26%) !important;*/
     border: none !important;
     background-color: transparent !important;
-    padding-right: 25px !important;
+    /* padding-right: 25px !important; c trop et je vois pas l'utilite */
 }
 
 .hzm_data.hzm_data_status_date.hzm_value_empty_date.colstatus_date.form-control.inputreadonly {
