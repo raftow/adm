@@ -33,7 +33,7 @@ class SortingPath extends AFWObject
 
     public static function loadByMainIndex($application_model_id, $sorting_path_code,
                     $name_ar="", $desc_ar="", $name_en="", $desc_en="", $capacity_pct=0,
-                    $create_obj_if_not_found=false)
+                    $create_obj_if_not_found=false, $update_obj_if_found=false)
     {
        if(!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
        if(!$sorting_path_code) throw new AfwRuntimeException("loadByMainIndex : sorting_path_code is mandatory field");
@@ -50,7 +50,7 @@ class SortingPath extends AFWObject
                 if($desc_ar) $obj->set("desc_ar", $desc_ar);
                 if($name_en) $obj->set("name_en", $name_en);
                 if($desc_en) $obj->set("desc_en", $desc_en);
-                if($capacity_pct) $obj->set("capacity_pct", $capacity_pct);
+                if($capacity_pct and $update_obj_if_found) $obj->set("capacity_pct", $capacity_pct);
                 $obj->activate();
             } 
             return $obj;

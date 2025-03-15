@@ -13,6 +13,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["step8"] = "خطط التقديم";
 		$trad["application_model"]["step9"] = "البنود المالية";
 		
+		$trad["application_model"]["sortingPathList"] = "قائمة إعدادات مسارات الفرز";
 		$trad["application_model"]["aconditionOriginList"] = "مصادر الشروط";
 		$trad["application_model"]["applicationModelConditionList"] = "قائمة الشروط المطلوبة";
 		$trad["application_model"]["applicationModelConditionList.tooltip"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
@@ -26,6 +27,7 @@ class ApplicationModelArTranslator
 		
 		
 		$trad["application_model"]["split_sorting_by_enum"] = "تقسيم مسارات الفرز حسب";
+		$trad["application_model"]["sorting_path"] = "مسار الفرز";
 
 		$trad["application_model"]["applicationmodel.single"] = "نموذج قبول";
 		$trad["application_model"]["applicationmodel.new"] = "جديد";

@@ -49,9 +49,16 @@
                 
                 }
 
+                
+
+                public function getShortDisplay($lang = 'ar')
+                {
+                        return $this->getVal("major_path_name_$lang");                    
+                }
+
                 public function getDisplay($lang = 'ar')
                 {
-                        return $this->getDefaultDisplay($lang)." [".$this->id."]";
+                        return $this->getDefaultDisplay($lang); //." [".$this->id."]";
                 }
 
                 public function stepsAreOrdered()

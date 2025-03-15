@@ -31,6 +31,8 @@
                         else return null;
                 }
 
+                
+
                 public function getDisplay($lang="ar")
                 {
                         return $this->getVal("application_model_name_$lang");                    
@@ -147,6 +149,17 @@
                         
                 }
 
+                public function afterMaj($id, $fields_updated)
+                {  
+                        if($fields_updated["split_sorting_by_enum"])
+                        {
+                                list($err, $info, $war, $tech) = $this->updateSortingPath("en");
+                                if($err) AfwSession::pushError($err);
+                                if($info) AfwSession::pushInformation($info); 
+                                if($war) AfwSession::pushWarning($war); 
+                        }
+                }
+
                 public function beforeMaj($id, $fields_updated)
                 {  
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
@@ -165,6 +178,8 @@
 
                                 $this->createDefaultSteps($lang);
                         }
+
+                        
 
                         //$this->createDefaultSteps($lang);
 
@@ -539,6 +554,80 @@
                         return ["","done"];
                 }
 
+                
+
+                public function updateSortingPath($lang="ar")
+                {
+                        $err_arr = [];
+                        $inf_arr = [];
+                        $war_arr = [];
+                        $tech_arr = [];
+                        $nb_updated = 0;
+                        $nb_inserted = 0;
+                        $split_sorting_by_enum = $this->getVal("split_sorting_by_enum");
+                        if(!$split_sorting_by_enum) $split_sorting_by_enum = 1;
+                        
+                        if($split_sorting_by_enum>2)
+                        {
+                                $err_arr[] = "not implemented yet split_sorting_by_enum=$split_sorting_by_enum";
+                        }
+                        else
+                        {
+                                $application_model_id=$this->id;
+                                SortingPath::updateWhere(['active'=>'N'], "application_model_id = $application_model_id");
+                                if($split_sorting_by_enum==1)
+                                {
+                                        $the_code = "NS";
+                                        $majorPathList = [];
+                                }
+                                elseif($split_sorting_by_enum==2)
+                                {
+                                        $the_code = "MPS";
+                                        $majorPathList = MajorPath::loadAllLookupObjects();
+                                }
+
+                                if(count($majorPathList)==0)
+                                {
+                                        $the_code = "NS";
+                                        $majorPathList[$application_model_id] = $this;
+                                }
+
+
+                                $capacity_pct_total = 100;
+                                $capacity_pct_part = $capacity_pct_total / count($majorPathList);
+                                foreach($majorPathList as $majorPathItem)
+                                {
+                                        $sorting_path_code = $the_code."-".$majorPathItem->id;
+                                        $name_ar = $this->t("sorting_path", "ar")." : ".$majorPathItem->getShortDisplay("ar");
+                                        $desc_ar = "";
+                                        $name_en = $this->t("sorting_path", "en")." : ".$majorPathItem->getShortDisplay("en");
+                                        $desc_en = "";
+                                        if($capacity_pct_part<$capacity_pct_total) $capacity_pct = $capacity_pct_part;
+                                        else $capacity_pct = $capacity_pct_total;
+                                        $objItem = SortingPath::loadByMainIndex($application_model_id, $sorting_path_code, $name_ar, $desc_ar, $name_en, $desc_en, $capacity_pct, true);
+                                        $capacity_pct_total = $capacity_pct_total - $objItem->getVal("capacity_pct");
+                                        if($objItem->is_new)
+                                        {
+                                                $nb_inserted++; 
+                                                // $inf_arr[] = $objItem->tm("created path")." : ".$objItem->getDisplay($lang);
+                                        }
+                                        else
+                                        {
+                                                $nb_updated++;
+                                                // $inf_arr[] = $objItem->tm("updated path")." : ".$objItem->getDisplay($lang);  
+                                        }
+                                }
+
+                                SortingPath::deleteWhere("application_model_id = $application_model_id and active='N'");
+                        }
+                        
+
+                        $inf_arr[] = "تم انشاء $nb_inserted من المسارات";
+                        $inf_arr[] = "$nb_updated من المسارات موجودة سابقا";
+
+                        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+                }
+
                 public function genereApplicationModelBranchList($lang="ar")
                 {
 
@@ -641,6 +730,11 @@
                         $title_ar = "فتح جميع فروع القبول بطاقة استيعابية تجريبية"; 
                         $methodName = "testOpenApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+
+                        $color = "yellow";
+                        $title_ar = "تحديث مسارات الفرز"; 
+                        $methodName = "updateSortingPath";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sortingPathList"));
                         
 
                         $color = "blue";

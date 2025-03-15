@@ -100,6 +100,49 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_split_sorting_by;
         }
 
+
+
+        public static function code_of_apply_simul_method_enum($lkp_id=null)
+        {
+            global $lang;
+            if($lkp_id) return self::apply_simul_method()['code'][$lkp_id];
+            else return self::apply_simul_method()['code'];
+        }
+
+        public static function name_of_apply_simul_method_enum($apply_simul_method_enum, $lang="ar")
+        {
+            return self::apply_simul_method()[$lang][$apply_simul_method_enum];            
+        }
+        
+        public static function list_of_apply_simul_method_enum()
+        {
+            global $lang;
+            return self::apply_simul_method()[$lang];
+        }
+        
+        public static function apply_simul_method()
+        {
+                $arr_list_of_apply_simul_method = array();
+                
+                        
+                $arr_list_of_apply_simul_method["code"][1] = "ALL";
+                $arr_list_of_apply_simul_method["ar"][1] = "جميع الفروع المختارة";
+                $arr_list_of_apply_simul_method["en"][1] = "All selected branches";
+
+                $arr_list_of_apply_simul_method["code"][2] = "RANDOM";
+                $arr_list_of_apply_simul_method["ar"][2] = "عشوائيا من الفروع المختارة";
+                $arr_list_of_apply_simul_method["en"][2] = "Randomly from selected branches";
+
+
+                $arr_list_of_apply_simul_method["code"][3] = "FAVORITE";
+                $arr_list_of_apply_simul_method["ar"][3] = "الفروع المفضلة لكل متقدم";
+                $arr_list_of_apply_simul_method["en"][3] = "Favorite branches for each applicant";
+
+                
+                return $arr_list_of_apply_simul_method;
+        }
+
+
         public static function code_of_training_period_enum($lkp_id=null)
         {
             global $lang;

@@ -884,7 +884,7 @@ class Applicant extends AdmObject
 
                         $field_empty = ((!$field_value) or ($field_value === "W"));
                         $row_matrix['empty'] = $field_empty;
-                        $row_matrix['error'] = $this->getAttributeError($field_name);
+                        $row_matrix['error'] = AfwDataQualityHelper::getAttributeError($this, $field_name);
                         $field_value_datetime = "";
 
                         if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);

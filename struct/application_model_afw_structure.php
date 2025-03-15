@@ -337,13 +337,19 @@
                                         ),
 
 
+                                        'sortingPathList' => array('SHORTNAME' => 'sortingPaths',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 4,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_path',  'ANSMODULE' => 'adm',  'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_100', ),
                                         
                                         'applicationModelBranchList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_branch', 'ANSMODULE' => 'adm','QEDIT' => false,  
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 4,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true,
-                                                'VIEW-ICON'=>false,
+                                                'VIEW-ICON'=>false, 'CSS' => 'width_pct_100',
                                                 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
                                         'applicationStepList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  

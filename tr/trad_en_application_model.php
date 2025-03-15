@@ -9,6 +9,7 @@ class ApplicationModelEnTranslator
 		$trad["application_model"]["applicationmodel.new"] = "new";
 		$trad["application_model"]["application_model"] = "Application models";
 
+		$trad["application_model"]["sortingPathList"] = "List of Sorting paths";
 		$trad["application_model"]["academic_level_id"] = "Academic stage";
 		$trad["application_model"]["gender_enum"] = "Intended for:";
 		$trad["application_model"]["training_period_enum"] = "Training period";

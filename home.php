@@ -99,7 +99,7 @@ $myEmplId = $myEmplObj->getId();
 
 if(!$myEmplId) $out_scr .= "No employee attached to this account<br>";
 
-$out_scr .= $myEmplObj->showMinibox();
+$out_scr .= AfwShowHelper::showMinibox($myEmplObj);
 global $MODE_SQL_PROCESS_LOURD;
 
 $MODE_SQL_PROCESS_LOURD = true;
@@ -116,7 +116,7 @@ if(!count($schoolList)) $out_scr .= "No school attached to this employee<br>";
 
 foreach($schoolList as $schoolObj)
 {
-  $out_scr .= $schoolObj->showMinibox($structure);      
+  $out_scr .= AfwShowHelper::showMinibox($schoolObj, $structure);      
 }
 */
                                    

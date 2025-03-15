@@ -89,6 +89,10 @@
   array (
     'name' => 'applicant_file',
   ),
+  13950 => 
+  array (
+    'name' => 'applicant_group',
+  ),
   13904 => 
   array (
     'name' => 'applicant_qualification',
@@ -237,9 +241,17 @@
   array (
     'name' => 'screen_model',
   ),
+  13947 => 
+  array (
+    'name' => 'sorting_branch',
+  ),
   13945 => 
   array (
     'name' => 'sorting_group',
+  ),
+  13948 => 
+  array (
+    'name' => 'sorting_path',
   ),
   13935 => 
   array (
@@ -1229,6 +1241,50 @@
     'delete' => 
     array (
       'id' => '104950',
+    ),
+  ),
+  'applicant_group' => 
+  array (
+    'id' => '13950',
+    'display' => 
+    array (
+      'id' => '104979',
+    ),
+    'search' => 
+    array (
+      'id' => '104980',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104981',
+    ),
+    'edit' => 
+    array (
+      'id' => '104976',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104977',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104982',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104978',
     ),
   ),
   'applicant_qualification' => 
@@ -2859,6 +2915,50 @@
       'id' => '104812',
     ),
   ),
+  'sorting_branch' => 
+  array (
+    'id' => '13947',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'sorting_group' => 
   array (
     'id' => '13945',
@@ -2901,6 +3001,50 @@
     'delete' => 
     array (
       'id' => '104971',
+    ),
+  ),
+  'sorting_path' => 
+  array (
+    'id' => '13948',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
     ),
   ),
   'sponsor' => 
@@ -3335,6 +3479,17 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantFile&currmod=adm',
           'css' => 'bf',
           'icon' => 'bficon-104953 bfc-',
+        ),
+        104981 => 
+        array (
+          'id' => '104981',
+          'code' => 'f2-a-applicant_group/qsearch',
+          'level' => '1',
+          'menu_name_ar' => 'مجموعات المتقدمين',
+          'menu_name_en' => 'Applicant groups',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantGroup&currmod=adm',
+          'css' => 'bf',
+          'icon' => 'bficon-104981 bfc-',
         ),
       ),
       'sub-folders' => 

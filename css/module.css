@@ -4403,3 +4403,7 @@ div#fg-majorDepartmentList .fright.otln {
     width: 50% !important;
     height: 44px;
 }
+
+div#div_data_sortingPathList {
+    min-height: 100px !important;
+}

@@ -1,30 +1,30 @@
 <?php
 
 
-class AdmSortingPathAfwStructure
+class AdmApplicantGroupAfwStructure
 {
         // token separator = §
         public static function initInstance(&$obj)
         {
-                if ($obj instanceof SortingPath) {
+                if ($obj instanceof ApplicantGroup) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
                         $obj->DISPLAY_FIELD = "name_ar";
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
-                        $obj->ORDER_BY_FIELDS = "name_ar, desc_ar, name_en, desc_en, sorting_path_code, capacity_pct";
+                        $obj->ORDER_BY_FIELDS = "name_ar";
 
 
 
-                        $obj->UNIQUE_KEY = array('application_model_id', 'sorting_path_code');
+                        // $obj->UNIQUE_KEY = array('XXX', 'YYY');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
                         // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
-                        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingPath', "submit" => true);
+                        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicantGroup', "submit" => true);
                 } else {
-                        SortingPathArTranslator::initData();
-                        SortingPathEnTranslator::initData();
+                        ApplicantGroupArTranslator::initData();
+                        ApplicantGroupEnTranslator::initData();
                 }
         }
 
@@ -33,56 +33,13 @@ class AdmSortingPathAfwStructure
         array(
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
-                'application_model_id' => array(
-                        'SHORTNAME' => 'plan_branch',
-                        'SEARCH' => true,
-                        'QSEARCH' => false,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'MANDATORY' => true,
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'application_model',
-                        'ANSMODULE' => 'adm',
-                        'RELATION' => 'OneToMany',
-                        'READONLY' => true,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                'sorting_path_code' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 16,
-                        'MAXLENGTH' => 16,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => true,
-                        'MANDATORY' => true,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_50',
-                ),
 
                 'name_ar' => array(
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE-AR' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => 128,
@@ -91,6 +48,27 @@ class AdmSortingPathAfwStructure
                         'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",
                         'MANDATORY' => true,
                         'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                
+
+                'name_en' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 128,
+                        'MAXLENGTH' => 128,
+                        'MIN-SIZE' => 5,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => false,
                         'TYPE' => 'TEXT',
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
@@ -114,25 +92,6 @@ class AdmSortingPathAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'name_en' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE-EN' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SIZE' => 128,
-                        'MAXLENGTH' => 128,
-                        'MIN-SIZE' => 5,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'MANDATORY' => true,
-                        'UTF8' => false,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
-                ),
-
                 'desc_en' => array(
                         'SEARCH' => true,
                         'QSEARCH' => true,
@@ -150,29 +109,6 @@ class AdmSortingPathAfwStructure
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
-
-                
-
-                'capacity_pct' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => false,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 32,
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => false,
-                        'TYPE' => 'PCTG',
-                        'READONLY' => false,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_50',
-                ),
-
-                
 
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),

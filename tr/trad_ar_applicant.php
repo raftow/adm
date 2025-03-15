@@ -113,7 +113,12 @@ class ApplicantArTranslator{
 		$trad["applicant"]["moe"] = "الانتظام بالجامعة";
 		$trad["applicant"]["moegraduate"] = "حالة الخريج من الجامعة";
 		$trad["applicant"]["qiyas"] = "بيانات مستوردة من هيئة قياس";
+		$trad["applicant"]["favorite"] = "إعدادات التقديم المفضلة";
 		$trad["applicant"]["preferred_program_track_id"] = "المسار المفضل";
+		$trad["applicant"]["application_model_id"] = "نموذج القبول المفضل";
+		$trad["applicant"]["applicant_group_id"] = "مجموعة المتقدمين";
+		$trad["applicant"]["application_model_branch_mfk"] = "الفروع المفضلة";
+
 		
 		// additional fields steps
 		// $start_additional_step = 2;

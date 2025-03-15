@@ -29,9 +29,10 @@
                                         'application_model_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'application_model_id', 'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_model',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 
+                                                'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100', ),	
+                                                'CSS' => 'width_pct_25', ),	
 
                                                 'academic_level_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'application_model_id', 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_model_id.academic_level_id', 'SHOW' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false, 'NO-COTE' =>true,
@@ -64,6 +65,24 @@
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25', ),
 
+                                        'term_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'term_id',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'academic_term',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => "academic_level_mfk like '%,§academic_level_id§,%' and id not in (select term_id from §DBPREFIX§adm.application_plan where application_model_id = §application_model_id§ and term_id is not null and term_id != §term_id§)",
+                                                'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true,
+                                                'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),
+
+                                                        'academic_year_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.academic_year_id', 
+                                                            'SHOW' => true,  'RETRIEVE' => false,  
+                                                            'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                            'TYPE' => 'FK',  'ANSWER' => 'academic_year',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                            'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 
+                                                            'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                            'CSS' => 'width_pct_25', ),                                                        
+
                                         'instructions_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                         'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
                                                         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,   
@@ -77,22 +96,8 @@
                                                         'CSS' => 'width_pct_100',),
 
 
-                                        'term_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'term_id',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'academic_term',  'ANSMODULE' => 'adm',  
-                                                'WHERE' => "academic_level_mfk like '%,§academic_level_id§,%' and id not in (select term_id from §DBPREFIX§adm.application_plan where application_model_id = §application_model_id§ and term_id is not null and term_id != §term_id§)",
-                                                'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),	
+                                        	
 
-                                                        'academic_year_id' => array('IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.academic_year_id', 
-                                                            'SHOW' => true,  'RETRIEVE' => false,  
-                                                            'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                            'TYPE' => 'FK',  'ANSWER' => 'academic_year',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                            'STEP' => 2,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 
-                                                            'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                            'CSS' => 'width_pct_25', ),
 
 
                                                         'start_date' => [
