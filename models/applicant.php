@@ -374,7 +374,7 @@ class Applicant extends AdmObject
                                 $link = array();
                                 $title = "التقديم على " . $aplanItem->getShortDisplay($lang);
                                 // $title_detailed = $title . "لـ : " . $displ;
-                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&sel_applicant_id=$my_id&sel_application_plan_id=$application_plan_id&sel_application_model_id=$application_model_id";
+                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&sel_applicant_id=$my_id&sel_application_plan_id=$application_plan_id&sel_application_simulation_id=2&sel_application_model_id=$application_model_id";
                                 $link["TITLE"] = $title;
                                 $link["COLOR"] = $color;
                                 $link["UGROUPS"] = array();

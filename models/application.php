@@ -50,16 +50,17 @@ class Application extends AdmObject
          * @return Application
          */
 
-        public static function loadByMainIndex($applicant_id, $application_plan_id, $idn, $create_obj_if_not_found = false)
+
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, $create_obj_if_not_found = false)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
-
+                if(!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
 
                 $obj = new Application();
                 $obj->select("applicant_id", $applicant_id);
                 $obj->select("application_plan_id", $application_plan_id);
-
+                $obj->select("application_simulation_id",$application_simulation_id);
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) 
                         {
@@ -70,6 +71,7 @@ class Application extends AdmObject
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);
+                        $obj->set("application_simulation_id",$application_simulation_id);
                         $obj->set("idn", $idn);                                 
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
@@ -902,18 +904,18 @@ class Application extends AdmObject
         public function getApplicationDesireByNum($desire_num)
         {
                 $applicant_id = $this->getVal("applicant_id");
-                //$applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
 
-                return ApplicationDesire::loadByMainIndex($applicant_id, $application_plan_id, $desire_num);
+                return ApplicationDesire::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $desire_num);
         }
 
         public function getApplicationDesireByBranchId($application_plan_branch_id, $idn, $create_obj_if_not_found = false)
         {
                 $applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
-
-                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $this);
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $this);
         }
 
 

@@ -1238,11 +1238,24 @@ class AdmApplicantAfwStructure
 			'TYPE' => 'FK',
 			'ANSWER' => 'applicant_group',
 			'ANSMODULE' => 'adm',
-			'RELATION' => 'unkn',
+			'WHERE' => 'id != 2',
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
 		),
+
+                'log' => array('STEP' => 2, 'FGROUP' => 'favorite',
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'DEFAUT' => 'Y',
+                        'TYPE' => 'YN',
+                        'FORMAT' => 'icon',
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
 
                 
                 

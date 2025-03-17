@@ -16,7 +16,8 @@ class ApplicationEnTranslator{
 		$trad["application"]["application"] = "Applications";
 
 		$trad["application"]["applicant_id"] = "applicant id";
-		$trad["application"]["application_plan_id"] = "application plan id";
+		$trad["application"]["application_plan_id"] = "application plan";
+		$trad["application"]["application_simulation_id"] = "application type";
 		$trad["application"]["application_model_id"] = "application_model id";
 		$trad["application"]["step_num"] = "step number";
 		$trad["application"]["application_step_id"] = "application step id";

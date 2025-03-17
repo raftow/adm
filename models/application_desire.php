@@ -57,19 +57,23 @@ class ApplicationDesire extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($applicant_id, $application_plan_id, $desire_num)
+        
+
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $desire_num)
         {
                 // should not be able to insert but the insert is to be done by loadByBigIndex as it have the full attribute values
                 $create_obj_if_not_found = false;
 
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
                 if (!$desire_num) throw new AfwRuntimeException("loadByMainIndex : desire_num is mandatory field");
 
 
                 $obj = new ApplicationDesire();
                 $obj->select("applicant_id", $applicant_id);
                 $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id",$application_simulation_id);
                 $obj->select("desire_num", $desire_num);
 
                 if ($obj->load()) {
@@ -82,6 +86,7 @@ class ApplicationDesire extends AdmObject
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);                        
+                        $obj->set("application_simulation_id",$application_simulation_id);
                         $obj->set("desire_num", $desire_num);
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
@@ -91,16 +96,18 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public static function loadByBigIndex($applicant_id, $application_plan_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $applicationObj)
+        public static function loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $applicationObj)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
                 if (!$application_plan_branch_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id is mandatory field");
 
 
                 $obj = new ApplicationDesire();
                 $obj->select("applicant_id", $applicant_id);
                 $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id",$application_simulation_id);
                 $obj->select("application_plan_branch_id", $application_plan_branch_id);
 
                 if ($obj->load()) {
@@ -114,6 +121,7 @@ class ApplicationDesire extends AdmObject
                         $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)")+1;
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);
+                        $obj->set("application_simulation_id",$application_simulation_id);
                         $obj->set("application_plan_branch_id", $application_plan_branch_id);
                         $obj->set("application_id", $applicationObj->id);
                         $obj->set("applicant_qualification_id", $applicationObj->getVal("applicant_qualification_id"));

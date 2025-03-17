@@ -13,6 +13,7 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["idn"] = "رقم هوية المتقدم";
 		$trad["application_desire"]["applicant_id"] = "المتقدم";
 		$trad["application_desire"]["application_plan_id"] = "حملة التقديم";
+		$trad["application_desire"]["application_simulation_id"] = "نوع التقديم";
 		$trad["application_desire"]["application_plan_branch_id"] = "فرع التقديم";
 		$trad["application_desire"]["application_id"] = "ملف التقديم";
 		$trad["application_desire"]["step_num"] = "رقم المرحلة";

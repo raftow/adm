@@ -94,7 +94,12 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["moegraduate"] = "University graduate status";
 		$trad["applicant"]["qiyas"] = "Data imported from Qyias";
 
-		
+		$trad["applicant"]["favorite"] = "Application settings";
+		$trad["applicant"]["preferred_program_track_id"] = "Favorite track";
+		$trad["applicant"]["application_model_id"] = "Favorite application model";
+		$trad["applicant"]["applicant_group_id"] = "Applicant group";
+		$trad["applicant"]["application_model_branch_mfk"] = "Favorite branchs";
+		$trad["applicant"]["log"] = "Log application and sorting details";
 		return $trad;
     }
 

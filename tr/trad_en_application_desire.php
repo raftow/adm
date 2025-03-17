@@ -10,9 +10,10 @@ class ApplicationDesireEnTranslator{
 		$trad["application_desire"]["applicationdesire.new"] = "new";
 		$trad["application_desire"]["application_desire"] = "Application desires";
 
-		$trad["application_desire"]["applicant_id"] = "applicant id";
-		$trad["application_desire"]["application_plan_id"] = "application plan id";
-		$trad["application_desire"]["application_plan_branch_id"] = "application plan branch id";
+		$trad["application_desire"]["applicant_id"] = "applicant";
+		$trad["application_desire"]["application_plan_id"] = "application plan";
+		$trad["application_desire"]["application_simulation_id"] = "application type";
+		$trad["application_desire"]["application_plan_branch_id"] = "application plan branch";
 		$trad["application_desire"]["application_id"] = "application id";
 		$trad["application_desire"]["step_num"] = "step number";
 		$trad["application_desire"]["application_step_id"] = "step id";

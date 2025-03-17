@@ -83,10 +83,10 @@
                     if($attribute=="academic_year_id") return true;
                     if($attribute=="start_date") return true;
                     if($attribute=="end_date") return true;
-                    if($attribute=="aplication_start_date") return true;
-                    if($attribute=="application_start_time") return true;
-                    if($attribute=="application_end_date") return true;
-                    if($attribute=="application_end_time") return true;
+                    //if($attribute=="application_start_date") return true;
+                    //if($attribute=="application_start_time") return true;
+                    //if($attribute=="application_end_date") return true;
+                    //if($attribute=="application_end_time") return true;
                     if($attribute=="sorting_start_date") return true;
                     if($attribute=="sorting_end_date") return true;
                     if($attribute=="admission_start_date") return true;

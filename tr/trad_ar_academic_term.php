@@ -18,7 +18,7 @@
 	$trad["academic_term"]["end_date"] = "نهاية الفصل التدريبي";
 	$trad["academic_term"]["hijri_start_date"] = "بداية الفصل التدريبي";
 	$trad["academic_term"]["hijri_end_date"] = "نهاية الفصل التدريبي";
-	$trad["academic_term"]["aplication_start_date"] = "بداية التقديم";
+	$trad["academic_term"]["application_start_date"] = "بداية التقديم";
 	$trad["academic_term"]["application_end_date"] = "نهاية التقديم";
 	$trad["academic_term"]["application_start_time"] = "وقت فتح التقديم";
 	$trad["academic_term"]["application_end_time"] = "وقت غلق التقديم";
@@ -47,7 +47,7 @@
 
 	$trad["academic_term"]["hijri_start_date.short"] = "بداية الفصل";
 	$trad["academic_term"]["hijri_end_date.short"] = "نهاية الفصل";
-	$trad["academic_term"]["aplication_start_date.short"] = "بداية التقديم";
+	$trad["academic_term"]["application_start_date.short"] = "بداية التقديم";
 	$trad["academic_term"]["application_end_date.short"] = "نهاية التقديم";
 	$trad["academic_term"]["admission_start_date.short"] = "بداية القبول";
 	$trad["academic_term"]["admission_end_date.short"] = "نهاية القبول";

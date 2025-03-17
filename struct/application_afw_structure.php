@@ -7,9 +7,9 @@
                         if ($obj instanceof Application) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = array('applicant_id','application_plan_id');
+                                $obj->DISPLAY_FIELD = array('applicant_id','application_plan_id', 'application_simulation_id');
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                $obj->UNIQUE_KEY = array('applicant_id','application_plan_id');
+                                $obj->UNIQUE_KEY = array('applicant_id','application_plan_id','application_simulation_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
@@ -83,6 +83,15 @@
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25',),
                                         	
+
+
+                                        'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),	
+
                                         /* obsolete this field program_id here because the academic_program is selected with the desire not the application (contain major etc...)
                                         'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  

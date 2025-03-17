@@ -14,7 +14,7 @@
 	$trad["academic_term"]["end_date"] = "Term End Date";
 	$trad["academic_term"]["hijri_start_date"] = "Hijri Term Start Date";
 	$trad["academic_term"]["hijri_end_date"] = "Hijri Term End Date";
-	$trad["academic_term"]["aplication_start_date"] = "Application Start Date";
+	$trad["academic_term"]["application_start_date"] = "Application Start Date";
 	$trad["academic_term"]["application_end_date"] = "Appplication  End Date";
 	$trad["academic_term"]["application_start_time"] = "Application Start time";
 	$trad["academic_term"]["application_end_time"] = "Application End time";

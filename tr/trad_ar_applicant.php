@@ -118,7 +118,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["application_model_id"] = "نموذج القبول المفضل";
 		$trad["applicant"]["applicant_group_id"] = "مجموعة المتقدمين";
 		$trad["applicant"]["application_model_branch_mfk"] = "الفروع المفضلة";
-
+		$trad["applicant"]["log"] = "تتبع تفاصيل التقديم والفرز";
 		
 		// additional fields steps
 		// $start_additional_step = 2;

@@ -133,7 +133,7 @@
 
                                         
 
-                                        'aplication_start_date' => [
+                                        'application_start_date' => [
                                                 'IMPORTANT' => 'IN',
                                                 'SEARCH' => true,
                                                 'SHOW' => true,

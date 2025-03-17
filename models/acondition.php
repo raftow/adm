@@ -425,8 +425,10 @@ class Acondition extends AdmObject{
                 
         }
 
-        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true)
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0)
         {
+                if(!$simulate) $application_simulation_id =  2;
+                elseif(!$application_simulation_id) $application_simulation_id =  1;
                 /*
                 if(!$application_model_id)
                 {
@@ -586,7 +588,7 @@ class Acondition extends AdmObject{
                         {
                                 
                                 // die("here rafik applicant_id=$applicant_id application_table_id=$application_table_id application_plan_id=$application_plan_id field_name=$field_name field_reel=$field_reel");
-                                if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $applicant_idn, $simulate);
+                                if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicant_idn, $simulate);
                                 if($objApplication)
                                 {
                                         list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objApplication->calcTrackAndMajorPath();
@@ -596,9 +598,9 @@ class Acondition extends AdmObject{
                                 
                                 if(!$objApplication)
                                 {
-                                        // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $applicant_idn, $simulate) keyf failed ??");
+                                        // die("here rafik Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicant_idn, $simulate) keyf failed ??");
                                         $field_value = null;
-                                        $field_value_case = "Application::loadByMainIndex($applicant_id, $application_plan_id, $applicant_idn, $simulate) has returned null"; 
+                                        $field_value_case = "Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicant_idn, $simulate) has returned null"; 
                                 }
                                 elseif($field_reel)
                                 {

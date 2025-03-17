@@ -144,8 +144,8 @@
                 
                                                         
                 
-                                                        'aplication_start_date' => [
-                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.aplication_start_date', 
+                                                        'application_start_date' => [
+                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_start_date', 
                                                                 'SEARCH' => true,
                                                                 'SHOW' => true,
                                                                 'RETRIEVE' => false,

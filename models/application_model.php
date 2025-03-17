@@ -1272,8 +1272,16 @@
             }    
 	}
 
+        public function getCurrentPlan($dateApplyGreg)
+        {
+                $academic_level_id = $this->getVal("academic_level_id");
+                $objTerm = AcademicTerm::getCurrentTerm($academic_level_id, $dateApplyGreg);
+                if(!$objTerm or !$objTerm->id) return null;
 
+
+                return ApplicationPlan::loadByMainIndex($this->id, $objTerm->id); 
         }
+}
 
         
 ?>

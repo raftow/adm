@@ -141,6 +141,10 @@
   array (
     'name' => 'application_plan_branch',
   ),
+  13951 => 
+  array (
+    'name' => 'application_simulation',
+  ),
   13918 => 
   array (
     'name' => 'application_step',
@@ -1813,6 +1817,50 @@
     'delete' => 
     array (
       'id' => '104727',
+    ),
+  ),
+  'application_simulation' => 
+  array (
+    'id' => '13951',
+    'display' => 
+    array (
+      'id' => '104986',
+    ),
+    'search' => 
+    array (
+      'id' => '104987',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104988',
+    ),
+    'edit' => 
+    array (
+      'id' => '104983',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104984',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104989',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104985',
     ),
   ),
   'application_step' => 
@@ -3490,6 +3538,17 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantGroup&currmod=adm',
           'css' => 'bf',
           'icon' => 'bficon-104981 bfc-',
+        ),
+        104988 => 
+        array (
+          'id' => '104988',
+          'code' => 'f2-a-application_simulation/qsearch',
+          'level' => '1',
+          'menu_name_ar' => 'طلبات محاكاة التقديم',
+          'menu_name_en' => 'Application simulations',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationSimulation&currmod=adm',
+          'css' => 'bf',
+          'icon' => 'bficon-104988 bfc-',
         ),
       ),
       'sub-folders' => 

@@ -50,6 +50,7 @@ $migrations = [
     '00044' => ['by'=>'rafik', 'title' => 'UMS and Scope for Admission'],
     '00045' => ['by'=>'medali','title'=>'add educational zone table'],
     '00046' => ['by'=>'rafik', 'title' => 'Farz settings'],
+    '00047' => ['by'=>'rafik', 'title' => 'Application simulator'],
 
 ];
 

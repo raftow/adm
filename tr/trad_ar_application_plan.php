@@ -39,7 +39,7 @@
 	$trad["application_plan"]["end_date"] = "تاريخ نهاية الفصل التدريبي";
 	$trad["application_plan"]["hijri_start_date"] = "تاريخ بداية الفصل التدريبي";
 	$trad["application_plan"]["hijri_end_date"] = "تاريخ نهاية الفصل التدريبي";
-	$trad["application_plan"]["aplication_start_date"] = "تاريخ بداية التقديم";
+	$trad["application_plan"]["application_start_date"] = "تاريخ بداية التقديم";
 	$trad["application_plan"]["application_end_date"] = "تاريخ نهاية التقديم";
 	$trad["application_plan"]["application_start_time"] = "وقت فتح التقديم";
 	$trad["application_plan"]["application_end_time"] = "وقت غلق التقديم";

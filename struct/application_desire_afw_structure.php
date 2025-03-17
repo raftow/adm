@@ -9,9 +9,9 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = ["desire_num", "application_plan_branch_id"];
                                 $obj->DISPLAY_SEPARATOR = "-";
-                                $obj->ORDER_BY_FIELDS = "applicant_id, application_plan_id, desire_num";
-                                // $obj->UNIQUE_KEY = array('applicant_id','application_plan_id','application_plan_branch_id'); big one
-                                $obj->UNIQUE_KEY = array('applicant_id','application_plan_id','desire_num');
+                                $obj->ORDER_BY_FIELDS = "applicant_id, application_plan_id, application_simulation_id, desire_num";
+                                // $obj->UNIQUE_KEY = array('applicant_id','application_plan_id', 'application_simulation_id','application_plan_branch_id'); big one
+                                $obj->UNIQUE_KEY = array('applicant_id','application_plan_id', 'application_simulation_id', 'desire_num');
                                 $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
                                 $obj->MOVE_UP_ACTION = true;
@@ -91,6 +91,13 @@
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
+
+                                        'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
+                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),        
                                                 
                                         'application_model_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
