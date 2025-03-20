@@ -4407,3 +4407,8 @@ div#fg-majorDepartmentList .fright.otln {
 div#div_data_sortingPathList {
     min-height: 100px !important;
 }
+
+pre#log-log>h1 {
+    font-weight: bold;
+    font-family: title;
+}

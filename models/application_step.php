@@ -240,14 +240,22 @@
                 }
 
 
+                public function getStepCode()
+                {
+                       if(($this->getVal("step_code")))  return $this->getVal("step_code");
+
+                       return "STEP-".$this->getVal("step_num");
+                }
+
+
                 public function isTheSortingStep()
                 {
-                        return ($this->getVal("step_code") == "SRT");
+                        return ($this->getStepCode() == "SRT");
                 }
 
                 public function isTheDesireSelectStep()
                 {
-                        return ($this->getVal("step_code") == "DSR");
+                        return ($this->getStepCode() == "DSR");
                 }
                 
                 

@@ -8,6 +8,7 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["step1"] = "حيثيات المحاكاة";
 		$trad["application_simulation"]["step2"] = "اعدادات المحاكاة";
 		$trad["application_simulation"]["step3"] = "تنفيذ المحاكاة";
+		$trad["application_simulation"]["step4"] = "نتائج المحاكاة";
 
 		$trad["application_simulation"]["applicationsimulation.single"] = "طلب محاكاة تقديم";
 		$trad["application_simulation"]["applicationsimulation.new"] = "جديد(ة)";
@@ -18,10 +19,14 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["settings"] = "اعدادات المحاكاة";
 		$trad["application_simulation"]["log"] = "تفاصيل تنفيذ المحاكاة";
 		$trad["application_simulation"]["application_model_id"] = "نموذج القبول";
+		$trad["application_simulation"]["application_plan_id"] = "خطة القبول";
 		$trad["application_simulation"]["applicant_group_id"] = "مجموعة المتقدمين";
 		$trad["application_simulation"]["application_model_branch_mfk"] = "الفروع المختارة";
 		$trad["application_simulation"]["nb_desires"] = "عدد الرغبات الأقصى";
 		$trad["application_simulation"]["simul_method_enum"] = "طريقة المحاكاة";
+
+		$trad["application_simulation"]["applicationList"] = "محاكاة التقديم";
+		$trad["application_simulation"]["applicationdesireList"] = "محاكاة الرغبات";
 		
 		
         // steps

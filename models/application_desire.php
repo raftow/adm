@@ -180,6 +180,83 @@ class ApplicationDesire extends AdmObject
                 return $fieldsMatrix;
         }
 
+        // bootstrap the Desire to step of sorting (Farz)
+        public function bootstrapDesire($lang = "ar", $returnOnlyLastStepCode=false)
+        {
+                $app_des_name = $this->getDisplay($lang);
+                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                try 
+                {
+                        $max_tentatives = 300;
+                        $tentatives = 0; // limit tentatives to 300 to avoid infinite loop
+                        $currentStepObj = $this->het("application_step_id");
+                        $currentStepCode = $currentStepObj->getStepCode();        
+                        $bootstrapStatus = "--trying";
+                        while(($bootstrapStatus!="--blocked") and ($currentStepCode!="SRT") and ($tentatives<$max_tentatives))
+                        {
+                                $tentatives++;
+                                // refresh data
+                                $this->runNeededApis($lang = "ar", ($bootstrapStatus == "--forcing"));
+                                // try to go to next step
+                                list($err, $inf, $war, $tech) = $this->gotoNextDesireStep($lang = "ar");
+                                if ($err) 
+                                {
+                                        $err_arr[] = "$app_des_name : " . $err;    
+                                        $bootstrapStatus = "--blocked";
+                                }
+                                else
+                                {
+                                        if ($inf) $inf_arr[] = "$app_des_name : " . $inf;
+                                        if ($war) $war_arr[] = "$app_des_name : " . $war;
+                                        if ($tech) $tech_arr[] = $tech; 
+                                        $newStepObj = $this->het("application_step_id");
+                                        $newStepCode = $newStepObj->getStepCode();  
+        
+                                        if($newStepCode==$currentStepCode)
+                                        {
+                                                if($bootstrapStatus == "--trying") $bootstrapStatus = "--forcing"; 
+                                                if($bootstrapStatus == "--forcing") $bootstrapStatus = "--blocked"; 
+                                        }
+                                        else
+                                        {
+                                                $currentStepCode = $newStepCode;
+                                                $bootstrapStatus = "--trying";
+                                        }
+                                }
+                        }
+
+                        if(($bootstrapStatus == "--blocked") or ($currentStepCode!="SRT"))
+                        {
+                                $war_arr[] = $app_des_name." : ". $this->tm("Desire is faltered, please see details and resolve manually", $lang);
+                                $war_arr[] = $app_des_name." : ". $this->tm("Reached step", $lang)." : ".$currentStepCode."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
+                        }                        
+                        else
+                        {
+                                $war_arr[] = $app_des_name." : ". $this->tm("Sorting step reached", $lang)."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
+                        }
+
+                } catch (Exception $e) {
+                        if($devMode) throw $e;
+                        $err_arr[] = $e->getMessage();
+                } catch (Error $e) {
+                        if($devMode) throw $e;
+                        $err_arr[] = $e->__toString();
+                }
+
+                if($returnOnlyLastStepCode) return $currentStepCode;
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+        }
+
+        public function statusExplanations()
+        {
+                return $this->getVal("comments");
+        }
+
         public function gotoNextDesireStep($lang = "ar")
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
@@ -199,7 +276,7 @@ class ApplicationDesire extends AdmObject
                          * @var ApplicationStep $currentStepObj
                          */
                         $currentStepObj = $this->het("application_step_id");
-                        $currentStepCode = $currentStepObj->getVal("step_code");
+                        $currentStepCode = $currentStepObj->getStepCode();
                         $currentStepNum = $this->getVal("step_num");
 
                         $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
@@ -233,9 +310,11 @@ class ApplicationDesire extends AdmObject
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
                                 $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
-                                
+                                $newStepObj = $this->getApplicationPlan()->getApplicationModel()->convertStepNumToObject($nextStepNum);
+                                $this->set("application_step_id", $newStepObj->id);
+                                $newStepCode = $newStepObj->getStepCode();
                                 // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
-                                if($currentStepCode!="SRT")
+                                if($newStepCode!="SRT")
                                 {
                                         $message_war = $this->tm("Waiting to apply conditions ...", $lang);
                                 }
@@ -243,7 +322,7 @@ class ApplicationDesire extends AdmObject
                                 {
                                         $message_war = $this->tm("Waiting to apply sorting process ...", $lang);
                                 }
-                                $this->set("comments", $message_war);
+                                $this->set("comments", $message_war."<!-- new step : code=$newStepCode/num=$nextStepNum -->");
                                 $this->commit();
                                 if ($nextStepNum != $currentStepNum) {
                                         $this->requestAPIsOfStep($nextStepNum);
@@ -406,8 +485,9 @@ class ApplicationDesire extends AdmObject
             $objFirstStep = $this->getApplicationPlan()->getApplicationModel()->getFirstDesireStep();
             $first_step_num = $objFirstStep ? $objFirstStep->getVal("step_num") : 9999;
             $desire_status_enum = $this->getVal("desire_status_enum");
+            $application_simulation_id = $this->getVal("application_simulation_id");
             $step_num = $this->getVal("step_num");
-            if (($step_num > $first_step_num) or ($desire_status_enum > 1)) {
+            if (($application_simulation_id==2) and (($step_num > $first_step_num) or ($desire_status_enum > 1))) {
                 $this->deleteNotAllowedReason = "الرغبة أخذت طريقها في مسار التقديم يمكن فقط الغاء التقديم (الانسحاب) وليس حذفها بالكامل";
                 return false;
             }

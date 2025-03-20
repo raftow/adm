@@ -508,7 +508,9 @@
                                                                         'EDIT' => false,  'QEDIT' => false,  
                                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                                         'TYPE' => 'FK', 'STEP' => 6, 
-                                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_id',  
+                                                                        'WHERE' => 'application_simulation_id = 2',
+                                                                        'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                                         'CSS' => 'width_pct_100', ),
 
         

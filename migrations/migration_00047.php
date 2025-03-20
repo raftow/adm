@@ -17,6 +17,7 @@ AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_simulation me
 
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.applicant_group SET id=2, name_ar = _utf8'مجموعة المتقدمين حقيقة', name_en = 'Real applicants group', desc_ar = _utf8'', desc_en = '', created_by = 1, updated_by = 1, validated_by = 0, active = 'Y', draft = 'Y', sci_id = 0, created_at = '2025-03-13 15:21:04', updated_at = '2025-03-13 15:21:04', `version` = 1");
 
+AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.application_simulation SET id=1, name_ar = _utf8'محاكاة الشروط', name_en = 'Conditions simulation', application_model_id = 0, applicant_group_id = 0, simul_method_enum = '1', settings = '', log = '', created_by = 1, updated_by = 1, validated_by = 0, active = 'Y', draft = 'Y', sci_id = 1, created_at = '2025-03-16 14:52:19', updated_at = '2025-03-16 14:52:19', version = 1");
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.application_simulation SET id=2, name_ar = _utf8'تقديم حقيقي وليس محاكاة', name_en = 'Real application not a simulation', application_model_id = 0, applicant_group_id = 0, simul_method_enum = '1', settings = '', log = '', created_by = 1, updated_by = 1, validated_by = 0, active = 'Y', draft = 'Y', sci_id = 1, created_at = '2025-03-16 14:52:19', updated_at = '2025-03-16 14:52:19', version = 1");
 
 
@@ -69,6 +70,8 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
 AfwDatabase::db_query("CREATE unique index uk_application_desire on ".$server_db_prefix."adm.application_desire(applicant_id,application_plan_id,application_simulation_id,desire_num);");
 
 AfwDatabase::db_query("CREATE unique index uk_big_application_desire on ".$server_db_prefix."adm.application_desire(applicant_id,application_plan_id,application_simulation_id,application_plan_branch_id);");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`atable` CHANGE `atable_name` `atable_name` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;");
 
 
 

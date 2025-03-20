@@ -2,6 +2,12 @@
 
 class AdmObject extends AfwMomkenObject{
 
+        public function getMyPlanBranchArr()
+        {
+            $application_model_branch_liste = trim(trim($this->getVal("application_model_branch_mfk")),",");
+            return explode(",", $application_model_branch_liste);
+        }
+
         public function calcAdm_orgunit_id($what = "value")
         {
             $orgunit_id = $this->getVal("orgunit_id");
@@ -59,7 +65,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function code_of_split_sorting_by_enum($lkp_id=null)
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             if($lkp_id) return self::split_sorting_by()['code'][$lkp_id];
             else return self::split_sorting_by()['code'];
         }
@@ -71,7 +77,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_split_sorting_by_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::split_sorting_by()[$lang];
         }
         
@@ -104,7 +110,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function code_of_apply_simul_method_enum($lkp_id=null)
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             if($lkp_id) return self::apply_simul_method()['code'][$lkp_id];
             else return self::apply_simul_method()['code'];
         }
@@ -116,7 +122,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_apply_simul_method_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::apply_simul_method()[$lang];
         }
         
@@ -145,7 +151,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function code_of_training_period_enum($lkp_id=null)
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             if($lkp_id) return self::training_period()['code'][$lkp_id];
             else return self::training_period()['code'];
         }
@@ -157,7 +163,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_training_period_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::training_period()[$lang];
         }
         
@@ -195,7 +201,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_qualification_track_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::qualification_track()[$lang];
         }
 
@@ -221,7 +227,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_religion_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::religion_enum()[$lang];
         }
         
@@ -247,15 +253,67 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_religion_enum;
         }
 
+        public static function standard_application_step_title_by_code($the_code)        
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            $arr = self::standard_application_step_enum();
+            foreach($arr['code'] as $eid => $code)
+            {
+                if($the_code==$code) return $arr[$lang][$eid];
+            }
+
+
+            return "$the_code ???";
+        }
 
 
 
+        public static function list_of_standard_application_step_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::standard_application_step_enum()[$lang];
+        }
+        
+        public static function standard_application_step_enum()
+        {
+                $arr_list_of_standard_application_step_enum = array();
+                
+                        
+                $arr_list_of_standard_application_step_enum["en"][1] = "select desires";
+                $arr_list_of_standard_application_step_enum["ar"][1] = "اختيار الرغبات";
+                $arr_list_of_standard_application_step_enum["code"][1] = "DSR";
+
+                $arr_list_of_standard_application_step_enum["en"][2] = "sorting";
+                $arr_list_of_standard_application_step_enum["ar"][2] = "الفرز";
+                $arr_list_of_standard_application_step_enum["code"][2] = "SRT";
+                
+                $arr_list_of_standard_application_step_enum["en"][3] = "Final admission";
+                $arr_list_of_standard_application_step_enum["ar"][3] = "القبول النهائي";
+                $arr_list_of_standard_application_step_enum["code"][3] = "FNL";
+
+                return $arr_list_of_standard_application_step_enum;
+        }
+
+        public static function application_status_enum_by_code($the_code=null)        
+        {
+            $result = [];
+            $arr = self::application_status_enum();
+            foreach($arr['code'] as $eid => $code)
+            {
+                if($the_code and ($the_code==$code)) return $eid;
+                elseif(!$the_code) $result[$code] = $eid;
+            }
+
+
+            if($the_code) return 0;
+            else return $result;
+        }
 
 
 
         public static function list_of_application_status_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::application_status_enum()[$lang];
         }
         
@@ -266,28 +324,36 @@ class AdmObject extends AfwMomkenObject{
                         
                 $arr_list_of_application_status_enum["en"][1] = "application pending";
                 $arr_list_of_application_status_enum["ar"][1] = "جاري التقديم";
+                $arr_list_of_application_status_enum["code"][1] = "pending";
 
                 $arr_list_of_application_status_enum["en"][2] = "applied";
                 $arr_list_of_application_status_enum["ar"][2] = "متقدم";
+                $arr_list_of_application_status_enum["code"][2] = "applied";
                 
                 $arr_list_of_application_status_enum["en"][3] = "withdrawn";
                 $arr_list_of_application_status_enum["ar"][3] = "منسحب";
+                $arr_list_of_application_status_enum["code"][3] = "withdrawn";
 
                 $arr_list_of_application_status_enum["en"][4] = "excluded";
                 $arr_list_of_application_status_enum["ar"][4] = "مستبعد";
+                $arr_list_of_application_status_enum["code"][4] = "excluded";
+
+                $arr_list_of_application_status_enum["en"][5] = "data review";
+                $arr_list_of_application_status_enum["ar"][5] = "مراجعة البيانات";
+                $arr_list_of_application_status_enum["code"][5] = "data-review";
                 
                 return $arr_list_of_application_status_enum;
         }
 
         public static function list_of_desire_status_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::desire_status_enum()[$lang];
         }
         
         public static function desire_status_enum()
         {
-                $arr_list_of_application_status_enum = array();
+                $arr_list_of_desire_status_enum = array();
                 
                         
                 $arr_list_of_desire_status_enum["en"][1] = "candidate";
@@ -343,7 +409,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_application_admission_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::application_admission_enum()[$lang];
         }
         
@@ -374,7 +440,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_agreement_scope_type_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::agreement_scope_type_enum()[$lang];
         }
         
@@ -402,7 +468,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_marital_status_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::marital_status_enum()[$lang];
         }
         
@@ -440,7 +506,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_address_type_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::address_type_enum()[$lang];
         }
         
@@ -481,7 +547,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_employer_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::employer_enum()[$lang];
         }
         
@@ -512,7 +578,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_relationship_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::relationship_enum()[$lang];
         }
         
@@ -567,7 +633,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_level_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::level()[$lang];
         }
         
@@ -599,7 +665,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_job_status_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::job_status()[$lang];
         }
         
@@ -622,7 +688,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_sex_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::sex()[$lang];
         }
         
@@ -646,7 +712,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_genre_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::genre()[$lang];
         }
         
@@ -670,7 +736,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_gender_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::gender()[$lang];
         }
         
@@ -699,7 +765,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_genders_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::genders()[$lang];
         }
         
@@ -729,7 +795,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_training_mode_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::training_mode()[$lang];
         }
         
@@ -756,7 +822,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_lor_status_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::lor_status()[$lang];
         }
         
@@ -783,7 +849,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_notification_type_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::notification_type()[$lang];
         }
         
@@ -809,7 +875,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function code_of_term_mode_enum($lkp_id=null)
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             if($lkp_id) return self::term_mode()['code'][$lkp_id];
             else return self::term_mode()['code'];
         }
@@ -817,7 +883,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_term_mode_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::term_mode()[$lang];
         }
         
@@ -849,7 +915,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_afield_set_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::afield_set()[$lang];
         }
         
@@ -888,7 +954,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_entry_type_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::entry_type()[$lang];
         }
         
@@ -923,7 +989,7 @@ class AdmObject extends AfwMomkenObject{
         
         public static function list_of_payment_status_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::payment_status()[$lang];
         }
         
@@ -954,7 +1020,7 @@ class AdmObject extends AfwMomkenObject{
         }
         public static function list_of_payment_method_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::payment_method()[$lang];
         }
         
@@ -1030,7 +1096,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_application_table_id()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::application_table()[$lang];
         }
         
@@ -1078,7 +1144,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_financial_element_unit_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::financial_element_unit()[$lang];
         }
         
@@ -1152,7 +1218,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function list_of_hierarchy_level_enum()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::hierarchy_level()[$lang];
         }
         

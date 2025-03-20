@@ -89,7 +89,7 @@
   array (
     'name' => 'applicant_file',
   ),
-  13950 => 
+  13948 => 
   array (
     'name' => 'applicant_group',
   ),
@@ -129,9 +129,9 @@
   array (
     'name' => 'application_model_field',
   ),
-  13943 => 
+  13952 => 
   array (
-    'name' => 'application_model_financial_tran',
+    'name' => 'application_model_financial_transaction',
   ),
   13884 => 
   array (
@@ -141,7 +141,7 @@
   array (
     'name' => 'application_plan_branch',
   ),
-  13951 => 
+  13949 => 
   array (
     'name' => 'application_simulation',
   ),
@@ -184,6 +184,10 @@
   13907 => 
   array (
     'name' => 'eval_type',
+  ),
+  13950 => 
+  array (
+    'name' => 'financial_transaction',
   ),
   13915 => 
   array (
@@ -253,7 +257,7 @@
   array (
     'name' => 'sorting_group',
   ),
-  13948 => 
+  13953 => 
   array (
     'name' => 'sorting_path',
   ),
@@ -1249,7 +1253,7 @@
   ),
   'applicant_group' => 
   array (
-    'id' => '13950',
+    'id' => '13948',
     'display' => 
     array (
       'id' => '104979',
@@ -1687,9 +1691,9 @@
       'id' => -1,
     ),
   ),
-  'application_model_financial_tran' => 
+  'application_model_financial_transaction' => 
   array (
-    'id' => '13943',
+    'id' => '13952',
     'display' => 
     array (
       'id' => -1,
@@ -1821,7 +1825,7 @@
   ),
   'application_simulation' => 
   array (
-    'id' => '13951',
+    'id' => '13949',
     'display' => 
     array (
       'id' => '104986',
@@ -2301,6 +2305,50 @@
     'delete' => 
     array (
       'id' => -1,
+    ),
+  ),
+  'financial_transaction' => 
+  array (
+    'id' => '13950',
+    'display' => 
+    array (
+      'id' => '104993',
+    ),
+    'search' => 
+    array (
+      'id' => '104994',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '104995',
+    ),
+    'edit' => 
+    array (
+      'id' => '104990',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104991',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '104996',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104992',
     ),
   ),
   'identity_type' => 
@@ -3053,7 +3101,7 @@
   ),
   'sorting_path' => 
   array (
-    'id' => '13948',
+    'id' => '13953',
     'display' => 
     array (
       'id' => -1,
@@ -3511,7 +3559,7 @@
           'id' => '104960',
           'code' => 'f2-a-application_desire/qsearch',
           'level' => '999',
-          'menu_name_ar' => 'رغبات المتقدمين',
+          'menu_name_ar' => 'الترشحات',
           'menu_name_en' => 'Application desires',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationDesire&currmod=adm',
           'css' => 'bf',
@@ -3532,7 +3580,7 @@
         array (
           'id' => '104981',
           'code' => 'f2-a-applicant_group/qsearch',
-          'level' => '1',
+          'level' => '400',
           'menu_name_ar' => 'مجموعات المتقدمين',
           'menu_name_en' => 'Applicant groups',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantGroup&currmod=adm',
@@ -3543,7 +3591,7 @@
         array (
           'id' => '104988',
           'code' => 'f2-a-application_simulation/qsearch',
-          'level' => '1',
+          'level' => '400',
           'menu_name_ar' => 'طلبات محاكاة التقديم',
           'menu_name_en' => 'Application simulations',
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationSimulation&currmod=adm',
@@ -3587,7 +3635,6 @@
           'css' => 'bf',
           'icon' => 'bficon-104860 bfc-',
         ),
-        
         104846 => 
         array (
           'id' => '104846',
@@ -3599,7 +3646,6 @@
           'css' => 'bf',
           'icon' => 'bficon-104846 bfc-',
         ),
-        
         104853 => 
         array (
           'id' => '104853',
@@ -3611,7 +3657,6 @@
           'css' => 'bf',
           'icon' => 'bficon-104853 bfc-',
         ),
-        
         104967 => 
         array (
           'id' => '104967',
@@ -3795,6 +3840,28 @@
           'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=QualificationMajor&currmod=adm&ids=all&newo=3',
           'css' => 'bf',
           'icon' => 'bficon-104768 bfc-',
+        ),
+        104991 => 
+        array (
+          'id' => '104991',
+          'code' => 'f2-a-financial_transaction/qedit',
+          'level' => '1',
+          'menu_name_ar' => 'إدارة الحركات المالية',
+          'menu_name_en' => 'financial transactions administration',
+          'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=FinancialTransaction&currmod=adm&ids=all&newo=3',
+          'css' => 'bf',
+          'icon' => 'bficon-104991 bfc-',
+        ),
+        104995 => 
+        array (
+          'id' => '104995',
+          'code' => 'f2-a-financial_transaction/qsearch',
+          'level' => '1',
+          'menu_name_ar' => 'الحركات المالية',
+          'menu_name_en' => 'financial transactions',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=FinancialTransaction&currmod=adm',
+          'css' => 'bf',
+          'icon' => 'bficon-104995 bfc-',
         ),
       ),
       'sub-folders' => 

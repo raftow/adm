@@ -172,6 +172,16 @@
             }
         }
 
+        public function getApplicationPlanBranch($application_model_branch_id)
+        {
+            $ambObj = ApplicationModelBranch::loadById($application_model_branch_id);
+            if(!$ambObj) return 0;
+            $program_offering_id = $ambObj->getVal("program_offering_id");
+            $obj = ApplicationPlanBranch::loadByMainIndex($this->id,$program_offering_id);
+            if(!$obj) return 0;
+            return $obj;
+        }
+
         public function addPossibleBranchs($lang="ar", $reset = false)
         {
             $err_arr=[];

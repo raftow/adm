@@ -14,7 +14,7 @@ class ApplicationArTranslator{
 		$trad["application"]["application.new"] = "جديد";
 		$trad["application"]["application"] = "طلبات التقديم";
 
-		$trad["application"]["applicant_id"] = "رقم تسلسلي هوية المتقدم";
+		$trad["application"]["applicant_id"] = "المتقدم";
 		$trad["application"]["idn"] = "رقم هوية المتقدم";
 		$trad["application"]["application_plan_id"] = "حملة التقديم";
 		$trad["application"]["application_simulation_id"] = "نوع التقديم";
@@ -25,6 +25,7 @@ class ApplicationArTranslator{
 		
 		$trad["application"]["applicant_qualification_id"] = "مؤهل التقديم";
 		$trad["application"]["application_status_enum"] = "حالة التقديم";
+		$trad["application"]["comments"] = "ملاحظات"; 
 		$trad["application"]["qualification_id"] = "المؤهل";
 		$trad["application"]["major_category_id"] = "فئة التخصص";
 

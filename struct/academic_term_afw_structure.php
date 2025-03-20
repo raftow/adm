@@ -145,7 +145,7 @@
                                                 'EDIT-ADMIN' => true,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
-                                                
+                                                'DISPLAY' => true,
                                                 'STEP' => 2, 'FGROUP' => 'miladi',
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
@@ -188,7 +188,7 @@
                                                 'EDIT-ADMIN' => true,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
-                                                
+                                                'DISPLAY' => true,
                                                 'STEP' => 2, 'FGROUP' => 'miladi',
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',

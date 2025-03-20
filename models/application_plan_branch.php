@@ -24,6 +24,35 @@
                         else return null;
                 }
 
+                public static function loadByMainIndex($application_plan_id, $program_offering_id,$create_obj_if_not_found=false)
+                {
+                        if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                        if(!$program_offering_id) throw new AfwRuntimeException("loadByMainIndex : program_offering_id is mandatory field");
+
+
+                        $obj = new ApplicationPlanBranch();
+                        $obj->select("application_plan_id",$application_plan_id);
+                        $obj->select("program_offering_id",$program_offering_id);
+
+                        if($obj->load())
+                        {
+                                if($create_obj_if_not_found) $obj->activate();
+                                return $obj;
+                        }
+                        elseif($create_obj_if_not_found)
+                        {
+                                $obj->set("application_plan_id",$application_plan_id);
+                                $obj->set("program_offering_id",$program_offering_id);
+
+                                $obj->insertNew();
+                                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                                $obj->is_new = true;
+                                return $obj;
+                        }
+                        else return null;
+                
+                }
+
                 public function getDisplay($lang = 'ar')
                 {
                         return $this->getDefaultDisplay($lang);

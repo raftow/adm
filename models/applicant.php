@@ -851,12 +851,62 @@ class Applicant extends AdmObject
                 return [$field_value_datetime, $api];
         }
 
+
+        
+
+        public function simulateApplication($applicationPlanObj, $applicationSimulationObj, $lang='ar')
+        {
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                /*
+                if(!$applicationModelObj or !$applicationModelObj->id) throw new AfwRuntimeException("simulateApplication : No Application Model Defined for this simulation");
+                else*/
+                
+                if(!$applicationSimulationObj or !$applicationSimulationObj->id) throw new AfwRuntimeException("simulateApplication : No Application Simulation ID Defined to do this simulation");
+                elseif(!$applicationPlanObj or !$applicationPlanObj->id) throw new AfwRuntimeException("simulateApplication : No Application Plan Defined for this simulation");
+                $applicant_id = $this->id;
+                $application_plan_id = $applicationPlanObj->id;
+                $application_simulation_id = $applicationSimulationObj->id; 
+                $idn = $this->getVal("idn");
+                $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
+                if($appObj)
+                {
+                        $stepCode = $appObj->bootstrapApplication($lang, true);
+                        $stepCodeTile = self::standard_application_step_title_by_code($stepCode);
+                        if($stepCode=="DSR")
+                        {
+                                $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
+                                $appDesireList = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang);
+                                foreach($appDesireList as $appDesireItem)
+                                {
+                                        $disp = $appDesireItem->getDisplay($lang);
+                                        $desireStepCode = $appDesireItem->bootstrapDesire($lang, true);
+                                        $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
+                                        if($desireStepCode=="SRT")
+                                                $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
+                                        else 
+                                                $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> / ". $appDesireItem->statusExplanations(); 
+                                }
+                        }
+                        else
+                        {
+                                $war_arr[] = $this->tm("Application",$lang) ." ". $this->tm("faltered at step",$lang). " : $stepCodeTile <!-- $stepCode --> / ". $appObj->statusExplanations(); 
+                        }
+                }
+                else
+                {
+                        $err_arr[] = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
+                }
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "\n", $tech_arr);
+        }
+
         /**
          * @param Application $applicationObj
          * 
          */
-
-
         public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", $applicationObj = null, $onlyIfTheyAreUpdated = false)
         {
 

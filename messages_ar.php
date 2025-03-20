@@ -58,13 +58,50 @@
     $messages["Crowd desires"] = "دفع الرغبات إلى الأمام";
     $messages["This track is not available, going to"] = "هذا المسار غير متوفر، ذهابا إلى";
     $messages["coming from"] = "قدوما من";
-    $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تطبيق الشروط لعدم توفر بيانات محدثة";
+    $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تقديم الشروط لعدم توفر بيانات محدثة";
     $messages["This employee is not from"] = "هذا الموظف ليس من";  
     $messages["but from"] = "وإنما من";
     $messages["The empolyee account has been approved, he can use it now"] = "تم اعتماد حساب الموظف يمكنه استخدامه الآن";
     $messages["Waiting to apply conditions ..."] = "بانتظار تطبيق الشروط ...";
     $messages["Waiting to apply sorting process ..."] = "بانتظار تطبيق الفرز ...";
+
+    $messages["Application is faltered, please see details and resolve manually"] = "هذا التقديم متعثر، من فضلك قم بحل الاشكال يدويا للاستمرار";
+    $messages["Desire is faltered, please see details and resolve manually"] = "تعثر التقديم على هذه الرغبة، يُرجى الاطلاع على التفاصيل والحل يدويًا";
+    $messages["Reached step"] = "تم الوصول إلى الخطوة";
+    $messages["Sorting step reached"] = "تم الوصول إلى خطوة الفرز";
+    $messages["Application desire selection reached"] = "تم الوصول إلى خطوة اختيار الرغبات";
     // $messages["applicationModelConditionList_EHELP"] = "بعد التأكد من صحة قائمة مصادر الشروط يرجى الضعط على زر تحديث الشروط على اليسار";
-      
+    $messages["Application simulation"] = "محاكاة التقديم";
+    $messages["Real application"] = "تقديم حقيقي";
+    $messages["No Application Model Defined for this simulation"] = "لا يوجد نموذج تقديم مُعرّف لهذه المحاكاة";
+    $messages["No Applicant Group Defined for this simulation"] = "لا توجد مجموعة مُتقدّمين مُعرّفة لهذه المحاكاة";
+    $messages["No Application Plan Defined for this simulation"] = "لا توجد خطة تقديم مُعرّفة لهذه المحاكاة";
+    $messages["If you have not defined the DATE parameter for simulation, the system will take the current gregorian date and the current academic term to find the appropriate application plan"] = "إذا لم تُحدّد مُعامل DATE للمحاكاة، فسيستخدم النظام التاريخ الميلادي الحالي والفصل الدراسي الحالي لإيجاد خطة التقديم المُناسبة.";
+
+    $messages["No Applicants found in context"] = "لا يوجد متقدمين في السياق";
+    $messages["Application"] = "عملية التقديم";
+    $messages["Application desire"] = "الرغبة";
+    $messages["reached step"] = "وصلت إلى الخطوة";
+    $messages["faltered at step"] = "تعثرت عند الخطوة";
+    $messages["Number of Applicants found in context"] = "عدد المتقدمين الذين تم العثور عليهم في السياق";
+
+    $messages["No first step defined for this application model, you may need to reorder the steps to have first step having number equal 0 or number equal 1"] 
+        = "لم يتم تحديد خطوة أولى لهذا النموذج فقد تحتاج إلى إعادة ترتيب الخطوات بحيث يكون رقم الخطوة الأولى مساويًا لـ 0 أو مساويًا لـ 1";
     
+    $messages["Number of Applicants found in context"] = "عدد المتقدمين الذين تم العثور عليهم في السياق";
+
+    // $messages[""] = "";
+    
+    
+    
+    
+    
+
+
+    
+
+
+
+
+
 ?>

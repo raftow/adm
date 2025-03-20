@@ -82,16 +82,21 @@ class ApplicationSimulation extends AdmObject{
             return $pbms;
         }
 
-        public function getOptions($option="all")
+        public function getOptions($option="all", $value=false)
         {
             $options_arr = [];
             $settings_arr = explode("\n",$this->getVal("settings"));
             foreach($settings_arr as $settings_item)
             {
                 $settings_item = trim($settings_item);
-                list($optionItem,$optionVal) = explode("=",$settings_item);
-                if($option=="all" or $option=$optionItem)
+                list($optionItem, $optionVal) = explode("=",$settings_item);
+                if($option=="all" or $option==$optionItem)
                 {
+                    if($value) 
+                    {
+                        // return "($option==all or $option=$optionItem) $settings_item => optionVal=$optionVal";
+                        return $optionVal;                        
+                    }
                     $options_arr[$optionItem] = $optionVal;
                 }
             }
@@ -103,38 +108,43 @@ class ApplicationSimulation extends AdmObject{
         {
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
             if(!$applicationModelObj) $applicationModelObj = $this->het("application_model_id");
-            if(!$applicationModelObj) return [];
+            if(!$applicationModelObj) return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, [], "No application model defined"];
             if(!$applicantGroupObj) $applicantGroupObj = $this->het("applicant_group_id");
-            if(!$applicantGroupObj) return [];
+            if(!$applicantGroupObj) return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, [], "No applicant group defined"];
             
             $application_model_id = $applicationModelObj->id;            
             $applicant_group_id = $applicantGroupObj->id;
             // $application_simulation_id = $this->id;
-            if(!$applicationPlanObj) $applicationPlanObj = $applicationModelObj->getCurrentPlan($applyDateGreg);
-            if(!$applicationPlanObj) return [];
+            $apContext = "defined";
+            if(!$applicationPlanObj) 
+            {
+                $apContext = "current (at $applyDateGreg)";
+                $applicationPlanObj = $applicationModelObj->getCurrentPlan($applyDateGreg);
+            }
+            if(!$applicationPlanObj) return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, [], "No $apContext application plan"];
             $application_plan_id = $applicationPlanObj->id;
 
             if($applicantGroupObj->id==2)
             {
-                
-            
                 $where = "id in (select applicant_id from $server_db_prefix"."amd.application where application_plan_id=$application_plan_id and application_simulation_id=2)";
+                $context = "Real applicants, applied on this plan (id=$application_plan_id)";
             }
             else
             {
                 $where = "active='Y' and application_model_id = $application_model_id and applicant_group_id=$applicant_group_id";
+                $context = "Applicants that has favorite model (id=$application_model_id) and belongs to group (id=$applicant_group_id)";
             }
 
             $obj = new Applicant();
             $obj->where($where);
 
-            return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit)];
+            return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit), $context];
         }
 
         public function runSimulation($lang="ar")
         {
-            if($this->id==2) $typeRun = "Real-application";
-            else $typeRun = "Application-simulation";
+            if($this->id==2) $typeRun = $this->tm("Real application", $lang);
+            else $typeRun = $this->tm("Application simulation", $lang);
 
             $arrOptions = $this->getOptions();
             if(!$arrOptions["DATE"]) $arrOptions["DATE"] = date("Y-m-d");
@@ -147,28 +157,58 @@ class ApplicationSimulation extends AdmObject{
             try {
                 // $application_model_id = $this->getVal("application_model_id");
                 // $applicant_group_id = $this->getVal("applicant_group_id");
-                list($applicationModelObj, $applicantGroupObj, $applicationPlanObj, $applicantList) = $this->getMyApplicantList(null,null,null,'',$arrOptions["DATE"]);
-                foreach($applicantList as $applicantItem)
+                list($applicationModelObj, $applicantGroupObj, $applicationPlanObj, $applicantList, $context) = $this->getMyApplicantList(null,null,null,'',$arrOptions["DATE"]);
+                $err = "";
+                if(!$applicationModelObj) $err = $this->tm("No Application Model Defined for this simulation", $lang);
+                elseif(!$applicantGroupObj) $err = $this->tm("No Applicant Group Defined for this simulation", $lang);
+                elseif(!$applicationPlanObj) $err = $this->tm("No Application Plan Defined for this simulation", $lang) . ". ".$this->tm("If you have not defined the DATE parameter for simulation, the system will take the current gregorian date and the current academic term to find the appropriate application plan", $lang);
+                else
                 {
-                    $logMe = $applicantItem->sureIs("log");
-                    list($err, $inf, $war, $tech) = $applicantItem->simulateApplication($applicationModelObj, $applicationPlanObj, $this);
-                    
-                    if($logMe)
+                    $this->set("application_plan_id", $applicationPlanObj->id);
+                    $nbApplicants = count($applicantList);
+                    if($nbApplicants==0) $err = $this->tm("No Applicants found in context", $lang) . " : $context";
+                    else 
                     {
-                        $applicant_name = $applicantItem->getDisplay($lang);
-                        $applicant_idn = $applicantItem->getVal("idn");
-                        if ($err) $err_arr[] = "$applicant_name : " . $err;                    
-                        if ($inf) $inf_arr[] = "$applicant_name : " . $inf;
-                        if ($war) $war_arr[] = "$applicant_name : " . $war;
-                        if ($tech) $tech_arr[] = $tech;    
-
-                        $log_arr[] = "-- $typeRun for $applicant_idn - $applicant_name";
-                        if ($err) $log_arr[] = "error : " . $err;                    
-                        if ($inf) $log_arr[] = "information : " . $inf;
-                        if ($war) $log_arr[] = "warning : " . $war;
-                        if ($tech) $log_arr[] = "debugg : " . $tech;    
+                        $log1 = $this->tm("Number of Applicants found in context", $lang) . " : *** <!-- $context --> = $nbApplicants";
+                        $inf_arr[] = $log1;
+                        $log_arr[] = $log1;
                     }
-                    
+                }
+
+                if ($err) 
+                {
+                    $err_arr[] = "error : " . $err;                    
+                    $log_arr[] = "error : " . $err; 
+                }
+                else
+                {
+                    foreach($applicantList as $applicantItem)
+                    {
+                        $logMe = $applicantItem->sureIs("log");
+                        list($err, $inf, $war, $tech) = $applicantItem->simulateApplication($applicationPlanObj, $this);
+                        
+                        if($logMe)
+                        {
+                            $applicant_name = $applicantItem->getDisplay($lang);
+                            $applicant_idn = $applicantItem->getVal("idn");
+                            if ($err) $err_arr[] = "$applicant_name : " . $err;                    
+                            if ($inf) $inf_arr[] = "$applicant_name : " . $inf;
+                            if ($war) $war_arr[] = "$applicant_name : " . $war;
+                            if ($tech) $tech_arr[] = $tech;    
+                            $t_for = $this->translateOperator("for", $lang);
+                            $t_error = $this->translateOperator("error", $lang);
+                            $t_information = $this->translateOperator("information", $lang);
+                            $t_warning = $this->translateOperator("warning", $lang);
+                            $t_debugg = $this->translateOperator("debugg", $lang);
+    
+                            $log_arr[] = "<h1>$typeRun $t_for $applicant_idn - $applicant_name </h1>";
+                            if ($err) $log_arr[] = "$t_error : " . $err;                    
+                            if ($inf) $log_arr[] = "$t_information : " . $inf;
+                            if ($war) $log_arr[] = "$t_warning : " . $war;
+                            if ($tech) $log_arr[] = "$t_debugg : " . $tech;    
+                            
+                        }
+                    }
                 }
 
                 $this->set("log", implode("\n",$log_arr));
@@ -176,7 +216,7 @@ class ApplicationSimulation extends AdmObject{
             } catch (Exception $e) {
                 $err_arr[] = $e->getMessage();
             } catch (Error $e) {
-                    $err_arr[] = $e->__toString();
+                $err_arr[] = $e->__toString();
             }
             // die("war_arr=".var_export($war_arr));
             return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
@@ -184,50 +224,16 @@ class ApplicationSimulation extends AdmObject{
 
         
         
-        public function fld_CREATION_USER_ID()
-        {
-                return "created_by";
+        public function userCanDoOperationOnMe(
+            $auser,
+            $operation,
+            $operation_sql
+        ) {
+            throw new AfwRuntimeException("userCanDoOperationOnMe($auser->id,$operation,$operation_sql)");
+            if($operation_sql=="delete" or $operation_sql=="update") return (($this->id != 1) and ($this->id != 2));
+            
+            return true;
         }
-
-        public function fld_CREATION_DATE()
-        {
-                return "created_at";
-        }
-
-        public function fld_UPDATE_USER_ID()
-        {
-        	return "updated_by";
-        }
-
-        public function fld_UPDATE_DATE()
-        {
-        	return "updated_at";
-        }
-        
-        public function fld_VALIDATION_USER_ID()
-        {
-        	return "validated_by";
-        }
-
-        public function fld_VALIDATION_DATE()
-        {
-                return "validated_at";
-        }
-        
-        public function fld_VERSION()
-        {
-        	return "version";
-        }
-
-        public function fld_ACTIVE()
-        {
-        	return  "active";
-        }
-        
-        public function isTechField($attribute) {
-            return (($attribute=="created_by") or ($attribute=="created_at") or ($attribute=="updated_by") or ($attribute=="updated_at") or ($attribute=="validated_by") or ($attribute=="validated_at") or ($attribute=="version"));  
-        }
-        
         
         public function beforeDelete($id,$id_replace) 
         {
@@ -276,6 +282,14 @@ class ApplicationSimulation extends AdmObject{
     public function stepsAreOrdered()
     {
         return true;
+    }
+
+
+    public function calcApplicant_ids($what="value")
+    {
+        $return = $this->getOptions("SHOW_APPLICANTS", true);
+        // die("getOptions(SHOW_APPLICANTS, true) = $return");
+        return $return;
     }
              
 }

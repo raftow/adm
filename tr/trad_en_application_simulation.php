@@ -8,6 +8,7 @@ class ApplicationSimulationEnTranslator{
 		$trad["application_simulation"]["step1"] = "Simulation Details";    
 		$trad["application_simulation"]["step2"] = "Simulation Settings";   
 		$trad["application_simulation"]["step3"] = "Simulation Execution";
+		$trad["application_simulation"]["step4"] = "Simulation Results";
 
 		$trad["application_simulation"]["applicationsimulation.single"] = "Application simulation";
 		$trad["application_simulation"]["applicationsimulation.new"] = "new";
@@ -17,6 +18,7 @@ class ApplicationSimulationEnTranslator{
 		$trad["application_simulation"]["name_en"] = "English Application simulation name";
 		$trad["application_simulation"]["desc_en"] = "English Application simulation description";
 		$trad["application_simulation"]["application_model_id"] = "Application model";
+		$trad["application_simulation"]["application_plan_id"] = "Application plan";
 		$trad["application_simulation"]["applicant_group_id"] = "Applicant group";
 		$trad["application_simulation"]["application_model_branch_mfk"] = "Selected branches";
 		$trad["application_simulation"]["nb_desires"] = "Number of desires";
