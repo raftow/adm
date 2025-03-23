@@ -35,26 +35,36 @@ class Aparameter extends AdmObject
                         $paramValueObj = AparameterValue::loadByMainIndex($aparameter_id, $application_model_id, $application_plan_id, $training_unit_id, $department_id, $application_model_branch_id, $major_path_id, $program_track_id);                
                         if($paramValueObj) self::$subContextValueArray[$subContext] = $paramValueObj->getVal("value");
                         elseif($throwErrorIfNotFound) throw new AfwRuntimeException("no parameter value object for sub-context $subContext, log : <br>$sub_context_log <br>");
-                        else return $returnSubContext ? [null, $subContext] : null;
+                        if(!self::$subContextValueArray[$subContext]) self::$subContextValueArray[$subContext]="NOTHING-FOUND";
                 }
                 $val = self::$subContextValueArray[$subContext];
+                if($val==="NOTHING-FOUND") 
+                {
+                        $val = null;
+                        $subContext .= " => NOTHING-FOUND";
+                }
                 return $returnSubContext ? [$val, $subContext] : $val;
         }
 
         public function getMyValueForContext($application_model_id, $application_plan_id, $obj)
         {
+                $training_unit_id = 0;
+                $department_id = 0;
+                $application_model_branch_id = 0;
 
-                if ($obj instanceof Applicant) {
+                /* if ($obj instanceof Applicant) {
                         $training_unit_id = 0;
                         $department_id = 0;
                         $application_model_branch_id = 0;
-                }
+                }*/
 
                 if ($obj instanceof ApplicationDesire)
                 {
-                        $training_unit_id = $obj->getVal("training_unit_id");
+                        $training_unit_id = $obj->getVal("training_unit_id");                        
                         $department_id = $obj->getVal("department_id");
+                        if(!$department_id) $department_id = 0;
                         $application_model_branch_id = $obj->getVal("application_model_branch_id");
+                        if(!$application_model_branch_id) $application_model_branch_id = 0;
                 }
 
                 $context = "$application_model_id-$application_plan_id-$training_unit_id-$department_id-$application_model_branch_id";
@@ -76,7 +86,7 @@ class Aparameter extends AdmObject
                                 $paramValueObj->optimizeMemory();
                                 $this->contextValueArray[$context] = $paramValueObj;
                         }
-                        
+                        if(!$this->contextValueArray[$context]) $this->contextValueArray[$context] = "NOT-FOUND";
                 }
                 return $this->contextValueArray[$context];
         }

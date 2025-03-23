@@ -8,7 +8,8 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["step1"] = "حيثيات المحاكاة";
 		$trad["application_simulation"]["step2"] = "اعدادات المحاكاة";
 		$trad["application_simulation"]["step3"] = "تنفيذ المحاكاة";
-		$trad["application_simulation"]["step4"] = "نتائج المحاكاة";
+		$trad["application_simulation"]["step4"] = "سجلات المحاكاة";
+		$trad["application_simulation"]["step5"] = "نتائج المحاكاة";
 
 		$trad["application_simulation"]["applicationsimulation.single"] = "طلب محاكاة تقديم";
 		$trad["application_simulation"]["applicationsimulation.new"] = "جديد(ة)";
@@ -17,7 +18,7 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["name_en"] = "مسمى  بالانجليزية";
 
 		$trad["application_simulation"]["settings"] = "اعدادات المحاكاة";
-		$trad["application_simulation"]["log"] = "تفاصيل تنفيذ المحاكاة";
+		$trad["application_simulation"]["log"] = "سجلات تفاصيل المحاكاة";
 		$trad["application_simulation"]["application_model_id"] = "نموذج القبول";
 		$trad["application_simulation"]["application_plan_id"] = "خطة القبول";
 		$trad["application_simulation"]["applicant_group_id"] = "مجموعة المتقدمين";
@@ -28,8 +29,11 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["applicationList"] = "محاكاة التقديم";
 		$trad["application_simulation"]["applicationdesireList"] = "محاكاة الرغبات";
 		
+		$trad["application_simulation"]["progress_task"] = "المهمة الحالية";
+		$trad["application_simulation"]["progress_value"] = "تقدم التنفيذ";
+
 		
-        // steps
+	    // steps
         return $trad;
     }
 

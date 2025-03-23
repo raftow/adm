@@ -8,6 +8,8 @@
                 public static $MODULE		    = "adm"; 
                 public static $TABLE			= "application_model"; 
                 public static $DB_STRUCTURE = null;
+                public static $stepAppModelApiList=[];
+                public static $stepAppModelFieldList=[];
                 // public static $copypast = true;
 
                 public function __construct(){
@@ -191,14 +193,31 @@
                 public function getAppModelApiOfStep($toStepNum)
                 {
                         if(!$toStepNum) $toStepNum = 0;
-                        $stepAppModelApiList = $this->getRelation("appModelApiList")->resetWhere("active='Y' and step_num=$toStepNum")->getList();
-                        return $stepAppModelApiList;
+                        if(!isset(self::$stepAppModelApiList[$this->id][$toStepNum]))
+                        {
+                                self::$stepAppModelApiList[$this->id][$toStepNum] = $this->getRelation("appModelApiList")->resetWhere("active='Y' and step_num=$toStepNum")->getList();
+                                if(!self::$stepAppModelApiList[$this->id][$toStepNum]) self::$stepAppModelApiList[$this->id][$toStepNum] = "NOT-FOUND";
+                        }
+                        
+                        if(self::$stepAppModelApiList[$this->id][$toStepNum] == "NOT-FOUND") self::$stepAppModelApiList[$this->id][$toStepNum] = [];
+
+                        return self::$stepAppModelApiList[$this->id][$toStepNum];
                 }
+
+                public function getApplicationModelFieldListOfStep($stepNum)
+                {
+                        if(!isset(self::$stepAppModelFieldList[$this->id][$stepNum]))
+                        {
+                                self::$stepAppModelFieldList[$this->id][$stepNum] = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum")->getList();
+                        }
+                        return self::$stepAppModelFieldList[$this->id][$stepNum];
+                }
+                
 
                 public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar")
                 {
                         if(!$stepNum) $stepNum = 0;
-                        $applicationModelFieldList = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum")->getList();
+                        $applicationModelFieldList = $this->getApplicationModelFieldListOfStep($stepNum);
                         if(!$splitByTable) return $applicationModelFieldList;
                         else
                         {

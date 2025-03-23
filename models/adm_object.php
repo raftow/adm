@@ -263,7 +263,7 @@ class AdmObject extends AfwMomkenObject{
             }
 
 
-            return "$the_code ???";
+            return $the_code;
         }
 
 

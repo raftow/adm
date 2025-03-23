@@ -31,6 +31,11 @@ class ApplicationDesire extends AdmObject
         }
 
 
+        public function setApplicationObject(&$applicationObj)
+        {
+                $this->applicationObj = $applicationObj;
+        }
+
         public function getApplicationObject()
         {
             if (!$this->applicationObj) $this->applicationObj = $this->het("application_id");
@@ -181,10 +186,14 @@ class ApplicationDesire extends AdmObject
         }
 
         // bootstrap the Desire to step of sorting (Farz)
-        public function bootstrapDesire($lang = "ar", $returnOnlyLastStepCode=false)
+        public function bootstrapDesire($lang = "ar", $returnLastStepCode=false, $options=[])
         {
                 $app_des_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED"]) != "off");
+                $application_simulation_id = $options["SIMULATION-ID"];
+                $simulate = ($application_simulation_id!=2);
+                $logConditionExec = (strtolower($options["LOG-CONDITION-EXEC"]) != "off");
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
@@ -202,7 +211,7 @@ class ApplicationDesire extends AdmObject
                                 // refresh data
                                 $this->runNeededApis($lang = "ar", ($bootstrapStatus == "--forcing"));
                                 // try to go to next step
-                                list($err, $inf, $war, $tech) = $this->gotoNextDesireStep($lang = "ar");
+                                list($err, $inf, $war, $tech) = $this->gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec);
                                 if ($err) 
                                 {
                                         $err_arr[] = "$app_des_name : " . $err;    
@@ -247,17 +256,22 @@ class ApplicationDesire extends AdmObject
                         $err_arr[] = $e->__toString();
                 }
 
-                if($returnOnlyLastStepCode) return $currentStepCode;
+                $resPbm = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+                if($returnLastStepCode) return [$currentStepCode, $resPbm];
+
+                return $resPbm;
         }
 
-        public function statusExplanations()
+        public function statusExplanations($lang="ar")
         {
-                return $this->getVal("comments");
+                $return = $this->getVal("comments");
+                if(!$return) $return = $this->tm("unknown, try again");
+
+                return $return;
         }
 
-        public function gotoNextDesireStep($lang = "ar")
+        public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 // die("dbg devMode=$devMode");
@@ -280,7 +294,7 @@ class ApplicationDesire extends AdmObject
                         $currentStepNum = $this->getVal("step_num");
 
                         $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
-                        if (!$dataReady) 
+                        if ($dataShouldBeUpdated and !$dataReady) 
                         {
                                 $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                 // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
@@ -300,7 +314,7 @@ class ApplicationDesire extends AdmObject
                         if (!$currentStepObj) return [$this->tm("No current step defined for this application model, you may need to reorder the steps to have step num=0 or step num = 1", $lang), ""];
 
                         // to go to next step we should apply conditions of the current step
-                        $applyResult = $this->applyMyCurrentStepConditions($lang, false);
+                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec);
                         $success = $applyResult['success'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
@@ -599,7 +613,7 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public function applyMyCurrentStepConditions($lang="ar", $pbm=true)
+        public function applyMyCurrentStepConditions($lang="ar", $pbm=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
         {
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 if (!$objApplicationModel)
@@ -611,7 +625,7 @@ class ApplicationDesire extends AdmObject
                 $application_plan_id = $this->getVal("application_plan_id");
                 $step_num = $this->getVal("step_num");
                 $general="N";
-                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang);
+                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec);
 
                 if($pbm) return $return["res"];
                 else return $return;

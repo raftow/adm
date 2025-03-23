@@ -9,6 +9,7 @@ class Application extends AdmObject
          * @var Applicant $applicantObj
          */
         private $applicantObj = null;
+        private $myApplicationDesireList = null;
 
         public static $DATABASE                = "";
         public static $MODULE                    = "adm";
@@ -17,7 +18,12 @@ class Application extends AdmObject
         // public static $copypast = true;
 
         private $attribIsApplic = [];
+        private $nb_desires = null;
 
+        public function setApplicantObject(&$applicantObj)
+        {
+                $this->applicantObj = $applicantObj;
+        }
 
         public function getApplicant()
         {
@@ -96,6 +102,18 @@ class Application extends AdmObject
                 $return = implode(" ", $data);
 
                 // die("return=$return AQ::getDisplay = ".var_export($data,true));
+
+                return $return;
+        }
+
+        public function getShortDisplay($lang = "ar")
+        {
+
+                $data = array();
+                $link = array();
+                list($data[0], $link[0]) = $this->displayAttribute("applicant_id", false, $lang);
+
+                $return = implode(" ", $data);
 
                 return $return;
         }
@@ -390,6 +408,19 @@ class Application extends AdmObject
                 return $this->applicantObj->runNeededApis($lang, $force);
         }
 
+        public function getMyApplicationDesireList($force=false)
+        {
+                if($force or !$this->myApplicationDesireList) 
+                {
+                        $this->myApplicationDesireList = $this->get("applicationDesireList");
+                        foreach($this->myApplicationDesireList as $adid => $adObj)
+                        {
+                                $this->myApplicationDesireList[$adid]->setApplicationObject($this);
+                        }
+                }
+                
+        }
+
 
         public function crowdDesires($lang = "ar")
         {
@@ -401,30 +432,30 @@ class Application extends AdmObject
                 // $nb_inserted = 0;
                 try {
 
-                        $applicationDesireList = $this->get("applicationDesireList");
+                        $this->getMyApplicationDesireList();
                         /**
                          * @var ApplicationDesire $applicationDesireItem
                          */
                         $to_stop_crowd = [];
 
-                        while(count($applicationDesireList)>0)
+                        while(count($this->myApplicationDesireList)>0)
                         {
                                 foreach($to_stop_crowd as $sadid)
                                 {
-                                        unset($applicationDesireList[$sadid]);
+                                        unset($this->myApplicationDesireList[$sadid]);
                                 }
                                 $to_stop_crowd = [];
-                                foreach ($applicationDesireList as $adid => $applicationDesireItem) 
+                                foreach ($this->myApplicationDesireList as $adid => $applicationDesireItem) 
                                 {
-                                        $desire_name = $applicationDesireItem->getShortDisplay($lang);
-                                        $old_step_num = $applicationDesireItem->getVal("step_num");
-                                        list($err, $inf, $war, $tech) = $applicationDesireItem->gotoNextDesireStep($lang);
+                                        $desire_name = $this->myApplicationDesireList[$adid]->getShortDisplay($lang);
+                                        $old_step_num = $this->myApplicationDesireList[$adid]->getVal("step_num");
+                                        list($err, $inf, $war, $tech) = $this->myApplicationDesireList[$adid]->gotoNextDesireStep($lang);
                                         
                                         if ($err) $err_arr[] = "$desire_name : " . $err;
                                         if ($inf) $inf_arr[] = "$desire_name : " . $inf;
                                         if ($war) $war_arr[] = "$desire_name : " . $war;
                                         if ($tech) $tech_arr[] = "$desire_name : " . $tech;
-                                        $new_step_num = $applicationDesireItem->getVal("step_num");
+                                        $new_step_num = $this->myApplicationDesireList[$adid]->getVal("step_num");
                                         if($new_step_num==$old_step_num)
                                         {
                                                 // stop crowd for this desire
@@ -501,17 +532,31 @@ class Application extends AdmObject
                      or (!$this->getApplicationDesireByNum($nb_desires)) // if the last desire doesn't exist we need to erase
                      )
                 {
-                        $this->set("application_plan_branch_mfk", $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj));
-                        $this->commit();
+
+                        $new_application_plan_branch_mfk = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj);
+                        $old_application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
+                        $forceReload = false;
+                        if($old_application_plan_branch_mfk != $new_application_plan_branch_mfk)
+                        {
+                                $this->set("application_plan_branch_mfk", $new_application_plan_branch_mfk);
+                                $this->commit();
+                                $forceReload = true;
+                        }
+                        
                 }
 
-                return $this->get("applicationDesireList");
+                $this->getMyApplicationDesireList($forceReload);
+                return $this->myApplicationDesireList;
         }
 
-        public function bootstrapApplication($lang = "ar", $returnOnlyLastStepCode=false)
+        public function bootstrapApplication($lang = "ar", $returnLastStepCode=false, $options=[])
         {
                 $app_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED"]) != "off");
+                $application_simulation_id = $options["SIMULATION-ID"];
+                $simulate = ($application_simulation_id!=2);
+                $logConditionExec = (strtolower($options["LOG-CONDITION-EXEC"]) != "off");
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
@@ -528,7 +573,8 @@ class Application extends AdmObject
                                 // refresh data
                                 $this->runNeededApis($lang = "ar", ($bootstrapStatus == "--forcing"));
                                 // try to go to next step
-                                list($err, $inf, $war, $tech) = $this->gotoNextStep($lang = "ar");
+                                
+                                list($err, $inf, $war, $tech) = $this->gotoNextStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec);
                                 if ($err) 
                                 {
                                         $err_arr[] = "$app_name : " . $err;    
@@ -544,8 +590,15 @@ class Application extends AdmObject
         
                                         if($newStepCode==$currentStepCode)
                                         {
-                                                if($bootstrapStatus == "--trying") $bootstrapStatus = "--forcing"; 
-                                                if($bootstrapStatus == "--forcing") $bootstrapStatus = "--blocked"; 
+                                                if(($currentStepCode!="DSR"))
+                                                {
+                                                        if($bootstrapStatus == "--trying") $bootstrapStatus = "--forcing"; 
+                                                        if($bootstrapStatus == "--forcing") $bootstrapStatus = "--blocked"; 
+                                                }
+                                                else
+                                                {
+                                                        $bootstrapStatus = "--success";   
+                                                }
                                         }
                                         else
                                         {
@@ -555,12 +608,12 @@ class Application extends AdmObject
                                 }
                         }
 
-                        if(($bootstrapStatus == "--blocked") or ($currentStepCode!="DSR"))
+                        if(($bootstrapStatus == "--blocked") and ($currentStepCode!="DSR"))
                         {
                                 $war_arr[] = $app_name." : ". $this->tm("Application is faltered, please see details and resolve manually", $lang);
                                 $war_arr[] = $app_name." : ". $this->tm("Reached step", $lang)." : ".$currentStepCode."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
                         }
-                        else
+                        elseif(($currentStepCode=="DSR"))
                         {
                                 $war_arr[] = $app_name." : ". $this->tm("Application desire selection reached", $lang)."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
                         }
@@ -573,12 +626,14 @@ class Application extends AdmObject
                         $err_arr[] = $e->__toString();
                 }
 
-                if($returnOnlyLastStepCode) return $currentStepCode;
+                $resPbm = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+                if($returnLastStepCode) return [$currentStepCode, $resPbm];
+
+                return $resPbm;
         }
 
-        public function gotoNextStep($lang = "ar")
+        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 $err_arr = [];
@@ -598,7 +653,7 @@ class Application extends AdmObject
                         $currentStepNum = $this->getVal("step_num");
 
                         $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
-                        if (!$dataReady) 
+                        if ($dataShouldBeUpdated and !$dataReady) 
                         {
                                 $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                 $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
@@ -620,7 +675,7 @@ class Application extends AdmObject
                         }
 
                         // to go to next step we should apply conditions of the current step
-                        $applyResult = $this->applyMyCurrentStepConditions($lang, false);
+                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec);
                         $success = $applyResult['success'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
@@ -750,7 +805,7 @@ class Application extends AdmObject
                 return self::getObjectFieldsMatrix($this, $applicationFieldsArr, $lang, $onlyIfTheyAreUpdated);
         }
         
-        public static function getObjectFieldsMatrix($object, $applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false)
+        public static function getObjectFieldsMatrix(&$object, $applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false)
         {
                 $matrix = [];
                 $theyAreUpdated = true;
@@ -961,7 +1016,11 @@ class Application extends AdmObject
 
         public function calcNb_desires($what = "value")
         {
-                return $this->getRelation("applicationDesireList")->count();
+                if($this->nb_desires === null)
+                {
+                        $this->nb_desires = $this->getRelation("applicationDesireList")->count();
+                }
+                return $this->nb_desires;
         }
 
         public function calcSis_fields_available($what = "value", $lang = "")
@@ -1102,18 +1161,18 @@ class Application extends AdmObject
                                         $this->addRemoveInMfk("application_plan_branch_mfk", [$applicationDesireItem->getVal("application_plan_branch_id")], []);
                                 }
                         }
-
+                        $this->nb_desires = null;
                         $this->reorderDesires();
                 }
         }
 
         public function reorderDesires($lang = "ar")
         {
-                $applicationDesireList = $this->get("applicationDesireList");
+                $this->getMyApplicationDesireList();
                 $desire_num = -1;
                 $log_arr = [];
-                foreach ($applicationDesireList as $applicationDesireItem) {
-                        $old_desire_num = $applicationDesireItem->getVal("desire_num");
+                foreach ($this->myApplicationDesireList as $adid => $applicationDesireItem) {
+                        $old_desire_num = $this->myApplicationDesireList[$adid]->getVal("desire_num");
                         if ($desire_num < 0) {
                                 $desire_num = $old_desire_num;
                                 if ($desire_num < 0) $desire_num = 0;
@@ -1123,21 +1182,24 @@ class Application extends AdmObject
 
                         $log_arr[] = "from $old_desire_num to $desire_num";
 
-                        $applicationDesireItem->set("desire_num", $desire_num);
-                        $applicationDesireItem->commit();
+                        $this->myApplicationDesireList[$adid]->set("desire_num", $desire_num);
+                        $this->myApplicationDesireList[$adid]->commit();
                         $step_to = $desire_num;
                 }
+
+                // inutile car deja reordonnees ci dessus 
+                // $this->getMyApplicationDesireList(true);
 
                 return ["", "reordered from $step_from to $step_to " . implode("<br>\n", $log_arr)];
         }
 
-        public function applyMyCurrentStepConditions($lang="ar", $pbm=true)
+        public function applyMyCurrentStepConditions($lang="ar", $pbm=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
         {
                 $application_model_id = $this->getVal("application_model_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $step_num = $this->getVal("step_num");
                 $general="W";
-                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang);
+                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec);
 
                 if($pbm) return $return["res"];
                 else return $return;

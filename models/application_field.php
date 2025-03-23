@@ -23,7 +23,7 @@ class ApplicationField extends AdmObject
      public static $TABLE               = "";
      public static $DB_STRUCTURE = null;
 
-
+     public static $appFieldByIndex = [];
 
 
      public static function loadById($id)
@@ -40,14 +40,21 @@ class ApplicationField extends AdmObject
      public static function loadByMainIndex($field_name, $application_table_id, $create_obj_if_not_found = false)
      {
 
-
+          if(self::$appFieldByIndex["at$application_table_id.$field_name"])
+          {
+               if(self::$appFieldByIndex["at$application_table_id.$field_name"]=="NOT-FOUND")
+               {
+                    return null;
+               }
+               return self::$appFieldByIndex["at$application_table_id.$field_name"];
+          } 
           $obj = new ApplicationField();
           $obj->select("field_name", $field_name);
           $obj->select("application_table_id", $application_table_id);
 
           if ($obj->load()) {
                if ($create_obj_if_not_found) $obj->activate();
-               return $obj;
+               
           } elseif ($create_obj_if_not_found) {
                $obj->set("field_name", $field_name);
                $obj->set("application_table_id", $application_table_id);
@@ -55,8 +62,19 @@ class ApplicationField extends AdmObject
                $obj->insertNew();
                if (!$obj->id) return null; // means beforeInsert rejected insert operation
                $obj->is_new = true;
-               return $obj;
-          } else return null;
+          } else $obj = null;
+          if($obj)
+          {
+               self::$appFieldByIndex["at$application_table_id.$field_name"] = $obj;
+               self::$appFieldByIndex["at$application_table_id.$field_name"]->is_new = null;
+          }
+          else
+          {
+               self::$appFieldByIndex["at$application_table_id.$field_name"] = "NOT-FOUND";
+          }
+          
+
+          return $obj;
      }
 
 

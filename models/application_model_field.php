@@ -8,6 +8,8 @@ class ApplicationModelField extends AdmObject
     public static $DB_STRUCTURE = null;
     // public static $copypast = true;
 
+    private static $matrixApplicationModelField = [];
+
     public function __construct()
     {
         parent::__construct("application_model_field", "id", "adm");
@@ -28,7 +30,14 @@ class ApplicationModelField extends AdmObject
         if (!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
         if (!$application_field_id) throw new AfwRuntimeException("loadByMainIndex : application_field_id is mandatory field");
 
-
+        if(self::$matrixApplicationModelField["am$application_model_id-af$application_field_id"])
+        {
+            if(self::$matrixApplicationModelField["am$application_model_id-af$application_field_id"]=="NOT-FOUND")
+            {
+                return null;
+            }
+            return self::$matrixApplicationModelField["am$application_model_id-af$application_field_id"];
+        }
         $obj = new ApplicationModelField();
         $obj->select("application_model_id", $application_model_id);
         $obj->select("application_field_id", $application_field_id);
@@ -43,7 +52,6 @@ class ApplicationModelField extends AdmObject
                 
                 $obj->activate();
             }
-            return $obj;
         } 
         elseif ($create_obj_if_not_found) 
         {
@@ -54,8 +62,18 @@ class ApplicationModelField extends AdmObject
             $obj->insertNew();
             if (!$obj->id) return null; // means beforeInsert rejected insert operation
             $obj->is_new = true;
-            return $obj;
-        } else return null;
+        } else $obj = null;
+
+        if($obj)
+        {
+            self::$matrixApplicationModelField["am$application_model_id-af$application_field_id"]=$obj;
+        }
+        else
+        {
+            self::$matrixApplicationModelField["am$application_model_id-af$application_field_id"]="NOT-FOUND";
+        }
+
+        return $obj;
     }
 
     public function getDisplay($lang = 'ar')

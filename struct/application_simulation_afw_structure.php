@@ -14,7 +14,7 @@ class AdmApplicationSimulationAfwStructure
 			$obj->ORDER_BY_FIELDS = "name_ar";
 
 			$obj->editByStep = true;
-			$obj->editNbSteps = 4; 
+			$obj->editNbSteps = 5; 
 
 			// $obj->UNIQUE_KEY = array('XXX', 'YYY');
 
@@ -210,9 +210,36 @@ class AdmApplicationSimulationAfwStructure
 		),
 
 
+		'controlPanel' => array(
+                        'STEP' => 3,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+						'CSS' => 'width_pct_100',
+                        'INPUT_WIDE' => true
+                ),
+
+		'logPanel' => array(
+					'STEP' => 4,
+					'TYPE' => 'TEXT',
+					'CATEGORY' => 'FORMULA',
+					'SHOW' => true,
+					'EDIT' => true,
+					'READONLY' => true,
+					"CAN-BE-SETTED" => false,
+					'SIZE' => 255,
+					"NO-LABEL" => true,
+					'CSS' => 'width_pct_100',
+					'INPUT_WIDE' => true
+			),
 
 		'log' => array(
-			'STEP' => 3,
+			'STEP' => 4,
 			'SEARCH' => true,
 			'QSEARCH' => true,
 			'SHOW' => true,
@@ -221,6 +248,7 @@ class AdmApplicationSimulationAfwStructure
 			'EDIT' => true,
 			'QEDIT' => false,
 			'SIZE' => 'AREA',
+			'NO-INPUT' => true,
 			'MIN-SIZE' => 1,
 			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
 			'UTF8' => false,
@@ -232,8 +260,23 @@ class AdmApplicationSimulationAfwStructure
 			'TEXT-ALIGN' => 'BYLANG',
 		),
 
+		'progress_task' => array('STEP' => 4,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => true,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
 
-		'application_plan_id' => array('STEP' => 4,
+		'progress_value' => array('STEP' => 4,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'PCTG',  'UNIT' => '%',  'READONLY' => true,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
+
+
+
+
+
+		'application_plan_id' => array('STEP' => 5,
 			'SHORTNAME' => 'plan',
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -266,7 +309,7 @@ class AdmApplicationSimulationAfwStructure
 							'NO-COTE' => true,
 						),
 
-		'applicationList' => array('STEP' => 4,
+		'applicationList' => array('STEP' => 5,
 			'SHORTNAME' => 'applications',  'SHOW' => true,  'FORMAT' => 'retrieve',  
 			'ICONS' => true, 'VIEW-ICON' =>false, 'DELETE-ICON' => true,
 			'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -279,7 +322,7 @@ class AdmApplicationSimulationAfwStructure
 			'READONLY' => true,  'CAN-BE-SETTED' => true, 
 			'CSS' => 'width_pct_100', ),
 
-		'applicationdesireList' => array('STEP' => 4,
+		'applicationdesireList' => array('STEP' => 5,
 			'SHORTNAME' => 'desires',  'SHOW' => true,  'FORMAT' => 'retrieve',  
 			'ICONS' => true, 'MOVE_UP-ICON' =>false, 'VIEW-ICON' =>false, 'DELETE-ICON' => false, 
 			'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  

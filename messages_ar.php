@@ -58,7 +58,7 @@
     $messages["Crowd desires"] = "دفع الرغبات إلى الأمام";
     $messages["This track is not available, going to"] = "هذا المسار غير متوفر، ذهابا إلى";
     $messages["coming from"] = "قدوما من";
-    $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تقديم الشروط لعدم توفر بيانات محدثة";
+    $messages["We can not apply conditions because the data is not updated"] = "لا يمكننا الاستمرار في تطبيق الشروط لعدم توفر بيانات محدثة";
     $messages["This employee is not from"] = "هذا الموظف ليس من";  
     $messages["but from"] = "وإنما من";
     $messages["The empolyee account has been approved, he can use it now"] = "تم اعتماد حساب الموظف يمكنه استخدامه الآن";
@@ -83,13 +83,18 @@
     $messages["Application desire"] = "الرغبة";
     $messages["reached step"] = "وصلت إلى الخطوة";
     $messages["faltered at step"] = "تعثرت عند الخطوة";
+    $messages["reason"] = "السبب";
+    $messages["unknown, try again"] = "غير معروف حاول مرة أخرى";
     $messages["Number of Applicants found in context"] = "عدد المتقدمين الذين تم العثور عليهم في السياق";
 
     $messages["No first step defined for this application model, you may need to reorder the steps to have first step having number equal 0 or number equal 1"] 
         = "لم يتم تحديد خطوة أولى لهذا النموذج فقد تحتاج إلى إعادة ترتيب الخطوات بحيث يكون رقم الخطوة الأولى مساويًا لـ 0 أو مساويًا لـ 1";
     
     $messages["Number of Applicants found in context"] = "عدد المتقدمين الذين تم العثور عليهم في السياق";
-
+    $messages["run simulation"] = "تنفيذ المحاكاة";
+    $messages["stop simulation"] = "إيقاف المحاكاة";
+    $messages["The simulation is being executed. Please do not exit the page until it is finished."] = "جاري تنفيذ المحاكاة من فضلكم عدم الخروج من الصفحة الى حين الانتهاء";
+    $messages["The simulation is termintated !!!"] = "تم إنهاء المحاكاة !!!";
     // $messages[""] = "";
     
     

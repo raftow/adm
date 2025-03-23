@@ -425,7 +425,7 @@ class Acondition extends AdmObject{
                 
         }
 
-        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0)
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
         {
                 if(!$simulate) $application_simulation_id =  2;
                 elseif(!$application_simulation_id) $application_simulation_id =  1;
@@ -510,7 +510,7 @@ class Acondition extends AdmObject{
                         $cond1Desc = $this->tm("condition part", $lang)." 1";
                         $cond2Desc = $this->tm("condition part", $lang)." 2";
 
-                        list($res1, $comments1, $tech1) = $this->cond1Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                        list($res1, $comments1, $tech1) = $this->cond1Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec);
                         
                         // if(!$res1) die($this->cond1Obj->getShortDisplay($lang)." => comments1=$comments1, tech1=$tech1");
                         $operator = $this->getVal("operator_id");
@@ -520,7 +520,7 @@ class Acondition extends AdmObject{
                         {
                                 if($res1)
                                 {
-                                        list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                                        list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec);
                                         if(!$res2) return [false, $cond2Desc." " .$has_failed. " : ".$comments2, $cond2Desc.":".$tech2];
                                         else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1."<br>\n".$cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2."<br>\n".$cond1Desc.":".$tech1];
                                 }
@@ -536,7 +536,7 @@ class Acondition extends AdmObject{
                         {
                                 if(!$res1)
                                 {
-                                        list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate);
+                                        list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec);
                                         if(!$res2) return [false, $cond1Desc." " .$has_failed. " : ".$comments1."<br>\n".$cond2Desc.":".$comments2, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
                                         else return [true, $cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2];        
                                 }
@@ -649,6 +649,7 @@ class Acondition extends AdmObject{
                                 throw new AfwRuntimeException("not valid field value : $field_value = <br> $obj => <br> $field_value_case($field_name)");        
                         }
                         $param_valueObj = $this->aparamObj->getMyValueForContext($application_model_id, $application_plan_id, $obj);
+                        if($param_valueObj==="NOT-FOUND") $param_valueObj = null;
                         $comments = "";
                         if(!$param_valueObj) 
                         {
@@ -685,7 +686,7 @@ class Acondition extends AdmObject{
                         
                         
 
-                        if(!$simulate or true)
+                        if(!$simulate or $logConditionExec)
                         {
                                 $acondition_id = $this->id;
                                 $aparameter_value_date = $condition_exec_date = date("Y-m-d H:i:s");

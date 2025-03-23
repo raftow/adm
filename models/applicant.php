@@ -20,9 +20,13 @@ class Applicant extends AdmObject
         // attachement - مرفق توضيحي
         public static $doc_type_attachement = 7;
 
-        public $secondary_cumulative_pct = null;
-        public $secondary_major_path = null;
-        public $secondary_program_track = null;
+        private $secondary_cumulative_pct = null; // do not removed it is used with $$xxx way
+        private $secondary_major_path = null; // do not removed it is used with $$xxx way
+        private $secondary_program_track = null; // do not removed it is used with $$xxx way
+        private $aptitude_Score = null;
+        private $achievement_Score = null;
+        private $objSQ = null;
+        private $applicantQualificationList = null;
 
         public $update_date = [];
 
@@ -161,6 +165,7 @@ class Applicant extends AdmObject
 
                 $idn = $this->getVal("idn");
                 $idn_type_id = $this->getVal("idn_type_id");
+                if(!$idn_type_id) list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
                 if ((!$idn) or (!$idn_type_id)) // should never happen but ....                    
                 {
                         throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
@@ -676,6 +681,11 @@ class Applicant extends AdmObject
                 $this->updateQualificationLevelFields();
         }
 
+        public function getQualificationList()
+        {
+                if(!$this->applicantQualificationList) $this->applicantQualificationList = $this->get("applicantQualificationList");
+        }
+
         public function updateQualificationLevelFields()
         {
                 $main_company = AfwSession::config("main_company", "all");
@@ -688,8 +698,9 @@ class Applicant extends AdmObject
                         }
                 }
 
-                $applicantQualificationList = $this->get("applicantQualificationList");
-                foreach ($applicantQualificationList as $applicantQualificationItem) {
+                $this->getQualificationList();
+
+                foreach ($this->applicantQualificationList as $applicantQualificationItem) {
                         $qualif_level_enum = $applicantQualificationItem->calc("level_enum");
                         foreach ($lookup as $lookup_level => $lookupItem) {
                                 foreach ($lookupItem["attributes"] as $attributeConfig) {
@@ -854,7 +865,7 @@ class Applicant extends AdmObject
 
         
 
-        public function simulateApplication($applicationPlanObj, $applicationSimulationObj, $lang='ar')
+        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $lang='ar')
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -864,30 +875,47 @@ class Applicant extends AdmObject
                 if(!$applicationModelObj or !$applicationModelObj->id) throw new AfwRuntimeException("simulateApplication : No Application Model Defined for this simulation");
                 else*/
                 
+                $reason = $this->tm("reason",$lang);
+
                 if(!$applicationSimulationObj or !$applicationSimulationObj->id) throw new AfwRuntimeException("simulateApplication : No Application Simulation ID Defined to do this simulation");
                 elseif(!$applicationPlanObj or !$applicationPlanObj->id) throw new AfwRuntimeException("simulateApplication : No Application Plan Defined for this simulation");
                 $applicant_id = $this->id;
                 $application_plan_id = $applicationPlanObj->id;
                 $application_simulation_id = $applicationSimulationObj->id; 
+                $options = $applicationSimulationObj->getOptions();
                 $idn = $this->getVal("idn");
                 $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
                 if($appObj)
                 {
-                        $stepCode = $appObj->bootstrapApplication($lang, true);
+                        $appObj->setApplicantObject($this);
+                        list($stepCode, $resPbm) = $appObj->bootstrapApplication($lang, true, $options);
+                        list($err, $inf, $war, $tech) = $resPbm;
+                        if ($err) $err_arr[] = $err; 
+                        if ($inf) $inf_arr[] = $inf;
+                        if ($war) $war_arr[] = $war;
+                        if ($tech) $tech_arr[] = $tech;
                         $stepCodeTile = self::standard_application_step_title_by_code($stepCode);
                         if($stepCode=="DSR")
                         {
                                 $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
                                 $appDesireList = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang);
+                                /**
+                                 * @var ApplicationDesire $appDesireItem
+                                 */
                                 foreach($appDesireList as $appDesireItem)
                                 {
                                         $disp = $appDesireItem->getDisplay($lang);
-                                        $desireStepCode = $appDesireItem->bootstrapDesire($lang, true);
+                                        list($desireStepCode, $resPbm) = $appDesireItem->bootstrapDesire($lang, true, $options);
+                                        list($err, $inf, $war, $tech) = $resPbm;
+                                        if ($err) $err_arr[] = $err; 
+                                        if ($inf) $inf_arr[] = $inf;
+                                        if ($war) $war_arr[] = $war;
+                                        if ($tech) $tech_arr[] = $tech;
                                         $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
                                         if($desireStepCode=="SRT")
                                                 $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
                                         else 
-                                                $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> / ". $appDesireItem->statusExplanations(); 
+                                                $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : ". $appDesireItem->statusExplanations(); 
                                 }
                         }
                         else
@@ -907,7 +935,7 @@ class Applicant extends AdmObject
          * @param Application $applicationObj
          * 
          */
-        public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", $applicationObj = null, $onlyIfTheyAreUpdated = false)
+        public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", &$applicationObj = null, $onlyIfTheyAreUpdated = false)
         {
 
                 $matrix = [];
@@ -1041,27 +1069,37 @@ class Applicant extends AdmObject
                 return $this->calcSecondary_info($info = "secondary_major_path", $what);
         }
 
-
         public function calcAptitude_Score($what = "value")
         {
-                return ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "1,2");
+                if($this->aptitude_Score===null)
+                {
+                       $this->aptitude_Score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "1,2");    
+                       if(!$this->aptitude_Score) $this->aptitude_Score = 0;
+                }
+                return $this->aptitude_Score;
         }
 
         public function calcAchievement_Score($what = "value")
         {
-                return ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "3,4");
+                if($this->achievement_Score===null)
+                {
+                        $this->achievement_Score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "3,4");
+                        if(!$this->achievement_Score) $this->achievement_Score = 0;
+                }
+                return $this->achievement_Score;
         }
 
         public function calcSecondary_cumulative_pct($what = "value", $objSQ = null)
         {
-                return $this->calcSecondary_info($info = "secondary_cumulative_pct", $what, $objSQ);
+                $this->calcSecondary_info($info = "secondary_cumulative_pct", $what, $objSQ);
         }
 
         public function calcSecondary_info($info, $what = "value", $objSQ = null)
         {
-                if (!$this->$info) {
-                        if (!$objSQ) $objSQ = $this->getSecondaryQualification();
-                        $this->$info = $objSQ->getInfo($info);
+                if ($this->$info===null) {
+                        if (!$this->objSQ) $this->objSQ = $this->getSecondaryQualification();
+                        $this->$info = $this->objSQ->getInfo($info);
+                        if(!$this->$info) $this->$info = '';
                 }
                 return $this->$info;
         }

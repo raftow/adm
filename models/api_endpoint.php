@@ -6,6 +6,8 @@ class ApiEndpoint extends AdmObject
         public static $MODULE                    = "adm";
         public static $TABLE                        = "api_endpoint";
         public static $DB_STRUCTURE = null;
+        public static $allApiEndpointList = null;
+        public static $apiEndpointListForField = [];
         // public static $copypast = true;
 
         public function __construct()
@@ -25,18 +27,27 @@ class ApiEndpoint extends AdmObject
                 return $objList;
         }
 
+        public static function loadAllApiEndpoints()
+        {
+                if(!self::$allApiEndpointList) self::$allApiEndpointList = ApiEndpoint::loadAll(false); 
+        }
+
         public static function findAllApiEndpointForField($application_field_id, $nb_max=9999)
         {
-                $apiEndpointList = ApiEndpoint::loadAll(false);
-                $arr_result = [];
-                foreach ($apiEndpointList as $apiEndpointItem) {
-                        $field_exists    = $apiEndpointItem->findInMfk("application_field_mfk", $application_field_id);
-                        if ($field_exists and (count($arr_result)<$nb_max)) {
-                                $arr_result[] = $apiEndpointItem;
+                if(!self::$apiEndpointListForField[$application_field_id])
+                {
+                        self::loadAllApiEndpoints();
+                        self::$apiEndpointListForField[$application_field_id] = [];
+                        foreach (self::$allApiEndpointList as $apiEndpointItem) {
+                                $field_exists    = $apiEndpointItem->findInMfk("application_field_mfk", $application_field_id);
+                                if ($field_exists and (count(self::$apiEndpointListForField[$application_field_id])<$nb_max)) {
+                                        self::$apiEndpointListForField[$application_field_id][] = $apiEndpointItem;
+                                }
                         }
                 }
+                 
 
-                return $arr_result;
+                return self::$apiEndpointListForField[$application_field_id];
         }
 
         public static function loadById($id)

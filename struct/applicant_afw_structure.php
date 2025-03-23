@@ -1261,7 +1261,7 @@ class AdmApplicantAfwStructure
                 
 
                 'applicantApiRequestList' => array(
-                        'STEP' => 2,
+                        'STEP' => 3,
                         'FGROUP' => 'apis',
                         'SHOW' => true,
                         'FORMAT' => 'retrieve',

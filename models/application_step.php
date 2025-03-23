@@ -259,7 +259,7 @@
                 }
                 
                 
-                public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang)
+                public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
                 {
                         
                         $err_arr = [];
@@ -285,7 +285,7 @@
                                 if($acondItem)
                                 {
                                         $c++;
-                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate = false); 
+                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec); 
                                         if($exec_result) 
                                         {
                                                 $inf_arr[] = "($c) ".$comments;

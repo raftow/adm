@@ -8,6 +8,8 @@ class ApplicationModelCondition extends AdmObject
     public static $DB_STRUCTURE = null;
     // public static $copypast = true;
 
+    private static $matrixApplicationModelCondition=[];
+
     public function __construct()
     {
         parent::__construct("application_model_condition", "id", "adm");
@@ -52,13 +54,24 @@ class ApplicationModelCondition extends AdmObject
         elseif($general == "W") { $general0 = "Y";}
         // applicant step accept only applicant conditions
         elseif($general == "Y") {}
+        if($general) $general_token = "$general-$general0-$general1";
+        else $general_token = "";
+        $the_token = "am$application_model_id-st$step_num-$general_token";
 
-        $obj = new ApplicationModelCondition();
-        $obj->select("application_model_id", $application_model_id);
-        $obj->where("step_num <= $step_num");
-        if($general) $obj->where("general in ('$general', '$general0', '$general1')");
 
-        return $obj->loadMany();
+        if(!isset(self::$matrixApplicationModelCondition[$the_token]))
+        {
+            $obj = new ApplicationModelCondition();
+            $obj->select("application_model_id", $application_model_id);
+            $obj->where("step_num <= $step_num");
+            if($general) $obj->where("general in ('$general', '$general0', '$general1')");
+    
+            self::$matrixApplicationModelCondition[$the_token] = $obj->loadMany();
+        }
+
+        return self::$matrixApplicationModelCondition[$the_token];
+
+        
         
     }
 
