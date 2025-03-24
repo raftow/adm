@@ -865,7 +865,7 @@ class Applicant extends AdmObject
 
         
 
-        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $lang='ar')
+        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $offlineDesiresRow, $lang='ar')
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -898,7 +898,7 @@ class Applicant extends AdmObject
                         if($stepCode=="DSR")
                         {
                                 $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
-                                $appDesireList = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang);
+                                $appDesireList = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
                                 /**
                                  * @var ApplicationDesire $appDesireItem
                                  */

@@ -68,7 +68,7 @@ try
 }
 catch(Exception $e)
 {
-    $a_json = ['status'=>'failed', 'message'=>$e->getTraceAsString()."/".$e->getMessage()];
+    $a_json = ['status'=>'failed', 'message'=>$e->getMessage()."/".$e->getTraceAsString()];
 }
 $json = json_encode($a_json);
 print $json;

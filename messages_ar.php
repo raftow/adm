@@ -95,6 +95,7 @@
     $messages["stop simulation"] = "إيقاف المحاكاة";
     $messages["The simulation is being executed. Please do not exit the page until it is finished."] = "جاري تنفيذ المحاكاة من فضلكم عدم الخروج من الصفحة الى حين الانتهاء";
     $messages["The simulation is termintated !!!"] = "تم إنهاء المحاكاة !!!";
+    $messages["register of"] = "تسجيل بيانات";
     // $messages[""] = "";
     
     

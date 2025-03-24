@@ -25,7 +25,17 @@ class ApplicantGroup extends AdmObject{
            else return null;
         }
         
-        
+        protected function userCanDeleteMeSpecial($auser)
+        {
+            if($this->id <= 3) return false;
+            return true;
+        }
+
+        public function deleteAction()
+        {
+            if($this->id <= 3) return ['', ''];
+            return ['delete', ''];
+        }
 
         public function getScenarioItemId($currstep)
                 {

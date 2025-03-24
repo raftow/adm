@@ -52,11 +52,13 @@ try
     $simulation_id = $_GET['simid'];
 
     
-    if($simulation_id==2) die("This feature is only for simulation not for real application");
+    if($simulation_id==2) ['status'=>'failed', 'message'=>"This feature is only for simulation not for real application"];
     $row = ApplicationSimulation::checkSimulation($simulation_id);
     $progress_value = $row["progress_value"];
     $progress_task = $row["progress_task"];
-    
+    // $progress_value = rand(0,100);
+    // $progress_task = "تم الانتهاء من $progress_value %";
+
     $simulation_progress_value = 5 * intval(floor($progress_value / 5));
 
     $a_json = ['status'=>'success', 'task'=>$progress_task, 'progress'=>$simulation_progress_value, ];

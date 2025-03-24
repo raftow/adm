@@ -56,14 +56,17 @@ $(document).ready(function(){
                         {
                             if(result.progress<100)
                             {
-                                $("#simulation_progress_task").html(result.task);
-                                $("#simulation_progress_value").className.replace(/\bvalue-.*?\b/g, '');
-                                $("#simulation_progress_value").addClass("value-"+result.progress); 
+                                if(!$("#simulation_progress_task").hasClass("error"))
+                                {
+                                    $("#simulation_progress_task").html(result.task);
+                                    //$("#simulation_progress_value").className.replace(/\bvalue-.*?\b/g, '');
+                                    $("#simulation_progress_value").addClass("value-"+result.progress); 
+                                }                                
                             }
                             else
                             {
-                                $("#simulation_progress_task").html('');
-                                $("#simulation_progress_value").className.replace(/\bvalue-.*?\b/g, '');
+                                //$("#simulation_progress_task").html('');
+                                //$("#simulation_progress_value").className.replace(/\bvalue-.*?\b/g, '');
                             }
                             
                         }
@@ -79,8 +82,6 @@ $(document).ready(function(){
             if(!$("#stop_simulation_btn").hasClass("disabled"))
             {
                 $("#stop_simulation_btn").addClass("disabled"); 
-                $("#simulation_btn").removeClass("disabled"); 
-
                 $.getJSON("./api/stopSimulApp.php", 
                     {
                         simid: $("#simulation_btn").attr('simid'),
@@ -89,7 +90,8 @@ $(document).ready(function(){
                     
                     function(result)
                     {
-                        alert('stopSimulApp ENDED : status='+result.status+' message='+result.message);
+                        $("#simulation_progress_task").html('');
+                        $("#simulation_btn").removeClass("disabled"); 
                     }
                 );
             }

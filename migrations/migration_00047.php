@@ -1,5 +1,12 @@
 <?php
 
+$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+/*
+AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."bau.`goal` (`id`, `id_aut`, `date_aut`, `id_mod`, `date_mod`, `id_valid`, `date_valid`, `avail`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `system_id`, `jobrole_id`, `module_id`, `atable_mfk`, `goal_code`, `domain_id`, `goal_type_id`, `goal_name_ar`, `goal_desc_ar`, `goal_name_en`, `goal_desc_en`, `parent_goal_id`) VALUES
+(201, 1, '2025-02-21 14:45:24', 1, '2025-03-18 14:25:43', 0, NULL, 'Y', 14, NULL, NULL, NULL, 2, 1230, 101, 1282, ',', 'supervisor', 25, 3, 'الاشراف العام', 'الاشراف العام', '', '', NULL),
+(202, 1, '2025-02-24 13:16:44', 1, '2025-02-24 13:18:05', 0, NULL, 'Y', 2, NULL, NULL, NULL, 2, 1, 215, 18, ',13921,', 'files', 9, 3, 'إدارة المرفقات', 'إدارة مرفقات المستخدم', '', '', NULL);");
+*/
+
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'adm_orgunit', 201, "-t", "stats", null);
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'adm_employee', 201, "-t", "stats", null);
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'adm_emp_request', 201, "-t", "stats", null);

@@ -142,7 +142,11 @@ class AdmObject extends AfwMomkenObject{
 
                 $arr_list_of_apply_simul_method["code"][3] = "FAVORITE";
                 $arr_list_of_apply_simul_method["ar"][3] = "الفروع المفضلة لكل متقدم";
-                $arr_list_of_apply_simul_method["en"][3] = "Favorite branches for each applicant";
+                $arr_list_of_apply_simul_method["en"][3] = "Favorite branchs for each applicant";
+
+                $arr_list_of_apply_simul_method["code"][4] = "PROSPECT";
+                $arr_list_of_apply_simul_method["ar"][4] = "الفروع المدخلة في البيانات الجاهزة للمتقدم";
+                $arr_list_of_apply_simul_method["en"][4] = "Entered branchs in applicant prospect off-line data";
 
                 
                 return $arr_list_of_apply_simul_method;

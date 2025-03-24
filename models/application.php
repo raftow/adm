@@ -472,7 +472,19 @@ class Application extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
-        public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj)
+        public static function createOfflinePlanBranchArr($offlineDesiresRow, $maxDesires=50)
+        {
+                $planBranchArr = [];
+                for($k=1; $k<=$maxDesires; $k++)
+                {
+                        if($offlineDesiresRow["pb".$k]) $planBranchArr[] = $offlineDesiresRow["pb".$k];
+                        else break;
+                }
+
+                return $planBranchArr;
+        }
+
+        public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow=[])
         {
                         $simulation_method = $applicationSimulationObj->getVal("simul_method_enum");
                         $nb_desires = $applicationSimulationObj->getVal("nb_desires");
@@ -513,6 +525,21 @@ class Application extends AdmObject
                                 if($applicant) $applicationModelBranchArr = $applicant->getMyPlanBranchArr();
                         }
 
+                        // "code"][4] = "PROSPECT";
+                        // "ar"][4] = "الفروع المدخلة في البيانات الجاهزة للمتقدم";
+                        // "en"][4] = "Entered branchs in applicant prospect off-line data";
+                        if($simulation_method==4) 
+                        {
+                                $idn = $this->getVal("idn");
+                                if(!$offlineDesiresRow or (count($offlineDesiresRow)==0))
+                                {
+                                        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                                        $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
+                                }
+                                
+                                if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflinePlanBranchArr($offlineDesiresRow);
+                        }
+
                         $applicationPlanBranchArr = [];
                         foreach($applicationModelBranchArr as $applicationModelBranchId)
                         {
@@ -523,7 +550,7 @@ class Application extends AdmObject
                         return ",".implode(",",$applicationPlanBranchArr).",";
         }
 
-        public function simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang)
+        public function simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow)
         {
                 $nb_desires = $applicationSimulationObj->getVal("nb_desires");
                 $options = $applicationSimulationObj->getOptions();
@@ -533,7 +560,7 @@ class Application extends AdmObject
                      )
                 {
 
-                        $new_application_plan_branch_mfk = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj);
+                        $new_application_plan_branch_mfk = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow);
                         $old_application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
                         $forceReload = false;
                         if($old_application_plan_branch_mfk != $new_application_plan_branch_mfk)
@@ -553,7 +580,7 @@ class Application extends AdmObject
         {
                 $app_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
-                $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED"]) != "off");
+                $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED-BEFORE-APPLY"]) != "off");
                 $application_simulation_id = $options["SIMULATION-ID"];
                 $simulate = ($application_simulation_id!=2);
                 $logConditionExec = (strtolower($options["LOG-CONDITION-EXEC"]) != "off");

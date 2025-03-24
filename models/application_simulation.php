@@ -30,6 +30,18 @@ class ApplicationSimulation extends AdmObject{
            }
            else return null;
         }
+
+        protected function userCanDeleteMeSpecial($auser)
+        {
+            if($this->id <= 2) return false;
+            return true;
+        }
+
+        public function deleteAction()
+        {
+            if($this->id <= 2) return ['', ''];
+            return ['delete', ''];
+        }
         
         public function isRunning()
         {
@@ -44,8 +56,11 @@ class ApplicationSimulation extends AdmObject{
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
             $return = AfwDatabase::db_recup_row("select progress_value,progress_task from ".$server_db_prefix."adm.application_simulation where id = '".$simulation_id."'");
 
-            if($return["progress_task"]=="--STOP--") $return["progress_task"] = "";
-
+            if($return["progress_task"]=="--STOP--") 
+            {
+                $return["progress_task"] = "";
+                $return["stop-me"] = true;
+            }
             return $return;
         }
 
@@ -91,7 +106,7 @@ class ApplicationSimulation extends AdmObject{
             $color = "green";
             $title_ar = "تنفيذ المحاكاة"; 
             $methodName = "runSimulation";
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("log"));
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("controlPanel"));
             
             
             
@@ -121,7 +136,7 @@ class ApplicationSimulation extends AdmObject{
             return $options_arr;
         }
 
-        public function getMyApplicantList($applicationModelObj=null, $applicantGroupObj=null, $applicationPlanObj=null, $limit = '', $applyDateGreg='', $registerApplicants=[], $lang='ar', $pct_here=30.0)
+        public function getMyApplicantList($applicationModelObj=null, $applicantGroupObj=null, $applicationPlanObj=null, $limit = '', $applyDateGreg='', $registerApplicants=[], $fromProspect=false, $lang='ar', $pct_here=30.0)
         {
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
             if(!$applicationModelObj) $applicationModelObj = $this->het("application_model_id");
@@ -132,6 +147,8 @@ class ApplicationSimulation extends AdmObject{
             $application_model_id = $applicationModelObj->id;            
             $applicant_group_id = $applicantGroupObj->id;
             // $application_simulation_id = $this->id;
+
+            $offlineDesiresRows = [];
             $apContext = "defined";
             if(!$applicationPlanObj) 
             {
@@ -148,25 +165,60 @@ class ApplicationSimulation extends AdmObject{
             }
             else
             {
-                $cntDone = 0;
-                $cntTotal = count($registerApplicants);
-                foreach($registerApplicants as $registerApplicantIdn)
+                if($fromProspect)
                 {
-                    
-                    // will run register apis and this should contain the offline data api
-                    $objAppl = Applicant::loadByMainIndex($registerApplicantIdn, true);                
-                    $cntDone++;
-                    // sleep(1);
-                    $register_of = $this->tm("register of", $lang);
-                    $objApplDisplay = $objAppl->getDisplay($lang);
-                    // put it in the group so that to be taken by simulation
-                    $objAppl->set("application_model_id", $application_model_id);
-                    $objAppl->set("applicant_group_id", $applicant_group_id);
-                    $objAppl->commit();
-                    $pctDone = ($cntDone*$pct_here)/$cntTotal;
-                    $this->set("progress_value",$pctDone);
-                    $this->set("progress_task",$register_of." ".$objApplDisplay);
-                    $this->commit();
+                    $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                    $dataProspectDesires = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_desire");
+                    $cntDone = 0;
+                    $cntTotal = count($dataProspectDesires);
+                    foreach($dataProspectDesires as $rowProspectDesire)
+                    {
+                        $registerApplicantIdn = $rowProspectDesire["idn"];
+                        if($registerApplicantIdn)
+                        {
+                                $offlineDesiresRows[$registerApplicantIdn] = $rowProspectDesire;
+                                // will run register apis and this should contain the offline data api
+                                $objAppl = Applicant::loadByMainIndex($registerApplicantIdn, true);                
+                                $cntDone++;
+                                // sleep(1);
+                                $register_of = $this->tm("register of", $lang);
+                                $objApplDisplay = $objAppl->getDisplay($lang);
+                                // put it in the group so that to be taken by simulation
+                                $objAppl->set("application_model_id", $application_model_id);
+                                $objAppl->set("applicant_group_id", $applicant_group_id);
+                                $objAppl->commit();
+                                /*
+                                $pctDone = ($cntDone*$pct_here)/$cntTotal;
+                                $this->set("progress_value",$pctDone);
+                                $this->set("progress_task",$register_of." ".$objApplDisplay);
+                                $this->commit();*/
+                        }     
+                    }
+                }
+                else
+                {
+                    $cntDone = 0;
+                    $cntTotal = count($registerApplicants);
+                    foreach($registerApplicants as $registerApplicantIdn)
+                    {
+                        if($registerApplicantIdn)
+                        {
+                                // will run register apis and this should contain the offline data api
+                                $objAppl = Applicant::loadByMainIndex($registerApplicantIdn, true);                
+                                $cntDone++;
+                                // sleep(1);
+                                $register_of = $this->tm("register of", $lang);
+                                $objApplDisplay = $objAppl->getDisplay($lang);
+                                // put it in the group so that to be taken by simulation
+                                $objAppl->set("application_model_id", $application_model_id);
+                                $objAppl->set("applicant_group_id", $applicant_group_id);
+                                $objAppl->commit();
+                                $pctDone = ($cntDone*$pct_here)/$cntTotal;
+                                $this->set("progress_value",$pctDone);
+                                $this->set("progress_task",$register_of." ".$objApplDisplay);
+                                $this->commit();
+                        }                    
+                    }
                 }
 
                 $where = "active='Y' and application_model_id = $application_model_id and applicant_group_id=$applicant_group_id";
@@ -178,7 +230,7 @@ class ApplicationSimulation extends AdmObject{
             $obj = new Applicant();
             $obj->where($where);
 
-            return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit), $context];
+            return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit), $context, $offlineDesiresRows];
         }
 
         public static function log($type, $appidn, $text)
@@ -209,7 +261,13 @@ class ApplicationSimulation extends AdmObject{
             $log_inf = AfwStringHelper::stringContain($arrOptions["LOG"],"INFO");
             $log_war = AfwStringHelper::stringContain($arrOptions["LOG"],"WARNING");
             $log_tech = AfwStringHelper::stringContain($arrOptions["LOG"],"DEBUGG");
-
+            $fromProspect = false;
+            if(($arrOptions["REGISTER_APPLICANTS"]=="PROSPECT"))
+            {
+                $fromProspect = true;
+                $arrOptions["REGISTER_APPLICANTS"]="";
+            }
+            
             $registerApplicants = explode(",",$arrOptions["REGISTER_APPLICANTS"]);
             $showApplicants = explode(",",$arrOptions["SHOW_APPLICANTS"]);
             $err_arr = [];
@@ -222,7 +280,7 @@ class ApplicationSimulation extends AdmObject{
             /*try {*/
                 // $application_model_id = $this->getVal("application_model_id");
                 // $applicant_group_id = $this->getVal("applicant_group_id");
-                list($applicationModelObj, $applicantGroupObj, $applicationPlanObj, $applicantList, $context) = $this->getMyApplicantList(null,null,null,'',$arrOptions["DATE"],$registerApplicants,$lang,30.0);
+                list($applicationModelObj, $applicantGroupObj, $applicationPlanObj, $applicantList, $context, $offlineDesiresRows) = $this->getMyApplicantList(null,null,null,'',$arrOptions["DATE"],$registerApplicants,$fromProspect,$lang,30.0);
                 $err = "";
                 if(!$applicationModelObj) $err = $this->tm("No Application Model Defined for this simulation", $lang);
                 elseif(!$applicantGroupObj) $err = $this->tm("No Applicant Group Defined for this simulation", $lang);
@@ -249,16 +307,20 @@ class ApplicationSimulation extends AdmObject{
                 {
                     $cntTotal = count($applicantList);
                     $cntDone = 0;
+                    /**
+                     * @var Applicant $applicantItem
+                     */
                     foreach($applicantList as $apidn => $applicantItem)
                     {
                         // test if the user has breaked the simulation
                         $row = ApplicationSimulation::checkSimulation($this->id);
                         $progress_value = $row["progress_value"];
                         $progress_task = $row["progress_task"];
-                        if($progress_task=="--STOP--") break;
+                        $stopeMe = $row["stop-me"];
+                        if($stopeMe) break;
                         $showMe = ((count($showApplicants)==0) or (in_array($apidn, $showApplicants)));
                         $logMe = $applicantItem->sureIs("log");
-                        list($err, $inf, $war, $tech) = $applicantItem->simulateApplication($applicationPlanObj, $this);
+                        list($err, $inf, $war, $tech) = $applicantItem->simulateApplication($applicationPlanObj, $this, $offlineDesiresRows[$apidn]);
                         $applicant_name = $applicantItem->getDisplay($lang);
                         $applicant_idn = $applicantItem->getVal("idn");
                         $cntDone++;
@@ -383,6 +445,7 @@ class ApplicationSimulation extends AdmObject{
     public function calcApplicant_ids($what="value")
     {
         $return = $this->getOptions("SHOW_APPLICANTS", true);
+        if(!$return) $return = "0";
         // die("getOptions(SHOW_APPLICANTS, true) = $return");
         return $return;
     }
