@@ -52,6 +52,6 @@ $migrations = [
     '00046' => ['by'=>'rafik', 'title' => 'Farz settings'],
     '00047' => ['by'=>'rafik', 'title' => 'Application simulator'],
     '00048' => ['by'=>'rafik', 'title' => 'Menus & previleges update'],
-    '00049' => ['by'=>'medali', 'title' => 'update offline data'],
+
 ];
 
