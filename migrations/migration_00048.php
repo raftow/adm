@@ -39,5 +39,3 @@ AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add   co
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_simulation add   application_plan_id int(11) DEFAULT NULL  AFTER log;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_simulation add   progress_value decimal(5,2) DEFAULT NULL  AFTER application_plan_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_simulation add   progress_task varchar(96)  DEFAULT NULL  AFTER progress_value;");
-
- 

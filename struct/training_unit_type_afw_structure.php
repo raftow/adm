@@ -67,7 +67,8 @@
 
 
 
-                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 
+                                                'QEDIT' => true, 'QSEARCH' => true,'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
