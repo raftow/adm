@@ -53,5 +53,6 @@ $migrations = [
     '00047' => ['by'=>'rafik', 'title' => 'Application simulator'],
     '00048' => ['by'=>'rafik', 'title' => 'Menus & previleges update'],
     '00049' => ['by'=>'rafik', 'title' => 'Farz manager/simulator'],
+    '00050' => ['by'=>'rafik', 'title' => 'offline data and sync academic level and program'],
 ];
 
