@@ -465,11 +465,19 @@ class ApplicationSimulation extends AdmObject{
             $progress_value = 0.0;
             $stop_disbaled = "disabled";
             $run_disbaled = "";
+            $run_current_check = "<!-- !!!!!!!!!!! **** no simulation-check needed  **** !!!!!!!!!!! -->";
         }
         else
         {
             $stop_disbaled = "";
             $run_disbaled = "disabled";
+            $run_current_check = "<script type=\"text/javascript\">
+                    $(document).ready(function(){
+                        checkCurrentSimulation();
+                    });   
+            
+</script>";
+            
         }
         $simulation_progress_value = 5 * intval(floor($progress_value / 5));
         if($simulation_progress_value>0)
@@ -494,7 +502,8 @@ class ApplicationSimulation extends AdmObject{
         $html .= "<input type=\"button\" name=\"stop_simulation_btn\" id=\"stop_simulation_btn\" hint=\"...\" class=\"fa finish stop simulation_btn longbtn yellowbtn wizardbtn center  $stop_disbaled\" value=\"&nbsp;$stop_simulation&nbsp;\" style=\"margin-right: 20px;margin-bottom: 12px;\">";                    
         $html .= "<div class='control-status hide' id='sim-running'>$running_message</div>";
         $html .= "<div class='control-status done hide' id='sim-done'>$done_message</div>";
-        $html .= "</div> <!-- control-panel -->";
+        $html .= "<input type=\"hidden\" name=\"check-interval-id\" id=\"check-interval-id\" value=\"\" >";    
+        $html .= "</div> <!-- control-panel --> $run_current_check";
         return $html;
     }
 

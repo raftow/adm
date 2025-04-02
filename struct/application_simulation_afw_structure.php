@@ -262,7 +262,7 @@ class AdmApplicationSimulationAfwStructure
 
 		'progress_task' => array('STEP' => 4,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'SIZE' => 32,  'MAXLENGTH' => 255,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => true,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 
