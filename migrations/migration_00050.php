@@ -1,6 +1,17 @@
 <?php
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+// added by rafik : start
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`academic_level_offering`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`acondition_origin_scope`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`admission_agreement_scope`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`aparameter_value`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`application_desire`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`application_plan_branch`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`employee_scope`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`training_unit_college`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`training_unit_department`");
+// added by rafik : end
 AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`training_unit`");
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`training_unit` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `city_id`, `institution_id`, `training_unit_type_id`, `training_unit_code`, `sis_unit_code`, `training_unit_name_ar`, `training_unit_name_en`, `maqbool_id`, `map_location`, `website`, `adress`, `postal_code`, `national_adress`, `description`, `gender_enum`, `phone`, `email`) VALUES
 (1, 1, '2025-03-19 10:24:38', 1, '2025-03-19 10:24:38', NULL, NULL, 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'فرع الجامعة في الحائط', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -10,6 +21,13 @@ AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`training_unit` (`id
 (5, 1, '2025-03-19 10:24:39', 1, '2025-03-19 10:24:39', NULL, NULL, 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'فرع الجامعة في الشملي', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 1, '2025-03-19 10:33:06', 1, '2025-03-19 10:33:06', NULL, NULL, 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'الجامعة طلاب', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, 1, '2025-03-19 10:33:06', 1, '2025-03-19 10:33:06', NULL, NULL, 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'الكلية التطبيقية طلاب', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+
+// added by rafik : start
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`applicant_scholarship`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`program_qualification`");
+AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`scholarship`");
+// added by rafik : end
+
 
 AfwDatabase::db_query("truncate ".$server_db_prefix."adm.`academic_program`");
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`academic_program` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `college_id`, `program_code`, `program_title`, `program_rank`, `program_file_id`, `program_instructions`, `old_name_ar`, `program_name_ar`, `program_name_en`, `sis_program_code`, `major_id`, `degree_id`, `program_track_id`, `academic_level_id`, `department_id`, `deaf_specialty`, `language_enum`, `genders_enum`, `program_tuition_fees`, `maqbool_id`) VALUES
