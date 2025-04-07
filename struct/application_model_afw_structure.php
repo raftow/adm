@@ -325,6 +325,8 @@
                                                 'EDIT' => true,
                                                 'QEDIT' => true,
                                                 'UTF8' => false,
+                                                'MANDATORY' => true,
+                                                'DEFAUT' => '',
                                                 'TYPE' => 'MFK',
                                                 'ANSWER' => 'application_field',
                                                 'ANSMODULE' => 'adm',
