@@ -55,5 +55,6 @@ $migrations = [
     '00049' => ['by'=>'rafik', 'title' => 'Farz manager/simulator'],
     '00050' => ['by'=>'rafik', 'title' => 'offline data and sync academic level and program'],
     '00051' => ['by'=>'rafik', 'title' => 'Farz manager/simulator suite ...'],
+    '00052' => ['by'=>'medali', 'title' => 'add fields to academic_program'],
 ];
 
