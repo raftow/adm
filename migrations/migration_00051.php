@@ -3,7 +3,7 @@
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
 // par securite d'executer ce script par erreur je desactive le drop
-// AfwDatabase::db_query("DROP TABLE ".$server_db_prefix."adm.`application_desire`;");
+AfwDatabase::db_query("DROP TABLE ".$server_db_prefix."adm.`application_desire`;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`application_desire` (
   `created_by` int(11) NOT NULL,
