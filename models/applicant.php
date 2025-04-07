@@ -216,6 +216,32 @@ class Applicant extends AdmObject
                         }
                 }
 
+                $eval_settings = include("../extra/eval_settings.php");
+                foreach($eval_settings as $eval_type => $eval_setting_row)
+                {
+                        foreach($eval_setting_row as $categ => $eval_setting_case)
+                        {
+                                $eval_id = $eval_setting_case["id"];
+                                $eval_attribute = "qiyas_".$eval_type."_".$categ;
+                                $eval_date_attribute = $eval_attribute . "_date"; 
+
+                                if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute])
+                                {
+                                        $eval_date = $this->getVal($eval_date_attribute);
+                                        $eval_result = $this->getVal($eval_attribute);
+                                        if($eval_date and $eval_val)
+                                        {
+                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, true);
+                                                if($objEval)
+                                                {
+                                                        $objEval->set("eval_result", $eval_result);
+                                                        $objEval->commit();
+                                                }
+                                        }
+                                        
+                                }
+                        }       
+                }
                 
                 
 
@@ -899,11 +925,13 @@ class Applicant extends AdmObject
                         {
                                 $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
                                 $appDesireList = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
+                                $appDesireIdList = array_keys($appDesireList);
                                 /**
                                  * @var ApplicationDesire $appDesireItem
                                  */
-                                foreach($appDesireList as $appDesireItem)
+                                foreach($appDesireIdList as $appDesireId)
                                 {
+                                        $appDesireItem =& $appDesireList[$appDesireId];
                                         $disp = $appDesireItem->getDisplay($lang);
                                         list($desireStepCode, $resPbm) = $appDesireItem->bootstrapDesire($lang, true, $options);
                                         list($err, $inf, $war, $tech) = $resPbm;
@@ -916,6 +944,9 @@ class Applicant extends AdmObject
                                                 $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
                                         else 
                                                 $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : ". $appDesireItem->statusExplanations(); 
+
+                                        unset($appDesireItem);
+                                        unset($appDesireList[$appDesireId]);                                                
                                 }
                         }
                         else
@@ -927,6 +958,8 @@ class Applicant extends AdmObject
                 {
                         $err_arr[] = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
                 }
+
+                unset($appObj);
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "\n", $tech_arr);
         }
@@ -1452,3 +1485,4 @@ class Applicant extends AdmObject
                 return $afObj;
         }
 }
+

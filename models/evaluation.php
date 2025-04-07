@@ -52,10 +52,39 @@ class Evaluation extends AdmObject
                 return false;
         }
 
+        public function umsCheckDisabledInRetrieveMode()
+        {
+            return false;
+        }
+
+        protected function adminCanEditMe()
+        {
+                if($this->id <= 4) return [false, 'qyias Evals are standard and can not be edited or deleted'];
+                return [true, 'for demo'];
+        }
+
         protected function userCanEditMeWithoutRole($auser)
         {
-                // @todo this temporary for demo of amjad
+                if($this->id <= 4) return [false, 'qyias Evals are standard and can not be edited or deleted'];
                 return [true, 'for demo'];
+        }
+
+        protected function userCanEditeMeSpecial($auser)
+        {
+            if($this->id <= 4) return false;
+            return true;
+        }
+
+        protected function userCanDeleteMeSpecial($auser)
+        {
+            if($this->id <= 4) return false;
+            return true;
+        }
+
+        public function deleteAction()
+        {
+            if($this->id <= 4) return ['', ''];
+            return ['delete', ''];
         }
 
         public function beforeDelete($id, $id_replace)

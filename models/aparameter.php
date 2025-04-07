@@ -52,20 +52,33 @@ class Aparameter extends AdmObject
                 $department_id = 0;
                 $application_model_branch_id = 0;
 
+                $aparam_use_scope_id = $this->getVal("aparam_use_scope_id");
+                
+                // fixed param not customizable
+                if($aparam_use_scope_id==4)
+                {
+                        $application_model_id = 0;
+                        $application_plan_id = 0;
+                }
+                else
+                {
+                        if ($obj instanceof ApplicationDesire)
+                        {
+                                $training_unit_id = $obj->getVal("training_unit_id");                        
+                                $department_id = $obj->getVal("department_id");
+                                if(!$department_id) $department_id = 0;
+                                $application_model_branch_id = $obj->getVal("application_model_branch_id");
+                                if(!$application_model_branch_id) $application_model_branch_id = 0;
+                        }
+                }
+
                 /* if ($obj instanceof Applicant) {
                         $training_unit_id = 0;
                         $department_id = 0;
                         $application_model_branch_id = 0;
                 }*/
 
-                if ($obj instanceof ApplicationDesire)
-                {
-                        $training_unit_id = $obj->getVal("training_unit_id");                        
-                        $department_id = $obj->getVal("department_id");
-                        if(!$department_id) $department_id = 0;
-                        $application_model_branch_id = $obj->getVal("application_model_branch_id");
-                        if(!$application_model_branch_id) $application_model_branch_id = 0;
-                }
+                
 
                 $context = "$application_model_id-$application_plan_id-$training_unit_id-$department_id-$application_model_branch_id";
                 if(!$this->contextValueArray[$context]) 
@@ -170,9 +183,14 @@ class Aparameter extends AdmObject
                 return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
         }
 
+        public function getShortDisplay($lang = 'ar')
+        {
+                return $this->getDefaultDisplay($lang);
+        }
+
         public function getDisplay($lang = 'ar')
         {
-                return $this->getDefaultDisplay($lang)." [".$this->id."]";
+                return $this->singleTranslation($lang).":".$this->getDefaultDisplay($lang)." [".$this->id."]";
         }
 
         protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")

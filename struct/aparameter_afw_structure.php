@@ -50,7 +50,7 @@
 
 
                                         'customizable' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1,  
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1,  'SEARCH' => true, 'QSEARCH' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 

@@ -190,7 +190,7 @@ class ApplicationDesire extends AdmObject
         {
                 $app_des_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
-                $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED"]) != "off");
+                $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED-BEFORE-APPLY"]) != "off");
                 $application_simulation_id = $options["SIMULATION-ID"];
                 $simulate = ($application_simulation_id!=2);
                 $logConditionExec = (strtolower($options["LOG-CONDITION-EXEC"]) != "off");
@@ -709,10 +709,20 @@ class ApplicationDesire extends AdmObject
                 {
                         if(!$objApplicationModel) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                         if ($objApplicationModel) {
-                                $appStepObj = $objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
+                                if($this->getVal("step_num"))
+                                {
+                                        $appStepObj = $objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
+                                }
+                                else
+                                {
+                                        $appStepObj = $objApplicationModel->getFirstDesireStep();
+                                }
+                                
                                 if ($appStepObj) {
                                         $application_step_id = $appStepObj->id;
+                                        $application_step_num = $appStepObj->getVal("step_num");
                                         $this->set("application_step_id", $application_step_id);
+                                        $this->set("step_num", $application_step_num);
                                 }
                         } else {
                                 AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
@@ -747,5 +757,14 @@ class ApplicationDesire extends AdmObject
                         
                 $selects = array();
                 $this->select_visibilite_horizontale_default($dropdown, $selects);
+        }
+
+        protected function afterSetAttribute($attribute)
+        {
+                /*
+                if(($attribute == "application_plan_branch_id") and ($this->getVal("application_plan_branch_id")==65))
+                {
+                        throw new AfwRuntimeException("Here our mochkel");
+                }*/
         }
 }

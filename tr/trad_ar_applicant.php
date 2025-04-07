@@ -119,7 +119,19 @@ class ApplicantArTranslator{
 		$trad["applicant"]["applicant_group_id"] = "مجموعة المتقدمين";
 		$trad["applicant"]["application_model_branch_mfk"] = "الفروع المفضلة";
 		$trad["applicant"]["log"] = "تتبع تفاصيل التقديم والفرز";
+
+
+		$trad["applicant"]["qiyas_achievement_th"] = "درجةاختبار التحصيل الدراسي-التخصصات النظرية";
+		$trad["applicant"]["qiyas_achievement_th_date"] = "تاريخ اختبار التحصيلي-التخصصات النظرية";
+		$trad["applicant"]["qiyas_aptitude_sc"] = "درجة اختبار القدرات العامة-التخصصات العلمية";
+		$trad["applicant"]["qiyas_aptitude_sc_date"] = "تاريخ اختبار القدرات العامة-التخصصات العلمية";
+		$trad["applicant"]["qiyas_aptitude_th"] = "درجة اختبار القدرات العامة-التخصصات النظرية";
+		$trad["applicant"]["qiyas_aptitude_th_date"] = "تاريخ اختبار القدرات العامة-التخصصات النظرية";
+		$trad["applicant"]["qiyas_achievement_sc"] = "درجةاختبار التحصيل الدراسي-التخصصات العلمية";
+		$trad["applicant"]["qiyas_achievement_sc_date"] = "تاريخ اختبار التحصيلي-التخصصات العلمية";
 		
+		
+
 		// additional fields steps
 		// $start_additional_step = 2;
 		// $additional_step = $start_additional_step + 1;

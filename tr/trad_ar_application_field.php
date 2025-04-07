@@ -3,6 +3,7 @@
 $trad["application_field"]["step1"] = "الخصائص الأساسية";
 $trad["application_field"]["step2"] = "الخصائص المتقدمة";
 $trad["application_field"]["step3"] = "خصائص أخرى";
+$trad["application_field"]["step4"] = "الاستخدامات";
 
 
 $trad["application_field"]["general_props"] = "الرموز";

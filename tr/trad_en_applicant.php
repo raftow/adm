@@ -100,6 +100,17 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["applicant_group_id"] = "Applicant group";
 		$trad["applicant"]["application_model_branch_mfk"] = "Favorite branchs";
 		$trad["applicant"]["log"] = "Log application and sorting details";
+
+		$trad["applicant"]["qiyas_achievement_th"] = "Academic achievement test score - theoretical";
+		$trad["applicant"]["qiyas_achievement_th_date"] = "Date of the achievement test - theoretical";
+		$trad["applicant"]["qiyas_aptitude_sc"] = "General aptitude test score - scientific";
+		$trad["applicant"]["qiyas_aptitude_sc_date"] = "Date of the general aptitude test - scientific";
+		$trad["applicant"]["qiyas_aptitude_th"] = "General aptitude test score - theoretical";
+		$trad["applicant"]["qiyas_aptitude_th_date"] = "Date of general aptitude testing - theoretical";
+		$trad["applicant"]["qiyas_achievement_sc"] = "Academic achievement test score - scientific";
+		$trad["applicant"]["qiyas_achievement_sc_date"] = "Date of the achievement test - scientific";
+
+
 		return $trad;
     }
 

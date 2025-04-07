@@ -591,7 +591,7 @@ class Acondition extends AdmObject{
                                 if(!$objApplication) $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicant_idn, $simulate);
                                 if($objApplication)
                                 {
-                                        list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objApplication->calcTrackAndMajorPath();
+                                        list($program_track_id, $major_path_id, $qualObj, $program_track_name, $major_path_name) = $objApplication->calcTrackAndMajorPath();
                                         $objApplicationDisp = $objApplication->getDisplay("ar");                                
                                         $sub_context_log = "list(program_track_id=$program_track_id, major_path_id=$major_path_id, qual_id=$qualObj->id) = objApplication($objApplicationDisp) => calcTrackAndMajorPath()";        
                                 }
@@ -627,7 +627,7 @@ class Acondition extends AdmObject{
                                 else
                                 {
                                         $objDesireDisp = $objDesire->getDisplay("ar");
-                                        list($program_track_id, $major_path_id, $qualObj, $major_path_name, $program_track_name) = $objDesire->calcTrackAndMajorPath();
+                                        list($program_track_id, $major_path_id, $qualObj, $program_track_name, $major_path_name) = $objDesire->calcTrackAndMajorPath();
                                         $sub_context_log = "list(program_track_id=$program_track_id, major_path_id=$major_path_id, qual_id=$qualObj->id) = objDesire($objDesireDisp) => calcTrackAndMajorPath()";
                                         if($field_reel)
                                         {
@@ -656,7 +656,10 @@ class Acondition extends AdmObject{
                                 $param_value = Aparameter::getMyValueForSubContext($this->aparamObj->id, $major_path_id, $program_track_id, $sub_context_log);
                                 if($param_value===null)
                                 {
-                                        $comments = $this->tm("This track is not available, going to", $lang) . " $major_path_name ".$this->tm("coming from", $lang)." $program_track_name" ;
+                                        $comments = $this->aparamObj->getDisplay($lang). " : ";
+                                        $comments .= $this->tm("This track is not available, going to", $lang) . " [$program_track_name] ".$this->tm("coming from", $lang)." ($major_path_name) " ;
+                                        // cause lakhbata fi html so commented 
+                                        // $comments .= "<!-- $sub_context_log -->";
                                 }
                         }
                         else

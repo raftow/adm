@@ -12,6 +12,8 @@
                  */
                 private $objApplicationModel = null;
 
+                private $mbToPb = [];
+
                 public function __construct(){
                         parent::__construct("application_plan","id","adm");
                         AdmApplicationPlanAfwStructure::initInstance($this);
@@ -83,10 +85,10 @@
                     if($attribute=="academic_year_id") return true;
                     if($attribute=="start_date") return true;
                     if($attribute=="end_date") return true;
-                    //if($attribute=="application_start_date") return true;
-                    //if($attribute=="application_start_time") return true;
-                    //if($attribute=="application_end_date") return true;
-                    //if($attribute=="application_end_time") return true;
+                    if($attribute=="application_start_date") return true;
+                    if($attribute=="application_start_time") return true;
+                    if($attribute=="application_end_date") return true;
+                    if($attribute=="application_end_time") return true;
                     if($attribute=="sorting_start_date") return true;
                     if($attribute=="sorting_end_date") return true;
                     if($attribute=="admission_start_date") return true;
@@ -155,6 +157,11 @@
                 $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج"; 
                 $methodName = "addPossibleBranchs";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+
+                $color = "red";
+                $title_ar = "تصفير جميع فروع القبول المفتوحة في النموذج"; 
+                $methodName = "resetPossibleBranchs";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
             }
             
             return $pbms;
@@ -172,14 +179,27 @@
             }
         }
 
-        public function getApplicationPlanBranch($application_model_branch_id)
+        public function getApplicationPlanBranchId($application_model_branch_id)
         {
-            $ambObj = ApplicationModelBranch::loadById($application_model_branch_id);
-            if(!$ambObj) return 0;
-            $program_offering_id = $ambObj->getVal("program_offering_id");
-            $obj = ApplicationPlanBranch::loadByMainIndex($this->id,$program_offering_id);
-            if(!$obj) return 0;
-            return $obj;
+            if($this->mbToPb[$application_model_branch_id] == "NOT-FOUND") return 0;
+            if(!$this->mbToPb[$application_model_branch_id])
+            {
+                $this->mbToPb[$application_model_branch_id] = "NOT-FOUND";
+                $ambObj = ApplicationModelBranch::loadById($application_model_branch_id);
+                if(!$ambObj) return 0;
+                $program_offering_id = $ambObj->getVal("program_offering_id");
+                $obj = ApplicationPlanBranch::loadByMainIndex($this->id,$program_offering_id);
+                if(!$obj) return 0;
+                // if($obj->id==65) throw new AfwRuntimeException("Here got a strange value pbid=65 from plan= $this->id and program_offering_id=$program_offering_id ");
+                $this->mbToPb[$application_model_branch_id] = $obj->id;
+            }
+            
+            return $this->mbToPb[$application_model_branch_id];
+        }
+
+        public function resetPossibleBranchs($lang="ar")
+        {
+            return $this->addPossibleBranchs($lang, true);
         }
 
         public function addPossibleBranchs($lang="ar", $reset = false)
@@ -194,7 +214,7 @@
 
                 if ($reset) {
                         $sql_delete = "delete from $db.application_plan_branch 
-                        where application_id=$this_id";
+                        where application_plan_id=$this_id";
 
                         list($result, $row_count, $affected_row_count) = self::executeQuery($sql_delete);
                         $info_mess_arr[] = $this->tm('عدد سجلات فروع التقديم التي تم مسحها : ', $lang) . $affected_row_count;
@@ -221,16 +241,19 @@
                         $hijri_application_end_date = "";                        
                 }
                 
+                
                 $sql_insert = "insert into $db.application_plan_branch(created_by,  created_at, updated_by,updated_at, active, version, sci_id,
                                 academic_level_id,gender_enum,term_id,application_plan_id,
                                 program_id,training_unit_id,department_id,major_id,
                                 program_offering_id,application_model_branch_id,
+                                name_ar, name_en,
                                 seats_capacity, direct_adm_capacity, deaf_specialty,is_open,allow_direct_adm,
                                 confirmation_days, application_end_date, hijri_application_end_date)
                                 select $me, now(), $me, now(), amb.active, 0 as version, 431 as sci_id,
                                         $academic_level_id, amb.gender_enum, $term_id, $this_id, 
                                         amb.academic_program_id, amb.training_unit_id, amb.department_id, amb.major_id,  
                                         amb.program_offering_id, amb.id,
+                                        amb.branch_name_ar, amb.branch_name_en,
                                         amb.seats_capacity, amb.direct_adm_capacity, amb.deaf_specialty, amb.is_open, IF(amb.direct_adm_capacity>0, 'Y','N') as allow_direct_adm,
                                         amb.confirmation_days, '$application_end_date' as application_end_date, '$hijri_application_end_date' as hijri_application_end_date
                                 from $db.application_model_branch amb  
@@ -585,6 +608,8 @@
 
                 return $obj->loadMany();  
         }
+
+        
 
 
     }

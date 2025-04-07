@@ -34,7 +34,7 @@ class AdmApplicantEvaluationAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
+                
                 'evaluation_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -90,7 +90,7 @@ class AdmApplicantEvaluationAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-
+                
                 'eval_result' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,

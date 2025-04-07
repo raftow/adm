@@ -4493,8 +4493,10 @@ div.simlog.case {
     background-color: #f2fbffe0;
     text-align: center;
     text-overflow: clip;
+    overflow: hidden;
     padding: 5px 15px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 div.simlog.case.current {
@@ -4645,3 +4647,12 @@ div.simulation_progress.value-100 {
     float: right;
 }
 
+.usage-panel>h1 {
+    color: #0670bb;
+    font-size: 16px;
+}
+
+.usage-panel>ul>li {
+    margin-right: 14px;
+    margin-left: 14px;
+}

@@ -6,6 +6,12 @@
                 {
                         if ($obj instanceof ApplicationDesire) 
                         {
+                                $multiple_key_cols = "applicant_id,application_plan_id,application_simulation_id,desire_num";
+                                $part_cols = "applicant_id";
+                                $context_cols = "";
+                                $obj->PK_MULTIPLE = "|";
+                                $obj->PK_MULTIPLE_ARR = explode(",",$multiple_key_cols);
+
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = ["desire_num", "application_plan_branch_id"];
                                 $obj->DISPLAY_SEPARATOR = "-";
@@ -16,7 +22,9 @@
                                 // $obj->IS_LOOKUP = true;
                                 $obj->MOVE_UP_ACTION = true;
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 4; 
+                                $obj->editNbSteps = 4;
+                                $obj->setContextAndPartitionCols($part_cols, $context_cols);
+                                $obj->setMultiplePK($multiple_key_cols,$obj->PK_MULTIPLE); 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                         else 
@@ -28,11 +36,6 @@
                 
                 
                 public static $DB_STRUCTURE = array(
-                                        'id' => array('SHOW' => false,  'RETRIEVE' => true,  'EDIT' => false,  
-                                                'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
-
                                         'gender_enum' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SEARCH' => false,

@@ -472,17 +472,24 @@ class Application extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
-        public static function createOfflinePlanBranchArr($offlineDesiresRow, $maxDesires=50)
+        public static function createOfflineModelBranchArr($offlineDesiresRow, $maxDesires=50)
         {
-                $planBranchArr = [];
+                $modelBranchArr = [];
                 for($k=1; $k<=$maxDesires; $k++)
                 {
-                        if($offlineDesiresRow["pb".$k]) $planBranchArr[] = $offlineDesiresRow["pb".$k];
+                        if($offlineDesiresRow["pb".$k]) $modelBranchArr[] = $offlineDesiresRow["pb".$k];
                         else break;
                 }
 
-                return $planBranchArr;
+                return $modelBranchArr;
         }
+
+        /**
+         * 
+         * @param ApplicationSimulation $applicationSimulationObj
+         * @param ApplicationPlan $applicationPlanObj
+         * @param array $offlineDesiresRow
+         */
 
         public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow=[])
         {
@@ -537,13 +544,25 @@ class Application extends AdmObject
                                         $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
                                 }
                                 
-                                if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflinePlanBranchArr($offlineDesiresRow);
+                                if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflineModelBranchArr($offlineDesiresRow);
                         }
 
                         $applicationPlanBranchArr = [];
                         foreach($applicationModelBranchArr as $applicationModelBranchId)
                         {
-                                $applicationPlanBranchArr[]  = $applicationPlanObj->getApplicationPlanBranch($applicationModelBranchId)->id;
+                                if($applicationModelBranchId)
+                                {
+                                        $applicationPlanId = $applicationPlanObj->id;
+                                        $applicationPlanBranchId = $applicationPlanObj->getApplicationPlanBranchId($applicationModelBranchId);
+                                        if(!$applicationPlanBranchId) 
+                                        {
+                                                $lang = AfwLanguageHelper::getGlobalLanguage();
+                                                throw new AfwBusinessException("The following model branch ID %d has no plan branch ID, please check your plan if the branchs are ready for application", $lang, "", "", "", "", "adm", $applicationModelBranchId);
+                                        }
+                                        //if($applicationPlanBranchId==65) throw new AfwRuntimeException("Here The PB applicationPlanBranchId = $applicationPlanBranchId from applicationModelBranchId=$applicationModelBranchId inside plan=$applicationPlanId");
+                                        $applicationPlanBranchArr[]  = $applicationPlanBranchId;
+                                }
+                                
                         }
                         
 

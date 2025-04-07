@@ -14,7 +14,7 @@
 							$obj->UNIQUE_KEY = array("application_table_id","field_name");
 							$obj->editByStep = true;
 							$obj->IS_LOOKUP = true;
-							$obj->editNbSteps = 3;
+							$obj->editNbSteps = 4;
 							$obj->showQeditErrors = true;
 							$obj->showRetrieveErrors = true;
 							$obj->nbQeditLinksByRow = 5;
@@ -155,6 +155,20 @@
 				'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 3,  
 				'READONLY' => true, 
 				'CSS' => 'width_pct_25',),
+
+		'usagePanel' => array(
+							'STEP' => 4,
+							'TYPE' => 'TEXT',
+							'CATEGORY' => 'FORMULA',
+							'SHOW' => true,
+							'EDIT' => true,
+							'READONLY' => true,
+							"CAN-BE-SETTED" => false,
+							'SIZE' => 255,
+							"NO-LABEL" => true,
+							'CSS' => 'width_pct_100',
+							'INPUT_WIDE' => true
+					),				
 
 		'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  

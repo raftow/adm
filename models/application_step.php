@@ -8,6 +8,8 @@
                 public static $DB_STRUCTURE = null;
                 // public static $copypast = true;
 
+                public static $FIRST_STEPS = [];
+
                 public function __construct(){
                         parent::__construct("application_step","id","adm");
                         AdmApplicationStepAfwStructure::initInstance($this);
@@ -52,10 +54,18 @@
 
                 public static function loadFirstStep($application_model_id, $general='Y')
                 {
-                        $obj = new ApplicationStep();  
-                        $obj->select("application_model_id",$application_model_id);
-                        $obj->select("general",$general);
-                        if($obj->load()) return $obj; else return null;
+                        if(!self::$FIRST_STEPS["AM-$application_model_id-G-$general"]) 
+                        {
+                                $obj = new ApplicationStep();  
+                                $obj->select("application_model_id",$application_model_id);
+                                $obj->select("general",$general);
+                                if($obj->load()) self::$FIRST_STEPS["AM-$application_model_id-G-$general"] = $obj; 
+                                else self::$FIRST_STEPS["AM-$application_model_id-G-$general"] = "NOT-FOUND"; 
+                        }
+                        
+                        if(self::$FIRST_STEPS["AM-$application_model_id-G-$general"] == "NOT-FOUND") return null;
+                        
+                        return self::$FIRST_STEPS["AM-$application_model_id-G-$general"];
                 }
 
                 public static function loadByMainIndex(

@@ -53,8 +53,9 @@ class ApplicationSimulation extends AdmObject{
 
         public static function checkSimulation($simulation_id)
         {
+            $now = date("dHis");
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-            $return = AfwDatabase::db_recup_row("select progress_value,progress_task from ".$server_db_prefix."adm.application_simulation where id = '".$simulation_id."'");
+            $return = AfwDatabase::db_recup_row("select progress_value,progress_task from ".$server_db_prefix."adm.application_simulation where id = '".$simulation_id."' -- $now");
 
             if($return["progress_task"]=="--STOP--") 
             {
@@ -247,6 +248,9 @@ class ApplicationSimulation extends AdmObject{
 
         public function runSimulation($lang="ar")
         {
+            AfwSession::setConfig("_sql_analysis_seuil_calls",7000);
+            AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",6000);
+            AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
             $MAX_TO_LOG = 10;
             if($this->id==2) $typeRun = $this->tm("Real application", $lang);
             else $typeRun = $this->tm("Application simulation", $lang);
@@ -310,8 +314,12 @@ class ApplicationSimulation extends AdmObject{
                     /**
                      * @var Applicant $applicantItem
                      */
-                    foreach($applicantList as $apidn => $applicantItem)
+                    
+                    $applicantIdnList = array_keys($applicantList);
+
+                    foreach($applicantIdnList as $apidn)
                     {
+                        $applicantItem =& $applicantList[$apidn]; 
                         // test if the user has breaked the simulation
                         $row = ApplicationSimulation::checkSimulation($this->id);
                         $progress_value = $row["progress_value"];
@@ -323,6 +331,7 @@ class ApplicationSimulation extends AdmObject{
                         list($err, $inf, $war, $tech) = $applicantItem->simulateApplication($applicationPlanObj, $this, $offlineDesiresRows[$apidn]);
                         $applicant_name = $applicantItem->getDisplay($lang);
                         $applicant_idn = $applicantItem->getVal("idn");
+                        $applicant_id = $applicantItem->id;
                         $cntDone++;
                         // sleep(1);
                         $pctDone = 30+($cntDone*70.0)/$cntTotal;
@@ -342,14 +351,17 @@ class ApplicationSimulation extends AdmObject{
                             $t_information = $this->translateOperator("information", $lang);
                             $t_warning = $this->translateOperator("warning", $lang);
                             $t_debugg = $this->translateOperator("debugg", $lang);
-    
-                            $log_arr[] = self::log('title', 'app'.$applicant_idn, "$typeRun $t_for $applicant_idn - $applicant_name");
+                            $title_sim = "<a target='applicant' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=$applicant_id'>$typeRun $t_for $applicant_idn - $applicant_name</a>";
+                            $log_arr[] = self::log('title', 'app'.$applicant_idn, $title_sim);
                             if ($err and $log_err) $log_arr[] = self::log('error', 'app'.$applicant_idn, "$t_error : " . $err);                    
                             if ($inf and $log_inf) $log_arr[] = self::log('info', 'app'.$applicant_idn, "$t_information : " . $inf);
                             if ($war and $log_war) $log_arr[] = self::log('warning', 'app'.$applicant_idn, "$t_warning : " . $war);
                             if ($tech and $log_tech) $log_arr[] = self::log('debugg', 'app'.$applicant_idn, "$t_debugg : " . $tech);    
                             
                         }
+
+                        unset($applicantItem);
+                        unset($applicantList[$apidn]);
                     }
                 }
 

@@ -308,6 +308,144 @@ class ApplicationField extends AdmObject
             }    
 	}
 
+     public function calcUsagePanel($what = "value")
+     {
+          $afield_id = $this->id;
+          $lang = AfwLanguageHelper::getGlobalLanguage();
+          $html = "";  
+          
+          // conditions
+          $obj = new Acondition();   
+          $obj->select("afield_id",$afield_id);
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("afield_id", $lang);
+               $html .= "<h1>* $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>";  
+          }     
+          // Api Endpoints
+          $obj = new ApiEndpoint();   
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>** $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>";  
+          }
+          // Application Model Apis
+          $obj = new AppModelApi();   
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>*** $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>"; 
+          }     
+
+          // Application Models
+          $obj = new ApplicationModel();   
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>**** $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>"; 
+          }
+
+          // Application Model Fields
+          $obj = new ApplicationModelField();   
+          $obj->select("application_field_id",$afield_id);
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_id", $lang);
+               $html .= "<h1>***** $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>";  
+          }
+
+          // Screen Models
+          $obj = new ScreenModel();   
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>****** $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>"; 
+          }
+          // Sorting Groups
+          $obj = new SortingGroup();   
+          $obj->where("sorting_field_1_id = '$afield_id' or sorting_field_2_id = '$afield_id' or sorting_field_3_id = '$afield_id'");
+          $obj->select("active","Y");
+          $objList = $obj->loadMany();
+          if(count($objList)>0)
+          {
+               $title = $obj->transClassPlural($lang)." - ". $obj->translate("sorting_fields", $lang);
+               $html .= "<h1>******* $title</h1>";  
+               $html .= "<ul>";  
+               foreach($objList as $objItem)
+               {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";  
+               }
+               $html .= "</ul>";
+          }
+        
+          if(!$html) $html = $this->tm("Not used", $lang);
+
+          $html = "<div class='usage-panel' id='usage-panel'> $html </div> <!- usage-panel ->";  
+
+        return $html;
+
+        
+     }
+
      /**
       * To do Static public method That execute
       * update pmu_adm.application_field af set af.active = (select f.avail from pmu_pag.afield f where f.id = af.id);
