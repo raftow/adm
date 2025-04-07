@@ -48,9 +48,9 @@ AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_desire`
   ADD PRIMARY KEY (`applicant_id`,`application_plan_id`,`application_simulation_id`,`desire_num`),
   ADD UNIQUE KEY `uk_big_application_desire` (`applicant_id`,`application_plan_id`,`application_simulation_id`,`application_plan_branch_id`);");
 
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set created_at='2020-01-01' where created_at='0000-00-00' or created_at='0000-00-00 00:00:00' or created_at is null");   
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set updated_at='2020-01-01' where updated_at='0000-00-00' or updated_at='0000-00-00 00:00:00' or updated_at is null");   
-// AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set validated_at='2020-01-01' where validated_at='0000-00-00' or validated_at='0000-00-00 00:00:00' or validated_at is null");   
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set created_at='2020-01-01' where 1");   
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set updated_at='2020-01-01' where 1");   
+// AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant set validated_at='2020-01-01' where 1");   
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant change   attribute_29 qiyas_achievement_th float DEFAULT NULL  AFTER `log`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant change   attribute_30 qiyas_achievement_th_date datetime DEFAULT NULL  AFTER qiyas_achievement_th;");
