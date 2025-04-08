@@ -57,5 +57,6 @@ $migrations = [
     '00051' => ['by'=>'rafik', 'title' => 'Farz manager/simulator suite ...'],
     '00052' => ['by'=>'medali', 'title' => 'add fields to academic_program'],
     '00053' => ['by'=>'rafik', 'title' => 'Farz manager/simulator suite 2'],
+    '00054' => ['by'=>'rafik', 'title' => 'Bug fixes : Can be rexecuted updates even if fail'],
 ];
 
