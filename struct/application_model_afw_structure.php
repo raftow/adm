@@ -261,6 +261,13 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
+                                        'pic_view' => array(
+                                                        'TYPE' => 'TEXT',  
+                                                        'CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>'application_picture.pic_view',  'SHOW' => true,  'RETRIEVE' => true, 
+                                                        'EDIT-HIDDEN' => true,   'EDIT' => true,  'QEDIT' => true,  'READONLY' => true,  
+                                                        'SIZE' => 128,  'RO_DIV_CLASS' => 'preview_file',  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        ),  
 
 
                                         'allow_direct_adm' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N', 'QEDIT' => false,  

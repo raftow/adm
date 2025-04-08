@@ -50,6 +50,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["training_hours"] = "عدد الساعات التدريبية";
 		$trad["application_model"]["upload_files"] = "السماح برفع الوثائق";
 		$trad["application_model"]["application_picture"] = "صورة نموذج التقديم";
+		$trad["application_model"]["pic_view"] = "الصورة"; 
 		$trad["application_model"]["language_enum"] = "لغة التدريب";
 		$trad["application_model"]["min_training_unit"] = "الحد الأدنى لاختيار المنشآت التدريبية";
 		$trad["application_model"]["max_training_unit"] = "الحد الاقصى لاختيار المنشآت التدريبية";

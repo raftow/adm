@@ -872,6 +872,7 @@
 
                 public function shouldBeCalculatedField($attribute){
                         if($attribute=="level_degree_mfk") return true;
+                        if($attribute=="pic_view") return true;
                         return false;
                 }
 
@@ -1300,6 +1301,7 @@
 
                 return ApplicationPlan::loadByMainIndex($this->id, $objTerm->id); 
         }
+
 }
 
         
