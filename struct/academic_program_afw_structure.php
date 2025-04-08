@@ -137,6 +137,14 @@
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
+
+                                        'pic_view' => array(
+                                                        'TYPE' => 'TEXT',  
+                                                        'CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>'program_file_id.pic_view',  'SHOW' => true,  'RETRIEVE' => true, 
+                                                        'EDIT-HIDDEN' => true,   'EDIT' => true,  'QEDIT' => true,  'READONLY' => true,  
+                                                        'SIZE' => 128,  'RO_DIV_CLASS' => 'preview_file',  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        ),                                                
                                         
                                         'program_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '100', 'UTF8' => false,  

@@ -34,7 +34,10 @@
 	
 	$trad["academic_program"]["program_rank"] = "ترتيب البرنامج"; 
 	$trad["academic_program"]["program_file_id"] = "صورة البرنامج";
+	$trad["academic_program"]["pic_view"] = "الصورة"; 
 	$trad["academic_program"]["program_instructions"] = "وصف البرنامج"; 
+
+	
 	
 
 
