@@ -1,5 +1,5 @@
 <?php
-
+if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_step change   step_code step_code varchar(3)  DEFAULT NULL  AFTER step_name_en;");
