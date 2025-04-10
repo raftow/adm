@@ -1,7 +1,7 @@
 <?php
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-if($migration_secure) // security to avoid mistake run of this script
+if($last_migration<51) // security to avoid mistake run of this script
 {
     // par securite d'executer ce script par erreur je desactive le drop
     AfwDatabase::db_query("DROP TABLE ".$server_db_prefix."adm.`application_desire`;");
