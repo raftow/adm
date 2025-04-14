@@ -11,3 +11,5 @@
 	$trad["program_track"]["sorting_instructions"] = "تعليمات معايير المفاضلة";
 	$trad["program_track"]["application_model_id"] = "نموذج القبول";
 	$trad["program_track"]["sorting_formula"] = "صيغة المفاضلة";
+
+	$trad["program_track"]["sorting_group_id"] = "مجموعة الفرز";

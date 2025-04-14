@@ -314,7 +314,7 @@
                         }
 
                         
-                        return ['success'=>$success, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
+                        return ['success'=>$success, 'nb_conds'=>$c, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
                 }
                 /* replaced by generic applyStepConditionsOn above
                 public function applyMyDesireConditionsOn($desireObject, $lang)

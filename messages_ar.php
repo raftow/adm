@@ -28,8 +28,8 @@
     $messages["has failed for the following reason"] = "فشلت للأسباب التالية";
     $messages["The condition"] = "الشرط";
     $messages["condition part"] = "جزء الشرط";
-    $messages["has failed"] = "فشل";
-    $messages["has succeeded"] = "نجح";
+    $messages["has failed"] = "فشل(ت)";
+    $messages["has succeeded"] = "نجح(ت)";
     $messages["Are you sure ?"] = "هل أنت متأكد؟";
     $messages["You formally agree that this employee belongs to this organization"] = "أنت توافق بشكل رسمي على أن هذا الموظف ينتمي إلى هذه المؤسسة";
     $messages["Are you sure you want to do this approve ?"] = "هل أنت متأكد من أنك تريد اجراء هذا الاعتماد؟";
@@ -90,12 +90,24 @@
     $messages["No first step defined for this application model, you may need to reorder the steps to have first step having number equal 0 or number equal 1"] 
         = "لم يتم تحديد خطوة أولى لهذا النموذج فقد تحتاج إلى إعادة ترتيب الخطوات بحيث يكون رقم الخطوة الأولى مساويًا لـ 0 أو مساويًا لـ 1";
     
-    $messages["Number of Applicants found in context"] = "عدد المتقدمين الذين تم العثور عليهم في السياق";
+    
     $messages["run simulation"] = "تنفيذ المحاكاة";
     $messages["stop simulation"] = "إيقاف المحاكاة";
     $messages["The simulation is being executed. Please do not exit the page until it is finished."] = "جاري تنفيذ المحاكاة من فضلكم عدم الخروج من الصفحة الى حين الانتهاء";
     $messages["The simulation is termintated !!!"] = "تم إنهاء المحاكاة !!!";
     $messages["register of"] = "تسجيل بيانات";
+    $messages["registered"] = "تم تسجيل البيانات";
+    $messages["Simulation results by step"] = "نتائج المحاكاة حسب المرحلة";
+    $messages["Simulation results by status"] = "نتائج المحاكاة حسب الحالة";
+
+    $messages["applicant"] = "متقدم";
+    $messages["application"] = "تقديم";
+    $messages["desire"] = "رغبة";
+    $messages["conditions successfully passed"] = "من الشروط تم تجاوزها بنجاح";
+
+    $messages["Are you sure you want to reset the simulation ?"] = "هل أنت متأكد أنك ترغب في تصفير المحاكاة ومسح جميع نتائجها";
+    
+    
     // $messages[""] = "";
     
     

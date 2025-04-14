@@ -299,6 +299,21 @@ class AdmApplicationSimulationAfwStructure
 			'CSS' => 'width_pct_100',
 		),
 
+		'statsPanel' => array(
+					'STEP' => 5,
+					'TYPE' => 'TEXT',
+					'CATEGORY' => 'FORMULA',
+					'SHOW' => true,
+					'EDIT' => true,
+					'READONLY' => true,
+					"CAN-BE-SETTED" => false,
+					'SIZE' => 255,
+					"NO-LABEL" => true,
+					'CSS' => 'width_pct_100',
+					'INPUT_WIDE' => true
+			),
+
+
 						'applicant_ids' => array('STEP' => 99,
 							'SIZE' => 255,
 							'CSS' => 'width_pct_100',
@@ -335,7 +350,14 @@ class AdmApplicationSimulationAfwStructure
 			'READONLY' => true,  'CAN-BE-SETTED' => true, 
 			'CSS' => 'width_pct_100', ),
 
+
+		'blocked_applicants_mfk' => array('STEP' => 99,  'SHORTNAME' => 'applicantss',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'MFK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
 			
+
 
 		'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
 		'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

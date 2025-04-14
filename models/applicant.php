@@ -891,7 +891,7 @@ class Applicant extends AdmObject
 
         
 
-        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $offlineDesiresRow, $lang='ar')
+        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $offlineDesiresRow, $lang='ar', $only_reset=false)
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -910,58 +910,102 @@ class Applicant extends AdmObject
                 $application_simulation_id = $applicationSimulationObj->id; 
                 $options = $applicationSimulationObj->getOptions();
                 $idn = $this->getVal("idn");
-                $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
-                if($appObj)
+                $bootstraps = 0;
+                $desire_bootstraps = 0;
+                $blocked = true;
+                if($only_reset or (strtolower($options["ERASE-EXISTING-APPLICATIONS"])=="on"))
                 {
-                        $appObj->setApplicantObject($this);
-                        list($stepCode, $resPbm) = $appObj->bootstrapApplication($lang, true, $options);
-                        list($err, $inf, $war, $tech) = $resPbm;
-                        if ($err) $err_arr[] = $err; 
-                        if ($inf) $inf_arr[] = $inf;
-                        if ($war) $war_arr[] = $war;
-                        if ($tech) $tech_arr[] = $tech;
-                        $stepCodeTile = self::standard_application_step_title_by_code($stepCode);
-                        if($stepCode=="DSR")
+                        list($result, $row_count, $affected_row_count) = Application::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");     
+                        if($affected_row_count) $tech_arr[]  = "$affected_row_count ".$this->tm("application(s) already existing deleted", $lang)."<br>\n";
+                        list($result, $row_count, $affected_row_count) = ApplicationDesire::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");     
+                        if($affected_row_count) $tech_arr[]  = "$affected_row_count ".$this->tm("desire(s) already existing deleted", $lang)."<br>\n";
+                }
+                
+                if(!$only_reset)
+                {
+                        $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
+                        if($appObj)
                         {
-                                $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
-                                $appDesireList = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
-                                $appDesireIdList = array_keys($appDesireList);
-                                /**
-                                 * @var ApplicationDesire $appDesireItem
-                                 */
-                                foreach($appDesireIdList as $appDesireId)
+                                $appObj->setApplicantObject($this);
+                                list($stepCode, $resPbm, $tentatives1) = $appObj->bootstrapApplication($lang, true, $options);
+                                $bootstraps += $tentatives1;
+                                list($err, $inf, $war, $tech) = $resPbm;
+                                if ($err) $err_arr[] = $err; 
+                                if ($inf) $inf_arr[] = $inf;
+                                if ($war) $war_arr[] = $war;
+                                if ($tech) $tech_arr[] = $tech;
+                                $stepCodeTile = self::standard_application_step_title_by_code($stepCode);
+                                if($stepCode=="DSR")
                                 {
-                                        $appDesireItem =& $appDesireList[$appDesireId];
-                                        $disp = $appDesireItem->getDisplay($lang);
-                                        list($desireStepCode, $resPbm) = $appDesireItem->bootstrapDesire($lang, true, $options);
-                                        list($err, $inf, $war, $tech) = $resPbm;
-                                        if ($err) $err_arr[] = $err; 
-                                        if ($inf) $inf_arr[] = $inf;
-                                        if ($war) $war_arr[] = $war;
-                                        if ($tech) $tech_arr[] = $tech;
-                                        $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
-                                        if($desireStepCode=="SRT")
-                                                $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
-                                        else 
-                                                $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : ". $appDesireItem->statusExplanations(); 
-
-                                        unset($appDesireItem);
-                                        unset($appDesireList[$appDesireId]);                                                
+                                        $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
+                                        list($appDesireList, $log) = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
+                                        $tech_arr[] = $log;
+        
+                                        
+                                        $appDesireIdList = array_keys($appDesireList);
+                                        /**
+                                         * @var ApplicationDesire $appDesireItem
+                                         */
+                                        $oneDesireAtLeastInSortingStep = false;
+                                        foreach($appDesireIdList as $appDesireId)
+                                        {
+                                                $appDesireItem =& $appDesireList[$appDesireId];
+                                                $disp = $appDesireItem->getDisplay($lang);
+                                                list($desireStepCode, $resPbm, $tentatives2) = $appDesireItem->bootstrapDesire($lang, true, $options);
+                                                $desire_bootstraps += $tentatives2;
+                                                list($err, $inf, $war, $tech) = $resPbm;
+                                                if ($err) $err_arr[] = $err; 
+                                                if ($inf) $inf_arr[] = $inf;
+                                                if ($war) $war_arr[] = $war;
+                                                if ($tech) $tech_arr[] = $tech;
+                                                $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
+                                                if($desireStepCode=="SRT")
+                                                {
+                                                        $oneDesireAtLeastInSortingStep = true;
+                                                        $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
+                                                }
+                                                else 
+                                                        $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : ". $appDesireItem->statusExplanations(); 
+        
+                                                unset($appDesireItem);
+                                                unset($appDesireList[$appDesireId]);                                                
+                                        }
+        
+                                        
+                                        // check if nb of desires is less than the minimum authorized by application model so consider we are blocked
+                                        // also check if all desires are rejected and no-one arrive to sorting step so consider we are blocked
+                                        $appDesireListCount = count($appDesireList);
+                                        if(($appDesireListCount>=1) // @todo 1 should be settings in application model 
+                                           and ($oneDesireAtLeastInSortingStep))
+                                           {
+                                                $blocked = false;
+                                           }
+                                           else
+                                           {
+                                                $war_arr[] = $this->tm("No desire reach Sorting Step",$lang)." (total $appDesireListCount desires)";                 
+                                           }
+                                }
+                                else
+                                {
+                                        $war_arr[] = $this->tm("Application",$lang) ." ". $this->tm("faltered at step",$lang). " : $stepCodeTile <!-- $stepCode --> / ". $appObj->statusExplanations(); 
                                 }
                         }
                         else
                         {
-                                $war_arr[] = $this->tm("Application",$lang) ." ". $this->tm("faltered at step",$lang). " : $stepCodeTile <!-- $stepCode --> / ". $appObj->statusExplanations(); 
+                                $err_arr[] = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
                         }
                 }
-                else
-                {
-                        $err_arr[] = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
-                }
+                
 
                 unset($appObj);
+                $tech_result = [
+                        'bootstraps'=>$bootstraps,
+                        'desire_bootstraps'=>$desire_bootstraps,
+                        'blocked'=>$blocked,
+                ];
+                $pbm_result = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "\n", $tech_arr);
 
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "\n", $tech_arr);
+                return [$pbm_result, $tech_result];
         }
 
         /**

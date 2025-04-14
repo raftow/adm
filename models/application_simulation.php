@@ -109,6 +109,24 @@ class ApplicationSimulation extends AdmObject{
             $methodName = "runSimulation";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("controlPanel"));
             
+            $color = "red";
+            $title_ar = "تصفير المحاكاة"; 
+            $methodName = "resetMySimulation";
+            $methodConfirmationWarningEn = "This action can not be canceled !";
+            $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+
+            $methodConfirmationQuestionEn = "Are you sure you want to reset the simulation ?";
+            $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = 
+                    array("METHOD"=>$methodName,
+                          "COLOR"=>$color, 
+                          "LABEL_AR"=>$title_ar, 
+                          "ADMIN-ONLY"=>true, 
+                          "BF-ID"=>"", 
+                          'CONFIRMATION_NEEDED' => true,
+                          'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                          'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                          'STEP' =>$this->stepOfAttribute("controlPanel"));
             
             
             return $pbms;
@@ -139,6 +157,7 @@ class ApplicationSimulation extends AdmObject{
 
         public function getMyApplicantList($applicationModelObj=null, $applicantGroupObj=null, $applicationPlanObj=null, $limit = '', $applyDateGreg='', $registerApplicants=[], $fromProspect=false, $lang='ar', $pct_here=30.0)
         {
+            $application_simulation_id = $this->id;
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
             if(!$applicationModelObj) $applicationModelObj = $this->het("application_model_id");
             if(!$applicationModelObj) return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, [], "No application model defined"];
@@ -148,7 +167,13 @@ class ApplicationSimulation extends AdmObject{
             $application_model_id = $applicationModelObj->id;            
             $applicant_group_id = $applicantGroupObj->id;
             // $application_simulation_id = $this->id;
-
+            $arrOptions = $this->getOptions();
+            $continue_from_stop = (strtolower($arrOptions["CONTINUE-FROM-STOP"])=="on");
+            if($continue_from_stop and !$limit) 
+            {
+                $limit = $arrOptions["APPLICANTS-BATCH"];
+                if(!$limit) $limit = 1000;
+            }
             $offlineDesiresRows = [];
             $apContext = "defined";
             if(!$applicationPlanObj) 
@@ -161,15 +186,24 @@ class ApplicationSimulation extends AdmObject{
 
             if($applicantGroupObj->id==2)
             {
-                $where = "id in (select applicant_id from $server_db_prefix"."amd.application where application_plan_id=$application_plan_id and application_simulation_id=2)";
+                $where = "applicant_id in (select applicant_id from $server_db_prefix"."amd.application where application_plan_id=$application_plan_id and application_simulation_id=2)";
                 $context = "Real applicants, applied on this plan (id=$application_plan_id)";
             }
             else
             {
                 if($fromProspect)
                 {
+                    
+                    
+                    if(!$continue_from_stop) $last_done_idn = "";
+                    else
+                    {
+                        $last_done_idn = ApplicantSimulation::aggreg("max(applicant_id)", "done='Y'");
+                        if(!$last_done_idn) $last_done_idn = "";
+                    }
+
                     $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-                    $dataProspectDesires = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_desire");
+                    $dataProspectDesires = AfwDatabase::db_recup_rows("select * from ".$server_db_prefix."adm.prospect_desire where idn > '$last_done_idn' order by idn limit $limit");
                     $cntDone = 0;
                     $cntTotal = count($dataProspectDesires);
                     foreach($dataProspectDesires as $rowProspectDesire)
@@ -188,16 +222,26 @@ class ApplicationSimulation extends AdmObject{
                                 $objAppl->set("application_model_id", $application_model_id);
                                 $objAppl->set("applicant_group_id", $applicant_group_id);
                                 $objAppl->commit();
+
+                                $objApplSim = ApplicantSimulation::loadByMainIndex($application_simulation_id, $objAppl->id, true);  
+                                unset($objApplSim);
+
+                                unset($objAppl);
                                 /*
                                 $pctDone = ($cntDone*$pct_here)/$cntTotal;
                                 $this->set("progress_value",$pctDone);
                                 $this->set("progress_task",$register_of." ".$objApplDisplay);
                                 $this->commit();*/
+
+                                AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.prospect_desire set done='Y' where idn = '$registerApplicantIdn'");
                         }     
                     }
+                    unset($dataProspectDesires);
+                    $context = "Applicants configured in prospects settings (prospect_desire)";
                 }
                 else
                 {
+                    
                     $cntDone = 0;
                     $cntTotal = count($registerApplicants);
                     foreach($registerApplicants as $registerApplicantIdn)
@@ -218,18 +262,26 @@ class ApplicationSimulation extends AdmObject{
                                 $this->set("progress_value",$pctDone);
                                 $this->set("progress_task",$register_of." ".$objApplDisplay);
                                 $this->commit();
+                                
+                                $objApplSim = ApplicantSimulation::loadByMainIndex($this->id, $objAppl->id, true);  
+                                unset($objApplSim);
+                                
+                                unset($objAppl);
                         }                    
                     }
+                    $context = "Applicants configured to be simulated in settings";
                 }
 
-                $where = "active='Y' and application_model_id = $application_model_id and applicant_group_id=$applicant_group_id";
-                $context = "Applicants that has favorite model (id=$application_model_id) and belongs to group (id=$applicant_group_id)";
+                $where = "active='Y' and application_simulation_id=$application_simulation_id and done != 'Y'";
+                // "active='Y' and application_model_id = $application_model_id and applicant_group_id=$applicant_group_id";
+                
             }
 
             
 
-            $obj = new Applicant();
+            $obj = new ApplicantSimulation();
             $obj->where($where);
+            // die("ApplicationSimulation sql many = ".$obj->getSQLMany('', $limit));
 
             return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit), $context, $offlineDesiresRows];
         }
@@ -246,11 +298,58 @@ class ApplicationSimulation extends AdmObject{
             $this->commit();
         }
 
-        public function runSimulation($lang="ar")
+        public function shouldIShowThisApplicant($apid, $apblocked, $blocked_applicants)
         {
-            AfwSession::setConfig("_sql_analysis_seuil_calls",7000);
-            AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",6000);
-            AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
+            $arrOptions = $this->getOptions();
+            $applicants_to_show = $arrOptions["SHOW_APPLICANTS"];
+            $max_applicants_to_show = $arrOptions["SHOW_APPLICANTS_MAX"];
+
+            if($applicants_to_show=="BLOCKED") 
+            {
+                if(!$max_applicants_to_show) $max_applicants_to_show = 10;
+                if($apblocked and (count($blocked_applicants)<$max_applicants_to_show))
+                {
+                    $blocked_applicants[] = $apid;
+                    return [true, $blocked_applicants];
+                }
+                else return [false, $blocked_applicants];
+                
+            }
+
+            $showApplicants = explode(",", $applicants_to_show);
+            $show = ((count($showApplicants)==0) or (in_array($apid, $showApplicants)));
+
+            return [$show, $blocked_applicants];
+        }
+
+
+        public function resetSimulation($cases)
+        {
+            $application_simulation_id = $this->id;
+            $sets_arr = ['done'=>'N'];
+            $where_clause = "active='Y' and application_simulation_id=$application_simulation_id";
+            if($cases and (strtolower($cases) != "all")) $where_clause = "and applicant_id in ($cases)";
+            ApplicantSimulation::updateWhere($sets_arr, $where_clause);
+        }
+
+        public function resetMySimulation($lang="ar")
+        {
+            return $this->runSimulation($lang, $only_reset=true);
+        }
+
+        public function runSimulation($lang="ar", $only_reset=false)
+        {
+            global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
+            $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+            $MODE_BATCH_LOURD = true;
+            $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+            AfwSession::setConfig("_sql_analysis_seuil_calls",700000);
+            AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",100000);
+            AfwSession::setConfig("applicant-sql-analysis-max-calls",8000);
+            AfwSession::setConfig("applicant_simulation-sql-analysis-max-calls",8000);
+            AfwSession::setConfig("applicant_qualification-sql-analysis-max-calls",8000);
+            AfwSession::setConfig("application-sql-analysis-max-calls",8000);
+            AfwSession::setConfig("application_desire-sql-analysis-max-calls",250000);
             $MAX_TO_LOG = 10;
             if($this->id==2) $typeRun = $this->tm("Real application", $lang);
             else $typeRun = $this->tm("Application simulation", $lang);
@@ -261,30 +360,48 @@ class ApplicationSimulation extends AdmObject{
             {
                 $arrOptions["LOG"] = "ERROR,WARNING";
             }
+            $log = true;
             $log_err = AfwStringHelper::stringContain($arrOptions["LOG"],"ERROR");
             $log_inf = AfwStringHelper::stringContain($arrOptions["LOG"],"INFO");
             $log_war = AfwStringHelper::stringContain($arrOptions["LOG"],"WARNING");
             $log_tech = AfwStringHelper::stringContain($arrOptions["LOG"],"DEBUGG");
+            if($only_reset) $arrOptions["RESET_SIMULATION"] = "all";
+            if($arrOptions["RESET_SIMULATION"] and (strtolower($arrOptions["RESET_SIMULATION"])!="none"))
+            {
+                $this->resetSimulation($arrOptions["RESET_SIMULATION"]);
+            }
+
             $fromProspect = false;
             if(($arrOptions["REGISTER_APPLICANTS"]=="PROSPECT"))
             {
                 $fromProspect = true;
                 $arrOptions["REGISTER_APPLICANTS"]="";
             }
+
+            $stopIfError = (strtolower($arrOptions["STOP_IF_ERROR"])=="on");
             
             $registerApplicants = explode(",",$arrOptions["REGISTER_APPLICANTS"]);
-            $showApplicants = explode(",",$arrOptions["SHOW_APPLICANTS"]);
+            
+
+            $blocked_applicants = [];
+
             $err_arr = [];
             $inf_arr = [];
             $war_arr = [];
             $tech_arr = [];
             $log_arr = [];
+            $simulation_method = $this->getVal("simul_method_enum");
+            $simulation_method_dec = $this->decode("simul_method_enum");
+            if($fromProspect and ($simulation_method!=4)) 
+            {
+                $war_arr[] = "You are loading applicants from prospect data and you are using method : $simulation_method_dec";
+            }
 
             $nbLogged = 0;
             /*try {*/
                 // $application_model_id = $this->getVal("application_model_id");
                 // $applicant_group_id = $this->getVal("applicant_group_id");
-                list($applicationModelObj, $applicantGroupObj, $applicationPlanObj, $applicantList, $context, $offlineDesiresRows) = $this->getMyApplicantList(null,null,null,'',$arrOptions["DATE"],$registerApplicants,$fromProspect,$lang,30.0);
+                list($applicationModelObj, $applicantGroupObj, $applicationPlanObj, $applicantSimList, $context, $offlineDesiresRows) = $this->getMyApplicantList(null,null,null,'',$arrOptions["DATE"],$registerApplicants,$fromProspect,$lang,30.0);
                 $err = "";
                 if(!$applicationModelObj) $err = $this->tm("No Application Model Defined for this simulation", $lang);
                 elseif(!$applicantGroupObj) $err = $this->tm("No Applicant Group Defined for this simulation", $lang);
@@ -292,7 +409,9 @@ class ApplicationSimulation extends AdmObject{
                 else
                 {
                     $this->set("application_plan_id", $applicationPlanObj->id);
-                    $nbApplicants = count($applicantList);
+                    $this->set("blocked_applicants_mfk", ",0,");
+                    $this->commit();
+                    $nbApplicants = count($applicantSimList);
                     if($nbApplicants==0) $err = $this->tm("No Applicants found in context", $lang) . " : $context";
                     else 
                     {
@@ -309,66 +428,114 @@ class ApplicationSimulation extends AdmObject{
                 }
                 else
                 {
-                    $cntTotal = count($applicantList);
+                    $cntTotal = count($applicantSimList);
+                    $inf_arr[] = "Nb of applicants to simulate application : $cntTotal";
+                    
+                    $cntDoneSuccess = 0; 
                     $cntDone = 0;
                     /**
                      * @var Applicant $applicantItem
                      */
                     
-                    $applicantIdnList = array_keys($applicantList);
-
-                    foreach($applicantIdnList as $apidn)
+                    $cc = 0;
+                    $bootstraps = 0;
+                    $desire_bootstraps = 0;
+                    
+                    $row = null;
+                    foreach($applicantSimList as $apsid => $applicantSimItem)
                     {
-                        $applicantItem =& $applicantList[$apidn]; 
+                        $apid = $applicantSimItem->getVal("applicant_id");
+                        $cc++;
+                        if($cc==20) $cc = 0;
+                        $applicantItem = Applicant::loadById($apid); 
                         // test if the user has breaked the simulation
-                        $row = ApplicationSimulation::checkSimulation($this->id);
-                        $progress_value = $row["progress_value"];
-                        $progress_task = $row["progress_task"];
-                        $stopeMe = $row["stop-me"];
-                        if($stopeMe) break;
-                        $showMe = ((count($showApplicants)==0) or (in_array($apidn, $showApplicants)));
+                        if(($cc==10) or ($row === null))
+                        {
+                            if(!$only_reset)
+                            {
+                                $row = ApplicationSimulation::checkSimulation($this->id);
+                                $progress_value = $row["progress_value"];
+                                $progress_task = $row["progress_task"];
+                                $stopeMe = $row["stop-me"];
+                                if($stopeMe) break;    
+                            }
+                            
+                        }
+                        
+                        
                         $logMe = $applicantItem->sureIs("log");
-                        list($err, $inf, $war, $tech) = $applicantItem->simulateApplication($applicationPlanObj, $this, $offlineDesiresRows[$apidn]);
+                        list($pbm_result, $tech_result) = $applicantItem->simulateApplication($applicationPlanObj, $this, $offlineDesiresRows[$apid],$lang, $only_reset);
+                        $bootstraps += $tech_result['bootstraps'];
+                        $desire_bootstraps += $tech_result['desire_bootstraps'];
+                        $apblocked = $tech_result['blocked'];
+                        $apblocked_label = $apblocked ? $this->tm("has failed", $lang) : $this->tm("has succeeded", $lang);
+                        list($err, $inf, $war, $tech) = $pbm_result;
                         $applicant_name = $applicantItem->getDisplay($lang);
                         $applicant_idn = $applicantItem->getVal("idn");
                         $applicant_id = $applicantItem->id;
                         $cntDone++;
+                        if (!$err) $cntDoneSuccess++;
                         // sleep(1);
                         $pctDone = 30+($cntDone*70.0)/$cntTotal;
-                        $this->set("progress_value",$pctDone);
-                        $this->set("progress_task",$applicant_name);
-                        $this->commit();
+                        if($progress_value != $pctDone)
+                        {
+                            $this->set("progress_value",$pctDone);
+                            $this->set("progress_task",$applicant_name);
+                            $this->commit();
+                        }
+                        list($showMe, $blocked_applicants) = $this->shouldIShowThisApplicant($apid, $apblocked, $blocked_applicants);
                         if($logMe and $showMe and $nbLogged<$MAX_TO_LOG)
                         {
                             $nbLogged++;
                             
-                            if ($err) $err_arr[] = "$applicant_name : " . $err;                    
-                            if ($inf) $inf_arr[] = "$applicant_name : " . $inf;
-                            if ($war) $war_arr[] = "$applicant_name : " . $war;
-                            if ($tech) $tech_arr[] = $tech;    
+                            if ($err)
+                            {
+                                $err_arr[] = "$applicant_name : " . $err;                    
+                                if($stopIfError) break;
+                            } 
+                            // if ($inf) $inf_arr[] = "$applicant_name : " . $inf;
+                            // if ($war) $war_arr[] = "$applicant_name : " . $war;
+                            // if ($tech) $tech_arr[] = $tech;    
                             $t_for = $this->translateOperator("for", $lang);
                             $t_error = $this->translateOperator("error", $lang);
                             $t_information = $this->translateOperator("information", $lang);
                             $t_warning = $this->translateOperator("warning", $lang);
                             $t_debugg = $this->translateOperator("debugg", $lang);
-                            $title_sim = "<a target='applicant' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=$applicant_id'>$typeRun $t_for $applicant_idn - $applicant_name</a>";
+                            $title_sim = "<a target='applicant' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=$applicant_id'>$typeRun $t_for $applicant_idn - $applicant_name - $apblocked_label</a>";
                             $log_arr[] = self::log('title', 'app'.$applicant_idn, $title_sim);
-                            if ($err and $log_err) $log_arr[] = self::log('error', 'app'.$applicant_idn, "$t_error : " . $err);                    
-                            if ($inf and $log_inf) $log_arr[] = self::log('info', 'app'.$applicant_idn, "$t_information : " . $inf);
-                            if ($war and $log_war) $log_arr[] = self::log('warning', 'app'.$applicant_idn, "$t_warning : " . $war);
-                            if ($tech and $log_tech) $log_arr[] = self::log('debugg', 'app'.$applicant_idn, "$t_debugg : " . $tech);    
+                            if ($err and $log and $log_err) $log_arr[] = self::log('error', 'app'.$applicant_idn, "$t_error : " . $err);                    
+                            if ($inf and $log and $log_inf) $log_arr[] = self::log('info', 'app'.$applicant_idn, "$t_information : " . $inf);
+                            if ($war and $log and $log_war) $log_arr[] = self::log('warning', 'app'.$applicant_idn, "$t_warning : " . $war);
+                            if ($tech and $log and $log_tech) $log_arr[] = self::log('debugg', 'app'.$applicant_idn, "$t_debugg : " . $tech);    
                             
                         }
 
+                        $applicantSimItem->set("done","Y");
+                        $applicantSimItem->commit();
+
                         unset($applicantItem);
-                        unset($applicantList[$apidn]);
+                        unset($applicantSimList[$apsid]);
+                        unset($applicantSimItem);
+
+                        if(count($log_arr)>6000) 
+                        {
+                            $log = false;
+                            self::log('debugg', 'app'.$applicant_idn, "too much log so stopped"); 
+                        }
+
+                        
                     }
+                    $inf_arr[] = "Nb of applicants simulated : $cntDone";
+                    $inf_arr[] = "Nb of applicants simulated with success : $cntDoneSuccess";
+                    $inf_arr[] = "Nb of application bootstrap(s) : $bootstraps";
+                    $inf_arr[] = "Nb of desire bootstrap(s) : $desire_bootstraps";
                 }
 
                 $the_log = implode("\n",$log_arr);
-                if(strlen($the_log)>20000) $the_log = "too much log, please reduce the number of informations to log or the number of applicants to audit";
+
                 $this->set("progress_task","");
                 $this->set("log", $the_log);
+                $this->set("blocked_applicants_mfk", ",".implode(",", $blocked_applicants).",");
                 $this->commit();
             /*    
             } catch (Exception $e) {
@@ -378,6 +545,9 @@ class ApplicationSimulation extends AdmObject{
             }
                 */
             // die("war_arr=".var_export($war_arr));
+
+            $boucle_loadObjectFK = $old_boucle_loadObjectFK;
+            $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
             return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
@@ -456,10 +626,20 @@ class ApplicationSimulation extends AdmObject{
 
     public function calcApplicant_ids($what="value")
     {
-        $return = $this->getOptions("SHOW_APPLICANTS", true);
-        if(!$return) $return = "0";
-        // die("getOptions(SHOW_APPLICANTS, true) = $return");
-        return $return;
+        $to_show = $this->getOptions("SHOW_APPLICANTS", true);
+        if(!$to_show) $to_show = "BLOCKED";
+        if($to_show == "BLOCKED")
+        {
+            $show_applicants_mfk = $this->getVal("blocked_applicants_mfk");
+        }
+        else
+        {
+            $show_applicants_mfk = $to_show;
+        }
+        
+        $show_applicants_mfk = trim($show_applicants_mfk,",");
+        if(!$show_applicants_mfk) $show_applicants_mfk = "0";
+        return $show_applicants_mfk;
     }
 
     public function calcControlPanel($what = "value")
@@ -476,7 +656,7 @@ class ApplicationSimulation extends AdmObject{
         {
             $progress_value = 0.0;
             $stop_disbaled = "disabled";
-            $run_disbaled = "";
+            $run_disbaled = "disabled"; // no ajax run
             $run_current_check = "<!-- !!!!!!!!!!! **** no simulation-check needed  **** !!!!!!!!!!! -->";
         }
         else
@@ -546,6 +726,76 @@ class ApplicationSimulation extends AdmObject{
             $html .= "<div class='control-text' id='sim-run-status'>is running ... please wait the end or stop simulation</div>";
         }        
         $html .= "</div> <!-- control-panel -->";
+        return $html;
+    }
+
+    public function calcStatsPanel($what = "value")
+    {
+        $smid = $this->id;
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $simulation_progress_task = $this->getVal("progress_task");
+        if($simulation_progress_task=="--STOP--") $simulation_progress_task = "";
+        $html = "<div class='simulation-panel'>";  
+        $html .= "<div class='stats-panel'>";  
+        $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+        $arrOptions = $this->getOptions();
+        $keyDecodeArr = [];
+        $keyDecodeArr["done"] = $this->translate("done", $lang);
+        $keyDecodeArr["to-do"] = $this->translate("to-do", $lang);
+        
+        $fromProspect = false;
+        if(($arrOptions["REGISTER_APPLICANTS"]=="PROSPECT"))
+        {
+            $fromProspect = true;
+            $arrOptions["REGISTER_APPLICANTS"]="";
+        }        
+
+        $sql_done = "SELECT 'done' as `status`, count(*) as nb FROM ".$server_db_prefix."adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and done = 'Y'
+                    union
+                    SELECT 'to-do' as `status`, count(*) as nb FROM ".$server_db_prefix."adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and done = 'N'";
+
+        if($fromProspect)
+        {   
+            $keyDecodeArr["prospect"] = $this->translate("prospect", $lang);         
+            $sql_done .= "
+                    union
+                    SELECT 'prospect' as status, count(*) as nb FROM ".$server_db_prefix."adm.`prospect_desire` WHERE done = 'N';";
+        }
+
+        $rows_done = AfwDatabase::db_recup_index($sql_done,"status","nb");
+        $html .= "<h1>".$this->tm("Simulation results by status", $lang)."</h1>";
+        $html .= AfwHtmlHelper::arrayToHtml($rows_done, $keyDecodeArr);
+        $application_model_id = $this->getVal("application_model_id");
+        $applicant_group_id = $this->getVal("applicant_group_id");
+
+        $sql_bootstrap = "SELECT 'applicant' as atype, 'التسجيل' as `step_name`, count(*) as nb, min(id) as example_applicant, max(id) as example_applicant2 FROM ".$server_db_prefix."adm.applicant where application_model_id=$application_model_id and applicant_group_id=$applicant_group_id
+            union
+            SELECT 'application' as atype, `application_step_id` as `step_name`, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 FROM ".$server_db_prefix."adm.`application` WHERE `application_simulation_id` = $smid group by `application_step_id`
+            union
+            SELECT 'desire' as atype, `application_step_id` as `step_name`, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id` = $smid group by `application_step_id`;
+
+            ";
+
+        
+        
+        $rows_bootstrap = AfwDatabase::db_recup_rows($sql_bootstrap);
+        
+        $header_bootstrap = ["step_name","nb","atype","example_applicant","example_applicant2"];
+        $header_bootstrap = AfwLanguageHelper::translateCols($this,$header_bootstrap, $lang, true);
+        $html .= "<h1>".$this->tm("Simulation results by step", $lang)."</h1>";
+        $decoderArr = [];
+        $decoderArr["atype"] = ["applicant"=>$this->tm("applicant", $lang), "application"=>$this->tm("application", $lang), "desire"=>$this->tm("desire", $lang)];
+        $decoderArr["comments"] = ["registered"=>$this->tm("registered", $lang)];
+        $decoderArr["step_name"] = AfwLoadHelper::loadAllLookupData(new ApplicationStep,"application_model_id = $application_model_id","");
+
+        // die("decoderArr=".var_export($decoderArr,true));
+        $html .= AfwHtmlHelper::tableToHtml($rows_bootstrap, $header_bootstrap, $decoderArr);
+        
+        
+        $html .= "   </div> <!-- stats_panel -->";   
+        $html .= "</div> <!-- stats-panel -->";
         return $html;
     }
              
