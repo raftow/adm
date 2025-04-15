@@ -37,8 +37,12 @@
 	$trad["academic_program"]["pic_view"] = "الصورة"; 
 	$trad["academic_program"]["program_instructions"] = "وصف البرنامج"; 
 
-	
-	
+	$trad["academic_program"]["program_instructions_ar"] = "تعليمات البرنامج - عربي";
+	$trad["academic_program"]["program_instructions_en"] = "تعليمات البرنامج - انجليزي";
+	$trad["academic_program"]["program_title_ar"] = "عنوان البرنامج - عربي";
+	$trad["academic_program"]["program_title_en"] = "عنوان البرنامج - انجليزي";
+	$trad["academic_program"]["program_duration_ar"] = "مدة البرنامج - عربي";
+	$trad["academic_program"]["program_duration_en"] = "مدة البرنامج - انجليزي";
 
 
 	 
