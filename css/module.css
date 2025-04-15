@@ -4656,3 +4656,15 @@ div.simulation_progress.value-100 {
     margin-right: 14px;
     margin-left: 14px;
 }
+
+div#stats_panel {
+    min-height: 118px;
+}
+
+.stats.panel>h1 {
+    background-color: #d9f2fe;
+    float: right;
+    width: 99%;
+    padding: 5px;
+    color: #1c78a4;
+}

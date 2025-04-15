@@ -26,6 +26,7 @@ class ApplicationSimulationEnTranslator{
 		$trad["application_simulation"]["simul_method_enum"] = "Simulation method";
 		$trad["application_simulation"]["progress_task"] = "Progress task";
 		$trad["application_simulation"]["progress_value"] = "Progress value";
+		$trad["application_simulation"]["blocked_applicants_mfk"] = "Blocked applicants";
 
         // steps
         return $trad;

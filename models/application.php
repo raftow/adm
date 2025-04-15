@@ -59,8 +59,8 @@ class Application extends AdmObject
 
         public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, $create_obj_if_not_found = false)
         {
-                if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
-                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if(!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
+                if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
                 if(!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
 
                 $obj = new Application();
@@ -398,12 +398,12 @@ class Application extends AdmObject
 
         public function runNeededApis($lang = "ar", $force=true)
         {
+                $this->getApplicant();
+                if (!$this->applicantObj) return ["no-applicantObj", ""];
+
                 for ($s = 1; $s <= $this->getVal("step_num"); $s++) {
                         $this->requestAPIsOfStep($s);
                 }
-
-                $this->getApplicant();
-                if (!$this->applicantObj) return ["no-applicantObj", ""];
 
                 return $this->applicantObj->runNeededApis($lang, $force);
         }
@@ -413,6 +413,10 @@ class Application extends AdmObject
                 if($force or !$this->myApplicationDesireList) 
                 {
                         $this->myApplicationDesireList = $this->get("applicationDesireList");
+                        if(count($this->myApplicationDesireList)==0)
+                        {
+
+                        }
                         foreach($this->myApplicationDesireList as $adid => $adObj)
                         {
                                 $this->myApplicationDesireList[$adid]->setApplicationObject($this);
@@ -493,80 +497,87 @@ class Application extends AdmObject
 
         public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow=[])
         {
-                        $simulation_method = $applicationSimulationObj->getVal("simul_method_enum");
-                        $nb_desires = $applicationSimulationObj->getVal("nb_desires");
-                
-                        // "code"][1] = "ALL";
-                        // "ar"][1] = "جميع الفروع المختارة";
-                        // "en"][1] = "All selected branches";
-                        $selectedApplicationModelBranchArr = [];
-                        if($simulation_method==1) 
-                        {
-                                $applicationModelBranchArr = $applicationSimulationObj->getMyPlanBranchArr();
-                                // all should be keeped ignore $nb_desires
-                                $selectedApplicationModelBranchArr = $applicationModelBranchArr;
-                        }
-        
-                        // "code"][2] = "RANDOM";
-                        // "ar"][2] = "عشوائيا من الفروع المختارة";
-                        // "en"][2] = "Randomly from selected branches";
-                        if($simulation_method==2) 
-                        {
-                                $applicationModelBranchArr = $applicationSimulationObj->getMyPlanBranchArr();
-                                if($nb_desires>count($applicationModelBranchArr)) $nb_desires = count($applicationModelBranchArr);
-                                // keep only $nb_desires
-                                $rand_keys = array_rand($applicationModelBranchArr, $nb_desires);
-                                foreach($rand_keys as $rk)
-                                {
-                                        $selectedApplicationModelBranchArr[] = $applicationModelBranchArr[$rk];
-                                }
-                        }
-        
-        
-                        // "code"][3] = "FAVORITE";
-                        // "ar"][3] = "الفروع المفضلة لكل متقدم";
-                        // "en"][3] = "Favorite branches for each applicant";
-                        if($simulation_method==3) 
-                        {
-                                $applicant = $this->getApplicant();
-                                if($applicant) $applicationModelBranchArr = $applicant->getMyPlanBranchArr();
-                        }
+                $simulation_method = $applicationSimulationObj->getVal("simul_method_enum");
+                $simulation_method_dec = $applicationSimulationObj->decode("simul_method_enum");
+                $nb_desires = $applicationSimulationObj->getVal("nb_desires");
+                $log = $simulation_method_dec;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                // "code"][1] = "ALL";
+                // "ar"][1] = "جميع الفروع المختارة";
+                // "en"][1] = "All selected branches";
+                $selectedApplicationModelBranchArr = [];
+                if($simulation_method==1) 
+                {
+                        $applicationModelBranchArr = $applicationSimulationObj->getMyPlanBranchArr();
+                        // all should be keeped ignore $nb_desires
+                        $selectedApplicationModelBranchArr = $applicationModelBranchArr;
+                }
 
-                        // "code"][4] = "PROSPECT";
-                        // "ar"][4] = "الفروع المدخلة في البيانات الجاهزة للمتقدم";
-                        // "en"][4] = "Entered branchs in applicant prospect off-line data";
-                        if($simulation_method==4) 
+                // "code"][2] = "RANDOM";
+                // "ar"][2] = "عشوائيا من الفروع المختارة";
+                // "en"][2] = "Randomly from selected branches";
+                if($simulation_method==2) 
+                {
+                        $applicationModelBranchArr = $applicationSimulationObj->getMyPlanBranchArr();
+                        if($nb_desires>count($applicationModelBranchArr)) $nb_desires = count($applicationModelBranchArr);
+                        $log .= " ($nb_desires)";
+                        // keep only $nb_desires
+                        $rand_keys = array_rand($applicationModelBranchArr, $nb_desires);
+                        foreach($rand_keys as $rk)
                         {
-                                $idn = $this->getVal("idn");
-                                if(!$offlineDesiresRow or (count($offlineDesiresRow)==0))
-                                {
-                                        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-                                        $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
-                                }
-                                
-                                if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflineModelBranchArr($offlineDesiresRow);
+                                $selectedApplicationModelBranchArr[] = $applicationModelBranchArr[$rk];
                         }
+                }
 
-                        $applicationPlanBranchArr = [];
-                        foreach($applicationModelBranchArr as $applicationModelBranchId)
+
+                // "code"][3] = "FAVORITE";
+                // "ar"][3] = "الفروع المفضلة لكل متقدم";
+                // "en"][3] = "Favorite branches for each applicant";
+                if($simulation_method==3) 
+                {
+                        $applicant = $this->getApplicant();
+                        if($applicant) $applicationModelBranchArr = $applicant->getMyPlanBranchArr();
+                }
+
+                // "code"][4] = "PROSPECT";
+                // "ar"][4] = "الفروع المدخلة في البيانات الجاهزة للمتقدم";
+                // "en"][4] = "Entered branchs in applicant prospect off-line data";
+                if($simulation_method==4) 
+                {
+                        $idn = $this->getVal("idn");
+                        if(!$offlineDesiresRow or (count($offlineDesiresRow)==0))
                         {
-                                if($applicationModelBranchId)
-                                {
-                                        $applicationPlanId = $applicationPlanObj->id;
-                                        $applicationPlanBranchId = $applicationPlanObj->getApplicationPlanBranchId($applicationModelBranchId);
-                                        if(!$applicationPlanBranchId) 
-                                        {
-                                                $lang = AfwLanguageHelper::getGlobalLanguage();
-                                                throw new AfwBusinessException("The following model branch ID %d has no plan branch ID, please check your plan if the branchs are ready for application", $lang, "", "", "", "", "adm", $applicationModelBranchId);
-                                        }
-                                        //if($applicationPlanBranchId==65) throw new AfwRuntimeException("Here The PB applicationPlanBranchId = $applicationPlanBranchId from applicationModelBranchId=$applicationModelBranchId inside plan=$applicationPlanId");
-                                        $applicationPlanBranchArr[]  = $applicationPlanBranchId;
-                                }
-                                
+                                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                                $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
                         }
                         
+                        if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflineModelBranchArr($offlineDesiresRow);
+                        else  $log .= "\n<br> This applicant is not found in prospect offline data";
+                }
 
-                        return ",".implode(",",$applicationPlanBranchArr).",";
+                if($applicationModelBranchArr) $log .= "\n<br> MB ".AfwLanguageHelper::translateKeyword("Found", $lang)." : ".count($applicationModelBranchArr);
+                else $log .= "\n<br> No Model Branchs found";
+
+                $applicationPlanBranchArr = [];
+                foreach($applicationModelBranchArr as $applicationModelBranchId)
+                {
+                        if($applicationModelBranchId)
+                        {
+                                $applicationPlanId = $applicationPlanObj->id;
+                                $applicationPlanBranchId = $applicationPlanObj->getApplicationPlanBranchId($applicationModelBranchId);
+                                if(!$applicationPlanBranchId) 
+                                {
+                                        
+                                        throw new AfwBusinessException("The following model branch ID %d has no plan branch ID, please check your plan if the branchs are ready for application", $lang, "", "", "", "", "adm", $applicationModelBranchId);
+                                }
+                                //if($applicationPlanBranchId==65) throw new AfwRuntimeException("Here The PB applicationPlanBranchId = $applicationPlanBranchId from applicationModelBranchId=$applicationModelBranchId inside plan=$applicationPlanId");
+                                $applicationPlanBranchArr[]  = $applicationPlanBranchId;
+                        }
+                        
+                }
+                $log .= "\n<br> PB ".AfwLanguageHelper::translateKeyword("Found", $lang)." : ".count($applicationPlanBranchArr);
+
+                return [",".implode(",",$applicationPlanBranchArr).",", $log];
         }
 
         public function simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow)
@@ -574,25 +585,34 @@ class Application extends AdmObject
                 $nb_desires = $applicationSimulationObj->getVal("nb_desires");
                 $options = $applicationSimulationObj->getOptions();
                 if(!$nb_desires) $nb_desires = 1;
-                if(strtolower($options["ERASE-EXISTING-DESIRES"])=="on" 
-                     or (!$this->getApplicationDesireByNum($nb_desires)) // if the last desire doesn't exist we need to erase
-                     )
+                $log = "";
+                $forceReload = false;
+                if(strtolower($options["ERASE-EXISTING-DESIRES"])=="on")
                 {
+                        $applicant_id = $this->getVal("applicant_id");
+                        $application_id = $this->id;   
+                        list($result, $row_count, $affected_row_count) = ApplicationDesire::deleteWhere("applicant_id = $applicant_id and application_id = $application_id");   
+                        $this->set("application_plan_branch_mfk", "");   
+                        $this->commit();
+                        $old_application_plan_branch_mfk = "";
+                        if($affected_row_count) $log .= "$affected_row_count ".$this->tm("desires already existing deleted", $lang)."<br>\n";
+                        $forceReload = true;
+                }
+                else $old_application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
 
-                        $new_application_plan_branch_mfk = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow);
-                        $old_application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
-                        $forceReload = false;
-                        if($old_application_plan_branch_mfk != $new_application_plan_branch_mfk)
-                        {
-                                $this->set("application_plan_branch_mfk", $new_application_plan_branch_mfk);
-                                $this->commit();
-                                $forceReload = true;
-                        }
-                        
+                list($new_application_plan_branch_mfk, $log00) = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow);
+                $log .= $log00;
+                
+                if($old_application_plan_branch_mfk != $new_application_plan_branch_mfk)
+                {
+                        $this->set("application_plan_branch_mfk", $new_application_plan_branch_mfk);
+                        $this->commit();
+                        $forceReload = true;
                 }
 
                 $this->getMyApplicationDesireList($forceReload);
-                return $this->myApplicationDesireList;
+                $log .= "<br>\nDesires : " . count($this->myApplicationDesireList);
+                return [$this->myApplicationDesireList, $log];
         }
 
         public function bootstrapApplication($lang = "ar", $returnLastStepCode=false, $options=[])
@@ -613,9 +633,11 @@ class Application extends AdmObject
                         $currentStepObj = $this->het("application_step_id");
                         $currentStepCode = $currentStepObj->getStepCode();        
                         $bootstrapStatus = "--trying";
+                        $bootstrapStatusComment = "";
                         while(($bootstrapStatus!="--blocked") and ($currentStepCode!="DSR") and ($tentatives<$max_tentatives))
                         {
                                 $tentatives++;
+                                $current_tentative = "$app_name : tentative $tentatives $bootstrapStatus : ";
                                 // refresh data
                                 $this->runNeededApis($lang = "ar", ($bootstrapStatus == "--forcing"));
                                 // try to go to next step
@@ -623,14 +645,16 @@ class Application extends AdmObject
                                 list($err, $inf, $war, $tech) = $this->gotoNextStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec);
                                 if ($err) 
                                 {
-                                        $err_arr[] = "$app_name : " . $err;    
+                                        $bootstrapStatusComment .= " blocked after error in gotoNextStep ". $current_tentative . $err;
+                                        $err_arr[] = $bootstrapStatusComment;    
                                         $bootstrapStatus = "--blocked";
+                                        
                                 }
                                 else
                                 {
-                                        if ($inf) $inf_arr[] = "$app_name : " . $inf;
-                                        if ($war) $war_arr[] = "$app_name : " . $war;
-                                        if ($tech) $tech_arr[] = $tech; 
+                                        if ($inf) $inf_arr[]   = $current_tentative . $inf;
+                                        if ($war) $war_arr[]   = $current_tentative . $war;
+                                        if ($tech) $tech_arr[] = $current_tentative . $tech; 
                                         $newStepObj = $this->het("application_step_id");
                                         $newStepCode = $newStepObj->getStepCode();  
         
@@ -638,43 +662,55 @@ class Application extends AdmObject
                                         {
                                                 if(($currentStepCode!="DSR"))
                                                 {
-                                                        if($bootstrapStatus == "--trying") $bootstrapStatus = "--forcing"; 
-                                                        if($bootstrapStatus == "--forcing") $bootstrapStatus = "--blocked"; 
+                                                        if($bootstrapStatus == "--forcing") 
+                                                        {
+                                                                $bootstrapStatus = "--blocked"; 
+                                                                $bootstrapStatusComment .= " and forced but blocked and still in $currentStepCode step ";
+                                                        }
+
+                                                        if($bootstrapStatus == "--trying") 
+                                                        {
+                                                                $bootstrapStatusComment .= " tried";
+                                                                $bootstrapStatus = "--forcing"; 
+                                                        }
+                                                        
                                                 }
                                                 else
                                                 {
                                                         $bootstrapStatus = "--success";   
+                                                        $bootstrapStatusComment .= " succeeded";
                                                 }
                                         }
                                         else
                                         {
+                                                $bootstrapStatusComment .= " transition from $currentStepCode to $newStepCode";
                                                 $currentStepCode = $newStepCode;
-                                                $bootstrapStatus = "--trying";
+                                                $bootstrapStatus = "--trying";                                                
                                         }
                                 }
                         }
 
                         if(($bootstrapStatus == "--blocked") and ($currentStepCode!="DSR"))
                         {
-                                $war_arr[] = $app_name." : ". $this->tm("Application is faltered, please see details and resolve manually", $lang);
-                                $war_arr[] = $app_name." : ". $this->tm("Reached step", $lang)." : ".$currentStepCode."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
+                                $war_arr[] = $current_tentative . $this->tm("Application is faltered, please see details and resolve manually", $lang);
+                                $war_arr[] = $current_tentative . $this->tm("Reached step", $lang)." : ".$currentStepCode."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives bootstrapStatusComment=$bootstrapStatusComment-->";
                         }
                         elseif(($currentStepCode=="DSR"))
                         {
-                                $war_arr[] = $app_name." : ". $this->tm("Application desire selection reached", $lang)."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
+                                $war_arr[] = $current_tentative . $this->tm("Application desire selection reached", $lang)."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives bootstrapStatusComment=$bootstrapStatusComment-->";
                         }
 
                 } catch (Exception $e) {
                         if($devMode) throw $e;
-                        $err_arr[] = $e->getMessage();
+                        $err_arr[] = $current_tentative . $e->getMessage();
                 } catch (Error $e) {
                         if($devMode) throw $e;
-                        $err_arr[] = $e->__toString();
+                        $err_arr[] = $current_tentative . $e->__toString();
                 }
 
                 $resPbm = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
-                if($returnLastStepCode) return [$currentStepCode, $resPbm];
+                if($returnLastStepCode) return [$currentStepCode, $resPbm, $tentatives];
 
                 return $resPbm;
         }
@@ -723,24 +759,26 @@ class Application extends AdmObject
                         // to go to next step we should apply conditions of the current step
                         $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec);
                         $success = $applyResult['success'];
+                        $nb_conds = $applyResult['nb_conds'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
-                        if ($success) {
+                        if ($success and (!$error_message)) {
 
                                 $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,false);
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                $this->set("comments", "--");
+                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                                $inf_arr[]  = $success_message;                                
+                                $this->set("comments", $nb_conds." ".$this->tm("conditions successfully passed"));
                                 
                                 $this->commit();
                                 if ($nextStepNum != $currentStepNum) {
                                         $this->requestAPIsOfStep($nextStepNum);
                                 }
-                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
-                                $inf_arr[]  = $success_message;
                                 $tech_arr[] = $tech;
                         } else {
+                                $fail_message .= " ".$error_message;
                                 $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
                                 $war_arr[]  = $fail_message;
                                 $tech_arr[] = $tech;
@@ -750,10 +788,14 @@ class Application extends AdmObject
                         }
                 } catch (Exception $e) {
                         if($devMode) throw $e;
-                        $err_arr[] = $e->getMessage();
+                        $err_arr[] = $fail_message = $e->getMessage();
+                        $this->set("comments", $fail_message);                        
+                        $this->commit();
                 } catch (Error $e) {
                         if($devMode) throw $e;
-                        $err_arr[] = $e->__toString();
+                        $err_arr[] = $fail_message = $e->__toString();
+                        $this->set("comments", $fail_message);                        
+                        $this->commit();
                 }
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
@@ -786,7 +828,7 @@ class Application extends AdmObject
                                 }
                         }
                 } else {
-                        AfwSession::pushError("requestAPIsOfStep : " . $this->getDisplay("en") . " :Application Model Not Found : " . $this->getVal("application_model_id"));
+                        AfwSession::pushError("requestAPIsOfStep($nextStepNum) on Application " . $this->getDisplay("en") . "<br> :Not Found Application Model ID = " . $this->getVal("application_model_id"));
                 }
         }
 
@@ -1062,11 +1104,16 @@ class Application extends AdmObject
 
         public function calcNb_desires($what = "value")
         {
+                $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
+                $application_plan_branch_mfk = trim($application_plan_branch_mfk,",");
+                return count(explode(",",$application_plan_branch_mfk));
+                /*
                 if($this->nb_desires === null)
                 {
                         $this->nb_desires = $this->getRelation("applicationDesireList")->count();
                 }
-                return $this->nb_desires;
+                return $this->nb_desires;*/
+
         }
 
         public function calcSis_fields_available($what = "value", $lang = "")
@@ -1187,26 +1234,37 @@ class Application extends AdmObject
         {
                 if ($fields_updated["application_plan_branch_mfk"]) {
                         $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
+                        $added = 0;
                         $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
                         foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
                                 $idn = $this->getVal("idn");                                 
                                 $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, true);
+                                if($applicationDesireObj->is_new) $added++;
                                 $applicationDesireObj->repareData();
                         }
+                        
+                        // AfwSession::pushInformation("$added desires are added");
+
                         // what is not in application_plan_branch_mfk should be removed
-                        $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 $application_plan_branch_mfk 0)")->getList();
+                        if((!$application_plan_branch_mfk) or (!trim($application_plan_branch_mfk)) or (trim($application_plan_branch_mfk)==",") or (trim($application_plan_branch_mfk)==",,")) $application_plan_branch_mfk = ",0,";
+                        $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 ".$application_plan_branch_mfk." 0)")->getList();
                         /**
                          * @var ApplicationDesire $applicationDesireItem
                          */
+                        $deleted = 0;
                         foreach ($applicationDesireList as $applicationDesireItem) {
                                 if ($applicationDesireItem->delete()) {
                                         // has been deleted successfully
+                                        $deleted++;
                                 } else {
                                         // the delete is refused we put back the application_plan_branch_id in application_plan_branch_mfk
                                         // to synchronize both fields
                                         $this->addRemoveInMfk("application_plan_branch_mfk", [$applicationDesireItem->getVal("application_plan_branch_id")], []);
                                 }
                         }
+                        
+                        // AfwSession::pushWarning("$deleted desires (not in $application_plan_branch_mfk) are deleted");
+
                         $this->nb_desires = null;
                         $this->reorderDesires();
                 }

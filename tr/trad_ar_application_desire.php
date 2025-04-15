@@ -31,6 +31,7 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["application_model_id"] = "نموذج القبول";
 		$trad["application_desire"]["training_unit_type_id"] = "الكلية";
 		$trad["application_desire"]["gender_enum"] = "الجنس";
+		$trad["application_desire"]["sorting_group_id"] = "مجموعة الفرز";
 
 		$trad["application_desire"]["weighted_percentage"] = "النسبة الموزونة";
 		$trad["application_desire"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";

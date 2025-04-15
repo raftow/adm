@@ -199,7 +199,8 @@
                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
                                                         'MANDATORY' => false,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  
-                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id',  
+                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id', 
+                                                        'WHERE' => 'applicant_id = §applicant_id§',
                                                         'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                         'CSS' => 'width_pct_100', ),                                                                
 

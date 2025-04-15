@@ -1,9 +1,5 @@
 <?php 
-        /**
-         * add field by medali
-         * alter table §DBPREFIX§adm.program_track add   sort_criteria text  DEFAULT NULL  after track_name_en;
-        * alter table §DBPREFIX§adm.program_track change   sort_criteria sort_criteria text  DEFAULT NULL  after track_name_en;
-         */
+        
         class AdmProgramTrackAfwStructure
         {
         
@@ -22,6 +18,11 @@
                                 $obj->editNbSteps = 1; */
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                                 $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ProgramTrack',"submit"=>true);
+                        }
+                        else 
+                        {
+                                // ProgramTrackArTranslator::initData();
+                                // ProgramTrackEnTranslator::initData();
                         }
                 }
                 
@@ -83,7 +84,13 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
 
-
+                                        'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
+                                                        'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_50', ),
                                         
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  

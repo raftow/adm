@@ -44,6 +44,14 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
 
+                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
+                                                        'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 99,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_50', ),
+
                                                 'training_unit_id' => array('IMPORTANT' => 'IN', 'SHOW' => true, 
                                                         'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  
                                                         'READONLY' => true,  'STEP' => 99,  
