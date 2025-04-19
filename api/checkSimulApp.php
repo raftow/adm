@@ -60,8 +60,9 @@ try
     // $progress_task = "تم الانتهاء من $progress_value %";
 
     $simulation_progress_value = 5 * intval(floor($progress_value / 5));
+    $real_progress = intval(floor($progress_value * 100)) / 100.0;
 
-    $a_json = ['status'=>'success', 'task'=>$progress_task, 'progress'=>$simulation_progress_value, ];
+    $a_json = ['status'=>'success', 'task'=>$progress_task, 'progress'=>$simulation_progress_value, 'real_progress'=>$real_progress];
 }
 catch(Exception $e)
 {

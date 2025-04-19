@@ -151,6 +151,13 @@
                         
                 }
 
+
+                public function calcSorting_step_id($what = "value")
+                {
+                        $application_model_id = $this->id;
+                        return ApplicationStep::loadSortingStep($application_model_id);
+                }
+
                 public function afterMaj($id, $fields_updated)
                 {  
                         if($fields_updated["split_sorting_by_enum"])

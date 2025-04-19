@@ -99,6 +99,10 @@ class ApplicationDesire extends AdmObject
                 } else return null;
         }
 
+        /**
+         * 
+         * @param Application $applicationObj
+         */
 
         public static function loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $applicationObj)
         {
@@ -113,7 +117,6 @@ class ApplicationDesire extends AdmObject
                 $obj->select("application_plan_id", $application_plan_id);
                 $obj->select("application_simulation_id", $application_simulation_id);
                 $obj->select("application_plan_branch_id", $application_plan_branch_id);
-
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) {
                                 $obj->set("idn", $idn);
@@ -127,6 +130,11 @@ class ApplicationDesire extends AdmObject
                         $obj->set("application_simulation_id", $application_simulation_id);
                         $obj->set("application_plan_branch_id", $application_plan_branch_id);
                         $obj->set("application_id", $applicationObj->id);
+                        $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
+                        $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
+                        if(!$applicationModelBranchObj)  throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id $application_plan_branch_id doesn't have an application_model_branch_id");
+        
+                        $obj->set("sorting_group_id", $applicationModelBranchObj->getVal("sorting_group_id",));
                         $obj->set("applicant_qualification_id", $applicationObj->getVal("applicant_qualification_id"));
                         $obj->set("qualification_id", $applicationObj->getVal("qualification_id"));
                         $obj->set("major_category_id", $applicationObj->getVal("major_category_id"));
@@ -190,12 +198,15 @@ class ApplicationDesire extends AdmObject
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED-BEFORE-APPLY"]) != "off");
                 $application_simulation_id = $options["SIMULATION-ID"];
+                $audit_conditions_pass = explode(",", $options["AUDIT_ON_PASS_CONDITION_IDS"]);
+                $audit_conditions_fail = explode(",", $options["AUDIT_ON_FAIL_CONDITION_IDS"]);
                 $simulate = ($application_simulation_id != 2);
                 $logConditionExec = (strtolower($options["LOG-CONDITION-EXEC"]) != "off");
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
+                $bootstrapResult = "standby";
                 try {
                         $max_tentatives = 300;
                         $tentatives = 0; // limit tentatives to 300 to avoid infinite loop
@@ -207,7 +218,7 @@ class ApplicationDesire extends AdmObject
                                 // refresh data
                                 $this->runNeededApis($lang = "ar", ($bootstrapStatus == "--forcing"));
                                 // try to go to next step
-                                list($err, $inf, $war, $tech) = $this->gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec);
+                                list($err, $inf, $war, $tech, $resultGotoNextDesireStep) = $this->gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                                 if ($err) {
                                         $err_arr[] = "Error $app_des_name : " . $err;
                                         $bootstrapStatus = "--blocked";
@@ -228,10 +239,16 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
 
-                        if (($bootstrapStatus == "--blocked") or ($currentStepCode != "SRT")) {
+                        if (($bootstrapStatus == "--blocked") and ($currentStepCode != "SRT")) 
+                        {
+                                $bootstrapResult = $resultGotoNextDesireStep["result"];
+                                if($bootstrapResult=="pass") throw new AfwRuntimeException("Desire $app_des_name :<br> How can bootstrapResult=$bootstrapResult in step $currentStepCode and bootstrapStatus=$bootstrapStatus");
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Desire is faltered, please see details and resolve manually", $lang);
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Reached step", $lang) . " : " . $currentStepCode . "<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
-                        } else {
+                        } 
+                        else 
+                        {
+                                $bootstrapResult = "done";
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Sorting step reached", $lang) . "<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
                         }
                 } catch (Exception $e) {
@@ -244,7 +261,7 @@ class ApplicationDesire extends AdmObject
 
                 $resPbm = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
-                if ($returnLastStepCode) return [$currentStepCode, $resPbm, $tentatives];
+                if ($returnLastStepCode) return [$currentStepCode, $resPbm, $tentatives, $bootstrapResult];
 
                 return $resPbm;
         }
@@ -257,7 +274,7 @@ class ApplicationDesire extends AdmObject
                 return $return;
         }
 
-        public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true)
+        public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 // die("dbg devMode=$devMode");
@@ -265,6 +282,8 @@ class ApplicationDesire extends AdmObject
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
+                $result_arr = [];
+                $result_arr["result"] = "standby";
                 // $nb_updated = 0;
                 // $nb_inserted = 0;
                 try {
@@ -298,12 +317,13 @@ class ApplicationDesire extends AdmObject
                         if (!$currentStepObj) return [$this->tm("No current step defined for this application model, you may need to reorder the steps to have step num=0 or step num = 1", $lang), ""];
 
                         // to go to next step we should apply conditions of the current step
-                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec);
+                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                         $success = $applyResult['success'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
-                        if ($success and (!$error_message)) {
-
+                        if ($success and (!$error_message)) 
+                        {
+                                $result_arr["result"] = "pass";
                                 $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
@@ -326,6 +346,8 @@ class ApplicationDesire extends AdmObject
                                 $inf_arr[]  = $success_message;
                                 $tech_arr[] = $tech;
                         } else {
+                                if((!$error_message) and ($success===false)) $result_arr["result"] = "fail";
+                                else $result_arr["result"] = "standby";
                                 $fail_message .= " " . $error_message;
                                 $this->set("desire_status_enum", self::desire_status_enum_by_code('rejected'));
                                 $this->set("comments", $fail_message);
@@ -341,7 +363,7 @@ class ApplicationDesire extends AdmObject
                         if ($devMode) throw $e;
                         $err_arr[] = $e->__toString();
                 }
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
         public function getDisplay($lang = 'ar')
@@ -470,8 +492,9 @@ class ApplicationDesire extends AdmObject
                 $desire_status_enum = $this->getVal("desire_status_enum");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $step_num = $this->getVal("step_num");
-                if (($application_simulation_id == 2) and (($step_num > $first_step_num) or ($desire_status_enum > 1))) {
-                        $this->deleteNotAllowedReason = "الرغبة أخذت طريقها في مسار التقديم يمكن فقط الغاء التقديم (الانسحاب) وليس حذفها بالكامل";
+                if ((($step_num > $first_step_num) or ($desire_status_enum > 1)))  // ($application_simulation_id == 2) and 
+                {
+                        $this->deleteNotAllowedReason = "الرغبة أخذت طريقها في مسار التقديم يمكن فقط الغاء التقديم (الانسحاب) وليس حذفها بالكامل أو يمكنكم التواصل مع المشرف";
                         return false;
                 }
 
@@ -569,7 +592,7 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true)
+        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 if (!$objApplicationModel) {
@@ -580,7 +603,7 @@ class ApplicationDesire extends AdmObject
                 $application_plan_id = $this->getVal("application_plan_id");
                 $step_num = $this->getVal("step_num");
                 $general = "N";
-                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec);
+                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
 
                 if ($pbm) return $return["res"];
                 else return $return;

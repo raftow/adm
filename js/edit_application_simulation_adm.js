@@ -42,7 +42,7 @@ function checkCurrentSimulation()
                 {
                     if(!$("#simulation_progress_task").hasClass("error"))
                     {
-                        $("#simulation_progress_task").html(result.task);
+                        $("#simulation_progress_task").html(result.real_progress+'% - '+result.task);
                         //$("#simulation_progress_value").className.replace(/\bvalue-.*?\b/g, '');
                         $("#simulation_progress_value").addClass("value-"+result.progress); 
                     }                                
@@ -61,7 +61,7 @@ function checkCurrentSimulation()
             }
         }
         );
-      }, 500);
+      }, 1500);
 
       $("#check-interval-id").val(intervalId);
 }

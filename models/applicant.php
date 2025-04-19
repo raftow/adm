@@ -907,6 +907,7 @@ class Applicant extends AdmObject
                 elseif(!$applicationPlanObj or !$applicationPlanObj->id) throw new AfwRuntimeException("simulateApplication : No Application Plan Defined for this simulation");
                 $applicant_id = $this->id;
                 $application_plan_id = $applicationPlanObj->id;
+                $application_model_id = $applicationPlanObj->getVal("application_model_id");
                 $application_simulation_id = $applicationSimulationObj->id; 
                 $options = $applicationSimulationObj->getOptions();
                 $idn = $this->getVal("idn");
@@ -927,7 +928,7 @@ class Applicant extends AdmObject
                         if($appObj)
                         {
                                 $appObj->setApplicantObject($this);
-                                list($stepCode, $resPbm, $tentatives1) = $appObj->bootstrapApplication($lang, true, $options);
+                                list($stepCode, $resPbm, $tentatives1, $bootstrapAppResult, $bootstrapAppResultDetails) = $appObj->bootstrapApplication($lang, true, $options);
                                 $bootstraps += $tentatives1;
                                 list($err, $inf, $war, $tech) = $resPbm;
                                 if ($err) $err_arr[] = $err; 
@@ -940,18 +941,18 @@ class Applicant extends AdmObject
                                         $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
                                         list($appDesireList, $log) = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
                                         $tech_arr[] = $log;
-        
+                                        $appDesireListCount = count($appDesireList);
                                         
                                         $appDesireIdList = array_keys($appDesireList);
                                         /**
                                          * @var ApplicationDesire $appDesireItem
                                          */
-                                        $oneDesireAtLeastInSortingStep = false;
+                                        $oneDesireAtLeastIsBlocked = false;
                                         foreach($appDesireIdList as $appDesireId)
                                         {
                                                 $appDesireItem =& $appDesireList[$appDesireId];
                                                 $disp = $appDesireItem->getDisplay($lang);
-                                                list($desireStepCode, $resPbm, $tentatives2) = $appDesireItem->bootstrapDesire($lang, true, $options);
+                                                list($desireStepCode, $resPbm, $tentatives2, $bootstrapDesireResult) = $appDesireItem->bootstrapDesire($lang, true, $options);
                                                 $desire_bootstraps += $tentatives2;
                                                 list($err, $inf, $war, $tech) = $resPbm;
                                                 if ($err) $err_arr[] = $err; 
@@ -961,32 +962,51 @@ class Applicant extends AdmObject
                                                 $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
                                                 if($desireStepCode=="SRT")
                                                 {
-                                                        $oneDesireAtLeastInSortingStep = true;
                                                         $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
                                                 }
-                                                else 
+                                                else
+                                                {
                                                         $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : ". $appDesireItem->statusExplanations(); 
+                                                } 
+                                                if($bootstrapDesireResult == "standby")
+                                                {
+                                                        $oneDesireAtLeastIsBlocked = $appDesireId;
+                                                }
+                                                        
         
                                                 unset($appDesireItem);
                                                 unset($appDesireList[$appDesireId]);                                                
                                         }
         
+                                        // the minimum nb of desires authorized by application model
+                                        $minDesires = Aparameter::getParameterValueForContext(15, $application_model_id, $application_plan_id, $this);
+                                        if(!$minDesires) $minDesires = 1;
+                                        // check if nb of desires is less than the minimum authorized by application model so consider we are blocked                                        
+                                        // also check if at least one desire is blocked so here also consider we are blocked
                                         
-                                        // check if nb of desires is less than the minimum authorized by application model so consider we are blocked
-                                        // also check if all desires are rejected and no-one arrive to sorting step so consider we are blocked
-                                        $appDesireListCount = count($appDesireList);
-                                        if(($appDesireListCount>=1) // @todo 1 should be settings in application model 
-                                           and ($oneDesireAtLeastInSortingStep))
-                                           {
+                                        if(($appDesireListCount>=$minDesires) and (!$oneDesireAtLeastIsBlocked))
+                                        {
                                                 $blocked = false;
-                                           }
-                                           else
-                                           {
-                                                $war_arr[] = $this->tm("No desire reach Sorting Step",$lang)." (total $appDesireListCount desires)";                 
-                                           }
+                                        }
+                                        else
+                                        {
+                                                if($oneDesireAtLeastIsBlocked) $blocked_reason = "Desire $oneDesireAtLeastIsBlocked is blocked";
+                                                else $blocked_reason = "Desire count $appDesireListCount is less the minimum required ($minDesires)";
+                                                $war_arr[] = $this->tm("Some desire(s) are blocked",$lang);                 
+                                        }
                                 }
                                 else
                                 {
+                                        // if the bootstrap failed (one condition failed) or passed (all conditions succeeded) or done (passed and reached last step) 
+                                        // then it is not blocked (only standby bootstrap status is considered blocked and need try later)
+                                        if($bootstrapAppResult!="standby")
+                                        {
+                                                $blocked = false;  
+                                        }
+                                        else
+                                        {
+                                                $blocked_reason = $bootstrapAppResultDetails;   
+                                        }
                                         $war_arr[] = $this->tm("Application",$lang) ." ". $this->tm("faltered at step",$lang). " : $stepCodeTile <!-- $stepCode --> / ". $appObj->statusExplanations(); 
                                 }
                         }
@@ -1002,6 +1022,7 @@ class Applicant extends AdmObject
                         'bootstraps'=>$bootstraps,
                         'desire_bootstraps'=>$desire_bootstraps,
                         'blocked'=>$blocked,
+                        'blocked_reason'=>$blocked_reason
                 ];
                 $pbm_result = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "\n", $tech_arr);
 

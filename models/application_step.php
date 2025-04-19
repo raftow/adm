@@ -68,6 +68,22 @@
                         return self::$FIRST_STEPS["AM-$application_model_id-G-$general"];
                 }
 
+                public static function loadSortingStep($application_model_id)
+                {
+                        if(!self::$FIRST_STEPS["SORTING-STEP-$application_model_id"]) 
+                        {
+                                $obj = new ApplicationStep();  
+                                $obj->select("application_model_id",$application_model_id);
+                                $obj->select("step_code","SRT");
+                                if($obj->load()) self::$FIRST_STEPS["SORTING-STEP-$application_model_id"] = $obj; 
+                                else self::$FIRST_STEPS["SORTING-STEP-$application_model_id"] = "NOT-FOUND"; 
+                        }
+                        
+                        if(self::$FIRST_STEPS["SORTING-STEP-$application_model_id"] == "NOT-FOUND") return null;
+                        
+                        return self::$FIRST_STEPS["SORTING-STEP-$application_model_id"];
+                }
+
                 public static function loadByMainIndex(
                         $application_model_id, 
                         $step_num,
@@ -269,7 +285,7 @@
                 }
                 
                 
-                public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
+                public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass=[], $audit_conditions_fail=[],)
                 {
                         
                         $err_arr = [];
@@ -286,7 +302,8 @@
                          */
                         $success = true; // if one condition fail so all fail
                         $c = 0;
-                        foreach($acondList as $aModelCondItem)
+                        $f = 0;
+                        foreach($acondList as $acondId => $aModelCondItem)
                         {
                                 /**
                                  * @var Acondition $acondItem 
@@ -294,16 +311,24 @@
                                 $acondItem = $aModelCondItem->het("acondition_id");
                                 if($acondItem)
                                 {
+                                        $acondItemId = $acondItem->id;
+                                        $audit_pass = in_array($acondItemId, $audit_conditions_pass);
+                                        $audit_fail = in_array($acondItemId, $audit_conditions_fail);
+
                                         $c++;
                                         list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec); 
                                         if($exec_result) 
                                         {
-                                                $inf_arr[] = "($c) ".$comments;
+                                                if($audit_pass) $inf_arr[] = "($c) ".$comments;
+                                                else $tech_arr[] = "($c) ".$comments;
                                         } 
                                         else 
                                         {
-                                                $success = false;
-                                                $war_arr[] = $comments;
+                                                $success = $exec_result;
+                                                if($exec_result===false) break; // because if one condition fail so all fail no need to continue
+                                                if($exec_result===null) break; // because if we can not apply one condition we can not continue until resolve the pb (data update, etc..)
+                                                if($audit_fail) $war_arr[] = "($c) ".$comments;
+                                                else $tech_arr[] = "($c) ".$comments;
                                         }
                                         if($tech)  $tech_arr[] = $tech;
                                 }
@@ -311,6 +336,11 @@
                                 {
                                         $err_arr[] = "model condition item has not valid condition : id=".$aModelCondItem->id;
                                 }
+                        }
+
+                        if($success and (!$audit_pass))
+                        {
+                                $inf_arr[] = "$c "."conditions passed";
                         }
 
                         

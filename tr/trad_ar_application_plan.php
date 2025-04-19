@@ -27,11 +27,14 @@
 	$trad["application_plan"]["published"] = "تم النشر";
 	$trad["application_plan"]["closed"] = "تم الاغلاق";
 
+	
+
     $trad["application_plan"]["academic_level_id"] = "المرحلة التدريبية";
 	$trad["application_plan"]["gender_enum"] = "مخصص لـ";
 	$trad["application_plan"]["training_period_enum"] = "فترة التدريب";
 	$trad["application_plan"]["training_mode_enum"] = "طريقة التدريب";
 	$trad["application_plan"]["language_enum"] = "لغة التدريب";
+	$trad["application_plan"]["sortingSessionList"] = "قائمة كرات الفرز";
 
 
     $trad["application_plan"]["academic_year_id"] = "العام التدريبي";

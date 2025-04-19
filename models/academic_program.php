@@ -183,4 +183,32 @@ class AcademicProgram extends AdmObject
                 if($attribute=="pic_view") return true;
                 return false;
         }
+
+        public function afterMaj($id, $fields_updated)
+        {
+                if ($fields_updated["program_track_id"] or $fields_updated["academic_level_id"] or $fields_updated["degree_id"]) {
+                        $academicProgramOfferingList = $this->get("academicProgramOfferingList");
+                        foreach ($academicProgramOfferingList as $academicProgramOfferingItem) {
+                                if ($fields_updated["program_track_id"])
+                                {
+                                        $programTrackObj = $this->het("program_track_id");
+                                        if ($programTrackObj) {
+                                                $sorting_group_id = $programTrackObj->getVal("sorting_group_id");
+                                                $academicProgramOfferingItem->set("sorting_group_id", $sorting_group_id);
+                                        }
+                                }
+                                
+                                $program_track_id = $this->getVal("program_track_id");
+                                $academicProgramOfferingItem->set("program_track_id", $program_track_id);
+                                
+                                $academic_level_id = $this->getVal("academic_level_id");
+                                $academicProgramOfferingItem->set("academic_level_id", $academic_level_id);
+                                
+                                $degree_id = $this->getVal("degree_id");
+                                $academicProgramOfferingItem->set("degree_id", $degree_id);
+                               
+                                $academicProgramOfferingItem->commit();
+                        }
+                }
+        }
 }

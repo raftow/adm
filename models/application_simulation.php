@@ -283,7 +283,7 @@ class ApplicationSimulation extends AdmObject{
             $obj->where($where);
             // die("ApplicationSimulation sql many = ".$obj->getSQLMany('', $limit));
 
-            return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit), $context, $offlineDesiresRows];
+            return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, $obj->loadMany($limit,"done desc, applicant_id"), $context, $offlineDesiresRows];
         }
 
         public static function log($type, $appidn, $text)
@@ -350,6 +350,7 @@ class ApplicationSimulation extends AdmObject{
             AfwSession::setConfig("applicant_qualification-sql-analysis-max-calls",8000);
             AfwSession::setConfig("application-sql-analysis-max-calls",8000);
             AfwSession::setConfig("application_desire-sql-analysis-max-calls",250000);
+            AfwSession::setConfig('MAX_INSTANCES_BY_REQUEST',250000);
             $MAX_TO_LOG = 10;
             if($this->id==2) $typeRun = $this->tm("Real application", $lang);
             else $typeRun = $this->tm("Application simulation", $lang);
@@ -440,35 +441,25 @@ class ApplicationSimulation extends AdmObject{
                     $cc = 0;
                     $bootstraps = 0;
                     $desire_bootstraps = 0;
+
+                    $smallBatchSize = ceil(count($applicantSimList) / 50);
+                    if($smallBatchSize<10) $smallBatchSize = 10;
                     
                     $row = null;
                     foreach($applicantSimList as $apsid => $applicantSimItem)
                     {
                         $apid = $applicantSimItem->getVal("applicant_id");
                         $cc++;
-                        if($cc==20) $cc = 0;
+                        if($cc==$smallBatchSize) $cc = 0;
                         $applicantItem = Applicant::loadById($apid); 
-                        // test if the user has breaked the simulation
-                        if(($cc==10) or ($row === null))
-                        {
-                            if(!$only_reset)
-                            {
-                                $row = ApplicationSimulation::checkSimulation($this->id);
-                                $progress_value = $row["progress_value"];
-                                $progress_task = $row["progress_task"];
-                                $stopeMe = $row["stop-me"];
-                                if($stopeMe) break;    
-                            }
-                            
-                        }
-                        
                         
                         $logMe = $applicantItem->sureIs("log");
                         list($pbm_result, $tech_result) = $applicantItem->simulateApplication($applicationPlanObj, $this, $offlineDesiresRows[$apid],$lang, $only_reset);
                         $bootstraps += $tech_result['bootstraps'];
                         $desire_bootstraps += $tech_result['desire_bootstraps'];
-                        $apblocked = $tech_result['blocked'];
-                        $apblocked_label = $apblocked ? $this->tm("has failed", $lang) : $this->tm("has succeeded", $lang);
+                        $bootstrap_blocked = $tech_result['blocked'];
+                        $bootstrap_blocked_reason = $tech_result['blocked_reason'];
+                        $bootstrap_blocked_label = $bootstrap_blocked ? $this->tm("simulation has failed", $lang) . " : " . $bootstrap_blocked_reason  : $this->tm("simulation has succeeded", $lang);
                         list($err, $inf, $war, $tech) = $pbm_result;
                         $applicant_name = $applicantItem->getDisplay($lang);
                         $applicant_idn = $applicantItem->getVal("idn");
@@ -477,13 +468,29 @@ class ApplicationSimulation extends AdmObject{
                         if (!$err) $cntDoneSuccess++;
                         // sleep(1);
                         $pctDone = 30+($cntDone*70.0)/$cntTotal;
-                        if($progress_value != $pctDone)
+
+                        // test if the user has breaked the simulation
+                        if(($cc==($smallBatchSize-5)) or ($row === null))                        
                         {
-                            $this->set("progress_value",$pctDone);
-                            $this->set("progress_task",$applicant_name);
-                            $this->commit();
+                            if(!$only_reset)
+                            {
+                                $row = ApplicationSimulation::checkSimulation($this->id);
+                                $progress_value = $row["progress_value"];
+                                $progress_task = $row["progress_task"];
+                                $stopeMe = $row["stop-me"];
+                                  
+                            }
+
+                            if($progress_value != $pctDone)
+                            {
+                                $this->set("progress_value",$pctDone);
+                                $this->set("progress_task",$applicant_name);
+                                $this->commit();
+                            }
+
+                            if($stopeMe) break;  
                         }
-                        list($showMe, $blocked_applicants) = $this->shouldIShowThisApplicant($apid, $apblocked, $blocked_applicants);
+                        list($showMe, $blocked_applicants) = $this->shouldIShowThisApplicant($apid, $bootstrap_blocked, $blocked_applicants);
                         if($logMe and $showMe and $nbLogged<$MAX_TO_LOG)
                         {
                             $nbLogged++;
@@ -501,7 +508,7 @@ class ApplicationSimulation extends AdmObject{
                             $t_information = $this->translateOperator("information", $lang);
                             $t_warning = $this->translateOperator("warning", $lang);
                             $t_debugg = $this->translateOperator("debugg", $lang);
-                            $title_sim = "<a target='applicant' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=$applicant_id'>$typeRun $t_for $applicant_idn - $applicant_name - $apblocked_label</a>";
+                            $title_sim = "<a target='applicant' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=$applicant_id'>$typeRun $t_for $applicant_idn - $applicant_name - $bootstrap_blocked_label</a>";
                             $log_arr[] = self::log('title', 'app'.$applicant_idn, $title_sim);
                             if ($err and $log and $log_err) $log_arr[] = self::log('error', 'app'.$applicant_idn, "$t_error : " . $err);                    
                             if ($inf and $log and $log_inf) $log_arr[] = self::log('info', 'app'.$applicant_idn, "$t_information : " . $inf);
@@ -510,7 +517,12 @@ class ApplicationSimulation extends AdmObject{
                             
                         }
 
-                        $applicantSimItem->set("done","Y");
+                        if(!$bootstrap_blocked) $applicantSimItem->set("done","Y");
+                        else 
+                        {
+                            $applicantSimItem->set("done","W");
+                            // $applicantSimItem->set("blocked_reason",$bootstrap_blocked_reason);
+                        }
                         $applicantSimItem->commit();
 
                         unset($applicantItem);
@@ -672,9 +684,10 @@ class ApplicationSimulation extends AdmObject{
             
         }
         $simulation_progress_value = 5 * intval(floor($progress_value / 5));
+        $simulation_real_progress = intval(floor($progress_value * 100)) / 100.0;
         if($simulation_progress_value>0)
         {
-            $simulation_progress_value_pct = "$simulation_progress_value%";
+            $simulation_progress_value_pct = "$simulation_real_progress%";
         }
         else
         {
@@ -685,7 +698,7 @@ class ApplicationSimulation extends AdmObject{
         $html .= "<div id=\"simulation_progress_bar\" class=\"simulation_progress bar\" >
                 <div id=\"simulation_progress_value\" class=\"simulation_progress value-$simulation_progress_value\" >&nbsp</div>
         </div>";
-        $html .= "<div id=\"simulation_progress_task\" class=\"simulation_progress task\" >$simulation_progress_value_pct $simulation_progress_task</div>";
+        $html .= "<div id=\"simulation_progress_task\" class=\"simulation_progress task\" >$simulation_progress_value_pct - $simulation_progress_task</div>";
         $html .= "</div> <!-- simulation-panel -->";
         $html .= "<div class='control-panel'>";  
         $run_simulation = $this->tm("run simulation", $lang);
@@ -744,6 +757,7 @@ class ApplicationSimulation extends AdmObject{
         $keyDecodeArr = [];
         $keyDecodeArr["done"] = $this->translate("done", $lang);
         $keyDecodeArr["to-do"] = $this->translate("to-do", $lang);
+        $keyDecodeArr["standby"] = $this->translate("standby", $lang);
         
         $fromProspect = false;
         if(($arrOptions["REGISTER_APPLICANTS"]=="PROSPECT"))
@@ -754,7 +768,9 @@ class ApplicationSimulation extends AdmObject{
 
         $sql_done = "SELECT 'done' as `status`, count(*) as nb FROM ".$server_db_prefix."adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and done = 'Y'
                     union
-                    SELECT 'to-do' as `status`, count(*) as nb FROM ".$server_db_prefix."adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and done = 'N'";
+                    SELECT 'to-do' as `status`, count(*) as nb FROM ".$server_db_prefix."adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and done = 'N'
+                    union
+                    SELECT 'standby' as `status`, count(*) as nb FROM ".$server_db_prefix."adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and done = 'W'";
 
         if($fromProspect)
         {   
@@ -770,13 +786,17 @@ class ApplicationSimulation extends AdmObject{
         $application_model_id = $this->getVal("application_model_id");
         $applicant_group_id = $this->getVal("applicant_group_id");
 
-        $sql_bootstrap = "SELECT 'applicant' as atype, 'التسجيل' as `step_name`, count(*) as nb, min(id) as example_applicant, max(id) as example_applicant2 FROM ".$server_db_prefix."adm.applicant where application_model_id=$application_model_id and applicant_group_id=$applicant_group_id
-            union
-            SELECT 'application' as atype, `application_step_id` as `step_name`, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 FROM ".$server_db_prefix."adm.`application` WHERE `application_simulation_id` = $smid group by `application_step_id`
-            union
-            SELECT 'desire' as atype, `application_step_id` as `step_name`, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id` = $smid group by `application_step_id`;
-
-            ";
+        $sql_bootstrap = "SELECT b.atype, b.step_num, b.step_name, b.nb, b.example_applicant, b.example_applicant2 from 
+                           (SELECT 'applicant' as atype, 0 as step_num, 'التسجيل' as `step_name`, count(*) as nb, min(id) as example_applicant, max(id) as example_applicant2 
+                                        FROM ".$server_db_prefix."adm.applicant where application_model_id=$application_model_id and applicant_group_id=$applicant_group_id 
+                                union 
+                            SELECT 'application' as atype, max(step_num) as step_num, `application_step_id` as `step_name`, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 
+                                        FROM ".$server_db_prefix."adm.`application` WHERE `application_simulation_id` = $smid 
+                                            group by `application_step_id` 
+                                union
+                            SELECT 'desire' as atype, max(step_num) as step_num, `application_step_id` as `step_name`, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 
+                                        FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id` = $smid 
+                                            group by `application_step_id`) b order by b.step_num asc";
 
         
         
@@ -796,6 +816,7 @@ class ApplicationSimulation extends AdmObject{
         
         $html .= "   </div> <!-- stats_panel -->";   
         $html .= "</div> <!-- stats-panel -->";
+        $html .= "</div> <!-- simulation-panel -->";
         return $html;
     }
              

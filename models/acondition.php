@@ -496,6 +496,7 @@ class Acondition extends AdmObject{
 
                 $has_failed = $this->tm("has failed");
                 $has_succeeded = $this->tm("has succeeded");
+                $unable_to_apply = $this->tm("can't be applied");
 
                 if($this->sureIs("composed"))
                 {
@@ -521,7 +522,11 @@ class Acondition extends AdmObject{
                                 if($res1)
                                 {
                                         list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec);
-                                        if(!$res2) return [false, $cond2Desc." " .$has_failed. " : ".$comments2, $cond2Desc.":".$tech2];
+                                        if(!$res2) 
+                                        {
+                                                $has_xxxxx = ($res2===false) ? $has_failed : $unable_to_apply;
+                                                return [$res2, $cond2Desc." " .$has_xxxxx. " : ".$comments2, $cond2Desc.":".$tech2];
+                                        }
                                         else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1."<br>\n".$cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2."<br>\n".$cond1Desc.":".$tech1];
                                 }
                                 else
@@ -537,7 +542,20 @@ class Acondition extends AdmObject{
                                 if(!$res1)
                                 {
                                         list($res2, $comments2, $tech2) = $this->cond2Obj->applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec);
-                                        if(!$res2) return [false, $cond1Desc." " .$has_failed. " : ".$comments1."<br>\n".$cond2Desc.":".$comments2, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
+                                        if(!$res2) 
+                                        {
+                                                if(($res1===false) and ($res2===false))
+                                                {
+                                                        return [false, $cond1Desc." " .$has_failed. " : ".$comments1."<br>\n".$cond2Desc.":".$comments2, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
+                                                }
+                                                else 
+                                                {
+                                                        
+                                                        if($res1===null) $condFalterted = $cond1Desc." " .$unable_to_apply. " : ".$comments1;
+                                                        elseif($res2===null) $condFalterted = $cond2Desc." " .$unable_to_apply. " : ".$comments2;
+                                                        return [null, $condFalterted, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
+                                                }
+                                        }
                                         else return [true, $cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2];        
                                 }
                                 else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1, $cond1Desc.":".$tech1];        
@@ -669,7 +687,7 @@ class Acondition extends AdmObject{
                         
                         if(!$param_value) 
                         {
-                                $exec_result = false;
+                                $exec_result = null;
                                 if(!$comments) $comments = $this->tm("no general or customized value for parameter", $lang)." : ".$this->aparamObj->getDisplay($lang)
                                       ."<br>\ncontext am-id=$application_model_id, ap-id=$application_plan_id"
                                       ."<br>\nsub-context am-id=$application_model_id, ap-id=$application_plan_id"
@@ -718,8 +736,12 @@ class Acondition extends AdmObject{
 
         public function applyComparison($field_value, $comparator, $param_value, $lang="ar", $field_title="[اسم حقل]")
         {
+                if(($field_value===null) or ($param_value===null))
+                {
+                        $return = null;
+                }
                 // arr_list_of_compare["en"][1] = "Equal to";
-                if($comparator == 1)
+                elseif($comparator == 1)
                 {
                         // $comparatorDesc = "Equal to";
                         $return = ($field_value == $param_value);
@@ -787,7 +809,8 @@ class Acondition extends AdmObject{
                 $comparatorDesc = self::translateComparator($comparator, $lang);
                 $field_value_tr = $this->tm("the following field value", $lang); 
                 if($return) $is_or_isnt = $this->tm("very the condition that", $lang); 
-                else $is_or_isnt = $this->tm("does'nt very the condition that", $lang);
+                elseif($return===false) $is_or_isnt = $this->tm("does'nt very the condition that", $lang);
+                else $is_or_isnt = $this->tm("can't compare", $lang);
 
                 return [$return, "$field_value_tr [ $field_title = $field_value ] $is_or_isnt $comparatorDesc $param_value"];
 

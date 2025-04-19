@@ -225,7 +225,7 @@
                                                                 'CSS' => 'width_pct_25',
                                                             ],
                                                         
-                                                                
+                                                            
                 
                 
                                                         'sorting_start_date' => [
@@ -481,6 +481,13 @@
                                                 'TYPE' => 'YN', 'READONLY' => true,   'FORMAT' => 'icon',  'STEP' => 3,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+
+                                        'sortingSessionList' => array('SHORTNAME' => 'sortingSessions',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  'STEP' => 3,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK', 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_session',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_id',  
+                                                'READONLY' => true,  'CAN-BE-SETTED' => false, 
+                                                'CSS' => 'width_pct_100', ),
 
                                         'aparameterValueList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false,  

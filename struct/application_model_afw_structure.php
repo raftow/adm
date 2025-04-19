@@ -372,6 +372,13 @@
                                                 'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_100', ),
 
+                                                'sorting_step_id' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'INT',  'STEP' => 99, 'READONLY'=>true,
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),
+
+
                                         'aconditionOriginList' => array('TYPE' => 'FK', 'ANSWER' => 'acondition_origin', 'ANSMODULE' => 'adm', 'QEDIT' => false, 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => '', 'STEP' => 6,
                                                 'WHERE'=>'id in (select acondition_origin_id from §DBPREFIX§adm.acondition_origin_scope where application_model_id=§id§ and training_unit_id = 0 and department_id = 0 and application_model_branch_id = 0 and active=\'Y\')', 'HIDE_COLS' => array(),

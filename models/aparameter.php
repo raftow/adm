@@ -46,6 +46,14 @@ class Aparameter extends AdmObject
                 return $returnSubContext ? [$val, $subContext] : $val;
         }
 
+        public static function getParameterValueForContext($aparameter_id, $application_model_id, $application_plan_id, $obj)
+        {
+                $objParam = Aparameter::loadById($aparameter_id);
+                $objParamValue = $objParam->getMyValueForContext($application_model_id, $application_plan_id, $obj);
+                if($objParamValue) return $objParamValue->getVal("value");
+                return null;
+        }
+
         public function getMyValueForContext($application_model_id, $application_plan_id, $obj)
         {
                 $training_unit_id = 0;

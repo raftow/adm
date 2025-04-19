@@ -14,7 +14,7 @@ class AdmApplicationSimulationAfwStructure
 			$obj->ORDER_BY_FIELDS = "name_ar";
 
 			$obj->editByStep = true;
-			$obj->editNbSteps = 5; 
+			$obj->editNbSteps = 6; 
 
 			// $obj->UNIQUE_KEY = array('XXX', 'YYY');
 

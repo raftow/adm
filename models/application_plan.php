@@ -492,6 +492,18 @@
                     $otherLinksArray[] = $link;
                 }
 
+                if($mode=="mode_sortingSessionList")
+                {
+                    unset($link);
+                    $link = array();
+                    $title = "إضافة كرة فرز جديدة";
+                    $title_detailed = $title ."لـ : ". $displ;
+                    $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=SortingSession&currmod=adm&sel_application_plan_id=$my_id";
+                    $link["TITLE"] = $title;
+                    $link["UGROUPS"] = array();
+                    $otherLinksArray[] = $link;
+                }
+
                 /*
                 if($mode=="mode_applicationList")
                 {
