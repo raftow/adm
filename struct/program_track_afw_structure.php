@@ -85,10 +85,10 @@
                                                 'CSS' => 'width_pct_100',),
 
                                         'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
-                                                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
+                                                        'EDIT' => true,  'QEDIT' => true, 'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
                                                         'SIZE' => 40,  'DEFAUT' => 0,    
-                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
+                                                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_50', ),
                                         

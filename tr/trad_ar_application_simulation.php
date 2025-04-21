@@ -10,10 +10,13 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["step3"] = "تنفيذ المحاكاة";
 		$trad["application_simulation"]["step4"] = "سجلات المحاكاة";
 		$trad["application_simulation"]["step5"] = "نتائج المحاكاة";
+		$trad["application_simulation"]["step6"] = "الفرز";
 
 		$trad["application_simulation"]["prospect"] = "بانتظار محاكاة التسجيل";
 		$trad["application_simulation"]["to-do"] = "بانتظار محاكاة التقديم";
 		$trad["application_simulation"]["done"] = "تمت المحاكاة";
+		$trad["application_simulation"]["standby"] = "محاكاة متعثرة";
+		
 		
 
 		$trad["application_simulation"]["applicationsimulation.single"] = "طلب محاكاة تقديم";

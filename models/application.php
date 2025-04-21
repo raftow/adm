@@ -497,11 +497,12 @@ class Application extends AdmObject
 
         public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow=[])
         {
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 $simulation_method = $applicationSimulationObj->getVal("simul_method_enum");
-                $simulation_method_dec = $applicationSimulationObj->decode("simul_method_enum");
+                $simulation_method_dec = $applicationSimulationObj->translate("simul_method_enum", $lang)." : ".$applicationSimulationObj->decode("simul_method_enum");
                 $nb_desires = $applicationSimulationObj->getVal("nb_desires");
                 $log = $simulation_method_dec;
-                $lang = AfwLanguageHelper::getGlobalLanguage();
+                
                 // "code"][1] = "ALL";
                 // "ar"][1] = "جميع الفروع المختارة";
                 // "en"][1] = "All selected branches";
@@ -620,6 +621,8 @@ class Application extends AdmObject
                 $app_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED-BEFORE-APPLY"]) != "off");
+                $audit_conditions_pass = explode(",", $options["AUDIT_ON_PASS_CONDITION_IDS"]);
+                $audit_conditions_fail = explode(",", $options["AUDIT_ON_FAIL_CONDITION_IDS"]);
                 $application_simulation_id = $options["SIMULATION-ID"];
                 $simulate = ($application_simulation_id!=2);
                 $logConditionExec = (strtolower($options["LOG-CONDITION-EXEC"]) != "off");
@@ -627,6 +630,7 @@ class Application extends AdmObject
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
+                $bootstrapResult = "standby";
                 try {
                         $max_tentatives = 300;
                         $tentatives = 0; // limit tentatives to 300 to avoid infinite loop
@@ -642,7 +646,7 @@ class Application extends AdmObject
                                 $this->runNeededApis($lang = "ar", ($bootstrapStatus == "--forcing"));
                                 // try to go to next step
                                 
-                                list($err, $inf, $war, $tech) = $this->gotoNextStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec);
+                                list($err, $inf, $war, $tech, $resultGotoNextStep) = $this->gotoNextStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                                 if ($err) 
                                 {
                                         $bootstrapStatusComment .= " blocked after error in gotoNextStep ". $current_tentative . $err;
@@ -692,11 +696,14 @@ class Application extends AdmObject
 
                         if(($bootstrapStatus == "--blocked") and ($currentStepCode!="DSR"))
                         {
+                                $bootstrapResult = $resultGotoNextStep["result"];
+                                if($bootstrapResult=="pass") throw new AfwRuntimeException("Application $app_name :<br> How can bootstrapResult=$bootstrapResult in step $currentStepCode and bootstrapStatus=$bootstrapStatus");
                                 $war_arr[] = $current_tentative . $this->tm("Application is faltered, please see details and resolve manually", $lang);
                                 $war_arr[] = $current_tentative . $this->tm("Reached step", $lang)." : ".$currentStepCode."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives bootstrapStatusComment=$bootstrapStatusComment-->";
                         }
                         elseif(($currentStepCode=="DSR"))
                         {
+                                $bootstrapResult = "done";
                                 $war_arr[] = $current_tentative . $this->tm("Application desire selection reached", $lang)."<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives bootstrapStatusComment=$bootstrapStatusComment-->";
                         }
 
@@ -710,82 +717,100 @@ class Application extends AdmObject
 
                 $resPbm = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
 
-                if($returnLastStepCode) return [$currentStepCode, $resPbm, $tentatives];
+                if($returnLastStepCode) return [$currentStepCode, $resPbm, $tentatives, $bootstrapResult];
 
                 return $resPbm;
         }
 
-        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
+        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
-                $err_arr = [];
+                
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
+                $result_arr = [];
+                $result_arr["result"] = "standby";
                 // $nb_updated = 0;
                 // $nb_inserted = 0;
                 try {
 
                         $this->getApplicationModel();
-                        if (!$this->objApplicationModel) return [$this->tm("Error happened, no application model defined for this application", $lang), ""];
-                        /**
-                         * @var ApplicationStep $currentStepObj
-                         */
-                        $currentStepObj = $this->het("application_step_id");
-                        $currentStepNum = $this->getVal("step_num");
-
-                        $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
-                        if ($dataShouldBeUpdated and !$dataReady) 
+                        if (!$this->objApplicationModel) 
                         {
-                                $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
-                                $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
-                                $this->set("comments", $message_war);
-                                $this->commit();
-                                return ["", "", $message_war];
+                                $err_arr[] = $this->tm("Error happened, no application model defined for this application", $lang);
+                        }
+                        else
+                        {
+                                /**
+                                 * @var ApplicationStep $currentStepObj
+                                 */
+                                $currentStepObj = $this->het("application_step_id");
+                                $currentStepNum = $this->getVal("step_num");
+
+                                $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
+                                if ($dataShouldBeUpdated and !$dataReady) 
+                                {
+                                        $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
+                                        $war_arr[] = $message_war;
+                                        $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
+                                        $this->set("comments", $message_war);
+                                        $this->commit();
+                                }
+                                else
+                                {
+                                        $currentStepId = $this->getVal("application_step_id");
+                                        // die("before currentStepObj=$currentStepObj->id currentStepNum=$currentStepNum currentStepId=$currentStepId");
+                                        if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationModel->getFirstStep();
+                                        if (!$currentStepObj) 
+                                        {
+                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                $message_err = $this->tm("No first step defined for this application model, you may need to reorder the steps to have first step having number equal 0 or number equal 1", $lang);
+                                                $this->set("comments", $message_err);
+                                                $this->commit();
+                                                $err_arr[] = $message_err;
+                                        }
+                                        else
+                                        {
+                                                // to go to next step we should apply conditions of the current step
+                                                $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                                $success = $applyResult['success'];
+                                                $nb_conds = $applyResult['nb_conds'];
+
+                                                list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
+                                                if ($success and (!$error_message)) {
+                                                        $result_arr["result"] = "pass";
+                                                        $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,false);
+                                                        $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
+                                                        $this->set("step_num", $nextStepNum);
+                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                        $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                                                        $inf_arr[]  = $success_message;                                
+                                                        $this->set("comments", $nb_conds." ".$this->tm("conditions successfully passed"));
+                                                        
+                                                        $this->commit();
+                                                        if ($nextStepNum != $currentStepNum) {
+                                                                $this->requestAPIsOfStep($nextStepNum);
+                                                        }
+                                                        $tech_arr[] = $tech;
+                                                } else {
+                                                        if((!$error_message) and ($success===false)) $result_arr["result"] = "fail";
+                                                        else $result_arr["result"] = "standby";
+                                                        $fail_message .= " ".$error_message;
+                                                        $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
+                                                        $war_arr[]  = $fail_message;
+                                                        $tech_arr[] = $tech;
+                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                        $this->set("comments", $fail_message);                                
+                                                        $this->commit();
+                                                }
+                                        }
+                                        
+                                }
                         }
                         
-                        $currentStepId = $this->getVal("application_step_id");
-                        // die("before currentStepObj=$currentStepObj->id currentStepNum=$currentStepNum currentStepId=$currentStepId");
-                        if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationModel->getFirstStep();
-                        if (!$currentStepObj) 
-                        {
-                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                $message_err = $this->tm("No first step defined for this application model, you may need to reorder the steps to have first step having number equal 0 or number equal 1", $lang);
-                                $this->set("comments", $message_err);
-                                $this->commit();
-                                return [$message_err, ""];
-                        }
-
-                        // to go to next step we should apply conditions of the current step
-                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec);
-                        $success = $applyResult['success'];
-                        $nb_conds = $applyResult['nb_conds'];
-
-                        list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
-                        if ($success and (!$error_message)) {
-
-                                $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,false);
-                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
-                                $this->set("step_num", $nextStepNum);
-                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
-                                $inf_arr[]  = $success_message;                                
-                                $this->set("comments", $nb_conds." ".$this->tm("conditions successfully passed"));
-                                
-                                $this->commit();
-                                if ($nextStepNum != $currentStepNum) {
-                                        $this->requestAPIsOfStep($nextStepNum);
-                                }
-                                $tech_arr[] = $tech;
-                        } else {
-                                $fail_message .= " ".$error_message;
-                                $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
-                                $war_arr[]  = $fail_message;
-                                $tech_arr[] = $tech;
-                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                $this->set("comments", $fail_message);                                
-                                $this->commit();
-                        }
+                        
+                        
                 } catch (Exception $e) {
                         if($devMode) throw $e;
                         $err_arr[] = $fail_message = $e->getMessage();
@@ -797,7 +822,7 @@ class Application extends AdmObject
                         $this->set("comments", $fail_message);                        
                         $this->commit();
                 }
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
         public function statusExplanations()
@@ -1297,13 +1322,13 @@ class Application extends AdmObject
                 return ["", "reordered from $step_from to $step_to " . implode("<br>\n", $log_arr)];
         }
 
-        public function applyMyCurrentStepConditions($lang="ar", $pbm=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
+        public function applyMyCurrentStepConditions($lang="ar", $pbm=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $application_model_id = $this->getVal("application_model_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $step_num = $this->getVal("step_num");
                 $general="W";
-                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec);
+                $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
 
                 if($pbm) return $return["res"];
                 else return $return;

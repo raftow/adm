@@ -22,19 +22,31 @@
     $messages["the application plan has been successfully enabled"] = "تم تنشيط خطة القبول بنجاح";
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
+
+    $messages["the sorting session has been successfully published"] = "تم نشر كرة الفرز بنجاح";
+    $messages["the sorting session has been successfully unpublished"] = "تم الغاء نشر كرة الفرز";
+
+    
     
     $messages["has been successfully done"] = "تمت بنجاح";
     $messages["The move from step"] = "عملية الانتقال من المرحلة";
     $messages["has failed for the following reason"] = "فشلت للأسباب التالية";
     $messages["The condition"] = "الشرط";
     $messages["condition part"] = "جزء الشرط";
-    $messages["has failed"] = "فشل(ت)";
-    $messages["has succeeded"] = "نجح(ت)";
+    
+    $messages["simulation has failed"] = "فشلت المحاكاة";
+    $messages["simulation has succeeded"] = "نجحت المحاكاة";
+
+    $messages["has failed"] = "فشل";
+    $messages["has succeeded"] = "نجح";
+    $messages["can't be applied"] = "تعذر تطبيقه";
+    $messages["can't compare"] = "تعذر مقارنته";
     $messages["Are you sure ?"] = "هل أنت متأكد؟";
     $messages["You formally agree that this employee belongs to this organization"] = "أنت توافق بشكل رسمي على أن هذا الموظف ينتمي إلى هذه المؤسسة";
     $messages["Are you sure you want to do this approve ?"] = "هل أنت متأكد من أنك تريد اجراء هذا الاعتماد؟";
     $messages["This will enable or disable the use of this API to update applicant fields"] = "سوف تقوم بتفعيل أو تعطيل استخدام هذه الخدمة الالكترونية في تحديث بيانات المتقدم";
     $messages["This will show or hide the appearance of this condition in gate frontend"] = "سوف تقوم باظهار أو اخفاء الشرط على المتقدم في الواجهة الرئيسية";
+    
     
     $messages["Files upload conditions details"] = "تفاصيل وشروط رفع المرفقات";
     $messages["Click on [Select file] or drag and drop it directly to this area to upload it"] = "اضغط على [اختيار الملف] أو اسحب الملف مباشرة إلى هذه المنطقة لتحميله";
@@ -107,6 +119,15 @@
 
     $messages["Are you sure you want to reset the simulation ?"] = "هل أنت متأكد أنك ترغب في تصفير المحاكاة ومسح جميع نتائجها";
     
+    $messages["You formally agree that the sorting results are not correct and you want to unpublish them"] = "أنت توافق رسميًا على أن نتائج الفرز غير صحيحة وتريد إلغاء نشرها";
+    $messages["You formally agree that the sorting results are correct and ready for publish"] = "أنت توافق رسميًا على أن نتائج الفرز صحيحة وجاهزة للنشر";
+
+    $messages["The simulation will be reset for some or all applicants"] = "سيتم تصفير وإعادة المحاكاة لبعض المتقدمين أو جميعهم";
+    $messages["The existing desires will reset and re-applied"] = "سيتم مسح وإعادة التقديم على الرغبات الحالية";        
+
+    $messages["By simulation settings"] = "حسب إعدادات المحاكاة";
+    $messages["Are you sure you want to do this action ?"] = "هل أنت متأكد من أنك تريد القيام بهذا الإجراء ؟";
+    $messages["You agree that the application data and desires are correct and ready for sorting"] = "أنت توافق على أن بيانات التقديم والرغبات صحيحة وجاهزة لاجراء الفرز";
     
     // $messages[""] = "";
     

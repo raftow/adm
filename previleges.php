@@ -97,6 +97,10 @@
   array (
     'name' => 'applicant_qualification',
   ),
+  13951 => 
+  array (
+    'name' => 'applicant_simulation',
+  ),
   13917 => 
   array (
     'name' => 'application',
@@ -257,9 +261,9 @@
   array (
     'name' => 'sorting_group',
   ),
-  13953 => 
+  13952 => 
   array (
-    'name' => 'sorting_path',
+    'name' => 'sorting_session',
   ),
   13935 => 
   array (
@@ -1298,6 +1302,50 @@
   'applicant_qualification' => 
   array (
     'id' => '13904',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
+  'applicant_simulation' => 
+  array (
+    'id' => '13951',
     'display' => 
     array (
       'id' => -1,
@@ -3099,9 +3147,9 @@
       'id' => '104971',
     ),
   ),
-  'sorting_path' => 
+  'sorting_session' => 
   array (
-    'id' => '13953',
+    'id' => '13952',
     'display' => 
     array (
       'id' => -1,

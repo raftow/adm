@@ -13,3 +13,4 @@
 	$trad["application_plan"]["valid"] = "Valid";
 	$trad["application_plan"]["published"] = "Published";
 	$trad["application_plan"]["closed"] = "Closed";
+	$trad["application_plan"]["sortingSessionList"] = "List of sorting sessions";

@@ -36,7 +36,8 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
-                                        'program_offering_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
+                                        'program_offering_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 
+                                                'SHOW' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
                                                 /* 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  */
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_program_offering',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,                                                 
@@ -44,7 +45,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
 
-                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
+                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
                                                         'SIZE' => 40,  'DEFAUT' => 0,    

@@ -28,7 +28,7 @@ AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.application_simulati
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.application_simulation SET id=2, name_ar = _utf8'تقديم حقيقي وليس محاكاة', name_en = 'Real application not a simulation', application_model_id = 0, applicant_group_id = 0, simul_method_enum = '1', settings = '', log = '', created_by = 1, updated_by = 1, validated_by = 0, active = 'Y', draft = 'Y', sci_id = 1, created_at = '2025-03-16 14:52:19', updated_at = '2025-03-16 14:52:19', version = 1");
 
 
-AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.application_desire;");
+/*AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.application_desire;");*/
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`application_desire` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
