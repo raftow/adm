@@ -45,14 +45,30 @@ class SortingSession extends AFWObject
                     }
                     $sorting_end_date = $applicationPlanObj->getVal("sorting_end_date");
                 }
+                $this->set("start_date", $sorting_start_date);
 
                 if (!$sorting_end_date) $sorting_end_date = AfwDateHelper::shiftGregDate($sorting_start_date, 15);
+                $this->set("end_date", $sorting_end_date);
+
+                $days_for_revision_and_validate = AfwSession::config("days_for_revision_and_validate", 1);
+                $validate_date = AfwDateHelper::shiftGregDate($sorting_end_date, $days_for_revision_and_validate);
+                $this->set("validate_date", $validate_date);
+                $this->set("validated", "N");
+
+                $days_between_validate_and_publish_sorting = AfwSession::config("days_between_validate_and_publish_sorting", 2);
+                $publish_date = AfwDateHelper::shiftGregDate($validate_date, $days_between_validate_and_publish_sorting);
+                $this->set("publish_date", $publish_date);
+                $this->set("published", "N");
+                
+                $days_between_publish_sorting_and_last_approve = AfwSession::config("days_between_publish_sorting_and_last_approve", 3);
+                $last_approve_date = AfwDateHelper::shiftGregDate($publish_date, $days_between_publish_sorting_and_last_approve);
+                $this->set("last_approve_date", $last_approve_date);
 
 
                 $this->set("session_num", $session_num);
 
-                $this->set("start_date", $sorting_start_date);
-                $this->set("end_date", $sorting_end_date);
+                
+                
             }
         }
 
@@ -260,15 +276,15 @@ class SortingSession extends AFWObject
         $tech_arr = [];
         
         $this->set("validated", "Y");
-        $validate_date = date("Y-m-d");
-        $this->set("validate_date", $validate_date);
-        $days_between_validate_and_publish_sorting = AfwSession::config("days_between_validate_and_publish_sorting", 2);
-        $publish_date = AfwDateHelper::shiftGregDate($validate_date, $days_between_validate_and_publish_sorting);
-        $this->set("publish_date", $publish_date);
+        // $validate_date = date("Y-m-d");
+        // $this->set("validate_date", $validate_date);
+        // $days_between_validate_and_publish_sorting = AfwSession::config("days_between_validate_and_publish_sorting", 2);
+        // $publish_date = AfwDateHelper::shiftGregDate($validate_date, $days_between_validate_and_publish_sorting);
+        // $this->set("publish_date", $publish_date);
         $this->set("published", "N");
-        $days_between_publish_sorting_and_last_approve = AfwSession::config("days_between_publish_sorting_and_last_approve", 3);
-        $last_approve_date = AfwDateHelper::shiftGregDate($publish_date, $days_between_publish_sorting_and_last_approve);
-        $this->set("last_approve_date", $last_approve_date);
+        // $days_between_publish_sorting_and_last_approve = AfwSession::config("days_between_publish_sorting_and_last_approve", 3);
+        // $last_approve_date = AfwDateHelper::shiftGregDate($publish_date, $days_between_publish_sorting_and_last_approve);
+        // $this->set("last_approve_date", $last_approve_date);
         $this->set("upgraded", "N");
         
 
@@ -300,11 +316,11 @@ class SortingSession extends AFWObject
         $tech_arr = [];
 
         $this->set("published", "Y");
-        $publish_date = date("Y-m-d");
-        $this->set("publish_date", $publish_date);
-        $days_between_publish_sorting_and_last_approve = AfwSession::config("days_between_publish_sorting_and_last_approve", 3);
-        $last_approve_date = AfwDateHelper::shiftGregDate($publish_date, $days_between_publish_sorting_and_last_approve);
-        $this->set("last_approve_date", $last_approve_date);
+        // $publish_date = date("Y-m-d");
+        // $this->set("publish_date", $publish_date);
+        // $days_between_publish_sorting_and_last_approve = AfwSession::config("days_between_publish_sorting_and_last_approve", 3);
+        // $last_approve_date = AfwDateHelper::shiftGregDate($publish_date, $days_between_publish_sorting_and_last_approve);
+        // $this->set("last_approve_date", $last_approve_date);
         $this->set("upgraded", "N");
         
 
@@ -332,9 +348,14 @@ class SortingSession extends AFWObject
 
     public function attributeIsApplicable($attribute)
     {
-            if(($attribute=="validate_date") or ($attribute=="published") or ($attribute=="publish_date") or ($attribute=="last_approve_date") or ($attribute=="upgraded")) 
+            if(($attribute=="published") or ($attribute=="upgraded")) 
             {
                 return ($this->sureIs("validated"));
+            }
+
+            if(($attribute=="name_ar") or ($attribute=="name_en")) 
+            {
+                return ($this->id>0);
             }
             
 
@@ -358,9 +379,15 @@ class SortingSession extends AFWObject
         
     }
 
+    
     public function calcNb_desires($what = "value")
     {
         return $this->getRelation("applicationDesireList")->count();
+    }
+
+    public function isExecuted()
+    {
+        return false;
     }
 
     protected function getPublicMethods()
@@ -422,7 +449,7 @@ class SortingSession extends AFWObject
                                                 'STEP' => $this->stepOfAttribute("published"));
             }
         }    
-        else
+        elseif($this->isExecuted())
         {
             $methodConfirmationWarningEn = "You formally agree that the sorting results are correct and ready for publish";
             $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
@@ -438,6 +465,24 @@ class SortingSession extends AFWObject
                                                 'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                                                 'STEP' => $this->stepOfAttribute("published"));
+        }
+        else
+        {
+            $methodConfirmationWarningEn = "You agree that the application data and desires are correct and ready for sorting";
+            $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+            $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+            $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+            
+            $color = "blue";
+            $title_ar = "تنفيذ الفرز";
+            $title_en = "Run the sorting";
+            $methodName = "runSorting";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
+                                                "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                                'CONFIRMATION_NEEDED' => true,
+                                                'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                                'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                                'STEP' => $this->stepOfAttribute("nb_desires"));
         }
 
         
@@ -477,6 +522,54 @@ class SortingSession extends AFWObject
         $html .= "</div> <!-- sorting-panel -->";
         return $html;
     }
+
+
+    public function runSorting($lang = "ar")
+    {
+        $session_num = $this->getVal("session_num");
+        $sortingGroupList = $this->get("sortingGroupList");
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_simulation_id = $this->getVal("application_simulation_id");
+         
+        
+        foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+        {
+            $sf1 = $sortingGroupItem->het("sorting_field_1_id");
+            $sf1_sql = $sf1 ? "sf1_val float NOT NULL, " : "";
+            $sf2 = $sortingGroupItem->het("sorting_field_2_id");
+            $sf2_sql = $sf2 ? "sf2_val float NOT NULL, " : "";
+            $sf3 = $sortingGroupItem->het("sorting_field_3_id");
+            $sf3_sql = $sf3 ? "sf3_val float NOT NULL, " : "";
+
+            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+            
+            $sql_drop = "DROP TABLE IF EXISTS ".$server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId`;";
+
+            AfwDatabase::db_query($sql_drop);
+
+            $sql_create = "CREATE TABLE ".$server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId` (
+              `applicant_id` bigint(20) NOT NULL,
+               $sf1_sql  
+               $sf2_sql
+               $sf3_sql
+               sorting_num smallint DEFAULT NULL, 
+               assigned_desire_num smallint DEFAULT NULL, 
+               application_plan_branch_id int(11) NULL, 
+               PRIMARY KEY (`applicant_id`)
+            ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
+
+            AfwDatabase::db_query($sql_create);
+                
+        }
+
+
+        $applicationDesireList = $this->get("applicationDesireList");
+
+        
+
+    }
+
+
 }
 
 

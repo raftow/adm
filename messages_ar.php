@@ -122,8 +122,12 @@
     $messages["You formally agree that the sorting results are not correct and you want to unpublish them"] = "أنت توافق رسميًا على أن نتائج الفرز غير صحيحة وتريد إلغاء نشرها";
     $messages["You formally agree that the sorting results are correct and ready for publish"] = "أنت توافق رسميًا على أن نتائج الفرز صحيحة وجاهزة للنشر";
 
-    
-        
+    $messages["The simulation will be reset for some or all applicants"] = "سيتم تصفير وإعادة المحاكاة لبعض المتقدمين أو جميعهم";
+    $messages["The existing desires will reset and re-applied"] = "سيتم مسح وإعادة التقديم على الرغبات الحالية";        
+
+    $messages["By simulation settings"] = "حسب إعدادات المحاكاة";
+    $messages["Are you sure you want to do this action ?"] = "هل أنت متأكد من أنك تريد القيام بهذا الإجراء ؟";
+    $messages["You agree that the application data and desires are correct and ready for sorting"] = "أنت توافق على أن بيانات التقديم والرغبات صحيحة وجاهزة لاجراء الفرز";
     
     // $messages[""] = "";
     

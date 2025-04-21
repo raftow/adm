@@ -700,14 +700,7 @@ class ApplicationDesire extends AdmObject
                 return true;
         }
 
-        public function shouldBeCalculatedField($attribute)
-        {
-                if ($attribute == "training_unit_id") return true;
-                if ($attribute == "weighted_percentage") return true;
-                if ($attribute == "weighted_percentage_details") return true;
-                if ($attribute == "current_fields_matrix") return true;
-                return false;
-        }
+        
 
 
         public function select_visibilite_horizontale($dropdown = false)
@@ -744,5 +737,16 @@ class ApplicationDesire extends AdmObject
                 }
 
                 return true;
+        }
+
+        
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="sorting_field_1_id") return true;
+                if($attribute=="sorting_field_2_id") return true;
+                if($attribute=="sorting_field_3_id") return true;
+                if($attribute=="weighted_percentage") return true;
+                if($attribute=="weighted_percentage_details") return true;
+                if($attribute=="current_fields_matrix") return true;
+                return false;
         }
 }

@@ -62,10 +62,10 @@ class AdmSortingSessionAfwStructure
 
                 'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
                         'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                        'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
+                        'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 2,    
                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                        'CSS' => 'width_pct_50', ),
+                        'CSS' => 'width_pct_25', ),
 
                 'session_num' => array(
                         'STEP' => 1,
@@ -84,11 +84,11 @@ class AdmSortingSessionAfwStructure
                         'TYPE' => 'INT',
                         'READONLY' => true,
                         'DNA' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ),
 
                 'name_ar' => array(
-                        'STEP' => 2,
+                        'STEP' => 1,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -108,7 +108,7 @@ class AdmSortingSessionAfwStructure
                 ),
 
                 'name_en' => array(
-                        'STEP' => 2,
+                        'STEP' => 1,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -219,12 +219,6 @@ class AdmSortingSessionAfwStructure
 
                  
 
-                'validated' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
-                        'MANDATORY' => false, 'QSEARCH' => false, 
-                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                        'CSS' => 'width_pct_50',),
-
                 'validate_date' => [
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -242,20 +236,15 @@ class AdmSortingSessionAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_33',
                 ],
 
-                'published' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
-                        'MANDATORY' => false, 'QSEARCH' => false, 
-                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                        'CSS' => 'width_pct_50',),
-
+                
                 'publish_date' => [
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE' => false,
+                        'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SEARCH-ADMIN' => true,
@@ -268,14 +257,14 @@ class AdmSortingSessionAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_33',
                 ],
                 
                 'last_approve_date' => [
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE' => false,
+                        'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SEARCH-ADMIN' => true,
@@ -287,14 +276,26 @@ class AdmSortingSessionAfwStructure
                         'STEP' => 3,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_33',
                 ],
-                
-                'upgraded' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+
+                'validated' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                         'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
                         'MANDATORY' => false, 'QSEARCH' => false, 
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                        'CSS' => 'width_pct_50',),
+                        'CSS' => 'width_pct_33',),
+
+                'published' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
+                        'MANDATORY' => false, 'QSEARCH' => false, 
+                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                        'CSS' => 'width_pct_33',),
+                
+                'upgraded' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
+                        'MANDATORY' => false, 'QSEARCH' => false, 
+                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                        'CSS' => 'width_pct_33',),
 
 
 

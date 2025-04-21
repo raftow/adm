@@ -1,6 +1,11 @@
 <?php
 if(!class_exists("AfwSession")) die("Denied access");
+
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_1 float DEFAULT NULL  AFTER comments;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_2 float DEFAULT NULL  AFTER sorting_value_1;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_3 float DEFAULT NULL  AFTER sorting_value_2;");
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.program_track add   sorting_group_id int(11) DEFAULT NULL  AFTER sorting_formula;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER program_offering_id;");
@@ -17,8 +22,8 @@ AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.academic_program_offering
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.academic_program_offering po set po.sorting_group_id=(select pt.sorting_group_id from ".$server_db_prefix."adm.program_track pt where pt.id = po.program_track_id);");
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_model_branch amb set amb.sorting_group_id=(select po.sorting_group_id from ".$server_db_prefix."adm.academic_program_offering po where po.id = amb.program_offering_id);");
 
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_desire ad set ad.application_model_branch_id=(select apb.application_model_branch_id from ".$server_db_prefix."adm.application_plan_branch apb where apb.id = ad.application_plan_branch_id);");
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_desire ad set ad.sorting_group_id=(select amb.sorting_group_id from ".$server_db_prefix."adm.application_model_branch amb where amb.id = ad.application_model_branch_id);");
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_desire ad set ad.application_model_branch_id=(select apb.application_model_branch_id from ".$server_db_prefix."adm.application_plan_branch apb where apb.id = ad.application_plan_branch_id) where  ad.application_model_branch_id is null or  ad.application_model_branch_id = 0;");
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_desire ad set ad.sorting_group_id=(select amb.sorting_group_id from ".$server_db_prefix."adm.application_model_branch amb where amb.id = ad.application_model_branch_id) where  ad.sorting_group_id is null or  ad.sorting_group_id = 0;");
 
 
 

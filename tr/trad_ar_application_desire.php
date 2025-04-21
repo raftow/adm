@@ -25,6 +25,15 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["health_ind"] = "لائق طبيا";    
 		$trad["application_desire"]["desire_num"] = "ترتيب الرغبة"; 
 		$trad["application_desire"]["comments"] = "ملاحظات";    
+
+		$trad["application_desire"]["sorting_field_1_id"] = "معيار الفرز 1";    
+		$trad["application_desire"]["sorting_field_2_id"] = "معيار الفرز 2";    
+		$trad["application_desire"]["sorting_field_3_id"] = "معيار الفرز 3";    
+
+		$trad["application_desire"]["sorting_value_1"] = "قيمة معيار الفرز 1";    
+		$trad["application_desire"]["sorting_value_2"] = "قيمة معيار الفرز 2";    
+		$trad["application_desire"]["sorting_value_3"] = "قيمة معيار الفرز 3";    
+
 		 
 		$trad["application_desire"]["training_unit_id"] = "المنشأة التدريبية";  
 		$trad["application_desire"]["academic_level_id"] = "المرحلة الاكاديمية";
@@ -41,8 +50,9 @@ class ApplicationDesireArTranslator{
 
 		$trad["application_desire"]["step1"] = "التعريف بالرغبة";
 		$trad["application_desire"]["step2"] = "البيانات";
-		$trad["application_desire"]["step3"] = "حالة القبول";
+		$trad["application_desire"]["step3"] = "حالة التقديم";
 		$trad["application_desire"]["step4"] = "تطبيق الشروط";
+		$trad["application_desire"]["step5"] = "الفرز والقبول";
 		
 		return $trad;
     }

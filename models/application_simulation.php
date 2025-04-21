@@ -107,7 +107,24 @@ class ApplicationSimulation extends AdmObject{
             $color = "green";
             $title_ar = "تنفيذ المحاكاة"; 
             $methodName = "runSimulation";
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("controlPanel"));
+            list($dangerous_ar, $dangerous_en) = $this->calcDangerous();
+            $pbRow = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("controlPanel"));
+            if($dangerous_en)
+            {
+                $by_settings_en = "By simulation settings";
+                $by_settings_ar = $this->tm($by_settings_en, "ar");
+                $methodConfirmationWarningEn = "This action can not be canceled !";
+                $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar") ." ". $by_settings_ar ." ". trim($dangerous_ar, "/");
+                $methodConfirmationWarningEn .= " ". $by_settings_en ." ". trim($dangerous_en, "/");
+    
+                $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+
+                $pbRow['CONFIRMATION_NEEDED'] = true;
+                $pbRow['CONFIRMATION_WARNING'] = array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn);
+                $pbRow['CONFIRMATION_QUESTION'] = array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn);
+            }
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = $pbRow;
             
             $color = "red";
             $title_ar = "تصفير المحاكاة"; 
@@ -740,6 +757,35 @@ class ApplicationSimulation extends AdmObject{
         }        
         $html .= "</div> <!-- control-panel -->";
         return $html;
+    }
+
+    public function calcDangerous($what = "value")    
+    {
+
+        $arrOptions = $this->getOptions();
+        $reset_simulation = (strtolower($arrOptions["RESET_SIMULATION"])!="none");
+        $erase_existing_desires = (strtolower($arrOptions["ERASE-EXISTING-DESIRES"])!="off");
+
+        $result_en = "";
+        $result_ar = "";
+
+        $reset_simulation_war_en = "The simulation will be reset for some or all applicants";
+        $reset_simulation_war_ar = $this->tm($reset_simulation_war_en, "ar");
+        $erase_existing_desires_war_en = "The existing desires will reset and re-applied";
+        $erase_existing_desires_war_ar = $this->tm($erase_existing_desires_war_en, "ar");
+        
+        if($reset_simulation) 
+        {
+            $result_ar .= "/". $reset_simulation_war_ar;
+            $result_en .= "/". $reset_simulation_war_ar;
+        }
+        if($erase_existing_desires) 
+        {
+            $result_ar .= "/". $erase_existing_desires_war_ar;
+            $result_en .= "/". $erase_existing_desires_war_en;
+        }
+
+        return [$result_ar, $result_en];
     }
 
     public function calcStatsPanel($what = "value")
