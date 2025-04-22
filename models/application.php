@@ -313,7 +313,24 @@ class Application extends AdmObject
         {
 
                 $pbms = array();
-
+                
+                if($this->calcNb_desires()==0)
+                {
+                        $color = "green";
+                        $title_ar = $this->tm("simulate desires from offline data", 'ar');
+                        $title_en = $this->tm("simulate desires from offline data", 'en');
+                        $methodName = "simulateDesiresFromOfflineData";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("application_plan_branch_mfk")
+                        );
+                }
+                
 
                 $currentStepNum = $this->getVal("step_num");
                 $nextStepNum = $currentStepNum + 1;
@@ -579,6 +596,30 @@ class Application extends AdmObject
                 $log .= "\n<br> PB ".AfwLanguageHelper::translateKeyword("Found", $lang)." : ".count($applicationPlanBranchArr);
 
                 return [",".implode(",",$applicationPlanBranchArr).",", $log];
+        }
+
+        public function simulateDesiresFromOfflineData($lang="ar")
+        {
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+
+
+                $applicationSimulationObj = $this->het("application_simulation_id");
+                $applicationPlanObj = $this->het("application_plan_id");
+
+                if($applicationSimulationObj and $applicationPlanObj)
+                {
+                        $idn = $this->getVal("idn");
+                        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                        $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
+                        list($myApplicationDesireList, $log)  = $this->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
+                        $tech_arr[] = $log;
+                        $inf_arr[] = count($myApplicationDesireList)." desires has been created";
+                }
+
+                return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
         }
 
         public function simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow)
@@ -1130,7 +1171,8 @@ class Application extends AdmObject
         public function calcNb_desires($what = "value")
         {
                 $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
-                $application_plan_branch_mfk = trim($application_plan_branch_mfk,",");
+                $application_plan_branch_mfk = trim(trim($application_plan_branch_mfk,","));
+                if(!$application_plan_branch_mfk) return 0;
                 return count(explode(",",$application_plan_branch_mfk));
                 /*
                 if($this->nb_desires === null)

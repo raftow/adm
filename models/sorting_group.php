@@ -5,7 +5,7 @@ $file_dir_name = dirname(__FILE__);
                 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class SortingGroup extends AFWObject{
+class SortingGroup extends AdmObject{
 
         public static $MY_ATABLE_ID=13945; 
   
@@ -14,11 +14,44 @@ class SortingGroup extends AFWObject{
         public static $TABLE			= "sorting_group";
 
 	    public static $DB_STRUCTURE = null;
+
+        public static $sortingCritereaMatrix = [];
 	
 	    public function __construct(){
 		parent::__construct("sorting_group","id","adm");
             AdmSortingGroupAfwStructure::initInstance($this);    
 	    }
+
+
+        public static function loadSortingCriterea($id)
+        {
+            if(!self::$sortingCritereaMatrix[$id])
+            {
+                $objSG = self::loadById($id);
+                
+                $sortingCritereaRow = ['c1'=>null,'c2'=>null,'c3'=>null,];
+
+                if($objSG)
+                {
+                    for($i=1; $i<=3; $i++)
+                    {
+                        $objSCF = $objSG->het("sorting_field_".$i."_id");
+                        if($objSCF)
+                        {
+                            $nameSCF = $objSCF->getVal("field_name");                            
+                            $field_method = $objSCF->sureIs("reel") ? "getVal" : "calc";
+                            $sensSCF = self::code_of_sorting_sens_enum($objSG->getVal("field".$i."_sorting_sens_enum"));
+                            $sortingCritereaRow['c'.$i] = ["field_name"=>$nameSCF, "field_sens"=>$sensSCF, "field_method"=>$field_method];
+                        }
+                    }
+                }
+
+                self::$sortingCritereaMatrix[$id] = $sortingCritereaRow;
+            }
+
+            return self::$sortingCritereaMatrix[$id];
+            
+        }
         
         public static function loadById($id)
         {
@@ -73,11 +106,9 @@ class SortingGroup extends AFWObject{
             $pbms = array();
             
             $color = "green";
-            $title_ar = "xxxxxxxxxxxxxxxxxxxx"; 
-            $methodName = "mmmmmmmmmmmmmmmmmmmmmmm";
-            //$pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("xxyy"));
-            
-            
+            $title_ar = "fill Formula Fields"; 
+            $methodName = "fillFormulaFields";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sorting_field_1_id"));
             
             return $pbms;
         }
@@ -125,6 +156,45 @@ class SortingGroup extends AFWObject{
         public function isTechField($attribute) {
             return (($attribute=="created_by") or ($attribute=="created_at") or ($attribute=="updated_by") or ($attribute=="updated_at") or ($attribute=="validated_by") or ($attribute=="validated_at") or ($attribute=="version"));  
         }
+        
+        public function fillFormulaFields($lang="ar", $forced=false)
+        {
+            $formulaField1Obj = $this->het("formula_field_1_id");
+            if((!$forced) and $formulaField1Obj) return ["some formula fields already filled, use forced mode", ""];
+
+            $sortingField1Obj = $this->het("sorting_field_1_id");
+            if(!$sortingField1Obj) return ["", "", "No sorting field 1 defined"];
+
+            $this->set("formula_field_1_id", $sortingField1Obj->getVal("formula_field_1_id"));
+            $this->set("formula_field_2_id", $sortingField1Obj->getVal("formula_field_2_id"));
+            $this->set("formula_field_3_id", $sortingField1Obj->getVal("formula_field_3_id"));
+
+            $nb = 3;
+            $sortingField2Obj = $this->het("sorting_field_2_id");
+            if($sortingField2Obj)
+            {
+                $this->set("formula_field_4_id", $sortingField2Obj->getVal("formula_field_1_id"));
+                $this->set("formula_field_5_id", $sortingField2Obj->getVal("formula_field_2_id"));
+                $this->set("formula_field_6_id", $sortingField2Obj->getVal("formula_field_3_id"));
+                $nb += 3;
+
+                $sortingField3Obj = $this->het("sorting_field_3_id");
+                if($sortingField3Obj)
+                {
+                    $this->set("formula_field_7_id", $sortingField3Obj->getVal("formula_field_1_id"));
+                    $this->set("formula_field_8_id", $sortingField3Obj->getVal("formula_field_2_id"));
+                    $this->set("formula_field_9_id", $sortingField3Obj->getVal("formula_field_3_id"));
+                    $nb += 3;
+                }
+            }
+
+            $this->commit();
+
+            return ["", "done $nb fields"];
+
+            
+        }
+
         
         
         public function beforeDelete($id,$id_replace) 

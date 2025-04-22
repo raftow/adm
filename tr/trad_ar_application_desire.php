@@ -38,6 +38,7 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["training_unit_id"] = "المنشأة التدريبية";  
 		$trad["application_desire"]["academic_level_id"] = "المرحلة الاكاديمية";
 		$trad["application_desire"]["application_model_id"] = "نموذج القبول";
+		$trad["application_desire"]["application_model_branch_id"] = "فرع القبول";
 		$trad["application_desire"]["training_unit_type_id"] = "الكلية";
 		$trad["application_desire"]["gender_enum"] = "الجنس";
 		$trad["application_desire"]["sorting_group_id"] = "مجموعة الفرز";

@@ -910,6 +910,7 @@ class Applicant extends AdmObject
                 $application_model_id = $applicationPlanObj->getVal("application_model_id");
                 $application_simulation_id = $applicationSimulationObj->id; 
                 $options = $applicationSimulationObj->getOptions();
+                $reComputeSortingCriterea = (strtolower($options["RE-COMPUTE-SORTING-CRITEREA-VALUES"]) == "on");
                 $idn = $this->getVal("idn");
                 $bootstraps = 0;
                 $desire_bootstraps = 0;
@@ -962,6 +963,12 @@ class Applicant extends AdmObject
                                                 $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
                                                 if($desireStepCode=="SRT")
                                                 {
+                                                        
+                                                        if($reComputeSortingCriterea or $appDesireItem->sortingCritereaNeedRefresh())
+                                                        {
+                                                                $appDesireItem->reComputeSortingCriterea($lang);
+                                                        }
+                                                        
                                                         $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
                                                 }
                                                 else
@@ -1167,7 +1174,7 @@ class Applicant extends AdmObject
                 return $this->calcSecondary_info($info = "secondary_major_path", $what);
         }
 
-        public function calcAptitude_Score($what = "value")
+        public function calcAptitude_score($what = "value")
         {
                 if($this->aptitude_Score===null)
                 {
@@ -1177,7 +1184,7 @@ class Applicant extends AdmObject
                 return $this->aptitude_Score;
         }
 
-        public function calcAchievement_Score($what = "value")
+        public function calcAchievement_score($what = "value")
         {
                 if($this->achievement_Score===null)
                 {
@@ -1236,9 +1243,9 @@ class Applicant extends AdmObject
 
                         $a = $this->calcSecondary_cumulative_pct("value", $objSQ);
                         if (!$a) $a = "0.0";
-                        $b = $this->calcAptitude_Score();
+                        $b = $this->calcAptitude_score();
                         if (!$b) $b = "0.0";
-                        $c = $this->calcAchievement_Score();
+                        $c = $this->calcAchievement_score();
                         if (!$c) $c = "0.0";
 
                          

@@ -130,7 +130,11 @@ class ApplicantArTranslator{
 		$trad["applicant"]["qiyas_achievement_sc"] = "درجةاختبار التحصيل الدراسي-التخصصات العلمية";
 		$trad["applicant"]["qiyas_achievement_sc_date"] = "تاريخ اختبار التحصيلي-التخصصات العلمية";
 		
+		$trad["applicant"]["achievement_score"] = "درجة التحصيلي";
+		$trad["applicant"]["aptitude_score"] = "درجة القدرات العامة";
+		$trad["applicant"]["secondary_cumulative_pct"] = "درجة الثانوية التراكمية";
 		
+		 
 
 		// additional fields steps
 		// $start_additional_step = 2;

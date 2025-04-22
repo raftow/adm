@@ -363,7 +363,28 @@ class SortingSession extends AFWObject
     }
 
 
-    
+    public function calcApplication_ongoing($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        list($yes , $no, $euh) = $this->translateMyYesNo("application_ongoing", $what, $lang);
+        $applicationSimulationObj = $this->het("application_simulation_id");
+        if(!$applicationSimulationObj) return $euh;
+
+
+        $sorting_start_date = $this->getVal("start_date");
+        $sorting_end_date = $this->getVal("end_date"); 
+        $now = date("Y-m-d");
+
+        $period_of_sorting = (($now>=$sorting_start_date) and ($now<=$sorting_end_date));
+
+        if($applicationSimulationObj->id==2) // reelle not simulation
+        {
+            return $period_of_sorting ? $no : $yes;
+        }
+
+        if($applicationSimulationObj->isRunning() or (!$period_of_sorting)) return $yes;
+        return $no;
+    }
 
     public function calcSorting_step_id($what = "value")
     {
@@ -466,7 +487,7 @@ class SortingSession extends AFWObject
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                                                 'STEP' => $this->stepOfAttribute("published"));
         }
-        else
+        elseif(!$this->sureIs("application_ongoing"))
         {
             $methodConfirmationWarningEn = "You agree that the application data and desires are correct and ready for sorting";
             $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
@@ -530,16 +551,23 @@ class SortingSession extends AFWObject
         $sortingGroupList = $this->get("sortingGroupList");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-         
+        
+        if(!$session_num) return ["Please define session num for this sorting session", ""];
+        if(!$application_plan_id) return ["Please define application plan for this sorting session", ""];
+        if(!$application_simulation_id) return ["Please define application simulation type for this sorting session", ""];
         
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
         {
-            $sf1 = $sortingGroupItem->het("sorting_field_1_id");
-            $sf1_sql = $sf1 ? "sf1_val float NOT NULL, " : "";
-            $sf2 = $sortingGroupItem->het("sorting_field_2_id");
-            $sf2_sql = $sf2 ? "sf2_val float NOT NULL, " : "";
-            $sf3 = $sortingGroupItem->het("sorting_field_3_id");
-            $sf3_sql = $sf3 ? "sf3_val float NOT NULL, " : "";
+            $sortingCriterea = SortingGroup::loadSortingCriterea($sortingGroupId);
+            $sf1 = $sortingCriterea["c1"];
+            $sf1_sql = $sf1 ? "sorting_value_1 float NOT NULL, " : "";
+            $sf1_insert = $sf1 ? "sorting_value_1, " : "";
+            $sf2 = $sortingCriterea["c2"];
+            $sf2_sql = $sf2 ? "sorting_value_2 float NOT NULL, " : "";
+            $sf2_insert = $sf2 ? "sorting_value_2, " : "";
+            $sf3 = $sortingCriterea["c3"];
+            $sf3_sql = $sf3 ? "sorting_value_3 float NOT NULL, " : "";
+            $sf3_insert = $sf3 ? "sorting_value_3, " : "";
 
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
             
@@ -554,16 +582,32 @@ class SortingSession extends AFWObject
                $sf3_sql
                sorting_num smallint DEFAULT NULL, 
                assigned_desire_num smallint DEFAULT NULL, 
+               desire_status smallint DEFAULT 0, 
                application_plan_branch_id int(11) NULL, 
                PRIMARY KEY (`applicant_id`)
             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
 
             AfwDatabase::db_query($sql_create);
+
+
+            $sql_insert = "INSERT INTO ".$server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId` 
+                             (applicant_id, $sf1_insert $sf2_insert $sf3_insert assigned_desire_num)".
+                           "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert min(desire_num) as assigned_desire_num
+                            FROM ".$server_db_prefix."adm.application_desire
+                            WHERE application_plan_id = $application_plan_id 
+                              AND application_simulation_id = $application_simulation_id 
+                              AND sorting_group_id = $sortingGroupId
+                              AND active = 'Y'
+                            GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
+                            ";
+
+
+            AfwDatabase::db_query($sql_insert);
                 
         }
 
 
-        $applicationDesireList = $this->get("applicationDesireList");
+        // $applicationDesireList = $this->get("applicationDesireList");
 
         
 

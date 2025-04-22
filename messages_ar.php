@@ -128,6 +128,8 @@
     $messages["By simulation settings"] = "حسب إعدادات المحاكاة";
     $messages["Are you sure you want to do this action ?"] = "هل أنت متأكد من أنك تريد القيام بهذا الإجراء ؟";
     $messages["You agree that the application data and desires are correct and ready for sorting"] = "أنت توافق على أن بيانات التقديم والرغبات صحيحة وجاهزة لاجراء الفرز";
+    $messages["simulate desires from offline data"] = "محاكاة الرغبات من البيانات الجاهزة";
+    $messages["desires has been created"] = "رغبات تم إنشاءها";
     
     // $messages[""] = "";
     

@@ -69,3 +69,7 @@ $trad["application_field"]["step_group"] = "التبويب والمجموعة";
 
 $trad["application_field"]["application_field_category_id"] = "صنف الحقل";
 $trad["application_field"]["field_width"] = "الطول الظاهر";
+
+$trad["application_field"]["formula_field_1_id"] = "الخوارزمية - حقل 1";
+$trad["application_field"]["formula_field_2_id"] = "الخوارزمية - حقل 2";
+$trad["application_field"]["formula_field_3_id"] = "الخوارزمية - حقل 3";

@@ -446,6 +446,17 @@ class ApplicationField extends AdmObject
         
      }
 
+     
+        public function attributeIsApplicable($attribute)
+        {
+               if (($attribute == "formula_field_1_id") or ($attribute == "formula_field_2_id") or ($attribute == "formula_field_3_id")) 
+               {
+                    return (!$this->sureIs("reel"));
+               }
+
+               return true;
+        }
+
      /**
       * To do Static public method That execute
       * update pmu_adm.application_field af set af.active = (select f.avail from pmu_pag.afield f where f.id = af.id);

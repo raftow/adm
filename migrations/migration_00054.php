@@ -3,6 +3,32 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_1_id int(11) NOT NULL  AFTER field_size;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_2_id int(11) DEFAULT NULL  AFTER formula_field_1_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_3_id int(11) DEFAULT NULL  AFTER formula_field_2_id;");
+
+AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`application_field` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `field_name`, `shortname`, `application_table_id`, `application_field_type_id`, `field_title_ar`, `field_title_en`, `usable_in_conditions`, `reel`, `additional`, `unit`, `unit_en`, `field_order`, `field_num`, `field_size`, `formula_field_1_id`, `formula_field_2_id`, `formula_field_3_id`, `help_text`, `help_text_en`, `question_text`, `question_text_en`) VALUES
+(111233, 1, '2025-04-22 14:14:18', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 4, NULL, NULL, NULL, NULL, 'aptitude_score', '', 1, 16, 'درجة القدرات العامة', 'aptitude_score', 'Y', 'N', 'N', '', '', 580, NULL, 32, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(111234, 1, '2025-04-22 14:14:18', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 4, NULL, NULL, NULL, NULL, 'achievement_score', '', 1, 16, 'درجة التحصيلي', 'achievement_score', 'Y', 'N', 'N', '', '', 630, NULL, 32, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(111235, 1, '2025-04-22 14:14:18', 0, '0000-00-00 00:00:00', NULL, NULL, 'Y', 'Y', 2, NULL, NULL, NULL, NULL, 'secondary_cumulative_pct', '', 1, 16, 'درجة الثانوية التراكمية', 'secondary_cumulative_pct', 'Y', 'N', 'N', '', '', 680, NULL, 32, 0, NULL, NULL, NULL, NULL, NULL, NULL);");
+
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   field1_sorting_sens_enum smallint DEFAULT NULL  AFTER sorting_field_3_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   field2_sorting_sens_enum smallint DEFAULT NULL  AFTER field1_sorting_sens_enum;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   field3_sorting_sens_enum smallint DEFAULT NULL  AFTER field2_sorting_sens_enum;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_1_id int(11) NOT NULL  AFTER field3_sorting_sens_enum;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_2_id int(11) DEFAULT NULL  AFTER formula_field_1_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_3_id int(11) DEFAULT NULL  AFTER formula_field_2_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_4_id int(11) NOT NULL  AFTER formula_field_3_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_5_id int(11) DEFAULT NULL  AFTER formula_field_4_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_6_id int(11) DEFAULT NULL  AFTER formula_field_5_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_7_id int(11) NOT NULL  AFTER formula_field_6_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_8_id int(11) DEFAULT NULL  AFTER formula_field_7_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_group add   formula_field_9_id int(11) DEFAULT NULL  AFTER formula_field_8_id;");
+
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_1 float DEFAULT NULL  AFTER comments;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_2 float DEFAULT NULL  AFTER sorting_value_1;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_3 float DEFAULT NULL  AFTER sorting_value_2;");

@@ -132,6 +132,7 @@ class ApplicationDesire extends AdmObject
                         $obj->set("application_id", $applicationObj->id);
                         $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
                         $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
+                        $obj->set("application_model_branch_id", $applicationModelBranchObj->id);
                         if(!$applicationModelBranchObj)  throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id $application_plan_branch_id doesn't have an application_model_branch_id");
         
                         $obj->set("sorting_group_id", $applicationModelBranchObj->getVal("sorting_group_id",));
@@ -197,6 +198,7 @@ class ApplicationDesire extends AdmObject
                 $app_des_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED-BEFORE-APPLY"]) != "off");
+                
                 $application_simulation_id = $options["SIMULATION-ID"];
                 $audit_conditions_pass = explode(",", $options["AUDIT_ON_PASS_CONDITION_IDS"]);
                 $audit_conditions_fail = explode(",", $options["AUDIT_ON_FAIL_CONDITION_IDS"]);
@@ -248,6 +250,7 @@ class ApplicationDesire extends AdmObject
                         } 
                         else 
                         {
+                                
                                 $bootstrapResult = "done";
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Sorting step reached", $lang) . "<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
                         }
@@ -748,5 +751,41 @@ class ApplicationDesire extends AdmObject
                 if($attribute=="weighted_percentage_details") return true;
                 if($attribute=="current_fields_matrix") return true;
                 return false;
+        }
+
+
+        public function sortingCritereaNeedRefresh()
+        {
+                $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
+                for($i=1; $i<=3; $i++)
+                {
+                        if($sortingCriterea["c$i"])
+                        {
+                                if(!$this->getVal("sorting_value_$i")) return true;
+                        }                        
+                }
+
+                return false;
+        }
+
+        public function reComputeSortingCriterea($lang = "ar", $commit=true)
+        {
+                $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
+                for($i=1; $i<=3; $i++)
+                {
+                        if($sortingCriterea["c$i"])
+                        {
+                                $field_name = $sortingCriterea["c$i"]["field_name"];
+                                // $field_sens = $sortingCriterea["c$i"]["field_sens"];
+                                $field_method = $sortingCriterea["c$i"]["field_method"];
+
+                                $value = $this->$field_method($field_name);
+                                $this->set("sorting_value_$i", $value);
+                        }
+                }
+
+                if($commit) $this->commit();
+
+                return [$this->translate("done",$lang), ""];
         }
 }

@@ -25,7 +25,10 @@ class SortingSessionArTranslator{
 		
 		$trad["sorting_session"]["upgraded"] = "تم فرز الترقية";
 		$trad["sorting_session"]["last_approve_date"] = "آخر أجل لتأكيد القبول";
-		 
+		$trad["sorting_session"]["application_ongoing"] = "حالة التقديم"; 
+		$trad["sorting_session"]["application_ongoing.YES"] = "جارية"; 
+		$trad["sorting_session"]["application_ongoing.NO"] = "متوقفة"; 
+		$trad["sorting_session"]["application_ongoing.EUH"] = "البيانات تحت المراجعة"; 
 		$trad["sorting_session"]["nb_desires"] = "عدد المترشحين لكرة الفرز";
 		$trad["sorting_session"]["application_simulation_id"] = "الفرز على";
 		$trad["sorting_session"]["sortingGroupList"] = "مجموعات الفرز";

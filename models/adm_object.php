@@ -155,10 +155,10 @@ class AdmObject extends AfwMomkenObject{
 
         public static function code_of_training_period_enum($lkp_id=null)
         {
-            $lang = AfwLanguageHelper::getGlobalLanguage();
             if($lkp_id) return self::training_period()['code'][$lkp_id];
             else return self::training_period()['code'];
         }
+        
 
         public static function name_of_training_period_enum($training_period_enum, $lang="ar")
         {
@@ -191,6 +191,39 @@ class AdmObject extends AfwMomkenObject{
 
                 
                 return $arr_list_of_training_period;
+        } 
+
+        public static function code_of_sorting_sens_enum($lkp_id=null)
+        {
+            if($lkp_id) return self::sorting_sens()['code'][$lkp_id];
+            else return self::sorting_sens()['code'];
+        }
+
+        public static function name_of_sorting_sens_enum($sorting_sens_enum, $lang="ar")
+        {
+            return self::sorting_sens()[$lang][$sorting_sens_enum];            
+        }
+        
+        public static function list_of_sorting_sens_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::sorting_sens()[$lang];
+        }
+        
+        public static function sorting_sens()
+        {
+                $arr_list_of_sorting_sens = array();
+                
+                        
+                $arr_list_of_sorting_sens["en"][1] = "Priority for biggest value";
+                $arr_list_of_sorting_sens["ar"][1] = "الأولوية للقيمة الأكبر";
+                $arr_list_of_sorting_sens["code"][1] = "desc";
+
+                $arr_list_of_sorting_sens["en"][2] = "Priority for smallest value";
+                $arr_list_of_sorting_sens["ar"][2] = "الأولوية للقيمة الأصغر";
+                $arr_list_of_sorting_sens["code"][2] = "asc";
+
+                return $arr_list_of_sorting_sens;
         } 
 
         public function settings($field_name, $col_struct)
@@ -371,22 +404,26 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_desire_status_enum["en"][3] = "final acceptance";
                 $arr_list_of_desire_status_enum["ar"][3] = "قبول نهائي";
                 $arr_list_of_desire_status_enum["code"][3] = "final-acceptance";
-                                                       
-                $arr_list_of_desire_status_enum["en"][4] = "withdrawn";
-                $arr_list_of_desire_status_enum["ar"][4] = "منسحب";
-                $arr_list_of_desire_status_enum["code"][4] = "withdrawn";
-                                                       
-                $arr_list_of_desire_status_enum["en"][5] = "rejected";
-                $arr_list_of_desire_status_enum["ar"][5] = "مرفوض";
-                $arr_list_of_desire_status_enum["code"][5] = "rejected";
-                                                       
-                $arr_list_of_desire_status_enum["en"][6] = "data review";
-                $arr_list_of_desire_status_enum["ar"][6] = "مراجعة البيانات";
-                $arr_list_of_desire_status_enum["code"][6] = "data-review";
 
-                $arr_list_of_desire_status_enum["en"][7] = "excluded";
-                $arr_list_of_desire_status_enum["ar"][7] = "مستبعد";
-                $arr_list_of_desire_status_enum["code"][7] = "excluded";
+                $arr_list_of_desire_status_enum["en"][4] = "data review";
+                $arr_list_of_desire_status_enum["ar"][4] = "مراجعة البيانات";
+                $arr_list_of_desire_status_enum["code"][4] = "data-review";
+
+                $arr_list_of_desire_status_enum["en"][5] = "accepted in higher desire";
+                $arr_list_of_desire_status_enum["ar"][5] = "قبول في رغبة أعلى";
+                $arr_list_of_desire_status_enum["code"][5] = "higher-desire";
+                                                       
+                $arr_list_of_desire_status_enum["en"][6] = "withdrawn";
+                $arr_list_of_desire_status_enum["ar"][6] = "منسحب";
+                $arr_list_of_desire_status_enum["code"][6] = "withdrawn";
+                                                       
+                $arr_list_of_desire_status_enum["en"][7] = "rejected";
+                $arr_list_of_desire_status_enum["ar"][7] = "مرفوض";
+                $arr_list_of_desire_status_enum["code"][7] = "rejected";
+                                                       
+                $arr_list_of_desire_status_enum["en"][8] = "excluded";
+                $arr_list_of_desire_status_enum["ar"][8] = "مستبعد";
+                $arr_list_of_desire_status_enum["code"][8] = "excluded";
                 
                 
                 return $arr_list_of_desire_status_enum;

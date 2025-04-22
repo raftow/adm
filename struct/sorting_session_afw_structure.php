@@ -185,6 +185,12 @@ class AdmSortingSessionAfwStructure
                                                 'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_50', ),
 
+                'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                                'EDIT' => true,  'READONLY' => true, 
+                                                'TYPE' => 'YN',  'STEP' => 2, 'READONLY'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),                                                
+
 
                 'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
