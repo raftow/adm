@@ -13,7 +13,7 @@ class SortingPathArTranslator{
 		$trad["sorting_path"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["sorting_path"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["sorting_path"]["sorting_path_code"] = "رمز المسار";
-		$trad["sorting_path"]["capacity"] = "نسبة الطاقة الاستيعابية";
+		$trad["sorting_path"]["capacity_pct"] = "نسبة الطاقة الاستيعابية";
 		$trad["sorting_path"]["application_model_id"] = "نموذج التقديم";
         // steps
         return $trad;

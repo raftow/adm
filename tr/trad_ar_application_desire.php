@@ -49,11 +49,33 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["current_fields_matrix"] = "حالة تحديث البيانات";
 		$trad["application_desire"]["applicationConditionExecList"] = "تطبيق الشروط";
 
+
+		$trad["application_desire"]["formula_field_1_id"] = "الحقل خـ 1";    
+		$trad["application_desire"]["formula_field_2_id"] = "الحقل خـ 2";    
+		$trad["application_desire"]["formula_field_3_id"] = "الحقل خـ 3";    
+        $trad["application_desire"]["formula_field_4_id"] = "الحقل خـ 4";    
+		$trad["application_desire"]["formula_field_5_id"] = "الحقل خـ 5";    
+		$trad["application_desire"]["formula_field_6_id"] = "الحقل خـ 6";    
+        $trad["application_desire"]["formula_field_7_id"] = "الحقل خـ 7";    
+		$trad["application_desire"]["formula_field_8_id"] = "الحقل خـ 8";    
+		$trad["application_desire"]["formula_field_9_id"] = "الحقل خـ 9";    
+
+		$trad["application_desire"]["formula_value_1"] = "قيمة الحقل خـ 1";    
+		$trad["application_desire"]["formula_value_2"] = "قيمة الحقل خـ 2";    
+		$trad["application_desire"]["formula_value_3"] = "قيمة الحقل خـ 3";
+		$trad["application_desire"]["formula_value_4"] = "قيمة الحقل خـ 4";    
+		$trad["application_desire"]["formula_value_5"] = "قيمة الحقل خـ 5";    
+		$trad["application_desire"]["formula_value_6"] = "قيمة الحقل خـ 6";
+		$trad["application_desire"]["formula_value_7"] = "قيمة الحقل خـ 7";    
+		$trad["application_desire"]["formula_value_8"] = "قيمة الحقل خـ 8";    
+		$trad["application_desire"]["formula_value_9"] = "قيمة الحقل خـ 9";
+
 		$trad["application_desire"]["step1"] = "التعريف بالرغبة";
 		$trad["application_desire"]["step2"] = "البيانات";
 		$trad["application_desire"]["step3"] = "حالة التقديم";
 		$trad["application_desire"]["step4"] = "تطبيق الشروط";
 		$trad["application_desire"]["step5"] = "الفرز والقبول";
+		$trad["application_desire"]["step6"] = "حقول الخوارزميات";
 		
 		return $trad;
     }

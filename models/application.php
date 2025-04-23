@@ -763,6 +763,39 @@ class Application extends AdmObject
                 return $resPbm;
         }
 
+        public function forceGotoDesireStep($lang = "ar")
+        {
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                $result_arr = [];
+                
+                $this->getApplicationModel();
+                if (!$this->objApplicationModel) 
+                {
+                        $err_arr[] = $this->tm("Error happened, no application model defined for this application", $lang);
+                }
+                else
+                {
+                        $application_step_id = $this->objApplicationModel->calcDesires_selection_step_id();
+                        $this->set("application_step_id", $application_step_id);
+                        $currentStepObj = $this->het("application_step_id");
+                        $desiresSelectionStepNum = $currentStepObj->getVal("step_num");
+                        $desiresSelectionStepCode = $currentStepObj->getVal("step_code");
+                        $this->set("step_num", $desiresSelectionStepNum);
+                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                        $war = $this->tm("conditions apply skipped")." !!";
+                        $war_arr[]  = $war;
+                        $this->set("comments", $war);                        
+                        $this->commit();
+                        $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
+                        $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                }
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+                
+        }
+
         public function gotoNextStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);

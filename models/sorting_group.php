@@ -29,7 +29,7 @@ class SortingGroup extends AdmObject{
             {
                 $objSG = self::loadById($id);
                 
-                $sortingCritereaRow = ['c1'=>null,'c2'=>null,'c3'=>null,];
+                $sortingCritereaRow = ['c1'=>null,'c2'=>null,'c3'=>null,'f1'=>null,'f2'=>null,'f3'=>null,'f4'=>null,'f5'=>null,'f6'=>null,'f7'=>null,'f8'=>null,'f9'=>null,];
 
                 if($objSG)
                 {
@@ -42,6 +42,17 @@ class SortingGroup extends AdmObject{
                             $field_method = $objSCF->sureIs("reel") ? "getVal" : "calc";
                             $sensSCF = self::code_of_sorting_sens_enum($objSG->getVal("field".$i."_sorting_sens_enum"));
                             $sortingCritereaRow['c'.$i] = ["field_name"=>$nameSCF, "field_sens"=>$sensSCF, "field_method"=>$field_method];
+                        }
+                    }
+
+                    for($f=1;$f<=9;$f++)
+                    {
+                        $objFMF = $objSG->het("formula_field_".$f."_id");
+                        if($objFMF)
+                        {
+                            $nameFMF = $objFMF->getVal("field_name");                            
+                            $field_method = $objFMF->sureIs("reel") ? "getVal" : "calc";
+                            $sortingCritereaRow['f'.$f] = ["field_name"=>$nameFMF, "field_method"=>$field_method];
                         }
                     }
                 }

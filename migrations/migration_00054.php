@@ -33,12 +33,22 @@ AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire a
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_2 float DEFAULT NULL  AFTER sorting_value_1;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_value_3 float DEFAULT NULL  AFTER sorting_value_2;");
 
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.program_track add   sorting_group_id int(11) DEFAULT NULL  AFTER sorting_formula;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_1 float DEFAULT NULL  AFTER sorting_value_3;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_2 float DEFAULT NULL  AFTER formula_value_1;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_3 float DEFAULT NULL  AFTER formula_value_2;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_4 float DEFAULT NULL  AFTER formula_value_3;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_5 float DEFAULT NULL  AFTER formula_value_4;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_6 float DEFAULT NULL  AFTER formula_value_5;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_7 float DEFAULT NULL  AFTER formula_value_6;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_8 float DEFAULT NULL  AFTER formula_value_7;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   formula_value_9 float DEFAULT NULL  AFTER formula_value_8;");
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER program_offering_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_group_id int(11) DEFAULT NULL  AFTER training_unit_type_id;");
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program_offering add   sorting_group_id int(11) DEFAULT NULL  AFTER degree_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   application_model_branch_id int(11) NOT NULL  AFTER application_plan_branch_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.program_track add   sorting_group_id int(11) DEFAULT NULL  AFTER sorting_formula;");
 
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.academic_program_offering po set po.program_track_id=(select p.program_track_id from ".$server_db_prefix."adm.academic_program p where p.id = po.academic_program_id);");
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.academic_program_offering po set po.academic_level_id=(select p.academic_level_id from ".$server_db_prefix."adm.academic_program p where p.id = po.academic_program_id);");

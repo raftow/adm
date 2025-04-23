@@ -910,6 +910,7 @@ class Applicant extends AdmObject
                 $application_model_id = $applicationPlanObj->getVal("application_model_id");
                 $application_simulation_id = $applicationSimulationObj->id; 
                 $options = $applicationSimulationObj->getOptions();
+                $skipConditionsApply = (strtolower($options["SKIP-CONDITIONS-APPLY"]) == "on");
                 $reComputeSortingCriterea = (strtolower($options["RE-COMPUTE-SORTING-CRITEREA-VALUES"]) == "on");
                 $idn = $this->getVal("idn");
                 $bootstraps = 0;
@@ -929,9 +930,21 @@ class Applicant extends AdmObject
                         if($appObj)
                         {
                                 $appObj->setApplicantObject($this);
-                                list($stepCode, $resPbm, $tentatives1, $bootstrapAppResult, $bootstrapAppResultDetails) = $appObj->bootstrapApplication($lang, true, $options);
-                                $bootstraps += $tentatives1;
-                                list($err, $inf, $war, $tech) = $resPbm;
+                                if($skipConditionsApply)
+                                {
+                                        list($err, $inf, $war, $tech) = $appObj->forceGotoDesireStep($lang);
+                                        $stepCode = "DSR";
+                                        $bootstrapAppResult = "no-bootstrap";
+                                }
+                                else
+                                {
+                                        list($stepCode, $resPbm, $tentatives1, $bootstrapAppResult, $bootstrapAppResultDetails) = $appObj->bootstrapApplication($lang, true, $options);
+                                        $bootstraps += $tentatives1;
+                                        list($err, $inf, $war, $tech) = $resPbm;
+                                }
+                                
+                                
+                                
                                 if ($err) $err_arr[] = $err; 
                                 if ($inf) $inf_arr[] = $inf;
                                 if ($war) $war_arr[] = $war;
@@ -953,9 +966,18 @@ class Applicant extends AdmObject
                                         {
                                                 $appDesireItem =& $appDesireList[$appDesireId];
                                                 $disp = $appDesireItem->getDisplay($lang);
-                                                list($desireStepCode, $resPbm, $tentatives2, $bootstrapDesireResult) = $appDesireItem->bootstrapDesire($lang, true, $options);
-                                                $desire_bootstraps += $tentatives2;
-                                                list($err, $inf, $war, $tech) = $resPbm;
+                                                if($skipConditionsApply)
+                                                {
+                                                        list($err, $inf, $war, $tech) = $appDesireItem->forceGotoSortingStep($lang);
+                                                        $stepCode = "SRT";
+                                                        $bootstrapDesireResult = "no-bootstrap";
+                                                }
+                                                else
+                                                {
+                                                        list($desireStepCode, $resPbm, $tentatives2, $bootstrapDesireResult) = $appDesireItem->bootstrapDesire($lang, true, $options);
+                                                        $desire_bootstraps += $tentatives2;
+                                                        list($err, $inf, $war, $tech) = $resPbm;
+                                                }                                                
                                                 if ($err) $err_arr[] = $err; 
                                                 if ($inf) $inf_arr[] = $inf;
                                                 if ($war) $war_arr[] = $war;
@@ -1196,15 +1218,18 @@ class Applicant extends AdmObject
 
         public function calcSecondary_cumulative_pct($what = "value", $objSQ = null)
         {
-                $this->calcSecondary_info($info = "secondary_cumulative_pct", $what, $objSQ);
+                return $this->calcSecondary_info($info = "secondary_cumulative_pct", $what, $objSQ);
         }
 
         public function calcSecondary_info($info, $what = "value", $objSQ = null)
         {
                 if ($this->$info===null) {
+                        if (!$this->objSQ) $this->objSQ = $objSQ;
                         if (!$this->objSQ) $this->objSQ = $this->getSecondaryQualification();
                         $this->$info = $this->objSQ->getInfo($info);
+                        // die("this->objSQ->id = ".$this->objSQ->id);
                         if(!$this->$info) $this->$info = '';
+                        // if($info=="secondary_cumulative_pct") die("this->$info = ".$this->$info);
                 }
                 return $this->$info;
         }

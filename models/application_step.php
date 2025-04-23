@@ -8,7 +8,7 @@
                 public static $DB_STRUCTURE = null;
                 // public static $copypast = true;
 
-                public static $FIRST_STEPS = [];
+                public static $SPECIAL_STEPS = [];
 
                 public function __construct(){
                         parent::__construct("application_step","id","adm");
@@ -54,34 +54,52 @@
 
                 public static function loadFirstStep($application_model_id, $general='Y')
                 {
-                        if(!self::$FIRST_STEPS["AM-$application_model_id-G-$general"]) 
+                        if(!self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"]) 
                         {
                                 $obj = new ApplicationStep();  
                                 $obj->select("application_model_id",$application_model_id);
                                 $obj->select("general",$general);
-                                if($obj->load()) self::$FIRST_STEPS["AM-$application_model_id-G-$general"] = $obj; 
-                                else self::$FIRST_STEPS["AM-$application_model_id-G-$general"] = "NOT-FOUND"; 
+                                if($obj->load()) self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"] = $obj; 
+                                else self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"] = "NOT-FOUND"; 
                         }
                         
-                        if(self::$FIRST_STEPS["AM-$application_model_id-G-$general"] == "NOT-FOUND") return null;
+                        if(self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"] == "NOT-FOUND") return null;
                         
-                        return self::$FIRST_STEPS["AM-$application_model_id-G-$general"];
+                        return self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"];
+                }
+
+                
+
+                public static function loadDesiresSelectionStep($application_model_id)
+                {
+                        if(!self::$SPECIAL_STEPS["DESIRES-SELECTION-STEP-$application_model_id"]) 
+                        {
+                                $obj = new ApplicationStep();  
+                                $obj->select("application_model_id",$application_model_id);
+                                $obj->select("step_code","DSR");
+                                if($obj->load()) self::$SPECIAL_STEPS["DESIRES-SELECTION-STEP-$application_model_id"] = $obj; 
+                                else self::$SPECIAL_STEPS["DESIRES-SELECTION-STEP-$application_model_id"] = "NOT-FOUND"; 
+                        }
+                        
+                        if(self::$SPECIAL_STEPS["DESIRES-SELECTION-STEP-$application_model_id"] == "NOT-FOUND") return null;
+                        
+                        return self::$SPECIAL_STEPS["DESIRES-SELECTION-STEP-$application_model_id"];
                 }
 
                 public static function loadSortingStep($application_model_id)
                 {
-                        if(!self::$FIRST_STEPS["SORTING-STEP-$application_model_id"]) 
+                        if(!self::$SPECIAL_STEPS["SORTING-STEP-$application_model_id"]) 
                         {
                                 $obj = new ApplicationStep();  
                                 $obj->select("application_model_id",$application_model_id);
                                 $obj->select("step_code","SRT");
-                                if($obj->load()) self::$FIRST_STEPS["SORTING-STEP-$application_model_id"] = $obj; 
-                                else self::$FIRST_STEPS["SORTING-STEP-$application_model_id"] = "NOT-FOUND"; 
+                                if($obj->load()) self::$SPECIAL_STEPS["SORTING-STEP-$application_model_id"] = $obj; 
+                                else self::$SPECIAL_STEPS["SORTING-STEP-$application_model_id"] = "NOT-FOUND"; 
                         }
                         
-                        if(self::$FIRST_STEPS["SORTING-STEP-$application_model_id"] == "NOT-FOUND") return null;
+                        if(self::$SPECIAL_STEPS["SORTING-STEP-$application_model_id"] == "NOT-FOUND") return null;
                         
-                        return self::$FIRST_STEPS["SORTING-STEP-$application_model_id"];
+                        return self::$SPECIAL_STEPS["SORTING-STEP-$application_model_id"];
                 }
 
                 public static function loadByMainIndex(

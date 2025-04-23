@@ -569,17 +569,28 @@ class SortingSession extends AFWObject
             $sf3_sql = $sf3 ? "sorting_value_3 float NOT NULL, " : "";
             $sf3_insert = $sf3 ? "sorting_value_3, " : "";
 
+            $ff_sql = "";
+            $ff_insert = "";
+            for($f=1;$f<=9;$f++)
+            {
+                $ff = $sortingCriterea["f$f"];
+                $ff_sql .= $ff ? "formula_value_$f float NOT NULL, " : "";
+                $ff_insert .= $ff ? "formula_value_$f, " : "";
+            }
+
             $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-            
-            $sql_drop = "DROP TABLE IF EXISTS ".$server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId`;";
+            $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId`";
+            $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";
 
             AfwDatabase::db_query($sql_drop);
 
-            $sql_create = "CREATE TABLE ".$server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId` (
+            $sql_create = "CREATE TABLE $sorting_table (
               `applicant_id` bigint(20) NOT NULL,
                $sf1_sql  
                $sf2_sql
                $sf3_sql
+
+               $ff_sql
                sorting_num smallint DEFAULT NULL, 
                assigned_desire_num smallint DEFAULT NULL, 
                desire_status smallint DEFAULT 0, 
@@ -590,9 +601,9 @@ class SortingSession extends AFWObject
             AfwDatabase::db_query($sql_create);
 
 
-            $sql_insert = "INSERT INTO ".$server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId` 
-                             (applicant_id, $sf1_insert $sf2_insert $sf3_insert assigned_desire_num)".
-                           "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert min(desire_num) as assigned_desire_num
+            $sql_insert = "INSERT INTO $sorting_table 
+                             (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert assigned_desire_num)".
+                           "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert min(desire_num) as assigned_desire_num
                             FROM ".$server_db_prefix."adm.application_desire
                             WHERE application_plan_id = $application_plan_id 
                               AND application_simulation_id = $application_simulation_id 
@@ -603,6 +614,10 @@ class SortingSession extends AFWObject
 
 
             AfwDatabase::db_query($sql_insert);
+
+            $sql_farz = "SELECT * FROM $sorting_table order by $sf1_insert $sf2_insert $sf3_insert";
+
+            $farzRows = AfwDatabase::db_recup_rows($sql_farz);
                 
         }
 

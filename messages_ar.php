@@ -130,6 +130,10 @@
     $messages["You agree that the application data and desires are correct and ready for sorting"] = "أنت توافق على أن بيانات التقديم والرغبات صحيحة وجاهزة لاجراء الفرز";
     $messages["simulate desires from offline data"] = "محاكاة الرغبات من البيانات الجاهزة";
     $messages["desires has been created"] = "رغبات تم إنشاءها";
+
+    $messages["conditions apply skipped"] = "تطبيق الشروط تم تجاهله";
+    $messages["quick arrive to desire selection step"] = "الوصول السريع الى مرحلة اختيار الرغبات";
+    $messages["quick arrive to sorting step"] = "الوصول السريع الى مرحلة الفرز";
     
     // $messages[""] = "";
     

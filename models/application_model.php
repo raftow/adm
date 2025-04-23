@@ -152,10 +152,21 @@
                 }
 
 
+                
+                public function calcDesires_selection_step_id($what = "value")
+                {
+                        $application_model_id = $this->id;
+                        $return = ApplicationStep::loadDesiresSelectionStep($application_model_id);
+
+                        return ($what == "value") ? $return->id : $return;
+                }
+
                 public function calcSorting_step_id($what = "value")
                 {
                         $application_model_id = $this->id;
-                        return ApplicationStep::loadSortingStep($application_model_id);
+                        $return = ApplicationStep::loadSortingStep($application_model_id);
+
+                        return ($what == "value") ? $return->id : $return;
                 }
 
                 public function afterMaj($id, $fields_updated)
