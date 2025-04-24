@@ -16,5 +16,8 @@
 	$trad["application_step"]["show_field_mfk"] = "إظهار الحقول التالية";
 	$trad["application_step"]["api_endpoint_mfk"] = "معرف الخدمات الالكترونية";
 	$trad["application_step"]["step_code"] = "رمز المرحلة";
-
+	
+	$trad["application_step"]["FrontEnd_instructions_ar"] = "وصف خطوة التقديم - عربي";
+	$trad["application_step"]["FrontEnd_instructions_en"] = "وصف خطوة التقديم - انجليزي";
+	$trad["application_step"]["show_in_FrondEnd"] = "عرض في الواجهة الأمامية";
 // ------------------------ 
