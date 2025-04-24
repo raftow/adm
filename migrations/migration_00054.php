@@ -3,8 +3,15 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_path add   sorting_num smallint NOT NULL  AFTER application_model_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_path add   short_name_ar varchar(32)  NOT NULL  AFTER sorting_path_code;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_path add   short_name_en varchar(32)  NOT NULL  AFTER short_name_ar;");
+AfwDatabase::db_query("CREATE unique index uk_sorting_path_by_num on ".$server_db_prefix."adm.sorting_path(application_model_id,sorting_num);");
 
-/*AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_1_id int(11) NOT NULL  AFTER field_size;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_simulation add   blocked_reason varchar(128)  DEFAULT NULL  AFTER done;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_1_id int(11) NOT NULL  AFTER field_size;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_2_id int(11) DEFAULT NULL  AFTER formula_field_1_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   formula_field_3_id int(11) DEFAULT NULL  AFTER formula_field_2_id;");
 
@@ -45,7 +52,7 @@ AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire a
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER program_offering_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   sorting_group_id int(11) DEFAULT NULL  AFTER training_unit_type_id;");
-*/
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program_offering add   sorting_group_id int(11) DEFAULT NULL  AFTER degree_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   application_model_branch_id int(11) NOT NULL  AFTER application_plan_branch_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.program_track add   sorting_group_id int(11) DEFAULT NULL  AFTER sorting_formula;");

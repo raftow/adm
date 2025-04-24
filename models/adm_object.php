@@ -94,13 +94,14 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_split_sorting_by["ar"][2] = "تقسيم حسب مجموعة التأهيل";
                 $arr_list_of_split_sorting_by["en"][2] = "Split with major path";
 
+                /* for later may be
                 $arr_list_of_split_sorting_by["en"][3] = "Split with gender";
                 $arr_list_of_split_sorting_by["ar"][3] = "تقسيم حسب الجنس";
                 $arr_list_of_split_sorting_by["code"][3] = "GND";
 
                 $arr_list_of_split_sorting_by["en"][4] = "Split with gender and major path";
                 $arr_list_of_split_sorting_by["ar"][4] = "تقسيم حسب الجنس ومجموعة التأهيل";
-                $arr_list_of_split_sorting_by["code"][4] = "GNDMP";
+                $arr_list_of_split_sorting_by["code"][4] = "GNDMP";*/
 
                 
                 return $arr_list_of_split_sorting_by;

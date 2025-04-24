@@ -534,11 +534,19 @@ class ApplicationSimulation extends AdmObject{
                             
                         }
 
-                        if(!$bootstrap_blocked) $applicantSimItem->set("done","Y");
+                        if(!$bootstrap_blocked) 
+                        {
+                            $applicantSimItem->set("done","Y");
+                        }
                         else 
                         {
                             $applicantSimItem->set("done","W");
-                            // $applicantSimItem->set("blocked_reason",$bootstrap_blocked_reason);
+                            $applicantSimItem->set("blocked_reason",$bootstrap_blocked_reason);
+                            if(count($war_arr)<50)
+                            {
+                                $war_arr[] = "Blocked case : $applicant_idn blocked reason : $bootstrap_blocked_reason";
+                            }
+                            
                         }
                         $applicantSimItem->commit();
 

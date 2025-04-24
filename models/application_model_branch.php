@@ -6,6 +6,7 @@ class ApplicationModelBranch extends AdmObject
         public static $MODULE                    = "adm";
         public static $TABLE                        = "application_model_branch";
         public static $DB_STRUCTURE = null;
+        
         // public static $copypast = true;
 
         public function __construct()
@@ -156,6 +157,40 @@ class ApplicationModelBranch extends AdmObject
                         }*/
         }
 
+
+        
+
+        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        {
+                for($spath=1; $spath<=4; $spath++)
+                {
+                        if ($attribute == "capacity_track$spath")
+                        {
+                                $application_model_id = $this->getVal("application_model_id");
+                                return SortingPath::trackTranslation($application_model_id, $spath, $lang);
+                        }
+                }
+
+                
+                // die("calling getAttributeLabel($attribute, $lang, short=$short)");
+                return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
+        }
+
+
+        public function attributeIsApplicable($attribute)
+        {
+                $application_model_id = $this->getVal("application_model_id");
+                $maxPaths = SortingPath::nbPaths($application_model_id);
+                for($spath=$maxPaths+1; $spath<=4; $spath++)
+                {
+                        if ($attribute == "capacity_track$spath")
+                        {
+                                return false;
+                        }
+                }
+
+                return true;
+        }
 
 
 

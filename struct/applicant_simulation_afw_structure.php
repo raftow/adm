@@ -80,8 +80,15 @@ class AdmApplicantSimulationAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'done'        => array('HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => true, 'EDIT' => true, 'QEDIT' => true, "DEFAULT" => 'N', 'TYPE' => 'YN'),
+                'done'        => array('HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => true, 'EDIT' => true, 'QEDIT' => true, 
+                                "DEFAULT" => 'N', 'TYPE' => 'YN', 'CSS' => 'width_pct_25',),
 
+                'blocked_reason' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'READONLY'=>true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_75',), 
+                
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

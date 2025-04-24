@@ -23,6 +23,11 @@
 	*/
 	$trad["application_model_branch"]["seats_capacity.short"] = "طاقة الاستيعاب";
 	$trad["application_model_branch"]["seats_capacity"] = "الطاقة الاستيعابية";
+	$trad["application_model_branch"]["capacity_track1"] = "الطاقة الاستيعابية - المسار 1";
+	$trad["application_model_branch"]["capacity_track2"] = "الطاقة الاستيعابية - المسار 2";
+	$trad["application_model_branch"]["capacity_track3"] = "الطاقة الاستيعابية - المسار 3";
+	$trad["application_model_branch"]["capacity_track4"] = "الطاقة الاستيعابية - المسار 4";
+	
 	$trad["application_model_branch"]["direct_adm_capacity.short"] = "قبول مباشر";
 	$trad["application_model_branch"]["direct_adm_capacity"] = "مقاعد القبول المباشر";
 

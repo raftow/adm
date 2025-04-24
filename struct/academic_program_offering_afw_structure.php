@@ -24,7 +24,7 @@
                         if ($obj instanceof AcademicProgramOffering) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "program_name_ar";
+                                $obj->DISPLAY_FIELD = ['ar'=>"program_name_ar", 'en'=>"program_name_en"];
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('academic_program_id','training_unit_id');
                                 // $obj->public_display = true;
@@ -116,7 +116,7 @@
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>true,
                                                         'CSS' => 'width_pct_50', ),	
 
-                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => true,  
+                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
                                                         'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
                                                         'SIZE' => 40,  'DEFAUT' => 0,    

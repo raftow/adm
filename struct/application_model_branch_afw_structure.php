@@ -115,7 +115,58 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',),
 
-                                                
+                                        'capacity_track1' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                
+
+                                        'capacity_track2' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                                                                
+
+                                        'capacity_track3' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                                                                
+
+                                        'capacity_track4' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                                                                
+                                                                        
                                                 
                                         'direct_adm_capacity' => array(
                                                 'IMPORTANT' => 'IN',

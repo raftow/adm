@@ -632,16 +632,22 @@
 
                                 $capacity_pct_total = 100;
                                 $capacity_pct_part = $capacity_pct_total / count($majorPathList);
+                                $sorting_num = 0;
                                 foreach($majorPathList as $majorPathItem)
                                 {
+                                        $sorting_num++;
                                         $sorting_path_code = $the_code."-".$majorPathItem->id;
                                         $name_ar = $this->t("sorting_path", "ar")." : ".$majorPathItem->getShortDisplay("ar");
                                         $desc_ar = "";
                                         $name_en = $this->t("sorting_path", "en")." : ".$majorPathItem->getShortDisplay("en");
                                         $desc_en = "";
+                                        $short_name_ar = $majorPathItem->getShortDisplay("ar");
+                                        $short_name_en = $majorPathItem->getShortDisplay("en");
+
                                         if($capacity_pct_part<$capacity_pct_total) $capacity_pct = $capacity_pct_part;
                                         else $capacity_pct = $capacity_pct_total;
-                                        $objItem = SortingPath::loadByMainIndex($application_model_id, $sorting_path_code, $name_ar, $desc_ar, $name_en, $desc_en, $capacity_pct, true);
+                                        $objItem = SortingPath::loadByMainIndex($application_model_id, $sorting_path_code, $name_ar, $desc_ar, $name_en, $desc_en, $capacity_pct, 
+                                                                $short_name_ar, $short_name_en, $sorting_num, true, false);
                                         $capacity_pct_total = $capacity_pct_total - $objItem->getVal("capacity_pct");
                                         if($objItem->is_new)
                                         {

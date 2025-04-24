@@ -202,7 +202,13 @@
                                                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id', 
                                                         'WHERE' => 'applicant_id = §applicant_id§',
                                                         'READONLY' => true,  'CAN-BE-SETTED' => true, 
-                                                        'CSS' => 'width_pct_100', ),                                                                
+                                                        'CSS' => 'width_pct_100', ),    
+                                                        
+                                        'applicantSimulationList' => array('TYPE' => 'FK', 'ANSWER' => 'applicant_simulation', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§', 'STEP' => 2,                                                
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                
+
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 

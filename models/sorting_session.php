@@ -618,6 +618,11 @@ class SortingSession extends AFWObject
             $sql_farz = "SELECT * FROM $sorting_table order by $sf1_insert $sf2_insert $sf3_insert";
 
             $farzRows = AfwDatabase::db_recup_rows($sql_farz);
+
+            foreach($farzRows as $farzRow)
+            {
+                
+            }
                 
         }
 

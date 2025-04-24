@@ -14,6 +14,8 @@ class ApplicantSimulationArTranslator{
 		$trad["applicant_simulation"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["applicant_simulation"]["applicant_id"] = "المتقدم";
 		$trad["applicant_simulation"]["done"] = "تم الانتهاء ؟";
+		$trad["applicant_simulation"]["blocked_reason"] = "سبب التعثر";
+		
 		
         // steps
         return $trad;

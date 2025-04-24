@@ -146,11 +146,12 @@
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         ),                                                
                                         
-                                        'program_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
+                                        /*'program_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 
+                                                'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '100', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 1, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
+                                                'CSS' => 'width_pct_50',),*/
                                                 
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true, 'QSEARCH' => true, 
@@ -204,7 +205,7 @@
         
 
                                         
-
+                                        /*                 
                                         'old_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
@@ -215,44 +216,44 @@
                                                 'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
+                                                'CSS' => 'width_pct_50',),*/
 
-                                                'program_title_ar' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'program_title_ar' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-AR' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
                                                 'SIZE' => 64,  'MAXLENGTH' => 64,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
                 
-                                        'program_title_en' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'program_title_en' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-EN' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
                                                 'SIZE' => 64,  'MAXLENGTH' => 64,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
                 
-                                        'program_duration_ar' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'program_duration_ar' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-AR' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
                                 
-                                        'program_duration_en' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'program_duration_en' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-EN' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
                 
                 
-                                        'program_instructions_ar' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'program_instructions_ar' => array('STEP' => 2,'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-AR' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
-                                                'SIZE' => 'AREA',  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
+                                                'SIZE' => 'AREA',  'MAXLENGTH' => 1024,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),
                 
-                                        'program_instructions_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                        'program_instructions_en' => array('STEP' => 2,'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-EN' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
-                                                'SIZE' => 'AREA',  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+                                                'SIZE' => 'AREA',  'MAXLENGTH' => 1024,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),
                 
                                         
 

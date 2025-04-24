@@ -16,12 +16,13 @@ class AdmSortingPathAfwStructure
 
 
                         $obj->UNIQUE_KEY = array('application_model_id', 'sorting_path_code');
+                        // $obj->UNIQUE_KEY = array('application_model_id', 'sorting_num');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
-                        // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
-                        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingPath', "submit" => true);
+                        $obj->after_save_edit = array("class"=>'ApplicationModel',"attribute"=>'application_model_id', "currmod"=>'adm',"currstep"=>4);
+                        // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingPath', "submit" => true);
                 } else {
                         SortingPathArTranslator::initData();
                         SortingPathEnTranslator::initData();
@@ -31,7 +32,7 @@ class AdmSortingPathAfwStructure
 
         public static $DB_STRUCTURE =
         array(
-                'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
+                'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => true, 'TYPE' => 'PK'),
 
                 'application_model_id' => array(
                         'SHORTNAME' => 'plan_branch',
@@ -57,6 +58,21 @@ class AdmSortingPathAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
+                'sorting_num' => array(
+                        'IMPORTANT' => 'IN',
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'QEDIT' => true,
+                        'EDIT' => true, 'READONLY'=>true,
+                        'TYPE' => 'INT', 'MANDATORY' => true, 
+                        'STEP' => 1,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',),
+
+
+                
+
                 'sorting_path_code' => array(
                         'SEARCH' => true,
                         'QSEARCH' => true,
@@ -74,6 +90,46 @@ class AdmSortingPathAfwStructure
                         'READONLY' => true,
                         'MANDATORY' => true,
                         'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'short_name_ar' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE-AR' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 3,
+                        'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                
+
+                'short_name_en' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE-EN' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 3,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
 
@@ -96,23 +152,7 @@ class AdmSortingPathAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'desc_ar' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 'AREA',
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'CSS' => 'width_pct_50',
-                ),
+                
 
                 'name_en' => array(
                         'SEARCH' => true,
@@ -128,6 +168,24 @@ class AdmSortingPathAfwStructure
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
                         'MANDATORY' => true,
                         'UTF8' => false,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'desc_ar' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 'AREA',
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',

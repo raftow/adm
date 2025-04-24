@@ -348,7 +348,7 @@
 
 
                                         'sortingPathList' => array('SHORTNAME' => 'sortingPaths',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 4,  
+                                                'EDIT' => false,  'QEDIT' => false, 'STEP' => 99,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_path',  'ANSMODULE' => 'adm',  'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 

@@ -9,7 +9,7 @@ class Application extends AdmObject
          * @var Applicant $applicantObj
          */
         private $applicantObj = null;
-        private $myApplicationDesireList = null;
+        private $myApplicationDesireList = [];
 
         public static $DATABASE                = "";
         public static $MODULE                    = "adm";
@@ -427,13 +427,13 @@ class Application extends AdmObject
 
         public function getMyApplicationDesireList($force=false)
         {
-                if($force or !$this->myApplicationDesireList) 
+                if((!$this->myApplicationDesireList) or (count($this->myApplicationDesireList)==0))
                 {
-                        $this->myApplicationDesireList = $this->get("applicationDesireList");
-                        if(count($this->myApplicationDesireList)==0)
-                        {
-
-                        }
+                        $force = true;     
+                }
+                if($force) 
+                {
+                        $this->myApplicationDesireList = $this->get("applicationDesireList");                        
                         foreach($this->myApplicationDesireList as $adid => $adObj)
                         {
                                 $this->myApplicationDesireList[$adid]->setApplicationObject($this);
@@ -651,7 +651,17 @@ class Application extends AdmObject
                         $this->commit();
                         $forceReload = true;
                 }
-
+                else
+                {
+                        $nb_desires = $this->calcReal_nb_desires();
+                        
+                        if((strtolower($options["FORCE-RELAOD-DESIRES"])=="on") or
+                           ((!$nb_desires) and (strtolower($options["FORCE-RELAOD-DESIRES"])=="when-empty")))
+                        {
+                                $this->refreshDesireList();
+                                $forceReload = true;
+                        }
+                }
                 $this->getMyApplicationDesireList($forceReload);
                 $log .= "<br>\nDesires : " . count($this->myApplicationDesireList);
                 return [$this->myApplicationDesireList, $log];
@@ -1216,6 +1226,17 @@ class Application extends AdmObject
 
         }
 
+
+        public function calcReal_nb_desires($what = "value")
+        {
+                if($this->nb_desires === null)
+                {
+                        $this->nb_desires = $this->getRelation("applicationDesireList")->count();
+                }
+                return $this->nb_desires;
+
+        }
+
         public function calcSis_fields_available($what = "value", $lang = "")
         {
                 //die("rafik debugg 20250203");
@@ -1330,43 +1351,48 @@ class Application extends AdmObject
         }
 
 
+        public function refreshDesireList()
+        {
+                $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
+                $added = 0;
+                $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
+                foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
+                        $idn = $this->getVal("idn");                                 
+                        $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, true);
+                        if($applicationDesireObj->is_new) $added++;
+                        $applicationDesireObj->repareData();
+                }
+                
+                // AfwSession::pushInformation("$added desires are added");
+
+                // what is not in application_plan_branch_mfk should be removed
+                if((!$application_plan_branch_mfk) or (!trim($application_plan_branch_mfk)) or (trim($application_plan_branch_mfk)==",") or (trim($application_plan_branch_mfk)==",,")) $application_plan_branch_mfk = ",0,";
+                $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 ".$application_plan_branch_mfk." 0)")->getList();
+                /**
+                 * @var ApplicationDesire $applicationDesireItem
+                 */
+                $deleted = 0;
+                foreach ($applicationDesireList as $applicationDesireItem) {
+                        if ($applicationDesireItem->delete()) {
+                                // has been deleted successfully
+                                $deleted++;
+                        } else {
+                                // the delete is refused we put back the application_plan_branch_id in application_plan_branch_mfk
+                                // to synchronize both fields
+                                $this->addRemoveInMfk("application_plan_branch_mfk", [$applicationDesireItem->getVal("application_plan_branch_id")], []);
+                        }
+                }
+                
+                // AfwSession::pushWarning("$deleted desires (not in $application_plan_branch_mfk) are deleted");
+
+                $this->nb_desires = null;
+                $this->reorderDesires();
+        }
+
         public function afterMaj($id, $fields_updated)
         {
                 if ($fields_updated["application_plan_branch_mfk"]) {
-                        $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
-                        $added = 0;
-                        $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
-                        foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
-                                $idn = $this->getVal("idn");                                 
-                                $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, true);
-                                if($applicationDesireObj->is_new) $added++;
-                                $applicationDesireObj->repareData();
-                        }
-                        
-                        // AfwSession::pushInformation("$added desires are added");
-
-                        // what is not in application_plan_branch_mfk should be removed
-                        if((!$application_plan_branch_mfk) or (!trim($application_plan_branch_mfk)) or (trim($application_plan_branch_mfk)==",") or (trim($application_plan_branch_mfk)==",,")) $application_plan_branch_mfk = ",0,";
-                        $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 ".$application_plan_branch_mfk." 0)")->getList();
-                        /**
-                         * @var ApplicationDesire $applicationDesireItem
-                         */
-                        $deleted = 0;
-                        foreach ($applicationDesireList as $applicationDesireItem) {
-                                if ($applicationDesireItem->delete()) {
-                                        // has been deleted successfully
-                                        $deleted++;
-                                } else {
-                                        // the delete is refused we put back the application_plan_branch_id in application_plan_branch_mfk
-                                        // to synchronize both fields
-                                        $this->addRemoveInMfk("application_plan_branch_mfk", [$applicationDesireItem->getVal("application_plan_branch_id")], []);
-                                }
-                        }
-                        
-                        // AfwSession::pushWarning("$deleted desires (not in $application_plan_branch_mfk) are deleted");
-
-                        $this->nb_desires = null;
-                        $this->reorderDesires();
+                       $this->refreshDesireList(); 
                 }
         }
 

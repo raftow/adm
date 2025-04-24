@@ -21,6 +21,7 @@
 	$trad["academic_program_offering"]["gender_enum"] = "جنس المتدربين";
 	$trad["academic_program_offering"]["department_id"] = "القسم";
 	$trad["academic_program_offering"]["major_id"] = "تخصص البرنامح";
+	$trad["academic_program_offering"]["sorting_group_id"] = "مجموعة الفرز";
 	$trad["academic_program_offering"]["academic_level_id"] = "المرحلة التدريبية";
 	$trad["academic_program_offering"]["program_name_ar"] = "مسمى الفرع بالعربية";
 	$trad["academic_program_offering"]["program_name_en"] = "مسمى الفرع بالإنجليزية";
