@@ -58,12 +58,10 @@ $migrations = [
     '00052' => ['by'=>'medali', 'title' => 'add fields to academic_program'],
     '00053' => ['by'=>'rafik', 'title' => 'Farz manager/simulator suite 2'],
     '00054' => ['by'=>'rafik', 'title' => 'Bug fixes : Can be rexecuted updates even if fail'],
-<<<<<<< HEAD
-    '00055' => ['by'=>'rafik', 'title' => 'Farz UOH capacity by Major path'],
-=======
     '00055' => ['by'=>'medali','title'=>'add fields to application step'],
-    '00056' => ['by'=>'medali','title'=>'data for program_qualification']
->>>>>>> 5cda843bcdd37be14d312ecee5e9c3981cb793a5
+    '00056' => ['by'=>'medali','title'=>'data for program_qualification'],
+    '00057' => ['by'=>'rafik', 'title' => 'Farz UOH capacity by Major path'],
+
 
 ];
 
