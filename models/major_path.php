@@ -5,6 +5,7 @@
                 public static $MODULE		    = "adm"; 
                 public static $TABLE			= "major_path"; 
                 public static $DB_STRUCTURE = null;
+                public static $arrAllMajorPaths = [];
                 // public static $copypast = true;
 
                 public function __construct(){
@@ -15,15 +16,23 @@
 
                 public static function loadById($id)
                 {
-                        $obj = new MajorPath();
-                        
-                        if($obj->load($id))
+                        if(!self::$arrAllMajorPaths[$id])
                         {
-                                return $obj;
+                                $obj = new MajorPath();
+                                if($obj->load($id))
+                                {
+                                        self::$arrAllMajorPaths[$id] =& $obj;
+                                }
+                                else self::$arrAllMajorPaths[$id] = "NOT-FOUND";
                         }
-                        else return null;
+                        if(self::$arrAllMajorPaths[$id]=="NOT-FOUND") return null;
+
+                        return self::$arrAllMajorPaths[$id];
+                        
+
                 }
 
+                
                 public static function loadByMainIndex($qualification_id, $major_category_id,$create_obj_if_not_found=false)
                 {
                     $obj = new MajorPath();
@@ -33,6 +42,7 @@
                     if($obj->load())
                     {
                             if($create_obj_if_not_found) $obj->activate();
+                            self::$arrAllMajorPaths[$obj->id] = $obj;
                             return $obj;
                     }
                     elseif($create_obj_if_not_found)
@@ -43,6 +53,7 @@
                             $obj->insertNew();
                             if(!$obj->id) return null; // means beforeInsert rejected insert operation
                             $obj->is_new = true;
+                            // self::$arrAllMajorPaths[$obj->id] = $obj;
                             return $obj;
                     }
                     else return null;

@@ -45,7 +45,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
 
-                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => true,  
+                                                'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
                                                         'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
                                                         'SIZE' => 40,  'DEFAUT' => 0,    
@@ -100,7 +100,7 @@
                                                 'CSS' => 'width_pct_50',),
 
                                                 
-        
+                                                
 
                                         'seats_capacity' => array(
                                                 'IMPORTANT' => 'IN',
@@ -118,7 +118,7 @@
                                         'capacity_track1' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => false,
+                                                'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,
@@ -131,7 +131,7 @@
                                         'capacity_track2' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => false,
+                                                'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,

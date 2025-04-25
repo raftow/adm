@@ -180,7 +180,18 @@ class ApplicationModelBranch extends AdmObject
         public function attributeIsApplicable($attribute)
         {
                 $application_model_id = $this->getVal("application_model_id");
+                $appModelObj = ApplicationModel::loadById($application_model_id);
+                $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
+                $academic_program_id = $this->getVal("academic_program_id");
                 $maxPaths = SortingPath::nbPaths($application_model_id);
+                for($spath=1; $spath<=$maxPaths; $spath++)
+                {
+                        $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
+                        if ($attribute == "capacity_track$spath")
+                        {
+                                return ProgramQualification::pathExistsFor($academic_program_id, $split_sorting_by_enum, $majorPathId);                                
+                        }
+                }
                 for($spath=$maxPaths+1; $spath<=4; $spath++)
                 {
                         if ($attribute == "capacity_track$spath")

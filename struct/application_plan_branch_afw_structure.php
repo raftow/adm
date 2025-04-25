@@ -149,31 +149,11 @@
                                                 
 
 
-                                        'seats_capacity' => array(
-                                                'IMPORTANT' => 'IN',
-                                                'SHOW' => true,
-                                                'RETRIEVE' => true,
-                                                'QEDIT' => true,
-                                                'EDIT' => true,
-                                                'TYPE' => 'INT', 'MANDATORY' => false, 
-                                                'STEP' => 2,
-                                                'DISPLAY-UGROUPS' => '',
-                                                'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
+                                        
 
 
 
-                                        'direct_adm_capacity' => array(
-                                                'IMPORTANT' => 'IN',
-                                                'SHOW' => true,
-                                                'RETRIEVE' => false,
-                                                'QEDIT' => true,
-                                                'EDIT' => true,
-                                                'TYPE' => 'INT', 'MANDATORY' => false, 
-                                                'STEP' => 2,
-                                                'DISPLAY-UGROUPS' => '',
-                                                'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
+                                       
 
 
 
@@ -226,32 +206,109 @@
 
 
                                         'is_open' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'QSEARCH' => false, 
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
 
+                                        'seats_capacity' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 3, 'UNIT' => 'مقعد',
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),        
 
                                         'allow_direct_adm' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'QSEARCH' => false, 
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
+                                        'direct_adm_capacity' => array(
+                                                        'IMPORTANT' => 'IN',
+                                                        'SHOW' => true,
+                                                        'RETRIEVE' => false,
+                                                        'QEDIT' => true,
+                                                        'EDIT' => true,
+                                                        'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                        'STEP' => 3, 'UNIT' => 'مقعد',
+                                                        'DISPLAY-UGROUPS' => '',
+                                                        'EDIT-UGROUPS' => '',
+                                                        'CSS' => 'width_pct_25',),
 
+
+                                        'capacity_track1' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 3,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                
+
+                                        'capacity_track2' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 3,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                                                                
+
+                                        'capacity_track3' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 3,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                                                                
+
+                                        'capacity_track4' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'DEFAULT' => 0,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 3,
+                                                'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                          
+
+                                        /*        
                                         'sortingBranchList' => array('SHORTNAME' => 'sortingBranchs',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK', 'STEP' => 3,  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_branch',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_branch_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),*/
 
 
                                         'applicationDesireList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK', 'STEP' => 4,  
-                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_branch_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_plan_branch_id', 'SHOW_MAX_DATA'=>100, 
+                                                'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_100', ),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  

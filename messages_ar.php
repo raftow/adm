@@ -134,6 +134,7 @@
     $messages["conditions apply skipped"] = "تطبيق الشروط تم تجاهله";
     $messages["quick arrive to desire selection step"] = "الوصول السريع الى مرحلة اختيار الرغبات";
     $messages["quick arrive to sorting step"] = "الوصول السريع الى مرحلة الفرز";
+    $messages["capacity"] = "عدد المقاعد";
     
     // $messages[""] = "";
     

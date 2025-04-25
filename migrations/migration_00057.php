@@ -3,6 +3,13 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track4 smallint DEFAULT NULL  AFTER capacity_track3;");
+
 if($server_db_prefix=="uoh_")
 {
     AfwDatabase::db_query("UPDATE uoh_adm.application_model_branch set capacity_track1 = 0, capacity_track2 = 0, capacity_track3 = 0, capacity_track4 = 0 where application_model_id = 11");

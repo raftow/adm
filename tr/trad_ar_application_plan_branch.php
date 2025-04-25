@@ -33,4 +33,10 @@
 	$trad["application_plan_branch"]["application_model_branch_id"] = "فرع القبول";
 
 	$trad["application_plan_branch"]["sortingBranchList"] = "اعدادات الطاقة الاستعابية والفرز";
+	$trad["application_plan_branch"]["applicationDesireList"] = "عينة من الترشحات على هذا الفرع";
+
+	$trad["application_model_branch"]["capacity_track1"] = "الطاقة الاستيعابية - المسار 1";
+	$trad["application_model_branch"]["capacity_track2"] = "الطاقة الاستيعابية - المسار 2";
+	$trad["application_model_branch"]["capacity_track3"] = "الطاقة الاستيعابية - المسار 3";
+	$trad["application_model_branch"]["capacity_track4"] = "الطاقة الاستيعابية - المسار 4";
 	

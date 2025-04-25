@@ -17,6 +17,7 @@ class SortingPath extends AFWObject
         public static $DB_STRUCTURE = null;
         public static $arrTrackTranslation = [];
         public static $nbPathsArr = [];
+        public static $arrTrackMajorPathId = [];
         
 
         public function __construct()
@@ -260,14 +261,36 @@ class SortingPath extends AFWObject
         {
                 if (!self::$arrTrackTranslation[$application_model_id][$path_num][$lang]) {
                         $obj = SortingPath::loadByNum($application_model_id, $path_num);
+                        $capacity_translated = AfwLanguageHelper::translateCompanyMessage("capacity", "adm", $lang);
                         if ($obj) {
-                                self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = $obj->getVal("short_name_$lang");
+                                self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = $capacity_translated. " " . $obj->getVal("short_name_$lang");
                         } else {
-                                self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = "path" . "-" . $path_num;
+                                self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = $capacity_translated. "-" . $path_num;
                         }
                 }
 
                 return self::$arrTrackTranslation[$application_model_id][$path_num][$lang];
+        }
+
+        public static function trackMajorPathId($application_model_id, $path_num)
+        {
+                if (!self::$arrTrackMajorPathId[$application_model_id][$path_num]) 
+                {
+                        self::$arrTrackMajorPathId[$application_model_id][$path_num] = "NOT-FOUND";
+                        $obj = SortingPath::loadByNum($application_model_id, $path_num);
+                        if ($obj) 
+                        {
+                                list($method_code, $majorPathId) = explode("-",$obj->getVal("sorting_path_code"));
+                                if($method_code=="MPS")
+                                {
+                                        self::$arrTrackMajorPathId[$application_model_id][$path_num] = $majorPathId;
+                                }
+                        } 
+                }
+
+                if(self::$arrTrackMajorPathId[$application_model_id][$path_num]=="NOT-FOUND") return null;
+
+                return self::$arrTrackMajorPathId[$application_model_id][$path_num];
         }
 }
 

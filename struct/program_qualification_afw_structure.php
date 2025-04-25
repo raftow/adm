@@ -7,7 +7,7 @@
                         if ($obj instanceof ProgramQualification) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "program_qualification_name_ar";
+                                // $obj->DISPLAY_FIELD = "program_qualification_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('academic_program_id','qualification_id','major_path_id','qualification_major_id',);
                                 // $obj->public_display = true;

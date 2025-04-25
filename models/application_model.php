@@ -10,6 +10,8 @@
                 public static $DB_STRUCTURE = null;
                 public static $stepAppModelApiList=[];
                 public static $stepAppModelFieldList=[];
+                public static $arrAllApplicationModels=[];
+                
                 // public static $copypast = true;
 
                 public function __construct(){
@@ -24,13 +26,18 @@
 
                 public static function loadById($id)
                 {
-                        $obj = new ApplicationModel();
-                        
-                        if($obj->load($id))
+                        if(!self::$arrAllApplicationModels[$id])
                         {
-                                return $obj;
+                                $obj = new ApplicationModel();
+                                if($obj->load($id))
+                                {
+                                        self::$arrAllApplicationModels[$id] =& $obj;
+                                }
+                                else self::$arrAllApplicationModels[$id] = "NOT-FOUND";
                         }
-                        else return null;
+                        if(self::$arrAllApplicationModels[$id]=="NOT-FOUND") return null;
+
+                        return self::$arrAllApplicationModels[$id];                        
                 }
 
                 
