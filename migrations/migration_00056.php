@@ -68,4 +68,6 @@ if($server_db_prefix=="uoh_")
     (59, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 30, 0, 49, 143, NULL, NULL, NULL),
     (60, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 32, 0, 49, 143, NULL, NULL, NULL),
     (61, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 33, 0, 49, 143, NULL, NULL, NULL);");
+
+    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
 }
