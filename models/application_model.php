@@ -639,7 +639,6 @@
                         else
                         {
                                 $application_model_id=$this->id;
-                                SortingPath::updateWhere(['active'=>'N'], "application_model_id = $application_model_id");
                                 if($split_sorting_by_enum==1)
                                 {
                                         $the_code = "NS";
@@ -657,6 +656,10 @@
                                         $majorPathList[$application_model_id] = $this;
                                 }
 
+
+                                SortingPath::deleteWhere("application_model_id = $application_model_id and sorting_path_code not like '$the_code-%'"); 
+                                SortingPath::updateWhere(['active'=>'N'], "application_model_id = $application_model_id");
+                                
 
                                 $capacity_pct_total = 100;
                                 $capacity_pct_part = $capacity_pct_total / count($majorPathList);
