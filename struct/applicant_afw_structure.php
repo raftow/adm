@@ -16,7 +16,7 @@ class AdmApplicantAfwStructure
                         // $obj->IS_LOOKUP = true;
 
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 8;
+                        $obj->editNbSteps = 9;
                         // $obj->STEP_OPTIONS = [2=> ['TEMPLATE'=>'accordion'], /* 3=> ['TEMPLATE'=>'accordion'],*/];
                         
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);

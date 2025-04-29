@@ -13,6 +13,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["step6"] = "رفع المرفقات";
 		$trad["applicant"]["step7"] = "استخدام المرفقات";
 		$trad["applicant"]["step8"] = "التحقق من الربط";
+		$trad["applicant"]["step9"] = "معلومات متقدمة";
 
 		$trad["applicant"]["apis"] = "الخدمات الالكترونية";
 		$trad["applicant"]["applicantFileList"] = "قائمة مرفقات المتقدم";
