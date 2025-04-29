@@ -54,8 +54,9 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["language_enum"] = "لغة التدريب";
 		$trad["application_model"]["min_training_unit"] = "الحد الأدنى لاختيار المنشآت التدريبية";
 		$trad["application_model"]["max_training_unit"] = "الحد الاقصى لاختيار المنشآت التدريبية";
-		$trad["application_model"]["min_desire"] = "الحد الأدنى لاختيار الرغبات";
-		$trad["application_model"]["max_desire"] = "الحد الاقصى لاختيار الرغبات";
+		// These, in our system concept, should be parameter values so the 2 below fields are to be removed from here        
+		// $trad["application_model"]["min_desire"] = "الحد الأدنى لاختيار الرغبات";
+		// $trad["application_model"]["max_desire"] = "الحد الاقصى لاختيار الرغبات";
 		$trad["application_model"]["allow_direct_adm"] = "تفعيل القبول المباشر";
 		$trad["application_model"]["tuituin_fees_ar"] = "رسوم التدريب بالعربية";
 		$trad["application_model"]["tuituin_fees_en"] = "رسوم التدريب بالإنجليزية";

@@ -336,6 +336,22 @@ class Application extends AdmObject
                 $nextStepNum = $currentStepNum + 1;
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
+
+                        
+                        $color = "orange";
+                        $title_ar = $this->tm("refresh Desire List", 'ar');
+                        $title_en = $this->tm("refresh Desire List", 'en');
+                        $methodName = "refreshDesireList";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("applicationDesireList")
+                        );
+                        
                         $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
                         if($asObj)
                         {
@@ -427,7 +443,8 @@ class Application extends AdmObject
 
         public function getMyApplicationDesireList($force=false)
         {
-                if((!$this->myApplicationDesireList) or (count($this->myApplicationDesireList)==0))
+                $application_plan_branch_mfk_count = $this->countMfkItems("application_plan_branch_mfk");
+                if((!$this->myApplicationDesireList) or (count($this->myApplicationDesireList)!=$application_plan_branch_mfk_count))
                 {
                         $force = true;     
                 }
@@ -439,6 +456,8 @@ class Application extends AdmObject
                                 $this->myApplicationDesireList[$adid]->setApplicationObject($this);
                         }
                 }
+
+                return [count($this->myApplicationDesireList), $application_plan_branch_mfk_count];
                 
         }
 
@@ -644,11 +663,14 @@ class Application extends AdmObject
 
                 list($new_application_plan_branch_mfk, $log00) = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow);
                 $log .= $log00;
-                
-                if($old_application_plan_branch_mfk != $new_application_plan_branch_mfk)
+
+                $nb_desires_gen = count($this->myApplicationDesireList);
+                $nb_desires_mfk = $this->countMfkItems("application_plan_branch_mfk");
+                if(($old_application_plan_branch_mfk != $new_application_plan_branch_mfk) or ($nb_desires_mfk != $nb_desires_gen))
                 {
                         $this->set("application_plan_branch_mfk", $new_application_plan_branch_mfk);
                         $this->commit();
+                        $this->refreshDesireList();
                         $forceReload = true;
                 }
                 else
@@ -663,8 +685,10 @@ class Application extends AdmObject
                         }
                 }
                 $this->getMyApplicationDesireList($forceReload);
-                $log .= "<br>\nDesires : " . count($this->myApplicationDesireList);
-                return [$this->myApplicationDesireList, $log];
+                $nb_desires_gen = count($this->myApplicationDesireList);
+                $log .= "<br>\nDesires : " . $nb_desires_gen;
+                $nb_desires_mfk = $this->countMfkItems("application_plan_branch_mfk");
+                return [$this->myApplicationDesireList, $log, $nb_desires_gen, $nb_desires_mfk];
         }
 
         public function bootstrapApplication($lang = "ar", $returnLastStepCode=false, $options=[])
@@ -1351,7 +1375,7 @@ class Application extends AdmObject
         }
 
 
-        public function refreshDesireList()
+        public function refreshDesireList($lang="ar")
         {
                 $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
                 $added = 0;
@@ -1386,7 +1410,9 @@ class Application extends AdmObject
                 // AfwSession::pushWarning("$deleted desires (not in $application_plan_branch_mfk) are deleted");
 
                 $this->nb_desires = null;
-                $this->reorderDesires();
+                list($err, $inf_as_war, $war) = $this->reorderDesires();
+
+                return ["", "done : added : $added, deleted : $deleted", $inf_as_war.", ".$war];
         }
 
         public function afterMaj($id, $fields_updated)

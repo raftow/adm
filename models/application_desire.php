@@ -26,7 +26,7 @@ class ApplicationDesire extends AdmObject
 
         public function getApplicationPlan()
         {
-                if (!$this->objApplicationPlan) $this->objApplicationPlan = $this->het("application_plan_id");
+                if (!$this->objApplicationPlan) $this->objApplicationPlan = ApplicationPlan::loadById($this->getVal("application_plan_id"));
                 return $this->objApplicationPlan;
         }
 
@@ -63,6 +63,20 @@ class ApplicationDesire extends AdmObject
         }
 
 
+        public static function getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $track_num)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $sql_matrix = "SELECT applicant_id, desire_num, application_plan_branch_id
+                                FROM ".$server_db_prefix."adm.application_desire
+                                WHERE application_plan_id = $application_plan_id 
+                                AND application_simulation_id = $application_simulation_id 
+                                AND sorting_group_id = $sortingGroupId
+                                AND track_num = $track_num
+                                AND active = 'Y'
+                                ORDER BY applicant_id, desire_num, application_plan_branch_id";
+
+                return AfwDatabase::db_recup_bi_index($sql_matrix, "applicant_id", "desire_num", "application_plan_branch_id");                                
+        }
 
         public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $desire_num)
         {
@@ -133,8 +147,8 @@ class ApplicationDesire extends AdmObject
                         $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
                         $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
                         $obj->set("application_model_branch_id", $applicationModelBranchObj->id);
-                        if(!$applicationModelBranchObj)  throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id $application_plan_branch_id doesn't have an application_model_branch_id");
-        
+                        if (!$applicationModelBranchObj)  throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id $application_plan_branch_id doesn't have an application_model_branch_id");
+
                         $obj->set("sorting_group_id", $applicationModelBranchObj->getVal("sorting_group_id",));
                         $obj->set("applicant_qualification_id", $applicationObj->getVal("applicant_qualification_id"));
                         $obj->set("qualification_id", $applicationObj->getVal("qualification_id"));
@@ -198,7 +212,7 @@ class ApplicationDesire extends AdmObject
                 $app_des_name = $this->getDisplay($lang);
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 $dataShouldBeUpdated = (strtolower($options["DATA-SHOULD-BE-UPDATED-BEFORE-APPLY"]) != "off");
-                
+
                 $application_simulation_id = $options["SIMULATION-ID"];
                 $audit_conditions_pass = explode(",", $options["AUDIT_ON_PASS_CONDITION_IDS"]);
                 $audit_conditions_fail = explode(",", $options["AUDIT_ON_FAIL_CONDITION_IDS"]);
@@ -241,16 +255,13 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
 
-                        if (($bootstrapStatus == "--blocked") and ($currentStepCode != "SRT")) 
-                        {
+                        if (($bootstrapStatus == "--blocked") and ($currentStepCode != "SRT")) {
                                 $bootstrapResult = $resultGotoNextDesireStep["result"];
-                                if($bootstrapResult=="pass") throw new AfwRuntimeException("Desire $app_des_name :<br> How can bootstrapResult=$bootstrapResult in step $currentStepCode and bootstrapStatus=$bootstrapStatus");
+                                if ($bootstrapResult == "pass") throw new AfwRuntimeException("Desire $app_des_name :<br> How can bootstrapResult=$bootstrapResult in step $currentStepCode and bootstrapStatus=$bootstrapStatus");
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Desire is faltered, please see details and resolve manually", $lang);
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Reached step", $lang) . " : " . $currentStepCode . "<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
-                        } 
-                        else 
-                        {
-                                
+                        } else {
+
                                 $bootstrapResult = "done";
                                 $war_arr[] = $app_des_name . " : " . $this->tm("Sorting step reached", $lang) . "<!-- bootstrapStatus$bootstrapStatus tentatives=$tentatives-->";
                         }
@@ -285,12 +296,9 @@ class ApplicationDesire extends AdmObject
                 $tech_arr = [];
                 $result_arr = [];
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
-                if (!$objApplicationModel) 
-                {
+                if (!$objApplicationModel) {
                         $err_arr[] = $this->tm("Error happened, no application model defined for this application", $lang);
-                }
-                else
-                {
+                } else {
                         $application_step_id = $objApplicationModel->calcSorting_step_id();
                         $this->set("application_step_id", $application_step_id);
                         $currentStepObj = $this->het("application_step_id");
@@ -298,16 +306,15 @@ class ApplicationDesire extends AdmObject
                         $desireStepCode = $currentStepObj->getVal("step_code");
                         $this->set("step_num", $desireStepNum);
                         $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
-                        $war = $this->tm("conditions apply skipped")." !!";
+                        $war = $this->tm("conditions apply skipped") . " !!";
                         $war_arr[]  = $war;
-                        $this->set("comments", $war);                        
+                        $this->set("comments", $war);
                         $this->commit();
-                        $inf_arr[] = $this->tm("quick arrive to sorting step", $lang)." ".$this->tm("has been successfully done", $lang);
+                        $inf_arr[] = $this->tm("quick arrive to sorting step", $lang) . " " . $this->tm("has been successfully done", $lang);
                         $result_arr["STEP_CODE"] = $desireStepCode;
                 }
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
-                
         }
 
         public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
@@ -357,8 +364,7 @@ class ApplicationDesire extends AdmObject
                         $success = $applyResult['success'];
 
                         list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
-                        if ($success and (!$error_message)) 
-                        {
+                        if ($success and (!$error_message)) {
                                 $result_arr["result"] = "pass";
                                 $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
                                 $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
@@ -382,7 +388,7 @@ class ApplicationDesire extends AdmObject
                                 $inf_arr[]  = $success_message;
                                 $tech_arr[] = $tech;
                         } else {
-                                if((!$error_message) and ($success===false)) $result_arr["result"] = "fail";
+                                if ((!$error_message) and ($success === false)) $result_arr["result"] = "fail";
                                 else $result_arr["result"] = "standby";
                                 $fail_message .= " " . $error_message;
                                 $this->set("desire_status_enum", self::desire_status_enum_by_code('rejected'));
@@ -418,7 +424,8 @@ class ApplicationDesire extends AdmObject
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $step_num = $this->getVal("step_num");
                 if ((!$step_num) or ($step_num == "0")) {
-                        $objStep = $this->getApplicationPlan()->getApplicationModel()->getFirstDesireStep();
+                        $objStep = $this->het("application_step_id");
+                        if(!$objStep) $objStep = $this->getApplicationPlan()->getApplicationModel()->getFirstDesireStep();
                         if ($objStep) {
                                 $this->set("step_num", $objStep->getVal("step_num"));
                                 $this->set("application_step_id", $objStep->id);
@@ -428,7 +435,7 @@ class ApplicationDesire extends AdmObject
                         }
                 } else {
                         $objStep = $this->het("application_step_id");
-                        if ($objStep->getVal("step_num") != $this->getVal("step_num")) {
+                        if ($objStep and ($objStep->getVal("step_num") != $this->getVal("step_num"))) {
                                 $this->set("step_num", $objStep->getVal("step_num"));
                                 $is_to_commit = true;
                         }
@@ -440,25 +447,21 @@ class ApplicationDesire extends AdmObject
                         $is_to_commit = true;
                 }
 
-                if(!$this->getVal("application_model_branch_id"))
-                {
+                if (!$this->getVal("application_model_branch_id")) {
                         $applicationPlanBranchObj = $this->het("application_plan_branch_id");
                         $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
-                        if($applicationModelBranchObj)
-                        {
+                        if ($applicationModelBranchObj) {
                                 $this->set("application_model_branch_id", $applicationModelBranchObj->id);
                                 $is_to_commit = true;
-                        } 
-                        
+                        }
                 }
-                
 
-                if($this->sortingCritereaNeedRefresh())
-                {
-                        $this->reComputeSortingCriterea($lang,false);
+
+                if ($this->sortingCritereaNeedRefresh()) {
+                        $this->reComputeSortingCriterea($lang, false);
                         $is_to_commit = true;
                 }
-                
+
 
                 if ($is_to_commit) $this->commit();
         }
@@ -474,6 +477,21 @@ class ApplicationDesire extends AdmObject
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 //$objFirstStep = $objApplicationModel->getFirstDesireStep();
                 if ($objApplicationModel) {
+                        
+                        $color = "blue";
+                        $title_ar = $this->tm("Compute sorting criterea", 'ar');
+                        $title_en = $this->tm("Compute sorting criterea", 'en');
+                        $methodName = "reComputeSortingCriterea";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEP' => 6
+                        );
+
                         $asObj = ApplicationStep::loadByMainIndex($objApplicationModel->id, $nextStepNum);
                         if ($asObj) {
                                 $color = "green";
@@ -605,6 +623,8 @@ class ApplicationDesire extends AdmObject
 
                 return $program_track_id;
         }
+
+        
 
         public function calcTrackAndMajorPath()
         {
@@ -756,7 +776,20 @@ class ApplicationDesire extends AdmObject
                 return true;
         }
 
-        
+        public function afterMaj($id, $fields_updated)
+        {
+                if ($fields_updated["application_step_id"]) {
+                        $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                        $sorting_application_step_id = $objApplicationModel->calcSorting_step_id();
+                        
+                        if ($this->getVal("application_step_id") == $sorting_application_step_id) {
+                                if ($this->sortingCritereaNeedRefresh()) {
+                                        $this->reComputeSortingCriterea("en");
+                                }
+                        }
+                }
+        }
+
 
 
         public function select_visibilite_horizontale($dropdown = false)
@@ -788,69 +821,49 @@ class ApplicationDesire extends AdmObject
         {
                 $oldvalue = $this->getVal($attribute);
 
-                if (($attribute == "step_num") and ($oldvalue == 5) and ($newvalue == 4))  {
+                if (($attribute == "step_num") and ($oldvalue == 5) and ($newvalue == 4)) {
                         throw new AfwRuntimeException("ApplicationDesire :: before set attribute $attribute from '$oldvalue' to '$newvalue'");
                 }
 
                 return true;
         }
 
-        
-        public function shouldBeCalculatedField($attribute){
-                if($attribute=="sorting_field_1_id") return true;
-                if($attribute=="sorting_field_2_id") return true;
-                if($attribute=="sorting_field_3_id") return true;
-                if($attribute=="formula_field_1_id") return true;
-                if($attribute=="formula_field_2_id") return true;
-                if($attribute=="formula_field_3_id") return true;
-                if($attribute=="formula_field_4_id") return true;
-                if($attribute=="formula_field_5_id") return true;
-                if($attribute=="formula_field_6_id") return true;
-                if($attribute=="formula_field_7_id") return true;
-                if($attribute=="formula_field_8_id") return true;
-                if($attribute=="formula_field_9_id") return true;
-                if($attribute=="weighted_percentage") return true;
-                if($attribute=="weighted_percentage_details") return true;
-                if($attribute=="current_fields_matrix") return true;
-                if($attribute=="secondary_cumulative_pct") return true;
-                if($attribute=="achievement_score") return true;
-                if($attribute=="aptitude_score") return true;
 
-                 
-                
-                return false;
-        }
-
-
-        
-
-        public function sortingCritereaNeedRefresh()
+        public function shouldBeCalculatedField($attribute)
         {
-                $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
-                for($i=1; $i<=3; $i++)
-                {
-                        if($sortingCriterea["c$i"])
-                        {
-                                if(!$this->getVal("sorting_value_$i")) return true;
-                        }                        
-                }
+                if ($attribute == "sorting_field_1_id") return true;
+                if ($attribute == "sorting_field_2_id") return true;
+                if ($attribute == "sorting_field_3_id") return true;
+                if ($attribute == "formula_field_1_id") return true;
+                if ($attribute == "formula_field_2_id") return true;
+                if ($attribute == "formula_field_3_id") return true;
+                if ($attribute == "formula_field_4_id") return true;
+                if ($attribute == "formula_field_5_id") return true;
+                if ($attribute == "formula_field_6_id") return true;
+                if ($attribute == "formula_field_7_id") return true;
+                if ($attribute == "formula_field_8_id") return true;
+                if ($attribute == "formula_field_9_id") return true;
+                if ($attribute == "weighted_percentage") return true;
+                if ($attribute == "weighted_percentage_details") return true;
+                if ($attribute == "current_fields_matrix") return true;
+                if ($attribute == "secondary_cumulative_pct") return true;
+                if ($attribute == "achievement_score") return true;
+                if ($attribute == "aptitude_score") return true;
 
-                for($f=1;$f<=9;$f++)
-                {
-                        if($sortingCriterea["f$f"])
-                        {
-                                if(!$this->getVal("formula_value_$f")) return true;
-                        }
-                }
+
 
                 return false;
         }
 
+
+
+
+        
         public function calcSecondary_cumulative_pct($what = "value")
         {
                 $objSQ = null;
                 $objApplicant = $this->het("applicant_id");
-                return $objApplicant->calcSecondary_cumulative_pct($what = "value", $objSQ);                
+                return $objApplicant->calcSecondary_cumulative_pct($what = "value", $objSQ);
         }
 
         public function calcAptitude_score($what = "value")
@@ -865,13 +878,35 @@ class ApplicationDesire extends AdmObject
                 return $objApplicant->calcAchievement_score($what);
         }
 
-        public function reComputeSortingCriterea($lang = "ar", $commit=true)
+        public function sortingCritereaNeedRefresh()
         {
                 $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
-                for($i=1; $i<=3; $i++)
-                {
-                        if($sortingCriterea["c$i"])
-                        {
+                for ($i = 1; $i <= 3; $i++) {
+                        if ($sortingCriterea["c$i"]) {
+                                if (!$this->getVal("sorting_value_$i")) return true;
+                        }
+                }
+
+                for ($f = 1; $f <= 9; $f++) {
+                        if ($sortingCriterea["f$f"]) {
+                                if (!$this->getVal("formula_value_$f")) return true;
+                        }
+                }
+
+                if (!$this->getVal("track_num")) return true;
+
+                return false;
+        }
+
+
+        public function reComputeSortingCriterea($lang = "ar", $commit = true)
+        {
+                $applicationPlanObj = $this->getApplicationPlan();
+                $application_model_id = $applicationPlanObj->getVal("application_model_id");
+                $applicant_id = $this->getVal("applicant_id");
+                $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
+                for ($i = 1; $i <= 3; $i++) {
+                        if ($sortingCriterea["c$i"]) {
                                 $field_name = $sortingCriterea["c$i"]["field_name"];
                                 // $field_sens = $sortingCriterea["c$i"]["field_sens"];
                                 $field_method = $sortingCriterea["c$i"]["field_method"];
@@ -881,38 +916,43 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
-                for($f=1;$f<=9;$f++)
-                {
-                        if($sortingCriterea["f$f"])
-                        {
+                for ($f = 1; $f <= 9; $f++) {
+                        if ($sortingCriterea["f$f"]) {
                                 $field_name = $sortingCriterea["f$f"]["field_name"];
-                                $field_method = $sortingCriterea["f$f"]["field_method"];
-                                $applicant_id = $this->getVal("applicant_id");
+                                $field_method = $sortingCriterea["f$f"]["field_method"];                                
                                 $value = $this->$field_method($field_name);
-                                if(!$value) die("for applicant_id=$applicant_id reComputeSortingCriterea :: this->$field_method($field_name) return nothing");
+                                if (!$value) $value = 0; // throw new AfwRuntimeException("for applicant_id=$applicant_id reComputeSortingCriterea :: this->$field_method($field_name) return nothing");
                                 $this->set("formula_value_$f", $value);
-                        }
-                        else
-                        {
-                                if($f<=3) die("reComputeSortingCriterea :: sortingCriterea = ".var_export($sortingCriterea,true));
+                        } else {
+                                if ($f <= 3) die("reComputeSortingCriterea :: sortingCriterea = " . var_export($sortingCriterea, true));
                         }
                 }
 
-                if($commit) $this->commit();
+                
+                // $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
+                list($program_track_id, $major_path_id, $applicantQualificationObj, $program_track_name, $major_path_name) = $this->calcTrackAndMajorPath();
+                
+                $track_num = SortingPath::majorPathIdTrack($application_model_id, $major_path_id);
+                if(!$track_num) 
+                {
+                        die("For applicant_id=$applicant_id : track_num = $track_num = SortingPath::majorPathIdTrack(application_model_id=$application_model_id, major_path_id=$major_path_id)");
+                }
+                $this->set("track_num", $track_num);
+                if($this->sortingCritereaNeedRefresh()) $war = "sorting Criterea was Needing Refresh";
+                else $war = "sorting Criterea wasnt Needing Refresh";
+                if ($commit) $this->commit();
 
-                return [$this->translate("done",$lang), ""];
+                return ["", $this->translate("done", $lang), ""];
         }
 
         public function attributeIsApplicable($attribute)
         {
-                for($f=1;$f<=9;$f++)
-                {
-                        if(($attribute=="formula_field_".$f."_id") or ($attribute=="formula_value_".$f)) 
-                        {
-                                return ($this->getVal("formula_field_".$f."_id")>0);
+                for ($f = 1; $f <= 9; $f++) {
+                        if (($attribute == "formula_field_" . $f . "_id") or ($attribute == "formula_value_" . $f)) {
+                                return ($this->getVal("formula_field_" . $f . "_id") > 0);
                         }
                 }
-                
+
                 return true;
         }
 }

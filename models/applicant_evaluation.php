@@ -56,6 +56,7 @@ class ApplicantEvaluation extends AdmObject
                 $obj = new ApplicantEvaluation();
                 $obj->select("applicant_id", $applicant_id);
                 $obj->where("evaluation_id in ($eval_id_list)");
+                // to debuggg try SELECT evaluation_id, max(eval_result) FROM `applicant_evaluation` WHERE applicant_id = $applicant_id group by evaluation_id;
                 return $obj->func("max(eval_result)");
         }
 

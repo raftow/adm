@@ -406,7 +406,18 @@ class SortingSession extends AFWObject
         return $this->getRelation("applicationDesireList")->count();
     }
 
+    /**
+     * @todo implement this method ASAP
+     */
     public function isExecuted()
+    {
+        return false;
+    }
+
+    /**
+     * @todo implement this method ASAP
+     */
+    public function sortingHasStarted()
     {
         return false;
     }
@@ -544,6 +555,18 @@ class SortingSession extends AFWObject
         return $html;
     }
 
+    public static function isSameScore($new_score, $old_score, $field_name_1, $field_name_2, $field_name_3)
+    {
+            // @todo make it parametrable
+            $ignored_epsilon1 = 0.0001;
+            $ignored_epsilon2 = 0.0001;
+            $ignored_epsilon3 = 0.0001;
+            list($nv1, $nv2, $nv3) = $new_score;
+            list($bv1, $bv2, $bv3) = $old_score;
+            return ((abs($nv1-$bv1)<$ignored_epsilon1) and (abs($nv2-$bv2)<$ignored_epsilon2) and (abs($nv3-$bv3)<$ignored_epsilon3));
+
+    }
+
 
     public function runSorting($lang = "ar")
     {
@@ -556,72 +579,132 @@ class SortingSession extends AFWObject
         if(!$application_plan_id) return ["Please define application plan for this sorting session", ""];
         if(!$application_simulation_id) return ["Please define application simulation type for this sorting session", ""];
         
+        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+        // $appModelObj = ApplicationModel::loadById($application_model_id);
+        // $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
+        // $academic_program_id = $this->getVal("program_id");
+        $maxPaths = SortingPath::nbPaths($application_model_id);
+        // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
+
+
+        // @todo : bring from aparameter value
+        $MAX_DESIRES = 50;
+        
+
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
         {
-            $sortingCriterea = SortingGroup::loadSortingCriterea($sortingGroupId);
-            $sf1 = $sortingCriterea["c1"];
-            $sf1_sql = $sf1 ? "sorting_value_1 float NOT NULL, " : "";
-            $sf1_insert = $sf1 ? "sorting_value_1, " : "";
-            $sf2 = $sortingCriterea["c2"];
-            $sf2_sql = $sf2 ? "sorting_value_2 float NOT NULL, " : "";
-            $sf2_insert = $sf2 ? "sorting_value_2, " : "";
-            $sf3 = $sortingCriterea["c3"];
-            $sf3_sql = $sf3 ? "sorting_value_3 float NOT NULL, " : "";
-            $sf3_insert = $sf3 ? "sorting_value_3, " : "";
-
-            $ff_sql = "";
-            $ff_insert = "";
-            for($f=1;$f<=9;$f++)
+            for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
-                $ff = $sortingCriterea["f$f"];
-                $ff_sql .= $ff ? "formula_value_$f float NOT NULL, " : "";
-                $ff_insert .= $ff ? "formula_value_$f, " : "";
-            }
+                $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($sortingGroupId, $spath);
+                $branchsLastScoreMatrix = [];
+                $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
+                $sortingCriterea = SortingGroup::loadSortingCriterea($sortingGroupId);
+                $sf1 = $sortingCriterea["c1"];
+                $sf1_order_sens = $sf1["field_sens"];
+                $sf1_sql = $sf1 ? "sorting_value_1 float NOT NULL, " : "";
+                $sf1_insert = $sf1 ? "sorting_value_1, " : "";
+                $sf1_order = $sf1 ? "sorting_value_1 $sf1_order_sens, " : "";
+                $sf2 = $sortingCriterea["c2"];
+                $sf2_order_sens = $sf2["field_sens"];
+                $sf2_sql = $sf2 ? "sorting_value_2 float NOT NULL, " : "";
+                $sf2_insert = $sf2 ? "sorting_value_2, " : "";
+                $sf2_order = $sf2 ? "sorting_value_2 $sf2_order_sens, " : "";
+                $sf3 = $sortingCriterea["c3"];
+                $sf3_order_sens = $sf3["field_sens"];
+                $sf3_sql = $sf3 ? "sorting_value_3 float NOT NULL, " : "";
+                $sf3_order = $sf3 ? "sorting_value_1 $sf3_order_sens, " : "";
+                $sf3_insert = $sf3 ? "sorting_value_3, " : "";
 
-            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-            $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId`";
-            $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";
+                $ff_sql = "";
+                $ff_insert = "";
+                for($f=1;$f<=9;$f++)
+                {
+                    $ff = $sortingCriterea["f$f"];
+                    $ff_sql .= $ff ? "formula_value_$f float NOT NULL, " : "";
+                    $ff_insert .= $ff ? "formula_value_$f, " : "";
+                }
 
-            AfwDatabase::db_query($sql_drop);
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath`";
+                $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";
 
-            $sql_create = "CREATE TABLE $sorting_table (
-              `applicant_id` bigint(20) NOT NULL,
-               $sf1_sql  
-               $sf2_sql
-               $sf3_sql
+                AfwDatabase::db_query($sql_drop);
 
-               $ff_sql
-               sorting_num smallint DEFAULT NULL, 
-               assigned_desire_num smallint DEFAULT NULL, 
-               desire_status smallint DEFAULT 0, 
-               application_plan_branch_id int(11) NULL, 
-               PRIMARY KEY (`applicant_id`)
-            ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
+                $sql_create = "CREATE TABLE $sorting_table (
+                `applicant_id` bigint(20) NOT NULL,
+                $sf1_sql  
+                $sf2_sql
+                $sf3_sql
 
-            AfwDatabase::db_query($sql_create);
+                $ff_sql
+                sorting_num smallint DEFAULT NULL, 
+                assigned_desire_num smallint DEFAULT NULL, 
+                desire_status smallint DEFAULT 0, 
+                application_plan_branch_id int(11) NULL, 
+                PRIMARY KEY (`applicant_id`)
+                ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
 
-
-            $sql_insert = "INSERT INTO $sorting_table 
-                             (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert assigned_desire_num)".
-                           "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert min(desire_num) as assigned_desire_num
-                            FROM ".$server_db_prefix."adm.application_desire
-                            WHERE application_plan_id = $application_plan_id 
-                              AND application_simulation_id = $application_simulation_id 
-                              AND sorting_group_id = $sortingGroupId
-                              AND active = 'Y'
-                            GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
-                            ";
+                AfwDatabase::db_query($sql_create);
 
 
-            AfwDatabase::db_query($sql_insert);
+                $sql_insert = "INSERT INTO $sorting_table 
+                                (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert assigned_desire_num)".
+                            "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert min(desire_num) as assigned_desire_num
+                                FROM ".$server_db_prefix."adm.application_desire
+                                WHERE application_plan_id = $application_plan_id 
+                                AND application_simulation_id = $application_simulation_id 
+                                AND sorting_group_id = $sortingGroupId
+                                AND track_num = $spath
+                                AND active = 'Y'
+                                GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
+                                ";
 
-            $sql_farz = "SELECT * FROM $sorting_table order by $sf1_insert $sf2_insert $sf3_insert";
 
-            $farzRows = AfwDatabase::db_recup_rows($sql_farz);
+                AfwDatabase::db_query($sql_insert);
 
-            foreach($farzRows as $farzRow)
-            {
-                
+                $sql_farz = "SELECT * FROM $sorting_table order by $sf1_order $sf2_order $sf3_order";
+
+                $farzRows = AfwDatabase::db_recup_rows($sql_farz);
+                $sorting_num = 0;
+                $old_score = null;
+                foreach($farzRows as $farzRow)
+                {
+                    $applicant_id = $farzRow["applicant_id"];
+                    $new_score = [$farzRow["sorting_value_1"], $farzRow["sorting_value_2"], $farzRow["sorting_value_3"] ];
+                    if(!self::isSameScore($new_score, $old_score, $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
+                    {
+                        $sorting_num++;
+                        $old_score = $new_score;
+                    }
+
+                    // try yo assign him the best desire possible
+                    $desire_num_to_assign = 0;
+                    $desire_assigned = 0;
+                    $application_plan_branch_id_assigned = 0;
+                    while((!$desire_assigned) and ($desire_num_to_assign<$MAX_DESIRES))
+                    {
+                        $desire_num_to_assign++;
+                        $application_plan_branch_id_to_assign = $applicantsDesiresMatrix[$applicant_id][$desire_num_to_assign];
+                        $mandatoryToGiveAsPreviouslyGivedForSameScore = false;
+                        if(self::isSameScore($new_score, $branchsLastScoreMatrix[$application_plan_branch_id_to_assign], $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
+                        {
+                            $mandatoryToGiveAsPreviouslyGivedForSameScore = true;
+                        }
+                        if($mandatoryToGiveAsPreviouslyGivedForSameScore or ($branchsCapacityMatrix[$application_plan_branch_id_to_assign]>0))
+                        {
+                            $desire_assigned = $desire_num_to_assign;
+                            $application_plan_branch_id_assigned = $application_plan_branch_id_to_assign;
+                            $branchsLastScoreMatrix[$application_plan_branch_id_assigned] = $new_score;
+                            
+                            // decrease seats available as one seat is assigned
+                            $branchsCapacityMatrix[$application_plan_branch_id_to_assign]--;
+                            break;
+                        }
+                    }
+
+                    $sql_sorting_applicant = "UPDATE $sorting_table set sorting_num=$sorting_num, assigned_desire_num=$desire_assigned, application_plan_branch_id=$application_plan_branch_id_assigned where applicant_id=$applicant_id";
+                    AfwDatabase::db_query($sql_sorting_applicant);
+                }
             }
                 
         }

@@ -211,7 +211,7 @@ class AdmApplicationSimulationAfwStructure
 
 
 		'controlPanel' => array(
-                        'STEP' => 3,
+                        'STEP' => 4,
                         'TYPE' => 'TEXT',
                         'CATEGORY' => 'FORMULA',
                         'SHOW' => true,
@@ -225,7 +225,7 @@ class AdmApplicationSimulationAfwStructure
                 ),
 
 		'logPanel' => array(
-					'STEP' => 4,
+					'STEP' => 5,
 					'TYPE' => 'TEXT',
 					'CATEGORY' => 'FORMULA',
 					'SHOW' => true,
@@ -239,7 +239,7 @@ class AdmApplicationSimulationAfwStructure
 			),
 
 		'log' => array(
-			'STEP' => 4,
+			'STEP' => 5,
 			'SEARCH' => true,
 			'QSEARCH' => true,
 			'SHOW' => true,
@@ -260,13 +260,13 @@ class AdmApplicationSimulationAfwStructure
 			'TEXT-ALIGN' => 'BYLANG',
 		),
 
-		'progress_task' => array('STEP' => 4,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+		'progress_task' => array('STEP' => 5,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 255,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => true,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 
-		'progress_value' => array('STEP' => 4,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+		'progress_value' => array('STEP' => 5,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'PCTG',  'UNIT' => '%',  'READONLY' => true,  'DNA' => true, 
@@ -276,7 +276,7 @@ class AdmApplicationSimulationAfwStructure
 
 
 
-		'application_plan_id' => array('STEP' => 5,
+		'application_plan_id' => array('STEP' => 3,
 			'SHORTNAME' => 'plan',
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -300,7 +300,7 @@ class AdmApplicationSimulationAfwStructure
 		),
 
 		'statsPanel' => array(
-					'STEP' => 5,
+					'STEP' => 3,
 					'TYPE' => 'TEXT',
 					'CATEGORY' => 'FORMULA',
 					'SHOW' => true,
@@ -324,7 +324,7 @@ class AdmApplicationSimulationAfwStructure
 							'NO-COTE' => true,
 						),
 
-		'applicationList' => array('STEP' => 5,
+		'applicationList' => array('STEP' => 3,
 			'SHORTNAME' => 'applications',  'SHOW' => true,  'FORMAT' => 'retrieve',  
 			'ICONS' => true, 'VIEW-ICON' =>false, 'DELETE-ICON' => true,
 			'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -337,7 +337,7 @@ class AdmApplicationSimulationAfwStructure
 			'READONLY' => true,  'CAN-BE-SETTED' => true, 
 			'CSS' => 'width_pct_100', ),
 
-		'applicationdesireList' => array('STEP' => 5,
+		'applicationdesireList' => array('STEP' => 3,
 			'SHORTNAME' => 'desires',  'SHOW' => true,  'FORMAT' => 'retrieve',  
 			'ICONS' => true, 'MOVE_UP-ICON' =>false, 'VIEW-ICON' =>false, 'DELETE-ICON' => false, 
 			'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  

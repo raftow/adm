@@ -5,6 +5,7 @@ $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
 
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   track_num smallint NOT NULL  AFTER major_category_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");

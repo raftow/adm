@@ -240,6 +240,22 @@ class SortingPath extends AFWObject
                 }
         }
 
+
+        /**
+         * convert major path ID to track num
+         */
+        public static function majorPathIdTrack($application_model_id, $major_path_id)
+        {
+                $nbPaths = self::nbPaths($application_model_id);
+                for($path=1;$path<=$nbPaths;$path++)
+                {
+                     $majPathId = self::trackMajorPathId($application_model_id, $path);   
+                     if($majPathId==$major_path_id) return $path;
+                }
+
+                return 0;
+        }
+
         public static function nbPaths($application_model_id)
         {
                 if (!self::$nbPathsArr[$application_model_id]) {
@@ -257,13 +273,18 @@ class SortingPath extends AFWObject
                 return self::$nbPathsArr[$application_model_id];
         }
 
+
+        /**
+         * get translation label for a track num
+         */
+
         public static function trackTranslation($application_model_id, $path_num, $lang)
         {
                 if (!self::$arrTrackTranslation[$application_model_id][$path_num][$lang]) {
                         $obj = SortingPath::loadByNum($application_model_id, $path_num);
-                        $capacity_translated = AfwLanguageHelper::translateCompanyMessage("capacity", "adm", $lang);
+                        $capacity_translated = AfwLanguageHelper::translateCompanyMessage("path ", "adm", $lang);
                         if ($obj) {
-                                self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = $capacity_translated. " " . $obj->getVal("short_name_$lang");
+                                self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = $capacity_translated . $obj->getVal("short_name_$lang");
                         } else {
                                 self::$arrTrackTranslation[$application_model_id][$path_num][$lang] = $capacity_translated. "-" . $path_num;
                         }
@@ -271,6 +292,10 @@ class SortingPath extends AFWObject
 
                 return self::$arrTrackTranslation[$application_model_id][$path_num][$lang];
         }
+
+        /**
+         * convert track num to major path ID
+         */
 
         public static function trackMajorPathId($application_model_id, $path_num)
         {

@@ -112,7 +112,7 @@
                                                         // 'WHERE' => "academic_level_id = §academic_level_id§ and gender_enum in (3, §gender_enum§)",
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        'CSS' => 'width_pct_100', ),
+                                                        'CSS' => 'width_pct_50', ),
                                                         
                                                 'application_model_branch_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
                                                         'EDIT' => false,  'QEDIT' => false, 'UTF8' => false,  
@@ -120,10 +120,10 @@
                                                         'TYPE' => 'FK',  'ANSWER' => 'application_model_branch',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0, 
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        'CSS' => 'width_pct_100', ),
+                                                        'CSS' => 'width_pct_50', ),
 
 
-                                                        
+                                                                                                 
                                         
 
 
@@ -291,7 +291,15 @@
                                                 'STEP' => 3,
                                                 'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),                                                          
+                                                'CSS' => 'width_pct_25',),   
+                                                
+                                        'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
+                                                        'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 3,  'RELATION' => 'ManyToOne', 'READONLY'=>true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_50', ),                                                       
 
                                         /*        
                                         'sortingBranchList' => array('SHORTNAME' => 'sortingBranchs',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  

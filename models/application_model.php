@@ -187,8 +187,17 @@
                         }
                 }
 
+                
+
                 public function beforeMaj($id, $fields_updated)
                 {  
+                        // tentative of update of sorting paths, check that no sorting sessions has started
+                        if($fields_updated["split_sorting_by_enum"])
+                        {
+                                // @todo : if sorting sessions has started refuse the update
+                                // if(xxxxx) return false;
+                        }
+
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
                         {
                                 global $lang;
@@ -295,6 +304,18 @@
                                 $applicationPlanListCount = $this->getRelation("applicationPlanList")->count();
                                 if($applicationPlanListCount>0) return [false, 'applicationPlanList is not empty'];
                         }
+
+                        if($attribute=="split_sorting_by_enum")
+                        {
+                                $objPlan = $this->getCurrentPlan();
+                                if($objPlan)
+                                {
+                                        // because if sorting Has Started for current plan we can not change the sorting method setted
+                                        return (!$objPlan->sortingHasStarted());
+                                }
+                        }
+
+                        
                         
                         // return type is : array($can, $reason)
                         return [true, ''];
@@ -1323,8 +1344,9 @@
             }    
 	}
 
-        public function getCurrentPlan($dateApplyGreg)
+        public function getCurrentPlan($dateApplyGreg="")
         {
+                if(!$dateApplyGreg) $dateApplyGreg = date("Y-m-d");
                 $academic_level_id = $this->getVal("academic_level_id");
                 $objTerm = AcademicTerm::getCurrentTerm($academic_level_id, $dateApplyGreg);
                 if(!$objTerm or !$objTerm->id) return null;

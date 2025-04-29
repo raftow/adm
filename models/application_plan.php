@@ -6,7 +6,7 @@ class ApplicationPlan extends AdmObject
     public static $MODULE            = "adm";
     public static $TABLE            = "application_plan";
     public static $DB_STRUCTURE = null;
-
+    private static $arrApplicationPlan = [];
     private static $arrApplicationModelIdByPlanId = [];
     // public static $copypast = true;
 
@@ -14,7 +14,7 @@ class ApplicationPlan extends AdmObject
      * @var ApplicationModel $objApplicationModel
      */
     private $objApplicationModel = null;
-    
+
 
     private $mbToPb = [];
 
@@ -46,11 +46,15 @@ class ApplicationPlan extends AdmObject
 
     public static function loadById($id)
     {
-        $obj = new ApplicationPlan();
+        if (!self::$arrApplicationPlan[$id]) {
+            $obj = new ApplicationPlan();
+            if ($obj->load($id)) {
+                self::$arrApplicationPlan[$id] = &$obj;
+            } else self::$arrApplicationPlan[$id] = "NOT-FOUND";
+        }
+        if (self::$arrApplicationPlan[$id] == "NOT-FOUND") return null;
 
-        if ($obj->load($id)) {
-            return $obj;
-        } else return null;
+        return self::$arrApplicationPlan[$id];
     }
 
     public static function loadByMainIndex($application_model_id, $term_id, $create_obj_if_not_found = false)
@@ -211,7 +215,7 @@ class ApplicationPlan extends AdmObject
     }
 
 
-    
+
     public function inheritBranchsCapacities($lang = "ar")
     {
         $err_arr = [];
@@ -220,16 +224,15 @@ class ApplicationPlan extends AdmObject
         $tech_arr = [];
 
         $applicationPlanBranchList = $this->get("applicationPlanBranchList");
-        foreach($applicationPlanBranchList as $applicationPlanBranchItem)
-        {
+        foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
             list($err, $inf, $war, $tech) = $applicationPlanBranchItem->inheritBranchsCapacities($lang);
 
-            if($err) $err_arr[] = $err;
-            if($inf) $inf_arr[] = $inf;
-            if($war) $war_arr[] = $war;
+            if ($err) $err_arr[] = $err;
+            if ($inf) $inf_arr[] = $inf;
+            if ($war) $war_arr[] = $war;
         }
 
-        return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
 
     public function resetPossibleBranchs($lang = "ar")
@@ -280,7 +283,7 @@ class ApplicationPlan extends AdmObject
                                 program_offering_id,application_model_branch_id,
                                 name_ar, name_en,
                                 seats_capacity, direct_adm_capacity, deaf_specialty,is_open,allow_direct_adm,
-                                capacity_track1, capacity_track2, capacity_track3, capacity_track4,
+                                capacity_track1, capacity_track2, capacity_track3, capacity_track4, sorting_group_id,
                                 confirmation_days, application_end_date, hijri_application_end_date)
                                 select $me, now(), $me, now(), amb.active, 0 as version, 431 as sci_id,
                                         $academic_level_id, amb.gender_enum, $term_id, $this_id, 
@@ -288,7 +291,7 @@ class ApplicationPlan extends AdmObject
                                         amb.program_offering_id, amb.id,
                                         amb.branch_name_ar, amb.branch_name_en,
                                         amb.seats_capacity, amb.direct_adm_capacity, amb.deaf_specialty, amb.is_open, IF(amb.direct_adm_capacity>0, 'Y','N') as allow_direct_adm,
-                                        amb.capacity_track1, amb.capacity_track2, amb.capacity_track3, amb.capacity_track4,
+                                        amb.capacity_track1, amb.capacity_track2, amb.capacity_track3, amb.capacity_track4, amb.sorting_group_id,
                                         amb.confirmation_days, '$application_end_date' as application_end_date, '$hijri_application_end_date' as hijri_application_end_date
                                 from $db.application_model_branch amb  
                                         left join $db.application_plan_branch apb on
@@ -480,6 +483,20 @@ class ApplicationPlan extends AdmObject
 
 
         return true;
+    }
+
+
+    /**
+     *  the sorting is considered  started for the application plan if one of its sorting sessions has started
+     *  */
+    public function sortingHasStarted()
+    {
+        $sortingSessionList = $this->get("sortingSessionList");
+        foreach ($sortingSessionList as $sortingSessionItem) {
+            if ($sortingSessionItem->sortingHasStarted()) return true;
+        }
+
+        return false;
     }
 
 

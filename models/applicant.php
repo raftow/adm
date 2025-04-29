@@ -915,7 +915,7 @@ class Applicant extends AdmObject
                 $idn = $this->getVal("idn");
                 $bootstraps = 0;
                 $desire_bootstraps = 0;
-                $blocked = true;
+                $blocked = false;
                 if($only_reset or (strtolower($options["ERASE-EXISTING-APPLICATIONS"])=="on"))
                 {
                         list($result, $row_count, $affected_row_count) = Application::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");     
@@ -935,6 +935,7 @@ class Applicant extends AdmObject
                                         list($err, $inf, $war, $tech) = $appObj->forceGotoDesireStep($lang);
                                         $stepCode = "DSR";
                                         $bootstrapAppResult = "no-bootstrap";
+                                        $bootstrapAppResultDetails = "no-bootstrap";
                                 }
                                 else
                                 {
@@ -953,7 +954,7 @@ class Applicant extends AdmObject
                                 if($stepCode=="DSR")
                                 {
                                         $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
-                                        list($appDesireList, $log) = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
+                                        list($appDesireList, $log, $nb_desires_gen, $nb_desires_mfk) = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
                                         $tech_arr[] = $log;
                                         $appDesireListCount = count($appDesireList);
                                         
@@ -969,8 +970,8 @@ class Applicant extends AdmObject
                                                 if($skipConditionsApply)
                                                 {
                                                         list($err, $inf, $war, $tech) = $appDesireItem->forceGotoSortingStep($lang);
-                                                        $stepCode = "SRT";
-                                                        $bootstrapDesireResult = "no-bootstrap";
+                                                        $desireStepCode = "SRT";
+                                                        $bootstrapDesireResult = "no-bootstrap but forceGotoSortingStep";
                                                 }
                                                 else
                                                 {
@@ -1012,28 +1013,32 @@ class Applicant extends AdmObject
                                         if(!$minDesires) $minDesires = 1;
                                         // check if nb of desires is less than the minimum authorized by application model so consider we are blocked                                        
                                         // also check if at least one desire is blocked so here also consider we are blocked
+
+                                        if($oneDesireAtLeastIsBlocked) 
+                                        {
+                                                $blocked = true;
+                                                $blocked_reason = "Desire $oneDesireAtLeastIsBlocked is blocked";
+                                        }  
                                         
-                                        if(($appDesireListCount>=$minDesires) and (!$oneDesireAtLeastIsBlocked))
+                                        if($appDesireListCount<$minDesires)
                                         {
-                                                $blocked = false;
+                                                $blocked = true;
+                                                $blocked_reason = "Desire count $appDesireListCount is less the minimum required ($minDesires)";
                                         }
-                                        else
+
+                                        if($nb_desires_gen != $nb_desires_mfk)
                                         {
-                                                if($oneDesireAtLeastIsBlocked) $blocked_reason = "Desire $oneDesireAtLeastIsBlocked is blocked";
-                                                else $blocked_reason = "Desire count $appDesireListCount is less the minimum required ($minDesires)";
-                                                $war_arr[] = $this->tm("Some desire(s) are blocked",$lang);                 
+                                                $blocked = true;
+                                                $blocked_reason = "Desires generated count $nb_desires_gen is not equal Desires mfk setted count $nb_desires_mfk";
                                         }
                                 }
                                 else
                                 {
                                         // if the bootstrap failed (one condition failed) or passed (all conditions succeeded) or done (passed and reached last step) 
                                         // then it is not blocked (only standby bootstrap status is considered blocked and need try later)
-                                        if($bootstrapAppResult!="standby")
+                                        if($bootstrapAppResult=="standby")
                                         {
-                                                $blocked = false;  
-                                        }
-                                        else
-                                        {
+                                                $blocked = true;  
                                                 $blocked_reason = $bootstrapAppResultDetails;   
                                         }
                                         $war_arr[] = $this->tm("Application",$lang) ." ". $this->tm("faltered at step",$lang). " : $stepCodeTile <!-- $stepCode --> / ". $appObj->statusExplanations(); 
@@ -1041,7 +1046,9 @@ class Applicant extends AdmObject
                         }
                         else
                         {
-                                $err_arr[] = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
+                                $blocked = true;
+                                $blocked_reason = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
+                                $err_arr[] = $blocked_reason;
                         }
                 }
                 

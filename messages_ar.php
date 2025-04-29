@@ -135,7 +135,10 @@
     $messages["quick arrive to desire selection step"] = "الوصول السريع الى مرحلة اختيار الرغبات";
     $messages["quick arrive to sorting step"] = "الوصول السريع الى مرحلة الفرز";
     $messages["capacity"] = "عدد المقاعد";
-    
+    $messages["path "] = "المسار الـ";
+    $messages["This path is not open for this program"] = "هذا المسار غير مفتوح في هذاالبرنامج";
+
+
     // $messages[""] = "";
     
     

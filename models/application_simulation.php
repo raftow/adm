@@ -108,7 +108,7 @@ class ApplicationSimulation extends AdmObject{
             $title_ar = "تنفيذ المحاكاة"; 
             $methodName = "runSimulation";
             list($dangerous_ar, $dangerous_en) = $this->calcDangerous();
-            $pbRow = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("controlPanel"));
+            $pbRow = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_plan_id"));
             if($dangerous_en)
             {
                 $by_settings_en = "By simulation settings";
@@ -143,7 +143,7 @@ class ApplicationSimulation extends AdmObject{
                           'CONFIRMATION_NEEDED' => true,
                           'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                           'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
-                          'STEP' =>$this->stepOfAttribute("controlPanel"));
+                          'STEP' =>$this->stepOfAttribute("application_plan_id"));
             
             
             return $pbms;
@@ -544,7 +544,7 @@ class ApplicationSimulation extends AdmObject{
                             $applicantSimItem->set("blocked_reason",$bootstrap_blocked_reason);
                             if(count($war_arr)<50)
                             {
-                                $war_arr[] = "Blocked case : $applicant_idn blocked reason : $bootstrap_blocked_reason";
+                                $war_arr[] = "Blocked case : $applicant_idn blocked reason : [$bootstrap_blocked_reason]";
                             }
                             
                         }

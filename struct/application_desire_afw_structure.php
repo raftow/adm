@@ -207,6 +207,18 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),	
 
+                                        'track_num' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => true,
+                                                'QEDIT' => true,
+                                                'EDIT' => true, 'READONLY'=>true,
+                                                'TYPE' => 'INT', 'MANDATORY' => true, 
+                                                'STEP' => 6,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),                                                
+
 
                                         'weighted_percentage' => array(
                                                                 'FGROUP' => 'weighted_percentage',

@@ -47,6 +47,13 @@ class ApplicationPlanBranch extends AdmObject
                 } else return null;
         }
 
+
+        public static function getBranchsCapacityMatrix($sorting_group_id, $track)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                return AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where sorting_group_id=$sorting_group_id", "id", "capacity");
+        }
+
         public function getDisplay($lang = 'ar')
         {
                 return $this->getDefaultDisplay($lang);
@@ -61,17 +68,19 @@ class ApplicationPlanBranch extends AdmObject
         public function inheritBranchsCapacities($lang = "ar")
         {
                 $applicationModelBranchObj = $this->het("application_model_branch_id");
-                 
+
                 $this->set("direct_adm_capacity", $applicationModelBranchObj->getVal("direct_adm_capacity"));
                 $this->set("seats_capacity",  $applicationModelBranchObj->getVal("seats_capacity"));
                 $this->set("capacity_track1", $applicationModelBranchObj->getVal("capacity_track1"));
                 $this->set("capacity_track2", $applicationModelBranchObj->getVal("capacity_track2"));
                 $this->set("capacity_track3", $applicationModelBranchObj->getVal("capacity_track3"));
                 $this->set("capacity_track4", $applicationModelBranchObj->getVal("capacity_track4"));
+                $this->set("sorting_group_id", $applicationModelBranchObj->getVal("sorting_group_id"));
+                
 
                 $this->commit();
 
-                return ["", "done : ".$this->id, ""];
+                return ["", "done : " . $this->id, ""];
         }
 
 
@@ -168,10 +177,18 @@ class ApplicationPlanBranch extends AdmObject
 
         public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
         {
-                $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
-                for ($spath = 1; $spath <= 4; $spath++) {
-                        if ($attribute == "capacity_track$spath") {                                
-                                return SortingPath::trackTranslation($application_model_id, $spath, $lang);
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_model_id = null;
+                
+                
+                for ($spath = 1; $spath <= 4; $spath++) 
+                {                        
+                        if ($attribute == "capacity_track$spath") {
+                                if($application_plan_id and (!$application_model_id))
+                                {
+                                        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+                                }
+                                if($application_model_id) return SortingPath::trackTranslation($application_model_id, $spath, $lang);
                         }
                 }
 
@@ -204,6 +221,23 @@ class ApplicationPlanBranch extends AdmObject
                 }
 
                 return true;
+        }
+
+        public function whyAttributeIsNotApplicable($attribute, $lang = 'ar')
+        {
+                $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
+                $maxPaths = SortingPath::nbPaths($application_model_id);
+                for ($spath = 1; $spath <= $maxPaths; $spath++) {
+                        $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
+                        if ($attribute == "capacity_track$spath") {
+                                $icon = 'closed.png';
+                                $textReason = $this->translateMessage('This path is not open for this program', $lang);
+                                return [$icon, $textReason, 42, 42];
+                        }
+                }
+                $icon = 'na20.png';
+                $textReason = $this->translateMessage('NA-HERE', $lang);
+                return [$icon, $textReason, 20, 20];
         }
 
 
