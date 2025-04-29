@@ -1041,7 +1041,7 @@ class AdmApplicantAfwStructure
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        'STEP' => 2,
+                        'STEP' => 9,
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1064,7 +1064,7 @@ class AdmApplicantAfwStructure
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        'STEP' => 2,
+                        'STEP' => 9,
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1088,7 +1088,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 40,
                         'DEFAUT' => 0,
                         'DISPLAY' => true,
-                        'STEP' => 2,
+                        'STEP' => 9,
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1111,7 +1111,7 @@ class AdmApplicantAfwStructure
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        'STEP' => 2,
+                        'STEP' => 9,
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1134,7 +1134,7 @@ class AdmApplicantAfwStructure
                                                 'EDIT-ADMIN' => true,*/
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
-                        'STEP' => 2,
+                        'STEP' => 9,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
 
@@ -1156,7 +1156,7 @@ class AdmApplicantAfwStructure
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => false,
-                        'STEP' => 2,
+                        'STEP' => 9,
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1164,7 +1164,7 @@ class AdmApplicantAfwStructure
                 ),
 
 
-                'preferred_program_track_id' => array('FGROUP' => 'favorite', 'STEP' => 2,  
+                'preferred_program_track_id' => array('FGROUP' => 'favorite', 'STEP' => 9,  
                                                 'IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
@@ -1173,7 +1173,7 @@ class AdmApplicantAfwStructure
                                                 'CSS' => 'width_pct_50', ),
 
 
-                'application_model_id' => array('FGROUP' => 'favorite', 'STEP' => 2, 
+                'application_model_id' => array('FGROUP' => 'favorite', 'STEP' => 9, 
                                         'SHORTNAME' => 'model', 
                                         'SEARCH' => true,
                                         'QSEARCH' => false,
@@ -1197,7 +1197,7 @@ class AdmApplicantAfwStructure
                                         'CSS' => 'width_pct_50',
                                 ),
                                 
-                'application_model_branch_mfk' => array('FGROUP' => 'favorite', 'STEP' => 5,
+                'application_model_branch_mfk' => array('FGROUP' => 'favorite', 'STEP' => 9,
 			'SHORTNAME' => 'model_branchs',
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -1221,7 +1221,7 @@ class AdmApplicantAfwStructure
 			'CSS' => 'width_pct_100',
 		),   
 
-                'applicant_group_id' => array('FGROUP' => 'favorite', 'STEP' => 2,
+                'applicant_group_id' => array('FGROUP' => 'favorite', 'STEP' => 9,
 			'SHORTNAME' => 'group',
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -1244,7 +1244,7 @@ class AdmApplicantAfwStructure
 			'CSS' => 'width_pct_50',
 		),
 
-                'log' => array('STEP' => 2, 'FGROUP' => 'favorite',
+                'log' => array('STEP' => 9, 'FGROUP' => 'favorite',
                         'SHOW' => true,
                         'RETRIEVE' => true,
                         'EDIT' => true,
@@ -1256,6 +1256,20 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
+
+                'disability_ind' => array('STEP' => 9, 'FGROUP' => 'disability', 'SEARCH' => true,  'QSEARCH' => false,  
+                                'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
+
+                'disability_mfk' => array('STEP' => 9, 'SHORTNAME' => 'disabilitys',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'MFK',  'ANSWER' => "disability",  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_100', ),
+
 
                 'qiyas_achievement_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  

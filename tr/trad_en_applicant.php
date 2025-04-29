@@ -100,6 +100,9 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["applicant_group_id"] = "Applicant group";
 		$trad["applicant"]["application_model_branch_mfk"] = "Favorite branchs";
 		$trad["applicant"]["log"] = "Log application and sorting details";
+		$trad["applicant"]["disability_ind"] = "There are disabilities ?";
+		$trad["applicant"]["disability"] = "Disabilities";
+		$trad["applicant"]["disability_mfk"] = "Disabilities list";
 
 		$trad["applicant"]["qiyas_achievement_th"] = "Academic achievement test score - theoretical";
 		$trad["applicant"]["qiyas_achievement_th_date"] = "Date of the achievement test - theoretical";

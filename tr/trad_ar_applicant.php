@@ -78,6 +78,10 @@ class ApplicantArTranslator{
 		$trad["applicant"]["profile"] = "البيانات الشخصية";
 		$trad["applicant"]["job_status"] = "بيانات حالة التوظيف";
 		$trad["applicant"]["profile-other"] = "بيانات أخرى";
+		$trad["applicant"]["disability_ind"] = "يوجد اعاقة أو أكثر ؟";
+		$trad["applicant"]["disability_mfk"] = "قائمة الإعاقات";
+		$trad["applicant"]["disability"] = "الإعاقة";
+
 
 		$trad["applicant"]["eval"] = "درجات الاختبارات المعتمدة للمؤسسة الأكاديمية";
 		$trad["applicant"]["weighted_percentage"] = "النسبة الموزونة";
