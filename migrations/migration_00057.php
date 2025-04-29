@@ -4,6 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER direct_adm_capacity;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL  AFTER upgraded;");
 
     AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`major_path` WHERE id > 143");
