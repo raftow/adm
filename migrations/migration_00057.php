@@ -2,80 +2,87 @@
 if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL  AFTER upgraded;");
-
-AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`major_path` WHERE id > 143");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track4 smallint DEFAULT NULL  AFTER capacity_track3;");
-
-
-if($server_db_prefix=="uoh_")
+try
 {
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   attribute_10 char(1) DEFAULT NULL  AFTER attribute_9;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL  AFTER upgraded;");
+
+    AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`major_path` WHERE id > 143");
+    
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track4 smallint DEFAULT NULL  AFTER capacity_track3;");
+    
+    
+    if($server_db_prefix=="uoh_")
+    {
+        AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   attribute_10 char(1) DEFAULT NULL  AFTER attribute_9;");
+    }
+    
+    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.disability;");
+    
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`disability` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `created_by` int(11) NOT NULL,
+      `created_at`   datetime NOT NULL,
+      `updated_by` int(11) NOT NULL,
+      `updated_at` datetime NOT NULL,
+      `validated_by` int(11) DEFAULT NULL,
+      `validated_at` datetime DEFAULT NULL,
+      `active` char(1) NOT NULL,
+      `draft` char(1) NOT NULL default  'Y' ,
+      `version` int(4) DEFAULT NULL,
+      `update_groups_mfk` varchar(255) DEFAULT NULL,
+      `delete_groups_mfk` varchar(255) DEFAULT NULL,
+      `display_groups_mfk` varchar(255) DEFAULT NULL,
+      `sci_id` int(11) DEFAULT NULL,
+      
+        
+       name_ar varchar(128)  NOT NULL , 
+       desc_ar text  DEFAULT NULL , 
+       name_en varchar(128)  NOT NULL , 
+       desc_en text  DEFAULT NULL , 
+       lookup_code varchar(16)  NOT NULL , 
+    
+      
+      PRIMARY KEY (`id`)
+    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
+    
+    
+    AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`disability` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `name_ar`, `desc_ar`, `name_en`, `desc_en`, `lookup_code`) VALUES
+    (1, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'المكفوفين', '', 'Blind ', '', '02'),
+    (2, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'الصم والبكم', '', 'Deaf and dumb ', '', '03'),
+    (3, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' شلل الأطفال', '', '  Polio ', '', '06'),
+    (4, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' شلل سفلي', '', '  Paraplegia ', '', '07'),
+    (5, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' صعوبة في النطق', '', '  Difficulty in pronunciation ', '', '08'),
+    (6, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' تشوهات خلقية', '', '  Congenital malformations ', '', '09'),
+    (7, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'ضعف السمع', '', 'Hearing impairment ', '', '10'),
+    (8, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' أمراض الدم', '', '  Blood Diseases ', '', '11'),
+    (9, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' قصر أو بتر بالأطراف السفلية', '', '  Palace parties or amputation of the lower ', '', '12'),
+    (10, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' فشل كلوي', '', '  Renal failure', '', '13'),
+    (11, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'شديد الاعاقة', '', 'Severe Disability', '', '14'),
+    (12, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'متوسط الاعاقة', '', 'Moderate Disability', '', '15'),
+    (13, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات الجسدية', '', 'Physical Disabilities Group', '', '17'),
+    (14, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات الحسية(يرفق تقرير طبي)', '', 'Sensory Disabilities Group (Attach a medical report)', '', '18'),
+    (15, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات المركبة', '', 'Complex Disabilities Group', '', '19'),
+    (16, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات الذهنية', '', 'Intellectual Disabilities Group', '', '20'),
+    (17, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات المرضية', '', 'Disease Disabilities Group', '', '21');");
+    
+    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
+    
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   disability_ind char(1) NOT NULL  AFTER log;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   disability_mfk varchar(255) DEFAULT NULL  AFTER disability_ind;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   track_num smallint NOT NULL  AFTER major_category_id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track4 smallint DEFAULT NULL  AFTER capacity_track3;");
+}
+catch(Exception $e)
+{
+    $migration_info .= " " . $e->getMessage();
 }
 
-AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.disability;");
-
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`disability` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default  'Y' ,
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-    
-   name_ar varchar(128)  NOT NULL , 
-   desc_ar text  DEFAULT NULL , 
-   name_en varchar(128)  NOT NULL , 
-   desc_en text  DEFAULT NULL , 
-   lookup_code varchar(16)  NOT NULL , 
-
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-
-
-AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`disability` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `name_ar`, `desc_ar`, `name_en`, `desc_en`, `lookup_code`) VALUES
-(1, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'المكفوفين', '', 'Blind ', '', '02'),
-(2, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'الصم والبكم', '', 'Deaf and dumb ', '', '03'),
-(3, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' شلل الأطفال', '', '  Polio ', '', '06'),
-(4, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' شلل سفلي', '', '  Paraplegia ', '', '07'),
-(5, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' صعوبة في النطق', '', '  Difficulty in pronunciation ', '', '08'),
-(6, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' تشوهات خلقية', '', '  Congenital malformations ', '', '09'),
-(7, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'ضعف السمع', '', 'Hearing impairment ', '', '10'),
-(8, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' أمراض الدم', '', '  Blood Diseases ', '', '11'),
-(9, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' قصر أو بتر بالأطراف السفلية', '', '  Palace parties or amputation of the lower ', '', '12'),
-(10, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, ' فشل كلوي', '', '  Renal failure', '', '13'),
-(11, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'شديد الاعاقة', '', 'Severe Disability', '', '14'),
-(12, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'متوسط الاعاقة', '', 'Moderate Disability', '', '15'),
-(13, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات الجسدية', '', 'Physical Disabilities Group', '', '17'),
-(14, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات الحسية(يرفق تقرير طبي)', '', 'Sensory Disabilities Group (Attach a medical report)', '', '18'),
-(15, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات المركبة', '', 'Complex Disabilities Group', '', '19'),
-(16, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات الذهنية', '', 'Intellectual Disabilities Group', '', '20'),
-(17, 1, '2025-04-29 11:15:58', 1, '2025-04-29 11:15:58', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'مجموعة الإعاقات المرضية', '', 'Disease Disabilities Group', '', '21');");
-
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   disability_ind char(1) NOT NULL  AFTER log;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   disability_mfk varchar(255) DEFAULT NULL  AFTER disability_ind;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   track_num smallint NOT NULL  AFTER major_category_id;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   capacity_track4 smallint DEFAULT NULL  AFTER capacity_track3;");
 
 if($server_db_prefix=="uoh_")
 {
