@@ -163,9 +163,9 @@
                 public function calcDesires_selection_step_id($what = "value")
                 {
                         $application_model_id = $this->id;
-                        $return = ApplicationStep::loadDesiresSelectionStep($application_model_id);
+                        $stepObj = ApplicationStep::loadDesiresSelectionStep($application_model_id);
 
-                        return ($what == "value") ? $return->id : $return;
+                        return ($what == "value") ? $stepObj->id : $stepObj;
                 }
 
                 public function calcSorting_step_id($what = "value")
@@ -187,6 +187,9 @@
                         }
                 }
 
+
+                
+
                 
 
                 public function beforeMaj($id, $fields_updated)
@@ -194,8 +197,8 @@
                         // tentative of update of sorting paths, check that no sorting sessions has started
                         if($fields_updated["split_sorting_by_enum"])
                         {
-                                // @todo : if sorting sessions has started refuse the update
-                                // if(xxxxx) return false;
+                                // if sorting sessions has started refuse the update
+                                if($this->currentSortingSession()) return false;
                         }
 
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
@@ -621,6 +624,11 @@
 
                 
 
+                public function canNotUpdateSortingPath($lang="ar")
+                {
+                        return ["","",$this->tm("Can't update the sorting paths because some sorting sessions has already started",$lang)];
+                }
+
                 public function updateSortingPath($lang="ar")
                 {
                         $err_arr = [];
@@ -656,9 +664,11 @@
                                         $majorPathList[$application_model_id] = $this;
                                 }
 
+                                
+                                SortingPath::deleteWhere("application_model_id = $application_model_id");
 
-                                SortingPath::deleteWhere("application_model_id = $application_model_id and sorting_path_code not like '$the_code-%'"); 
-                                SortingPath::updateWhere(['active'=>'N'], "application_model_id = $application_model_id");
+                                // SortingPath::deleteWhere("application_model_id = $application_model_id and sorting_path_code not like '$the_code-%' or sorting_num > $max_sorting_num"); 
+                                // SortingPath::updateWhere(['active'=>'N'], "application_model_id = $application_model_id");
                                 
 
                                 $capacity_pct_total = 100;
@@ -780,6 +790,16 @@
                         
                 }
 
+                public function currentSortingSession()
+                {
+                       $currentPlan = $this->getCurrentPlan(); 
+                       if(!$currentPlan) return null;
+
+                       return $currentPlan->getCurrentSortingSession(); 
+                }
+
+                
+
 
                 protected function getPublicMethods()
                 {
@@ -805,10 +825,20 @@
                         $methodName = "testOpenApplicationModelBranchList";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
 
-                        $color = "yellow";
-                        $title_ar = "تحديث مسارات الفرز"; 
-                        $methodName = "updateSortingPath";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sortingPathList"));
+                        if(!$this->currentSortingSession())
+                        {
+                                $color = "yellow";
+                                $title_ar = "تحديث مسارات الفرز"; 
+                                $methodName = "updateSortingPath";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sortingPathList"));                                
+                        }
+                        else
+                        {
+                                $color = "yellow";
+                                $title_ar = "تحديث مسارات الفرز"; 
+                                $methodName = "canNotUpdateSortingPath";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sortingPathList"));                                                                
+                        }
                         
 
                         $color = "blue";

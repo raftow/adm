@@ -144,6 +144,18 @@ class ApplicationSimulation extends AdmObject{
                           'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                           'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                           'STEP' =>$this->stepOfAttribute("application_plan_id"));
+
+            $color = "orange";
+            $title_ar = "تصفير المحاكاة للحالات الغير مكتملة"; 
+            $methodName = "resetSimulationForNotFinishedApplications";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = 
+                                  array("METHOD"=>$methodName,
+                                        "COLOR"=>$color, 
+                                        "LABEL_AR"=>$title_ar, 
+                                        "ADMIN-ONLY"=>true, 
+                                        "BF-ID"=>"", 
+                                        'STEP' =>$this->stepOfAttribute("application_plan_id"));
+                                                    
             
             
             return $pbms;
@@ -339,6 +351,22 @@ class ApplicationSimulation extends AdmObject{
             return [$show, $blocked_applicants];
         }
 
+        public function resetSimulationForNotFinishedApplications()
+        {
+            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+            /** 
+             * @var ApplicationPlan $applicationPlanObj 
+             * */
+            $applicationPlanObj = $this->het("application_plan_id");
+            $application_plan_id = $applicationPlanObj->id;
+
+            $desire_select_step_id = $applicationPlanObj->getApplicationModel()->calcDesires_selection_step_id();
+
+            $application_simulation_id = $this->id;
+            $sets_arr = ['done'=>'N'];
+            $where_clause = "active='Y' and application_simulation_id=$application_simulation_id and applicant_id in (select tmp.applicant_id from ".$server_db_prefix."adm.application tmp where tmp.application_simulation_id=$application_simulation_id and tmp.application_plan_id=$application_plan_id and tmp.application_step_id!=$desire_select_step_id)";
+            ApplicantSimulation::updateWhere($sets_arr, $where_clause);
+        }
 
         public function resetSimulation($cases)
         {
@@ -348,6 +376,8 @@ class ApplicationSimulation extends AdmObject{
             if($cases and (strtolower($cases) != "all")) $where_clause = "and applicant_id in ($cases)";
             ApplicantSimulation::updateWhere($sets_arr, $where_clause);
         }
+
+
 
         public function resetMySimulation($lang="ar")
         {

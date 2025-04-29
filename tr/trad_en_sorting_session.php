@@ -19,6 +19,8 @@ class SortingSessionEnTranslator{
 		$trad["sorting_session"]["application_plan_id"] = "Application plan";
 		$trad["sorting_session"]["session_num"] = "Session num";
 		$trad["sorting_session"]["sortingGroupList"] = "Sorting Group List";
+
+		$trad["sorting_session"]["started_ind"] = "Sorting has started";
         // steps
         return $trad;
     }

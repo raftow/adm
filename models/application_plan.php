@@ -492,6 +492,9 @@ class ApplicationPlan extends AdmObject
     public function sortingHasStarted()
     {
         $sortingSessionList = $this->get("sortingSessionList");
+        /**
+         * @var SortingSession $sortingSessionItem
+         */
         foreach ($sortingSessionList as $sortingSessionItem) {
             if ($sortingSessionItem->sortingHasStarted()) return true;
         }
@@ -637,5 +640,11 @@ class ApplicationPlan extends AdmObject
         }
 
         return $obj->loadMany();
+    }
+
+
+    public function getCurrentSortingSession()
+    {
+        return $this->getRelation("sortingSessionList")->resetWhere("started_ind='Y'")->orderBy("session_num asc")->getFirst();
     }
 }

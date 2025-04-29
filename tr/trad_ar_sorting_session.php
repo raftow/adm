@@ -32,7 +32,11 @@ class SortingSessionArTranslator{
 		$trad["sorting_session"]["nb_desires"] = "عدد المترشحين لكرة الفرز";
 		$trad["sorting_session"]["application_simulation_id"] = "الفرز على";
 		$trad["sorting_session"]["sortingGroupList"] = "مجموعات الفرز";
+		$trad["sorting_session"]["sorting group stats"] = "الاحصائيات حسب مجموعات الفرز";
+		$trad["sorting_session"]["sorting path stats"] = "الاحصائيات حسب مسارات الفرز";
 		
+		$trad["sorting_session"]["started_ind"] = "بدأ الفرز";
+
 		
 		
         // steps

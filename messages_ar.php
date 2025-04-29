@@ -138,7 +138,8 @@
     $messages["path "] = "المسار الـ";
     $messages["This path is not open for this program"] = "هذا المسار غير مفتوح في هذاالبرنامج";
 
-
+    $messages["Can't update the sorting paths because some sorting sessions has already started"] = "لا يمكن تحديث مسارات الفرز لأن بعض جلسات الفرز قد بدأت بالفعل";
+                
     // $messages[""] = "";
     
     

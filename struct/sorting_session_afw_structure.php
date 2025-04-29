@@ -168,11 +168,17 @@ class AdmSortingSessionAfwStructure
                         'CSS' => 'width_pct_50',
                 ],
 
+                'started_ind' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  'STEP' => 1, 
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
+
                                         'sorting_step_id' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
-								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'INT',  'STEP' => 99, 'READONLY'=>true,
-								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-								'CSS' => 'width_pct_25',),
+                                                                'EDIT' => true,  'READONLY' => true,
+                                                                'TYPE' => 'INT',  'STEP' => 99, 'READONLY'=>true,
+                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                                'CSS' => 'width_pct_25',),
 
                                         'applicationDesireList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
                                                 'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  

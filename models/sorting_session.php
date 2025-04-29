@@ -419,7 +419,7 @@ class SortingSession extends AFWObject
      */
     public function sortingHasStarted()
     {
-        return false;
+        return $this->sureIs("started_ind");
     }
 
     protected function getPublicMethods()
@@ -523,10 +523,69 @@ class SortingSession extends AFWObject
         return $pbms;
     }
 
+    public function postSortingStats()    
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        $applicationPlanObj = $this->het("application_plan_id");
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+
+        $statsData = [];
+        $pathData = [];
+        $applicationPlanBranchList = $applicationPlanObj->get("applicationPlanBranchList");
+
+        $maxPaths = SortingPath::nbPaths($application_model_id);
+        for ($spath = 1; $spath <= $maxPaths; $spath++) 
+        {
+            $pathData[$spath]["ar"] = SortingPath::trackTranslation($application_model_id, $spath, "ar");
+            $pathData[$spath]["en"] = SortingPath::trackTranslation($application_model_id, $spath, "en");
+        }
+
+        /**
+         * @var ApplicationPlanBranch $applicationPlanBranchItem
+         */
+        foreach($applicationPlanBranchList as $applicationPlanBranchItem)
+        {
+            foreach($pathData as $spath => $spathLabel)
+            {
+                if($applicationPlanBranchItem->attributeIsApplicable("capacity_track$spath"))
+                {
+
+                    $rowData = [];
+                    $rowData["branch_id"] = $applicationPlanBranchItem->id;
+                    $rowData["tunit_ar"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"ar");
+                    $rowData["tunit_en"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"en");
+                    $rowData["program_ar"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"ar");
+                    $rowData["program_en"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"en");
+                    $rowData["gender_ar"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"ar");
+                    $rowData["gender_en"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"en");
+                    $rowData["track_ar"] = $spathLabel["ar"];
+                    $rowData["track_ar"] = $spathLabel["en"];
+                    $rowData["capacity"] = $applicationPlanBranchItem->getVal("capacity_track$spath");
+                    $rowData["min_app_score"] = "";
+                    $rowData["min_acc_score"] = "";
+                    $rowData["nb_acc"] = 0;
+                    $rowData["nb_free"] = 0;
+        
+                    $statsData[] = $rowData;
+
+
+                }
+            }
+        }
+
+
+        // fill stats with results of sorting
+    }
+
 
     public function calcStatsPanel($what = "value")
     {
         $application_simulation_id = $this->getVal("application_simulation_id");
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+
         $sorting_step_id = $this->calc("sorting_step_id");
         $lang = AfwLanguageHelper::getGlobalLanguage();
         
@@ -543,11 +602,23 @@ class SortingSession extends AFWObject
         }
         // die("keyDecodeArr = ".var_export($keyDecodeArr,true));
         $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by sorting_group_id";
-
-        
         $rows_by_sorting_group = AfwDatabase::db_recup_index($sql_nb_by_sorting_group,"sorting_group_id","nb");
-        $html .= "<h1>".$this->translate("sortingGroupList", $lang)."</h1>";
+        $html .= "<h1>".$this->translate("sorting group stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_group, $keyDecodeArr);
+
+        unset($keyDecodeArr);
+        $keyDecodeArr = [];
+        $maxPaths = SortingPath::nbPaths($application_model_id);
+        for ($spath = 1; $spath <= $maxPaths; $spath++) 
+        {
+            $keyDecodeArr[$spath] = SortingPath::trackTranslation($application_model_id, $spath, $lang);
+        }
+        
+        
+        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by track_num";
+        $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"track_num","nb");
+        $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
+        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
         
         $html .= "   </div> <!-- stats_panel -->";   
         $html .= "</div> <!-- stats-panel -->";
@@ -575,6 +646,8 @@ class SortingSession extends AFWObject
         $sortingGroupList = $this->get("sortingGroupList");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
+
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
         
         if(!$session_num) return ["Please define session num for this sorting session", ""];
         if(!$application_plan_id) return ["Please define application plan for this sorting session", ""];
@@ -587,13 +660,34 @@ class SortingSession extends AFWObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
 
+        $this->set("started_ind", "Y");
+        $this->commit();
 
         // @todo : bring from aparameter value
         $MAX_DESIRES = 50;
+
+        if($preSorting)
+        {
+            $sorting_path_tmp_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sorting_path`";
+            $sorting_path_tmp_sql_drop = "DROP TABLE IF EXISTS $sorting_path_tmp_table;";
+            AfwDatabase::db_query($sorting_path_tmp_sql_drop);
+
+            $sorting_path_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $sorting_path_tmp_table as select * from ".$server_db_prefix."adm.sorting_path where application_plan_id=$application_plan_id";
+            AfwDatabase::db_query($sorting_path_tmp_sql_create);
+
+
+            $sorting_group_tmp_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sorting_group`";
+            $sorting_group_tmp_sql_drop = "DROP TABLE IF EXISTS $sorting_group_tmp_table;";
+            AfwDatabase::db_query($sorting_group_tmp_sql_drop);
+
+            $sorting_group_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $sorting_group_tmp_table as select * from ".$server_db_prefix."adm.sorting_group where application_plan_id=$application_plan_id";
+            AfwDatabase::db_query($sorting_group_tmp_sql_create);
+        }
+
         
 
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
-        {
+        {            
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($sortingGroupId, $spath);
@@ -616,11 +710,12 @@ class SortingSession extends AFWObject
                 $sf3_order = $sf3 ? "sorting_value_1 $sf3_order_sens, " : "";
                 $sf3_insert = $sf3 ? "sorting_value_3, " : "";
 
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                
                 $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath`";
                 
                 if($preSorting)
                 {
+                    
                     $ff_sql = "";
                     $ff_insert = "";
                     for($f=1;$f<=9;$f++)
@@ -672,6 +767,9 @@ class SortingSession extends AFWObject
 
                 $farzRows = AfwDatabase::db_recup_rows($sql_farz);
                 $sorting_num = 0;
+                $nb_desire_assigned = 0;
+                $nb_desire_assign_failed = 0;
+                $applicant_assign_failed = "";
                 $old_score = null;
                 foreach($farzRows as $farzRow)
                 {
@@ -708,6 +806,16 @@ class SortingSession extends AFWObject
                         }
                     }
 
+                    if($desire_assigned)
+                    {
+                        $nb_desire_assigned++;
+                    }
+                    else
+                    {
+                        $nb_desire_assign_failed++;
+                        $applicant_assign_failed = $applicant_id;
+                    }
+
                     $sql_sorting_applicant = "UPDATE $sorting_table set sorting_num=$sorting_num, assigned_desire_num=$desire_assigned, application_plan_branch_id=$application_plan_branch_id_assigned where applicant_id=$applicant_id";
                     AfwDatabase::db_query($sql_sorting_applicant);
                 }
@@ -718,7 +826,7 @@ class SortingSession extends AFWObject
 
         // $applicationDesireList = $this->get("applicationDesireList");
 
-        
+        return ["", "Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]"];
 
     }
 
