@@ -3,16 +3,16 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
-if($server_db_prefix=="uoh_")
-{
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   attribute_10 char(1) DEFAULT NULL  AFTER attribute_9;");
-}
-
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track2 smallint DEFAULT NULL  AFTER capacity_track1;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track3 smallint DEFAULT NULL  AFTER capacity_track2;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track4 smallint DEFAULT NULL  AFTER capacity_track3;");
 
+
+if($server_db_prefix=="uoh_")
+{
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant add   attribute_10 char(1) DEFAULT NULL  AFTER attribute_9;");
+}
 
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.disability;");
 
