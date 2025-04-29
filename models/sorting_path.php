@@ -267,8 +267,11 @@ class SortingPath extends AFWObject
                                         break;
                                 }
                         }
+                        if (!self::$nbPathsArr[$application_model_id]) self::$nbPathsArr[$application_model_id] = "NO-PATH";
                         
                 }
+
+                if(self::$nbPathsArr[$application_model_id] == "NO-PATH") return 0;
 
                 return self::$nbPathsArr[$application_model_id];
         }

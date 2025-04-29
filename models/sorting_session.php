@@ -557,6 +557,7 @@ class SortingSession extends AFWObject
 
     public static function isSameScore($new_score, $old_score, $field_name_1, $field_name_2, $field_name_3)
     {
+        if(!$old_score) return false;
             // @todo make it parametrable
             $ignored_epsilon1 = 0.0001;
             $ignored_epsilon2 = 0.0001;
@@ -568,7 +569,7 @@ class SortingSession extends AFWObject
     }
 
 
-    public function runSorting($lang = "ar")
+    public function runSorting($lang = "ar", $preSorting = true)
     {
         $session_num = $this->getVal("session_num");
         $sortingGroupList = $this->get("sortingGroupList");
@@ -615,52 +616,57 @@ class SortingSession extends AFWObject
                 $sf3_order = $sf3 ? "sorting_value_1 $sf3_order_sens, " : "";
                 $sf3_insert = $sf3 ? "sorting_value_3, " : "";
 
-                $ff_sql = "";
-                $ff_insert = "";
-                for($f=1;$f<=9;$f++)
-                {
-                    $ff = $sortingCriterea["f$f"];
-                    $ff_sql .= $ff ? "formula_value_$f float NOT NULL, " : "";
-                    $ff_insert .= $ff ? "formula_value_$f, " : "";
-                }
-
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
                 $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath`";
-                $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";
+                
+                if($preSorting)
+                {
+                    $ff_sql = "";
+                    $ff_insert = "";
+                    for($f=1;$f<=9;$f++)
+                    {
+                        $ff = $sortingCriterea["f$f"];
+                        $ff_sql .= $ff ? "formula_value_$f float NOT NULL, " : "";
+                        $ff_insert .= $ff ? "formula_value_$f, " : "";
+                    }
 
-                AfwDatabase::db_query($sql_drop);
+                    
+                    $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";
 
-                $sql_create = "CREATE TABLE $sorting_table (
-                `applicant_id` bigint(20) NOT NULL,
-                $sf1_sql  
-                $sf2_sql
-                $sf3_sql
+                    AfwDatabase::db_query($sql_drop);
 
-                $ff_sql
-                sorting_num smallint DEFAULT NULL, 
-                assigned_desire_num smallint DEFAULT NULL, 
-                desire_status smallint DEFAULT 0, 
-                application_plan_branch_id int(11) NULL, 
-                PRIMARY KEY (`applicant_id`)
-                ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
+                    $sql_create = "CREATE TABLE $sorting_table (
+                    `applicant_id` bigint(20) NOT NULL,
+                    $sf1_sql  
+                    $sf2_sql
+                    $sf3_sql
 
-                AfwDatabase::db_query($sql_create);
+                    $ff_sql
+                    sorting_num smallint DEFAULT NULL, 
+                    assigned_desire_num smallint DEFAULT NULL, 
+                    desire_status smallint DEFAULT 0, 
+                    application_plan_branch_id int(11) NULL, 
+                    PRIMARY KEY (`applicant_id`)
+                    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
 
-
-                $sql_insert = "INSERT INTO $sorting_table 
-                                (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert assigned_desire_num)".
-                            "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert min(desire_num) as assigned_desire_num
-                                FROM ".$server_db_prefix."adm.application_desire
-                                WHERE application_plan_id = $application_plan_id 
-                                AND application_simulation_id = $application_simulation_id 
-                                AND sorting_group_id = $sortingGroupId
-                                AND track_num = $spath
-                                AND active = 'Y'
-                                GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
-                                ";
+                    AfwDatabase::db_query($sql_create);
 
 
-                AfwDatabase::db_query($sql_insert);
+                    $sql_insert = "INSERT INTO $sorting_table 
+                                    (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert assigned_desire_num)".
+                                "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert min(desire_num) as assigned_desire_num
+                                    FROM ".$server_db_prefix."adm.application_desire
+                                    WHERE application_plan_id = $application_plan_id 
+                                    AND application_simulation_id = $application_simulation_id 
+                                    AND sorting_group_id = $sortingGroupId
+                                    AND track_num = $spath
+                                    AND active = 'Y'
+                                    GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
+                                    ";
+
+
+                    AfwDatabase::db_query($sql_insert);
+                }
 
                 $sql_farz = "SELECT * FROM $sorting_table order by $sf1_order $sf2_order $sf3_order";
 
