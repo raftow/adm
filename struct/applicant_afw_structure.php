@@ -1260,8 +1260,8 @@ class AdmApplicantAfwStructure
                 'disability_ind' => array('STEP' => 9, 'FGROUP' => 'disability', 'SEARCH' => true,  'QSEARCH' => false,  
                                 'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,   'FORMAT' => 'icon', 
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
-				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => false,  'DNA' => true, 
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE", 'UTF8' => false,  
+				'TYPE' => 'YN',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_100', ),
 
                 'disability_mfk' => array('STEP' => 9, 'FGROUP' => 'disability', 'SHORTNAME' => 'disabilitys',  
