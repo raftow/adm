@@ -7,3 +7,4 @@
 	$trad["qual_source"]["qual_source_name_ar"] = "Source name - arabic";
 	$trad["qual_source"]["qual_source_name_en"] = "Source name - english";
 	$trad["qual_source"]["qualification_id"] = "Qualification";
+	$trad["qual_source"]["source_code"] = "code";

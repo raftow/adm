@@ -7,3 +7,4 @@
 	$trad["qual_source"]["qual_source_name_ar"] = "اسم المصدر بالعربية";
 	$trad["qual_source"]["qual_source_name_en"] = "اسم المصدر بالإنجليزية";
 	$trad["qual_source"]["qualification_id"] = "المؤهل";
+	$trad["qual_source"]["source_code"] = "رمز";

@@ -48,7 +48,11 @@
                                                     'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                     'CSS' => 'width_pct_25', ),	
 
-
+                                        'source_code' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                                        'EDIT' => true,  'QEDIT' => true,  
+                                                                        'SIZE' => 16,  'MAXLENGTH' => 16,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+                                                                        'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                                        'CSS' => 'width_pct_50', ),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
