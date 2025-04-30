@@ -61,7 +61,7 @@ $migrations = [
     '00055' => ['by'=>'medali','title'=>'add fields to application step'],
     '00056' => ['by'=>'medali','title'=>'data for program_qualification'],
     '00057' => ['by'=>'rafik', 'title' => 'Farz UOH capacity by Major path'],
-
+    '00058' => ['by'=>'medali','title'=>'add source name to applicant_qualification']
 
 ];
 
