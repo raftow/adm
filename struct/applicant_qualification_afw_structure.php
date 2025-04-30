@@ -298,7 +298,11 @@ class AdmApplicantQualificationAfwStructure
                         'DEPENDENCIES' => ['qualification_id'],
                         'CSS' => 'width_pct_25',
                 ),
-
+                'source_name' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
                 'qualification_major_desc' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,

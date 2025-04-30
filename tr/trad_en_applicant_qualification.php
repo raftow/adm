@@ -25,6 +25,7 @@ class ApplicantQualificationEnTranslator
 		$trad["applicant_qualification"]["import_utility_id"] = "Data Source";
 		$trad["applicant_qualification"]["qualification_major_desc"] = "Qualification major description";
 		$trad["applicant_qualification"]["adm_file_id"] = "The document";
+		$trad["applicant_qualification"]["source_name"] = "Qualification source - text";
 		return $trad;
 	}
 
