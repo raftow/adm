@@ -1424,7 +1424,11 @@ class AdmApplicantAfwStructure
                                         'TYPE' => 'FLOAT',  'READONLY' => false, 
                                         'CSS' => 'width_pct_50', ),
                 
-
+'Profile_populated' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'YN',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
                 'applicantEvaluationList' => array(
                         'STEP' => 3,
                         'FGROUP' => 'evaluation',

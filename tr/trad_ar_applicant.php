@@ -139,7 +139,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["aptitude_score"] = "درجة القدرات العامة";
 		$trad["applicant"]["secondary_cumulative_pct"] = "درجة الثانوية التراكمية";
 		
-		 
+		$trad["applicant"]["Profile_populated"] = "تم تحديث الحساب";
 
 		// additional fields steps
 		// $start_additional_step = 2;
