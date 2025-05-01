@@ -503,6 +503,8 @@
                                                                 die("$application_field_name => ApiEndpoint::findAllApiEndpointForField($application_field_id) => ".var_export($arr_api,true));
                                                         }*/
                                                         $count_api = count($arr_api);
+                                                        $apiEndpoint = null;
+                                                        $apiEndpoint2 = null;
                                                         if($count_api==0)
                                                         {
                                                                 $amfObj->set("api_endpoint_id",0);                                                        
@@ -513,35 +515,37 @@
                                                                 /**
                                                                  * @var ApiEndpoint $apiEndpoint
                                                                  */
-                                                                $apiEndpoint = $arr_api[0];
-                                                                $amfObj->set("api_endpoint_id",$apiEndpoint->id); 
+                                                                $apiEndpoint = $arr_api[0];                                                                
                                                                 $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة ".$apiEndpoint->getDisplay($lang);
-                                                        }
-                                                        elseif(!$amfObj->getVal("api_endpoint_id"))
-                                                        {
-                                                                $war_arr[] = "for field $application_field_name/$application_field_id returned by $count_api api(s) please resolve this manually";
                                                         }
                                                         else
                                                         {
                                                                 $api_found = false;
-                                                                foreach($arr_api as $apiEndpointObj)
+                                                                $api2_found = false;
+                                                                foreach($arr_api as $k => $apiEndpointObj)
                                                                 {
-                                                                        if($apiEndpointObj->id == $amfObj->getVal("api_endpoint_id"))
+                                                                        $last_tentative = ($k==(count($arr_api)-1));
+                                                                        if((!$api_found) and ((!$amfObj->getVal("api_endpoint_id")) or ($apiEndpointObj->id == $amfObj->getVal("api_endpoint_id")) or ($last_tentative)))
                                                                         {
                                                                                 $api_found = true;
                                                                                 $apiEndpoint = $apiEndpointObj;
                                                                                 $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة ".$apiEndpoint->getDisplay($lang);
                                                                         }
+                                                                        elseif((!$api2_found) and ((!$amfObj->getVal("api_endpoint2_id")) or ($apiEndpointObj->id == $amfObj->getVal("api_endpoint2_id")) or ($last_tentative)))
+                                                                        {
+                                                                                $api2_found = true;
+                                                                                $apiEndpoint2 = $apiEndpointObj;
+                                                                                $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة البديلة ".$apiEndpoint2->getDisplay($lang);
+                                                                        }
                                                                 }
 
-                                                                if(!$api_found)
-                                                                {
-                                                                        $amfObj->set("api_endpoint_id",0); 
-                                                                        $apiEndpointObjDisplay = $amfObj->showAttribute("api_endpoint_id");                                                                
-                                                                        $war_arr[] = "The api $apiEndpointObjDisplay can not manage the field $application_field_name/$application_field_id and will be removed";
-                                                                        $war_arr[] = "field $application_field_name/$application_field_id returned by other $count_api api(s) please resolve this manually";                                                                
-                                                                }
+                                                                
+
                                                         }
+
+                                                        if($apiEndpoint) $amfObj->set("api_endpoint_id",$apiEndpoint->id); else $amfObj->setForce("api_endpoint_id",0); 
+                                                        if($apiEndpoint2) $amfObj->set("api_endpoint2_id",$apiEndpoint2->id); else $amfObj->setForce("api_endpoint2_id",0); 
+
                                                         if(!$amfObj->getVal("duration_expiry") and $apiEndpoint) $amfObj->set("duration_expiry",$apiEndpoint->getVal("duration_expiry"));
                                                         $amfObj->set("screen_model_id",$screen_model_id);
                                                         $amfObj->set("step_num",$step_num);

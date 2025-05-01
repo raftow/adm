@@ -207,7 +207,7 @@ class AdmApplicationModelFieldAfwStructure
                         'SIZE' => 40,
                         'MAXLENGTH' => 32,
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'MANDATORY' => true,
+                        'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'api_endpoint',
