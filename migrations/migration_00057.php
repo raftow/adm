@@ -4,12 +4,12 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   api_endpoint2_id int(11) NOT NULL  AFTER api_endpoint_id;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   institution_id int(11) DEFAULT NULL  AFTER priority_num;");
-    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set institution_id = 1");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   priority_num smallint DEFAULT NULL  AFTER application_field_mfk;");
     AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set priority_num = id - 5");
-    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set priority_num = priority_num + 13 where priority_num < 0");
+    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set priority_num = priority_num + 13 where priority_num < 0");    
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   institution_id int(11) DEFAULT NULL  AFTER priority_num;");
+    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set institution_id = 1");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   api_endpoint2_id int(11) NOT NULL  AFTER api_endpoint_id;");    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER direct_adm_capacity;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL  AFTER upgraded;");
 
