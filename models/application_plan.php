@@ -8,6 +8,7 @@ class ApplicationPlan extends AdmObject
     public static $DB_STRUCTURE = null;
     private static $arrApplicationPlan = [];
     private static $arrApplicationModelIdByPlanId = [];
+    
     // public static $copypast = true;
 
     /**
@@ -31,6 +32,8 @@ class ApplicationPlan extends AdmObject
     }
 
 
+    
+
     public static function getApplicationModelId($aplan_id)
     {
         if (!self::$arrApplicationModelIdByPlanId[$aplan_id]) {
@@ -43,6 +46,9 @@ class ApplicationPlan extends AdmObject
 
         return self::$arrApplicationModelIdByPlanId[$aplan_id];
     }
+
+
+    
 
     public static function loadById($id)
     {

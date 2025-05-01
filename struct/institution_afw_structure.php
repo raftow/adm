@@ -14,8 +14,13 @@
                                 $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 3; 
+                                $obj->editNbSteps = 4; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                        }
+                        else
+                        {
+                                InstitutionArTranslator::initData();
+                                InstitutionEnTranslator::initData();
                         }
                 }
                 
@@ -248,6 +253,16 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false,   
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',), 
+
+
+                                        'apiEndpointList' => array('SHORTNAME' => 'apiEndpoints',  'SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                                        'ICONS' => true,  'D'.'ELETE-ICON' => true, 'MOVE_UP-ICON' => true,  'BUTTONS' => true,  
+                                                                        'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                                        'EDIT' => false,  'QEDIT' => false,  
+                                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'FK', 'STEP' => 4,  
+                                                                        'CATEGORY' => 'ITEMS',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',  'ITEM' => 'institution_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                                        'CSS' => 'width_pct_100', ),                                                
 
                                         
 

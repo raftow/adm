@@ -23,6 +23,10 @@ class ApiEndpointArTranslator{
 		$trad["api_endpoint"]["can_refresh.EUH"] = "ادخال يدوي";
 		$trad["api_endpoint"]["duration_expiry"] = "مدة الصلاحية";
 		$trad["api_endpoint"]["api_endpoint_mfk"] = "الخدمات الالكترونية الجزئية";
+		$trad["api_endpoint"]["priority_num"] = "ترتيب الأولوية";
+		$trad["api_endpoint"]["institution_id"] = "مؤسسة الاكاديمية";
+
+		
 		
 
 		$trad["api_endpoint"]["step1"] = "التعريف";

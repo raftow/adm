@@ -226,5 +226,11 @@ class ApiEndpoint extends AdmObject
             }    
 	}
 
+
+        public function moveColumn()
+        {
+                return "priority_num";
+        }
+
         
 }

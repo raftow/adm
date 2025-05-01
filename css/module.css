@@ -4675,3 +4675,7 @@ div#stats_panel .cols3.cols3_value {
     min-width: 150px;
     background-color: lightgreen;
 }
+
+div#stats_panel .cols3.cols3_value.even {
+    background-color: #d6f6d6;
+}

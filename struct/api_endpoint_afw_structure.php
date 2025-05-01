@@ -8,11 +8,12 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "api_endpoint_name_ar";
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                $obj->UNIQUE_KEY = array('api_endpoint_code');
+                                $obj->ORDER_BY_FIELDS = "institution_id,priority_num";
+                                $obj->UNIQUE_KEY = array('institution_id','priority_num');
+                                //$obj->UNIQUE_KEY = array('api_endpoint_code');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
-
+                                $obj->MOVE_UP_ACTION = true;
                                 // $obj->editByStep = true;
                                 // $obj->editNbSteps = 1; 
                                 $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ApiEndpoint',"submit"=>true);
@@ -141,7 +142,24 @@
                                                 'CSS' => 'width_pct_100',
                                                 ),
         
+                                        'priority_num' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  
+                                                                        'RETRIEVE' => true,
+                                                                        'READONLY' => true,
+                                                                        'EDIT' => true, 'CAN_ZERO' => true,  'QEDIT' => false,  
+                                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                                        'TYPE' => 'INT',  'DNA' => true, 
+                                                                        'CSS' => 'width_pct_50', ),
 
+                                        'institution_id' => array('SHORTNAME' => 'institution',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  
+                                                        'AUDIT' => false,  'RETRIEVE' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false,  
+                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                        'TYPE' => 'FK',  'ANSWER' => 'institution',  'ANSMODULE' => 'adm',  
+                                                        'RELATION' => 'OneToMany',  'READONLY' => false,  'DNA' => true, 
+                                                        'CSS' => 'width_pct_50', ),
+
+
+	
 
 
         

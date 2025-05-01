@@ -17,6 +17,8 @@ class ApiEndpointEnTranslator{
 		$trad["api_endpoint"]["api_url"] = "API Url";
 		$trad["api_endpoint"]["step1"] = "Definition";
 		$trad["api_endpoint"]["api_endpoint_mfk"] = "Sub-API(s)";
+		$trad["api_endpoint"]["priority_num"] = "Priority order";
+		$trad["api_endpoint"]["institution_id"] = "Institution";
         return $trad;
     }
 }

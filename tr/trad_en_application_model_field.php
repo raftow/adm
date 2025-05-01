@@ -14,6 +14,8 @@
 			$trad["application_model_field"]["application_field_id"] = "The field";
 			$trad["application_model_field"]["screen_model_id"] = "The screen";
 			$trad["application_model_field"]["step_num"] = "The step number";
+			$trad["application_model_field"]["api_endpoint2_id"] = "Alternative API";
+			$trad["application_model_field"]["api_endpoint_id"] = "API";
 			// steps
 			$trad["application_model_field"]["step1"] = "step1";
 			return $trad;

@@ -22,6 +22,39 @@ class SortingGroup extends AdmObject{
             AdmSortingGroupAfwStructure::initInstance($this);    
 	    }
 
+        public static function inverseOrderBySens($sens)
+        {
+            if($sens=="asc") return "desc"; else return "asc";
+        }
+
+        public static function getSortingCriterea($sortingGroupId, $inverseOrderBy=false)
+        {
+            $sortingCriterea = SortingGroup::loadSortingCriterea($sortingGroupId);
+            $sf1 = $sortingCriterea["c1"];
+            $sf1_order_sens = $sf1["field_sens"];
+            if($inverseOrderBy) $sf1_order_sens = self::inverseOrderBySens($sf1_order_sens);
+            $sf1_sql = $sf1 ? "sorting_value_1 float NOT NULL, " : "";
+            $sf1_insert = $sf1 ? "sorting_value_1, " : "";
+            $sf1_order = $sf1 ? "sorting_value_1 $sf1_order_sens, " : "";
+            $sf2 = $sortingCriterea["c2"];
+            $sf2_order_sens = $sf2["field_sens"];
+            if($inverseOrderBy) $sf2_order_sens = self::inverseOrderBySens($sf2_order_sens);
+            $sf2_sql = $sf2 ? "sorting_value_2 float NOT NULL, " : "";
+            $sf2_insert = $sf2 ? "sorting_value_2, " : "";
+            $sf2_order = $sf2 ? "sorting_value_2 $sf2_order_sens, " : "";
+            $sf3 = $sortingCriterea["c3"];
+            $sf3_order_sens = $sf3["field_sens"];
+            if($inverseOrderBy) $sf3_order_sens = self::inverseOrderBySens($sf3_order_sens);
+            $sf3_sql = $sf3 ? "sorting_value_3 float NOT NULL, " : "";
+            $sf3_order = $sf3 ? "sorting_value_1 $sf3_order_sens, " : "";
+            $sf3_insert = $sf3 ? "sorting_value_3, " : "";
+    
+            return [$sortingCriterea,
+                $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
+                $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,
+                $sf3,$sf3_order_sens,$sf3_sql,$sf3_insert,$sf3_order,
+            ];
+        }
 
         public static function loadSortingCriterea($id)
         {

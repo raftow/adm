@@ -286,4 +286,37 @@ class ApplicationPlanBranch extends AdmObject
 
                 return 0;
         }
+
+
+        public function getMinAppliedScore($application_simulation_id, $application_model_id)
+        {
+                $sorting_group_id = $this->getVal("sorting_group_id");
+                list($sortingCriterea,
+                $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
+                $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,
+                $sf3,$sf3_order_sens,$sf3_sql,$sf3_insert,$sf3_order) = SortingGroup::getSortingCriterea($sorting_group_id,true);
+
+                $application_plan_branch_id = $this->id;
+                $application_plan_id = $this->getVal("application_plan_id");                
+                $application_plan_id = $this->getVal("application_plan_id");                
+                $sorting_step_id = ApplicationModel::getSortingStepId($application_model_id);
+                $adObj = new ApplicationDesire();
+                $adObj->select("application_plan_id", $application_plan_id);
+                $adObj->select("application_simulation_id", $application_simulation_id);
+                $adObj->select("application_plan_branch_id", $application_plan_branch_id);
+                $adObj->select("application_step_id", $sorting_step_id);
+
+                $adObjList = $adObj->loadMany(1, "$sf1_order $sf2_order $sf3_order");
+                
+                $minArr = [];
+                foreach($adObjList as $adObjItem)
+                {
+                        if($sf1) $minArr[] = $adObjItem->getVal("sorting_value_1");
+                        if($sf2) $minArr[] = $adObjItem->getVal("sorting_value_2");
+                        if($sf3) $minArr[] = $adObjItem->getVal("sorting_value_3");
+                }
+
+                return $minArr;
+                
+        }
 }

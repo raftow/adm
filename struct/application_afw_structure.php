@@ -193,7 +193,7 @@
                                                 'CSS' => 'width_pct_100', ),                                                                
                                                                 
                                         'applicationDesireList' => array('STEP' => 4, 'SHOW' => true,  'FORMAT' => 'retrieve',  
-                                                        'ICONS' => true,  'DE'.'LETE-ICON' => false,  'BUTTONS' => true,  
+                                                        'ICONS' => true,  'DE'.'LETE-ICON' => false,  'BUTTONS' => true, 'MOVE_UP-ICON' => true,  
                                                         'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                         'EDIT' => false,  'QEDIT' => false,  
                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  

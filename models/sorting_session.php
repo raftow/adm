@@ -523,7 +523,7 @@ class SortingSession extends AFWObject
         return $pbms;
     }
 
-    public function postSortingStats()    
+    public function postSortingStats($arrDataMinAccepted)    
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
         $application_simulation_id = $this->getVal("application_simulation_id");
@@ -532,41 +532,44 @@ class SortingSession extends AFWObject
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
 
         $statsData = [];
-        $pathData = [];
+        
         $applicationPlanBranchList = $applicationPlanObj->get("applicationPlanBranchList");
 
         $maxPaths = SortingPath::nbPaths($application_model_id);
+        /*
+        $pathData = [];
         for ($spath = 1; $spath <= $maxPaths; $spath++) 
         {
             $pathData[$spath]["ar"] = SortingPath::trackTranslation($application_model_id, $spath, "ar");
             $pathData[$spath]["en"] = SortingPath::trackTranslation($application_model_id, $spath, "en");
-        }
+        }*/
 
         /**
          * @var ApplicationPlanBranch $applicationPlanBranchItem
          */
         foreach($applicationPlanBranchList as $applicationPlanBranchItem)
         {
-            foreach($pathData as $spath => $spathLabel)
+            // foreach($pathData as $spath => $spathLabel)
+            for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
                 if($applicationPlanBranchItem->attributeIsApplicable("capacity_track$spath"))
                 {
 
-                    $rowData = [];
-                    $rowData["branch_id"] = $applicationPlanBranchItem->id;
-                    $rowData["tunit_ar"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"ar");
-                    $rowData["tunit_en"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"en");
-                    $rowData["program_ar"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"ar");
-                    $rowData["program_en"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"en");
-                    $rowData["gender_ar"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"ar");
-                    $rowData["gender_en"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"en");
-                    $rowData["track_ar"] = $spathLabel["ar"];
-                    $rowData["track_ar"] = $spathLabel["en"];
+                    $rowData = $arrDataMinAccepted[$applicationPlanBranchItem->id];
+                    $rowData["application_plan_branch_id"] = $applicationPlanBranchItem->id;
+                    // $rowData["tunit_ar"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"ar");
+                    // $rowData["tunit_en"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"en");
+                    // $rowData["program_ar"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"ar");
+                    // $rowData["program_en"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"en");
+                    // $rowData["gender_ar"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"ar");
+                    // $rowData["gender_en"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"en");
+                    $rowData["track_num"] = $spath;
+                    // $rowData["track_ar"] = $spathLabel["ar"];
+                    // $rowData["track_ar"] = $spathLabel["en"];
                     $rowData["capacity"] = $applicationPlanBranchItem->getVal("capacity_track$spath");
-                    $rowData["min_app_score"] = "";
-                    $rowData["min_acc_score"] = "";
-                    $rowData["nb_acc"] = 0;
-                    $rowData["nb_free"] = 0;
+                    list($rowData["min_app_score1"], $rowData["min_app_score2"], $rowData["min_app_score3"]) = $applicationPlanBranchItem->getMinAppliedScore($application_simulation_id, $application_model_id);
+                    
+                    // $rowData["nb_free"] = $rowData["capacity"] - $rowData["nb_acc"];
         
                     $statsData[] = $rowData;
 
@@ -576,7 +579,7 @@ class SortingSession extends AFWObject
         }
 
 
-        // fill stats with results of sorting
+        
     }
 
 
@@ -639,6 +642,8 @@ class SortingSession extends AFWObject
 
     }
 
+    
+
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
@@ -684,32 +689,21 @@ class SortingSession extends AFWObject
             AfwDatabase::db_query($sorting_group_tmp_sql_create);
         }
 
+        $arrDataMinAccepted = [];
         
 
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
         {            
+            list($sortingCriterea,
+            $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
+            $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,
+            $sf3,$sf3_order_sens,$sf3_sql,$sf3_insert,$sf3_order) = SortingGroup::getSortingCriterea($sortingGroupId);
+
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($sortingGroupId, $spath);
                 $branchsLastScoreMatrix = [];
                 $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
-                $sortingCriterea = SortingGroup::loadSortingCriterea($sortingGroupId);
-                $sf1 = $sortingCriterea["c1"];
-                $sf1_order_sens = $sf1["field_sens"];
-                $sf1_sql = $sf1 ? "sorting_value_1 float NOT NULL, " : "";
-                $sf1_insert = $sf1 ? "sorting_value_1, " : "";
-                $sf1_order = $sf1 ? "sorting_value_1 $sf1_order_sens, " : "";
-                $sf2 = $sortingCriterea["c2"];
-                $sf2_order_sens = $sf2["field_sens"];
-                $sf2_sql = $sf2 ? "sorting_value_2 float NOT NULL, " : "";
-                $sf2_insert = $sf2 ? "sorting_value_2, " : "";
-                $sf2_order = $sf2 ? "sorting_value_2 $sf2_order_sens, " : "";
-                $sf3 = $sortingCriterea["c3"];
-                $sf3_order_sens = $sf3["field_sens"];
-                $sf3_sql = $sf3 ? "sorting_value_3 float NOT NULL, " : "";
-                $sf3_order = $sf3 ? "sorting_value_1 $sf3_order_sens, " : "";
-                $sf3_insert = $sf3 ? "sorting_value_3, " : "";
-
                 
                 $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath`";
                 
@@ -794,14 +788,30 @@ class SortingSession extends AFWObject
                         {
                             $mandatoryToGiveAsPreviouslyGivedForSameScore = true;
                         }
+                        
                         if($mandatoryToGiveAsPreviouslyGivedForSameScore or ($branchsCapacityMatrix[$application_plan_branch_id_to_assign]>0))
                         {
                             $desire_assigned = $desire_num_to_assign;
                             $application_plan_branch_id_assigned = $application_plan_branch_id_to_assign;
                             $branchsLastScoreMatrix[$application_plan_branch_id_assigned] = $new_score;
                             
+                            unset($rowDataMinAccepted);
+                            $rowDataMinAccepted = [];
+
+                            list($rowDataMinAccepted["min_acc_score1"], 
+                                    $rowDataMinAccepted["min_acc_score2"],
+                                    $rowDataMinAccepted["min_acc_score3"]) = $new_score;
+                            $arrDataMinAccepted[$application_plan_branch_id_assigned] = $rowDataMinAccepted;
                             // decrease seats available as one seat is assigned
-                            $branchsCapacityMatrix[$application_plan_branch_id_to_assign]--;
+                            $branchsCapacityMatrix[$application_plan_branch_id_assigned]--;
+                            if(!$arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"])
+                            {
+                                $arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"] = 1;
+                            }
+                            else
+                            {
+                                $arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"]++;
+                            }
                             break;
                         }
                     }
@@ -822,6 +832,8 @@ class SortingSession extends AFWObject
             }
                 
         }
+
+        $this->postSortingStats($arrDataMinAccepted);
 
 
         // $applicationDesireList = $this->get("applicationDesireList");

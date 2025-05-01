@@ -3,6 +3,8 @@
 
 
                 private $applicationStepList = null;
+                
+                private static $arrSortingStepIdByModelId = [];
 
                 public static $DATABASE		= ""; 
                 public static $MODULE		    = "adm"; 
@@ -38,6 +40,19 @@
                         if(self::$arrAllApplicationModels[$id]=="NOT-FOUND") return null;
 
                         return self::$arrAllApplicationModels[$id];                        
+                }
+
+                public static function getSortingStepId($amodel_id)
+                {
+                        if (!self::$arrSortingStepIdByModelId[$amodel_id]) {
+                        $objAppModel = new ApplicationModel();
+                        if ($objAppModel->load($amodel_id)) {
+                                self::$arrSortingStepIdByModelId[$amodel_id] = $objAppModel->getVal("application_model_id");
+                        } else self::$arrSortingStepIdByModelId[$amodel_id] = "NOT-FOUND";
+                        }
+                        if (self::$arrSortingStepIdByModelId[$amodel_id] == "NOT-FOUND") return 0;
+
+                        return self::$arrSortingStepIdByModelId[$amodel_id];
                 }
 
                 

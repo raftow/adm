@@ -363,7 +363,7 @@
                                                 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
                                         'applicationStepList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
-                                                'ICONS' => true,  'DEL'.'ETE-ICON' => true, 'VIEW-ICON' => false, 'BUTTONS' => true,  
+                                                'ICONS' => true,  'DEL'.'ETE-ICON' => true, 'VIEW-ICON' => false, 'MOVE_UP-ICON' => true, 'BUTTONS' => true,  
                                                 'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false, 'STEP' => 5, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
