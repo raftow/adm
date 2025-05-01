@@ -1,9 +1,0 @@
-<?php
-	$trad["institution"]["step1"] = "التعريف";
-	$trad["institution"]["step2"] = "العناوين";
-	$trad["institution"]["step3"] = "الاعدادات";
-
-	
-
-	
-	
