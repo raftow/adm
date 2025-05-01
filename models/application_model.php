@@ -530,7 +530,7 @@
                                                                                 $api_found = true;
                                                                                 $apiEndpoint = $apiEndpointObj;
                                                                                 $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة ".$apiEndpoint->getDisplay($lang);
-                                                                                $oldEndpoint = $amfObj->getVal("api_endpoint_id");
+                                                                                $oldEndpoint = $amfObj->het("api_endpoint_id");
                                                                                 if($oldEndpoint and ($oldEndpoint->id != $apiEndpoint->id))
                                                                                 {
                                                                                         $api2_found = true;
