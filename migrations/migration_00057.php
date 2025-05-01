@@ -4,6 +4,42 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
+
+    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_step_request;");
+
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_step_request` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `created_by` int(11) NOT NULL,
+      `created_at`   datetime NOT NULL,
+      `updated_by` int(11) NOT NULL,
+      `updated_at` datetime NOT NULL,
+      `validated_by` int(11) DEFAULT NULL,
+      `validated_at` datetime DEFAULT NULL,
+      `active` char(1) NOT NULL,
+      `draft` char(1) NOT NULL default  'Y' ,
+      `version` int(4) DEFAULT NULL,
+      `update_groups_mfk` varchar(255) DEFAULT NULL,
+      `delete_groups_mfk` varchar(255) DEFAULT NULL,
+      `display_groups_mfk` varchar(255) DEFAULT NULL,
+      `sci_id` int(11) DEFAULT NULL,
+      
+        
+       applicant_id int(11) NOT NULL , 
+       application_plan_id int(11) DEFAULT NULL , 
+       application_model_id int(11) DEFAULT NULL , 
+       step_num smallint DEFAULT NULL , 
+       api_endpoint_id int(11) DEFAULT NULL,
+       done char(1) NOT NULL , 
+       status_date varchar(8) DEFAULT NULL , 
+    
+      
+      PRIMARY KEY (`id`)
+    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
+    
+
+    AfwDatabase::db_query("CREATE unique index uk_applicant_step_request on ".$server_db_prefix."adm.applicant_step_request(applicant_id,application_plan_id,step_num);");
+    
+
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   priority_num smallint DEFAULT NULL  AFTER application_field_mfk;");
     AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set priority_num = id - 5");
     AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set priority_num = priority_num + 13 where priority_num < 0");    

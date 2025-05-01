@@ -38,6 +38,7 @@ class ApiEndpoint extends AdmObject
                 {
                         self::loadAllApiEndpoints();
                         self::$apiEndpointListForField[$application_field_id] = [];
+                        reset(self::$allApiEndpointList);
                         foreach (self::$allApiEndpointList as $apiEndpointItem) {
                                 $field_exists    = $apiEndpointItem->findInMfk("application_field_mfk", $application_field_id);
                                 if ($field_exists and (count(self::$apiEndpointListForField[$application_field_id])<$nb_max)) {

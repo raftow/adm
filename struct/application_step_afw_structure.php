@@ -127,12 +127,18 @@
                                                 'CSS' => 'width_pct_100',),
 
 
-/*
-'api_endpoint_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
-        'TYPE' => 'MFK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 1,  
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_50',),*/
+
+                                                'api_endpoint_mfk' => array('CATEGORY' => 'FORMULA',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                        'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
+                                                        'TYPE' => 'MFK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 2,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_100',),
+
+                                                'api_endpoint2_mfk' => array('CATEGORY' => 'FORMULA',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                        'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
+                                                        'TYPE' => 'MFK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 2,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_100',),
 
 
 
