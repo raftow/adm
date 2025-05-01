@@ -525,11 +525,18 @@
                                                                 foreach($arr_api as $k => $apiEndpointObj)
                                                                 {
                                                                         $last_tentative = ($k==(count($arr_api)-1));
-                                                                        if((!$api_found) and ((!$amfObj->getVal("api_endpoint_id")) or ($apiEndpointObj->id == $amfObj->getVal("api_endpoint_id")) or ($last_tentative)))
+                                                                        if(!$api_found)
                                                                         {
                                                                                 $api_found = true;
                                                                                 $apiEndpoint = $apiEndpointObj;
                                                                                 $inf_arr[] = "بخصوص الحقل $application_field_name/$application_field_id تم العثور على الخدمة ".$apiEndpoint->getDisplay($lang);
+                                                                                $oldEndpoint = $amfObj->getVal("api_endpoint_id");
+                                                                                if($oldEndpoint and ($oldEndpoint->id != $apiEndpoint->id))
+                                                                                {
+                                                                                        $api2_found = true;
+                                                                                        $apiEndpoint2 = $oldEndpoint;
+                                                                                        $war_arr[] = "بخصوص الحقل $application_field_name/$application_field_id سبق اختياركم الخدمة البديلة ".$apiEndpoint2->getDisplay($lang);        
+                                                                                }
                                                                         }
                                                                         elseif((!$api2_found) and ((!$amfObj->getVal("api_endpoint2_id")) or ($apiEndpointObj->id == $amfObj->getVal("api_endpoint2_id")) or ($last_tentative)))
                                                                         {
