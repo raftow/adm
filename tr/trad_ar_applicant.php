@@ -14,6 +14,8 @@ class ApplicantArTranslator{
 		$trad["applicant"]["step7"] = "استخدام المرفقات";
 		$trad["applicant"]["step8"] = "التحقق من الربط";
 		$trad["applicant"]["step9"] = "معلومات متقدمة";
+		$trad["applicant"]["step10"] = "الصحة والسلامة";
+		$trad["applicant"]["step11"] = "بيانات فنية";
 
 		$trad["applicant"]["apis"] = "الخدمات الالكترونية";
 		$trad["applicant"]["applicantFileList"] = "قائمة مرفقات المتقدم";
@@ -81,7 +83,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["profile-other"] = "بيانات أخرى";
 		$trad["applicant"]["disability_ind"] = "يوجد اعاقة أو أكثر ؟";
 		$trad["applicant"]["disability_mfk"] = "قائمة الإعاقات";
-		$trad["applicant"]["disability"] = "الإعاقة";
+		$trad["applicant"]["disability"] = "الصحة والسلامة";
 
 
 		$trad["applicant"]["eval"] = "درجات الاختبارات المعتمدة للمؤسسة الأكاديمية";

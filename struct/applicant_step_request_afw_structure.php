@@ -20,6 +20,8 @@ class AdmApplicantStepRequestAfwStructure
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
+
+			$obj->OwnedBy = array('module' => "adm", 'afw' => "Applicant", 'afw2' => "ApplicantStep");
 			// $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
 			$obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicantStepRequest', "submit" => true);
 		} else {
@@ -36,7 +38,8 @@ class AdmApplicantStepRequestAfwStructure
 		'applicant_id' => array(
 			'SHORTNAME' => 'applicant',
 			'SEARCH' => true,
-			'QSEARCH' => false,
+			'QSEARCH' => true,
+			'TEXT-SEARCHABLE-SEPARATED'=>true,
 			'SHOW' => true,
 			'AUDIT' => false,
 			'RETRIEVE' => false,
@@ -48,11 +51,11 @@ class AdmApplicantStepRequestAfwStructure
 			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
 			'MANDATORY' => true,
 			'UTF8' => false,
-			'TYPE' => 'FK',
-			'ANSWER' => 'applicant',
+			'TYPE' => 'TEXT',
+			/*'ANSWER' => 'applicant',
 			'ANSMODULE' => 'adm',
-			'RELATION' => 'OneToMany',
-			'READONLY' => false,
+			'RELATION' => 'OneToMany',*/
+			'READONLY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
 		),

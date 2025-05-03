@@ -101,6 +101,10 @@
   array (
     'name' => 'applicant_simulation',
   ),
+  13956 => 
+  array (
+    'name' => 'applicant_step_request',
+  ),
   13917 => 
   array (
     'name' => 'application',
@@ -172,6 +176,10 @@
   13868 => 
   array (
     'name' => 'department',
+  ),
+  13954 => 
+  array (
+    'name' => 'disability',
   ),
   13944 => 
   array (
@@ -261,9 +269,17 @@
   array (
     'name' => 'sorting_group',
   ),
+  13953 => 
+  array (
+    'name' => 'sorting_path',
+  ),
   13952 => 
   array (
     'name' => 'sorting_session',
+  ),
+  13955 => 
+  array (
+    'name' => 'sorting_session_stat',
   ),
   13935 => 
   array (
@@ -1387,6 +1403,50 @@
       'id' => -1,
     ),
   ),
+  'applicant_step_request' => 
+  array (
+    'id' => '13956',
+    'display' => 
+    array (
+      'id' => '105000',
+    ),
+    'search' => 
+    array (
+      'id' => '105001',
+    ),
+    'qsearch' => 
+    array (
+      'id' => '105002',
+    ),
+    'edit' => 
+    array (
+      'id' => '104997',
+    ),
+    'qedit' => 
+    array (
+      'id' => '104998',
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => '105003',
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => '104999',
+    ),
+  ),
   'application' => 
   array (
     'id' => '13917',
@@ -2177,6 +2237,50 @@
     'delete' => 
     array (
       'id' => '104626',
+    ),
+  ),
+  'disability' => 
+  array (
+    'id' => '13954',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
     ),
   ),
   'employee_scope' => 
@@ -3147,9 +3251,97 @@
       'id' => '104971',
     ),
   ),
+  'sorting_path' => 
+  array (
+    'id' => '13953',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'sorting_session' => 
   array (
     'id' => '13952',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
+  'sorting_session_stat' => 
+  array (
+    'id' => '13955',
     'display' => 
     array (
       'id' => -1,
@@ -3645,6 +3837,17 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationSimulation&currmod=adm',
           'css' => 'bf',
           'icon' => 'bficon-104988 bfc-',
+        ),
+        105002 => 
+        array (
+          'id' => '105002',
+          'code' => 'f2-a-applicant_step_request/qsearch',
+          'level' => '1',
+          'menu_name_ar' => 'طلبات الخدمات الالكترونية',
+          'menu_name_en' => 'step move requests',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantStepRequest&currmod=adm',
+          'css' => 'bf',
+          'icon' => 'bficon-105002 bfc-',
         ),
       ),
       'sub-folders' => 

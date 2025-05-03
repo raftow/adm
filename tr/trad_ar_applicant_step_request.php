@@ -5,9 +5,9 @@ class ApplicantStepRequestArTranslator{
     {
         $trad = [];
 
-		$trad["applicant_step_request"]["applicantsteprequest.single"] = "طلب انتقال مرحلة";
+		$trad["applicant_step_request"]["applicantsteprequest.single"] = "طلب خدمة الكترونية";
 		$trad["applicant_step_request"]["applicantsteprequest.new"] = "جديد(ة)";
-		$trad["applicant_step_request"]["applicant_step_request"] = "طلبات انتقال مراحل";
+		$trad["applicant_step_request"]["applicant_step_request"] = "طلبات الخدمات الالكترونية";
 		$trad["applicant_step_request"]["name_ar"] = "مسمى  بالعربية";
 		$trad["applicant_step_request"]["desc_ar"] = "وصف  بالعربية";
 		$trad["applicant_step_request"]["name_en"] = "مسمى  بالانجليزية";
@@ -16,9 +16,14 @@ class ApplicantStepRequestArTranslator{
 		$trad["applicant_step_request"]["application_plan_id"] = "خطة التقديم";
 		$trad["applicant_step_request"]["application_model_id"] = "نموذج القبول";
 		$trad["applicant_step_request"]["step_num"] = "رقم المرحلة";
-		$trad["applicant_step_request"]["done"] = "تم الانتهاء ؟";
+		$trad["applicant_step_request"]["done"] = "حالة التحديث";
 		$trad["applicant_step_request"]["status_date"] = "تاريخ حالة الطلب";
 		$trad["applicant_step_request"]["api_endpoint_id"] = "خدمة الالكترونية";
+
+
+		$trad["applicant_step_request"]["done.YES"] = "تم التحديث";
+		$trad["applicant_step_request"]["done.EUH"]  = "تعذر جلب البيانات";
+		$trad["applicant_step_request"]["done.NO"] = "انتظار...";
 
 		
         // steps

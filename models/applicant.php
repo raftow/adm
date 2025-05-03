@@ -53,12 +53,17 @@ class Applicant extends AdmObject
         public function convertIdnToID($value)
         {
                 $idn = $value;
+                if(!$idn) return 0;
                 list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
+                if(!$idn_type_id) $idn_type_id = $this->getVal("idn_type_id");
+                if(!$idn_type_id) return 0;
+                
                 $id = 0;
                 if (($idn_type_id == 1) or ($idn_type_id == 2)) {
                         if (is_numeric($idn) and $idn_correct) $id = $idn;
                 } else {
                         $country_id = $this->getSelectedValueForAttribute("country_id");
+                        if(!$country_id) $country_id = $this->getVal("country_id");
                         if ($country_id) {
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
                         } else {
@@ -128,14 +133,14 @@ class Applicant extends AdmObject
         public function getDisplay($lang = 'ar')
         {
                 $return = trim($this->getDefaultDisplay($lang));
-                if (!$return) return $this->tm("identity", $lang) . " : " . $this->id;
+                if (!$return) return $this->tm("identity", $lang) . " : " . $this->getVal("idn");
                 else return $return;
         }
 
         public function getWideDisplay($lang = 'ar')
         {
                 $return = trim($this->getDefaultDisplay($lang));
-                $return .= " " . $this->tm("identity") . " : " . $this->id;
+                $return .= " " . $this->tm("identity") . " : " . $this->getVal("idn");
                 return $return;
         }
 
@@ -485,20 +490,20 @@ class Applicant extends AdmObject
         ) {
                 global $objme;
                 $sp_errors = [];
-                $birth_gdatee_step = $this->stepOfAttribute('birth_gdatee');
-                $birth_gdatee_is_in_step = $this->stepContainAttribute($step, 'birth_gdatee');
+                $birth_gdate_step = $this->stepOfAttribute('birth_gdate');
+                $birth_gdate_is_in_step = $this->stepContainAttribute($step, 'birth_gdate');
                 $no_step_scope = (!$start_step and !$end_step);
-                $step_in_scope = (($birth_gdatee_step >= $start_step) and ($birth_gdatee_step <= $end_step));
-                $birth_gdatee_is_in_steps_scope = ($birth_gdatee_is_in_step and ($no_step_scope or $step_in_scope));
+                $step_in_scope = (($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step));
+                $birth_gdate_is_in_steps_scope = ($birth_gdate_is_in_step and ($no_step_scope or $step_in_scope));
 
 
-                if ($birth_gdatee_is_in_steps_scope) {
-                        $birth_gdatee = $this->getVal('birth_gdatee');
+                if ($birth_gdate_is_in_steps_scope) {
+                        $birth_gdate = $this->getVal('birth_gdate');
                         $birth_date = $this->getVal('birth_date');
 
-                        if (!$birth_gdatee and !$birth_date) {
-                                $sp_errors['birth_gdatee'] = $this->translateMessage('birth date gregorian or hijri should be defined');
-                                // $sp_errors['birth_gdatee'] .= "<pre dir='ltr'> dbg : birth_gdatee_is_in_steps_scope = birth_gdatee_is_in_step and (no_step_scope or step_in_scope) \n $birth_gdatee_is_in_steps_scope = $birth_gdatee_is_in_step and ($no_step_scope or $step_in_scope)</pre>";
+                        if (!$birth_gdate and !$birth_date) {
+                                $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+                                // $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = birth_gdate_is_in_step and (no_step_scope or step_in_scope) \n $birth_gdate_is_in_steps_scope = $birth_gdate_is_in_step and ($no_step_scope or $step_in_scope)</pre>";
                         }
                 }
 
@@ -1233,7 +1238,7 @@ class Applicant extends AdmObject
                 if ($this->$info===null) {
                         if (!$this->objSQ) $this->objSQ = $objSQ;
                         if (!$this->objSQ) $this->objSQ = $this->getSecondaryQualification();
-                        $this->$info = $this->objSQ->getInfo($info);
+                        if ($this->objSQ) $this->$info = $this->objSQ->getInfo($info);
                         // die("this->objSQ->id = ".$this->objSQ->id);
                         if(!$this->$info) $this->$info = '';
                         // if($info=="secondary_cumulative_pct") die("this->$info = ".$this->$info);

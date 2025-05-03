@@ -4,8 +4,17 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
+    $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'applicant_step_request', 198, "+t", "qsearch", null);
 
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_step_request;");
+    AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."ums.`idn_type` (`id`, `id_aut`, `date_aut`, `id_mod`, `date_mod`, `id_valid`, `date_valid`, `avail`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `idn_type_name`, `nationalty_id`, `country_id`, `idn_type_name_ar`, `idn_type_name_en`, `idn_validation_function`) VALUES ('4', '1', '2025-05-03 13:09:56.000000', '1', '2025-05-03 13:09:56.000000', NULL, NULL, 'Y', NULL, NULL, NULL, NULL, '1', NULL, 'جواز سفر', '0', '0', 'جواز سفر', 'Passeport', '');");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant` ADD PRIMARY KEY(`id`);");
+
+    // should be unique but unicity with partionning on ID in mysql can not
+    // the unique index should be included in partionning key
+    // so we will ensure the unicity in application side (by PHP)
+    AfwDatabase::db_query("CREATE index uk_applicant on ".$server_db_prefix."adm.applicant(country_id,idn_type_id,idn);");
+
+    /*AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_step_request;");*/
 
     AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_step_request` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
