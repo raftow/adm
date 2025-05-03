@@ -176,6 +176,22 @@ class AdmApplicantStepRequestAfwStructure
 			'CSS' => 'width_pct_50',
 		),
 
+		'support_category' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 16,  'MAXLENGTH' => 16,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
+
+
+
+		'error_message' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 'AREA',  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_100', ),
+
+
+
 
 		'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
 		'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

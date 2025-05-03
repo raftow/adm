@@ -18,6 +18,8 @@ class ApplicantStepRequestEnTranslator{
 		$trad["applicant_step_request"]["step_num"] = "step number";
 		$trad["applicant_step_request"]["status_date"] = "Status date";
 		$trad["applicant_step_request"]["api_endpoint_id"] = "Api endpoint";
+		$trad["applicant_step_request"]["error_message"] = "Error message";
+		$trad["applicant_step_request"]["support_category"] = "support request category";		
         // steps
         return $trad;
     }

@@ -127,7 +127,7 @@
                                                 'CSS' => 'width_pct_100',),
 
 
-
+                                                /*                
                                                 'api_endpoint_mfk' => array('CATEGORY' => 'FORMULA',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
                                                         'TYPE' => 'MFK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 2,  
@@ -138,7 +138,7 @@
                                                         'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
                                                         'TYPE' => 'MFK',  'ANSWER' => 'api_endpoint',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 2,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        'CSS' => 'width_pct_100',),
+                                                        'CSS' => 'width_pct_100',),*/
 
 
 

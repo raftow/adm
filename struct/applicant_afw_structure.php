@@ -1429,6 +1429,7 @@ class AdmApplicantAfwStructure
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'YN',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
+                                
                 'applicantEvaluationList' => array(
                         'STEP' => 3,
                         'FGROUP' => 'evaluation',

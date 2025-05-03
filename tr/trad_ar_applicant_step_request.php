@@ -19,6 +19,12 @@ class ApplicantStepRequestArTranslator{
 		$trad["applicant_step_request"]["done"] = "حالة التحديث";
 		$trad["applicant_step_request"]["status_date"] = "تاريخ حالة الطلب";
 		$trad["applicant_step_request"]["api_endpoint_id"] = "خدمة الالكترونية";
+		$trad["applicant_step_request"]["error_message"] = "رسالة الخطأ";
+		$trad["applicant_step_request"]["support_category"] = "فئة طلب الدعم";
+
+		
+	
+	
 
 
 		$trad["applicant_step_request"]["done.YES"] = "تم التحديث";
