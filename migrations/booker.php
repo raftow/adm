@@ -63,6 +63,7 @@ $migrations = [
     '00057' => ['by'=>'rafik', 'title' => 'Farz UOH capacity by Major path'],
     '00058' => ['by'=>'medali','title'=>'add source name to applicant_qualification'],
     '00059' => ['by'=>'medali','title'=>'add field profile_populated to applicant'],
-    '00060' => ['by'=>'medali','title'=>'add table relationship']
+    '00060' => ['by'=>'medali','title'=>'add table relationship'],
+    '00061' => ['by'=>'medali','title'=>'create ADMStudentAdmission table'],
 ];
 
