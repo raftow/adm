@@ -1,29 +1,26 @@
 <?php
-// ------------------------------------------------------------------------------------
-// ----             auto generated php class of table adm_orgunit : adm_orgunit - جهات المتابعة و إعداداتها 
-// ------------------------------------------------------------------------------------
-// alter table ".$server_db_prefix."adm.adm_employee add   admin char(1) DEFAULT NULL  after service_mfk;
-// update ".$server_db_prefix."adm.adm_employee set admin = 'N';
                 
 $file_dir_name = dirname(__FILE__); 
                 
-// old include of afw.php
-
 class AdmEmployee extends AdmObject
 {
         public static $orgListOfEmployee = [];
 
         // public static $MY_ATABLE_ID= ??; 
-        // 117 CRM_INVESTIGATOR	محقق خدمة العملاء			
-        public static $JOBROLE_CRM_INVESTIGATOR =  117;
-        // 118 CRM_CONTROLLER	مراقب خدمة العملاء			
-        public static $JOBROLE_CRM_CONTROLLER =  118;
-        // 119 CRM_SUPERVISION	الإشراف العام	
-        public static $JOBROLE_CRM_SUPERVISION =  119;		
-        // 107 CRM_COORDINATION	مشرف تنسيق
-        public static $JOBROLE_CRM_COORDINATION =  107;
-
+        
+        // موظف التسجيل والقبول	application & admission employee			
+        public static $JOBROLE_ADMISSION_EMPLOYEE =  203;
+        
+        // مشرف التسجيل والقبول	Registration and admission supervisor
+        public static $JOBROLE_ADMISSION_SUPERVISOR =  211;
+        
+        // الهيكل الأكاديمي	Academic strcuture
+        public static $JOBROLE_ACADEMIC_STRCUTURE =  206;
+        
      
+        // الصلاحيات والإمتيازات	Roles & Privileges
+        public static $JOBROLE_ROLES_AND_PRIVILEGES_STRCUTURE =  214;
+        
         
 	public static $DATABASE		= ""; 
         public static $MODULE		    = "adm"; 
@@ -211,7 +208,7 @@ class AdmEmployee extends AdmObject
                         $empl = $this->het("employee_id");
                         if($empl)
                         {
-                                $empl->addMeThisJobrole(self::$JOBROLE_CRM_INVESTIGATOR);
+                                $empl->addMeThisJobrole(self::$JOBROLE_ADMISSION_EMPLOYEE);
                                 $empl->updateMyUserInformation();
                         }
                 }
@@ -228,34 +225,33 @@ class AdmEmployee extends AdmObject
                                 if($this->sureIs("super_admin"))
                                 {
                                      //
-                                     $empl->addMeThisJobrole(self::$JOBROLE_CRM_INVESTIGATOR);
-                                     $empl->addMeThisJobrole(self::$JOBROLE_CRM_COORDINATION);
-                                     $empl->addMeThisJobrole(self::$JOBROLE_CRM_CONTROLLER);
-                                     $empl->addMeThisJobrole(self::$JOBROLE_CRM_SUPERVISION);
+                                     $empl->addMeThisJobrole(self::$JOBROLE_ADMISSION_SUPERVISOR);
+                                     $empl->addMeThisJobrole(self::$JOBROLE_ROLES_AND_PRIVILEGES_STRCUTURE);
+                                     $empl->addMeThisJobrole(self::$JOBROLE_ACADEMIC_STRCUTURE);                                     
                                      $empl->updateMyUserInformation();    
                                 }
                                 elseif($this->sureIs("admin"))
                                 {
-                                        $empl->addMeThisJobrole(self::$JOBROLE_CRM_INVESTIGATOR);
-                                        $empl->addMeThisJobrole(self::$JOBROLE_CRM_COORDINATION);
-                                        $empl->addMeThisJobrole(self::$JOBROLE_CRM_CONTROLLER);
-                                        $empl->removeMeThisJobrole(self::$JOBROLE_CRM_SUPERVISION);
+                                        $empl->addMeThisJobrole(self::$JOBROLE_ADMISSION_SUPERVISOR);
+                                        $empl->addMeThisJobrole(self::$JOBROLE_ROLES_AND_PRIVILEGES_STRCUTURE);
+                                        $empl->addMeThisJobrole(self::$JOBROLE_ACADEMIC_STRCUTURE);  
                                         $empl->updateMyUserInformation();    
                                 }
                                 else
                                 {
-                                        $empl->addMeThisJobrole(self::$JOBROLE_CRM_INVESTIGATOR);
-                                        $empl->removeMeThisJobrole(self::$JOBROLE_CRM_COORDINATION);
-                                        $empl->removeMeThisJobrole(self::$JOBROLE_CRM_CONTROLLER);
-                                        $empl->removeMeThisJobrole(self::$JOBROLE_CRM_SUPERVISION);
+                                        $empl->addMeThisJobrole(self::$JOBROLE_ADMISSION_EMPLOYEE);
+                                        $empl->removeMeThisJobrole(self::$JOBROLE_ADMISSION_SUPERVISOR);
+                                        $empl->removeMeThisJobrole(self::$JOBROLE_ROLES_AND_PRIVILEGES_STRCUTURE);
+                                        $empl->removeMeThisJobrole(self::$JOBROLE_ACADEMIC_STRCUTURE);
                                         $empl->updateMyUserInformation();    
                                 }        
                         }
                         else
                         {
-                                $empl->removeMeThisJobrole(self::$JOBROLE_CRM_COORDINATION);
-                                $empl->removeMeThisJobrole(self::$JOBROLE_CRM_SUPERVISION);
-                                $empl->removeMeThisJobrole(self::$JOBROLE_CRM_CONTROLLER);
+                                $empl->removeMeThisJobrole(self::$JOBROLE_ADMISSION_EMPLOYEE);
+                                $empl->removeMeThisJobrole(self::$JOBROLE_ADMISSION_SUPERVISOR);
+                                $empl->removeMeThisJobrole(self::$JOBROLE_ROLES_AND_PRIVILEGES_STRCUTURE);
+                                $empl->removeMeThisJobrole(self::$JOBROLE_ACADEMIC_STRCUTURE);
                                 $empl->updateMyUserInformation();    
                                 // has been disabled so remove all ongoing assigned tickets   
                                 $this->removeMeAllAssigned();

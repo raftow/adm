@@ -376,7 +376,7 @@ class TrainingUnit extends AdmObject
             $titre_short_en = $titre_en = $this->getVal("training_unit_name_en");
             $orgunitObj = Orgunit::findOrgunit($id_sh_type, $id_sh_org, $hrm_code, 
                             $titre_short_ar, $titre_ar, $titre_short_en, $titre_en, $id_domain, $hrm_crm = "crm", $create_obj_if_not_found = false);
-            if($orgunitObj)
+            if(!$orgunitObj)
             {
                     $orgunitObj = Orgunit::findOrgunit($id_sh_type, $id_sh_org, $hrm_code, 
                             $titre_short_ar, $titre_ar, $titre_short_en, $titre_en, $id_domain, $hrm_crm = "hrm", $create_obj_if_not_found = true);
