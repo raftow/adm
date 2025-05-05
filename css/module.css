@@ -3416,10 +3416,11 @@ textarea.idns {
     width: 90%;
 }
 
+/*
 input.form-control.input_changed {
     background-color: #71e3ff1c !important;
     color: #1996c5 !important;
-}
+}*/
 
 .form-control:focus {
     border-color: #66bee9 !important;
