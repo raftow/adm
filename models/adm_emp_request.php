@@ -308,7 +308,8 @@ class AdmEmpRequest extends AdmObject
         public function approveAndUpdataDataAndRoles($lang="ar", $create_obj_if_not_found = true, $regenereCacheFile=true)
         {
                 $technical = "";
-                if(!$this->isOk(true, false, $lang)) return [$this->tm("There are errors in data, process can not be completed", $lang), ""];                
+                list($is_ok, $dataErr) = $this->isOk(true, true, $lang,[]);
+                if(!$is_ok) return [$this->tm("There are errors in data, process can not be completed", $lang)." ".var_export($dataErr, true), ""];                
                 if(!$this->sureIs("active")) return [$this->tm("This reuest is not active, so can not be proceeded", $lang), "", ""];
                 $id_sh_org = AfwSession::config("main_orgunit_id", 1); 
                 $orgunit_id = $this->getVal("orgunit_id");
