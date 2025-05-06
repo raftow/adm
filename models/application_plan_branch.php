@@ -305,8 +305,9 @@ class ApplicationPlanBranch extends AdmObject
                 $adObj->select("application_simulation_id", $application_simulation_id);
                 $adObj->select("application_plan_branch_id", $application_plan_branch_id);
                 $adObj->select("application_step_id", $sorting_step_id);
-
-                $adObjList = $adObj->loadMany(1, "$sf1_order $sf2_order $sf3_order");
+                // $sqlMany = $adObj->getSQLMany('', 1, "$sf1_order $sf2_order $sf3_order applicant_id");
+                // die("sqlMany is : ".$sqlMany);
+                $adObjList = $adObj->loadMany(1, "$sf1_order $sf2_order $sf3_order applicant_id");
                 
                 $minArr = [];
                 foreach($adObjList as $adObjItem)

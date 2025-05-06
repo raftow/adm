@@ -1174,12 +1174,15 @@ class Application extends AdmObject
         public function applicationAttributeIsApplicable($attribute)
         {
                 if (!isset($this->attribIsApplic[$attribute])) {
+                        /*
                         if ($attribute == "program_id") {
                                 $application_field_id = 110809;
                                 $this->getApplicationModel();
                                 if (!$this->objApplicationModel) return false;
                                 $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num")) == 1);
-                        } elseif ($attribute == "applicant_qualification_id") {
+                        } else
+                        */
+                        if ($attribute == "applicant_qualification_id") {
                                 $application_field_id = 110694;
                                 $this->getApplicationModel();
                                 if (!$this->objApplicationModel) return false;
