@@ -47,7 +47,7 @@
                         if (!self::$arrSortingStepIdByModelId[$amodel_id]) {
                         $objAppModel = new ApplicationModel();
                         if ($objAppModel->load($amodel_id)) {
-                                self::$arrSortingStepIdByModelId[$amodel_id] = $objAppModel->getVal("application_model_id");
+                                self::$arrSortingStepIdByModelId[$amodel_id] = $objAppModel->calcSorting_step_id();
                         } else self::$arrSortingStepIdByModelId[$amodel_id] = "NOT-FOUND";
                         }
                         if (self::$arrSortingStepIdByModelId[$amodel_id] == "NOT-FOUND") return 0;

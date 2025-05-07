@@ -362,13 +362,17 @@ class Applicant extends AdmObject
                 return $attribute;
         }
 
-        public function getAlreadyPlanIds($implode=",")
+        public function getAlreadyPlanIds($application_simulation_id, $implode=",")
         {
                 $already_plan_ids_arr = [];
                 $applicationList = $this->get("applicationList");
                 foreach($applicationList as $applicationItem)
                 {
-                        $already_plan_ids_arr[] = $applicationItem->getVal("application_plan_id");
+                        if($applicationItem->getVal("application_simulation_id") == $application_simulation_id) 
+                        {
+                                $already_plan_ids_arr[] = $applicationItem->getVal("application_plan_id");
+                        }
+                        
                 }
 
                 if(!$implode) return $already_plan_ids_arr;
@@ -384,6 +388,7 @@ class Applicant extends AdmObject
 
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, $genereLog, $step);
                 $my_id = $this->getId();
+                $idn = $this->getVal("idn");
                 $displ = $this->getDisplay($lang);
 
                 if ($mode == "mode_applicantQualificationList") {
@@ -400,7 +405,7 @@ class Applicant extends AdmObject
                 }
 
                 if ($mode == "mode_applicationList") {
-                        $already_plan_ids = $this->getAlreadyPlanIds();
+                        $already_plan_ids = $this->getAlreadyPlanIds(2);
                         $aplanList = ApplicationPlan::getCurrentApplicationPlans($already_plan_ids);
                         $color = 'blue';
                         foreach ($aplanList as $aplanItem) {
@@ -410,7 +415,7 @@ class Applicant extends AdmObject
                                 $link = array();
                                 $title = "التقديم على " . $aplanItem->getShortDisplay($lang);
                                 // $title_detailed = $title . "لـ : " . $displ;
-                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&sel_applicant_id=$my_id&sel_application_plan_id=$application_plan_id&sel_application_simulation_id=2&sel_application_model_id=$application_model_id";
+                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&sel_applicant_id=$my_id&sel_idn=$idn&sel_application_plan_id=$application_plan_id&sel_application_simulation_id=2&sel_application_model_id=$application_model_id";
                                 $link["TITLE"] = $title;
                                 $link["COLOR"] = $color;
                                 $link["UGROUPS"] = array();

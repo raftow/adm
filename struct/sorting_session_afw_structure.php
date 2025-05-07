@@ -169,10 +169,10 @@ class AdmSortingSessionAfwStructure
                 ],
 
                 'started_ind' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => false,  'STEP' => 1, 
+				'EDIT' => true,  'QEDIT' => false,  'STEP' => 2, 
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
-				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
+				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => true,  'DNA' => true, 
+				'CSS' => 'width_pct_25', ),
 
                                         'sorting_step_id' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                                                 'EDIT' => true,  'READONLY' => true,
@@ -227,7 +227,18 @@ class AdmSortingSessionAfwStructure
 					"NO-LABEL" => true,
 					'CSS' => 'width_pct_100',
 					'INPUT_WIDE' => true
-			),                                                
+			), 
+                        
+                'statList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  
+                                                'AUDIT' => false,  'RETRIEVE' => false, 'EDIT' => false,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+                                                'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK', 'STEP' => 2,  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_session_stat',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => 'application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§ and session_num=§session_num§ and active=\'Y\'',  
+                                                'READONLY' => true,  'CAN-BE-SETTED' => true, 
+                                                'CSS' => 'width_pct_100', ),                        
 
                  
 

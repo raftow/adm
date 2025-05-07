@@ -34,6 +34,46 @@ try
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
    
     if($mode_is_dev) $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'applicant_step_request', 198, "+t", "qsearch", null);
+    
+    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session_stat;");
+
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sorting_session_stat` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `created_by` int(11) NOT NULL,
+        `created_at`   datetime NOT NULL,
+        `updated_by` int(11) NOT NULL,
+        `updated_at` datetime NOT NULL,
+        `validated_by` int(11) DEFAULT NULL,
+        `validated_at` datetime DEFAULT NULL,
+        `active` char(1) NOT NULL,
+        `draft` char(1) NOT NULL default  'Y' ,
+        `version` int(4) DEFAULT NULL,
+        `update_groups_mfk` varchar(255) DEFAULT NULL,
+        `delete_groups_mfk` varchar(255) DEFAULT NULL,
+        `display_groups_mfk` varchar(255) DEFAULT NULL,
+        `sci_id` int(11) DEFAULT NULL,
+        
+            
+        application_plan_id int(11) NOT NULL , 
+        session_num smallint NOT NULL , 
+        application_simulation_id int(11) NOT NULL , 
+        application_plan_branch_id int(11) NOT NULL , 
+        track_num smallint NOT NULL , 
+        capacity smallint NOT NULL , 
+        nb_accepted smallint NOT NULL , 
+        min_app_score1 float DEFAULT NULL , 
+        min_app_score2 float DEFAULT NULL , 
+        min_app_score3 float DEFAULT NULL , 
+        min_acc_score1 float DEFAULT NULL , 
+        min_acc_score2 float DEFAULT NULL , 
+        min_acc_score3 float DEFAULT NULL , 
+
+        
+        PRIMARY KEY (`id`)
+        ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
+
+    
+    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_step_request add   error_message text  DEFAULT NULL  AFTER status_date;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_step_request add   support_category varchar(16)  DEFAULT NULL  AFTER error_message;");
     AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."ums.`idn_type` (`id`, `id_aut`, `date_aut`, `id_mod`, `date_mod`, `id_valid`, `date_valid`, `avail`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `idn_type_name`, `nationalty_id`, `country_id`, `idn_type_name_ar`, `idn_type_name_en`, `idn_validation_function`) VALUES ('4', '1', '2025-05-03 13:09:56.000000', '1', '2025-05-03 13:09:56.000000', NULL, NULL, 'Y', NULL, NULL, NULL, NULL, '1', NULL, 'جواز سفر', '0', '0', 'جواز سفر', 'Passeport', '');");
@@ -59,8 +99,8 @@ try
     AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set institution_id = 1");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   api_endpoint2_id int(11) NOT NULL  AFTER api_endpoint_id;");    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER direct_adm_capacity;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL  AFTER upgraded;");
-
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL DEFAULT 'N' AFTER upgraded;");
+    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.sorting_session set started_ind = 'N'");    
     AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`major_path` WHERE id > 143");
     
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");

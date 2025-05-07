@@ -529,6 +529,7 @@ class SortingSession extends AFWObject
         $application_simulation_id = $this->getVal("application_simulation_id");
         $applicationPlanObj = $this->het("application_plan_id");
         $application_plan_id = $this->getVal("application_plan_id");
+        $session_num = $this->getVal("session_num");
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
 
         $statsData = [];
@@ -568,10 +569,21 @@ class SortingSession extends AFWObject
                     // $rowData["track_ar"] = $spathLabel["en"];
                     $rowData["capacity"] = $applicationPlanBranchItem->getVal("capacity_track$spath");
                     list($rowData["min_app_score1"], $rowData["min_app_score2"], $rowData["min_app_score3"]) = $applicationPlanBranchItem->getMinAppliedScore($application_simulation_id, $application_model_id);
-                    
-                    // $rowData["nb_free"] = $rowData["capacity"] - $rowData["nb_acc"];
-        
                     $statsData[] = $rowData;
+                    // $rowData["nb_free"] = $rowData["capacity"] - $rowData["nb_acc"];
+
+                    $obStat = SortingSessionStat::loadByMainIndex($application_plan_id,$session_num,$application_simulation_id,$applicationPlanBranchItem->id,$spath, true);
+                    $obStat->set("capacity", $rowData["capacity"]);
+                    $obStat->set("nb_accepted", $rowData["nb_accepted"]);
+                    $obStat->set("min_app_score1", $rowData["min_app_score1"]);
+                    $obStat->set("min_app_score2", $rowData["min_app_score2"]);
+                    $obStat->set("min_app_score3", $rowData["min_app_score3"]);
+                    $obStat->set("min_acc_score1", $rowData["min_acc_score1"]);
+                    $obStat->set("min_acc_score2", $rowData["min_acc_score2"]);
+                    $obStat->set("min_acc_score3", $rowData["min_acc_score3"]);
+                    $obStat->commit();
+                    
+                    
 
 
                 }
@@ -647,6 +659,10 @@ class SortingSession extends AFWObject
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
+        global $MODE_BATCH_LOURD;
+        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+        $MODE_BATCH_LOURD = true;
+
         $session_num = $this->getVal("session_num");
         $sortingGroupList = $this->get("sortingGroupList");
         $application_plan_id = $this->getVal("application_plan_id");
@@ -677,7 +693,7 @@ class SortingSession extends AFWObject
             $sorting_path_tmp_sql_drop = "DROP TABLE IF EXISTS $sorting_path_tmp_table;";
             AfwDatabase::db_query($sorting_path_tmp_sql_drop);
 
-            $sorting_path_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $sorting_path_tmp_table as select * from ".$server_db_prefix."adm.sorting_path where application_plan_id=$application_plan_id";
+            $sorting_path_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $sorting_path_tmp_table as select * from ".$server_db_prefix."adm.sorting_path where application_model_id=$application_model_id";
             AfwDatabase::db_query($sorting_path_tmp_sql_create);
 
 
@@ -685,7 +701,7 @@ class SortingSession extends AFWObject
             $sorting_group_tmp_sql_drop = "DROP TABLE IF EXISTS $sorting_group_tmp_table;";
             AfwDatabase::db_query($sorting_group_tmp_sql_drop);
 
-            $sorting_group_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $sorting_group_tmp_table as select * from ".$server_db_prefix."adm.sorting_group where application_plan_id=$application_plan_id";
+            $sorting_group_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $sorting_group_tmp_table as select * from ".$server_db_prefix."adm.sorting_group where 1";
             AfwDatabase::db_query($sorting_group_tmp_sql_create);
         }
 
@@ -704,9 +720,9 @@ class SortingSession extends AFWObject
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($sortingGroupId, $spath);
                 $branchsLastScoreMatrix = [];
                 $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
-                
-                $sorting_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath`";
-                
+                $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
+                $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+                AfwSession::setConfig("$sorting_table_without_prefix-sql-analysis-max-calls",80000000);
                 if($preSorting)
                 {
                     
@@ -757,7 +773,7 @@ class SortingSession extends AFWObject
                     AfwDatabase::db_query($sql_insert);
                 }
 
-                $sql_farz = "SELECT * FROM $sorting_table order by $sf1_order $sf2_order $sf3_order";
+                $sql_farz = "SELECT * FROM $sorting_table order by $sf1_order $sf2_order $sf3_order applicant_id asc";
 
                 $farzRows = AfwDatabase::db_recup_rows($sql_farz);
                 $sorting_num = 0;
@@ -836,7 +852,9 @@ class SortingSession extends AFWObject
         $this->postSortingStats($arrDataMinAccepted);
 
 
-        // $applicationDesireList = $this->get("applicationDesireList");
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+
+        AfwQueryAnalyzer::resetQueriesExecuted();
 
         return ["", "Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]"];
 
