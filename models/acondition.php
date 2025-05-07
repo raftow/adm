@@ -52,7 +52,7 @@ class Acondition extends AdmObject{
                                 foreach($fieldsArr as $fieldId)
                                 {
                                         $objAF = ApplicationField::loadById($fieldId);
-                                        $return_arr[] = ["id"=>$fieldId, "name"=>$objAF->getVal("field_name")];                
+                                        if($fieldId) $return_arr[] = ["id"=>$fieldId, "name"=>$objAF->getVal("field_name")];                
                                 }
                         }
                 }
@@ -70,7 +70,7 @@ class Acondition extends AdmObject{
                 }    
                 else
                 {
-                        $return_arr[] = ["id"=>$this->getVal("afield_id"), "name"=>$this->showAttribute("afield_id",null,true,'en')];
+                        if($this->getVal("afield_id")) $return_arr[] = ["id"=>$this->getVal("afield_id"), "name"=>$this->showAttribute("afield_id",null,true,'en')];
                 }
 
                 return $return_arr;
