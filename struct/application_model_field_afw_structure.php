@@ -196,7 +196,7 @@ class AdmApplicationModelFieldAfwStructure
                 'api_endpoint2_id' => array(
                         'STEP' => 1,
                         'SHORTNAME' => 'endpoint2',
-                        'WHERE' => "application_field_mfk like  %,§application_field_id§,% ",
+                        'WHERE' => "application_field_mfk like  '%,§application_field_id§,%' ",
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
