@@ -65,5 +65,6 @@ $migrations = [
     '00059' => ['by'=>'medali','title'=>'add field profile_populated to applicant'],
     '00060' => ['by'=>'medali','title'=>'add table relationship'],
     '00061' => ['by'=>'medali','title'=>'create ADMStudentAdmission table'],
+    '00062' => ['by'=>'rafik','title'=>'import real data from cloud for developer tests'],
 ];
 
