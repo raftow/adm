@@ -45,7 +45,8 @@ class AconditionArTranslator{
 		$trad["acondition"]["known_already"] = "قيمة الحقل معلومة مسبقا";
 		$trad["acondition"]["show_fe"] = "الاظهار في الواجهة";
 		$trad["acondition"]["bfunction_id"] = "الخدمة العملية";
-
+		$trad["acondition"]["when_apply_enum"] = "متى يتم التطبيق";
+		
 		
 
 

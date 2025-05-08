@@ -1004,6 +1004,48 @@ class Acondition extends AdmObject{
             }    
 	}
 
+        public static function code_of_split_sorting_by_enum($lkp_id=null)
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if($lkp_id) return self::when_apply()['code'][$lkp_id];
+            else return self::when_apply()['code'];
+        }
+
+        public static function name_of_when_apply_enum($when_apply_enum, $lang="ar")
+        {
+            return self::when_apply()[$lang][$when_apply_enum];            
+        }
+        
+        public static function list_of_when_apply_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::when_apply()[$lang];
+        }
+        
+        public static function when_apply()
+        {
+                $arr_list_of_when_apply = array();
+                
+                        
+                $arr_list_of_when_apply["code"][1] = "OSS";
+                $arr_list_of_when_apply["ar"][1] = "في نفس المرحلة فقط";
+                $arr_list_of_when_apply["en"][1] = "Only same step";
+
+                $arr_list_of_when_apply["code"][2] = "SSN";
+                $arr_list_of_when_apply["ar"][2] = "نفس المرحلة وما بعدها";
+                $arr_list_of_when_apply["en"][2] = "Same step and next";
+                
+                $arr_list_of_when_apply["code"][3] = "SSF";
+                $arr_list_of_when_apply["en"][3] = "Same step and final step";
+                $arr_list_of_when_apply["ar"][3] = "نفس المرحلة  والمرحلة النهائية";
+
+
+              
+
+                
+                return $arr_list_of_when_apply;
+        }
+
         // generalCondition
         /*
         public function generalCondition($field_name, $col_struct)
