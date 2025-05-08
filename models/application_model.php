@@ -471,7 +471,7 @@
                                         $amcObj = ApplicationModelCondition::loadByMainIndex($this->id, $aconditionItem->id, $acondition_origin_id, $general, $addNewConditions);
                                         if($amcObj)
                                         {
-                                                $inf_arr[] = "تم الأخذ بعين االاعتبار الشرط : " . $aconditionItem->getDisplay($lang);
+                                                $inf_arr[] = "تم الأخذ بعين الاعتبار للشرط : " . $aconditionItem->getDisplay($lang);
                                                 if($amcObj->is_new) $cond_nb_inserted++;
                                                 else $cond_nb_updated++;
 
