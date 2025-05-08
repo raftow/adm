@@ -265,7 +265,7 @@
                                                 'EDIT' => true,  'QEDIT' => false, 'STEP' => 2, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'eval_type',  'ANSMODULE' => 'adm',  'READONLY' => false,  'DNA' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),
 
 
 
