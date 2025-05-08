@@ -456,6 +456,8 @@
                         // $api_nb_updated = 0;
                         $api_nb_inserted = 0;
 
+                        $apiManualEntry = ApiEndpoint::loadByMainIndex("ManualEntry");
+
                         $this_disp = $this->getDisplay($lang);
 
                         if($addNewConditions) $this->hideAllApplicationModelConditionList();
@@ -569,42 +571,56 @@
                         $applicationModelFieldList = $this->get("applicationModelFieldList");
                         foreach($applicationModelFieldList as $applicationModelFieldItem)
                         {
-                                $api_endpoint_id = $applicationModelFieldItem->getVal("api_endpoint_id");
-                                if($api_endpoint_id>0)
+
+                                $api_endpoints_arr = [];
+                                
+                                if($applicationModelFieldItem->getVal("api_endpoint_id")>0)
                                 {
-                                        if($api_endpoint_id != 13)
+                                        $api_endpoints_arr[] = $applicationModelFieldItem->getVal("api_endpoint_id");
+                                        if($applicationModelFieldItem->getVal("api_endpoint2_id")>0) $api_endpoints_arr[] = $applicationModelFieldItem->getVal("api_endpoint2_id");
+                                }
+                                else $war_arr[] = "field ".$applicationModelFieldItem->getDisplay("en")." has no api_endpoint defined";
+                                
+                                // if($applicationModelFieldItem->id==77) die("applicationModelFieldItem=".var_export($applicationModelFieldItem,true)." api_endpoints_arr=".var_export($api_endpoints_arr,true));
+
+                                foreach($api_endpoints_arr as $api_ep_id)
+                                {
+                                        if($api_ep_id>0)
                                         {
-                                                $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
-                                                $new_step_num = $applicationModelFieldItem->getVal("step_num");
-                                                if(!$new_step_num) $new_step_num = 1;
-                                                $amaObj = AppModelApi::loadByMainIndex($this->id, $api_endpoint_id, true);
-                                                if($amaObj->is_new)
+                                                if($api_ep_id != $apiManualEntry->id)
                                                 {
-                                                        $amaObj->set("application_field_mfk", ",$application_field_id,");
-                                                        // $amaObj->set("duration_expiry", 15);
-                                                        $api_nb_inserted++;
+                                                        $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
+                                                        $new_step_num = $applicationModelFieldItem->getVal("step_num");
+                                                        if(!$new_step_num) $new_step_num = 1;
+                                                        $amaObj = AppModelApi::loadByMainIndex($this->id, $api_ep_id, true);
+                                                        if($amaObj->is_new)
+                                                        {
+                                                                $amaObj->set("application_field_mfk", ",$application_field_id,");
+                                                                // $amaObj->set("duration_expiry", 15);
+                                                                $api_nb_inserted++;
+                                                        }
+                                                        else
+                                                        {
+                                                                $amaObj->addRemoveInMfk("application_field_mfk",[$application_field_id],[]);
+                                                        }
+                                                        
+                                                        $amaObj->set("duration_expiry", 15);
+                                                        $step_num = $amaObj->getVal("step_num");
+                                                        if((!$step_num) or ($step_num<0) or ($step_num>$new_step_num))
+                                                        {
+                                                                $step_num = $new_step_num;
+                                                                $amaObj->set("step_num", $step_num);
+                                                        }
+                        
+                                                        $amaObj->commit();
                                                 }
                                                 else
                                                 {
-                                                        $amaObj->addRemoveInMfk("application_field_mfk",[$application_field_id],[]);
+                                                        $inf_arr[] = "for field $application_field_id `manual entry` virtual API(13) has been ignored";
                                                 }
-                                                
-                                                $amaObj->set("duration_expiry", 15);
-                                                $step_num = $amaObj->getVal("step_num");
-                                                if((!$step_num) or ($step_num<0) or ($step_num>$new_step_num))
-                                                {
-                                                        $step_num = $new_step_num;
-                                                        $amaObj->set("step_num", $step_num);
-                                                }
-                
-                                                $amaObj->commit();
                                         }
-                                        else
-                                        {
-                                                $inf_arr[] = "for field $application_field_id `manual entry` virtual API(13) has been ignored";
-                                        }
+                                         
                                 }
-                                else $war_arr[] = "field ".$applicationModelFieldItem->getDisplay("en")." has no api_endpoint defined";
                         }
 
                         if(!count($aconditionOriginList))
