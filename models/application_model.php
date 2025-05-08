@@ -456,7 +456,8 @@
                         // $api_nb_updated = 0;
                         $api_nb_inserted = 0;
 
-                        $apiManualEntry = ApiEndpoint::loadByMainIndex("ManualEntry");
+                        $apiVirtualManualEntry = ApiEndpoint::loadByMainIndex("ManualEntry");
+                        $apiVirtualSRT = ApiEndpoint::loadByMainIndex("SRT");
 
                         $this_disp = $this->getDisplay($lang);
 
@@ -587,7 +588,7 @@
                                 {
                                         if($api_ep_id>0)
                                         {
-                                                if($api_ep_id != $apiManualEntry->id)
+                                                if(($api_ep_id != $apiVirtualManualEntry->id) and ($api_ep_id != $apiVirtualSRT->id))
                                                 {
                                                         $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
                                                         $new_step_num = $applicationModelFieldItem->getVal("step_num");
