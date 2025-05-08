@@ -393,19 +393,30 @@
                         return [0,-1,'W'];
                 }
 
-                public function hideAllApplicationModelConditionList()
+                public function hideAllApplicationModelConditionList($conditions=true, $fields=true, $apis=true)
                 {
-                        $amcObj = new ApplicationModelCondition(); 
-                        $amcObj->select("application_model_id", $this->id);
-                        $amcObj->logicDelete(true,false);
+                        if($conditions)
+                        {
+                                $amcObj = new ApplicationModelCondition(); 
+                                $amcObj->select("application_model_id", $this->id);
+                                $amcObj->logicDelete(true,false);
+                        }
+                        
+                        if($fields)
+                        {
+                                $amfObj = new ApplicationModelField();
+                                $amfObj->select("application_model_id", $this->id);
+                                $amfObj->logicDelete(true,false);
+                        }
 
-                        $amfObj = new ApplicationModelField();
-                        $amfObj->select("application_model_id", $this->id);
-                        $amfObj->logicDelete(true,false);
+                        if($apis)
+                        {
+                                $amaObj = new AppModelApi();
+                                $amaObj->select("application_model_id", $this->id);
+                                $amaObj->logicDelete(true,false);
+                        }
 
-                        $amaObj = new AppModelApi();
-                        $amaObj->select("application_model_id", $this->id);
-                        $amaObj->logicDelete(true,false);
+                        
 
                         
 
@@ -461,7 +472,7 @@
 
                         $this_disp = $this->getDisplay($lang);
 
-                        if($addNewConditions) $this->hideAllApplicationModelConditionList();
+                        $this->hideAllApplicationModelConditionList($addNewConditions);
 
                         $aconditionOriginList = $this->get("aconditionOriginList");
                         foreach($aconditionOriginList as $aconditionOriginItem)

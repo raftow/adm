@@ -43,7 +43,7 @@ class AconditionArTranslator{
 		$trad["acondition"]["priority"] = "الأولوية";
 		$trad["acondition"]["unique_apply"] = "يتم تطبيقه على كل فرع";
 		$trad["acondition"]["known_already"] = "قيمة الحقل معلومة مسبقا";
-		$trad["acondition"]["show_fe"] = "الاضهار في الواجهة";
+		$trad["acondition"]["show_fe"] = "الاظهار في الواجهة";
 		$trad["acondition"]["bfunction_id"] = "الخدمة العملية";
 
 		
@@ -60,7 +60,7 @@ class AconditionArTranslator{
 		
 		// $trad["acondition"]["unique_apply.short"] = "يتم تطبيقه على كل فرع";
 		$trad["acondition"]["known_already.short"] = "معلومة مسبقا";
-		$trad["acondition"]["show_fe.short"] = "الاضهار";
+		$trad["acondition"]["show_fe.short"] = "الاظهار";
 		return $trad;
     }
 
