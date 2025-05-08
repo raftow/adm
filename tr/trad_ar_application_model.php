@@ -70,6 +70,10 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["print_admission_agreement"] = "تمكين طباعة اتفاقية القبول";
 		$trad["application_model"]["web_application"] = "تمكين النشر على البوابة";
 
+		$trad["application_model"]["eval_type_mfk"] = "أنواع الاختبارات المطلوبة";
+
+		
+
 		return $trad;
 	}
 }	

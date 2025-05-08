@@ -38,6 +38,8 @@ class ApplicationModelEnTranslator
 		$trad["application_model"]["training_mode_enum"] = "Training Mode";
 		$trad["application_model"]["web_application"] = "Allow publishing on the web";
 		$trad["application_model"]["split_sorting_by_enum"] = "Split sorting by enum";
+
+		$trad["application_model"]["eval_type_mfk"] = "Required evaluation types";
 		return $trad;
 	}
 }	
