@@ -232,7 +232,7 @@ class ApplicationPlanBranch extends AdmObject
                         if ($attribute == "capacity_track$spath") {
                                 $icon = 'N_A.png';
                                 $textReason = $this->translateMessage('This path is not open for this program', $lang);
-                                return [$icon, $textReason, 42, 42];
+                                return [$icon, $textReason, 24, 24];
                         }
                 }
                 $icon = 'na20.png';
