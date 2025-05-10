@@ -33,3 +33,5 @@
 	$trad["application_plan_branch"]["application_model_branch_id"] = "application branch";
 
 	$trad["application_plan_branch"]["sortingBranchList"] = "Capacity and sorting settings";
+
+	$trad["application_plan_branch"]["min_weighted_percentage"] = "Min weighted percentage";

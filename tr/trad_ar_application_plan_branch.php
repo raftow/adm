@@ -41,4 +41,10 @@
 	$trad["application_plan_branch"]["capacity_track4"] = "الطاقة الاستيعابية - المسار 4";
 
 	$trad["application_plan_branch"]["sorting_group_id"] = "مجموعة الفرز";
+
+	$trad["application_plan_branch"]["min_weighted_percentage"] = "النسبة الموزونة الدنيا";
+	$trad["application_plan_branch"]["min_weighted_percentage.short"] = "نسبة التقديم";
+
+	
+
 	

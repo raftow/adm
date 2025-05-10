@@ -205,6 +205,16 @@
                                             'CSS' => 'width_pct_25',),
 
 
+
+                                        'min_weighted_percentage' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                                        'EDIT' => true,  'QEDIT' => false,  
+                                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+                                                                        'TYPE' => 'PCTG',  'UNIT' => '%',  'READONLY' => false,  'DNA' => true, 
+                                                                        'CSS' => 'width_pct_50', ),
+
+
+                                                
+
                                         'is_open' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

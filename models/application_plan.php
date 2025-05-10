@@ -178,6 +178,12 @@ class ApplicationPlan extends AdmObject
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
 
 
+
+            $color = "yellow";
+            $title_ar = "جلب النسبة الموزونة الدنيا لجميع فروع القبول";
+            $methodName = "inheritBranchsMinWeightedPercentage";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
+
             $color = "blue";
             $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج";
             $methodName = "addPossibleBranchs";

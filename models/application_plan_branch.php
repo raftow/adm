@@ -230,7 +230,7 @@ class ApplicationPlanBranch extends AdmObject
                 for ($spath = 1; $spath <= $maxPaths; $spath++) {
                         $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
                         if ($attribute == "capacity_track$spath") {
-                                $icon = 'closed.png';
+                                $icon = 'N_A.png';
                                 $textReason = $this->translateMessage('This path is not open for this program', $lang);
                                 return [$icon, $textReason, 42, 42];
                         }

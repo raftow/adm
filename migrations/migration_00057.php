@@ -4,6 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
+  AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   min_weighted_percentage decimal(5,2) NOT NULL DEFAULT 0 AFTER sorting_group_id;    ");
   AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.acondition add   when_apply_enum smallint NOT NULL  AFTER show_fe;");
   AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.acondition me SET when_apply_enum = '1' WHERE when_apply_enum = 0 or when_apply_enum is null;");
   AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_step_request` (

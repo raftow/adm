@@ -95,7 +95,9 @@
 
                                         'branch_name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => true,  
                                                 'EDIT' => true,  'QEDIT' => false,  'SIZE' => '50', 'MAXLENGTH' => '128', 'UTF8' => false,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 99, 'MANDATORY' => true, 'READONLY'=>true, 
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 99, 
+                                                'MANDATORY' => false, /* shoould be true but for demo @todo */
+                                                'READONLY'=>true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
