@@ -148,7 +148,7 @@
                                         
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true,  'DEFAUT' => 'Y',  
-                                                'TYPE' => 'YN',    'DISPLAY' => '',  'STEP' => 2,  
+                                                'TYPE' => 'YN',    'DISPLAY' => '',  'STEP' => 2, 'FORMAT' => 'icon', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
