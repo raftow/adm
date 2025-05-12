@@ -120,7 +120,7 @@ class AdmApplicationModelFieldAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-
+                
                 'screen_model_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,

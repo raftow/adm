@@ -1136,6 +1136,12 @@ class AdmObject extends AfwMomkenObject{
 
         }
 
+        public static function code_of_application_table_id($lkp_id=null)
+        {
+            if($lkp_id) return self::application_table()['code'][$lkp_id];
+            else return self::application_table()['code'];
+        }
+
         public static function list_of_application_table_id()
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();

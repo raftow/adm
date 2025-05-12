@@ -57,7 +57,7 @@ class Application extends AdmObject
          */
 
 
-        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn='', $create_obj_if_not_found = false)
         {
                 if(!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");

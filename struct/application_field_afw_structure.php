@@ -38,7 +38,7 @@
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'CSS' => 'width_pct_25',
 				),
 
-			
+				
 
 
 			'application_table_id' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'QEDIT' => true,  'EDIT' => true,  

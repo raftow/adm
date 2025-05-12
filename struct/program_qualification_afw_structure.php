@@ -63,7 +63,7 @@
                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                                 'CSS' => 'width_pct_100', ),*/
 
-                                                
+                                                                      
 
 
                                         'qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
