@@ -302,7 +302,7 @@
                         return ($this->getStepCode() == "DSR");
                 }
                 
-                public static function getStepData($applicant_id, $application_plan_id, $step_num, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0) 
+                public static function getStepData($applicant_id, $application_plan_id, $step_num, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0) 
                 {
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num);
@@ -356,7 +356,8 @@
                                         if($scrField["additional"])
                                         {
                                                 $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
-                                                // $stepFieldsArr[$scrIndex]["code-of-$field_name"] = $field_code;        
+                                                // $stepFieldsArr[$scrIndex]["code-of-$field_code"] = $field_name;        
+                                                $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
                                         } 
                                         $stepFieldsArr[$scrIndex][$field_code] = $theObj->$method($field_name);        
                                 }

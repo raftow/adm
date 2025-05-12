@@ -87,12 +87,12 @@ class ApplicationPlan extends AdmObject
         } else return null;
     }
 
-    public static function getStepData($input_arr)
+    public static function getStepData($input_arr, $debugg=0)
     {
         $application_plan_id = $input_arr['plan_id'];
         $applicant_id = $input_arr['applicant_id'];
         $step_num = $input_arr['step_num'];
-        return ["success", "", ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num)]; 
+        return ["success", "", ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num, $debugg)]; 
     }
 
     public function getDisplay($lang = "ar")

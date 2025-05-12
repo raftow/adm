@@ -64,7 +64,7 @@ try
         {
             // die("_REQUEST=".var_export($_REQUEST,true));
             // die("input_arr=".var_export($input_arr,true));
-            list($status, $message, $dataApi) = $apiClass::$apiMethod($input_arr);
+            list($status, $message, $dataApi) = $apiClass::$apiMethod($input_arr, $debugg);
             $data_for_json['status']=$status;
             $data_for_json["message"]=$message;
             $data_for_json["data"]=$dataApi;
