@@ -312,7 +312,7 @@
                         foreach($stepFieldsArr as $scrIndex => $scrData)
                         {
                                 $scrFields = $scrData["fields"];
-                                unset($scrData["fields"]);
+                                unset($stepFieldsArr[$scrIndex]["fields"]);
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
@@ -353,7 +353,11 @@
                                         {
                                                 throw new AfwRuntimeException("Failed to load applier object with context $context");
                                         }
-                                        if($scrField["additional"]) $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
+                                        if($scrField["additional"])
+                                        {
+                                                $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
+                                                // $stepFieldsArr[$scrIndex]["code-of-$field_name"] = $field_code;        
+                                        } 
                                         $stepFieldsArr[$scrIndex][$field_code] = $theObj->$method($field_name);        
                                 }
 
