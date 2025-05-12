@@ -92,7 +92,11 @@ class ApplicationPlan extends AdmObject
         $application_plan_id = $input_arr['plan_id'];
         $applicant_id = $input_arr['applicant_id'];
         $step_num = $input_arr['step_num'];
-        return ["success", "", ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num, $debugg)]; 
+        list($application_model_id, $attributes) = ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num, $debugg);
+        $data = ['attributes' => $attributes,
+                 'apis' => ApplicationModel::getStepApis($applicant_id, $application_model_id, $step_num, $debugg),
+        ];
+        return ["success", "", $data]; 
     }
 
     public function getDisplay($lang = "ar")

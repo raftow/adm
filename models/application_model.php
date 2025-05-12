@@ -24,6 +24,7 @@
 
                 /**
                  * @param integer $id (id of application model)
+                 * @return ApplicationModel
                  */
 
                 public static function loadById($id)
@@ -55,6 +56,27 @@
                         return self::$arrSortingStepIdByModelId[$amodel_id];
                 }
 
+
+                public static function getStepApis($applicant_id, $application_model_id, $step_num, $debugg)
+                {
+                     $data = [];   
+                     $modelObject = self::loadById($application_model_id);   
+                     $appModelApiList = $modelObject->getAppModelApiOfStep($step_num);
+                     foreach($appModelApiList as $appModelApiId => $appModelApiItem)
+                     {                        
+                        $apiEndpointObj = $appModelApiItem->het("api_endpoint_id");
+                        $row = [];
+                        $row['api-code'] = $apiEndpointObj->getVal("api_endpoint_code");
+                        $row['api-ar'] = $apiEndpointObj->getVal("api_endpoint_name_ar");
+                        $row['api-en'] = $apiEndpointObj->getVal("api_endpoint_name_em");
+                        $row['api-status'] = "done"; // @todo depends on $applicant_id
+                        if($debugg) $row['api-status-list'] = ["failed", "waiting", "done"];
+
+                        $data[] = $row;
+                     }
+
+                     return $data;
+                }
                 
 
                 public function getDisplay($lang="ar")

@@ -364,7 +364,7 @@
 
                         }
 
-                        return $stepFieldsArr;
+                        return [$application_model_id, $stepFieldsArr];
                 }
                 
                 public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass=[], $audit_conditions_fail=[],)
