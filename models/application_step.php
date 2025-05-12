@@ -339,11 +339,11 @@
                                         }
                                         else
                                         {
-                                                throw new AfwRuntimeException($scrField["table"]." table unknown for this admission context");
+                                                throw new AfwRuntimeException($scrField["table"]." table unknown to define admission context");
                                         }
                                         if((!$theObj) or (!$theObj->id))
                                         {
-                                                throw new AfwRuntimeException("Failed to load applier object with context ");
+                                                throw new AfwRuntimeException("Failed to load applier object with context $context");
                                         }
                                         $stepFieldsArr[$scrIndex]["fields"][$afield_id]["value"] = $theObj->$method($field_name);        
                                 }
