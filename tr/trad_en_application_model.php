@@ -40,6 +40,7 @@ class ApplicationModelEnTranslator
 		$trad["application_model"]["split_sorting_by_enum"] = "Split sorting by enum";
 
 		$trad["application_model"]["eval_type_mfk"] = "Required evaluation types";
+		$trad["application_model"]["max_available_desire_enabled"] = "max available desire enabled";
 		return $trad;
 	}
 }	

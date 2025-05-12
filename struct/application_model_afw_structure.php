@@ -355,7 +355,11 @@
                                                 'CSS' => 'width_pct_100',
                                         ),
 
-
+                                        'max_available_desire_enabled' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'YN',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),
                                         'sortingPathList' => array('SHORTNAME' => 'sortingPaths',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false, 'STEP' => 99,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
