@@ -1,4 +1,5 @@
 <?php
+/*
 unset($obj); $obj=ApplicationField::loadBrotherWithUniqueKey(array (
     'application_table_id' => '1',
     'field_name' => 'country_id',
@@ -3551,4 +3552,4 @@ unset($obj); $obj=ApplicationField::loadBrotherWithUniqueKey(array (
     'sci_id' => '3',
   ), true);
   
-  
+  */

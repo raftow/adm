@@ -356,9 +356,9 @@
                                         if($scrField["additional"])
                                         {
                                                 $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
-                                                // $stepFieldsArr[$scrIndex]["code-of-$field_code"] = $field_name;        
-                                                $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
+                                                // $stepFieldsArr[$scrIndex]["code-of-$field_code"] = $field_name;                                                        
                                         } 
+                                        if($debugg) $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
                                         $stepFieldsArr[$scrIndex][$field_code] = $theObj->$method($field_name);        
                                 }
 

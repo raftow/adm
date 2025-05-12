@@ -68,6 +68,8 @@ try
             $data_for_json['status']=$status;
             $data_for_json["message"]=$message;
             $data_for_json["data"]=$dataApi;
+            $data_for_json["debugg"]=$debugg;
+            
         }
         
         
