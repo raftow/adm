@@ -21,5 +21,6 @@ $trad["academic_level"]["total_tuition_fees"] = "Training fees";
 $trad["academic_level"]["academic_level_instructions"] = "Comments";
 $trad["academic_level"]["print_application_doc"] = "Print application notice";
 $trad["academic_level"]["print_admission_doc"] = "Print the admission agreement";
-
+$trad["academic_level"]["target_audience_ar"] = "target audience";
+$trad["academic_level"]["target_audience_en"] = "target audience en";
 
