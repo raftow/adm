@@ -153,8 +153,16 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,   
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',), 
-                                                
-                                                
+                                        'target_audience_ar' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),
+                                        'target_audience_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),        
                                                 'academicLevelPrivilegeList' => array('TYPE' => 'FK', 'ANSWER' => 'academic_level_privilege', 'ANSMODULE' => 'adm', 
                                                         'CATEGORY' => 'ITEMS', 'ITEM' => 'academic_level_id', 'STEP' => 3,
                                                         // WHERE=>'xxx = §xxx§', HIDE_COLS => array(),
