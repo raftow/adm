@@ -35,7 +35,18 @@ class ApplicationField extends AdmObject
           } else return null;
      }
 
+     public static function fieldNameToCode($field_name, $application_table_id)
+     {
+          $params = [];
+          if($application_table_id==1) $params = Applicant::getAdditionalFieldParams($field_name);
+          if($application_table_id==3) $params = Application::getApplicationAdditionalFieldParams($field_name);
+          //if($application_table_id==2) $params = ApplicationDesire::getApplicationDesireAdditionalFieldParams($field_name);
 
+          $field_code = $params["field_code"];
+          if(!$field_code) $field_code = $field_name;
+
+          return $field_code;
+     }
 
      public static function loadByMainIndex($field_name, $application_table_id, $create_obj_if_not_found = false)
      {

@@ -312,23 +312,30 @@
                         foreach($stepFieldsArr as $scrIndex => $scrData)
                         {
                                 $scrFields = $scrData["fields"];
+                                unset($scrData["fields"]);
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
+                                        $field_code = $field_name;
                                         if($scrField["reel"]) $method = "getVal";
                                         else $method = "calc";
+
+                                        
+
                                         $context = "";
                                         if($scrField["table"]=="applicant")
                                         {
                                                 if(!$applicantObj) $applicantObj = Applicant::loadById($applicant_id);                                                
                                                 $context = "field $field_name Applicant::loadById($applicant_id)";
                                                 $theObj =& $applicantObj;                                                                                                
+                                                $atb_id = 1;
                                         }
                                         elseif($scrField["table"]=="application")
                                         {
                                                 if(!$applicationObj) $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
                                                 $context = "field $field_name Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id)";
                                                 $theObj =& $applicationObj;                                                                                                
+                                                $atb_id = 3;
                                         }
                                         elseif($scrField["table"]=="adesire")
                                         {
@@ -336,6 +343,7 @@
                                                 if(!$desireObj) $desireObj = ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id);                                                
                                                 $context = "field $field_name ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
                                                 $theObj =& $desireObj;                                                                                                
+                                                $atb_id = 2;
                                         }
                                         else
                                         {
@@ -345,7 +353,8 @@
                                         {
                                                 throw new AfwRuntimeException("Failed to load applier object with context $context");
                                         }
-                                        $stepFieldsArr[$scrIndex]["fields"][$afield_id]["value"] = $theObj->$method($field_name);        
+                                        if($scrField["additional"]) $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
+                                        $stepFieldsArr[$scrIndex][$field_code] = $theObj->$method($field_name);        
                                 }
 
                         }
