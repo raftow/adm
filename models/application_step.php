@@ -317,21 +317,33 @@
                                         $field_name = $scrField["field"];
                                         if($scrField["reel"]) $method = "getVal";
                                         else $method = "calc";
+                                        $context = "";
                                         if($scrField["table"]=="applicant")
                                         {
                                                 if(!$applicantObj) $applicantObj = Applicant::loadById($applicant_id);                                                
+                                                $context = "field $field_name Applicant::loadById($applicant_id)";
                                                 $theObj =& $applicantObj;                                                                                                
                                         }
                                         elseif($scrField["table"]=="application")
                                         {
                                                 if(!$applicationObj) $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
+                                                $context = "field $field_name Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id)";
                                                 $theObj =& $applicationObj;                                                                                                
                                         }
                                         elseif($scrField["table"]=="adesire")
                                         {
                                                 if(!$application_plan_branch_id) throw new AfwRuntimeException("application_plan_branch_id should be provided to get Data of a desire");
                                                 if(!$desireObj) $desireObj = ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id);                                                
+                                                $context = "field $field_name ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
                                                 $theObj =& $desireObj;                                                                                                
+                                        }
+                                        else
+                                        {
+                                                throw new AfwRuntimeException($scrField["table"]." table unknown for this admission context");
+                                        }
+                                        if((!$theObj) or (!$theObj->id))
+                                        {
+                                                throw new AfwRuntimeException("Failed to load applier object with context ");
                                         }
                                         $stepFieldsArr[$scrIndex]["fields"][$afield_id]["value"] = $theObj->$method($field_name);        
                                 }
