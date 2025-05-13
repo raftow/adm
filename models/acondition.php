@@ -70,7 +70,19 @@ class Acondition extends AdmObject{
                 }    
                 else
                 {
-                        if($this->getVal("afield_id")) $return_arr[] = ["id"=>$this->getVal("afield_id"), "name"=>$this->showAttribute("afield_id",null,true,'en')];
+                        $afObj = $this->het("afield_id");
+                        if($afObj and ($afObj->id>0))
+                        {
+                                $return_arr[] = ["id"=>$afObj->id, "name"=>$afObj->getDisplay("en")];
+                                for($kf=1; $kf<=3; $kf++)
+                                {
+                                        $afFormula_kf_Obj = $afObj->het("formula_field_".$kf."_id");
+                                        if($afFormula_kf_Obj and ($afFormula_kf_Obj->id>0)) $return_arr[] = ["id"=>$afFormula_kf_Obj->id, "name"=>$afFormula_kf_Obj->getDisplay("en")];
+                                }
+                                
+                                
+                        }
+                        
                 }
 
                 return $return_arr;

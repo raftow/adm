@@ -1,4 +1,9 @@
 <?php
+if(!class_exists("AfwSession")) die("Denied access");
+
+$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_field` CHANGE `formula_field_1_id` `formula_field_1_id` int NULL AFTER `field_size`;");
+
 /*
 unset($obj); $obj=ApplicationField::loadBrotherWithUniqueKey(array (
     'application_table_id' => '1',
