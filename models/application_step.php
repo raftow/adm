@@ -323,8 +323,8 @@
                                         }
                                         else
                                         {
-                                              if($scrField["type"]=="list") $method = "calc";
-                                              else $method = "getJsonArray";
+                                              if($scrField["type"]=="list") $method = "getJsonArray";
+                                              else $method = "calc";
                                         } 
 
                                         
