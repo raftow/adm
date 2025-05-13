@@ -13,6 +13,7 @@
                 public static $stepAppModelApiList=[];
                 public static $stepAppModelFieldList=[];
                 public static $arrAllApplicationModels=[];
+                public static $arrQualificationMfk=[];
                 
                 // public static $copypast = true;
 
@@ -1462,6 +1463,30 @@
 
 
                 return ApplicationPlan::loadByMainIndex($this->id, $objTerm->id); 
+        }
+
+        public function calcQualification_mfk($what = "value")
+        {
+                if(!self::$arrQualificationMfk[$what][$this->id])
+                {
+                        $levelObj = $this->het("academic_level_id");
+                        if (!$levelObj) 
+                        {
+                                $mfk = "NOT-FOUND";
+                        }
+                        else
+                        {
+                                $min_qualification_level = $levelObj->getVal("min_qualification_level"); 
+                                $max_qualification_level = $levelObj->getVal("max_qualification_level"); 
+                                $mfk = Qualification::getQualificationIdList($min_qualification_level, $max_qualification_level, $what);
+                        }
+
+                        self::$arrQualificationMfk[$what][$this->id] = $mfk;
+                }
+                
+                if(self::$arrQualificationMfk[$what][$this->id] == "NOT-FOUND") return ($what == "value") ? "," : [];
+
+                return self::$arrQualificationMfk[$what][$this->id];        
         }
 
 }

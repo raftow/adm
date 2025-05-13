@@ -384,6 +384,7 @@
 
                         
                         $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general);
+                        // die("ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general) = ".var_export($acondList,true));
                         /**
                          *
                          * @var ApplicationModelCondition $aModelCondItem
@@ -402,7 +403,7 @@
                                 {
                                         $acondItemId = $acondItem->id;
                                         $audit_pass = in_array($acondItemId, $audit_conditions_pass);
-                                        $audit_fail = in_array($acondItemId, $audit_conditions_fail);
+                                        $audit_fail = true; //in_array($acondItemId, $audit_conditions_fail); has no sens, always we need to know reason of fail
 
                                         $c++;
                                         list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec); 
@@ -414,10 +415,12 @@
                                         else 
                                         {
                                                 $success = $exec_result;
-                                                if($exec_result===false) break; // because if one condition fail so all fail no need to continue
-                                                if($exec_result===null) break; // because if we can not apply one condition we can not continue until resolve the pb (data update, etc..)
                                                 if($audit_fail) $war_arr[] = "($c) ".$comments;
                                                 else $tech_arr[] = "($c) ".$comments;
+
+                                                if($exec_result===false) break; // because if one condition fail so all fail no need to continue
+                                                if($exec_result===null) break; // because if we can not apply one condition we can not continue until resolve the pb (data update, etc..)
+                                                
                                         }
                                         if($tech)  $tech_arr[] = $tech;
                                 }
@@ -430,6 +433,10 @@
                         if($success and (!$audit_pass))
                         {
                                 $inf_arr[] = "$c "."conditions passed";
+                        }
+                        else
+                        {
+                                // die("xxxx");
                         }
 
                         

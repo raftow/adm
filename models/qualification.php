@@ -34,6 +34,31 @@
                         return false;
                 }
 
+                public static function getQualificationIdList($min_qualification_level, $max_qualification_level, $what = "value")
+                {
+                    $obj = new Qualification();
+                    $obj->where("level_enum between $min_qualification_level and $max_qualification_level and active = 'Y'");
+                    if($what == "liste") 
+                    {
+                        return $obj->loadListe();
+                    }
+                    elseif($what == "liste") 
+                    {
+                        return $obj->loadListe();
+                    }
+                    elseif($what == "value") 
+                    {
+                        $arr = $obj->loadListe();
+                        $mfk = "," . implode(",", $arr) . ",";
+
+                        return $mfk;
+                    }
+                    else
+                    {
+                        return $obj->loadMany();
+                    }
+                }
+
                 protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
                 {
                     global $lang;

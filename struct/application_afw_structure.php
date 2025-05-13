@@ -111,6 +111,36 @@
                                                         'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false,                                                 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_50', ),
+
+                                                        'qualification_mfk' => array(
+                                                                'STEP' => 99,
+                                                                'CATEGORY' => 'FORMULA',
+                                                                'TYPE' => 'MFK',
+                                                                'ANSWER' => 'qualification',
+                                                                'ANSMODULE' => 'adm',
+                                                                'SHOW' => true,
+                                                                'NO-COTE' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                "CAN-BE-SETTED" => false,
+                                                                'SIZE' => 255,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
+
+
+                                                        'applicationQualificationList' => array(
+                                                                'STEP' => 99,
+                                                                'TYPE' => 'FK',
+                                                                'CATEGORY' => 'ITEMS',
+                                                                'ANSWER' => 'applicant_qualification',
+                                                                'WHERE'=> "applicant_id = §applicant_id§ and (imported='Y' or §allow_add_qualification§='Y') and qualification_id in (0§qualification_mfk§0)",
+                                                                'ANSMODULE' => 'adm',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'CAN-BE-SETTED' => true,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
                                                 
                                        'weighted_percentage' => array(
                                                 'FGROUP' => 'weighted_percentage',

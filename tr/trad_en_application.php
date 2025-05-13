@@ -23,6 +23,7 @@ class ApplicationEnTranslator{
 		$trad["application"]["application_step_id"] = "application step id";
 		$trad["application"]["application_status_enum"] = "application status";
 		$trad["application"]["applicant_qualification_id"] = "applicant qualification id";
+		$trad["application"]["applicationQualificationList"] = "qualifications authorized for application";
 		$trad["application"]["qualification_id"] = "qualification id";
 		$trad["application"]["major_category_id"] = "major cathegory id";
 		$trad["application"]["sis_fields_available"] = "SIS fields available";

@@ -882,6 +882,7 @@ class Application extends AdmObject
                                         {
                                                 // to go to next step we should apply conditions of the current step
                                                 $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                                // die("applyResult = ".var_export($applyResult,true));
                                                 $success = $applyResult['success'];
                                                 $nb_conds = $applyResult['nb_conds'];
 
@@ -1238,6 +1239,15 @@ class Application extends AdmObject
                 return $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
         }
 
+
+        public function calcQualification_mfk($what = "value")
+        {
+                $this->getApplicationModel();
+                if (!$this->objApplicationModel) return ($what == "value") ? "," : [];
+                
+                return $this->objApplicationModel->calcQualification_mfk($what);
+        }
+
         public function calcNb_desires($what = "value")
         {
                 $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
@@ -1268,6 +1278,7 @@ class Application extends AdmObject
         {
                 //die("rafik debugg 20250203");
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
+                /*NOT WORKING WELL to debugg
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) return $no;
 
@@ -1291,7 +1302,10 @@ class Application extends AdmObject
 
                 $applicationAvail = $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
                 // die("applicantAvail and applicationAvail => $applicantAvail and $applicationAvail");
-                return ($applicantAvail and $applicationAvail) ? $yes : $no;
+
+                return ($applicantAvail and $applicationAvail) ? $yes : $no;*/
+
+                return $yes;
         }
 
         public function calcSis_fields_not_available($what = "value", $lang = "")
@@ -1459,7 +1473,7 @@ class Application extends AdmObject
                 $step_num = $this->getVal("step_num");
                 $general="W";
                 $return =  ApplicationStep::applyStepConditionsOn($this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
-
+                // die("ApplicationStep::applyStepConditionsOn(this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec, audit_conditions_pass=".var_export($audit_conditions_pass, true).", audit_conditions_fail=".var_export($audit_conditions_fail, true).") returned ".var_export($return, true));
                 if($pbm) return $return["res"];
                 else return $return;
         }
