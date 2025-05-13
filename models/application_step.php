@@ -330,9 +330,11 @@
                                         
 
                                         $context = "";
+                                        $error_message = "";
                                         if($scrField["table"]=="applicant")
                                         {
                                                 if(!$applicantObj) $applicantObj = Applicant::loadById($applicant_id);                                                
+                                                if(!$applicantObj) $error_message = "This applicant is not found";
                                                 $context = "field $field_name Applicant::loadById($applicant_id)";
                                                 $theObj =& $applicantObj;                                                                                                
                                                 $atb_id = 1;
@@ -340,6 +342,7 @@
                                         elseif($scrField["table"]=="application")
                                         {
                                                 if(!$applicationObj) $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
+                                                if(!$applicationObj) $error_message = "This application is not found";
                                                 $context = "field $field_name Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id)";
                                                 $theObj =& $applicationObj;                                                                                                
                                                 $atb_id = 3;
@@ -348,17 +351,18 @@
                                         {
                                                 if(!$application_plan_branch_id) throw new AfwRuntimeException("application_plan_branch_id should be provided to get Data of a desire");
                                                 if(!$desireObj) $desireObj = ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id);                                                
+                                                if(!$desireObj) $error_message = "This desire is not found";
                                                 $context = "field $field_name ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
                                                 $theObj =& $desireObj;                                                                                                
                                                 $atb_id = 2;
                                         }
                                         else
                                         {
-                                                throw new AfwRuntimeException($scrField["table"]." table unknown to define admission context");
+                                                $error_message = $scrField["table"]." table unknown to define admission context";
                                         }
                                         if((!$theObj) or (!$theObj->id))
                                         {
-                                                throw new AfwRuntimeException("Failed to load applier object with context $context");
+                                                if(!$error_message) $error_message = "Failed to load applier object with context $context";
                                         }
                                         if($scrField["additional"])
                                         {
@@ -366,7 +370,9 @@
                                                 // $stepFieldsArr[$scrIndex]["code-of-$field_code"] = $field_name;                                                        
                                         } 
                                         if($debugg) $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
-                                        $stepFieldsArr[$scrIndex][$field_code] = $theObj->$method($field_name);        
+                                        if((!$theObj) or (!$theObj->id)) $my_field_value = $error_message;
+                                        else $my_field_value = $theObj->$method($field_name);        
+                                        $stepFieldsArr[$scrIndex][$field_code] = $my_field_value;         
                                 }
 
                         }

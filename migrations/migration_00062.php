@@ -3,6 +3,12 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_field` CHANGE `formula_field_1_id` `formula_field_1_id` int NULL AFTER `field_size`;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`afield_option_value` CHANGE `id_mod` `id_mod` int NULL AFTER `date_aut`, CHANGE `option_value_comments` `option_value_comments` text COLLATE 'utf8mb3_unicode_ci' NULL AFTER `option_value`;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`foption`
+                            CHANGE `foption_desc_en` `foption_desc_en` text COLLATE 'utf8mb3_unicode_ci' NULL AFTER `foption_desc_ar`,
+                            CHANGE `id_mod` `id_mod` int NULL AFTER `date_aut`,
+                            CHANGE `afield_type_mfk` `afield_type_mfk` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `foption_name_en`,
+                            CHANGE `foption_type` `foption_type` smallint NULL AFTER `afield_type_mfk`;");
 
 /*
 unset($obj); $obj=ApplicationField::loadBrotherWithUniqueKey(array (
