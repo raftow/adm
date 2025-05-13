@@ -34,7 +34,7 @@ class AdmApplicantQualificationAfwStructure
                 ),
 
                 'applicant_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -63,7 +63,7 @@ class AdmApplicantQualificationAfwStructure
 
 
                 'qualification_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -91,6 +91,7 @@ class AdmApplicantQualificationAfwStructure
                 ),
 
                 'level_enum' => array(
+                        'IMPORTANT' => 'HIGH',
                         'CATEGORY' => 'SHORTCUT',
                         'SHORTCUT' => 'qualification_id.level_enum',
                         'TYPE' => 'ENUM',
@@ -106,7 +107,7 @@ class AdmApplicantQualificationAfwStructure
                 // dependecy bring only ctegories that exists in major_path for this qualification_id   
                 // done by medali     
                 'major_category_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -137,7 +138,7 @@ class AdmApplicantQualificationAfwStructure
 
 
                 'major_path_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => false,
                         'QSEARCH' => false,
                         'SHOW' => false,
@@ -163,7 +164,7 @@ class AdmApplicantQualificationAfwStructure
 
                 // @todo  rafik dependency with major_category_id
                 'qualification_major_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -194,7 +195,7 @@ class AdmApplicantQualificationAfwStructure
 
 
                 'gpa' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SHOW' => true,
                         'RETRIEVE' => true,
                         'QEDIT' => true,
@@ -210,7 +211,7 @@ class AdmApplicantQualificationAfwStructure
                 ),
 
 'educational_zone_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => false,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -235,7 +236,7 @@ class AdmApplicantQualificationAfwStructure
                 ),
 
                 'gpa_from' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SHOW' => true,
                         'RETRIEVE' => true,
                         'QEDIT' => true,
@@ -254,7 +255,7 @@ class AdmApplicantQualificationAfwStructure
 
 
                 'date' => [
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'SHOW' => true,
                         'RETRIEVE' => true,
@@ -275,7 +276,7 @@ class AdmApplicantQualificationAfwStructure
 
                 // @todo medali depency with qual_source
                 'source' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -325,7 +326,7 @@ class AdmApplicantQualificationAfwStructure
 
 
                 'imported' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
@@ -343,7 +344,7 @@ class AdmApplicantQualificationAfwStructure
 
 
                 'import_utility_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
