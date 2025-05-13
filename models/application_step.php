@@ -317,8 +317,15 @@
                                 {
                                         $field_name = $scrField["field"];
                                         $field_code = $field_name;
-                                        if($scrField["reel"]) $method = "getVal";
-                                        else $method = "calc";
+                                        if($scrField["reel"]) 
+                                        {
+                                                $method = "getVal";
+                                        }
+                                        else
+                                        {
+                                              if($scrField["type"]=="list") $method = "calc";
+                                              else $method = "getJsonArray";
+                                        } 
 
                                         
 
