@@ -386,6 +386,10 @@
                                         if($suffix2 and $method2 and $theObj and ($theObj->id>0))
                                         {
                                                 $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name);    
+                                                if($debugg==$field_code) 
+                                                {
+                                                        $stepFieldsArr[$scrIndex][$field_code."_".$suffix2."_sql"] = $theObj->debugg_sql_for_loadmany;    
+                                                }
                                         }
 
 
