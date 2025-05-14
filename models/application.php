@@ -949,7 +949,7 @@ class Application extends AdmObject
                                 $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
                                 if ($dataShouldBeUpdated and !$dataReady) 
                                 {
-                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "list-fields-not-available");
+                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "list-fields-not-available", false);
                                         $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                         $war_arr[] = $message_war;
                                         $result_arr["message"] = $message_war. " : $fieldsNotAvail";
@@ -1118,12 +1118,12 @@ class Application extends AdmObject
                 return [$field_value_datetime, $apiEndpointDisplay];
         }
 
-        public function getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false)
+        public function getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true)
         {
-                return self::getObjectFieldsMatrix($this, $applicationFieldsArr, $lang, $onlyIfTheyAreUpdated);
+                return self::getObjectFieldsMatrix($this, $applicationFieldsArr, $lang, $onlyIfTheyAreUpdated, $technical_infos);
         }
         
-        public static function getObjectFieldsMatrix(&$object, $applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false)
+        public static function getObjectFieldsMatrix(&$object, $applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true)
         {
                 $matrix = [];
                 $theyAreUpdated = true;
@@ -1133,7 +1133,8 @@ class Application extends AdmObject
                         $row_matrix = [];
                         $field_reel = $applicationFieldObj->_isReel();
                         $row_matrix['reel'] = $field_reel;
-                        $field_title = $applicationFieldObj->getDisplay($lang) . "<!-- $field_name -->";
+                        $field_title = $applicationFieldObj->getDisplay($lang);
+                        if($technical_infos) $field_title .= "<!-- $field_name -->";
                         $row_matrix['title'] = $field_title;
                         if ($field_reel) {
                                 $field_value = $object->getVal($field_name);
@@ -1143,7 +1144,8 @@ class Application extends AdmObject
                                 $field_value_case = "calc";
                         }
                         $field_decode = $object->decode($field_name);
-                        $row_matrix['decode'] = $field_decode . "<!-- $field_value -->";
+                        if($technical_infos) $field_decode .= "<!-- $field_value -->";
+                        $row_matrix['decode'] = $field_decode;
                         $row_matrix['value'] = $field_value;
                         $row_matrix['case'] = $field_value_case;
 
@@ -1188,7 +1190,7 @@ class Application extends AdmObject
                 return $matrix;
         }
 
-        public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false)
+        public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true)
         {
                 if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 if (!$this->applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
@@ -1202,8 +1204,8 @@ class Application extends AdmObject
                         // throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
                 }
 
-                $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated);
-                $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr, $lang, $onlyIfTheyAreUpdated);
+                $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated, $technical_infos);
+                $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr, $lang, $onlyIfTheyAreUpdated, $technical_infos);
 
                 if ($onlyIfTheyAreUpdated===true) return ($fieldsMatrix_1 and $fieldsMatrix_2);
                 if ($onlyIfTheyAreUpdated==="list-fields-not-available") return $fieldsMatrix_1 . "," . $fieldsMatrix_2;

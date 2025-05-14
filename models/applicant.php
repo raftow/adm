@@ -1079,7 +1079,7 @@ class Applicant extends AdmObject
          * @param Application $applicationObj
          * 
          */
-        public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", &$applicationObj = null, $onlyIfTheyAreUpdated = false)
+        public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", &$applicationObj = null, $onlyIfTheyAreUpdated = false, $technical_infos=true)
         {
 
                 $matrix = [];
@@ -1090,7 +1090,8 @@ class Applicant extends AdmObject
                         $row_matrix = [];
                         $field_reel = $applicantFieldObj->_isReel();
                         $row_matrix['reel'] = $field_reel;
-                        $field_title = $applicantFieldObj->getDisplay($lang) . "<!-- $field_name -->";
+                        $field_title = $applicantFieldObj->getDisplay($lang);
+                        if($technical_infos) $field_title .= "<!-- $field_name -->";
                         $row_matrix['title'] = $field_title;
                         if ($field_reel) {
                                 $field_value = $this->getVal($field_name);
@@ -1100,7 +1101,9 @@ class Applicant extends AdmObject
                                 $field_value_case = "calc";
                         }
                         $field_decode = $this->decode($field_name);
-                        $row_matrix['decode'] = $field_decode . "<!-- `$field_value` -->";
+                        if($technical_infos) $field_decode .= "<!-- $field_value -->";
+                        $row_matrix['decode'] = $field_decode;
+
                         $row_matrix['value'] = $field_value;
                         $row_matrix['case'] = $field_value_case;
 
