@@ -283,7 +283,7 @@ class AdmOrgunit extends AdmObject{
         
         // also silentAssignSupervisorForNonAssigned($lang="ar")          
 
-
+        /*
         public function resetSupervisorAssignement($lang="ar")
         {
                 Request::resetAssignSupervisors($lang="ar");
@@ -370,7 +370,7 @@ class AdmOrgunit extends AdmObject{
 
                 return array("",$nb_resetted." ".AfwLanguageHelper::tarjemMessage("request's reset","adm",$lang).", ".$nb_assigned." ".AfwLanguageHelper::tarjemMessage("request's assign","adm",$lang),"");
         }
-        
+        */
         
         
         
@@ -409,7 +409,7 @@ class AdmOrgunit extends AdmObject{
 	}
         
 
-
+/*
         public function calcNew_requests_count()
         {
                 // all requests count
@@ -439,7 +439,7 @@ class AdmOrgunit extends AdmObject{
             
            return $obj->count();
         }
-
+*/
 
         public function getBestAvailInvestigator($lang="ar")
         {
