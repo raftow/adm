@@ -180,6 +180,7 @@
                                                 'FGROUP' => 'weighted_percentage',
                                                 'STEP' => 5,
                                                 'TYPE' => 'FLOAT',
+                                                'DEFAULT' => 0.1,
                                                 'SHOW' => true,
                                                 'EDIT' => true,
                                                 'READONLY' => true,
