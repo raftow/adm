@@ -16,7 +16,7 @@ class ApplicationModelFieldArTranslator{
 		$trad["application_model_field"]["api_endpoint_id"] = "الخدمة الالكترونية";
 		$trad["application_model_field"]["duration_expiry"] = "مدة الصلاحية";
 		$trad["application_model_field"]["api_endpoint2_id"] = "الخدمة الالكترونية البديلة";
-
+		$trad["application_model_field"]["answer"] = "اظهار قائمة الاختيارات على الواجهة";
 		
         // steps
 		$trad["application_model_field"]["step1"] = "step1";

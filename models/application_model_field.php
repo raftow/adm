@@ -113,10 +113,10 @@ class ApplicationModelField extends AdmObject
                 $field_title_en = $afieldObj->getVal("field_title_en");
                 $reel = $afieldObj->sureIs("reel");
                 $additional = $afieldObj->sureIs("additional");
-                 	  
+                $answer = $amfObj->sureIs("answer");  	  
                 
 
-                $data["screen-$scr_id"]["fields"][$afieldObj->id] = ['field' => $field_name, 'additional'=>$additional, 'reel'=>$reel, 'type'=>$afield_type_code, 'need_decode'=>$need_decode, 'table'=>$application_table_code, 'title_ar'=>$field_title_ar, 'title_en'=>$field_title_en];
+                $data["screen-$scr_id"]["fields"][$afieldObj->id] = ['field' => $field_name, 'additional'=>$additional, 'reel'=>$reel, 'type'=>$afield_type_code, 'need_decode'=>$need_decode, 'table'=>$application_table_code, 'title_ar'=>$field_title_ar, 'title_en'=>$field_title_en, 'answer'=>$answer];
             }
             
         }

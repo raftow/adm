@@ -189,7 +189,7 @@ class AdmApplicationModelFieldAfwStructure
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ),
 
 
@@ -215,7 +215,7 @@ class AdmApplicationModelFieldAfwStructure
                         'ANSMODULE' => 'adm',
                         'RELATION' => 'ManyToOne',
                         'READONLY' => false,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ),
 
 
@@ -243,7 +243,19 @@ class AdmApplicationModelFieldAfwStructure
                 ),
 
 
-
+                'answer' => array(
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'DEFAUT' => 'Y',
+                        'TYPE' => 'YN',
+                        'FORMAT' => 'icon',
+                        'STEP' => 1,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',                        
+                ),
 
 
                 'active' => array(
@@ -254,10 +266,10 @@ class AdmApplicationModelFieldAfwStructure
                         'DEFAUT' => 'Y',
                         'TYPE' => 'YN',
                         'FORMAT' => 'icon',
-                        'STEP' => 99,
+                        'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'CSS' => 'width_pct_50',
                 ),
 
                 'created_by' => array(
