@@ -33,7 +33,9 @@ class ApplicationEnTranslator{
 		$trad["application"]["application_plan_branch_mfk"] = "Application desires";
 		$trad["application"]["nb_desires"] = "Number of desires";
 
-		$trad["application"]["weighted_percentage"] = "weighted percentage";
+		$trad["application"]["weighted_percentage"] = "current weighted percentage";
+		$trad["application"]["weighted_pctg"] = "applied weighted percentage";
+
 		$trad["application"]["weighted_percentage_details"] = "weighted percentage calculation details";
 		return $trad;
     }

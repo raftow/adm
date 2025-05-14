@@ -43,8 +43,9 @@ class ApplicationArTranslator{
 		$trad["application"]["satisfaction"] = "نسبة رضا العملاء";
 		$trad["application"]["tasks"] = "مهام بالانتظار";
 
-		$trad["application"]["weighted_percentage"] = "النسبة الموزونة";
+		$trad["application"]["weighted_percentage"] = "النسبة الموزونة الحالية";
 		$trad["application"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
+		$trad["application"]["weighted_pctg"] = "النسبة الموزونة المتقدم بها";
 		
 		$trad["application"]["sis_fields_not_available"] = "الحقول الغير متوفرة للترحيل لنظام بيانات الطالب";
 		

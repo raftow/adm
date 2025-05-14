@@ -39,6 +39,22 @@
                                                 'QSEARCH' => false, 'OTM-NO-LABEL' => true,
                                                 'CSS' => 'width_pct_25', ),	
 
+                                                'gender_enum' => array(
+                                                        'CATEGORY' => 'SHORTCUT',
+                                                        'SHORTCUT' => 'applicant_id.gender_enum',
+                                                        'SHOW' => true,
+                                                        'EDIT' => true,
+                                                        'TYPE' => 'ENUM',
+                                                        'ANSWER' => 'FUNCTION',
+                                                        'SIZE' => 40,
+                                                        'DEFAUT' => 0,
+                                                        'DISPLAY' => true,
+                                                        'STEP' => 99,
+                                                        'DISPLAY-UGROUPS' => '',
+                                                        'EDIT-UGROUPS' => '',
+                                                        'CSS' => 'width_pct_25',
+                                                ),
+
                                         'idn' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SEARCH' => true,
@@ -141,6 +157,11 @@
                                                                 'CAN-BE-SETTED' => true,
                                                                 'CSS' => 'width_pct_100',
                                                         ),
+
+
+                                                        
+
+                                                                                              
                                                 
                                        'weighted_percentage' => array(
                                                 'FGROUP' => 'weighted_percentage',
@@ -151,6 +172,19 @@
                                                 'EDIT' => true,
                                                 'READONLY' => true,
                                                 "CAN-BE-SETTED" => false,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),
+
+                                        'weighted_pctg' => array(
+                                                'FGROUP' => 'weighted_percentage',
+                                                'STEP' => 5,
+                                                'TYPE' => 'FLOAT',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                "CAN-BE-SETTED" => false,
+                                                'NO-COTE' => true,
                                                 'SIZE' => 255,
                                                 'CSS' => 'width_pct_25',
                                         ),
@@ -213,12 +247,26 @@
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_75',),   
 
+                                                        'program_offering_mfk' => array(
+                                                                'STEP' => 99,
+                                                                'TYPE' => 'MFK',
+                                                                'CATEGORY' => 'FORMULA',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'NO-COTE' => true,
+                                                                "CAN-BE-SETTED" => false,
+                                                                'SIZE' => 255,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),                                                                  
+
                                         'application_plan_branch_mfk' => array('STEP' => 3, 'SEARCH' => true,  'QSEARCH' => false,  
                                                 'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
+                                                'IMPORTANT' => 'HEIGH', 'JSON-ANSWER' => true,
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'READONLY' => false,  
-                                                'WHERE' => "application_plan_id = §application_plan_id§",
+                                                'WHERE' => "application_plan_id = §application_plan_id§ and gender_enum = §gender_enum§ and min_weighted_percentage <= §weighted_pctg§ and program_offering_id in (0§program_offering_mfk§0)",
                                                 'DNA' => true, 
                                                 'CSS' => 'width_pct_100', ),                                                                
                                                                 
@@ -228,7 +276,7 @@
                                                         'EDIT' => false,  'QEDIT' => false,  
                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
                                                         'MANDATORY' => false,  'UTF8' => false,  
-                                                        'TYPE' => 'FK',  
+                                                        'IMPORTANT' => 'HEIGH', 'TYPE' => 'FK',  
                                                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id', 
                                                         'WHERE' => 'applicant_id = §applicant_id§',
                                                         'READONLY' => true,  'CAN-BE-SETTED' => true, 

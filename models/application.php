@@ -1456,6 +1456,34 @@ class Application extends AdmObject
                 return $returnApplication;
         }
 
+
+        public function calcProgram_offering_mfk($what = "value")
+        {
+                $applicantQualificationObj = $this->het("applicant_qualification_id");
+
+                $qualification_id = $applicantQualificationObj->getVal("qualification_id");
+                $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
+                $this->getApplicationModel();
+                if ($this->objApplicationModel) {
+                        $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
+                }
+                else return ($what == "value") ? "," : [];
+
+                $po_id_arr = AfwDatabase::db_recup_liste("select po.id from academic_program_offering po
+                                                inner join program_qualification pq on pq.academic_program_id = po.academic_program_id 
+                                where pq.qualification_id = $qualification_id
+                                  and pq.major_path_id = $major_path_id
+                                  and pq.academic_level_id = $academic_level_id", "id");
+                
+
+                
+                $po_id_mfk = implode(",", $po_id_arr);
+                if(!$po_id_mfk) $po_id_mfk = ",";
+                else $po_id_mfk = ",$po_id_mfk,";
+
+                return $po_id_mfk;
+        }
+
         public function calcWeighted_percentage_details($what = "value")
         {
                 return $this->calcWeighted_percentage("details");
