@@ -89,7 +89,7 @@ class ApplicationModelField extends AdmObject
             $afieldObj = $amfObj->het("application_field_id"); 
             if($afieldObj)
             {
-                $scr_id = $amfObj->het("screen_model_id");
+                $scr_id = $amfObj->getVal("screen_model_id");
                 $data["current-screen"]["id"] = $scr_id;
                 $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
                 if(!$scrObjArr[$scr_id]) $scrObjArr[$scr_id] = $amfObj->het("screen_model_id");
