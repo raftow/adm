@@ -1514,11 +1514,7 @@ class Application extends AdmObject
                 return $this->applicantObj->weighted_percentage($what, $program_track_id, $major_path_id, $applicantQualificationObj);
         }
 
-        public function shouldBeCalculatedField($attribute)
-        {
-                if ($attribute == "allow_add_qualification") return true;
-                return false;
-        }
+        
 
         public function getApplicationDesireByNum($desire_num)
         {
@@ -1622,5 +1618,19 @@ class Application extends AdmObject
                 // die("ApplicationStep::applyStepConditionsOn(this, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate, $application_simulation_id, $logConditionExec, audit_conditions_pass=".var_export($audit_conditions_pass, true).", audit_conditions_fail=".var_export($audit_conditions_fail, true).") returned ".var_export($return, true));
                 if($pbm) return $return["res"];
                 else return $return;
+        }
+
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="gender_enum") return true;
+                if($attribute=="allow_add_qualification") return true;
+                if($attribute=="qualification_mfk") return true;
+                if($attribute=="weighted_percentage") return true;
+                if($attribute=="weighted_percentage_details") return true;
+                if($attribute=="sis_fields_available") return true;
+                if($attribute=="sis_fields_not_available") return true;
+                if($attribute=="program_offering_mfk") return true;
+                if($attribute=="nb_desires") return true;
+                if($attribute=="current_fields_matrix") return true;
+                return false;
         }
 }

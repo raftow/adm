@@ -2,6 +2,7 @@
 if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add   weighted_pctg float DEFAULT NULL  AFTER applicant_qualification_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_field` CHANGE `formula_field_1_id` `formula_field_1_id` int NULL AFTER `field_size`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`afield_option_value` CHANGE `id_mod` `id_mod` int NULL AFTER `date_aut`, CHANGE `option_value_comments` `option_value_comments` text COLLATE 'utf8mb3_unicode_ci' NULL AFTER `option_value`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`foption`

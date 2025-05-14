@@ -250,6 +250,7 @@
                                                         'program_offering_mfk' => array(
                                                                 'STEP' => 99,
                                                                 'TYPE' => 'MFK',
+                                                                'ANSWER' => 'academic_program_offering',  'ANSMODULE' => 'adm',
                                                                 'CATEGORY' => 'FORMULA',
                                                                 'SHOW' => true,
                                                                 'EDIT' => true,
