@@ -130,7 +130,8 @@ class AdmOrgunit extends AdmObject{
         
         protected function getOtherLinksArray($mode, $genereLog = false, $step="all")      
         {
-                global $me, $objme, $lang;
+                
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
                 $my_id = $this->getId();
                 $orgunit_id = $this->getVal("orgunit_id");

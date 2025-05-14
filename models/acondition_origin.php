@@ -49,7 +49,7 @@ class AconditionOrigin extends AdmObject{
         
         protected function getOtherLinksArray($mode, $genereLog = false, $step="all")      
         {
-                global $me, $objme, $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 
                 $displ = $this->getDisplay($lang);
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);

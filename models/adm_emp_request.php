@@ -170,7 +170,7 @@ class AdmEmpRequest extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
-                global $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 if($fields_updated["gender_id"] or
                    $fields_updated["hierarchy_level_enum"] or 
                    $fields_updated["firstname"] or

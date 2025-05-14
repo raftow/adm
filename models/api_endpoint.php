@@ -105,7 +105,7 @@ class ApiEndpoint extends AdmObject
 
         public function switcherConfig($col, $auser=null)
         {
-                global $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
 
                 $switcher_authorized = false;        
                 $switcher_title = "";

@@ -152,7 +152,7 @@ class Acondition extends AdmObject{
 
         public static function list_of_operator_id()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::operator()[$lang];
         }
         
@@ -176,7 +176,7 @@ class Acondition extends AdmObject{
 
         public static function code_of_compare_id($lkp_id=null)
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             if($lkp_id) return self::compare()['code'][$lkp_id];
             else return self::compare()['code'];
         }
@@ -184,7 +184,7 @@ class Acondition extends AdmObject{
         
         public static function list_of_compare_id()
         {
-            global $lang;
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::compare()[$lang];
         }
 
@@ -840,7 +840,7 @@ class Acondition extends AdmObject{
 
         protected function getOtherLinksArray($mode, $genereLog = false, $step="all")      
         {
-                global $me, $objme, $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 
                 $displ = $this->getDisplay($lang);
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
@@ -894,7 +894,7 @@ class Acondition extends AdmObject{
 
         public function switcherConfig($col, $auser=null)
         {
-                global $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
 
                 $switcher_authorized = false;        
                 $switcher_title = "";

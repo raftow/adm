@@ -1238,7 +1238,7 @@ class Application extends AdmObject
 
         public function calcCurrent_fields_matrix()
         {
-                global $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
 
                 $currentStepNum = $this->getVal("step_num");
                 $matrix = $this->fieldsMatrixForStep($currentStepNum, $lang);

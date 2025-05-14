@@ -284,7 +284,7 @@ class AcademicProgramOffering extends AdmObject
 
         protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")
         {
-                global $me, $objme, $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
                 $my_id = $this->getId();
                 $displ = $this->getDisplay($lang);

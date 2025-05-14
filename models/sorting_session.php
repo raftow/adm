@@ -126,7 +126,7 @@ class SortingSession extends AFWObject
 
     protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")
     {
-        global $lang;
+        $lang = AfwLanguageHelper::getGlobalLanguage();
         // $objme = AfwSession::getUserConnected();
         // $me = ($objme) ? $objme->id : 0;
 

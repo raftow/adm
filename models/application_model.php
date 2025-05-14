@@ -246,7 +246,7 @@
 
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
                         {
-                                global $lang;
+                                $lang = AfwLanguageHelper::getGlobalLanguage();
 
                                 if(!$fields_updated["application_model_name_ar"] or (!$this->getVal("application_model_name_ar")) or ($this->getVal("application_model_name_ar")=="--"))
                                 {
@@ -885,7 +885,7 @@
 
                 protected function getPublicMethods()
                 {
-                        global $lang;
+                        $lang = AfwLanguageHelper::getGlobalLanguage();
                 
                         $pbms = array();
                         
@@ -1070,7 +1070,7 @@
 
                 protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
                 {
-                        global $lang;
+                        $lang = AfwLanguageHelper::getGlobalLanguage();
                         // $objme = AfwSession::getUserConnected();
                         // $me = ($objme) ? $objme->id : 0;
 

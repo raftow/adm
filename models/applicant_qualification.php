@@ -145,7 +145,7 @@ class ApplicantQualification extends AdmObject
 
         public function beforeDelete($id, $id_replace)
         {
-                global $lang;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
 
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
