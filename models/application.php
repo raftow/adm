@@ -226,7 +226,12 @@ class Application extends AdmObject
                 }
         }
 
-
+        public function storeWeightedPercentage()
+        {
+                $wp = $this->calcWeighted_percentage();
+                if(!$wp) $wp = 0.0;
+                $this->set("weighted_pctg", $wp);
+        }
 
 
         public function beforeMaj($id, $fields_updated)
@@ -234,8 +239,8 @@ class Application extends AdmObject
                 $objApplicant = null;
                 $objApplicantQual = null;
                 $objApplicationPlan = null;
-
-                if (!$this->getVal("application_model_id")) {
+                $application_model_id = $this->getVal("application_model_id");
+                if (!) {
                         $objApplicationPlan = $this->het("application_plan_id");
                         if ($objApplicationPlan) {
                                 $this->set("application_model_id", $objApplicationPlan->getVal("application_model_id"));
@@ -290,12 +295,27 @@ class Application extends AdmObject
                                 $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
                                 if ($appStepObj) {
                                         $application_step_id = $appStepObj->id;
-                                        $this->set("application_step_id", $application_step_id);
+                                        if($this->getVal("application_step_id") != $application_step_id)
+                                        {
+                                                $fields_updated["application_step_id"] = $this->getVal("application_step_id") ? $this->getVal("application_step_id") : "@WasEmpty";
+                                                $this->set("application_step_id", $application_step_id);                                                
+                                        }
+                                        
                                 }
                         } else {
                                 AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
                         }
                 }
+
+                if ($fields_updated["application_step_id"])
+                {
+                        $dsrStepId = ApplicationStep::loadDesiresSelectionStep($application_model_id); 
+                        if($dsrStepId == $this->getVal("application_step_id"))
+                        {
+                                $this->storeWeightedPercentage();
+                        }
+                }
+                
                 return true;
         }
 
