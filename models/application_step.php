@@ -302,7 +302,7 @@
                         return ($this->getStepCode() == "DSR");
                 }
                 
-                public static function getStepData($applicant_id, $application_plan_id, $step_num, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0) 
+                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0) 
                 {
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num);
@@ -331,10 +331,11 @@
 
                                         $context = "";
                                         $error_message = "";
+                                        
                                         if($scrField["table"]=="applicant")
                                         {
                                                 if(!$applicantObj) $applicantObj = Applicant::loadById($applicant_id);                                                
-                                                if(!$applicantObj) $error_message = "This applicant is not found";
+                                                if(!$applicantObj) $error_message = self::transMess("This applicant is not found", $lang);
                                                 $context = "field $field_name Applicant::loadById($applicant_id)";
                                                 $theObj =& $applicantObj;                                                                                                
                                                 $atb_id = 1;
@@ -342,7 +343,7 @@
                                         elseif($scrField["table"]=="application")
                                         {
                                                 if(!$applicationObj) $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
-                                                if(!$applicationObj) $error_message = "This application is not found";
+                                                if(!$applicationObj) $error_message = self::transMess("This application is not found", $lang);
                                                 $context = "field $field_name Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id)";
                                                 $theObj =& $applicationObj;                                                                                                
                                                 $atb_id = 3;
@@ -351,7 +352,7 @@
                                         {
                                                 if(!$application_plan_branch_id) throw new AfwRuntimeException("application_plan_branch_id should be provided to get Data of a desire");
                                                 if(!$desireObj) $desireObj = ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id);                                                
-                                                if(!$desireObj) $error_message = "This desire is not found";
+                                                if(!$desireObj) $error_message = self::transMess("This desire is not found", $lang);
                                                 $context = "field $field_name ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
                                                 $theObj =& $desireObj;                                                                                                
                                                 $atb_id = 2;
@@ -377,7 +378,7 @@
 
                         }
 
-                        return [$application_model_id, $stepFieldsArr];
+                        return [$application_model_id, $stepFieldsArr, $error_message];
                 }
                 
                 public static function applyStepConditionsOn($object, $application_model_id, $application_plan_id, $step_num, $general, $lang, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass=[], $audit_conditions_fail=[],)

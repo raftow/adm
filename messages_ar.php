@@ -139,6 +139,10 @@
     $messages["This path is not open for this program"] = "هذا المسار غير مفتوح في هذاالبرنامج";
 
     $messages["Can't update the sorting paths because some sorting sessions has already started"] = "لا يمكن تحديث مسارات الفرز لأن بعض جلسات الفرز قد بدأت بالفعل";
+
+    $messages["This applicant is not found"] = "هذا المتقدم غير مسجل";
+    $messages["This application is not found"] = "لم يسبق لهذا المتقدم التقديم";
+    $messages["This desire is not found"] = "هذه الرغبة لا توجد أو تم حذفها";
                 
     // $messages[""] = "";
     

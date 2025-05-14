@@ -86,6 +86,39 @@ class Application extends AdmObject
                 } else return null;
         }
 
+
+        public static function currentStepData($input_arr, $debugg=0)
+        {
+                $application_plan_id = $input_arr['plan_id'];
+                $applicant_id = $input_arr['applicant_id'];
+                $lang = $input_arr['lang'];
+                $application_simulation_id = 2;
+                $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                if($applicationObj)
+                {
+                        $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg);
+                }
+                else
+                {
+                        $step_num = null;
+                        $applicationData = null;
+                        $error_message = self::transMess("This application is not found", $lang);
+                }
+
+                
+
+                $data = [
+                        "current_step" => $step_num,
+                        "application" => $applicationData,
+
+                ];
+
+                $status = $error_message ? "error" : "success";
+                return [$status, $error_message, $data]; 
+
+        }
+
         public function getDisplay($lang = "ar")
         {
 

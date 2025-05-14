@@ -15,6 +15,22 @@ class ScreenModel extends AdmObject
                 AdmScreenModelAfwStructure::initInstance($this);
         }
 
+        public static function IdToCode($id)
+        {
+            if($id==2) return	"qualif";
+            if($id==3) return	"profile";
+            if($id==4) return	"data_import";
+            if($id==5) return	"program";
+            if($id==6) return	"final";
+            if($id==7) return	"desire";
+            if($id==8) return	"sorting";
+            if($id==9) return	"track_exists";
+            if($id==10) return	"upload_document";
+
+
+            return "unknown";
+        }
+
         public static function loadById($id)
         {
                 $obj = new ScreenModel();

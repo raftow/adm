@@ -40,6 +40,14 @@ $allowed_methods["step_data"] = ["class"=>'ApplicationPlan',
                                             ]
                                 ];
 
+$allowed_methods["current_step"] = ["class"=>'Application',
+                                "method"=>'currentStepData',
+                                "input"=>  [
+                                                "applicant_id" => ['type'=>'INT', 'required'=>true], 
+                                                "plan_id"      => ['type'=>'INT', 'required'=>true], 
+                                           ]
+                               ];                                
+
 try
 {
     $error = false;
