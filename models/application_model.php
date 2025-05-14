@@ -71,7 +71,7 @@
                                 $row = [];
                                 $row['api-code'] = $apiEndpointObj->getVal("api_endpoint_code");
                                 $row['api-ar'] = $apiEndpointObj->getVal("api_endpoint_name_ar");
-                                $row['api-en'] = $apiEndpointObj->getVal("api_endpoint_name_em");
+                                $row['api-en'] = $apiEndpointObj->getVal("api_endpoint_name_en");
                                 $row['api-status'] = "done"; // @todo depends on $applicant_id
                                 
 
