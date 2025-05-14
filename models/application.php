@@ -126,6 +126,9 @@ class Application extends AdmObject
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 $application_simulation_id = 2;
+                $move_step_details = null;
+                $move_step_details_2 = null;
+
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if($applicationObj)
                 {
@@ -134,6 +137,8 @@ class Application extends AdmObject
                         list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, true, false, 2, false);
                         $move_step_status = $result["result"];
                         $move_step_message = $result["message"];
+                        $move_step_details = $result["details"];
+                        $move_step_details_2 = $result["details_2"];
                         if(!$error_message)
                         {
                                 $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
@@ -160,6 +165,8 @@ class Application extends AdmObject
                 $data = [
                         "move_step_status" => $move_step_status,
                         "move_step_message" => $move_step_message,
+                        "move_step_details" => $move_step_details,
+                        "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "application" => $applicationData,
 
@@ -950,9 +957,13 @@ class Application extends AdmObject
                                 if ($dataShouldBeUpdated and !$dataReady) 
                                 {
                                         $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "list-fields-not-available", false);
+                                        $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "reason-fields-not-available", false);
+                                        
                                         $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                         $war_arr[] = $message_war;
-                                        $result_arr["message"] = $message_war. " : $fieldsNotAvail";
+                                        $result_arr["message"] = $message_war;
+                                        $result_arr["details"] = $fieldsNotAvail;
+                                        $result_arr["details_2"] = $reasonNotAvail;
                                         $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
                                         $this->set("comments", $message_war);
                                         $this->commit();
@@ -1128,6 +1139,7 @@ class Application extends AdmObject
                 $matrix = [];
                 $theyAreUpdated = true;
                 $not_avail = [];
+                $not_avail_reason = [];
                 // $this->updateCalculatedFields();
                 foreach ($applicationFieldsArr as $field_name => $applicationFieldObj) {
                         $row_matrix = [];
@@ -1166,16 +1178,21 @@ class Application extends AdmObject
                                 $duration_expiry = $object->getFieldExpiryDuration($field_name);
                                 if (!$duration_expiry) $duration_expiry = 180;
                                 $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
-                                if ($field_value_datetime < $expiry_date) {
-                                        $row_matrix['status'] = self::needUpdateIcon($api . " $field_value_datetime < $expiry_date (duration_expiry of $field_name =$duration_expiry)");
+                                if ($field_value_datetime < $expiry_date) 
+                                {
+                                        $need_update_message = $api . " updated=$field_value_datetime < expiry=$expiry_date (duration_expiry of $field_name =$duration_expiry)";
+                                        $row_matrix['status'] = self::needUpdateIcon($need_update_message);
                                         $theyAreUpdated = false;
                                         $not_avail[] = $field_title;
+                                        $not_avail_reason[] = $field_title . " " . $need_update_message;
                                 } else {
                                         $row_matrix['status'] = self::updatedIcon($api);
                                 }
                         } else {
-                                $row_matrix['status'] = self::needUpdateIcon($api . " => never updated");
+                                $need_update_message = $api . " => never updated";
+                                $row_matrix['status'] = self::needUpdateIcon($need_update_message);
                                 $not_avail[] = $field_title;
+                                $not_avail_reason[] = $field_title . " " . $need_update_message;
                                 $theyAreUpdated = false;
                         }
 
@@ -1186,6 +1203,7 @@ class Application extends AdmObject
 
                 if ($onlyIfTheyAreUpdated === true) return $theyAreUpdated;
                 if ($onlyIfTheyAreUpdated === "list-fields-not-available") return implode(",", $not_avail);
+                if ($onlyIfTheyAreUpdated === "reason-fields-not-available") return implode(",", $not_avail_reason);
 
                 return $matrix;
         }
@@ -1209,6 +1227,7 @@ class Application extends AdmObject
 
                 if ($onlyIfTheyAreUpdated===true) return ($fieldsMatrix_1 and $fieldsMatrix_2);
                 if ($onlyIfTheyAreUpdated==="list-fields-not-available") return $fieldsMatrix_1 . "," . $fieldsMatrix_2;
+                if ($onlyIfTheyAreUpdated==="reason-fields-not-available") return $fieldsMatrix_1 . "," . $fieldsMatrix_2;
 
                 $fieldsMatrix = array_merge($fieldsMatrix_1, $fieldsMatrix_2);
 

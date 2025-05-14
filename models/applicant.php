@@ -1134,19 +1134,32 @@ class Applicant extends AdmObject
                                         $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
                                         $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
                                         if ($field_value_datetime < $expiry_date) {
-                                                $row_matrix['status'] = self::needUpdateIcon($api . " $field_value_datetime < $expiry_date  (duration_expiry=$duration_expiry)");
+                                                $need_update_message = $api . " updated=$field_value_datetime < expiry=$expiry_date  (duration_expiry=$duration_expiry)";
+                                                $row_matrix['status'] = self::needUpdateIcon($need_update_message);
                                                 $theyAreUpdated = false;
                                                 $not_avail[] = $field_title;
-                                        } else {
+                                                $not_avail_reason[] = $field_title . " " . $need_update_message;
+                                        } 
+                                        else 
+                                        {
+                                                
                                                 $row_matrix['status'] = self::updatedIcon($api);
                                         }
-                                } else {
-                                        $row_matrix['status'] = self::needUpdateIcon($api . " no application Object");
+                                } 
+                                else 
+                                {
+                                        $need_update_message = $api . " no application Object";
+                                        $row_matrix['status'] = self::needUpdateIcon($need_update_message);
+                                        $not_avail_reason[] = $need_update_message;
                                 }
-                        } else {
-                                $row_matrix['status'] = self::needUpdateIcon($api . " => never updated");
+                        } 
+                        else 
+                        {
+                                $need_update_message = $api . " => never updated";
+                                $row_matrix['status'] = self::needUpdateIcon($need_update_message);
                                 $theyAreUpdated = false;
                                 $not_avail[] = $field_title;
+                                $not_avail_reason[] = $field_title . " " . $need_update_message;
                         }
 
                         $matrix[] = $row_matrix;
@@ -1154,6 +1167,7 @@ class Applicant extends AdmObject
 
                 if ($onlyIfTheyAreUpdated === true) return $theyAreUpdated;
                 if ($onlyIfTheyAreUpdated === "list-fields-not-available") return implode(",", $not_avail);
+                if ($onlyIfTheyAreUpdated === "reason-fields-not-available") return implode(",", $not_avail_reason);
 
                 return $matrix;
         }
