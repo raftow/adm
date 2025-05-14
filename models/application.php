@@ -240,7 +240,7 @@ class Application extends AdmObject
                 $objApplicantQual = null;
                 $objApplicationPlan = null;
                 $application_model_id = $this->getVal("application_model_id");
-                if (!) {
+                if (!$application_model_id) {
                         $objApplicationPlan = $this->het("application_plan_id");
                         if ($objApplicationPlan) {
                                 $this->set("application_model_id", $objApplicationPlan->getVal("application_model_id"));
