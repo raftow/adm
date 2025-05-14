@@ -1469,8 +1469,10 @@ class Application extends AdmObject
                 }
                 else return ($what == "value") ? "," : [];
 
-                $po_id_arr = AfwDatabase::db_recup_liste("select po.id from academic_program_offering po
-                                                inner join program_qualification pq on pq.academic_program_id = po.academic_program_id 
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                $po_id_arr = AfwDatabase::db_recup_liste("select po.id from ".$server_db_prefix."adm.academic_program_offering po
+                                                inner join ".$server_db_prefix."adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
                                 where pq.qualification_id = $qualification_id
                                   and pq.major_path_id = $major_path_id
                                   and pq.academic_level_id = $academic_level_id", "id");
