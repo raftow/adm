@@ -334,7 +334,7 @@
                                         {
                                                 $suffix2 = "answer";
                                                 $method2 = "getAnswerTableJsonArray";
-                                                die("scrField=".var_export($scrField,true));
+                                                // die("scrField=".var_export($scrField,true));
                                         }
 
                                         $context = "";
