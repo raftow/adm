@@ -948,6 +948,7 @@ class Application extends AdmObject
                                 {
                                         $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                         $war_arr[] = $message_war;
+                                        $result_arr["message"] = $message_war;
                                         $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
                                         $this->set("comments", $message_war);
                                         $this->commit();
@@ -961,6 +962,8 @@ class Application extends AdmObject
                                         {
                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                 $message_err = $this->tm("No first step defined for this application model, you may need to reorder the steps to have first step having number equal 0 or number equal 1", $lang);
+                                                $result_arr["result"] = "fail";
+                                                $result_arr["message"] = $message_err;
                                                 $this->set("comments", $message_err);
                                                 $this->commit();
                                                 $err_arr[] = $message_err;

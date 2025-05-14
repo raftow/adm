@@ -376,6 +376,12 @@
                                         $stepFieldsArr[$scrIndex][$field_code] = $my_field_value;         
                                 }
 
+                                if($applicationObj) 
+                                {
+                                        $stepFieldsArr[$scrIndex]["application_status"]["value"] = $applicationObj->getVal("application_status_enum");         
+                                        $stepFieldsArr[$scrIndex]["application_status"]["description"] = $applicationObj->decode("application_status_enum", '', false, $lang);         
+                                }
+
                         }
 
                         return [$application_model_id, $stepFieldsArr, $error_message];
