@@ -84,7 +84,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
 
-                                        'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => false,  
+                                        'sorting_group_id' => array('SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true,  'QEDIT' => true, 'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
                                                         'SIZE' => 40,  'DEFAUT' => 0,    
