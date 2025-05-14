@@ -327,7 +327,14 @@
                                               else $method = "calc";
                                         } 
 
-                                        
+                                        $suffix2 = "";
+                                        $method2 = "";
+
+                                        if($scrField["answer"]) 
+                                        {
+                                                $suffix2 = "answer";
+                                                $method2 = "getAnswerTableJsonArray";
+                                        }
 
                                         $context = "";
                                         $error_message = "";
@@ -374,6 +381,14 @@
                                         if((!$theObj) or (!$theObj->id)) $my_field_value = $error_message;
                                         else $my_field_value = $theObj->$method($field_name);        
                                         $stepFieldsArr[$scrIndex][$field_code] = $my_field_value;         
+
+                                        if($suffix2 and $method2 and $theObj and ($theObj->id>0))
+                                        {
+                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name);   ;    
+                                        }
+
+
+
                                 }
 
                                 if($applicationObj) 
