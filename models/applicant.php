@@ -1085,6 +1085,7 @@ class Applicant extends AdmObject
                 $matrix = [];
                 $theyAreUpdated = true;
                 $not_avail = [];
+                $not_avail_reason = [];
                 // $this->updateCalculatedFields();
                 foreach ($applicantFieldsArr as $field_name => $applicantFieldObj) {
                         $row_matrix = [];
