@@ -334,6 +334,7 @@
                                         {
                                                 $suffix2 = "answer";
                                                 $method2 = "getAnswerTableJsonArray";
+                                                die("scrField=".var_export($scrField,true));
                                         }
 
                                         $context = "";
@@ -384,7 +385,7 @@
 
                                         if($suffix2 and $method2 and $theObj and ($theObj->id>0))
                                         {
-                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name);   ;    
+                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name);    
                                         }
 
 

@@ -248,7 +248,7 @@ class AdmApplicationModelFieldAfwStructure
                         'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
-                        'DEFAUT' => 'Y',
+                        'DEFAUT' => 'N',
                         'TYPE' => 'YN',
                         'FORMAT' => 'icon',
                         'STEP' => 1,

@@ -29,6 +29,7 @@ if(($token != $dynamic_token1) && ($token != $dynamic_token2) && ($token != $dyn
 */
 $method = $_REQUEST['method'];
 
+$relative_path = "../";
 
 $allowed_methods = [];
 $allowed_methods["step_data"] = ["class"=>'ApplicationPlan',
@@ -104,6 +105,7 @@ try
 }
 catch(Exception $e)
 {
+    throw $e;
     $data_for_json['status']='error';
     $data_for_json['error'] = $e->getMessage();
     $data_for_json['trace'] = $e->getTraceAsString();
