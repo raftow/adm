@@ -66,6 +66,8 @@ try
         $apiClass = $allowed_methods[$method]["class"];
         $apiMethod = $allowed_methods[$method]["method"];
         $input_arr = [];
+        $input_arr["lang"] = $_REQUEST["lang"];
+        if(!$input_arr["lang"]) $input_arr["lang"] = "ar";
         foreach($allowed_methods[$method]["input"] as $attribute => $attributeRow)
         {
             $input_arr[$attribute] = $_REQUEST[$attribute];
