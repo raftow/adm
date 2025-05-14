@@ -933,7 +933,10 @@ class Application extends AdmObject
                         $this->getApplicationModel();
                         if (!$this->objApplicationModel) 
                         {
-                                $err_arr[] = $this->tm("Error happened, no application model defined for this application", $lang);
+                                $message_err = $this->tm("Error happened, no application model defined for this application", $lang);
+                                $result_arr["result"] = "fail";
+                                $result_arr["message"] = $message_err;
+                                $err_arr[] = $message_err;
                         }
                         else
                         {
@@ -946,7 +949,8 @@ class Application extends AdmObject
                                 $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
                                 if ($dataShouldBeUpdated and !$dataReady) 
                                 {
-                                        $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
+                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "list-fields-not-available");
+                                        $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang). " : $fieldsNotAvail";
                                         $war_arr[] = $message_war;
                                         $result_arr["message"] = $message_war;
                                         $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
@@ -1201,7 +1205,8 @@ class Application extends AdmObject
                 $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated);
                 $fieldsMatrix_2 = $this->getFieldsMatrix($applicationFieldsArr, $lang, $onlyIfTheyAreUpdated);
 
-                if ($onlyIfTheyAreUpdated) return ($fieldsMatrix_1 and $fieldsMatrix_2);
+                if ($onlyIfTheyAreUpdated===true) return ($fieldsMatrix_1 and $fieldsMatrix_2);
+                if ($onlyIfTheyAreUpdated==="list-fields-not-available") return $fieldsMatrix_1 . "," . $fieldsMatrix_2;
 
                 $fieldsMatrix = array_merge($fieldsMatrix_1, $fieldsMatrix_2);
 
