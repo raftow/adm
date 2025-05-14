@@ -92,6 +92,7 @@ class ApplicationModelField extends AdmObject
                 $scr_id = $amfObj->getVal("screen_model_id");
                 $data["current-screen"]["id"] = $scr_id;
                 $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
+                /*
                 if(!$scrObjArr[$scr_id]) $scrObjArr[$scr_id] = $amfObj->het("screen_model_id");
                 $data["screen-$scr_id"]["name_ar"] = "??";
                 $data["screen-$scr_id"]["name_en"] = "screen-not-found";
@@ -100,6 +101,7 @@ class ApplicationModelField extends AdmObject
                     $data["screen-$scr_id"]["name_ar"] = $scrObjArr[$scr_id]->getDisplay("ar");
                     $data["screen-$scr_id"]["name_en"] = $scrObjArr[$scr_id]->getDisplay("en");
                 }
+                    */
 
                 $field_name = $afieldObj->getVal("field_name");
                 $application_table_id = $afieldObj->getVal("application_table_id");

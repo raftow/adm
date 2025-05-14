@@ -370,7 +370,7 @@
                                                 $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
                                                 // $stepFieldsArr[$scrIndex]["code-of-$field_code"] = $field_name;                                                        
                                         } 
-                                        if($debugg) $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
+                                        if(($debugg==="all") or ($debugg===$field_code)) $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
                                         if((!$theObj) or (!$theObj->id)) $my_field_value = $error_message;
                                         else $my_field_value = $theObj->$method($field_name);        
                                         $stepFieldsArr[$scrIndex][$field_code] = $my_field_value;         

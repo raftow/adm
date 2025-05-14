@@ -46,7 +46,16 @@ $allowed_methods["current_step"] = ["class"=>'Application',
                                                 "applicant_id" => ['type'=>'INT', 'required'=>true], 
                                                 "plan_id"      => ['type'=>'INT', 'required'=>true], 
                                            ]
-                               ];                                
+                               ];  
+                               
+                               
+$allowed_methods["next_step"] = ["class"=>'Application',
+                               "method"=>'nextApplicationStep',
+                               "input"=>  [
+                                               "applicant_id" => ['type'=>'INT', 'required'=>true], 
+                                               "plan_id"      => ['type'=>'INT', 'required'=>true], 
+                                          ]
+                              ];                                  
 
 try
 {

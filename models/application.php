@@ -119,6 +119,60 @@ class Application extends AdmObject
 
         }
 
+
+        public static function nextApplicationStep($input_arr, $debugg=0)
+        {
+                $application_plan_id = $input_arr['plan_id'];
+                $applicant_id = $input_arr['applicant_id'];
+                $lang = $input_arr['lang'];
+                $application_simulation_id = 2;
+                $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                if($applicationObj)
+                {
+                        $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                        // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
+                        list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, true, false, 2, false);
+                        $move_step_status = $result["result"];
+                        $move_step_message = $result["message"];
+                        if(!$error_message)
+                        {
+                                $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                                list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg);
+                        }
+                        else
+                        {
+                                $applicationData = null;
+                        }
+                        
+                        
+                }
+                else
+                {
+                        $move_step_message = null;
+                        $move_step_status = null;
+                        $step_num = null;
+                        $applicationData = null;
+                        $error_message = self::transMess("This application is not found", $lang);
+                }
+
+                
+
+                $data = [
+                        "move_step_status" => $move_step_status,
+                        "move_step_message" => $move_step_message,
+                        "current_step" => $step_num,
+                        "application" => $applicationData,
+
+                ];
+
+                $status = $error_message ? "error" : "success";
+                return [$status, $error_message, $data]; 
+
+        }
+
+
+        
+
         public function getDisplay($lang = "ar")
         {
 
@@ -922,6 +976,7 @@ class Application extends AdmObject
                                                 list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
                                                 if ($success and (!$error_message)) {
                                                         $result_arr["result"] = "pass";
+                                                        $result_arr["message"] = $success_message;
                                                         $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,false);
                                                         $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                                         $this->set("step_num", $nextStepNum);
@@ -938,6 +993,7 @@ class Application extends AdmObject
                                                 } else {
                                                         if((!$error_message) and ($success===false)) $result_arr["result"] = "fail";
                                                         else $result_arr["result"] = "standby";
+                                                        $result_arr["message"] = $fail_message;
                                                         $fail_message .= " ".$error_message;
                                                         $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
                                                         $war_arr[]  = $fail_message;
