@@ -267,7 +267,7 @@
                                                 'IMPORTANT' => 'HEIGH', 'JSON-ANSWER' => true,
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'READONLY' => false,  
-                                                'WHERE' => "application_plan_id = §application_plan_id§ and gender_enum = §gender_enum§ and min_weighted_percentage <= §weighted_pctg§ and program_offering_id in (0§program_offering_mfk§0)",
+                                                'WHERE' => "application_plan_id = §application_plan_id§ and gender_enum = §gender_enum§ and min_weighted_percentage <= '§weighted_pctg§' and program_offering_id in (0§program_offering_mfk§0)",
                                                 'DNA' => true, 
                                                 'CSS' => 'width_pct_100', ),                                                                
                                                                 
