@@ -880,6 +880,7 @@ class ApplicationDesire extends AdmObject
 
         public function sortingCritereaNeedRefresh()
         {
+                if(!$this->getVal("sorting_group_id")) return false;
                 $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
                 for ($i = 1; $i <= 3; $i++) {
                         if ($sortingCriterea["c$i"]) {
