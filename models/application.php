@@ -280,7 +280,7 @@ class Application extends AdmObject
                                 $this->set("qualification_id",  $objApplicantQual->getVal("qualification_id"));
                                 $this->set("major_category_id", $objApplicantQual->getVal("major_category_id"));
                                 // reset step to 1 when applicant_qualification_id change
-                                $fields_updated["step_num"] = $this->getVal("step_num");
+                                $fields_updated["step_num"] = $this->getVal("step_num") ? $this->getVal("step_num") : "@WasEmpty";
                                 $this->set("step_num", 1);
                         }
                 }
@@ -293,6 +293,11 @@ class Application extends AdmObject
                         $this->getApplicationModel();
                         if ($this->objApplicationModel) {
                                 $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
+                                if((!$appStepObj) or (!$appStepObj->sureIs("general")))
+                                {
+                                        $this->set("step_num", 1);
+                                        $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
+                                }
                                 if ($appStepObj) {
                                         $application_step_id = $appStepObj->id;
                                         if($this->getVal("application_step_id") != $application_step_id)
@@ -990,7 +995,11 @@ class Application extends AdmObject
                                 }
                                 else
                                 {
-                                        $currentStepId = $this->getVal("application_step_id");
+                                         /**
+                                         * @var ApplicationStep $lastStepObj
+                                         */
+                                        $lastStepObj = $this->objApplicationModel->getLastApplicationStep();
+                                        // $currentStepId = $this->getVal("application_step_id");
                                         // die("before currentStepObj=$currentStepObj->id currentStepNum=$currentStepNum currentStepId=$currentStepId");
                                         if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationModel->getFirstStep();
                                         if (!$currentStepObj) 
@@ -1003,7 +1012,17 @@ class Application extends AdmObject
                                                 $this->commit();
                                                 $err_arr[] = $message_err;
                                         }
-                                        else
+                                        elseif (!$lastStepObj) 
+                                        {
+                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                $message_err = $this->tm("No last general step defined for this application model, you may need to reorder correcty the steps to have last general step is the desire selection step", $lang);
+                                                $result_arr["result"] = "fail";
+                                                $result_arr["message"] = $message_err;
+                                                $this->set("comments", $message_err);
+                                                $this->commit();
+                                                $err_arr[] = $message_err;
+                                        }
+                                        elseif($currentStepObj->sureIs("general") and ($currentStepObj->id != $lastStepObj->id))
                                         {
                                                 // to go to next step we should apply conditions of the current step
                                                 $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
@@ -1015,7 +1034,7 @@ class Application extends AdmObject
                                                 if ($success and (!$error_message)) {
                                                         $result_arr["result"] = "pass";
                                                         $result_arr["message"] = $success_message;
-                                                        $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,false);
+                                                        $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum,true);
                                                         $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                                         $this->set("step_num", $nextStepNum);
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
@@ -1037,9 +1056,17 @@ class Application extends AdmObject
                                                         $war_arr[]  = $fail_message;
                                                         $tech_arr[] = $tech;
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $this->set("comments", $fail_message);                                
+                                                        $this->set("comments", $fail_message);                                                                                        
                                                         $this->commit();
                                                 }
+                                        }
+                                        else{
+                                                $last_step_num = $lastStepObj->getVal("step_num");
+                                                $this->set("step_num", $last_step_num);
+                                                $this->set("application_step_id", $lastStepObj->id);
+                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                $this->set("comments", $this->tm("application last step is the desire selection")." = ".$last_step_num);
+                                                $this->commit();
                                         }
                                         
                                 }

@@ -107,6 +107,11 @@
                         return ApplicationStep::loadFirstStep($this->id, "W");
                 }
 
+                public function getLastApplicationStep()
+                {
+                        return ApplicationStep::loadDesiresSelectionStep($this->id);
+                }
+
                 public function getFirstDesireStep()
                 {
                         return ApplicationStep::loadFirstStep($this->id, "N");
