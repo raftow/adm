@@ -281,6 +281,12 @@
                                                         'EDIT' => false,  'QEDIT' => false,  
                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
                                                         'MANDATORY' => false,  'UTF8' => false,  
+                                                        "JSON-OPTIONS"=>[
+                                                              "except-applicant_id" => true,
+                                                              "except-application_plan_id" => true,
+                                                              "except-application_simulation_id" => true,
+                                                              "except-application_model_branch_id" => true,
+                                                        ],
                                                         'IMPORTANT' => 'HEIGH', 'TYPE' => 'FK',  
                                                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id', 
                                                         'WHERE' => 'applicant_id = §applicant_id§',
