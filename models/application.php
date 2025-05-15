@@ -1061,6 +1061,8 @@ class Application extends AdmObject
                                                 }
                                         }
                                         else{
+                                                $result_arr["result"] = "fail";
+                                                $result_arr["message"] = "attempt to goto next step when this is the last step";
                                                 $last_step_num = $lastStepObj->getVal("step_num");
                                                 $this->set("step_num", $last_step_num);
                                                 $this->set("application_step_id", $lastStepObj->id);
