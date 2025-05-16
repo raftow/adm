@@ -470,6 +470,37 @@ class Application extends AdmObject
                                 "BF-ID" => "",
                                 'STEP' => $this->stepOfAttribute("applicationDesireList")
                         );
+
+                        $color = "red";
+                        $title_ar = $this->tm("Back to first step", 'ar');
+                        $title_en = $this->tm("Back to first step", 'en');
+                        $methodName = "forceGotoFirstStep";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("applicationDesireList")
+                        );
+
+
+                        $color = "red";
+                        $title_ar = $this->tm("Force goto desires selection step", 'ar');
+                        $title_en = $this->tm("Force goto desires selection step", 'en');
+                        $methodName = "forceGotoDesireStep";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => $this->stepOfAttribute("applicationDesireList")
+                        );
+
+                        
                         
                         $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
                         if($asObj)
@@ -943,6 +974,40 @@ class Application extends AdmObject
                         $this->commit();
                         $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
                         $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                }
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+                
+        }
+
+
+        public function forceGotoFirstStep($lang = "ar")
+        {
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                $result_arr = [];
+                
+                $this->getApplicationModel();
+                if (!$this->objApplicationModel) 
+                {
+                        $err_arr[] = $this->tm("Error happened, no application model defined for this application", $lang);
+                }
+                else
+                {
+                        $firstApplicationStepObj = $this->objApplicationModel->getFirstApplicationStep();
+                        $application_step_id = $firstApplicationStepObj->id;
+                        $this->set("application_step_id", $application_step_id);                        
+                        $firstStepNum = $firstApplicationStepObj->getVal("step_num");
+                        $firstStepCode = $firstApplicationStepObj->getVal("step_code");
+                        $this->set("step_num", $firstStepNum);
+                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                        $war = $this->tm("The admin has forced move to first step")." !!";
+                        $war_arr[]  = $war;
+                        $this->set("comments", $war);                        
+                        $this->commit();
+                        $inf_arr[] = $this->tm("The move to first step", $lang)." ".$this->tm("has been successfully done", $lang);
+                        $result_arr["STEP_CODE"] = $firstStepCode;
                 }
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);

@@ -143,6 +143,9 @@
     $messages["This applicant is not found"] = "هذا المتقدم غير مسجل";
     $messages["This application is not found"] = "لم يسبق لهذا المتقدم التقديم";
     $messages["This desire is not found"] = "هذه الرغبة لا توجد أو تم حذفها";
+
+    $messages["Back to first step"] = "الرجوع إلى خطوة البداية";
+    $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
                 
     // $messages[""] = "";
     
