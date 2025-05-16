@@ -482,7 +482,7 @@ class Application extends AdmObject
                                 "LABEL_EN" => $title_en,
                                 "ADMIN-ONLY" => true,
                                 "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("applicationDesireList")
+                                'STEP' => $this->stepOfAttribute("application_status_enum")
                         );
 
 
@@ -497,7 +497,7 @@ class Application extends AdmObject
                                 "LABEL_EN" => $title_en,
                                 "ADMIN-ONLY" => true,
                                 "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("applicationDesireList")
+                                'STEP' => $this->stepOfAttribute("application_status_enum")
                         );
 
                         

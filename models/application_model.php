@@ -104,7 +104,7 @@
 
                 public function getFirstApplicationStep()
                 {
-                        return ApplicationStep::loadFirstStep($this->id, "W");
+                        return ApplicationStep::loadFirstStep($this->id, "Y");
                 }
 
                 public function getLastApplicationStep()
