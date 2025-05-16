@@ -130,6 +130,10 @@ class Application extends AdmObject
                 $move_step_details_2 = null;
 
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                $apis_err = ""; 
+                $apis_inf = "";
+                $apis_war = "";
+
                 if($applicationObj)
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
@@ -137,7 +141,19 @@ class Application extends AdmObject
                         if($dataShouldBeUpdated)
                         {
                                 $dataReady = $applicationObj->fieldsMatrixForStep($step_num, "ar", $onlyIfTheyAreUpdated = true);
-                                if($dataReady) $applicationObj->runNeededApis($lang = "ar", $forceRunApis);
+                                if($dataReady) list($apis_err, $apis_inf, $apis_war) = $applicationObj->runNeededApis($lang = "ar", $forceRunApis);
+                                else 
+                                {
+                                        $apis_err = ""; 
+                                        $apis_inf = "";
+                                        $apis_war = "data up to date";
+                                }
+                        }
+                        else
+                        {
+                                $apis_err = ""; 
+                                $apis_inf = "";
+                                $apis_war = "case of data does not need update";
                         }
                         
                         // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
@@ -176,6 +192,9 @@ class Application extends AdmObject
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "application" => $applicationData,
+                        "apis-run"=> ['errors'=>$apis_err, 
+                                      'info'=>$apis_inf, 
+                                      'warnings'=>$apis_war],
 
                 ];
 
