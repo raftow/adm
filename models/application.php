@@ -471,34 +471,42 @@ class Application extends AdmObject
                                 'STEP' => $this->stepOfAttribute("applicationDesireList")
                         );
 
-                        $color = "red";
-                        $title_ar = $this->tm("Back to first step", 'ar');
-                        $title_en = $this->tm("Back to first step", 'en');
-                        $methodName = "forceGotoFirstStep";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                "METHOD" => $methodName,
-                                "COLOR" => $color,
-                                "LABEL_AR" => $title_ar,
-                                "LABEL_EN" => $title_en,
-                                "ADMIN-ONLY" => true,
-                                "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("application_status_enum")
-                        );
+                        if($currentStepNum>1)
+                        {
+                                $color = "red";
+                                $title_ar = $this->tm("Back to first step", 'ar');
+                                $title_en = $this->tm("Back to first step", 'en');
+                                $methodName = "forceGotoFirstStep";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        "BF-ID" => "",
+                                        'STEP' => $this->stepOfAttribute("application_status_enum")
+                                );
+                        }
+                        
+                        $desires_selection_stepObj = $this->objApplicationModel->calcDesires_selection_step_id("object");
+                        $desires_selection_stepNum = $desires_selection_stepObj->getVal("step_num");
 
-
-                        $color = "red";
-                        $title_ar = $this->tm("Force goto desires selection step", 'ar');
-                        $title_en = $this->tm("Force goto desires selection step", 'en');
-                        $methodName = "forceGotoDesireStep";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                "METHOD" => $methodName,
-                                "COLOR" => $color,
-                                "LABEL_AR" => $title_ar,
-                                "LABEL_EN" => $title_en,
-                                "ADMIN-ONLY" => true,
-                                "BF-ID" => "",
-                                'STEP' => $this->stepOfAttribute("application_status_enum")
-                        );
+                        if($currentStepNum<$desires_selection_stepNum)
+                        {
+                                $color = "red";
+                                $title_ar = $this->tm("Force goto desires selection step", 'ar');
+                                $title_en = $this->tm("Force goto desires selection step", 'en');
+                                $methodName = "forceGotoDesireStep";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        "BF-ID" => "",
+                                        'STEP' => $this->stepOfAttribute("application_status_enum")
+                                );
+                        }
 
                         
                         
