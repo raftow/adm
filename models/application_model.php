@@ -289,20 +289,28 @@
                         return self::$stepAppModelApiList[$this->id][$toStepNum];
                 }
 
-                public function getApplicationModelFieldListOfStep($stepNum)
+                public function getApplicationModelFieldListOfStep($stepNum, $onlyMandatory=false)
                 {
+                        if($onlyMandatory)
+                        {
+                                $cond_onlyMandatory = "and mandatory='Y'";
+                        }
+                        else
+                        {
+                                $cond_onlyMandatory = "";
+                        }
                         if(!isset(self::$stepAppModelFieldList[$this->id][$stepNum]))
                         {
-                                self::$stepAppModelFieldList[$this->id][$stepNum] = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum")->getList();
+                                self::$stepAppModelFieldList[$this->id][$stepNum] = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum $cond_onlyMandatory")->getList();
                         }
                         return self::$stepAppModelFieldList[$this->id][$stepNum];
                 }
                 
 
-                public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar")
+                public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar", $onlyMandatory=false)
                 {
                         if(!$stepNum) $stepNum = 0;
-                        $applicationModelFieldList = $this->getApplicationModelFieldListOfStep($stepNum);
+                        $applicationModelFieldList = $this->getApplicationModelFieldListOfStep($stepNum, $onlyMandatory);
                         if(!$splitByTable) return $applicationModelFieldList;
                         else
                         {

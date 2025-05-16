@@ -17,6 +17,8 @@
 			$trad["application_model_field"]["api_endpoint2_id"] = "Alternative API";
 			$trad["application_model_field"]["api_endpoint_id"] = "API";
 			$trad["application_model_field"]["answer"] = "Show the selection list on the front-end";
+			$trad["application_model_field"]["mandatory"] = "mandatory";
+			
 			// steps
 			$trad["application_model_field"]["step1"] = "step1";
 			return $trad;

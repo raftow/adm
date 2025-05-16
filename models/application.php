@@ -120,7 +120,7 @@ class Application extends AdmObject
         }
 
 
-        public static function nextApplicationStep($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=false)
+        public static function nextApplicationStep($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
@@ -140,7 +140,7 @@ class Application extends AdmObject
                         
                         if($dataShouldBeUpdated)
                         {
-                                $dataReady = $applicationObj->fieldsMatrixForStep($step_num, "ar", $onlyIfTheyAreUpdated = true);
+                                $dataReady = $applicationObj->fieldsMatrixForStep($step_num, "ar", $onlyIfTheyAreUpdated = true, true, true);
                                 if($dataReady) list($apis_err, $apis_inf, $apis_war) = $applicationObj->runNeededApis($lang = "ar", $forceRunApis);
                                 else 
                                 {
@@ -1077,11 +1077,11 @@ class Application extends AdmObject
                                 $currentStepObj = $this->het("application_step_id");
                                 $currentStepNum = $this->getVal("step_num");
 
-                                $dataReady = $this->fieldsMatrixForStep($currentStepNum, "ar", $onlyIfTheyAreUpdated = true);
+                                $dataReady = $this->fieldsMatrixForStep($currentStepNum, $lang, $onlyIfTheyAreUpdated = true, true, true);
                                 if ($dataShouldBeUpdated and !$dataReady) 
                                 {
-                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "list-fields-not-available", false);
-                                        $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, "ar", "reason-fields-not-available", false);
+                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "list-fields-not-available", false, true, true);
+                                        $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "reason-fields-not-available", false, true, true);
                                         
                                         $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                         $war_arr[] = $message_war;
@@ -1356,14 +1356,14 @@ class Application extends AdmObject
                 return $matrix;
         }
 
-        public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true)
+        public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true, $onlyMandatory = false)
         {
                 if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 if (!$this->applicantObj) throw new AfwRuntimeException("Can't retrieve fields matrix without any applicant defined");
 
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) throw new AfwRuntimeException("Can't retrieve fields matrix without any Application Model defined");
-                list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true);
+                list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true, false, $lang, $onlyMandatory);
                 if (count($applicationDesireFieldsArr) > 0) {
                         $applicationDesireFieldsArrKeys = array_keys($applicationDesireFieldsArr);
                         AfwSession::pushWarning("some desire fields are required in general step $stepNum => " . implode(",", $applicationDesireFieldsArrKeys) . " => " . implode(",", $applicationDesireFieldsArr));

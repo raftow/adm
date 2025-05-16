@@ -2,12 +2,15 @@
 if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`sorting_group` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `name_ar`, `desc_ar`, `name_en`, `desc_en`, `sorting_field_1_id`, `sorting_field_2_id`, `sorting_field_3_id`, `field1_sorting_sens_enum`, `field2_sorting_sens_enum`, `field3_sorting_sens_enum`, `formula_field_1_id`, `formula_field_2_id`, `formula_field_3_id`, `formula_field_4_id`, `formula_field_5_id`, `formula_field_6_id`, `formula_field_7_id`, `formula_field_8_id`, `formula_field_9_id`) VALUES
 (1, 1, '2025-04-14 17:18:25', 1, '2025-04-22 14:43:34', 0, NULL, 'Y', 'Y', 4, '', '', '', 1, 'الفرز عبر النسبة الموزونة', '', 'Sorting via weighted ratio', '', 110953, 0, 0, 1, NULL, NULL, 111235, 111233, 111234, 0, NULL, NULL, 0, NULL, NULL);");
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire CHANGE `track_num` `track_num` smallint NULL AFTER `major_category_id`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire CHANGE `desire_status_enum` `desire_status_enum` smallint NULL AFTER `application_step_id`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   answer char(1) DEFAULT NULL  AFTER duration_expiry;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   mandatory char(1) NOT NULL  AFTER answer;");
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_model_field set mandatory = 'Y' where mandatory is null;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add   weighted_pctg float DEFAULT NULL  AFTER applicant_qualification_id;");
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application set weighted_pctg = 1.1 where weighted_pctg is null");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_field` CHANGE `formula_field_1_id` `formula_field_1_id` int NULL AFTER `field_size`;");
