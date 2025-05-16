@@ -340,8 +340,8 @@ class Application extends AdmObject
 
                 if ($fields_updated["application_step_id"])
                 {
-                        $dsrStepId = ApplicationStep::loadDesiresSelectionStep($application_model_id); 
-                        if($dsrStepId == $this->getVal("application_step_id"))
+                        $dsrStepObj = ApplicationStep::loadDesiresSelectionStep($application_model_id); 
+                        if($dsrStepObj->id == $this->getVal("application_step_id"))
                         {
                                 $this->storeWeightedPercentage();
                         }
