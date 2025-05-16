@@ -120,7 +120,7 @@ class Application extends AdmObject
         }
 
 
-        public static function nextApplicationStep($input_arr, $debugg=0)
+        public static function nextApplicationStep($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=false)
         {
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
@@ -133,8 +133,15 @@ class Application extends AdmObject
                 if($applicationObj)
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                        
+                        if($dataShouldBeUpdated)
+                        {
+                                $dataReady = $applicationObj->fieldsMatrixForStep($step_num, "ar", $onlyIfTheyAreUpdated = true);
+                                if($dataReady) $applicationObj->runNeededApis($lang = "ar", $forceRunApis);
+                        }
+                        
                         // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
-                        list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, true, false, 2, false);
+                        list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
                         $move_step_status = $result["result"];
                         $move_step_message = $result["message"];
                         $move_step_details = $result["details"];
