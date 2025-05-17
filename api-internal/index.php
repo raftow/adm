@@ -34,6 +34,7 @@ $relative_path = "../";
 $allowed_methods = [];
 $allowed_methods["step_data"] = ["class"=>'ApplicationPlan',
                                  "method"=>'getStepData',
+                                 "submit-method"=>'BOTH',
                                  "input"=>  [
                                                 "plan_id"      => ['type'=>'INT', 'required'=>true], 
                                                 "applicant_id" => ['type'=>'INT', 'required'=>true], 
@@ -43,6 +44,7 @@ $allowed_methods["step_data"] = ["class"=>'ApplicationPlan',
 
 $allowed_methods["current_step"] = ["class"=>'Application',
                                 "method"=>'currentStepData',
+                                "submit-method"=>'BOTH',
                                 "input"=>  [
                                                 "applicant_id" => ['type'=>'INT', 'required'=>true], 
                                                 "plan_id"      => ['type'=>'INT', 'required'=>true], 
@@ -52,6 +54,7 @@ $allowed_methods["current_step"] = ["class"=>'Application',
                                
 $allowed_methods["next_step"] = ["class"=>'Application',
                                "method"=>'nextApplicationStep',
+                               "submit-method"=>'BOTH',
                                "input"=>  [
                                                "applicant_id" => ['type'=>'INT', 'required'=>true], 
                                                "plan_id"      => ['type'=>'INT', 'required'=>true], 
@@ -66,13 +69,24 @@ try
     {
         $apiClass = $allowed_methods[$method]["class"];
         $apiMethod = $allowed_methods[$method]["method"];
-        $input_arr = [];
-        $input_arr["lang"] = $_REQUEST["lang"];
-        if(!$input_arr["lang"]) $input_arr["lang"] = "ar";
+        $submitMethod = $allowed_methods[$method]["submit-method"];
+        if($submitMethod=="GET")
+        {
+            $submittedInputs = $_GET;
+        }
+        elseif($submitMethod=="POST")
+        {
+            $submittedInputs = $_POST;
+        }
+        else
+        {
+            $submittedInputs = $_REQUEST;
+        }
+
+        if(!$submittedInputs["lang"]) $submittedInputs["lang"] = "ar";
         foreach($allowed_methods[$method]["input"] as $attribute => $attributeRow)
         {
-            $input_arr[$attribute] = $_REQUEST[$attribute];
-            if($attributeRow["required"] and (!$input_arr[$attribute]))
+            if($attributeRow["required"] and (!$submittedInputs[$attribute]))
             {
                 $data_for_json = ['status'=>'error', 'message'=>$attribute.' is required attribute]'];
                 $error = true;
@@ -82,9 +96,7 @@ try
 
         if(!$error)
         {
-            // die("_REQUEST=".var_export($_REQUEST,true));
-            // die("input_arr=".var_export($input_arr,true));
-            list($status, $message, $dataApi) = $apiClass::$apiMethod($input_arr, $debugg);
+            list($status, $message, $dataApi) = $apiClass::$apiMethod($submittedInputs, $debugg);
             $data_for_json['status']=$status;
             $data_for_json["message"]=$message;
             $data_for_json["data"]=$dataApi;

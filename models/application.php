@@ -119,6 +119,29 @@ class Application extends AdmObject
 
         }
 
+        public function saveNeededAttributes($input_arr, $commit = true)
+        {
+                $this->getApplicationModel();
+                if ($this->objApplicationModel) {
+                        $afOEFieldsList = $this->objApplicationModel->getApplicationModelFieldListOfStep($this->getVal("step_num"), false, true);
+
+                        foreach($afOEFieldsList as $afOEField)
+                        {
+                                $applicationFieldObj = $afOEField->het("application_field_id");
+                                if($applicationFieldObj)
+                                {
+                                        $field_name = $applicationFieldObj->getVal("field_name");
+
+                                        if(isset($input_arr[$field_name]))
+                                        {
+                                                $this->set($field_name, $input_arr[$field_name]);
+                                        }
+                                }
+                        }
+                        if($commit) $this->commit();
+                }     
+        }
+
 
         public static function nextApplicationStep($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
@@ -155,6 +178,8 @@ class Application extends AdmObject
                                 $apis_inf = "";
                                 $apis_war = "case of data does not need update";
                         }
+
+                        $applicationObj->saveNeededAttributes($input_arr);
                         
                         // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
                         list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
@@ -1090,7 +1115,7 @@ class Application extends AdmObject
                                         $result_arr["details_2"] = $reasonNotAvail;
                                         $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
                                         $this->set("comments", $message_war);
-                                        $this->commit();
+                                        
                                 }
                                 else
                                 {
@@ -1108,7 +1133,7 @@ class Application extends AdmObject
                                                 $result_arr["result"] = "fail";
                                                 $result_arr["message"] = $message_err;
                                                 $this->set("comments", $message_err);
-                                                $this->commit();
+                                                
                                                 $err_arr[] = $message_err;
                                         }
                                         elseif (!$lastStepObj) 
@@ -1118,7 +1143,7 @@ class Application extends AdmObject
                                                 $result_arr["result"] = "fail";
                                                 $result_arr["message"] = $message_err;
                                                 $this->set("comments", $message_err);
-                                                $this->commit();
+                                                
                                                 $err_arr[] = $message_err;
                                         }
                                         elseif($currentStepObj->sureIs("general") and ($currentStepObj->id != $lastStepObj->id))
@@ -1141,7 +1166,7 @@ class Application extends AdmObject
                                                         $inf_arr[]  = $success_message;                                
                                                         $this->set("comments", $nb_conds." ".$this->tm("conditions successfully passed"));
                                                         
-                                                        $this->commit();
+                                                        
                                                         if ($nextStepNum != $currentStepNum) {
                                                                 $this->requestAPIsOfStep($nextStepNum);
                                                         }
@@ -1156,7 +1181,7 @@ class Application extends AdmObject
                                                         $tech_arr[] = $tech;
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                         $this->set("comments", $fail_message);                                                                                        
-                                                        $this->commit();
+                                                        
                                                 }
                                         }
                                         else{
@@ -1167,7 +1192,7 @@ class Application extends AdmObject
                                                 $this->set("application_step_id", $lastStepObj->id);
                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                 $this->set("comments", $this->tm("application last step is the desire selection")." = ".$last_step_num);
-                                                $this->commit();
+                                                
                                         }
                                         
                                 }
@@ -1179,13 +1204,14 @@ class Application extends AdmObject
                         if($devMode) throw $e;
                         $err_arr[] = $fail_message = $e->getMessage();
                         $this->set("comments", $fail_message);                        
-                        $this->commit();
+                        
                 } catch (Error $e) {
                         if($devMode) throw $e;
                         $err_arr[] = $fail_message = $e->__toString();
                         $this->set("comments", $fail_message);                        
-                        $this->commit();
+                        
                 }
+                $this->commit();
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 

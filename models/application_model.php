@@ -289,21 +289,33 @@
                         return self::$stepAppModelApiList[$this->id][$toStepNum];
                 }
 
-                public function getApplicationModelFieldListOfStep($stepNum, $onlyMandatory=false)
+                public function getApplicationModelFieldListOfStep($stepNum, $onlyMandatory=false, $onlyEditable=false)
                 {
-                        if($onlyMandatory)
+                        if($onlyMandatory and $onlyEditable)
                         {
+                                $case = "OM-OE";
+                                $cond_onlyMandatory = "and mandatory='Y' and answer = 'Y'";
+                        }
+                        elseif($onlyMandatory and !$onlyEditable)
+                        {
+                                $case = "OM";
                                 $cond_onlyMandatory = "and mandatory='Y'";
+                        }
+                        elseif(!$onlyMandatory and $onlyEditable)
+                        {
+                                $case = "OE";
+                                $cond_onlyMandatory = "and answer = 'Y'";
                         }
                         else
                         {
+                                $case = "ALL";
                                 $cond_onlyMandatory = "";
                         }
-                        if(!isset(self::$stepAppModelFieldList[$this->id][$stepNum]))
+                        if(!isset(self::$stepAppModelFieldList[$this->id][$stepNum][$case]))
                         {
-                                self::$stepAppModelFieldList[$this->id][$stepNum] = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum $cond_onlyMandatory")->getList();
+                                self::$stepAppModelFieldList[$this->id][$stepNum][$case] = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum $cond_onlyMandatory")->getList();
                         }
-                        return self::$stepAppModelFieldList[$this->id][$stepNum];
+                        return self::$stepAppModelFieldList[$this->id][$stepNum][$case];
                 }
                 
 
