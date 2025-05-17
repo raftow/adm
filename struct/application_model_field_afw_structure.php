@@ -245,7 +245,7 @@ class AdmApplicationModelFieldAfwStructure
 
                 'answer' => array(
                         'SHOW' => true,
-                        'RETRIEVE' => false,
+                        'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'DEFAUT' => 'N',
