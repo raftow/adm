@@ -121,23 +121,12 @@ class Application extends AdmObject
 
         public function getNeededAttributes()
         {
-                $needed = [];
+                
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
-                        $afOEFieldsList = $this->objApplicationModel->getApplicationModelFieldListOfStep($this->getVal("step_num"), false, true);
-
-                        foreach($afOEFieldsList as $afOEField)
-                        {
-                                $applicationFieldObj = $afOEField->het("application_field_id");
-                                if($applicationFieldObj)
-                                {
-                                        $field_name = $applicationFieldObj->getVal("field_name");
-                                        if($field_name) $needed[] = $field_name;                                        
-                                }
-                        }                        
+                        return $this->objApplicationModel->getNeededAttributes();                            
                 }
-
-                return $needed;
+                else return [];
         }
 
         public function saveNeededAttributes($input_arr, $commit = true)
@@ -197,7 +186,7 @@ class Application extends AdmObject
                         // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
                         list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
                         
-                        $neededAttributes = $applicationObj->getNeededAttributes($input_arr);
+                        
                         
                         $move_step_status = $result["result"];
                         $move_step_message = $result["message"];
@@ -232,7 +221,7 @@ class Application extends AdmObject
                         "move_step_details" => $move_step_details,
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
-                        "needed_attributes" => $neededAttributes,
+                        
                         "application" => $applicationData,
                         "apis-run"=> ['errors'=>$apis_err, 
                                       'info'=>$apis_inf, 

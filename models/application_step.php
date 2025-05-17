@@ -329,11 +329,16 @@
 
                                         $suffix2 = "";
                                         $method2 = "";
+                                        $to_submit = false;
 
                                         if($scrField["answer"]) 
                                         {
-                                                $suffix2 = "answer";
-                                                $method2 = "getAnswerTableJsonArray";
+                                                if($scrField["type"]=="list")
+                                                {
+                                                        $suffix2 = "answer";
+                                                        $method2 = "getAnswerTableJsonArray";
+                                                }
+                                                $to_submit = true;
                                                 // die("scrField=".var_export($scrField,true));
                                         }
 
@@ -383,9 +388,14 @@
                                         else $my_field_value = $theObj->$method($field_name);        
                                         $stepFieldsArr[$scrIndex][$field_code] = $my_field_value;         
 
+                                        if($to_submit)
+                                        {
+                                                $stepFieldsArr[$scrIndex][$field_code."_tosubmit"] = true;
+                                        }
+
                                         if($suffix2 and $method2 and $theObj and ($theObj->id>0))
                                         {
-                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name);    
+                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name);                                                    
                                                 if($debugg==$field_code) 
                                                 {
                                                         $stepFieldsArr[$scrIndex][$field_code."_".$suffix2."_sql"] = $theObj->debugg_sql_for_loadmany;    

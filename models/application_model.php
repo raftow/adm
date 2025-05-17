@@ -318,6 +318,23 @@
                         return self::$stepAppModelFieldList[$this->id][$stepNum][$case];
                 }
                 
+                public function getNeededAttributes()
+                {
+                        $needed = [];
+                        $afOEFieldsList = $this->getApplicationModelFieldListOfStep($this->getVal("step_num"), false, true);
+
+                        foreach($afOEFieldsList as $afOEField)
+                        {
+                                $applicationFieldObj = $afOEField->het("application_field_id");
+                                if($applicationFieldObj)
+                                {
+                                        $field_name = $applicationFieldObj->getVal("field_name");
+                                        if($field_name) $needed[] = $field_name;                                        
+                                }
+                        }
+
+                        return $needed;
+                }
 
                 public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar", $onlyMandatory=false)
                 {

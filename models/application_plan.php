@@ -98,8 +98,9 @@ class ApplicationPlan extends AdmObject
         $step_num = $input_arr['step_num'];
         $lang = $input_arr['lang'];
         list($application_model_id, $attributes, $error_message) = ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg);
+        
         $data = ['attributes' => $attributes,
-                 'apis' => ApplicationModel::getStepApis($applicant_id, $application_model_id, $step_num, $lang, $debugg),
+                 'apis' => ApplicationModel::getStepApis($applicant_id, $application_model_id, $step_num, $lang, $debugg),                 
         ];
 
         $status = $error_message ? "error" : "success";
