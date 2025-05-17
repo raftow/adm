@@ -166,7 +166,7 @@ class Application extends AdmObject
                         if($dataShouldBeUpdated)
                         {
                                 $dataReady = $applicationObj->fieldsMatrixForStep($step_num, "ar", $onlyIfTheyAreUpdated = true, true, true);
-                                if($dataReady) list($apis_err, $apis_inf, $apis_war) = $applicationObj->runNeededApis($lang = "ar", $forceRunApis);
+                                if(!$dataReady) list($apis_err, $apis_inf, $apis_war) = $applicationObj->runNeededApis($lang = "ar", $forceRunApis);
                                 else 
                                 {
                                         $apis_err = ""; 
@@ -1111,8 +1111,8 @@ class Application extends AdmObject
                                 $dataReady = $this->fieldsMatrixForStep($currentStepNum, $lang, $onlyIfTheyAreUpdated = true, true, true);
                                 if ($dataShouldBeUpdated and !$dataReady) 
                                 {
-                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "list-fields-not-available", false, true, true);
-                                        $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "reason-fields-not-available", false, true, true);
+                                        $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "list-fields-not-available", false, true);
+                                        $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "reason-fields-not-available", false, true);
                                         
                                         $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang);
                                         $war_arr[] = $message_war;

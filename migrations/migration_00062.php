@@ -55,8 +55,8 @@ AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`sorting_group` (`id
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire CHANGE `track_num` `track_num` smallint NULL AFTER `major_category_id`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire CHANGE `desire_status_enum` `desire_status_enum` smallint NULL AFTER `application_step_id`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   answer char(1) DEFAULT NULL  AFTER duration_expiry;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   mandatory char(1) NOT NULL  AFTER answer;");
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_model_field set mandatory = 'Y' where mandatory is null;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   is_mandatory char(1) NOT NULL  AFTER answer;");
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_model_field set is_mandatory = 'Y' where mandatory is null;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add   weighted_pctg float DEFAULT NULL  AFTER applicant_qualification_id;");
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application set weighted_pctg = 1.1 where weighted_pctg is null");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_field` CHANGE `formula_field_1_id` `formula_field_1_id` int NULL AFTER `field_size`;");
