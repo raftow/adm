@@ -103,8 +103,7 @@ try
     AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set institution_id = 1");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   api_endpoint2_id int(11) NOT NULL  AFTER api_endpoint_id;");    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   sorting_group_id int(11) DEFAULT NULL  AFTER direct_adm_capacity;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   started_ind char(1) NOT NULL DEFAULT 'N' AFTER upgraded;");
-    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.sorting_session set started_ind = 'N'");    
+  
     AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`major_path` WHERE id > 143");
     
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   capacity_track1 smallint DEFAULT NULL  AFTER direct_adm_capacity;");

@@ -72,48 +72,7 @@ AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.application_desire ad set
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_simulation add   blocked_applicants_mfk varchar(255) DEFAULT NULL  AFTER application_plan_id;");
 
-/* AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session;");*/
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sorting_session` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_by` int(11) NOT NULL,
-  `created_at`   datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `validated_by` int(11) DEFAULT NULL,
-  `validated_at` datetime DEFAULT NULL,
-  `active` char(1) NOT NULL,
-  `draft` char(1) NOT NULL default  'Y',
-  `version` int(4) DEFAULT NULL,
-  `update_groups_mfk` varchar(255) DEFAULT NULL,
-  `delete_groups_mfk` varchar(255) DEFAULT NULL,
-  `display_groups_mfk` varchar(255) DEFAULT NULL,
-  `sci_id` int(11) DEFAULT NULL,
-  
-  application_plan_id int(11) DEFAULT NULL , 
-  session_num smallint DEFAULT NULL , 
-
-  application_simulation_id int(11) NOT NULL DEFAULT 2,
-
-    
-  name_ar varchar(128)  NOT NULL , 
-  name_en varchar(128)  NOT NULL , 
-   
-  start_date datetime DEFAULT NULL , 
-  end_date datetime DEFAULT NULL , 
-  validated char(1) DEFAULT NULL , 
-  validate_date datetime DEFAULT NULL , 
-  published char(1) NOT NULL DEFAULT 'N', 
-  publish_date datetime DEFAULT NULL , 
-  last_approve_date datetime DEFAULT NULL , 
-  upgraded char(1) NOT NULL DEFAULT 'N', 
-  
-  PRIMARY KEY (`id`)
-) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-
-// AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session DROP index uk_sorting_session");
-
-AfwDatabase::db_query("CREATE unique index uk_sorting_session on ".$server_db_prefix."adm.sorting_session(application_plan_id,session_num);");
 
 
 
