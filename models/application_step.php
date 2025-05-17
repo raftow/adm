@@ -401,6 +401,10 @@
                                                         $stepFieldsArr[$scrIndex][$field_code."_".$suffix2."_sql"] = $theObj->debugg_sql_for_loadmany;    
                                                 }
                                         }
+                                        else
+                                        {
+                                                $stepFieldsArr[$scrIndex][$field_code."_type"] = $scrField["type"];
+                                        }
 
 
 
