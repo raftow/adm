@@ -1707,30 +1707,20 @@ class Application extends AdmObject
                 return ApplicationDesire::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $desire_num);
         }
 
-        public function getApplicationDesireByBranchId($application_plan_branch_id, $idn, $create_obj_if_not_found = false)
+        public function getApplicationDesireByBranchId($application_plan_branch_id, $idn, $desire_num, $create_obj_if_not_found = false)
         {
                 $applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
-                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $this);
+                return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $this, $desire_num);
         }
 
 
         public function refreshDesireList($lang="ar")
         {
                 $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
-                $added = 0;
-                $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
-                foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
-                        $idn = $this->getVal("idn");                                 
-                        $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, true);
-                        if($applicationDesireObj->is_new) $added++;
-                        $applicationDesireObj->repareData();
-                }
-                
-                // AfwSession::pushInformation("$added desires are added");
-
-                // what is not in application_plan_branch_mfk should be removed
+                $idn = $this->getVal("idn");                                 
+                // 1) what is not in application_plan_branch_mfk should be removed
                 if((!$application_plan_branch_mfk) or (!trim($application_plan_branch_mfk)) or (trim($application_plan_branch_mfk)==",") or (trim($application_plan_branch_mfk)==",,")) $application_plan_branch_mfk = ",0,";
                 $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 ".$application_plan_branch_mfk." 0)")->getList();
                 /**
@@ -1738,20 +1728,28 @@ class Application extends AdmObject
                  */
                 $deleted = 0;
                 foreach ($applicationDesireList as $applicationDesireItem) {
-                        if ($applicationDesireItem->delete()) {
-                                // has been deleted successfully
-                                $deleted++;
-                        } else {
-                                // the delete is refused we put back the application_plan_branch_id in application_plan_branch_mfk
-                                // to synchronize both fields
-                                $this->addRemoveInMfk("application_plan_branch_mfk", [$applicationDesireItem->getVal("application_plan_branch_id")], []);
-                        }
+                        $applicationDesireItem->delete();
+                        $deleted++;
                 }
+
+                $added = 0;
+                $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
+                $desire_num = 0;
+                foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
+                        $desire_num++;                        
+                        $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, $desire_num, true);
+                        if($applicationDesireObj->is_new) $added++;
+                        $applicationDesireObj->repareData();
+                }
+                
+                // AfwSession::pushInformation("$added desires are added");
+
+
                 
                 // AfwSession::pushWarning("$deleted desires (not in $application_plan_branch_mfk) are deleted");
 
                 $this->nb_desires = null;
-                list($err, $inf_as_war, $war) = $this->reorderDesires();
+                
 
                 return ["", "done : added : $added, deleted : $deleted", $inf_as_war.", ".$war];
         }

@@ -118,13 +118,14 @@ class ApplicationDesire extends AdmObject
          * @param Application $applicationObj
          */
 
-        public static function loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn='', $create_obj_if_not_found=false, $applicationObj=null)
+        public static function loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn='', $create_obj_if_not_found=false, $applicationObj=null, $desire_num=0)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
                 if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
                 if (!$application_plan_branch_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id is mandatory field");
 
+                if(!$desire_num) $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)") + 1;
 
                 $obj = new ApplicationDesire();
                 $obj->select("applicant_id", $applicant_id);
@@ -133,12 +134,13 @@ class ApplicationDesire extends AdmObject
                 $obj->select("application_plan_branch_id", $application_plan_branch_id);
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) {
+                                $obj->set("desire_num", $desire_num);
                                 $obj->set("idn", $idn);
                                 $obj->activate();
                         }
                         return $obj;
                 } elseif ($create_obj_if_not_found and $applicationObj) {
-                        $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)") + 1;
+                        
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);
                         $obj->set("application_simulation_id", $application_simulation_id);
