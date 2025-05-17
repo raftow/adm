@@ -333,7 +333,7 @@
 
                                         if($scrField["answer"]) 
                                         {
-                                                if($scrField["type"]=="list")
+                                                if(($scrField["type"]=="list") or ($scrField["type"]=="mfk") or ($scrField["type"]=="fk"))
                                                 {
                                                         $suffix2 = "answer";
                                                         $method2 = "getAnswerTableJsonArray";
