@@ -124,7 +124,7 @@ class Application extends AdmObject
                 
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
-                        return $this->objApplicationModel->getNeededAttributes();                            
+                        return $this->objApplicationModel->getNeededAttributes($this->getVal("step_num"));                            
                 }
                 else return [];
         }

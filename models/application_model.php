@@ -291,6 +291,7 @@
 
                 public function getApplicationModelFieldListOfStep($stepNum, $onlyMandatory=false, $onlyEditable=false)
                 {
+                        if(!$stepNum) 
                         if($onlyMandatory and $onlyEditable)
                         {
                                 $case = "OM-OE";
@@ -318,10 +319,10 @@
                         return self::$stepAppModelFieldList[$this->id][$stepNum][$case];
                 }
                 
-                public function getNeededAttributes()
+                public function getNeededAttributes($step_num)
                 {
                         $needed = [];
-                        $afOEFieldsList = $this->getApplicationModelFieldListOfStep($this->getVal("step_num"), false, true);
+                        $afOEFieldsList = $this->getApplicationModelFieldListOfStep($step_num, false, true);
 
                         foreach($afOEFieldsList as $afOEField)
                         {
