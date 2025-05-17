@@ -18,7 +18,7 @@ class ApplicationModelFieldArTranslator{
 		$trad["application_model_field"]["api_endpoint2_id"] = "الخدمة الالكترونية البديلة";
 		$trad["application_model_field"]["answer.tooltip"] = "كذلك اظهار قائمة الاختيارات على الواجهة";
 		$trad["application_model_field"]["answer"] = "قابل للتعديل";
-		$trad["application_model_field"]["mandatory"] = "إجباري";
+		$trad["application_model_field"]["is_mandatory"] = "إجباري";
 
 	
 		

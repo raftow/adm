@@ -295,12 +295,12 @@
                         if($onlyMandatory and $onlyEditable)
                         {
                                 $case = "OM-OE";
-                                $cond_onlyMandatory = "and mandatory='Y' and answer = 'Y'";
+                                $cond_onlyMandatory = "and is_mandatory='Y' and answer = 'Y'";
                         }
                         elseif($onlyMandatory and !$onlyEditable)
                         {
                                 $case = "OM";
-                                $cond_onlyMandatory = "and mandatory='Y'";
+                                $cond_onlyMandatory = "and is_mandatory='Y'";
                         }
                         elseif(!$onlyMandatory and $onlyEditable)
                         {
