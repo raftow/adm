@@ -815,14 +815,14 @@ class Application extends AdmObject
                 {
                         if($applicationModelBranchId)
                         {
-                                $applicationPlanId = $applicationPlanObj->id;
+                                // $applicationPlanId = $applicationPlanObj->id;
                                 $applicationPlanBranchId = $applicationPlanObj->getApplicationPlanBranchId($applicationModelBranchId);
                                 if((!$applicationPlanBranchId) and (!$ignoreDataErrors) and (!$ignoreClosedBranchs))
                                 {
                                         throw new AfwBusinessException("The following model branch ID %d has no plan branch ID, please check your plan if the branchs are ready for application", $lang, "", "", "", "", "adm", $applicationModelBranchId);
                                 }
                                 //if($applicationPlanBranchId==65) throw new AfwRuntimeException("Here The PB applicationPlanBranchId = $applicationPlanBranchId from applicationModelBranchId=$applicationModelBranchId inside plan=$applicationPlanId");
-                                $applicationPlanBranchArr[]  = $applicationPlanBranchId;
+                                if($applicationPlanBranchId) $applicationPlanBranchArr[]  = $applicationPlanBranchId;
                         }
                         
                 }
