@@ -258,7 +258,7 @@
 								'CSS' => 'width_pct_75',),   
 
                                                         'program_offering_mfk' => array(
-                                                                'STEP' => 99,
+                                                                'STEP' => 98,
                                                                 'TYPE' => 'MFK',
                                                                 'ANSWER' => 'academic_program_offering',  'ANSMODULE' => 'adm',
                                                                 'CATEGORY' => 'FORMULA',
