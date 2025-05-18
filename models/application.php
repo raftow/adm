@@ -1742,9 +1742,10 @@ class Application extends AdmObject
                  * @var ApplicationDesire $applicationDesireItem
                  */
                 $deleted = 0;
+                $delete_refused = 0;
                 foreach ($applicationDesireList as $applicationDesireItem) {
-                        $applicationDesireItem->delete();
-                        $deleted++;
+                        if($applicationDesireItem->delete()) $deleted++;
+                        else $delete_refused++;
                 }
 
                 $added = 0;
@@ -1767,7 +1768,7 @@ class Application extends AdmObject
                 $this->nb_desires = null;
                 
 
-                return ["", "done : added : $added, deleted : $deleted", ""];
+                return ["", "done : added : $added, deleted : $deleted, delete refused : $delete_refused", ""];
         }
 
         public function afterMaj($id, $fields_updated)
@@ -1775,6 +1776,7 @@ class Application extends AdmObject
                 if ($fields_updated["application_plan_branch_mfk"]) {
                        $this->refreshDesireList(); 
                 }
+                else die(var_export($fields_updated,true));
         }
 
         public function reorderDesires($lang = "ar")
