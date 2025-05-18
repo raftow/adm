@@ -180,7 +180,7 @@ class ApplicationSimulation extends AdmObject{
                     $options_arr[$optionItem] = $optionVal;
                 }
             }
-
+            if($value) return null;
             return $options_arr;
         }
 
@@ -704,8 +704,7 @@ class ApplicationSimulation extends AdmObject{
             $show_applicants_mfk = $to_show;
         }
 
-        if(is_array($show_applicants_mfk)) die("show_applicants_mfk is an array : ".var_export($show_applicants_mfk,true));
-        
+        // if(is_array($show_applicants_mfk)) die("show_applicants_mfk is an array : ".var_export($show_applicants_mfk,true));        
         $show_applicants_mfk = trim($show_applicants_mfk,",");
         if(!$show_applicants_mfk) $show_applicants_mfk = "0";
         return $show_applicants_mfk;
