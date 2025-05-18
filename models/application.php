@@ -1730,45 +1730,76 @@ class Application extends AdmObject
                 return ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id, $idn, $create_obj_if_not_found, $this, $desire_num);
         }
 
+        public function calcFrom_desires_application_plan_branch_mfk($what="value")
+        {
+                $applicationDesireList = $this->get("applicationDesireList");
+                if($what!="value") return $applicationDesireList;
+                
+                $mfk = ",";
+                foreach($applicationDesireList as $applicationDesireItem)
+                {
+                        $mfk .= $applicationDesireItem->getVal("application_plan_branch_id").",";
+                }
+
+                return $mfk;
+        }
 
         public function refreshDesireList($lang="ar")
         {
-                $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
-                $idn = $this->getVal("idn");                                 
+                // below is obsolete because we have 2 unique keys the only correct way to proceed if mfk changed is to delete all items 
+                // and create again with correct application_plan_branch_id and desire_num without SQL errors because of both unique indexes
                 // 1) what is not in application_plan_branch_mfk should be removed
-                if((!$application_plan_branch_mfk) or (!trim($application_plan_branch_mfk)) or (trim($application_plan_branch_mfk)==",") or (trim($application_plan_branch_mfk)==",,")) $application_plan_branch_mfk = ",0,";
-                $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 ".$application_plan_branch_mfk." 0)")->getList();
-                /**
-                 * @var ApplicationDesire $applicationDesireItem
-                 */
-                $deleted = 0;
-                $delete_refused = 0;
-                foreach ($applicationDesireList as $applicationDesireItem) {
-                        if($applicationDesireItem->delete()) $deleted++;
-                        else $delete_refused++;
+                // if((!$application_plan_branch_mfk) or (!trim($application_plan_branch_mfk)) or (trim($application_plan_branch_mfk)==",") or (trim($application_plan_branch_mfk)==",,")) $application_plan_branch_mfk = ",0,";
+                // $applicationDesireList = $this->getRelation("applicationDesireList")->resetWhere("application_plan_branch_id not in (0 ".$application_plan_branch_mfk." 0)")->getList();
+                
+
+                $info = "";
+                $warn = "";
+
+                $idn = $this->getVal("idn");                                 
+                $application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
+                
+                $previous_application_plan_branch_mfk = $this->calcFrom_desires_application_plan_branch_mfk();
+
+                $mfk_has_changed = (trim($previous_application_plan_branch_mfk,",") != trim($application_plan_branch_mfk,","));
+                if($mfk_has_changed)
+                {
+                        // 1. delete all old desires
+                        $applicationDesireList = $this->get("applicationDesireList");
+                        /**
+                         * @var ApplicationDesire $applicationDesireItem
+                         */
+                        $deleted = 0;
+                        $delete_refused = 0;
+                        foreach ($applicationDesireList as $applicationDesireItem) {
+                                if($applicationDesireItem->delete()) $deleted++;
+                                else $delete_refused++;
+                        }
+
+                        // 2. create all new desires
+                        $added = 0;
+                        // $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
+                        $application_plan_branch_arr = explode(",", trim(trim($application_plan_branch_mfk),","));
+                        $desire_num = 0;
+                        foreach ($application_plan_branch_arr as $applicationPlanBranchId) {
+                                $desire_num++;                        
+                                $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchId, $idn, $desire_num, true);
+                                if($applicationDesireObj->is_new) $added++;
+                                $applicationDesireObj->repareData();
+                        }
+
+                        $this->nb_desires = null;
+
+                        $info = "done : added : $added, deleted : $deleted, delete refused : $delete_refused";
+
                 }
-
-                $added = 0;
-                // $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
-                $application_plan_branch_arr = explode(",", trim(trim($application_plan_branch_mfk),","));
-                $desire_num = 0;
-                foreach ($application_plan_branch_arr as $applicationPlanBranchId) {
-                        $desire_num++;                        
-                        $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchId, $idn, $desire_num, true);
-                        if($applicationDesireObj->is_new) $added++;
-                        $applicationDesireObj->repareData();
+                else
+                {
+                        $warn = "nothing changed no need to refresh desire list";
                 }
                 
-                // AfwSession::pushInformation("$added desires are added");
 
-
-                
-                // AfwSession::pushWarning("$deleted desires (not in $application_plan_branch_mfk) are deleted");
-
-                $this->nb_desires = null;
-                
-
-                return ["", "done : added : $added, deleted : $deleted, delete refused : $delete_refused", ""];
+                return ["", $info, $warn];
         }
 
         public function afterMaj($id, $fields_updated)
