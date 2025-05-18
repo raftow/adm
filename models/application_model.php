@@ -314,6 +314,8 @@
                         }
                         if(!isset(self::$stepAppModelFieldList[$this->id][$stepNum][$case]))
                         {
+                                $sql = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum $cond_onlyMandatory")->getList(true);
+                                die("applicationModelFieldList case $case => $sql");
                                 self::$stepAppModelFieldList[$this->id][$stepNum][$case] = $this->getRelation("applicationModelFieldList")->resetWhere("active='Y' and step_num<=$stepNum $cond_onlyMandatory")->getList();
                         }
                         return self::$stepAppModelFieldList[$this->id][$stepNum][$case];
@@ -341,6 +343,7 @@
                 {
                         if(!$stepNum) $stepNum = 0;
                         $applicationModelFieldList = $this->getApplicationModelFieldListOfStep($stepNum, $onlyMandatory);
+                        
                         if(!$splitByTable) return $applicationModelFieldList;
                         else
                         {
