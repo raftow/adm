@@ -1751,7 +1751,7 @@ class Application extends AdmObject
                 $this->nb_desires = null;
                 
 
-                return ["", "done : added : $added, deleted : $deleted", $inf_as_war.", ".$war];
+                return ["", "done : added : $added, deleted : $deleted", ""];
         }
 
         public function afterMaj($id, $fields_updated)

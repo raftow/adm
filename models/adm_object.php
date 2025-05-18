@@ -63,6 +63,49 @@ class AdmObject extends AfwMomkenObject{
                 return AdmEmployee::isGeneralAdmin($employee_id);
         }
 
+
+        public static function code_of_applicant_decision_enum($lkp_id=null)
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if($lkp_id) return self::applicant_decision()['code'][$lkp_id];
+            else return self::applicant_decision()['code'];
+        }
+
+        public static function name_of_applicant_decision_enum($applicant_decision_enum, $lang="ar")
+        {
+            return self::applicant_decision()[$lang][$applicant_decision_enum];            
+        }
+        
+        public static function list_of_applicant_decision_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::applicant_decision()[$lang];
+        }
+        
+        public static function applicant_decision()
+        {
+                $arr_list_of_applicant_decision = array();
+                
+                        
+                $arr_list_of_applicant_decision["code"][1] = "AA";
+                $arr_list_of_applicant_decision["ar"][1] = "تأكيد القبول";
+                $arr_list_of_applicant_decision["en"][1] = "Admission accepted";
+
+                $arr_list_of_applicant_decision["code"][2] = "AAUR";
+                $arr_list_of_applicant_decision["ar"][2] = "تأكيد القبول مع طلب ترقية";
+                $arr_list_of_applicant_decision["en"][2] = "Admission accepted with Upgrade Request";
+
+                $arr_list_of_applicant_decision["code"][3] = "ARJ";
+                $arr_list_of_applicant_decision["en"][3] = "Admission rejected";
+                $arr_list_of_applicant_decision["ar"][3] = "رفض القبول";
+                
+
+                
+
+                
+                return $arr_list_of_applicant_decision;
+        }
+
         public static function code_of_split_sorting_by_enum($lkp_id=null)
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();
