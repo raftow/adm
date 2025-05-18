@@ -1400,7 +1400,7 @@ class Application extends AdmObject
 
                 return " applicantFieldsArr = " . AfwExportHelper::afwExport($applicantFieldsArr, false) . "<br>\n" .
                        " applicationFieldsArr = " . AfwExportHelper::afwExport($applicationFieldsArr, false) . "<br>\n" .
-                       " applicationDesireFieldsArr = " . AfwExportHelper::afwExport($applicantFieldsArr, false);                      
+                       " applicationDesireFieldsArr = " . AfwExportHelper::afwExport($applicationDesireFieldsArr, false);                      
         }
 
         public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true, $onlyMandatory = false)
