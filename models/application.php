@@ -746,7 +746,7 @@ class Application extends AdmObject
          * @param array $offlineDesiresRow
          */
 
-        public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow=[])
+        public function deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow=[], $ignoreDataErrors=false, $ignoreClosedBranchs=false)
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $simulation_method = $applicationSimulationObj->getVal("simul_method_enum");
@@ -817,9 +817,8 @@ class Application extends AdmObject
                         {
                                 $applicationPlanId = $applicationPlanObj->id;
                                 $applicationPlanBranchId = $applicationPlanObj->getApplicationPlanBranchId($applicationModelBranchId);
-                                if(!$applicationPlanBranchId) 
+                                if((!$applicationPlanBranchId) and (!$ignoreDataErrors) and (!$ignoreClosedBranchs))
                                 {
-                                        
                                         throw new AfwBusinessException("The following model branch ID %d has no plan branch ID, please check your plan if the branchs are ready for application", $lang, "", "", "", "", "adm", $applicationModelBranchId);
                                 }
                                 //if($applicationPlanBranchId==65) throw new AfwRuntimeException("Here The PB applicationPlanBranchId = $applicationPlanBranchId from applicationModelBranchId=$applicationModelBranchId inside plan=$applicationPlanId");
@@ -863,6 +862,8 @@ class Application extends AdmObject
                 if(!$nb_desires) $nb_desires = 1;
                 $log = "";
                 $forceReload = false;
+                $ignoreDataErrors = (strtolower($options["IGNORE-DATA-ERRORS"])=="on");
+                $ignoreClosedBranchs = (strtolower($options["IGNORE-CLOSED-BRANCHS"])=="on");
                 if(strtolower($options["ERASE-EXISTING-DESIRES"])=="on")
                 {
                         $applicant_id = $this->getVal("applicant_id");
@@ -876,7 +877,7 @@ class Application extends AdmObject
                 }
                 else $old_application_plan_branch_mfk = $this->getVal("application_plan_branch_mfk");
 
-                list($new_application_plan_branch_mfk, $log00) = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow);
+                list($new_application_plan_branch_mfk, $log00) = $this->deduceSimulationBranchs($applicationSimulationObj, $applicationPlanObj, $offlineDesiresRow, $ignoreDataErrors, $ignoreClosedBranchs);
                 $log .= $log00;
 
                 $nb_desires_gen = count($this->myApplicationDesireList);
