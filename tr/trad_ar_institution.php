@@ -62,6 +62,9 @@ $trad["institution"]["application_plan_id"] = "محاكاة حملة التقد�
 		$trad["institution"]["step4"] = "الخدمات الاكترونية";
 
 		$trad["institution"]["apiEndpointList"] = "قائمة الخدمات الاكترونية المتوفرة";
+
+		$trad["institution"]["Institution_description_ar"] = "وصف المؤسسة عربي";
+		$trad["institution"]["Institution_description_en"] = "وصف المؤسسة انجليزي";
         return $trad;
     }
 

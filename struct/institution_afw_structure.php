@@ -179,7 +179,16 @@
                                                         'EDIT-UGROUPS' => '',
                                                         'ERROR-CHECK' => true,
                                                 ),
-
+                                        'Institution_description_ar' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => "area",   'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),
+                                        'Institution_description_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => "area",    'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),
 
                                         'facebook_profile_link' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '50', 'MAXLENGTH' => '50', 'UTF8' => true,  
