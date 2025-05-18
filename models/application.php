@@ -1807,7 +1807,7 @@ class Application extends AdmObject
                 if ($fields_updated["application_plan_branch_mfk"]) {
                        $this->refreshDesireList(); 
                 }
-                else die(var_export($fields_updated,true));
+                // else die(var_export($fields_updated,true));
         }
 
         public function reorderDesires($lang = "ar")
