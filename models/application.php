@@ -1033,7 +1033,7 @@ class Application extends AdmObject
                         $desiresSelectionStepCode = $currentStepObj->getVal("step_code");
                         $this->set("step_num", $desiresSelectionStepNum);
                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                        $war = $this->tm("conditions apply skipped")." !!";
+                        $war = $this->tm("conditions apply skipped",$lang)." !!";
                         $war_arr[]  = $war;
                         $this->set("comments", $war);                        
                         $this->commit();
@@ -1067,7 +1067,7 @@ class Application extends AdmObject
                         $firstStepCode = $firstApplicationStepObj->getVal("step_code");
                         $this->set("step_num", $firstStepNum);
                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                        $war = $this->tm("The admin has forced move to first step")." !!";
+                        $war = $this->tm("The admin has forced move to first step",$lang)." !!";
                         $war_arr[]  = $war;
                         $this->set("comments", $war);                        
                         $this->commit();
@@ -1197,7 +1197,7 @@ class Application extends AdmObject
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                         $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
                                                         $inf_arr[]  = $success_message;                                
-                                                        $this->set("comments", $nb_conds." ".$this->tm("conditions successfully passed"));
+                                                        $this->set("comments", $nb_conds." ".$this->tm("conditions successfully passed",$lang));
                                                         
                                                         
                                                         if ($nextStepNum != $currentStepNum) {
@@ -1221,12 +1221,12 @@ class Application extends AdmObject
                                                 if($this->dataIsCompleted())
                                                 {
                                                         $result_arr["result"] = "success";
-                                                        $result_arr["message"] = "congratulations! application is completed succefully";
+                                                        $result_arr["message"] = "congratulations! application is completed successfully";
                                                         $last_step_num = $lastStepObj->getVal("step_num");
                                                         $this->set("step_num", $last_step_num);
                                                         $this->set("application_step_id", $lastStepObj->id);
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                        $this->set("comments", $this->tm("application is complete"));
+                                                        $this->set("comments", $this->tm("application is complete",$lang));
                                                 }
                                                 else
                                                 {
@@ -1236,7 +1236,7 @@ class Application extends AdmObject
                                                         $this->set("step_num", $last_step_num);
                                                         $this->set("application_step_id", $lastStepObj->id);
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                        $this->set("comments", $this->tm("application last step is the desire selection")." = ".$last_step_num);
+                                                        $this->set("comments", $this->tm("application last step is the desire selection",$lang)." = ".$last_step_num);
                                                 }
                                                 
                                                 
