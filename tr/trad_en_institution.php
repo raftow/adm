@@ -33,6 +33,9 @@ class InstitutionEnTranslator{
 		$trad["institution"]["step4"] = "APIs";
 
 		$trad["institution"]["apiEndpointList"] = "Available APIs";
+		$trad["institution"]["Institution_description_ar"] = "Institution description arabic ";
+
+		$trad["institution"]["Institution_description_en"] = "Institution description english ";
         return $trad;
     }
 
