@@ -146,6 +146,9 @@
 
     $messages["Back to first step"] = "الرجوع إلى خطوة البداية";
     $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
+
+    $messages["application is complete"] = "التقديم مكتمل";
+    $messages["congratulations! application is completed succefully"] = "تهانينا! تم إكمال التقديم بنجاح";
                 
     // $messages[""] = "";
     

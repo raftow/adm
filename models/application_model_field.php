@@ -77,49 +77,64 @@ class ApplicationModelField extends AdmObject
     }
     public static function stepFields($application_model_id, $step_num)
     {
-        $obj = new ApplicationModelField();
-        $obj->select("application_model_id",$application_model_id);
-        $obj->select("step_num",$step_num);
-        $amfList = $obj->loadMany('',"screen_model_id, step_num, api_endpoint_id");
         $data = [];
-        $scrObjArr = []; 
-
-        foreach($amfList as $amfObj)
+        if($step_num != "end")
         {
-            $afieldObj = $amfObj->het("application_field_id"); 
-            if($afieldObj)
-            {
-                $scr_id = $amfObj->getVal("screen_model_id");
-                $data["current-screen"]["id"] = $scr_id;
-                $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
-                /*
-                if(!$scrObjArr[$scr_id]) $scrObjArr[$scr_id] = $amfObj->het("screen_model_id");
-                $data["screen-$scr_id"]["name_ar"] = "??";
-                $data["screen-$scr_id"]["name_en"] = "screen-not-found";
-                if($scrObjArr[$scr_id])
-                {
-                    $data["screen-$scr_id"]["name_ar"] = $scrObjArr[$scr_id]->getDisplay("ar");
-                    $data["screen-$scr_id"]["name_en"] = $scrObjArr[$scr_id]->getDisplay("en");
-                }
-                    */
-
-                $field_name = $afieldObj->getVal("field_name");
-                $application_table_id = $afieldObj->getVal("application_table_id");
-                $application_table_code = self::code_of_application_table_id($application_table_id);
-                $application_field_type_enum = $afieldObj->getVal("application_field_type_id");
-                $afield_type_code = self::field_type_code($application_field_type_enum);
-                $need_decode = self::need_decode($application_field_type_enum);
-                $field_title_ar = $afieldObj->getVal("field_title_ar");
-                $field_title_en = $afieldObj->getVal("field_title_en");
-                $reel = $afieldObj->sureIs("reel");
-                $additional = $afieldObj->sureIs("additional");
-                $answer = $amfObj->sureIs("answer");  	  
-                // if($answer) die("amfObj=".var_export($amfObj,true));
-
-                $data["screen-$scr_id"]["fields"][$afieldObj->id] = ['field' => $field_name, 'additional'=>$additional, 'reel'=>$reel, 'type'=>$afield_type_code, 'need_decode'=>$need_decode, 'table'=>$application_table_code, 'title_ar'=>$field_title_ar, 'title_en'=>$field_title_en, 'answer'=>$answer];
-            }
+            $obj = new ApplicationModelField();
+            $obj->select("application_model_id",$application_model_id);
+            $obj->select("step_num",$step_num);
+            $amfList = $obj->loadMany('',"screen_model_id, step_num, api_endpoint_id");
             
+            //$scrObjArr = []; 
+    
+            foreach($amfList as $amfObj)
+            {
+                $afieldObj = $amfObj->het("application_field_id"); 
+                if($afieldObj)
+                {
+                    $scr_id = $amfObj->getVal("screen_model_id");
+                    $data["current-screen"]["id"] = $scr_id;
+                    $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
+                    /*
+                    if(!$scrObjArr[$scr_id]) $scrObjArr[$scr_id] = $amfObj->het("screen_model_id");
+                    $data["screen-$scr_id"]["name_ar"] = "??";
+                    $data["screen-$scr_id"]["name_en"] = "screen-not-found";
+                    if($scrObjArr[$scr_id])
+                    {
+                        $data["screen-$scr_id"]["name_ar"] = $scrObjArr[$scr_id]->getDisplay("ar");
+                        $data["screen-$scr_id"]["name_en"] = $scrObjArr[$scr_id]->getDisplay("en");
+                    }
+                        */
+    
+                    $field_name = $afieldObj->getVal("field_name");
+                    $application_table_id = $afieldObj->getVal("application_table_id");
+                    $application_table_code = self::code_of_application_table_id($application_table_id);
+                    $application_field_type_enum = $afieldObj->getVal("application_field_type_id");
+                    $afield_type_code = self::field_type_code($application_field_type_enum);
+                    $need_decode = self::need_decode($application_field_type_enum);
+                    $field_title_ar = $afieldObj->getVal("field_title_ar");
+                    $field_title_en = $afieldObj->getVal("field_title_en");
+                    $reel = $afieldObj->sureIs("reel");
+                    $additional = $afieldObj->sureIs("additional");
+                    $answer = $amfObj->sureIs("answer");  	  
+                    // if($answer) die("amfObj=".var_export($amfObj,true));
+    
+                    $data["screen-$scr_id"]["fields"][$afieldObj->id] = ['field' => $field_name, 'additional'=>$additional, 'reel'=>$reel, 'type'=>$afield_type_code, 'need_decode'=>$need_decode, 'table'=>$application_table_code, 'title_ar'=>$field_title_ar, 'title_en'=>$field_title_en, 'answer'=>$answer];
+                }
+                
+            }
         }
+        else
+        {
+            $scr_id = 11;
+            $data["current-screen"]["id"] = $scr_id;
+            $data["current-screen"]["code"] = "application_success";
+
+            $data["screen-$scr_id"] = [];
+        }
+
+
+        
 
         return $data;
         

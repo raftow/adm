@@ -111,7 +111,7 @@ class Application extends AdmObject
                 $data = [
                         "current_step" => $step_num,
                         "application" => $applicationData,
-
+                        "application_id" => $applicationObj->id,
                 ];
 
                 $status = $error_message ? "error" : "success";
@@ -1079,6 +1079,33 @@ class Application extends AdmObject
                 
         }
 
+
+        public function dataIsCompleted()
+        {
+                list($is_ok, $dataErr) = $this->isOk(true, true);
+                if(!$is_ok) return [false, implode("<br>\n", $dataErr)];
+                else 
+                {
+                        $nb_desires = $this->calcReal_nb_desires();     
+
+                        if($nb_desires==0) return [false, "select your desires"];
+
+                        return [true, ""];
+                }
+        }
+
+
+        public function applicationIsCompleted()
+        {
+                list($is_ok, $error) = $this->dataIsCompleted();
+                if($is_ok)
+                {
+                        return ($this->getVal("application_status_enum") == self::application_status_enum_by_code('complete'));
+                }
+
+                return false;
+        }
+
         public function gotoNextStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
@@ -1191,13 +1218,27 @@ class Application extends AdmObject
                                                 }
                                         }
                                         else{
-                                                $result_arr["result"] = "fail";
-                                                $result_arr["message"] = "attempt to goto next step when this is the last step";
-                                                $last_step_num = $lastStepObj->getVal("step_num");
-                                                $this->set("step_num", $last_step_num);
-                                                $this->set("application_step_id", $lastStepObj->id);
-                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                $this->set("comments", $this->tm("application last step is the desire selection")." = ".$last_step_num);
+                                                if($this->dataIsCompleted())
+                                                {
+                                                        $result_arr["result"] = "success";
+                                                        $result_arr["message"] = "congratulations! application is completed succefully";
+                                                        $last_step_num = $lastStepObj->getVal("step_num");
+                                                        $this->set("step_num", $last_step_num);
+                                                        $this->set("application_step_id", $lastStepObj->id);
+                                                        $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                                        $this->set("comments", $this->tm("application is complete"));
+                                                }
+                                                else
+                                                {
+                                                        $result_arr["result"] = "fail";
+                                                        $result_arr["message"] = "attempt to goto next step when this is the last step, please select the desires";
+                                                        $last_step_num = $lastStepObj->getVal("step_num");
+                                                        $this->set("step_num", $last_step_num);
+                                                        $this->set("application_step_id", $lastStepObj->id);
+                                                        $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                                        $this->set("comments", $this->tm("application last step is the desire selection")." = ".$last_step_num);
+                                                }
+                                                
                                                 
                                         }
                                         
