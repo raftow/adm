@@ -390,6 +390,8 @@ class ApplicationSimulation extends AdmObject{
             $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
             $MODE_BATCH_LOURD = true;
             $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+            set_time_limit(1800); 
+
             AfwSession::setConfig("_sql_analysis_seuil_calls",700000);
             AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",100000);
             AfwSession::setConfig("applicant-sql-analysis-max-calls",8000);
