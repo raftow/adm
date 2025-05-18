@@ -802,8 +802,8 @@ class Application extends AdmObject
                                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
                                 $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
                         }
-                        
-                        if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflineModelBranchArr($offlineDesiresRow);
+                        if(!$nb_desires) $nb_desires = 999;
+                        if($offlineDesiresRow) $applicationModelBranchArr = self::createOfflineModelBranchArr($offlineDesiresRow, $nb_desires);
                         else  $log .= "\n<br> This applicant is not found in prospect offline data";
                 }
 
