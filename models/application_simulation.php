@@ -703,6 +703,8 @@ class ApplicationSimulation extends AdmObject{
         {
             $show_applicants_mfk = $to_show;
         }
+
+        if(is_array($show_applicants_mfk)) die("show_applicants_mfk is an array : ".var_export($show_applicants_mfk,true));
         
         $show_applicants_mfk = trim($show_applicants_mfk,",");
         if(!$show_applicants_mfk) $show_applicants_mfk = "0";
