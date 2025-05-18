@@ -562,6 +562,8 @@ class ApplicationDesire extends AdmObject
 
         public function beforeDelete($id, $id_replace)
         {
+                /* we should allow delete desire in all cases only if farz has started
+                   because application_plan_branch_mfk change trigger delete of some desires and add of others
                 $server_db_prefix = AfwSession::config("db_prefix", "uoh_");
                 $objFirstStep = $this->getApplicationPlan()->getApplicationModel()->getFirstDesireStep();
                 $first_step_num = $objFirstStep ? $objFirstStep->getVal("step_num") : 9999;
@@ -572,7 +574,7 @@ class ApplicationDesire extends AdmObject
                 {
                         $this->deleteNotAllowedReason = "الرغبة أخذت طريقها في مسار التقديم يمكن فقط الغاء التقديم (الانسحاب) وليس حذفها بالكامل أو يمكنكم التواصل مع المشرف";
                         return false;
-                }
+                }*/
 
                 if (!$id) {
                         $id = $this->getId();

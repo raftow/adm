@@ -1733,11 +1733,12 @@ class Application extends AdmObject
                 }
 
                 $added = 0;
-                $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
+                // $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
+                $application_plan_branch_arr = explode(",", trim(trim($application_plan_branch_mfk),","));
                 $desire_num = 0;
-                foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
+                foreach ($application_plan_branch_arr as $applicationPlanBranchId) {
                         $desire_num++;                        
-                        $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchItem->id, $idn, $desire_num, true);
+                        $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchId, $idn, $desire_num, true);
                         if($applicationDesireObj->is_new) $added++;
                         $applicationDesireObj->repareData();
                 }
