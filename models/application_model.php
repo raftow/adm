@@ -291,7 +291,7 @@
 
                 public function getApplicationModelFieldListOfStep($stepNum, $onlyMandatory=false, $onlyEditable=false)
                 {
-                        if(!$stepNum) 
+                        if(!$stepNum) $stepNum = 1;
                         if($onlyMandatory and $onlyEditable)
                         {
                                 $case = "OM-OE";
