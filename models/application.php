@@ -1221,7 +1221,9 @@ class Application extends AdmObject
                                                 if($this->dataIsCompleted())
                                                 {
                                                         $result_arr["result"] = "success";
-                                                        $result_arr["message"] = "congratulations! application is completed successfully";
+                                                        //$result_arr["message"] = $this->tm("congratulations! application is completed successfully",$lang);
+                                                        $result_arr["title"] = $this->tm("Your application #[APP_NB] has been successfully submitted.",$lang);
+                                                        $result_arr["message"] = $this->tm("Please check your account on the admission platform periodically to see any updates or notifications related to your application.",$lang);
                                                         $last_step_num = $lastStepObj->getVal("step_num");
                                                         $this->set("step_num", $last_step_num);
                                                         $this->set("application_step_id", $lastStepObj->id);
