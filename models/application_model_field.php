@@ -78,9 +78,11 @@ class ApplicationModelField extends AdmObject
     public static function stepFields($application_model_id, $step_num)
     {
         $data = [];
+        $obj = new ApplicationModelField();
+        $lang = AfwLanguageHelper::getGlobalLanguage();
         if($step_num != "end")
         {
-            $obj = new ApplicationModelField();
+            
             $obj->select("application_model_id",$application_model_id);
             $obj->select("step_num",$step_num);
             $amfList = $obj->loadMany('',"screen_model_id, step_num, api_endpoint_id");
@@ -129,8 +131,10 @@ class ApplicationModelField extends AdmObject
             $scr_id = 11;
             $data["current-screen"]["id"] = $scr_id;
             $data["current-screen"]["code"] = "application_success";
-
             $data["screen-$scr_id"] = [];
+            $data["screen-$scr_id"]["title"] = $obj->tm("Your application #[APP_NB] has been successfully submitted.",$lang);
+            $data["screen-$scr_id"]["message"] = $obj->tm("Please check your account on the admission platform periodically to see any updates or notifications related to your application.",$lang);
+            
         }
 
 
