@@ -1398,9 +1398,9 @@ class Application extends AdmObject
                 $step_num = $this->getVal("step_num");
                 list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($step_num, true, false, $lang, $onlyMandatory);
 
-                return " applicantFieldsArr = " . var_export($applicantFieldsArr, true) . "<br>\n" .
-                       " applicationFieldsArr = " . var_export($applicationFieldsArr, true) . "<br>\n" .
-                       " applicationDesireFieldsArr = " . var_export($applicantFieldsArr, true);                      
+                return " applicantFieldsArr = " . AfwExportHelper::afwExport($applicantFieldsArr, true) . "<br>\n" .
+                       " applicationFieldsArr = " . AfwExportHelper::afwExport($applicationFieldsArr, true) . "<br>\n" .
+                       " applicationDesireFieldsArr = " . AfwExportHelper::afwExport($applicantFieldsArr, true);                      
         }
 
         public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true, $onlyMandatory = false)
