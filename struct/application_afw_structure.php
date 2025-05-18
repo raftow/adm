@@ -176,6 +176,8 @@
                                                 'CSS' => 'width_pct_25',
                                         ),
 
+                                        
+
                                         'weighted_pctg' => array(
                                                 'FGROUP' => 'weighted_percentage',
                                                 'STEP' => 5,
@@ -340,6 +342,20 @@
 								'TYPE' => 'TEXT',  'SIZE' => 'AREA', 'FORMAT' => 'HTML', 'STEP' => 2,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_100',),	
+
+
+                                        'mandatory_fields_matrix' => array(
+                                                'STEP' => 99,
+                                                'TYPE' => 'TEXT',
+                                                'CATEGORY' => 'FORMULA',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                "CAN-BE-SETTED" => false,
+                                                'SIZE' => 'AREA',
+                                                'PRE' => true,
+                                                'CSS' => 'width_pct_100',
+                                        ),                                                                
                                                 
                                         'attribute_1' => array('FGROUP'=>'::additional', 'OBSOLETE'=>'::additional', 'IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => '::additional',  'RETRIEVE' => false,  
                                                                         'EDIT' => '::additional',  'QEDIT' => true,  'UTF8' => false,  

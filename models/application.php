@@ -1388,6 +1388,21 @@ class Application extends AdmObject
                 return $matrix;
         }
 
+
+        public function calcMandatory_fields_matrix($what="value")
+        {
+                $onlyMandatory=true;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                $this->getApplicationModel();
+                if (!$this->objApplicationModel) "no app model defined !!!! starnge";
+                $step_num = $this->getVal("step_num");
+                list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($step_num, true, false, $lang, $onlyMandatory);
+
+                return " applicantFieldsArr = " . var_export($applicantFieldsArr, true) . "<br>\n" .
+                       " applicationFieldsArr = " . var_export($applicationFieldsArr, true) . "<br>\n" .
+                       " applicationDesireFieldsArr = " . var_export($applicantFieldsArr, true);                      
+        }
+
         public function fieldsMatrixForStep($stepNum, $lang = "ar", $onlyIfTheyAreUpdated = false, $technical_infos=true, $onlyMandatory = false)
         {
                 if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
