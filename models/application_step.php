@@ -302,7 +302,7 @@
                         return ($this->getStepCode() == "DSR");
                 }
                 
-                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0) 
+                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0, $method="", $whereiam="") 
                 {
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $applicantObj = null;
@@ -312,7 +312,7 @@
                         {
                                 $step_num = "end";
                         }
-                        $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num);
+                        $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num, $method, $whereiam);
                         foreach($stepFieldsArr as $scrIndex => $scrData)
                         {
                                 $scrFields = $scrData["fields"];

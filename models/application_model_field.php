@@ -128,7 +128,7 @@ class ApplicationModelField extends AdmObject
         }
         else
         {
-            if(($method == "nextApplicationStep") and ($whereiam != "home"))
+            if(($method == "nextApplicationStep") or ($whereiam != "home"))
             {
                 $scr_id = 11;
                 $data["current-screen"]["id"] = $scr_id;
