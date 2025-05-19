@@ -92,12 +92,13 @@ class Application extends AdmObject
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
+                $whereiam = $input_arr['whereiam'];
                 $application_simulation_id = 2;
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if($applicationObj)
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
-                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg);
+                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                 }
                 else
                 {
@@ -150,6 +151,7 @@ class Application extends AdmObject
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
+                $whereiam = $input_arr['whereiam'];
                 $application_simulation_id = 2;
                 $move_step_details = null;
                 $move_step_details_2 = null;
@@ -195,7 +197,7 @@ class Application extends AdmObject
                         if(!$error_message)
                         {
                                 $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
-                                list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg);
+                                list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg,"nextApplicationStep", $whereiam);
                         }
                         else
                         {

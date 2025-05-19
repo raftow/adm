@@ -75,7 +75,7 @@ class ApplicationModelField extends AdmObject
 
         return $obj;
     }
-    public static function stepFields($application_model_id, $step_num)
+    public static function stepFields($application_model_id, $step_num, $method="", $whereiam="")
     {
         $data = [];
         $obj = new ApplicationModelField();
@@ -128,12 +128,25 @@ class ApplicationModelField extends AdmObject
         }
         else
         {
-            $scr_id = 11;
-            $data["current-screen"]["id"] = $scr_id;
-            $data["current-screen"]["code"] = "application_success";
-            $data["screen-$scr_id"] = [];
-            $data["screen-$scr_id"]["title"] = $obj->tm("Your application #[APP_NB] has been successfully submitted.",$lang);
-            $data["screen-$scr_id"]["message"] = $obj->tm("Please check your account on the admission platform periodically to see any updates or notifications related to your application.",$lang);
+            if(($method == "nextApplicationStep") and ($whereiam != "home"))
+            {
+                $scr_id = 11;
+                $data["current-screen"]["id"] = $scr_id;
+                $data["current-screen"]["code"] = "application_success";
+                $data["screen-$scr_id"] = [];
+                $data["screen-$scr_id"]["title"] = $obj->tm("Your application #[APP_NB] has been successfully submitted.",$lang);
+                $data["screen-$scr_id"]["message"] = $obj->tm("Please check your account on the admission platform periodically to see any updates or notifications related to your application.",$lang);
+            }
+            else
+            {
+                $scr_id = 12;
+                $data["current-screen"]["id"] = $scr_id;
+                $data["current-screen"]["code"] = "my_applications";
+                $data["screen-$scr_id"] = [];
+                $data["screen-$scr_id"]["title"] = $obj->tm("Your application #[APP_NB] has been successfully submitted.",$lang);
+                $data["screen-$scr_id"]["message"] = $obj->tm("Please check your account on the admission platform periodically to see any updates or notifications related to your application.",$lang);
+            }
+            
             
         }
 
