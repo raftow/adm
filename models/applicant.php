@@ -1112,9 +1112,19 @@ class Applicant extends AdmObject
                         $row_matrix['empty'] = $field_empty;
                         $row_matrix['error'] = AfwDataQualityHelper::getAttributeError($this, $field_name);
                         $field_value_datetime = "";
-
-                        if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
-                        else $api = "no-applicationObj";
+                        $default_update_date_of_field_is_api_run_date = false; /* @todo should be in settings */
+                        if($default_update_date_of_field_is_api_run_date)
+                        {
+                                if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
+                                else $api = "no-applicationObj";        
+                        }
+                        else
+                        {
+                                // @todo : in this case how to know the field update datetime
+                                $field_value_datetime = date("Y-m-d");
+                                $api = "medali";
+                        }
+                        
                         if ($row_matrix['empty']) {
                                 $api .= " ".$applicationObj->tm("can not find the field value", $lang);
                                 $field_value_datetime = "";
