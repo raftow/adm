@@ -431,7 +431,7 @@
                         $inf_arr = [];
                         $war_arr = [];
                         $tech_arr = [];
-
+                        $result_arr = [];
                         
                         $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general);
                         // die("ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general) = ".var_export($acondList,true));
@@ -464,6 +464,8 @@
                                         } 
                                         else 
                                         {
+                                                // only first condition that fails
+                                                if(!$result_arr["status_comment"]) $result_arr["status_comment"] = $comments;
                                                 $success = $exec_result;
                                                 if($audit_fail) $war_arr[] = "($c) ".$comments;
                                                 else $tech_arr[] = "($c) ".$comments;
@@ -490,7 +492,7 @@
                         }
 
                         
-                        return ['success'=>$success, 'nb_conds'=>$c, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
+                        return ['success'=>$success, 'nb_conds'=>$c, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr,$result_arr)];
                 }
                 /* replaced by generic applyStepConditionsOn above
                 public function applyMyDesireConditionsOn($desireObject, $lang)

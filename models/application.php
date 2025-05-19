@@ -1190,7 +1190,7 @@ class Application extends AdmObject
                                                 $success = $applyResult['success'];
                                                 $nb_conds = $applyResult['nb_conds'];
 
-                                                list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
+                                                list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
                                                 if ($success and (!$error_message)) {
                                                         $result_arr["result"] = "pass";
                                                         $result_arr["message"] = $success_message;
@@ -1210,8 +1210,8 @@ class Application extends AdmObject
                                                 } else {
                                                         if((!$error_message) and ($success===false)) $result_arr["result"] = "fail";
                                                         else $result_arr["result"] = "standby";
-                                                        $result_arr["message"] = $fail_message;
-                                                        $fail_message .= " ".$error_message;
+                                                        $result_arr["message"] = $res_arr["status_comment"];
+                                                        if(!$fail_message) $fail_message = $error_message;
                                                         $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
                                                         $war_arr[]  = $fail_message;
                                                         $tech_arr[] = $tech;
