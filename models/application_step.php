@@ -308,7 +308,7 @@
                         $applicantObj = null;
                         $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
                         $desireObj = null;
-                        if($applicationObj->ApplicationIsCompleted())
+                        if($applicationObj and $applicationObj->ApplicationIsCompleted())
                         {
                                 $step_num = "end";
                         }
