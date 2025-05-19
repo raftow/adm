@@ -95,8 +95,12 @@ class ApplicationModelField extends AdmObject
                 if($afieldObj)
                 {
                     $scr_id = $amfObj->getVal("screen_model_id");
-                    $data["current-screen"]["id"] = $scr_id;
-                    $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
+                    if(!$data["current-screen"]["code"])
+                    {
+                        $data["current-screen"]["id"] = $scr_id;
+                        $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
+                    }
+                    
                     /*
                     if(!$scrObjArr[$scr_id]) $scrObjArr[$scr_id] = $amfObj->het("screen_model_id");
                     $data["screen-$scr_id"]["name_ar"] = "??";
@@ -139,12 +143,7 @@ class ApplicationModelField extends AdmObject
             }
             else
             {
-                $scr_id = 12;
-                $data["current-screen"]["id"] = $scr_id;
-                $data["current-screen"]["code"] = "my_applications";
-                $data["screen-$scr_id"] = [];
-                $data["screen-$scr_id"]["title"] = $obj->tm("Your application #[APP_NB] has been successfully submitted.",$lang);
-                $data["screen-$scr_id"]["message"] = $obj->tm("Please check your account on the admission platform periodically to see any updates or notifications related to your application.",$lang);
+                $data = ScreenModel::getScreenData("my_applications");
             }
             
             
