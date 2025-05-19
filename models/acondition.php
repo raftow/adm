@@ -339,7 +339,7 @@ class Acondition extends AdmObject{
                                                 $inf = "";
                                                 $war = "";
                                                 
-                                                list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id,true,0,false,true);
                                                 if($res)
                                                 {
                                                         $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." <i>".$comments."</i>";      
@@ -367,7 +367,7 @@ class Acondition extends AdmObject{
                                                         $inf = "";
                                                         $war = "";
                                                         
-                                                        list($res, $comments) = $this->applyOnObject($lang, $applicationItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                        list($res, $comments) = $this->applyOnObject($lang, $applicationItem, $simulation_application_plan_id, $simulation_application_model_id,true,0,false,true);
                                                         if($res)
                                                         {
                                                                 $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." على الملف " .$applicationItem->getDisplay($lang)." <i>".$comments."</i>";      
@@ -397,7 +397,7 @@ class Acondition extends AdmObject{
                                                         $inf = "";
                                                         $war = "";
                                                         
-                                                        list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                        list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id,true,0,false,true);
                                                         if($res)
                                                         {
                                                                 $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
@@ -437,7 +437,7 @@ class Acondition extends AdmObject{
                 
         }
 
-        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $adminMode=false)
         {
                 if(!$simulate) $application_simulation_id =  2;
                 elseif(!$application_simulation_id) $application_simulation_id =  1;
@@ -710,9 +710,9 @@ class Acondition extends AdmObject{
                                 
                                 list($exec_result, $tech) = $this->applyComparison($field_value, $comparator, $param_value, $lang, $field_title);
                                 $excuseText = $this->getExcuseText($lang, $objToApplyOn);
-                                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
-                                if(!$excuseText or $devMode) $excuseText .= " " . $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
-                                if($devMode) $excuseText .= " [[$tech]]";
+                                
+                                if(!$excuseText or $adminMode) $excuseText .= " " . $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
+                                if($adminMode) $excuseText .= " [[$tech]]";
                                 $successText = $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_succeeded;
                                 $comments = $exec_result ? $successText : $excuseText;
                         } 
