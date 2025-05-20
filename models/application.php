@@ -93,6 +93,7 @@ class Application extends AdmObject
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 $whereiam = $input_arr['whereiam'];
+                
                 $application_simulation_id = 2;
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if($applicationObj)
@@ -495,6 +496,17 @@ class Application extends AdmObject
                 return 0;
         }
 
+        
+
+
+        public function uncompleteApplication($lang="ar")
+        {
+                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                $this->commit();
+
+                return ["", $this->tm("done",$lang ), ""];
+        }
+
         public function resetApplication($lang="ar")
         {
                 $id = $this->id;
@@ -511,12 +523,15 @@ class Application extends AdmObject
                         $objDes->deleteWhere("applicant_id = '$id' and application_id = '$id'");
                         $this->set("application_plan_branch_mfk", ",");
                         $this->forceGotoFirstStep($lang);                        
-                        return ["", "The application has been reset"];
+                        return ["", $this->tm("The application has been reset",$lang )];
                 }
                 else
                 {
-                        return ["The applicant has some accepted desires and can't be deleted", ""];
+                        return [$this->tm("The applicant has some accepted desires and can't be deleted",$lang ), ""];
                 }
+
+
+                
 
                 
         }

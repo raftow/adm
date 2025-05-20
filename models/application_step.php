@@ -302,11 +302,43 @@
                         return ($this->getStepCode() == "DSR");
                 }
                 
-                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0, $method="", $whereiam="") 
+                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0, $method="", $whereiam="", $uncomplete="", $deleteapp="") 
                 {
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $applicantObj = null;
                         $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
+                        if($applicationObj and $uncomplete)
+                        {
+                                list($action_err, $action_info, $action_war) = $applicationObj->uncompleteApplication($lang);
+                                if(!$action_err) $action_status = "uncompleted";
+                                else $action_status = "error";
+                        }
+                        
+                        if($applicationObj and $deleteapp)
+                        {
+                                list($action_err, $action_info, $action_war) = $applicationObj->resetApplication($lang);
+                                if((!$action_err) and ($deleteapp=="del")) 
+                                {
+                                       $resDel = $applicationObj->delete();
+                                       if(!$resDel) 
+                                       {
+                                           $action_err = $applicationObj->deleteNotAllowedReason;
+                                           $action_status = "delete-not-allowed";
+                                       } 
+                                       else
+                                       {
+                                           $action_status = "deleted";
+                                       }
+                                }
+                                elseif($action_err)
+                                {
+                                        $action_status = "error";
+                                }
+                                else
+                                {
+                                        $action_status = "resetted";
+                                }
+                        }
                         $desireObj = null;
                         if($applicationObj and $applicationObj->ApplicationIsCompleted())
                         {
@@ -420,6 +452,13 @@
                                 }
 
                         }
+
+                        $stepFieldsArr["action-result"]=[
+                                                                "action-status"=>$action_status,
+                                                                "action-error"=>$action_err,
+                                                                "action-warning"=>$action_war,
+                                                                "action-info"=>$action_info,
+                                                        ];
 
                         return [$application_model_id, $stepFieldsArr, $error_message];
                 }
