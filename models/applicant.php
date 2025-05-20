@@ -186,14 +186,16 @@ class Applicant extends AdmObject
                 {
                         if ($idn_type_id == 3) $idn_type_id = 2;
                         if (($idn_type_id == 1) or ($idn_type_id == 2)) {
-                                if (!is_numeric($idn)) throw new AfwRuntimeException("IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC");
+                                $lang = AfwLanguageHelper::getGlobalLanguage();
+                                
+                                if (!is_numeric($idn)) throw new AfwBusinessException("The identity type is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC", "adm"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
-                                if ($type != $idn_type_id) throw new AfwRuntimeException("IDN $idn is not of type $idn_type_id but of type $type");
-                                if (!$idn_correct) throw new AfwRuntimeException("IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT");
+                                if ($type != $idn_type_id) throw new AfwBusinessException("The identity type is incorrect",$lang,"","","index.php","IDN $idn is not of type $idn_type_id but of type $type", "adm"); // 
+                                if (!$idn_correct) throw new AfwBusinessException("The identity number is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"); //  
                                 $this->set("id", $idn);
                         } else {
                                 $country_id = $this->getVal("country_id");
-                                if (!$country_id) throw new  AfwRuntimeException("For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED");
+                                if (!$country_id) throw new  AfwBusinessException("The country/nationalty is required",$lang,"","","index.php","For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm");
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
                                 if (!$id) throw new  AfwRuntimeException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
                                 $this->set("id", $id);
