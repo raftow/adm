@@ -1440,10 +1440,21 @@ class Application extends AdmObject
                         $field_empty = ((!$field_value) or ($field_value === "W"));
                         $row_matrix['empty'] = $field_empty;
 
-                        $field_value_datetime = "";
+                        $field_value_datetime = date("Y-m-d");
                         $api = "";
                         if (!$field_empty) {
-                                [$field_value_datetime, $api] = $object->getFieldUpdateDate($field_name);
+
+                                $default_update_date_of_field_is_api_run_date = false; /* @todo should be in settings */
+                                if($default_update_date_of_field_is_api_run_date)
+                                {
+                                        [$field_value_datetime, $api] = $object->getFieldUpdateDate($field_name);
+                                }
+                                else
+                                {
+                                        // @todo : in this case how to know the field update datetime
+                                        $field_value_datetime = date("Y-m-d");
+                                }
+                                
                         }
 
 

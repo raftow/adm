@@ -1175,46 +1175,50 @@ class Applicant extends AdmObject
 
                         if ($row_matrix['error']) {
                                 $api .= " ".$row_matrix['error'];
-                                $field_value_datetime = "";
+                                $not_avail[] = $field_title;
+                                $not_avail_reason[] = $field_title . " " . $row_matrix['error'];
                         }
-
-
-
-                        $row_matrix['datetime'] = $field_value_datetime;
-                        $row_matrix['api'] = $api;
-
-                        if ($field_value_datetime) {
-                                if ($applicationObj) {
-                                        $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
-                                        $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
-                                        if ($field_value_datetime < $expiry_date) {
-                                                $need_update_message = $api . " updated=$field_value_datetime < expiry=$expiry_date  (duration_expiry=$duration_expiry)";
-                                                $row_matrix['status'] = self::needUpdateIcon($need_update_message);
-                                                $theyAreUpdated = false;
-                                                $not_avail[] = $field_title;
-                                                $not_avail_reason[] = $field_title . " " . $need_update_message;
+                        else
+                        {
+                                $row_matrix['datetime'] = $field_value_datetime;
+                                $row_matrix['api'] = $api;
+        
+                                if ($field_value_datetime) {
+                                        if ($applicationObj) {
+                                                $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
+                                                $expiry_date = AfwDateHelper::shiftGregDate('', -$duration_expiry);
+                                                if ($field_value_datetime < $expiry_date) {
+                                                        $need_update_message = $api . " updated=$field_value_datetime < expiry=$expiry_date  (duration_expiry=$duration_expiry)";
+                                                        $row_matrix['status'] = self::needUpdateIcon($need_update_message);
+                                                        $theyAreUpdated = false;
+                                                        $not_avail[] = $field_title;
+                                                        $not_avail_reason[] = $field_title . " " . $need_update_message;
+                                                } 
+                                                else 
+                                                {
+                                                        
+                                                        $row_matrix['status'] = self::updatedIcon($api);
+                                                }
                                         } 
                                         else 
                                         {
-                                                
-                                                $row_matrix['status'] = self::updatedIcon($api);
+                                                $need_update_message = $api . " no application Object";
+                                                $row_matrix['status'] = self::needUpdateIcon($need_update_message);
+                                                $not_avail_reason[] = $need_update_message;
                                         }
                                 } 
                                 else 
                                 {
-                                        $need_update_message = $api . " no application Object";
+                                        $need_update_message = $api . " => never updated";
                                         $row_matrix['status'] = self::needUpdateIcon($need_update_message);
-                                        $not_avail_reason[] = $need_update_message;
+                                        $theyAreUpdated = false;
+                                        $not_avail[] = $field_title;
+                                        $not_avail_reason[] = $field_title . " " . $need_update_message;
                                 }
-                        } 
-                        else 
-                        {
-                                $need_update_message = $api . " => never updated";
-                                $row_matrix['status'] = self::needUpdateIcon($need_update_message);
-                                $theyAreUpdated = false;
-                                $not_avail[] = $field_title;
-                                $not_avail_reason[] = $field_title . " " . $need_update_message;
                         }
+
+
+                        
 
                         $matrix[] = $row_matrix;
                 }
