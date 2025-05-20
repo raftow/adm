@@ -164,6 +164,7 @@ class Application extends AdmObject
                 $apis_err = ""; 
                 $apis_inf = "";
                 $apis_war = "";
+                $notes = "";
                 $saved = [];
                 $received = [];
                 if($applicationObj)
@@ -209,7 +210,7 @@ class Application extends AdmObject
                                 $applicationData = null;
                         }
                         
-                        
+                        $notes = $applicationObj->getTechnicalNotes();
                 }
                 else
                 {
@@ -229,7 +230,8 @@ class Application extends AdmObject
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "got" => $received,
-                        "saved" => $saved,                        
+                        "saved" => $saved, 
+                        "notes" => $notes,                       
                         "application" => $applicationData,
                         "apis-run"=> ['errors'=>$apis_err, 
                                       'info'=>$apis_inf, 
@@ -1942,12 +1944,14 @@ class Application extends AdmObject
                         $this->nb_desires = null;
 
                         $info = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is different than new $application_plan_branch_mfk : existing : $existing, added : $added, deleted : $deleted, delete refused : $delete_refused";
+                        $this->debugg_tech_notes = $info;
                         // die($info);
 
                 }
                 else
                 {
                         $warn = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is same than new $application_plan_branch_mfk";
+                        $this->debugg_tech_notes = $warn;
                         // die($warn);
                         
                 }
