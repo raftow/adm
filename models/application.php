@@ -165,6 +165,7 @@ class Application extends AdmObject
                 $apis_inf = "";
                 $apis_war = "";
                 $saved = [];
+                $received = [];
                 if($applicationObj)
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
@@ -227,7 +228,7 @@ class Application extends AdmObject
                         "move_step_details" => $move_step_details,
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
-                        "received" => $received,
+                        "got" => $received,
                         "saved" => $saved,                        
                         "application" => $applicationData,
                         "apis-run"=> ['errors'=>$apis_err, 
