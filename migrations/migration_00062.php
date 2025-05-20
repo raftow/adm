@@ -3,6 +3,15 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_desire`
+CHANGE `gender_enum` `gender_enum` smallint NULL AFTER `sci_id`,
+CHANGE `idn` `idn` varchar(32) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `applicant_id`,
+CHANGE `application_model_id` `application_model_id` int NULL AFTER `application_simulation_id`,
+CHANGE `academic_level_id` `academic_level_id` int NULL AFTER `application_model_id`,
+CHANGE `application_model_branch_id` `application_model_branch_id` int NULL AFTER `application_plan_branch_id`,
+CHANGE `step_num` `step_num` smallint NULL AFTER `health_ind`;");
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   import char(1) DEFAULT NULL  AFTER published;");
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set import = 'N' where import  is null;");
 
@@ -54,6 +63,8 @@ AfwDatabase::db_query("CREATE unique index uk_sorting_session on ".$server_db_pr
 AfwDatabase::db_query("CREATE unique index uk_application on ".$server_db_prefix."adm.application(applicant_id,application_plan_id,application_simulation_id);");
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`sorting_group` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `name_ar`, `desc_ar`, `name_en`, `desc_en`, `sorting_field_1_id`, `sorting_field_2_id`, `sorting_field_3_id`, `field1_sorting_sens_enum`, `field2_sorting_sens_enum`, `field3_sorting_sens_enum`, `formula_field_1_id`, `formula_field_2_id`, `formula_field_3_id`, `formula_field_4_id`, `formula_field_5_id`, `formula_field_6_id`, `formula_field_7_id`, `formula_field_8_id`, `formula_field_9_id`) VALUES
 (1, 1, '2025-04-14 17:18:25', 1, '2025-04-22 14:43:34', 0, NULL, 'Y', 'Y', 4, '', '', '', 1, 'الفرز عبر النسبة الموزونة', '', 'Sorting via weighted ratio', '', 110953, 0, 0, 1, NULL, NULL, 111235, 111233, 111234, 0, NULL, NULL, 0, NULL, NULL);");
+
+
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire CHANGE `track_num` `track_num` smallint NULL AFTER `major_category_id`;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire CHANGE `desire_status_enum` `desire_status_enum` smallint NULL AFTER `application_step_id`;");
