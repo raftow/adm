@@ -1924,13 +1924,13 @@ class Application extends AdmObject
 
                         $this->nb_desires = null;
 
-                        $info = "prev = $previous_application_plan_branch_mfk is different than new $application_plan_branch_mfk : added : $added, deleted : $deleted, delete refused : $delete_refused";
+                        $info = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is different than new $application_plan_branch_mfk : added : $added, deleted : $deleted, delete refused : $delete_refused";
                         die($info);
 
                 }
                 else
                 {
-                        die("prev = $previous_application_plan_branch_mfk is same than new $application_plan_branch_mfk");
+                        die("Rafik Debugging : prev = $previous_application_plan_branch_mfk is same than new $application_plan_branch_mfk");
                         $warn = "nothing changed no need to refresh desire list";
                 }
                 
