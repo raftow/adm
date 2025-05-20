@@ -546,7 +546,7 @@ class Applicant extends AdmObject
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
                         {
-                            $this->deleteNotAllowedReason = "Used in some Applications(s) as applicant id";
+                            $this->deleteNotAllowedReason = "Some related application(s) exists";
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
@@ -560,7 +560,7 @@ class Applicant extends AdmObject
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
                         {
-                            $this->deleteNotAllowedReason = "Used in some ????? ?????????(s) as applicant id";
+                            $this->deleteNotAllowedReason = "Some related desire(s) exists";
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
@@ -574,7 +574,7 @@ class Applicant extends AdmObject
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
                         {
-                            $this->deleteNotAllowedReason = "Used in some applicant file(s) as The applicant";
+                            $this->deleteNotAllowedReason = "Some related file(s) exists";
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
