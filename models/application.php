@@ -1559,7 +1559,7 @@ class Application extends AdmObject
         public function attributeIsApplicable($attribute)
         {
 
-                if (($attribute == "program_id") or ($attribute == "applicant_qualification_id")) 
+                if (/*($attribute == "program_id") or */($attribute == "applicant_qualification_id")) 
                 {
                         return $this->applicationAttributeIsApplicable($attribute);
                 }
@@ -1575,6 +1575,11 @@ class Application extends AdmObject
                         $currentStepObj = $this->het("application_step_id");
                         if(!$currentStepObj) return false;
                         if($currentStepObj->sureIs("general") and (!$currentStepObj->isTheDesireSelectStep())) return false;                        
+                }
+
+                if ($attribute == "applicant_decision_enum") 
+                {
+                        return ($this->het("application_status_enum") == self::application_status_enum_by_code("accepted"));
                 }
 
                 return true;
