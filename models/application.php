@@ -132,17 +132,21 @@ class Application extends AdmObject
 
         public function saveNeededAttributes($input_arr, $commit = true)
         {
+                $saved = [];
                 $needed = $this->getNeededAttributes();
                 foreach($needed as $field_name)
                 {
                         if(isset($input_arr[$field_name]))
                         {
                                 $this->set($field_name, $input_arr[$field_name]);
+                                $saved[$field_name] = $input_arr[$field_name];
                         }
                 }
                 
 
                 if($commit) $this->commit();
+
+                return [$input_arr, $saved];
         }
 
 
@@ -160,7 +164,7 @@ class Application extends AdmObject
                 $apis_err = ""; 
                 $apis_inf = "";
                 $apis_war = "";
-
+                $saved = [];
                 if($applicationObj)
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
@@ -183,7 +187,7 @@ class Application extends AdmObject
                                 $apis_war = "case of data does not need update";
                         }
 
-                        $applicationObj->saveNeededAttributes($input_arr);
+                        list($received, $saved) = $applicationObj->saveNeededAttributes($input_arr);
                         
                         // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
                         list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
@@ -223,7 +227,8 @@ class Application extends AdmObject
                         "move_step_details" => $move_step_details,
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
-                        
+                        "received" => $received,
+                        "saved" => $saved,                        
                         "application" => $applicationData,
                         "apis-run"=> ['errors'=>$apis_err, 
                                       'info'=>$apis_inf, 
