@@ -1286,11 +1286,30 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                       
                       
         ];
+
+        if($evaluation_id=="all")
+        {
+                // الأصل أنه ليس لديه لا قدرات ولا تحصيلي
+                $this->set("attribute_27", "N");
+                $this->set("attribute_28", "N");
+        }
+        
         foreach($arr_types as $attribute => $eval_id)
         {
                 if(($evaluation_id=="all") or ($evaluation_id==$eval_id))
                 {
-                        $this->set($attribute, ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = $eval_id));
+                        $score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = $eval_id);
+                        $this->set($attribute, $score);
+
+                        if(($score>0) and (($eval_id==1) or ($eval_id==2)))
+                        {
+                                $this->set("attribute_27", "Y");
+                        }
+
+                        if(($score>0) and (($eval_id==3) or ($eval_id==4)))
+                        {
+                                $this->set("attribute_27", "Y");
+                        }
                 }
         }
         $this->commit();
