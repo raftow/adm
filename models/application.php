@@ -545,8 +545,23 @@ class Application extends AdmObject
                 $nextStepNum = $currentStepNum + 1;
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
-
                         
+                        
+                        $color = "red";
+                        $title_ar = $this->tm("reset Application", 'ar');
+                        $title_en = $this->tm("reset Application", 'en');
+                        $methodName = "resetApplication";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => "all"
+                        );
+
+
                         $color = "orange";
                         $title_ar = $this->tm("refresh Desire List", 'ar');
                         $title_en = $this->tm("refresh Desire List", 'en');
@@ -1979,3 +1994,4 @@ class Application extends AdmObject
                 return false;
         }
 }
+
