@@ -1308,7 +1308,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
 
                         if(($score>0) and (($eval_id==3) or ($eval_id==4)))
                         {
-                                $this->set("attribute_27", "Y");
+                                $this->set("attribute_28", "Y");
                         }
                 }
         }
