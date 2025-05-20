@@ -70,6 +70,7 @@ $migrations = [
     '00064' => ['by'=>'medali','title'=>'add field to academic_level'],
     '00065' => ['by'=>'medali','title'=>'add field to institution'],
     '00066' => ['by'=>'medali','title'=>'contact us'],
+    '00067' => ['by'=>'medali','title'=>'applicant_evaluation.need_update'],
 
 ];
 

@@ -494,8 +494,33 @@ class AdmObject extends AfwMomkenObject{
 
 
 
+        
+        public static function list_of_need_evaluation_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::need_evaluation_enum()[$lang];
+        }
+        
+        public static function need_evaluation_enum()
+        {
+                $arr_list_of_application_admission_enum = array();
+                
+                        
+                $arr_list_of_application_admission_enum["en"][1] = "needs updates";
+                $arr_list_of_application_admission_enum["ar"][1] = "بحاجة للتحديث";
+                $arr_list_of_application_admission_enum["code"][1] = "NED";
 
+                $arr_list_of_application_admission_enum["en"][2] = "update done";
+                $arr_list_of_application_admission_enum["ar"][2] = "تم التحديث";
+                $arr_list_of_application_admission_enum["code"][2] = "UPDATED";
 
+                $arr_list_of_application_admission_enum["en"][0] = "don't need update";
+                $arr_list_of_application_admission_enum["ar"][2] = "لا حاجة للتحديث";
+                $arr_list_of_application_admission_enum["code"][2] = "NOUPDATE";
+
+                
+                return $arr_list_of_application_admission_enum;
+        }
         public static function list_of_application_admission_enum()
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();

@@ -17,6 +17,7 @@ class ApplicantEvaluationArTranslator{
 		$trad["applicant_evaluation"]["eval_level"] = "مستوى الاختبار";
 		$trad["applicant_evaluation"]["imported"] = "تم التحقق";
 		$trad["applicant_evaluation"]["workflow_file_id"] = "المرفق";
+		$trad["applicant_evaluation"]["need_evaluation_enum"] = "بيانات بحاجة للتحديث";
         return $trad;
     }
 
