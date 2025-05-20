@@ -213,18 +213,20 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
 
+                                        'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'READONLY'=>true, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_75',),  
+                                                
                                         'applicant_decision_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>false,    
                                                 'DISPLAY' => true,  'STEP' => 2, 'DEFAULT' => 1,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),                                                
+                                                'CSS' => 'width_pct_100', ),                                                
 
-                                        'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'READONLY'=>true, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_75',),                                                 
+                                                                                        
 
 
                                         'qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
@@ -302,8 +304,8 @@
                                                         'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                         'CSS' => 'width_pct_100', ),    
                                                         
-                                        'applicantSimulationList' => array('TYPE' => 'FK', 'ANSWER' => 'applicant_simulation', 'ANSMODULE' => 'adm', 
-                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§', 'STEP' => 2,                                                
+                                        'applicantSimulationList' => array('STEP' => 99, 'TYPE' => 'FK', 'ANSWER' => 'applicant_simulation', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§', 
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                
 
