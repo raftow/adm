@@ -155,6 +155,7 @@ class Applicant extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 $birth_gdate = $this->getVal("birth_gdate");
                 $birth_date = $this->getVal("birth_date");
 
@@ -186,7 +187,7 @@ class Applicant extends AdmObject
                 {
                         if ($idn_type_id == 3) $idn_type_id = 2;
                         if (($idn_type_id == 1) or ($idn_type_id == 2)) {
-                                $lang = AfwLanguageHelper::getGlobalLanguage();
+                                
                                 
                                 if (!is_numeric($idn)) throw new AfwBusinessException("The identity type is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC", "adm"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);

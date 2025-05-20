@@ -210,30 +210,7 @@ class AdmApplicantQualificationAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-'educational_zone_id' => array(
-                        'IMPORTANT' => 'HIGH',
-                        'SEARCH' => false,
-                        'QSEARCH' => false,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'UTF8' => false,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'educational_zone',
-                        'ANSMODULE' => 'adm',
-                        'SIZE' => 40,
-                        'DEFAUT' => 0,
-                        'DISPLAY' => false,
-                        'STEP' => 1,
-                        'RELATION' => 'ManyToOne',
-                        'MANDATORY' => true,
-                        'READONLY' => true,
-                        'AUTOCOMPLETE' => false,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_50',
-                ),
+                
 
                 'gpa_from' => array(
                         'IMPORTANT' => 'HIGH',
@@ -274,7 +251,32 @@ class AdmApplicantQualificationAfwStructure
                         'CSS' => 'width_pct_25',
                 ],
 
-                // @todo medali depency with qual_source
+                'educational_zone_id' => array(
+                        'IMPORTANT' => 'HIGH',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'educational_zone',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => false,
+                        'STEP' => 1,
+                        'RELATION' => 'ManyToOne',
+                        'MANDATORY' => true,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
+
+                // @todo medali dependency with qual_source
                 'source' => array(
                         'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
