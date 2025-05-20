@@ -302,17 +302,17 @@
                         return ($this->getStepCode() == "DSR");
                 }
                 
-                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0) 
+                public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0, $method="", $whereiam="") 
                 {
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $applicantObj = null;
                         $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
                         $desireObj = null;
-                        if($applicationObj->ApplicationIsCompleted())
+                        if($applicationObj and $applicationObj->ApplicationIsCompleted())
                         {
                                 $step_num = "end";
                         }
-                        $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num);
+                        $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num, $method, $whereiam);
                         foreach($stepFieldsArr as $scrIndex => $scrData)
                         {
                                 $scrFields = $scrData["fields"];
@@ -431,7 +431,7 @@
                         $inf_arr = [];
                         $war_arr = [];
                         $tech_arr = [];
-
+                        $result_arr = [];
                         
                         $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general);
                         // die("ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, $general) = ".var_export($acondList,true));
@@ -464,6 +464,8 @@
                                         } 
                                         else 
                                         {
+                                                // only first condition that fails
+                                                if(!$result_arr["status_comment"]) $result_arr["status_comment"] = $comments;
                                                 $success = $exec_result;
                                                 if($audit_fail) $war_arr[] = "($c) ".$comments;
                                                 else $tech_arr[] = "($c) ".$comments;
@@ -490,7 +492,7 @@
                         }
 
                         
-                        return ['success'=>$success, 'nb_conds'=>$c, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
+                        return ['success'=>$success, 'nb_conds'=>$c, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr,$result_arr)];
                 }
                 /* replaced by generic applyStepConditionsOn above
                 public function applyMyDesireConditionsOn($desireObject, $lang)

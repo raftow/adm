@@ -18,6 +18,9 @@ class ApiEndpointArTranslator{
 		$trad["api_endpoint"]["application_field_mfk"] = "الحقول المتوفرة";
 		$trad["api_endpoint"]["manadatory"] = "الزامي؟";
 		$trad["api_endpoint"]["published"] = "منشور";
+		$trad["api_endpoint"]["import"] = "استيراد بيانات";
+		$trad["api_endpoint"]["import.tooltip"] = "هذه الخدمة تقوم باستيراد بيانات للمتقدم";
+		$trad["api_endpoint"]["published.tooltip"] = "إذا كانت الخدمة غير منشورة فلا يمكن تنفيذها من واجهة الادمن. غالبا يكون هذا للخدمات التي بصدد التجهيز وتطويرها لم يكتمل بعد";
 		$trad["api_endpoint"]["can_refresh"] = "يمكن التحديث";
 		$trad["api_endpoint"]["can_refresh.W"] = "ادخال يدوي";
 		$trad["api_endpoint"]["can_refresh.EUH"] = "ادخال يدوي";

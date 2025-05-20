@@ -143,4 +143,18 @@ class ApplicantEvaluation extends AdmObject
                         return true;
                 }
         }
+
+
+        public function afterMaj($id, $fields_updated)
+        {
+                if($this->sureIs("imported"))
+                {
+                        /**
+                         * @var Applicant $applicantObj
+                         */
+                        $applicantObj = $this->het("applicant_id");
+                        $applicantObj->updateEvaluationFields("ar", $this->getVal("evaluation_id"));
+                }
+                
+        }
 }

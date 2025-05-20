@@ -92,12 +92,13 @@ class Application extends AdmObject
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
+                $whereiam = $input_arr['whereiam'];
                 $application_simulation_id = 2;
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if($applicationObj)
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
-                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg);
+                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                 }
                 else
                 {
@@ -150,6 +151,7 @@ class Application extends AdmObject
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
+                $whereiam = $input_arr['whereiam'];
                 $application_simulation_id = 2;
                 $move_step_details = null;
                 $move_step_details_2 = null;
@@ -195,7 +197,7 @@ class Application extends AdmObject
                         if(!$error_message)
                         {
                                 $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
-                                list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg);
+                                list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg,"nextApplicationStep", $whereiam);
                         }
                         else
                         {
@@ -1188,7 +1190,7 @@ class Application extends AdmObject
                                                 $success = $applyResult['success'];
                                                 $nb_conds = $applyResult['nb_conds'];
 
-                                                list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
+                                                list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
                                                 if ($success and (!$error_message)) {
                                                         $result_arr["result"] = "pass";
                                                         $result_arr["message"] = $success_message;
@@ -1208,8 +1210,8 @@ class Application extends AdmObject
                                                 } else {
                                                         if((!$error_message) and ($success===false)) $result_arr["result"] = "fail";
                                                         else $result_arr["result"] = "standby";
-                                                        $result_arr["message"] = $fail_message;
-                                                        $fail_message .= " ".$error_message;
+                                                        $result_arr["message"] = $res_arr["status_comment"];
+                                                        if(!$fail_message) $fail_message = $error_message;
                                                         $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
                                                         $war_arr[]  = $fail_message;
                                                         $tech_arr[] = $tech;
@@ -1557,7 +1559,7 @@ class Application extends AdmObject
         public function attributeIsApplicable($attribute)
         {
 
-                if (($attribute == "program_id") or ($attribute == "applicant_qualification_id")) 
+                if (/*($attribute == "program_id") or */($attribute == "applicant_qualification_id")) 
                 {
                         return $this->applicationAttributeIsApplicable($attribute);
                 }
@@ -1573,6 +1575,11 @@ class Application extends AdmObject
                         $currentStepObj = $this->het("application_step_id");
                         if(!$currentStepObj) return false;
                         if($currentStepObj->sureIs("general") and (!$currentStepObj->isTheDesireSelectStep())) return false;                        
+                }
+
+                if ($attribute == "applicant_decision_enum") 
+                {
+                        return ($this->getVal("application_status_enum") == self::application_status_enum_by_code("accepted"));
                 }
 
                 return true;

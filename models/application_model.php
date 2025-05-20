@@ -66,7 +66,7 @@
                      foreach($appModelApiList as $appModelApiId => $appModelApiItem)
                      {                        
                         $apiEndpointObj = $appModelApiItem->het("api_endpoint_id");
-                        if($apiEndpointObj->getVal("api_endpoint_code")!="offline_data")                        
+                        if($apiEndpointObj->sureIs("import"))                        
                         {
                                 $row = [];
                                 $row['api-code'] = $apiEndpointObj->getVal("api_endpoint_code");

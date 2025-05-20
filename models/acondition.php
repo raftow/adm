@@ -339,7 +339,7 @@ class Acondition extends AdmObject{
                                                 $inf = "";
                                                 $war = "";
                                                 
-                                                list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                list($res, $comments) = $this->applyOnObject($lang, $appItem, $simulation_application_plan_id, $simulation_application_model_id,true,0,false,true);
                                                 if($res)
                                                 {
                                                         $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." <i>".$comments."</i>";      
@@ -367,7 +367,7 @@ class Acondition extends AdmObject{
                                                         $inf = "";
                                                         $war = "";
                                                         
-                                                        list($res, $comments) = $this->applyOnObject($lang, $applicationItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                        list($res, $comments) = $this->applyOnObject($lang, $applicationItem, $simulation_application_plan_id, $simulation_application_model_id,true,0,false,true);
                                                         if($res)
                                                         {
                                                                 $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." على الملف " .$applicationItem->getDisplay($lang)." <i>".$comments."</i>";      
@@ -397,7 +397,7 @@ class Acondition extends AdmObject{
                                                         $inf = "";
                                                         $war = "";
                                                         
-                                                        list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id);
+                                                        list($res, $comments) = $this->applyOnObject($lang, $desireItem, $simulation_application_plan_id, $simulation_application_model_id,true,0,false,true);
                                                         if($res)
                                                         {
                                                                 $inf = "<b>$cond_name</b> متحقق في : ".$appItem->getWideDisplay($lang)." على الرغبة " .$desireItem->getDisplay($lang)." <i>".$comments."</i>";      
@@ -437,7 +437,7 @@ class Acondition extends AdmObject{
                 
         }
 
-        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0, $logConditionExec=true)
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $adminMode=false)
         {
                 if(!$simulate) $application_simulation_id =  2;
                 elseif(!$application_simulation_id) $application_simulation_id =  1;
@@ -537,13 +537,17 @@ class Acondition extends AdmObject{
                                         if(!$res2) 
                                         {
                                                 $has_xxxxx = ($res2===false) ? $has_failed : $unable_to_apply;
-                                                return [$res2, $cond2Desc." " .$has_xxxxx. " : ".$comments2, $cond2Desc.":".$tech2];
+                                                $excuseText = $this->getExcuseText($lang, $obj);                
+                                                if(!$excuseText or $adminMode) $excuseText .= " " . $cond2Desc." " .$has_xxxxx. " : ".$comments2;                                                
+                                                return [$res2, $excuseText, $cond2Desc.":".$tech2];
                                         }
                                         else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1."<br>\n".$cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2."<br>\n".$cond1Desc.":".$tech1];
                                 }
                                 else
                                 {
-                                        return [false, $cond1Desc." " .$has_failed. " : ".$comments1, $cond1Desc.":".$tech1];        
+                                        $excuseText = $this->getExcuseText($lang, $obj);                
+                                        if(!$excuseText or $adminMode) $excuseText .= $cond1Desc." " .$has_failed. " : ".$comments1;
+                                        return [false, $excuseText, $cond1Desc.":".$tech1];        
                                 }
                                 
 
@@ -558,7 +562,10 @@ class Acondition extends AdmObject{
                                         {
                                                 if(($res1===false) and ($res2===false))
                                                 {
-                                                        return [false, $cond1Desc." " .$has_failed. " : ".$comments1."<br>\n".$cond2Desc.":".$comments2, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
+                                                        $excuseText = $this->getExcuseText($lang, $obj);                
+                                                        if(!$excuseText or $adminMode) $excuseText .= $cond1Desc." $has_failed : ".$comments1."<br>\n".
+                                                                                                      $cond2Desc." $has_failed : ".$comments2;
+                                                        return [false, $excuseText, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
                                                 }
                                                 else 
                                                 {
@@ -710,16 +717,16 @@ class Acondition extends AdmObject{
                                 
                                 list($exec_result, $tech) = $this->applyComparison($field_value, $comparator, $param_value, $lang, $field_title);
                                 $excuseText = $this->getExcuseText($lang, $objToApplyOn);
-                                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
-                                if(!$excuseText or $devMode) $excuseText .= " " . $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
-                                if($devMode) $excuseText .= " [[$tech]]";
+                                
+                                if(!$excuseText or $adminMode) $excuseText .= " " . $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_failed;
+                                if($adminMode) $excuseText .= " [[$tech]]";
                                 $successText = $this->tm("The condition")." : ". $this->getShortDisplay($lang)." ".$has_succeeded;
                                 $comments = $exec_result ? $successText : $excuseText;
                         } 
                         
                         
 
-                        if(!$simulate or $logConditionExec)
+                        if($logConditionExec)
                         {
                                 $acondition_id = $this->id;
                                 $aparameter_value_date = $condition_exec_date = date("Y-m-d H:i:s");

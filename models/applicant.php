@@ -155,6 +155,7 @@ class Applicant extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
+                $lang = AfwLanguageHelper::getGlobalLanguage();
                 $birth_gdate = $this->getVal("birth_gdate");
                 $birth_date = $this->getVal("birth_date");
 
@@ -186,14 +187,16 @@ class Applicant extends AdmObject
                 {
                         if ($idn_type_id == 3) $idn_type_id = 2;
                         if (($idn_type_id == 1) or ($idn_type_id == 2)) {
-                                if (!is_numeric($idn)) throw new AfwRuntimeException("IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC");
+                                
+                                
+                                if (!is_numeric($idn)) throw new AfwBusinessException("The identity type is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC", "adm"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
-                                if ($type != $idn_type_id) throw new AfwRuntimeException("IDN $idn is not of type $idn_type_id but of type $type");
-                                if (!$idn_correct) throw new AfwRuntimeException("IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT");
+                                if ($type != $idn_type_id) throw new AfwBusinessException("The identity type is incorrect",$lang,"","","index.php","IDN $idn is not of type $idn_type_id but of type $type", "adm"); // 
+                                if (!$idn_correct) throw new AfwBusinessException("The identity number is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"); //  
                                 $this->set("id", $idn);
                         } else {
                                 $country_id = $this->getVal("country_id");
-                                if (!$country_id) throw new  AfwRuntimeException("For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED");
+                                if (!$country_id) throw new  AfwBusinessException("The country/nationalty is required",$lang,"","","index.php","For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm");
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
                                 if (!$id) throw new  AfwRuntimeException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
                                 $this->set("id", $id);
@@ -543,7 +546,7 @@ class Applicant extends AdmObject
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
                         {
-                            $this->deleteNotAllowedReason = "Used in some Applications(s) as applicant id";
+                            $this->deleteNotAllowedReason = "Some related application(s) exists";
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
@@ -557,7 +560,7 @@ class Applicant extends AdmObject
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
                         {
-                            $this->deleteNotAllowedReason = "Used in some ????? ?????????(s) as applicant id";
+                            $this->deleteNotAllowedReason = "Some related desire(s) exists";
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
@@ -571,7 +574,7 @@ class Applicant extends AdmObject
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
                         {
-                            $this->deleteNotAllowedReason = "Used in some applicant file(s) as The applicant";
+                            $this->deleteNotAllowedReason = "Some related file(s) exists";
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
@@ -1112,9 +1115,19 @@ class Applicant extends AdmObject
                         $row_matrix['empty'] = $field_empty;
                         $row_matrix['error'] = AfwDataQualityHelper::getAttributeError($this, $field_name);
                         $field_value_datetime = "";
-
-                        if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
-                        else $api = "no-applicationObj";
+                        $default_update_date_of_field_is_api_run_date = false; /* @todo should be in settings */
+                        if($default_update_date_of_field_is_api_run_date)
+                        {
+                                if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
+                                else $api = "no-applicationObj";        
+                        }
+                        else
+                        {
+                                // @todo : in this case how to know the field update datetime
+                                $field_value_datetime = date("Y-m-d");
+                                $api = "الخدمات الالكترونية";
+                        }
+                        
                         if ($row_matrix['empty']) {
                                 $api .= " ".$applicationObj->tm("can not find the field value", $lang);
                                 $field_value_datetime = "";
@@ -1255,6 +1268,55 @@ class Applicant extends AdmObject
         {
                 return $this->calcSecondary_info($info = "secondary_cumulative_pct", $what, $objSQ);
         }
+
+
+public function updateEvaluationFields($lang="ar", $evaluation_id="all")
+{
+        /*
+                1	اختبار القدرات العامة	اختبار القدرات العامة للتخصصات العلمية
+                2	اختبار القدرات العامة	اختبار القدرات العامة للتخصصات النظرية
+                3	اختبار التحصيل الدراسي	اختبار التحصيل الدراسي للتخصصات العلمي
+                4	اختبار التحصيل الدراسي	اختبار التحصيل الدراسي للتخصصات النظري
+
+        */
+        $arr_types = ["qiyas_aptitude_sc"=>1,
+                      "qiyas_aptitude_th"=>2,
+                      "qiyas_achievement_sc"=>3,
+                      "qiyas_achievement_th"=>4,
+                      
+                      
+        ];
+
+        if($evaluation_id=="all")
+        {
+                // الأصل أنه ليس لديه لا قدرات ولا تحصيلي
+                $this->set("attribute_27", "N");
+                $this->set("attribute_28", "N");
+        }
+        
+        foreach($arr_types as $attribute => $eval_id)
+        {
+                if(($evaluation_id=="all") or ($evaluation_id==$eval_id))
+                {
+                        $score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = $eval_id);
+                        $this->set($attribute, $score);
+
+                        if(($score>0) and (($eval_id==1) or ($eval_id==2)))
+                        {
+                                $this->set("attribute_27", "Y");
+                        }
+
+                        if(($score>0) and (($eval_id==3) or ($eval_id==4)))
+                        {
+                                $this->set("attribute_28", "Y");
+                        }
+                }
+        }
+        $this->commit();
+
+        return ["done", ""];
+}
+        
 
         public function calcSecondary_info($info, $what = "value", $objSQ = null)
         {

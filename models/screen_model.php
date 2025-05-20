@@ -66,6 +66,45 @@ class ScreenModel extends AdmObject
            
         }
 
+        public static function getScreenData($screen_code)
+        {
+            $objScreen = ScreenModel::loadByMainIndex($screen_code);
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+                
+            $afList = $objScreen->get("application_field_mfk");
+            $data = [];
+            $scr_id = $objScreen->id;
+            $data["current-screen"]["id"] = $scr_id;
+            $data["current-screen"]["code"] = $screen_code;
+            $data["screen-$scr_id"]["fields"] = [];
+            foreach($afList as $afieldObj)
+            {
+                if($afieldObj)
+                {
+    
+                    $field_name = $afieldObj->getVal("field_name");
+                    $application_table_id = $afieldObj->getVal("application_table_id");
+                    $application_table_code = self::code_of_application_table_id($application_table_id);
+                    $application_field_type_enum = $afieldObj->getVal("application_field_type_id");
+                    $afield_type_code = self::field_type_code($application_field_type_enum);
+                    $need_decode = self::need_decode($application_field_type_enum);
+                    $field_title_ar = $afieldObj->getVal("field_title_ar");
+                    $field_title_en = $afieldObj->getVal("field_title_en");
+                    $reel = $afieldObj->sureIs("reel");
+                    $additional = $afieldObj->sureIs("additional");
+                    $answer = false;  	  
+    
+                    $data["screen-$scr_id"]["fields"][$afieldObj->id] = ['field' => $field_name, 'additional'=>$additional, 'reel'=>$reel, 'type'=>$afield_type_code, 'need_decode'=>$need_decode, 'table'=>$application_table_code, 'title_ar'=>$field_title_ar, 'title_en'=>$field_title_en, 'answer'=>$answer];
+                }
+                
+            
+            }    
+
+            return $data;
+        }
+
+
+
         public function getDisplay($lang = 'ar')
         {
                 return $this->getDefaultDisplay($lang);

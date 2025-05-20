@@ -111,7 +111,7 @@ class ApiEndpoint extends AdmObject
                 $switcher_title = "";
                 $switcher_text = "";
 
-                if($col== $this->fld_ACTIVE())
+                if(($col== $this->fld_ACTIVE()) or ($col== "import"))
                 {
                         $switcher_authorized = true;        
                 }
