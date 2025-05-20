@@ -1912,6 +1912,7 @@ class Application extends AdmObject
 
                         // 2. create all new desires
                         $added = 0;
+                        $existing = 0;
                         // $applicationPlanBranchList = $this->get("application_plan_branch_mfk");
                         $application_plan_branch_arr = explode(",", trim(trim($application_plan_branch_mfk),","));
                         $desire_num = 0;
@@ -1919,12 +1920,13 @@ class Application extends AdmObject
                                 $desire_num++;                        
                                 $applicationDesireObj = $this->getApplicationDesireByBranchId($applicationPlanBranchId, $idn, $desire_num, true);
                                 if($applicationDesireObj->is_new) $added++;
+                                else $existing++;
                                 $applicationDesireObj->repareData();
                         }
 
                         $this->nb_desires = null;
 
-                        $info = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is different than new $application_plan_branch_mfk : added : $added, deleted : $deleted, delete refused : $delete_refused";
+                        $info = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is different than new $application_plan_branch_mfk : existing : $existing, added : $added, deleted : $deleted, delete refused : $delete_refused";
                         die($info);
 
                 }
