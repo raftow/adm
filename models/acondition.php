@@ -726,7 +726,7 @@ class Acondition extends AdmObject{
                         
                         
 
-                        if(!$simulate or $logConditionExec)
+                        if($logConditionExec)
                         {
                                 $acondition_id = $this->id;
                                 $aparameter_value_date = $condition_exec_date = date("Y-m-d H:i:s");

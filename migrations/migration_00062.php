@@ -3,6 +3,9 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_condition_exec`
+CHANGE `id` `id` bigint(33) NOT NULL AUTO_INCREMENT FIRST,
+CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_plan_id`;");
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_desire`
 CHANGE `gender_enum` `gender_enum` smallint NULL AFTER `sci_id`,
