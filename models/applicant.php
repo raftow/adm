@@ -1269,6 +1269,36 @@ class Applicant extends AdmObject
                 return $this->calcSecondary_info($info = "secondary_cumulative_pct", $what, $objSQ);
         }
 
+
+public function updateEvaluationFields($lang="ar", $evaluation_id="all")
+{
+        /*
+                1	اختبار القدرات العامة	اختبار القدرات العامة للتخصصات العلمية
+                2	اختبار القدرات العامة	اختبار القدرات العامة للتخصصات النظرية
+                3	اختبار التحصيل الدراسي	اختبار التحصيل الدراسي للتخصصات العلمي
+                4	اختبار التحصيل الدراسي	اختبار التحصيل الدراسي للتخصصات النظري
+
+        */
+        $arr_types = ["qiyas_aptitude_sc"=>1,
+                      "qiyas_aptitude_th"=>2,
+                      "qiyas_achievement_sc"=>3,
+                      "qiyas_achievement_th"=>4,
+                      
+                      
+        ];
+        foreach($arr_types as $attribute => $eval_id)
+        {
+                if(($evaluation_id=="all") or ($evaluation_id==$eval_id))
+                {
+                        $this->set($attribute, ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = $eval_id));
+                }
+        }
+        $this->commit();
+
+        return ["done", ""];
+}
+        
+
         public function calcSecondary_info($info, $what = "value", $objSQ = null)
         {
                 if ($this->$info===null) {

@@ -1271,6 +1271,17 @@ class AdmApplicantAfwStructure
 				'TYPE' => 'MFK',  'ANSWER' => "disability",  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_100', ),
 
+                'qiyas_achievement_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'FLOAT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
+
+		'qiyas_achievement_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'GDAT',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 
                 'qiyas_achievement_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
@@ -1314,17 +1325,7 @@ class AdmApplicantAfwStructure
 				'TYPE' => 'GDAT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'qiyas_achievement_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT',  'READONLY' => false, 
-				'CSS' => 'width_pct_50', ),
-
-		'qiyas_achievement_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => false, 
-				'CSS' => 'width_pct_50', ),
+		
                                 
                                 'achievement_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  

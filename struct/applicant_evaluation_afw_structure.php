@@ -161,6 +161,7 @@ class AdmApplicantEvaluationAfwStructure
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'DISPLAY' => true,
+                        'MANDATORY' => true,
                         'TYPE' => 'GDAT',
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
