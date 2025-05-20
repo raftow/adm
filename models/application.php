@@ -1579,7 +1579,7 @@ class Application extends AdmObject
 
                 if ($attribute == "applicant_decision_enum") 
                 {
-                        return ($this->het("application_status_enum") == self::application_status_enum_by_code("accepted"));
+                        return ($this->getVal("application_status_enum") == self::application_status_enum_by_code("accepted"));
                 }
 
                 return true;
