@@ -487,6 +487,32 @@ class Application extends AdmObject
                 return 0;
         }
 
+        public function resetApplication($lang="ar")
+        {
+                $id = $this->id;
+                $applicant_id = $this->getVal("applicant_id");
+                
+
+                $objDes = new ApplicationDesire();
+                $objDes->where("applicant_id = '$applicant_id' and application_id = '$id' and active='Y' and desire_status_enum in (2,3)");
+                $nbRecordsCritical = $objDes->count();
+
+                
+                if(!$nbRecordsCritical)
+                {
+                        $objDes->deleteWhere("applicant_id = '$id' and application_id = '$id'");
+                        $this->set("application_plan_branch_mfk", ",");
+                        $this->forceGotoFirstStep($lang);                        
+                        return ["", "The application has been reset"];
+                }
+                else
+                {
+                        return ["The applicant has some accepted desires and can't be deleted", ""];
+                }
+
+                
+        }
+
         protected function getPublicMethods()
         {
 
@@ -1495,42 +1521,75 @@ class Application extends AdmObject
         }
 
 
-        public function beforeDelete($id, $id_replace)
+        public function beforeDelete($id,$id_replace) 
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-
-                if (!$id) {
-                        $id = $this->getId();
-                        $simul = true;
-                } else {
-                        $simul = false;
-                }
-
-                if ($id) {
-                        if ($id_replace == 0) {
-                                // FK part of me - not deletable 
-
-
-                                // FK part of me - deletable 
-
-
-                                // FK not part of me - replaceable 
-
-
-
-                                // MFK
-
-                        } else {
-                                // FK on me 
-
-
-                                // MFK
-
-
+            $server_db_prefix = AfwSession::config("db_prefix","uoh_");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+                       // adm.application_desire-ملف التقديم	application_id  أنا تفاصيل لها (required field)
+                        // require_once "../adm/application_desire.php";
+                        $obj = new ApplicationDesire();
+                        $obj->where("application_id = '$id' and active='Y' and desire_status_enum in (2,3)");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "The applicant has some accepted desires and can't be deleted";
+                            return false;
                         }
-                        return true;
-                }
-        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("application_id = '$id' and (active='N' or desire_status_enum not in (2,3))");
+
+
+                        
+                   // FK part of me - deletable 
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+ 
+
+                        // adm.application_desire-ملف التقديم	application_id  أنا تفاصيل لها (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/application_desire.php";
+                            ApplicationDesire::updateWhere(array('application_id'=>$id_replace), "application_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.application_desire set application_id='$id_replace' where application_id='$id' ");
+                            
+                        } 
+                        
+
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	}
 
         public function applicationAttributeIsApplicable($attribute)
         {

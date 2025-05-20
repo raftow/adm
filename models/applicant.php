@@ -811,7 +811,47 @@ class Applicant extends AdmObject
                                         "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
 
 
+                $color = "red";
+                $title_en = "Reset Applicant";
+                $title_ar = $this->tm($title_en, 'ar');
+                
+                $methodName = "resetApplicant";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                        "LABEL_AR" => $title_ar, 
+                                        "LABEL_EN" => $title_en, 
+                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');                                        
+
+
                 return $pbms;
+        }
+
+        
+
+        public function resetApplicant($lang="ar")
+        {
+                $id = $this->id;
+
+                $objApp = new Application();
+                $objDes = new ApplicationDesire();
+                $objFle = new ApplicantFile();
+                
+                $objDes->where("applicant_id = '$id' and active='Y' and desire_status_enum in (2,3)");
+                $nbRecordsCritical = $objDes->count();
+
+                
+                if(!$nbRecordsCritical)
+                {
+                        $objApp->deleteWhere("applicant_id = '$id'");
+                        $objDes->deleteWhere("applicant_id = '$id'");
+                        $objFle->deleteWhere("applicant_id = '$id'");
+                        return ["", "The applicant has been reset and can be deleted"];
+                }
+                else
+                {
+                        return ["The applicant has some accepted desires and can't be deleted", ""];
+                }
+
+                
         }
 
         public function runOnlyNeedUpdateApis($lang = "ar")
