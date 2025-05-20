@@ -145,8 +145,9 @@ class Application extends AdmObject
                 
 
                 if($commit) $this->commit();
+                
 
-                return [$input_arr, $saved];
+                return [$input_arr, $saved, "saveNeededAttributes : ".$this->getTechnicalNotes()];
         }
 
 
@@ -189,8 +190,7 @@ class Application extends AdmObject
                                 $apis_war = "case of data does not need update";
                         }
 
-                        list($received, $saved) = $applicationObj->saveNeededAttributes($input_arr);
-                        
+                        list($received, $saved, $notes) = $applicationObj->saveNeededAttributes($input_arr);
                         // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
                         list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
                         
@@ -210,7 +210,7 @@ class Application extends AdmObject
                                 $applicationData = null;
                         }
                         
-                        $notes = $applicationObj->getTechnicalNotes();
+                        
                 }
                 else
                 {

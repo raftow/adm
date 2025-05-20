@@ -3,11 +3,24 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_account`
+CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `sci_id`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_step_request`
+CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `sci_id`;");
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_condition_exec`
 CHANGE `id` `id` bigint(33) NOT NULL AUTO_INCREMENT FIRST,
 CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_plan_id`;");
 
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_simulation`
+CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_simulation_id`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_file`
+CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `desc_en`;");
+
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_desire`
+CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `gender_enum`,
 CHANGE `gender_enum` `gender_enum` smallint NULL AFTER `sci_id`,
 CHANGE `idn` `idn` varchar(32) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `applicant_id`,
 CHANGE `application_model_id` `application_model_id` int NULL AFTER `application_simulation_id`,
