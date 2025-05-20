@@ -380,6 +380,11 @@ class AdmApplicantEvaluationAfwStructure
                         'NO-ERROR-CHECK' => true,
                         'FGROUP' => 'tech_fields'
                 ),
+                'need_evaluation_enum' => array('SHORTNAME' => 'evaluation',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'ENUM',  'ANSWER' => '',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_25', ),
 
 
         );
