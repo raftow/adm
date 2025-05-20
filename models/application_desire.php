@@ -135,7 +135,16 @@ class ApplicationDesire extends AdmObject
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) {
                                 $obj->set("desire_num", $desire_num);
+                                $obj->set("application_id", $applicationObj->id);
                                 $obj->set("idn", $idn);
+                                $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
+                                $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
+                                $obj->set("application_model_branch_id", $applicationModelBranchObj->id);
+                                if (!$applicationModelBranchObj)  throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id $application_plan_branch_id doesn't have an application_model_branch_id");
+                                $obj->set("sorting_group_id", $applicationModelBranchObj->getVal("sorting_group_id",));
+                                $obj->set("applicant_qualification_id", $applicationObj->getVal("applicant_qualification_id"));
+                                $obj->set("qualification_id", $applicationObj->getVal("qualification_id"));
+                                $obj->set("major_category_id", $applicationObj->getVal("major_category_id"));
                                 $obj->activate();
                         }
                         return $obj;
