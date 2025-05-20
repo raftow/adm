@@ -547,19 +547,7 @@ class Application extends AdmObject
                 if ($this->objApplicationModel) {
                         
                         
-                        $color = "red";
-                        $title_ar = $this->tm("reset Application", 'ar');
-                        $title_en = $this->tm("reset Application", 'en');
-                        $methodName = "resetApplication";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                "METHOD" => $methodName,
-                                "COLOR" => $color,
-                                "LABEL_AR" => $title_ar,
-                                "LABEL_EN" => $title_en,
-                                "ADMIN-ONLY" => true,
-                                "BF-ID" => "",
-                                'STEP' => "all"
-                        );
+                        
 
 
                         $color = "orange";
@@ -578,6 +566,20 @@ class Application extends AdmObject
 
                         if($currentStepNum>1)
                         {
+                                $color = "red";
+                                $title_ar = $this->tm("reset Application", 'ar');
+                                $title_en = $this->tm("reset Application", 'en');
+                                $methodName = "resetApplication";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        "BF-ID" => "",
+                                        'STEPS' => "all"
+                                );
+
                                 $color = "red";
                                 $title_ar = $this->tm("Back to first step", 'ar');
                                 $title_en = $this->tm("Back to first step", 'en');
