@@ -1944,14 +1944,14 @@ class Application extends AdmObject
                         $this->nb_desires = null;
 
                         $info = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is different than new $application_plan_branch_mfk : existing : $existing, added : $added, deleted : $deleted, delete refused : $delete_refused";
-                        $this->debugg_tech_notes = $info;
+                        $this->setTechnicalNotes($info);
                         // die($info);
 
                 }
                 else
                 {
                         $warn = "Rafik Debugging : prev = $previous_application_plan_branch_mfk is same than new $application_plan_branch_mfk";
-                        $this->debugg_tech_notes = $warn;
+                        $this->setTechnicalNotes($warn);
                         // die($warn);
                         
                 }
@@ -1962,7 +1962,9 @@ class Application extends AdmObject
 
         public function afterMaj($id, $fields_updated)
         {
+                $this->setTechnicalNotes("Application::afterMaj($id, [".implode(",", $fields_updated)."])");
                 if ($fields_updated["application_plan_branch_mfk"]) {
+                        
                        $this->refreshDesireList(); 
                 }
                 // else die(var_export($fields_updated,true));
