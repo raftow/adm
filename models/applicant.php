@@ -1125,7 +1125,7 @@ class Applicant extends AdmObject
                         {
                                 // @todo : in this case how to know the field update datetime
                                 $field_value_datetime = date("Y-m-d");
-                                $api = "medali";
+                                $api = "الخدمات الالكترونية";
                         }
                         
                         if ($row_matrix['empty']) {
