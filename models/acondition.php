@@ -537,13 +537,17 @@ class Acondition extends AdmObject{
                                         if(!$res2) 
                                         {
                                                 $has_xxxxx = ($res2===false) ? $has_failed : $unable_to_apply;
-                                                return [$res2, $cond2Desc." " .$has_xxxxx. " : ".$comments2, $cond2Desc.":".$tech2];
+                                                $excuseText = $this->getExcuseText($lang, $obj);                
+                                                if(!$excuseText or $adminMode) $excuseText .= " " . $cond2Desc." " .$has_xxxxx. " : ".$comments2;                                                
+                                                return [$res2, $excuseText, $cond2Desc.":".$tech2];
                                         }
                                         else return [true, $cond1Desc." " .$has_succeeded. " : ".$comments1."<br>\n".$cond2Desc." " .$has_succeeded. " : ".$comments2, $cond2Desc.":".$tech2."<br>\n".$cond1Desc.":".$tech1];
                                 }
                                 else
                                 {
-                                        return [false, $cond1Desc." " .$has_failed. " : ".$comments1, $cond1Desc.":".$tech1];        
+                                        $excuseText = $this->getExcuseText($lang, $obj);                
+                                        if(!$excuseText or $adminMode) $excuseText .= $cond1Desc." " .$has_failed. " : ".$comments1;
+                                        return [false, $excuseText, $cond1Desc.":".$tech1];        
                                 }
                                 
 
@@ -558,7 +562,10 @@ class Acondition extends AdmObject{
                                         {
                                                 if(($res1===false) and ($res2===false))
                                                 {
-                                                        return [false, $cond1Desc." " .$has_failed. " : ".$comments1."<br>\n".$cond2Desc.":".$comments2, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
+                                                        $excuseText = $this->getExcuseText($lang, $obj);                
+                                                        if(!$excuseText or $adminMode) $excuseText .= $cond1Desc." $has_failed : ".$comments1."<br>\n".
+                                                                                                      $cond2Desc." $has_failed : ".$comments2;
+                                                        return [false, $excuseText, $cond1Desc.":".$tech1."<br>\n".$cond2Desc.":".$tech2];
                                                 }
                                                 else 
                                                 {
