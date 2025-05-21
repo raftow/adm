@@ -155,7 +155,7 @@ class Applicant extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
-                die("beforeMaj fields_updated = ".var_export($fields_updated,true)." id= $id");
+                // die("beforeMaj fields_updated = ".var_export($fields_updated,true)." id= $id");
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $birth_gdate = $this->getVal("birth_gdate");
                 $birth_date = $this->getVal("birth_date");
@@ -239,7 +239,7 @@ class Applicant extends AdmObject
                                         $eval_date = $this->getVal($eval_date_attribute);
                                         if(!$eval_date) $eval_date = "2025-01-01";
                                         $eval_result = $this->getVal($eval_attribute);
-                                        if($eval_date and $eval_val)
+                                        if($eval_date and $eval_result)
                                         {
                                                 $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, true);
                                                 if($objEval)
@@ -252,7 +252,7 @@ class Applicant extends AdmObject
                                 }
                                 else
                                 {
-                                        die("fields_updated = ".var_export($fields_updated,true));
+                                        // die("fields_updated = ".var_export($fields_updated,true));
                                 }
                         }       
                 }
