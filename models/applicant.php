@@ -155,7 +155,7 @@ class Applicant extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
-                die("beforeMaj fields_updated = ".var_export($fields_updated,true)." id= $id");
+                //die("beforeMaj fields_updated = ".var_export($fields_updated,true)." id= $id");
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $birth_gdate = $this->getVal("birth_gdate");
                 $birth_date = $this->getVal("birth_date");
@@ -227,6 +227,7 @@ class Applicant extends AdmObject
                 }*/
 
                 $eval_settings = include("../extra/eval_settings.php");
+                die("eval_settings=".var_export($eval_settings,true));
                 foreach($eval_settings as $eval_type => $eval_setting_row)
                 {
                         foreach($eval_setting_row as $categ => $eval_setting_case)
