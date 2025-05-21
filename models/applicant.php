@@ -228,7 +228,7 @@ class Applicant extends AdmObject
                 $file_dir_name = dirname(__FILE__);
                 
                 $eval_settings = require("$file_dir_name/../extra/eval_settings.php");
-                die("from $file_dir_name/../extra/eval_settings.php eval_settings=".var_export($eval_settings,true));
+                // die("from $file_dir_name/../extra/eval_settings.php eval_settings=".var_export($eval_settings,true));
                 foreach($eval_settings as $eval_type => $eval_setting_row)
                 {
                         foreach($eval_setting_row as $categ => $eval_setting_case)
