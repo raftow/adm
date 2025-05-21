@@ -226,7 +226,7 @@ class Applicant extends AdmObject
                         }
                 }*/
 
-                $eval_settings = include("../extra/eval_settings.php");
+                $eval_settings = require("../extra/eval_settings.php");
                 die("eval_settings=".var_export($eval_settings,true));
                 foreach($eval_settings as $eval_type => $eval_setting_row)
                 {
