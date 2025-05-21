@@ -155,6 +155,7 @@ class Applicant extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
+                die("beforeMaj fields_updated = ".var_export($fields_updated,true)." id= $id");
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $birth_gdate = $this->getVal("birth_gdate");
                 $birth_date = $this->getVal("birth_date");
