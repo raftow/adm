@@ -236,6 +236,7 @@ class Applicant extends AdmObject
                                 if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute])
                                 {
                                         $eval_date = $this->getVal($eval_date_attribute);
+                                        if(!$eval_date) $eval_date = "2025-01-01";
                                         $eval_result = $this->getVal($eval_attribute);
                                         if($eval_date and $eval_val)
                                         {
