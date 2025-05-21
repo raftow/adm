@@ -248,6 +248,7 @@ class Applicant extends AdmObject
                                                 if($objEval)
                                                 {
                                                         $objEval->set("eval_result", $eval_result);
+                                                        $objEval->set("imported", "Y");
                                                         $objEval->commit();
                                                 }
                                         }
