@@ -173,7 +173,7 @@ class Applicant extends AdmObject
                 $idn = $this->getVal("idn");
                 $idn_type_id = $this->getVal("idn_type_id");
                 if(!$idn_type_id) list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
-                if ((!$idn) or (!$idn_type_id)) // should never happen but ....                    
+                if ((!$idn) or (!$idn_type_id)) // should never happen but ...
                 {
                         throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
                 }
@@ -225,9 +225,10 @@ class Applicant extends AdmObject
                                 ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
                         }
                 }*/
-
-                $eval_settings = require("../extra/eval_settings.php");
-                die("eval_settings=".var_export($eval_settings,true));
+                $file_dir_name = dirname(__FILE__);
+                
+                $eval_settings = require("$file_dir_name/../extra/eval_settings.php");
+                die("from $file_dir_name/../extra/eval_settings.php eval_settings=".var_export($eval_settings,true));
                 foreach($eval_settings as $eval_type => $eval_setting_row)
                 {
                         foreach($eval_setting_row as $categ => $eval_setting_case)
@@ -279,7 +280,7 @@ class Applicant extends AdmObject
                 if (!$additional_fields) {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        require_once($file_dir_name . "/..../client-$main_company/extra/applicant_additional_fields-$main_company.php");
+                        require_once($file_dir_name . "/../../client-$main_company/extra/applicant_additional_fields-$main_company.php");
                 }
 
                 $return = $additional_fields[$field_name];
