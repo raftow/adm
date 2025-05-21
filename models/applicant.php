@@ -212,7 +212,8 @@ class Applicant extends AdmObject
                         if ($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id");
                 }
 
-                $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", true);
+                /* I am afraid of infinite loop as apis run may trigger beforeMaj find another solution
+                $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", false);
                 $api_runner_class = self::loadApiRunner();
                 if ($this->id and ($first_register or $register_apis_need_refresh)) {
                         
@@ -223,7 +224,7 @@ class Applicant extends AdmObject
                                 if (!$aepObj) throw new AfwRuntimeException("the register API $register_api is not found in DB");
                                 ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
                         }
-                }
+                }*/
 
                 $eval_settings = include("../extra/eval_settings.php");
                 foreach($eval_settings as $eval_type => $eval_setting_row)
