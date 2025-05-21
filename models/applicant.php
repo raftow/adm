@@ -233,7 +233,7 @@ class Applicant extends AdmObject
                                 $eval_attribute = "qiyas_".$eval_type."_".$categ;
                                 $eval_date_attribute = $eval_attribute . "_date"; 
 
-                                if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute] or true) // or true temporary because prospects already created without app_eval
+                                if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute]) 
                                 {
                                         $eval_date = $this->getVal($eval_date_attribute);
                                         if(!$eval_date) $eval_date = "2025-01-01";
