@@ -249,6 +249,10 @@ class Applicant extends AdmObject
                                         }
                                         
                                 }
+                                else
+                                {
+                                        die("fields_updated = ".var_export($fields_updated,true));
+                                }
                         }       
                 }
                 
