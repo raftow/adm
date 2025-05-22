@@ -13,6 +13,7 @@ class ServiceItemArTranslator{
 	$trad["service_item"]["service_item_name_en"] = "عنصر الخدمة - انجليزي";
 	$trad["service_item"]["upload_file_ind"] = "رفع ملفات";
 	$trad["service_item"]["document_type_mfk"] = "نوع الوثيقة";
+    $trad["service_item"]["field_related"] = "متعلق بالحقل";
         return $trad;
         }
 
