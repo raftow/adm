@@ -82,7 +82,7 @@
         'RETRIEVE' => false,
         'QEDIT' => true,
         'EDIT' => true,
-        'TYPE' => 'INT', 'MANDATORY' => false, 
+        'TYPE' => 'MFK', 'MANDATORY' => false, "ANSWER"=>"document_type","ANSMODULE"=>"adm",
         'STEP' => 1,
         'DISPLAY-UGROUPS' => '',
         'EDIT-UGROUPS' => '',
