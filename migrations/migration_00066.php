@@ -146,7 +146,7 @@ try
         AfwDatabase::db_query("create unique index uk_service_request on ".$server_db_prefix."adm.service_request(idn,first_name,last_name,mobile,email,service_category_id,service_item_id,subject,description,applicant_file_id);");
 
 
-        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."document_category (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `document_category_name_ar`, `document_category_name_en`) VALUES
+        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.document_category (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `document_category_name_ar`, `document_category_name_en`) VALUES
         (1, 1, '2025-05-19 12:55:39', 1, '2025-05-19 12:55:39', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'وثائق التعريف وإثبات الهوية', ' Personal Identification and Proof of Identity'),
         (2, 1, '2025-05-19 12:56:13', 1, '2025-05-19 12:56:13', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'المؤهلات العلمية و السجلات الأكاديمية', 'Academic Records'),
         (3, 1, '2025-05-19 12:56:31', 1, '2025-05-19 12:56:31', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'الاختبارات', 'Standardized Test Scores'),
@@ -157,7 +157,7 @@ try
         (8, 1, '2025-05-19 12:59:29', 1, '2025-05-19 12:59:29', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'الوثائق المهنية', 'Professional and Extracurricular Documents'),
         (9, 1, '2025-05-19 13:00:06', 1, '2025-05-19 13:00:06', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'شهادات الخلو من السوابق', 'Background Checks and Clearance Certificates');");
 
-        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."document_type (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `document_type_name_ar`, `document_type_name_en`, `document_category_id`) VALUES
+        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.document_type (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `document_type_name_ar`, `document_type_name_en`, `document_category_id`) VALUES
         (1, 1, '2025-05-20 08:11:25', 1, '2025-05-20 08:11:25', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'صورة لجواز السفر', 'Passport copy', 1),
         (2, 1, '2025-05-20 08:12:22', 1, '2025-05-20 08:12:22', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'بطاقة الهوية الوطنية', 'National ID', 1),
         (3, 1, '2025-05-20 08:12:22', 1, '2025-05-20 08:12:22', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'بطاقة الإقامة', 'Resident Permit', 1),
@@ -193,13 +193,13 @@ try
         (33, 1, '2025-05-20 08:39:06', 1, '2025-05-20 08:39:06', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'توصية مهنية', 'letter of professional recommendations', 8),
         (34, 1, '2025-05-20 08:39:06', 1, '2025-05-20 08:39:06', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'تقرير شهادة خلو سوابق', 'Police clearance certificate', 9);");
 
-        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."service_category (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `service_category_name_ar`, `service_category_name_en`) VALUES
+        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.service_category (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `service_category_name_ar`, `service_category_name_en`) VALUES
         (1, 1, '2025-05-19 13:00:57', 1, '2025-05-19 13:00:57', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'استفسار عام', 'General Inquiry'),
         (2, 1, '2025-05-19 13:01:11', 1, '2025-05-19 13:01:11', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'القبول الجامعي', 'University Admission'),
         (3, 1, '2025-05-19 13:01:30', 1, '2025-05-19 13:01:30', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'القبول الاستثنائي', 'Exceptional Admission'),
         (4, 1, '2025-05-19 13:01:40', 1, '2025-05-19 13:01:40', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, 'حساب المتقدم', 'Applicant Account');");
             
-        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."service_item (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `service_category_id`, `service_item_name_ar`, `service_item_name_en`, `upload_file_ind`, `document_type_mfk`) VALUES
+        AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.service_item (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `service_category_id`, `service_item_name_ar`, `service_item_name_en`, `upload_file_ind`, `document_type_mfk`) VALUES
         (1, 1, '2025-05-19 13:06:06', 1, '2025-05-19 13:06:06', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, '1', 'استفسار القبول الثانوي', 0, 0, NULL),
         (2, 1, '2025-05-19 13:06:30', 1, '2025-05-19 13:07:19', 0, NULL, 'Y', 'Y', 2, ',', ',', ',', 0, '2', 'المتقدم المعفي من اختبار القدرات والتحصيلي', 0, 0, NULL),
         (3, 1, '2025-05-19 13:07:11', 1, '2025-05-19 13:07:11', 0, NULL, 'Y', 'Y', 1, ',', ',', ',', 0, '2', 'بيانات المتقدم لم ترد من الوزارة', 0, 0, NULL),
