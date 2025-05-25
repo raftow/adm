@@ -889,7 +889,7 @@
                                         'capacity_track4'=>"seats_capacity-capacity_track1-capacity_track2-capacity_track3",                                                     
                                 ];
                         $where_clause = "application_model_id = ".$this->id;
-                        ApplicationModelBranch::updateWhere($sets_arr, $where_clause);
+                        ApplicationModelBranch::updateWhere($sets_arr, $where_clause, true);
                 }
 
                 public function genereApplicationModelBranchList($lang="ar")

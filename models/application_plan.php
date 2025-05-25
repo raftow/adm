@@ -613,7 +613,7 @@ class ApplicationPlan extends AdmObject
                             'capacity_track4'=>"seats_capacity-capacity_track1-capacity_track2-capacity_track3",                                                     
                     ];
             $where_clause = "application_plan_id = ".$this->id;
-            ApplicationPlanBranch::updateWhere($sets_arr, $where_clause);
+            ApplicationPlanBranch::updateWhere($sets_arr, $where_clause, true);
     }
 
 
