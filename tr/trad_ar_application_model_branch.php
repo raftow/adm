@@ -43,6 +43,9 @@
 	$trad["application_model_branch"]["branch_name_ar"] = "مسمى الفرع بالعربية";
 	$trad["application_model_branch"]["branch_name_en"] = "مسمى الفرع بالانجليزية";
 
+	$trad["application_model_branch"]["branch_order"] = "ترتيب الفرع";
+	
+
 	$trad["application_model_branch"]["sorting_group_id"] = "مجموعة الفرز";
 
 	

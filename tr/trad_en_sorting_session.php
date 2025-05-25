@@ -21,6 +21,7 @@ class SortingSessionEnTranslator{
 		$trad["sorting_session"]["sortingGroupList"] = "Sorting Group List";
 
 		$trad["sorting_session"]["started_ind"] = "Sorting has started";
+		$trad["sorting_session"]["applicant_id"] = "Applicant IDN for audit";  
         // steps
         return $trad;
     }

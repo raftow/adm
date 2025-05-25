@@ -233,6 +233,20 @@
                                                                 'CSS' => 'width_pct_25',
                                                         ),
 
+                                        /*'weighted_pctg' => array(
+                                                'FGROUP' => 'weighted_percentage',
+                                                'STEP' => 5,
+                                                'TYPE' => 'FLOAT',
+                                                'DEFAULT' => 0.1,
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                "CAN-BE-SETTED" => false,
+                                                'NO-COTE' => true,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),  */                                                      
+
                                         'weighted_percentage_details' => array(
                                                 'FGROUP' => 'weighted_percentage',
                                                 'STEP' => 2,
@@ -383,7 +397,7 @@
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'SIZE' => 32, 
-                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.4', 
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'STEP' => 5,
                                                 'DISPLAY' => true,
                                                 'READONLY' => true,
@@ -398,7 +412,7 @@
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'SIZE' => 32, 
-                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.4', 
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'STEP' => 5,
                                                 'DISPLAY' => true,
                                                 'READONLY' => true,
@@ -412,7 +426,7 @@
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'SIZE' => 32, 
-                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.4', 
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'STEP' => 5,
                                                 'DISPLAY' => true,
                                                 'READONLY' => true,

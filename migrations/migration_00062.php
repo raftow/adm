@@ -3,35 +3,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_account`
-CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `sci_id`;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_step_request`
-CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `sci_id`;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_condition_exec`
-CHANGE `id` `id` bigint(33) NOT NULL AUTO_INCREMENT FIRST,
-CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_plan_id`;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_simulation`
-CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_simulation_id`;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_file`
-CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `desc_en`;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_desire`
-CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `gender_enum`,
-CHANGE `gender_enum` `gender_enum` smallint NULL AFTER `sci_id`,
-CHANGE `idn` `idn` varchar(32) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `applicant_id`,
-CHANGE `application_model_id` `application_model_id` int NULL AFTER `application_simulation_id`,
-CHANGE `academic_level_id` `academic_level_id` int NULL AFTER `application_model_id`,
-CHANGE `application_model_branch_id` `application_model_branch_id` int NULL AFTER `application_plan_branch_id`,
-CHANGE `step_num` `step_num` smallint NULL AFTER `health_ind`;");
-
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   import char(1) DEFAULT NULL  AFTER published;");
-AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set import = 'N' where import  is null;");
-
-/* AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session;"); */
+AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sorting_session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,14 +39,66 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sort
   last_approve_date datetime DEFAULT NULL , 
   upgraded char(1) NOT NULL DEFAULT 'N', 
   started_ind char(1) NOT NULL DEFAULT 'N',
-  
+  applicant_id int(11) DEFAULT NULL, 
+
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 // AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session DROP index uk_sorting_session");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add   weighted_pctg float DEFAULT NULL  AFTER track_num;");  
 
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.sorting_session set started_ind = 'N'");  
 AfwDatabase::db_query("CREATE unique index uk_sorting_session on ".$server_db_prefix."adm.sorting_session(application_plan_id,session_num);");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   branch_order smallint NOT NULL  AFTER application_model_branch_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   min_app_score1 float DEFAULT NULL  AFTER min_weighted_percentage;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   min_app_score2 float DEFAULT NULL  AFTER min_app_score1;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   min_app_score3 float DEFAULT NULL  AFTER min_app_score2;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   branch_order smallint NOT NULL  AFTER application_model_id;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add key indx1_for_sorting(application_plan_id,application_simulation_id,application_step_id);");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add key indx2_for_sorting(application_plan_id,application_simulation_id,application_step_id, active);");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add key indx3_for_sorting(application_plan_id,application_simulation_id,application_step_id, active, sorting_group_id);");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire add key indx4_for_sorting(application_plan_id,application_simulation_id,application_step_id, active, track_num);");
+
+
+
+
+
+
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_account`
+CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `sci_id`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_step_request`
+CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `sci_id`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_condition_exec`
+CHANGE `id` `id` bigint(33) NOT NULL AUTO_INCREMENT FIRST,
+CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_plan_id`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_simulation`
+CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `application_simulation_id`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_file`
+CHANGE `applicant_id` `applicant_id` bigint(20) NULL AFTER `desc_en`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`application_desire`
+CHANGE `applicant_id` `applicant_id` bigint(20) NOT NULL AFTER `gender_enum`,
+CHANGE `gender_enum` `gender_enum` smallint NULL AFTER `sci_id`,
+CHANGE `idn` `idn` varchar(32) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `applicant_id`,
+CHANGE `application_model_id` `application_model_id` int NULL AFTER `application_simulation_id`,
+CHANGE `academic_level_id` `academic_level_id` int NULL AFTER `application_model_id`,
+CHANGE `application_model_branch_id` `application_model_branch_id` int NULL AFTER `application_plan_branch_id`,
+CHANGE `step_num` `step_num` smallint NULL AFTER `health_ind`;");
+
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint add   import char(1) DEFAULT NULL  AFTER published;");
+AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.api_endpoint set import = 'N' where import  is null;");
+
+
 
 AfwDatabase::db_query("CREATE unique index uk_application on ".$server_db_prefix."adm.application(applicant_id,application_plan_id,application_simulation_id);");
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`sorting_group` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `name_ar`, `desc_ar`, `name_en`, `desc_en`, `sorting_field_1_id`, `sorting_field_2_id`, `sorting_field_3_id`, `field1_sorting_sens_enum`, `field2_sorting_sens_enum`, `field3_sorting_sens_enum`, `formula_field_1_id`, `formula_field_2_id`, `formula_field_3_id`, `formula_field_4_id`, `formula_field_5_id`, `formula_field_6_id`, `formula_field_7_id`, `formula_field_8_id`, `formula_field_9_id`) VALUES

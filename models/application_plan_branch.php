@@ -14,6 +14,11 @@ class ApplicationPlanBranch extends AdmObject
                 AdmApplicationPlanBranchAfwStructure::initInstance($this);
         }
 
+        public function moveColumn()
+        {
+                return "branch_order";
+        }
+
         public static function loadById($id)
         {
                 $obj = new ApplicationPlanBranch();
@@ -48,10 +53,10 @@ class ApplicationPlanBranch extends AdmObject
         }
 
 
-        public static function getBranchsCapacityMatrix($sorting_group_id, $track)
+        public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track)
         {
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-                return AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where sorting_group_id=$sorting_group_id", "id", "capacity");
+                return AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "capacity");
         }
 
         public function getDisplay($lang = 'ar')
@@ -62,6 +67,17 @@ class ApplicationPlanBranch extends AdmObject
         public function stepsAreOrdered()
         {
                 return true;
+        }
+
+
+        public function inheritBranchOrder($lang = "ar")
+        {
+                $applicationModelBranchObj = $this->het("application_model_branch_id");
+
+                $this->set("branch_order", $applicationModelBranchObj->getVal("branch_order"));
+                $this->commit();
+
+                return ["", "done : " . $this->id, ""];
         }
 
 
@@ -288,6 +304,32 @@ class ApplicationPlanBranch extends AdmObject
         }
 
 
+        public static function getAllMinAppliedScore($sorting_group_id, $application_plan_id, $application_simulation_id, $application_model_id)
+        {
+                $sorting_step_id = ApplicationModel::getSortingStepId($application_model_id);
+                list($sortingCriterea,
+                $msf1,$sf1_order_sens,$sf1_func,
+                $msf2,$sf2_order_sens,$sf2_func,
+                $msf3,$sf3_order_sens,$sf3_func) = SortingGroup::getGroupingCriterea($sorting_group_id);
+
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                
+                $msf_functions = trim("$sf1_func,$sf2_func,$sf3_func"," ,");
+                $msf_cols = trim("$msf1,$msf2,$msf3"," ,");
+
+                $sql = "SELECT application_plan_branch_id, $msf_functions from $server_db_prefix"."adm.application_desire
+                     WHERE application_plan_id = $application_plan_id
+                       AND application_simulation_id = $application_simulation_id
+                       AND application_step_id = $sorting_step_id
+                       AND active = 'Y'
+                     GROUP BY application_plan_branch_id  
+                ";
+
+
+                return [$msf_cols, AfwDatabase::db_recup_rows_by_id($sql, "application_plan_branch_id")];
+
+        }
+
         public function getMinAppliedScore($application_simulation_id, $application_model_id)
         {
                 $sorting_group_id = $this->getVal("sorting_group_id");
@@ -298,7 +340,7 @@ class ApplicationPlanBranch extends AdmObject
 
                 $application_plan_branch_id = $this->id;
                 $application_plan_id = $this->getVal("application_plan_id");                
-                $application_plan_id = $this->getVal("application_plan_id");                
+                //$application_plan_id = $this->getVal("application_plan_id");                
                 $sorting_step_id = ApplicationModel::getSortingStepId($application_model_id);
                 $adObj = new ApplicationDesire();
                 $adObj->select("application_plan_id", $application_plan_id);

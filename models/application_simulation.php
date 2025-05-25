@@ -20,6 +20,7 @@ class ApplicationSimulation extends AdmObject{
             AdmApplicationSimulationAfwStructure::initInstance($this);    
 	    }
         
+
         public static function loadById($id)
         {
            $obj = new ApplicationSimulation();
@@ -440,6 +441,7 @@ class ApplicationSimulation extends AdmObject{
             $war_arr = [];
             $tech_arr = [];
             $log_arr = [];
+            $result_arr = [];
             $simulation_method = $this->getVal("simul_method_enum");
             $simulation_method_dec = $this->decode("simul_method_enum");
             if($fromProspect and ($simulation_method!=4)) 
@@ -594,6 +596,12 @@ class ApplicationSimulation extends AdmObject{
 
                         
                     }
+
+                    $result_arr["total"] = $cntDone;
+                    $result_arr["success"] = $cntDoneSuccess;
+                    $result_arr["abootstrap"] = $bootstraps;
+                    $result_arr["dbootstrap"] = $desire_bootstraps;
+
                     $inf_arr[] = "Nb of applicants simulated : $cntDone";
                     $inf_arr[] = "Nb of applicants simulated with success : $cntDoneSuccess";
                     $inf_arr[] = "Nb of application bootstrap(s) : $bootstraps";
@@ -615,9 +623,12 @@ class ApplicationSimulation extends AdmObject{
                 */
             // die("war_arr=".var_export($war_arr));
 
+            $result_arr["errors"] = count($err_arr);
+            $result_arr["warnings"] = count($war_arr);
+
             $boucle_loadObjectFK = $old_boucle_loadObjectFK;
             $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+            return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
         

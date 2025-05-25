@@ -7,7 +7,7 @@ $file_dir_name = dirname(__FILE__);
 
 class SortingSession extends AFWObject
 {
-
+    private $nb_desires = null;
     public static $MY_ATABLE_ID = 13952;
 
     public static $DATABASE            = "uoh_adm";
@@ -86,7 +86,7 @@ class SortingSession extends AFWObject
             return $obj;
         } else return null;
     }
-
+    
     public static function loadByMainIndex($application_plan_id, $session_num, $create_obj_if_not_found = false)
     {
         $obj = new SortingSession();
@@ -403,7 +403,11 @@ class SortingSession extends AFWObject
     
     public function calcNb_desires($what = "value")
     {
-        return $this->getRelation("applicationDesireList")->count();
+        if(!$this->nb_desires)
+        {
+            $this->nb_desires = $this->getRelation("applicationDesireList")->count();
+        }
+        return $this->nb_desires; 
     }
 
     /**
@@ -514,7 +518,19 @@ class SortingSession extends AFWObject
                                                 'CONFIRMATION_NEEDED' => true,
                                                 'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
-                                                'STEP' => $this->stepOfAttribute("nb_desires"));
+                                                'STEP' => $this->stepOfAttribute("started_ind"));
+
+
+            $color = "green";
+            $title_ar = "تحديث الفرز";
+            $title_en = "Update the sorting";
+            $methodName = "lightSorting";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
+                                                "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                                'STEP' => $this->stepOfAttribute("started_ind"));
+
+
+                                                                                                
         }
 
         
@@ -523,20 +539,24 @@ class SortingSession extends AFWObject
         return $pbms;
     }
 
-    public function postSortingStats($arrDataMinAccepted)    
+    public function postSortingStats($sorting_group_id, $track_num, $arrDataMinAccepted)    
     {
-        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $objme = AfwSession::getUserConnected();
+        if(!$objme) throw new AfwBusinessException("Please login before");
+        $me = $objme->id;
+        // $lang = AfwLanguageHelper::getGlobalLanguage();
         $application_simulation_id = $this->getVal("application_simulation_id");
         $applicationPlanObj = $this->het("application_plan_id");
         $application_plan_id = $this->getVal("application_plan_id");
         $session_num = $this->getVal("session_num");
-        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
-
-        $statsData = [];
+        // $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
+        // $statsData = [];
         
         $applicationPlanBranchList = $applicationPlanObj->get("applicationPlanBranchList");
 
-        $maxPaths = SortingPath::nbPaths($application_model_id);
+        // $maxPaths = SortingPath::nbPaths($application_model_id);
         /*
         $pathData = [];
         for ($spath = 1; $spath <= $maxPaths; $spath++) 
@@ -545,55 +565,83 @@ class SortingSession extends AFWObject
             $pathData[$spath]["en"] = SortingPath::trackTranslation($application_model_id, $spath, "en");
         }*/
 
+        
+
         /**
          * @var ApplicationPlanBranch $applicationPlanBranchItem
          */
+
+        
+
+        SortingSessionStat::deleteWhere("application_plan_id=$application_plan_id and session_num=$session_num and application_simulation_id=$application_simulation_id and track_num = $track_num");
+
+        $sql_insert_into = "INSERT INTO ".$server_db_prefix."adm.sorting_session_stat 
+                       (`created_by`, `updated_by`, `created_at`, `updated_at`, active, version,
+                        `application_plan_id`, `session_num`, `application_simulation_id`, `track_num`,
+                        `application_plan_branch_id`, `capacity`, 
+                        `min_app_score1`, `min_app_score2`, `min_app_score3`, 
+                        nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3) VALUES ";
+
+        $sql_values = "";
+        $count_values = 0;
+        $now = date("Y-m-d H:i:s");
         foreach($applicationPlanBranchList as $applicationPlanBranchItem)
         {
             // foreach($pathData as $spath => $spathLabel)
-            for ($spath = 1; $spath <= $maxPaths; $spath++) 
+            // for ($spath = $track_num; $spath <= $track_num; $spath++) 
+            $spath = $track_num;
+            if($track_num>0)
             {
                 if($applicationPlanBranchItem->attributeIsApplicable("capacity_track$spath"))
                 {
-
                     $rowData = $arrDataMinAccepted[$applicationPlanBranchItem->id];
-                    $rowData["application_plan_branch_id"] = $applicationPlanBranchItem->id;
-                    // $rowData["tunit_ar"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"ar");
-                    // $rowData["tunit_en"] = $applicationPlanBranchItem->showAttribute("training_unit_id",null,true,"en");
-                    // $rowData["program_ar"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"ar");
-                    // $rowData["program_en"] = $applicationPlanBranchItem->showAttribute("program_id",null,true,"en");
-                    // $rowData["gender_ar"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"ar");
-                    // $rowData["gender_en"] = $applicationPlanBranchItem->showAttribute("gender_enum",null,true,"en");
-                    $rowData["track_num"] = $spath;
-                    // $rowData["track_ar"] = $spathLabel["ar"];
-                    // $rowData["track_ar"] = $spathLabel["en"];
-                    $rowData["capacity"] = $applicationPlanBranchItem->getVal("capacity_track$spath");
-                    list($rowData["min_app_score1"], $rowData["min_app_score2"], $rowData["min_app_score3"]) = $applicationPlanBranchItem->getMinAppliedScore($application_simulation_id, $application_model_id);
-                    $statsData[] = $rowData;
-                    // $rowData["nb_free"] = $rowData["capacity"] - $rowData["nb_acc"];
-
-                    $obStat = SortingSessionStat::loadByMainIndex($application_plan_id,$session_num,$application_simulation_id,$applicationPlanBranchItem->id,$spath, true);
-                    $obStat->set("capacity", $rowData["capacity"]);
-                    $obStat->set("nb_accepted", $rowData["nb_accepted"]);
-                    $obStat->set("min_app_score1", $rowData["min_app_score1"]);
-                    $obStat->set("min_app_score2", $rowData["min_app_score2"]);
-                    $obStat->set("min_app_score3", $rowData["min_app_score3"]);
-                    $obStat->set("min_acc_score1", $rowData["min_acc_score1"]);
-                    $obStat->set("min_acc_score2", $rowData["min_acc_score2"]);
-                    $obStat->set("min_acc_score3", $rowData["min_acc_score3"]);
-                    $obStat->commit();
+                    foreach($rowData as $rowCol => $rowVal) $$rowCol = $rowVal;
+                    $application_plan_branch_id = $applicationPlanBranchItem->id;
+                    $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
+                    $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
+                    $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
+                    $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
+                    $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
+                    $application_plan_id, $session_num, $application_simulation_id, $track_num, 
+                    $application_plan_branch_id, $capacity, 
+                    '$min_app_score1', '$min_app_score2', '$min_app_score3',
+                    $nb_accepted, '$min_acc_score1', '$min_acc_score2', '$min_acc_score3'),\n";
                     
-                    
+                    $count_values++;
 
+                    if($count_values>=$db_insert_bloc)
+                    {
+                        $sql_values = trim($sql_values);
+                        $sql_values = trim($sql_values,",");
+                        
+                        AfwDatabase::db_query($sql_insert_into.$sql_values.";");
 
+                        $sql_values = "";
+                        $count_values=0;
+                    }
                 }
             }
         }
 
+        if($count_values>0)
+        {
+            $sql_values = trim($sql_values);
+            $sql_values = trim($sql_values,",");
+            
+            AfwDatabase::db_query($sql_insert_into.$sql_values.";");
 
+            $sql_values = "";
+            $count_values=0;
+        }
         
     }
 
+
+    public function calcControlPanel($what = "value")
+    {
+        return "جاري التطوير ...";
+    }
+    
 
     public function calcStatsPanel($what = "value")
     {
@@ -616,7 +664,7 @@ class SortingSession extends AFWObject
             $keyDecodeArr[$sortingGroupId] = $sortingGroupItem->getDisplay($lang);
         }
         // die("keyDecodeArr = ".var_export($keyDecodeArr,true));
-        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by sorting_group_id";
+        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by sorting_group_id";
         $rows_by_sorting_group = AfwDatabase::db_recup_index($sql_nb_by_sorting_group,"sorting_group_id","nb");
         $html .= "<h1>".$this->translate("sorting group stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_group, $keyDecodeArr);
@@ -630,7 +678,7 @@ class SortingSession extends AFWObject
         }
         
         
-        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by track_num";
+        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by track_num";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"track_num","nb");
         $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
@@ -654,6 +702,10 @@ class SortingSession extends AFWObject
 
     }
 
+    public function lightSorting($lang = "ar")
+    {
+        return $this->runSorting($lang, $preSorting = false);
+    }
     
 
 
@@ -662,13 +714,14 @@ class SortingSession extends AFWObject
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
         $MODE_BATCH_LOURD = true;
-
+        $object_id_for_audit = $this->getVal("applicant_id");
         $session_num = $this->getVal("session_num");
         $sortingGroupList = $this->get("sortingGroupList");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
 
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
         
         if(!$session_num) return ["Please define session num for this sorting session", ""];
         if(!$application_plan_id) return ["Please define application plan for this sorting session", ""];
@@ -689,6 +742,9 @@ class SortingSession extends AFWObject
 
         if($preSorting)
         {
+
+            
+
             $sorting_path_tmp_table = $server_db_prefix."adm.`farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sorting_path`";
             $sorting_path_tmp_sql_drop = "DROP TABLE IF EXISTS $sorting_path_tmp_table;";
             AfwDatabase::db_query($sorting_path_tmp_sql_drop);
@@ -705,24 +761,87 @@ class SortingSession extends AFWObject
             AfwDatabase::db_query($sorting_group_tmp_sql_create);
         }
 
-        $arrDataMinAccepted = [];
-        
+        $war_arr = [];
+        $info_arr = [];
+        $err_arr = [];
 
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
-        {            
+        {
+            $info_arr[]  = "For SG{$sortingGroupId} : ";
+            if($preSorting)
+            {
+                list($msf_cols, $dataMinAppliedScore) = ApplicationPlanBranch::getAllMinAppliedScore($sortingGroupId, $application_plan_id, $application_simulation_id, $application_model_id);
+                $msf_cols_arr = explode(",",$msf_cols);
+                // die("dataMinAppliedScore = ".var_export($dataMinAppliedScore, true));
+                $sql_insert_into = "INSERT INTO $server_db_prefix"."adm.application_plan_branch(id,$msf_cols) VALUES ";
+                $sql_values_arr = [];
+                foreach($dataMinAppliedScore as $apbId => $rowMinAppliedScore)
+                {
+                    $in_values_arr = [];
+                    foreach($msf_cols_arr as $msf_col)
+                    {
+                        $in_values_arr[] = $rowMinAppliedScore[$msf_col];
+                    }
+                    $sql_values_arr[] = "($apbId,". implode(",", $in_values_arr).")";                    
+                    $sql_values = implode(",", $sql_values_arr);
+
+                    
+                }
+
+                $sql_on_dupl = " ON DUPLICATE KEY UPDATE ";
+                $sql_on_dupl_cols_arr = [];
+                foreach($msf_cols_arr as $msf_col)
+                {
+                    $sql_on_dupl_cols_arr[] = "$msf_col=VALUES($msf_col)";
+                }
+
+                $sql_on_dupl .= implode(",", $sql_on_dupl_cols_arr);
+
+
+                $sqlMinAppliedScores = $sql_insert_into . $sql_values . $sql_on_dupl;
+                // die("sqlMinAppliedScores = $sqlMinAppliedScores");
+                AfwDatabase::db_query($sqlMinAppliedScores);
+
+                
+            }    
+            
+
             list($sortingCriterea,
             $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
             $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,
             $sf3,$sf3_order_sens,$sf3_sql,$sf3_insert,$sf3_order) = SortingGroup::getSortingCriterea($sortingGroupId);
-
+            
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
-                $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($sortingGroupId, $spath);
+                $arrDataMinAccepted = [];
+
+                $info_arr[]  = "For SPATH{$spath} : ";
+                $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($application_plan_id, $sortingGroupId, $spath);
+                $branchsCapacityMatrixStart = $branchsCapacityMatrix;
                 $branchsLastScoreMatrix = [];
                 $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
                 $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
                 $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+                $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
                 AfwSession::setConfig("$sorting_table_without_prefix-sql-analysis-max-calls",80000000);
+                
+                $sql_drop_final = "DROP TABLE IF EXISTS $final_sorting_table;";
+                AfwDatabase::db_query($sql_drop_final);
+
+                $sql_create_final = "CREATE TABLE $final_sorting_table (
+                    applicant_id bigint(20) NOT NULL,
+                    sorting_num smallint DEFAULT NULL, 
+                    assigned_desire_num smallint DEFAULT NULL, 
+                    application_plan_branch_id int(11) NULL, 
+                    PRIMARY KEY (`applicant_id`)
+                    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
+
+                
+                AfwDatabase::db_query($sql_create_final);
+
+                $sql_insert_final = "INSERT INTO $final_sorting_table (applicant_id, sorting_num, assigned_desire_num, application_plan_branch_id) VALUES";
+                
+
                 if($preSorting)
                 {
                     
@@ -736,30 +855,26 @@ class SortingSession extends AFWObject
                     }
 
                     
-                    $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";
-
+                    $sql_drop = "DROP TABLE IF EXISTS $sorting_table;";                    
                     AfwDatabase::db_query($sql_drop);
+                    
 
                     $sql_create = "CREATE TABLE $sorting_table (
-                    `applicant_id` bigint(20) NOT NULL,
-                    $sf1_sql  
-                    $sf2_sql
-                    $sf3_sql
+                            `applicant_id` bigint(20) NOT NULL,
+                            $sf1_sql  
+                            $sf2_sql
+                            $sf3_sql
 
-                    $ff_sql
-                    sorting_num smallint DEFAULT NULL, 
-                    assigned_desire_num smallint DEFAULT NULL, 
-                    desire_status smallint DEFAULT 0, 
-                    application_plan_branch_id int(11) NULL, 
-                    PRIMARY KEY (`applicant_id`)
-                    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
+                            $ff_sql
+                            sorting_num smallint DEFAULT NULL,                             
+                            PRIMARY KEY (`applicant_id`)
+                            ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
 
                     AfwDatabase::db_query($sql_create);
 
-
                     $sql_insert = "INSERT INTO $sorting_table 
-                                    (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert assigned_desire_num)".
-                                "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert min(desire_num) as assigned_desire_num
+                                    (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert sorting_num)".
+                                "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert 0
                                     FROM ".$server_db_prefix."adm.application_desire
                                     WHERE application_plan_id = $application_plan_id 
                                     AND application_simulation_id = $application_simulation_id 
@@ -771,24 +886,37 @@ class SortingSession extends AFWObject
 
 
                     AfwDatabase::db_query($sql_insert);
+
+                    // die("sorting_table insert for farz : ".$sql_insert);
                 }
 
                 $sql_farz = "SELECT * FROM $sorting_table order by $sf1_order $sf2_order $sf3_order applicant_id asc";
 
                 $farzRows = AfwDatabase::db_recup_rows($sql_farz);
                 $sorting_num = 0;
+                $absolute_sorting_num = 0;
+                $nb_applicants = count($farzRows);
                 $nb_desire_assigned = 0;
                 $nb_desire_assign_failed = 0;
                 $applicant_assign_failed = "";
                 $old_score = null;
+                $farz_rows = 0;
+                $farz_rows_sql_values = "";
                 foreach($farzRows as $farzRow)
                 {
                     $applicant_id = $farzRow["applicant_id"];
                     $new_score = [$farzRow["sorting_value_1"], $farzRow["sorting_value_2"], $farzRow["sorting_value_3"] ];
+                    $absolute_sorting_num++;
                     if(!self::isSameScore($new_score, $old_score, $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
                     {
-                        $sorting_num++;
+                        $sorting_num=$absolute_sorting_num;
                         $old_score = $new_score;
+                    }
+                    $imploded_score = implode("/", $new_score);
+                    if($applicant_id == $object_id_for_audit)
+                    {
+                        $war_arr[] = "audit score = ".$imploded_score;
+                        $war_arr[] = "audit rank = $sorting_num";
                     }
 
                     // try yo assign him the best desire possible
@@ -799,37 +927,74 @@ class SortingSession extends AFWObject
                     {
                         $desire_num_to_assign++;
                         $application_plan_branch_id_to_assign = $applicantsDesiresMatrix[$applicant_id][$desire_num_to_assign];
-                        $mandatoryToGiveAsPreviouslyGivedForSameScore = false;
-                        if(self::isSameScore($new_score, $branchsLastScoreMatrix[$application_plan_branch_id_to_assign], $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
+                        if($application_plan_branch_id_to_assign)
                         {
-                            $mandatoryToGiveAsPreviouslyGivedForSameScore = true;
-                        }
-                        
-                        if($mandatoryToGiveAsPreviouslyGivedForSameScore or ($branchsCapacityMatrix[$application_plan_branch_id_to_assign]>0))
-                        {
-                            $desire_assigned = $desire_num_to_assign;
-                            $application_plan_branch_id_assigned = $application_plan_branch_id_to_assign;
-                            $branchsLastScoreMatrix[$application_plan_branch_id_assigned] = $new_score;
+                            $mandatoryToGiveAsPreviouslyGivedForSameScore = false;
+                            if(self::isSameScore($new_score, $branchsLastScoreMatrix[$application_plan_branch_id_to_assign], $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
+                            {                            
+                                $mandatoryToGiveAsPreviouslyGivedForSameScore = true;
+                            }
                             
-                            unset($rowDataMinAccepted);
-                            $rowDataMinAccepted = [];
-
-                            list($rowDataMinAccepted["min_acc_score1"], 
-                                    $rowDataMinAccepted["min_acc_score2"],
-                                    $rowDataMinAccepted["min_acc_score3"]) = $new_score;
-                            $arrDataMinAccepted[$application_plan_branch_id_assigned] = $rowDataMinAccepted;
-                            // decrease seats available as one seat is assigned
-                            $branchsCapacityMatrix[$application_plan_branch_id_assigned]--;
-                            if(!$arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"])
+                            if($mandatoryToGiveAsPreviouslyGivedForSameScore or ($branchsCapacityMatrix[$application_plan_branch_id_to_assign]>0))
                             {
-                                $arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"] = 1;
+                                
+                                $desire_assigned = $desire_num_to_assign;
+                                $application_plan_branch_id_assigned = $application_plan_branch_id_to_assign;
+                                if($applicant_id == $object_id_for_audit)
+                                {
+                                    $war_arr[] = "audit desire num $desire_assigned assigned APB-ID = $application_plan_branch_id_assigned";
+                                }
+
+                                
+                                $branchsLastScoreMatrix[$application_plan_branch_id_assigned] = $new_score;
+                                
+                                unset($rowDataMinAccepted);
+                                
+    
+                                list($arrDataMinAccepted[$application_plan_branch_id_assigned]["min_acc_score1"], 
+                                        $arrDataMinAccepted[$application_plan_branch_id_assigned]["min_acc_score2"],
+                                        $arrDataMinAccepted[$application_plan_branch_id_assigned]["min_acc_score3"]) = $new_score;
+                                
+                                // decrease seats available as one seat is assigned
+                                $branchsCapacityMatrix[$application_plan_branch_id_assigned]--;
+                                if($applicant_id == $object_id_for_audit)
+                                {
+                                    $war_arr[] = "audit after desire assigned, branch capacity = ".$branchsCapacityMatrix[$application_plan_branch_id_assigned]."/".$branchsCapacityMatrixStart[$application_plan_branch_id_assigned];
+                                }
+
+                                if($application_plan_branch_id_assigned == $object_id_for_audit)
+                                {
+                                    $war_arr[] = "audit assigned applicant $applicant_id (score=$imploded_score) capacity become : ".$branchsCapacityMatrix[$application_plan_branch_id_assigned]."/".$branchsCapacityMatrixStart[$application_plan_branch_id_assigned];
+                                }
+
+
+                                if(!$arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"])
+                                {
+                                    $arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"] = 1;
+                                }
+                                else
+                                {
+                                    $arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"]++;
+                                }
+                                break;
                             }
                             else
                             {
-                                $arrDataMinAccepted[$application_plan_branch_id_assigned]["nb_accepted"]++;
+                                if($applicant_id == $object_id_for_audit)
+                                {
+                                    if($branchsCapacityMatrixStart[$application_plan_branch_id_to_assign])
+                                    {
+                                        $log_not_ass = "branch capacity = ".$branchsCapacityMatrix[$application_plan_branch_id_to_assign]."/".$branchsCapacityMatrixStart[$application_plan_branch_id_to_assign];
+                                    }
+                                    else
+                                    {
+                                        $log_not_ass = "<b>branch closed or capacity not defined</b>";
+                                    }
+                                    $war_arr[] = "audit desire num $desire_num_to_assign (APB-ID=$application_plan_branch_id_to_assign) not assigned, ".$log_not_ass;
+                                }
                             }
-                            break;
                         }
+                        
                     }
 
                     if($desire_assigned)
@@ -841,22 +1006,49 @@ class SortingSession extends AFWObject
                         $nb_desire_assign_failed++;
                         $applicant_assign_failed = $applicant_id;
                     }
+                    $farz_rows++;
+                    $farz_rows_sql_values .= "($applicant_id, $sorting_num, $desire_assigned, $application_plan_branch_id_assigned),\n";
+                    
+                    if($farz_rows>=$db_insert_bloc)
+                    {
+                        $farz_rows_sql_values = trim($farz_rows_sql_values);
+                        $farz_rows_sql_values = trim($farz_rows_sql_values,",");
+                        AfwDatabase::db_query($sql_insert_final.$farz_rows_sql_values.";");
 
-                    $sql_sorting_applicant = "UPDATE $sorting_table set sorting_num=$sorting_num, assigned_desire_num=$desire_assigned, application_plan_branch_id=$application_plan_branch_id_assigned where applicant_id=$applicant_id";
-                    AfwDatabase::db_query($sql_sorting_applicant);
+                        $farz_rows_sql_values = "";
+                        $farz_rows=0;
+                    }
+
+                    
+
                 }
+
+                if($farz_rows>0)
+                {
+                    $farz_rows_sql_values = trim($farz_rows_sql_values);
+                    $farz_rows_sql_values = trim($farz_rows_sql_values,",");
+                    AfwDatabase::db_query($sql_insert_final.$farz_rows_sql_values.";");
+
+                    $farz_rows_sql_values = "";
+                    $farz_rows=0;
+                }
+
+                $info_arr[] = " Nb applicants = $nb_applicants, Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]";
+                $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted); 
             }
-                
+               
+
+            
         }
 
-        $this->postSortingStats($arrDataMinAccepted);
+        
 
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
 
         AfwQueryAnalyzer::resetQueriesExecuted();
 
-        return ["", "Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]"];
+        return AfwFormatHelper::pbm_result($err_arr, $info_arr, $war_arr);
 
     }
 

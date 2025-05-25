@@ -508,7 +508,7 @@
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_plan_id', 'STEP' => 5,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
-                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'DISPLAY-ICON'=>false,  'BUTTONS'=>true, 'NO-LABEL'=>false),
+                                                'ICONS'=>true, 'DEL'.'ETE-ICON'=>true, 'VIEW-ICON'=>false, 'MOVE_UP-ICON' => true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
 
                                         'applicationList' => array('SHORTNAME' => 'applications',  'SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  

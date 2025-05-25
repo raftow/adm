@@ -31,6 +31,7 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["sorting_field_3_id"] = "معيار الفرز 3";    
 
 		$trad["application_desire"]["sorting_value_1"] = "قيمة معيار الفرز 1";    
+		$trad["application_desire"]["sorting_value_1.short"] = "معيار فرز 1";    
 		$trad["application_desire"]["sorting_value_2"] = "قيمة معيار الفرز 2";    
 		$trad["application_desire"]["sorting_value_3"] = "قيمة معيار الفرز 3";    
 
@@ -46,6 +47,9 @@ class ApplicationDesireArTranslator{
 
 		$trad["application_desire"]["weighted_percentage"] = "النسبة الموزونة";
 		$trad["application_desire"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
+
+		$trad["application_desire"]["weighted_pctg"] = "النسبة الموزونة المترشح بها";
+		$trad["application_desire"]["weighted_pctg.short"] = "نسبة موزونة م.";
 
 		$trad["application_desire"]["current_fields_matrix"] = "حالة تحديث البيانات";
 		$trad["application_desire"]["applicationConditionExecList"] = "تطبيق الشروط";

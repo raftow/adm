@@ -31,6 +31,7 @@
 	$trad["application_plan_branch"]["is_open"] = "البرنامج مفتوح";
 	$trad["application_plan_branch"]["allow_direct_adm"] = "تفعيل القبول المباشر";
 	$trad["application_plan_branch"]["application_model_branch_id"] = "فرع القبول";
+	$trad["application_plan_branch"]["branch_order"] = "ترتيب الفرع";
 
 	$trad["application_plan_branch"]["sortingBranchList"] = "اعدادات الطاقة الاستعابية والفرز";
 	$trad["application_plan_branch"]["applicationDesireList"] = "عينة من الترشحات على هذا الفرع";
@@ -39,6 +40,10 @@
 	$trad["application_plan_branch"]["capacity_track2"] = "الطاقة الاستيعابية - المسار 2";
 	$trad["application_plan_branch"]["capacity_track3"] = "الطاقة الاستيعابية - المسار 3";
 	$trad["application_plan_branch"]["capacity_track4"] = "الطاقة الاستيعابية - المسار 4";
+
+	$trad["application_plan_branch"]["min_app_score1"] = "نسبة التقديم";
+	$trad["application_plan_branch"]["min_app_score2"] = "نسبة التقديم 2";
+	$trad["application_plan_branch"]["min_app_score3"] = "نسبة التقديم 3";
 
 	$trad["application_plan_branch"]["sorting_group_id"] = "مجموعة الفرز";
 

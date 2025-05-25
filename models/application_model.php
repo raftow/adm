@@ -413,6 +413,31 @@
                         return [true, ''];
                 }
 
+                public function reorderBranchs($lang="ar")
+                {
+                        $applicationModelBranchList = $this->get("applicationModelBranchList");   
+                        $branch_order = 0;
+                        $log_arr = [];
+                        foreach($applicationModelBranchList as $applicationModelBranchItem)
+                        {
+                                $old_branch_order = $applicationModelBranchItem->getVal("branch_order"); 
+                                if($branch_order<=0) {
+                                        $branch_order = $old_branch_order; 
+                                        if($branch_order<=0) $branch_order = 1;
+                                        if($branch_order>1) $branch_order = 1;
+                                        $step_from = $branch_order;
+                                }
+                                else $branch_order++;
+                                
+                                $log_arr[] = "from $old_branch_order to $branch_order";
+                                
+                                $applicationModelBranchItem->set("branch_order", $branch_order);  
+                                $applicationModelBranchItem->commit();
+                                $step_to = $branch_order;
+                        }
+
+                        return ["", "reordered from $step_from to $step_to ".implode("<br>\n", $log_arr)];
+                }
 
                 public function reorderSteps($lang="ar")
                 {
@@ -978,6 +1003,14 @@
                         $title_ar = "اعادة ترتيب جميع المراحل"; 
                         $methodName = "reorderSteps";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
+                        
+
+                        $color = "red";
+                        $title_ar = "اعادة ترتيب جميع الفروع"; 
+                        $methodName = "reorderBranchs";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                        
+
                         
 
                         $color = "orange";

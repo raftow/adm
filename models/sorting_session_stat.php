@@ -89,20 +89,25 @@ class SortingSessionStat extends AFWObject{
            
         }
 
+        public function rowCategoryAttribute()
+        {
+            return "correct:FORMULA";
+        }
+
 
         public function getDisplay($lang="ar")
         {
-               
-               $data = array();
-               $link = array();
-               
+                
+                $data = array();
+                $link = array();
+                
 
+                list($data[0],$link[0]) = $this->displayAttribute("application_plan_branch_id",false, $lang);
+                list($data[1],$link[1]) = $this->displayAttribute("session_num",false, $lang);
 
-               
-               return implode(" - ",$data);
+                
+                return implode(" - كرة فرز رقم ",$data);
         }
-        
-        
         
 
         
@@ -186,46 +191,62 @@ class SortingSessionStat extends AFWObject{
         
         public function beforeDelete($id,$id_replace) 
         {
-            $server_db_prefix = AfwSession::config("db_prefix","uoh_");
-            
-            if(!$id)
-            {
-                $id = $this->getId();
-                $simul = true;
-            }
-            else
-            {
-                $simul = false;
-            }
-            
-            if($id)
-            {   
-               if($id_replace==0)
-               {
-                   // FK part of me - not deletable 
+            return false;    
+	    }
 
-                        
-                   // FK part of me - deletable 
 
-                   
-                   // FK not part of me - replaceable 
+        public function attributeIsApplicable($attribute)
+        {
+                if (($attribute == "min_app_score2") or
+                    ($attribute == "min_app_score3") or
+                    ($attribute == "min_acc_score2") or
+                    ($attribute == "min_acc_score3")) {
+                        return false;
+                }
+                
+                return true;
+        }
 
-                        
-                   
-                   // MFK
 
-               }
-               else
-               {
-                        // FK on me 
 
-                        
-                        // MFK
+        public function calcFarz_karra_table($what="withPrefix")
+        {
+            $session_num = $this->getVal("session_num");
+            $application_plan_id = $this->getVal("application_plan_id");
+            $application_simulation_id = $this->getVal("application_simulation_id");
+            $track_num = $this->getVal("track_num");
+            $application_plan_branchObj = $this->het("application_plan_branch_id");
+            $sorting_group_id = $application_plan_branchObj ? $application_plan_branchObj->getVal("sorting_group_id") : 0;
+            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
-                   
-               } 
-               return true;
-            }    
-	}
+                
+
+            $sorting_table_without_prefix = "final_farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sorting_group_id"."_pth$track_num";
+            $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+
+            if($what=="withPrefix") return $sorting_table; else return $sorting_table_without_prefix;
+        }
+
+        public function calcCorrect($what="value")
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            list($yes , $no, $euh) = $this->translateMyYesNo("correct", $what, $lang);
+            $nb_accepted = $this->getVal("nb_accepted"); 
+            $capacity = $this->getVal("capacity");
+
+            if(!$capacity) return $euh;
+
+            $correct = ($nb_accepted<=$capacity);
+            return $correct ? $yes : $no;
+        }
+
+        public function calcSorting_session_id($what="value")
+        {
+            $session_num = $this->getVal("session_num");
+            $application_plan_id = $this->getVal("application_plan_id");
+            $obj = SortingSession::loadByMainIndex($application_plan_id, $session_num);
+
+            return ($what=="value") ? $obj->id : $obj;
+        }
              
 }

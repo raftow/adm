@@ -15,6 +15,11 @@ class ApplicationModelBranch extends AdmObject
                 AdmApplicationModelBranchAfwStructure::initInstance($this);
         }
 
+        public function moveColumn()
+        {
+                return "branch_order";
+        }
+
         public static function loadById($id)
         {
                 $obj = new ApplicationModelBranch();

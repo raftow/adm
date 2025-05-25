@@ -371,7 +371,7 @@
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 4,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
-                                                'ICONS'=>true, 'DELETE-ICON'=>true,
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'MOVE_UP-ICON' => true,
                                                 'VIEW-ICON'=>false, 'CSS' => 'width_pct_100',
                                                 'BUTTONS'=>true, 'NO-LABEL'=>false),
 

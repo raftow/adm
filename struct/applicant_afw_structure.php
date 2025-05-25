@@ -159,6 +159,7 @@ class AdmApplicantAfwStructure
                         //'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATE',
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
@@ -182,6 +183,7 @@ class AdmApplicantAfwStructure
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATE',
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -296,6 +298,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 'AEREA',
                         'UTF8' => true,
                         'TYPE' => 'GDATE',
+                        'FORMAT' => 'DATE',
                         'DISPLAY' => true,
                         'STEP' => 2,
                         'MANDATORY' => false,
@@ -681,6 +684,7 @@ class AdmApplicantAfwStructure
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDATE',
+                        'FORMAT' => 'DATE',
                         'STEP' => 2,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1134,6 +1138,7 @@ class AdmApplicantAfwStructure
                                                 'EDIT-ADMIN' => true,*/
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATE',
                         'STEP' => 10,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -1280,7 +1285,7 @@ class AdmApplicantAfwStructure
 		'qiyas_achievement_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 
+				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
 				'CSS' => 'width_pct_50', ),
 
                 'qiyas_achievement_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1292,7 +1297,7 @@ class AdmApplicantAfwStructure
 		'qiyas_achievement_th_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 
+				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
 				'CSS' => 'width_pct_50', ),
 
 		'qiyas_aptitude_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1304,7 +1309,7 @@ class AdmApplicantAfwStructure
 		'qiyas_aptitude_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 
+				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
 				'CSS' => 'width_pct_50', ),
 
                                 'aptitude_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1322,7 +1327,7 @@ class AdmApplicantAfwStructure
 		'qiyas_aptitude_th_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 
+				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
 				'CSS' => 'width_pct_50', ),
 
 		

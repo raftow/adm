@@ -21,7 +21,7 @@ class AdmSortingSessionAfwStructure
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 3;
+                        $obj->editNbSteps = 5;
 
                         $obj->after_save_edit = array("class" => 'ApplicationPlan', "attribute" => 'application_plan_id', "currmod" => 'adm', "currstep" => 3);
                         // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingSession', "submit" => true);
@@ -198,9 +198,19 @@ class AdmSortingSessionAfwStructure
                                                 'CSS' => 'width_pct_25',),                                                
 
 
+                'applicant_id' => array('STEP' => 2, 'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'TEXT', 'READONLY' => false,
+				'CSS' => 'width_pct_25', ),
+
+
+	                                              
+
+
                 'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'INT',  'STEP' => 2, 'READONLY'=>true,
+								'TYPE' => 'INT',  'STEP' => 99, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
@@ -211,7 +221,7 @@ class AdmSortingSessionAfwStructure
                                                 'MANDATORY' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK', 'STEP' => 99,  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
-                                                'WHERE' => 'id in (select distinct sorting_group_id from §DBPREFIX§adm.application_desire where application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§ and application_step_id=§sorting_step_id§ and active=\'Y\')',  
+                                                'WHERE' => 'id in (select distinct sorting_group_id from §DBPREFIX§adm.application_plan_branch where application_plan_id = §application_plan_id§ and active=\'Y\')',  
                                                 'READONLY' => true,  
                                                 'CSS' => 'width_pct_100', ),
 
@@ -228,13 +238,28 @@ class AdmSortingSessionAfwStructure
 					'CSS' => 'width_pct_100',
 					'INPUT_WIDE' => true
 			), 
+
+
+                'controlPanel' => array(
+					'STEP' => 3,
+					'TYPE' => 'TEXT',
+					'CATEGORY' => 'FORMULA',
+					'SHOW' => true,
+					'EDIT' => true,
+					'READONLY' => true,
+					"CAN-BE-SETTED" => false,
+					'SIZE' => 255,
+					"NO-LABEL" => true,
+					'CSS' => 'width_pct_100',
+					'INPUT_WIDE' => true
+			),                         
                         
                 'statList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
                                                 'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  
                                                 'AUDIT' => false,  'RETRIEVE' => false, 'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
                                                 'MANDATORY' => false,  'UTF8' => false,  
-                                                'TYPE' => 'FK', 'STEP' => 2,  
+                                                'TYPE' => 'FK', 'STEP' => 5,  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_session_stat',  'ANSMODULE' => 'adm',  
                                                 'WHERE' => 'application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§ and session_num=§session_num§ and active=\'Y\'',  
                                                 'READONLY' => true,  'CAN-BE-SETTED' => true, 
@@ -255,7 +280,7 @@ class AdmSortingSessionAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
                         'DISPLAY' => true,
-                        'STEP' => 3,
+                        'STEP' => 4,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
@@ -276,7 +301,7 @@ class AdmSortingSessionAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
                         'DISPLAY' => true,
-                        'STEP' => 3,
+                        'STEP' => 4,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
@@ -296,26 +321,26 @@ class AdmSortingSessionAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
                         'DISPLAY' => true,
-                        'STEP' => 3,
+                        'STEP' => 4,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_33',
                 ],
 
                 'validated' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
+                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 4, 
                         'MANDATORY' => false, 'QSEARCH' => false, 
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                         'CSS' => 'width_pct_33',),
 
                 'published' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
+                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 4, 
                         'MANDATORY' => false, 'QSEARCH' => false, 
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                         'CSS' => 'width_pct_33',),
                 
                 'upgraded' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 3, 
+                        'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 4, 
                         'MANDATORY' => false, 'QSEARCH' => false, 
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                         'CSS' => 'width_pct_33',),

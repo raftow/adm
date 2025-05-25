@@ -9,11 +9,11 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "branch_name_ar";
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
+                                $obj->ORDER_BY_FIELDS = "application_model_id, branch_order";
                                 $obj->UNIQUE_KEY = array('program_offering_id','application_model_id',);
                                 $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
-
+                                $obj->MOVE_UP_ACTION = true;
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 2; 
                                 if(($_GET["class_parent"]=="AcademicProgramOffering") or
@@ -90,6 +90,12 @@
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
+
+                                        'branch_order' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'EXCEL' => false,  'EDIT' => true,  'QEDIT' => true,  'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'QEDIT_ALL_FGROUP' => true,  
+                                                                'TYPE' => 'INT',    'MANDATORY' => true,  'STEP' => 1,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
+                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,  'ERROR-CHECK' => true, 
+                                                                'CSS' => 'width_pct_50',
+                                                                ),                                                
 
                                         'branch_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
                                                 'EDIT' => true,  'QEDIT' => false,  'SIZE' => '50', 'MAXLENGTH' => '128', 'UTF8' => true,  

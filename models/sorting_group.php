@@ -56,6 +56,47 @@ class SortingGroup extends AdmObject{
             ];
         }
 
+        
+        public static function minMaxFunction($max, $sens)
+        {
+            if($sens=="desc")
+            {
+                return $max ? "max" : "min";
+            }
+            else
+            {
+                return $max ? "min" : "max";
+            }
+        }
+        public static function getGroupingCriterea($sortingGroupId, $max=false)
+        {
+            $sortingCriterea = SortingGroup::loadSortingCriterea($sortingGroupId);
+            $sf1 = $sortingCriterea["c1"];
+            $msf1 = $sf1 ? "min_app_score1" : "";
+            
+            $sf1_order_sens = $sf1["field_sens"];
+            $func = self::minMaxFunction($max, $sf1_order_sens);
+            $sf1_func = $sf1 ? "$func(sorting_value_1) as min_app_score1" : "";
+            
+            $sf2 = $sortingCriterea["c2"];
+            $msf2 = $sf2 ? "min_app_score2" : "";
+            $sf2_order_sens = $sf2["field_sens"];
+            $func = self::minMaxFunction($max, $sf2_order_sens);
+            $sf2_func = $sf2 ? "$func(sorting_value_2) as min_app_score2" : "";
+            
+            $sf3 = $sortingCriterea["c3"];
+            $msf3 = $sf3 ? "min_app_score3" : "";
+            $sf3_order_sens = $sf3["field_sens"];
+            $func = self::minMaxFunction($max, $sf3_order_sens);
+            $sf3_func = $sf3 ? "$func(sorting_value_3) as min_app_score3" : "";
+    
+            return [$sortingCriterea,
+                $msf1,$sf1_order_sens,$sf1_func,
+                $msf2,$sf2_order_sens,$sf2_func,
+                $msf3,$sf3_order_sens,$sf3_func,
+            ];
+        }
+
         public static function loadSortingCriterea($id)
         {
             if(!self::$sortingCritereaMatrix[$id])

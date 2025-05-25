@@ -6,8 +6,11 @@ class SortingSessionArTranslator{
         $trad = [];
 		$trad["sorting_session"]["step1"] = "معلومات أساسية";
 		$trad["sorting_session"]["step2"] = "عملية الفرز";
-		$trad["sorting_session"]["step3"] = "الاعتماد والنشر";
+		$trad["sorting_session"]["step3"] = "لوحة التحكم";
+		$trad["sorting_session"]["step4"] = "الاعتماد والنشر";
+		$trad["sorting_session"]["step5"] = "احصائيات الفرز";
 		
+		$trad["sorting_session"]["controlPanel"] = "لوحة التحكم";
 		$trad["sorting_session"]["sortingsession.single"] = "كرة فرز";
 		$trad["sorting_session"]["sortingsession.new"] = "جديدة";
 		$trad["sorting_session"]["sorting_session"] = "كرات فرز";
@@ -36,6 +39,13 @@ class SortingSessionArTranslator{
 		$trad["sorting_session"]["sorting path stats"] = "الاحصائيات حسب مسارات الفرز";
 		
 		$trad["sorting_session"]["started_ind"] = "بدأ الفرز";
+		$trad["sorting_session"]["statList"] = "احصائيات الفرز";
+
+		$trad["sorting_session"]["applicant_id"] = "رقم تسلسلي تحت المراقبة";
+
+	    
+		
+		
 
 		
 		

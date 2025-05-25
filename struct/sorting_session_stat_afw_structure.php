@@ -8,8 +8,7 @@ class AdmSortingSessionStatAfwStructure
         {
                 if ($obj instanceof SortingSessionStat) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => "", 'en' => ""];
-
+                        
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
                         $obj->UNIQUE_KEY = array('application_plan_id', 'session_num', 'application_simulation_id', 'application_plan_branch_id', 'track_num');
@@ -19,8 +18,8 @@ class AdmSortingSessionStatAfwStructure
                         $obj->general_check_errors = true;
                         $obj->editByStep = true;
                         $obj->editNbSteps = 2; 
-                        // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
-                        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingSessionStat', "submit" => true);
+                        $obj->after_save_edit = array("class"=>'SortingSession',"attribute_formula"=>'sorting_session_id', "currmod"=>'adm',"currstep"=>2);
+                        // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingSessionStat', "submit" => true);
                 } else {
                         SortingSessionStatArTranslator::initData();
                         SortingSessionStatEnTranslator::initData();
@@ -34,6 +33,7 @@ class AdmSortingSessionStatAfwStructure
 
 
                 'application_plan_id' => array(
+                        'FGROUP' => 'farz-branch',
                         'SHORTNAME' => 'plan',
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -58,6 +58,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'session_num' => array(
+                        'FGROUP' => 'farz-branch',
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -74,10 +75,36 @@ class AdmSortingSessionStatAfwStructure
                         'TYPE' => 'INT',
                         'READONLY' => true,
                         'DNA' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ),
 
+                        'sorting_session_id' => array(
+                                'FGROUP' => 'farz-branch',
+                                'CATEGORY' => 'FORMULA', 
+                                'SEARCH' => true,
+                                'QSEARCH' => false,
+                                'SHOW' => true,
+                                'AUDIT' => false,
+                                'RETRIEVE' => false,
+                                'EDIT' => true,
+                                'QEDIT' => true,
+                                'SIZE' => 32,
+                                'MAXLENGTH' => 32,
+                                'MIN-SIZE' => 1,
+                                'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                                'MANDATORY' => true,
+                                'UTF8' => false,
+                                'TYPE' => 'FK',
+                                'ANSWER' => 'sorting_session',
+                                'ANSMODULE' => 'adm',
+                                'RELATION' => 'OneToMany',
+                                'READONLY' => true,
+                                'DNA' => true,
+                                'CSS' => 'width_pct_25',
+                        ),
+
                 'application_simulation_id' => array(
+                        'FGROUP' => 'farz-branch',
                         'SHORTNAME' => 'simulation',
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -102,6 +129,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'application_plan_branch_id' => array(
+                        'FGROUP' => 'farz-branch',
                         'SHORTNAME' => 'plan_branch',
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -126,6 +154,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'track_num' => array(
+                        'FGROUP' => 'farz-branch',
                         'SEARCH' => false,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -145,8 +174,9 @@ class AdmSortingSessionStatAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
+                
                 'capacity' => array(
+                        'FGROUP' => 'farz-branch',
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -167,6 +197,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'nb_accepted' => array(
+                        'FGROUP' => 'scores',
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -185,6 +216,18 @@ class AdmSortingSessionStatAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
+
+                'correct' => array(
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'YN',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+		),
 
                 'min_app_score1' => array(
                         'FGROUP' => 'scores',
@@ -248,14 +291,22 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
+                'farz_karra_table' => array(
+                        'TYPE' => 'TEXT',  'NO-COTE' => true,  
+                        'CATEGORY' => 'FORMULA',  'SEARCH-BY-ONE' => '',  'DISPLAY' => '', 
+                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                        ),
+
 
                 'applicationDesireList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                         'EDIT' => false,  'QEDIT' => false,  
                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                         'TYPE' => 'FK', 'STEP' => 2,  
                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  
-                        'WHERE' => 'application_plan_id=§application_plan_id§ and application_simulation_id=§application_simulation_id§ and application_plan_branch_id=§application_plan_branch_id§ and applicant_id in (select applicant_id from §DBPREFIX§adm.§farz_karra_table§ where application_plan_branch_id=§application_plan_branch_id§)', 
+                        'WHERE' => 'application_plan_id=§application_plan_id§ and application_simulation_id=§application_simulation_id§ and application_plan_branch_id=§application_plan_branch_id§ and applicant_id in (select applicant_id from §DBPREFIX§adm.§farz_karra_table§ farz where farz.application_plan_branch_id=§application_plan_branch_id§)', 
                         'SHOW_MAX_DATA'=>200, 
+                        'DO-NOT-RETRIEVE-COLS' => ['comments','step_num','application_step_id'],
+                        'FORCE-RETRIEVE-COLS' => ['sorting_value_1'],
                         'READONLY' => true,  'CAN-BE-SETTED' => true, 
                         'CSS' => 'width_pct_100', ),
 

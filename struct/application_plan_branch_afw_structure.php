@@ -8,11 +8,11 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"name_ar", 'en'=>"name_en"];
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
+                                $obj->ORDER_BY_FIELDS = "application_plan_id, branch_order";
                                 $obj->UNIQUE_KEY = array('application_plan_id','program_offering_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
-
+                                $obj->MOVE_UP_ACTION = true;
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 4; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
@@ -34,7 +34,7 @@
                                                 'CSS' => 'width_pct_25', ),
                                                 
                                                 'gender_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'READONLY'=>true, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -42,14 +42,14 @@
 
                                                 
                                                 'academic_level_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'academic_level',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25', ),
 
                                                 'term_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'academic_term',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>true,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -59,7 +59,7 @@
         
 
                                 'department_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'department',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'WHERE'=>"id in (select department_id from §DBPREFIX§adm.academic_program where academic_level_id = §academic_level_id§ and genders_enum in (3,§gender_enum§) and active = 'Y')",
                                                         'DEPENDENCIES' => ['academic_level_id', 'gender_enum',],
@@ -70,7 +70,7 @@
                                                         'CSS' => 'width_pct_50', ),	
         
                                 'major_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                         // 'WHERE'=>"id in (select major_id from §DBPREFIX§adm.academic_program where department_id = §department_id§ and academic_level_id = §academic_level_id§ and genders_enum in (3,§gender_enum§) and active = 'Y')",
                                                         // id in (select major_id from §DBPREFIX§adm.major_department where department_id = §department_id§ and active = 'Y') and 
@@ -124,7 +124,14 @@
 
 
                                                                                                  
-                                        
+                                        'branch_order' => array('IMPORTANT' => 'IN',  'SHOW' => true, 'RETRIEVE' => true,  'EXCEL' => false,  
+                                                                'EDIT' => true,  'QEDIT' => true,  'EDIT_FGROUP' => true,  
+                                                                'DISABLE-READONLY-ADMIN' => true,
+                                                                // 'QEDIT_FGROUP' => true,  'QEDIT_ALL_FGROUP' => true,  
+                                                                'TYPE' => 'INT',    'MANDATORY' => true,  'STEP' => 1,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
+                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,  'ERROR-CHECK' => true, 
+                                                                'CSS' => 'width_pct_50',
+                                                                ),
 
 
 
@@ -134,7 +141,7 @@
 
 
                                         'name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -142,7 +149,7 @@
 
 
                                         'name_en' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-EN' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '200', 'MAXLENGTH' => '200', 'UTF8' => false,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
@@ -161,7 +168,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => false,
-                                                'QEDIT' => true,
+                                                'QEDIT' => false,
                                                 'EDIT' => true,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
                                                 'STEP' => 2,
@@ -172,7 +179,8 @@
 
 
                                         'deaf_specialty' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'QSEARCH' => false, 
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 
+                                                'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
@@ -184,7 +192,7 @@
                                                 'SHOW' => true,
                                                 'RETRIEVE' => false,
                                                 'EDIT' => true,
-                                                'QEDIT' => true,
+                                                'QEDIT' => false,
                                                 'SEARCH-ADMIN' => true,
                                                 'SHOW-ADMIN' => true,
                                                 'EDIT-ADMIN' => true,
@@ -199,7 +207,7 @@
                                             ],
 
                                         'hijri_application_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  
-                                            'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
+                                            'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => false,  'UTF8' => false,  
                                             'TYPE' => 'DATE',  'STEP' => 2,    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                             'CSS' => 'width_pct_25',),
@@ -207,16 +215,43 @@
 
 
                                         'min_weighted_percentage' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-                                                                        'EDIT' => true,  'QEDIT' => false,  
+                                                                        'EDIT' => true,  'QEDIT' => true,  
                                                                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                                         'TYPE' => 'PCTG',  /*'UNIT' => '%', */ 'READONLY' => false,  'DNA' => true, 
-                                                                        'CSS' => 'width_pct_50', ),
+                                                                        'CSS' => 'width_pct_25', ),
 
+                                        'min_app_score1' => array('STEP' => 2,
+                                                'TYPE' => 'FLOAT',
+                                                'RETRIEVE' => true,
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),
 
+                                        'min_app_score2' => array('STEP' => 2,
+                                                'TYPE' => 'FLOAT',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),
+
+                                        'min_app_score3' => array('STEP' => 2,
+                                                'TYPE' => 'FLOAT',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),
                                                 
 
                                         'is_open' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false, 'QSEARCH' => false, 
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => false, 
+                                                'QSEARCH' => false, 'QEDIT' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
@@ -242,7 +277,6 @@
                                                         'IMPORTANT' => 'IN',
                                                         'SHOW' => true,
                                                         'RETRIEVE' => false,
-                                                        'QEDIT' => true,
                                                         'EDIT' => true,
                                                         'TYPE' => 'INT', 'MANDATORY' => false, 
                                                         'STEP' => 3, 'UNIT' => 'مقعد',
@@ -255,7 +289,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => true,
-                                                'QEDIT' => true,
+                                                'QEDIT' => false,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
@@ -268,7 +302,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => true,
-                                                'QEDIT' => true,
+                                                'QEDIT' => false,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
@@ -281,7 +315,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => false,
-                                                'QEDIT' => true,
+                                                'QEDIT' => false,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
@@ -294,7 +328,7 @@
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => false,
-                                                'QEDIT' => true,
+                                                'QEDIT' => false,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
@@ -328,7 +362,7 @@
                                                 'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_100', ),
 
-                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                        'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => false, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),

@@ -154,6 +154,32 @@ class ApplicationPlan extends AdmObject
     }
 
 
+    public function reorderBranchs($lang="ar")
+    {
+            $applicationPlanBranchList = $this->get("applicationPlanBranchList");   
+            $branch_order = 0;
+            $log_arr = [];
+            foreach($applicationPlanBranchList as $applicationPlanBranchItem)
+            {
+                    $old_branch_order = $applicationPlanBranchItem->getVal("branch_order"); 
+                    if($branch_order<=0) {
+                            $branch_order = $old_branch_order; 
+                            if($branch_order<=0) $branch_order = 1;
+                            if($branch_order>1) $branch_order = 1;
+                            $step_from = $branch_order;
+                    }
+                    else $branch_order++;
+                    
+                    $log_arr[] = "from $old_branch_order to $branch_order";
+                    
+                    $applicationPlanBranchItem->set("branch_order", $branch_order);  
+                    $applicationPlanBranchItem->commit();
+                    $step_to = $branch_order;
+            }
+
+            return ["", "reordered from $step_from to $step_to : <br>\n".implode("<br>\n", $log_arr)];
+    }
+
     protected function getPublicMethods()
     {
 
@@ -198,6 +224,18 @@ class ApplicationPlan extends AdmObject
             $title_ar = "جلب الطاقة الاستيعابية الافتراضية لجميع فروع القبول";
             $methodName = "inheritBranchsCapacities";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
+
+
+            $color = "orange";
+            $title_ar = "اعادة ترتيب جميع الفروع وفقا للنموذج"; 
+            $methodName = "inheritBranchsOrder";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+                        
+            $color = "red";
+            $title_ar = "اعادة ترتيب جميع الفروع"; 
+            $methodName = "reorderBranchs";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+            
 
 
 
@@ -247,8 +285,26 @@ class ApplicationPlan extends AdmObject
 
         return $this->mbToPb[$application_model_branch_id];
     }
+    
 
+    public function inheritBranchsOrder($lang = "ar")
+    {
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
 
+        $applicationPlanBranchList = $this->get("applicationPlanBranchList");
+        foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
+            list($err, $inf, $war, $tech) = $applicationPlanBranchItem->inheritBranchOrder($lang);
+
+            if ($err) $err_arr[] = $err;
+            if ($inf) $inf_arr[] = $inf;
+            if ($war) $war_arr[] = $war;
+        }
+
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+    }
 
     public function inheritBranchsCapacities($lang = "ar")
     {
@@ -315,7 +371,7 @@ class ApplicationPlan extends AdmObject
                                 academic_level_id,gender_enum,term_id,application_plan_id,
                                 program_id,training_unit_id,department_id,major_id,
                                 program_offering_id,application_model_branch_id,
-                                name_ar, name_en,
+                                name_ar, name_en, branch_order,
                                 seats_capacity, direct_adm_capacity, deaf_specialty,is_open,allow_direct_adm,
                                 capacity_track1, capacity_track2, capacity_track3, capacity_track4, sorting_group_id,
                                 confirmation_days, application_end_date, hijri_application_end_date)
@@ -323,7 +379,7 @@ class ApplicationPlan extends AdmObject
                                         $academic_level_id, amb.gender_enum, $term_id, $this_id, 
                                         amb.academic_program_id, amb.training_unit_id, amb.department_id, amb.major_id,  
                                         amb.program_offering_id, amb.id,
-                                        amb.branch_name_ar, amb.branch_name_en,
+                                        amb.branch_name_ar, amb.branch_name_en, amb.branch_order,
                                         amb.seats_capacity, amb.direct_adm_capacity, amb.deaf_specialty, amb.is_open, IF(amb.direct_adm_capacity>0, 'Y','N') as allow_direct_adm,
                                         amb.capacity_track1, amb.capacity_track2, amb.capacity_track3, amb.capacity_track4, amb.sorting_group_id,
                                         amb.confirmation_days, '$application_end_date' as application_end_date, '$hijri_application_end_date' as hijri_application_end_date
@@ -553,6 +609,16 @@ class ApplicationPlan extends AdmObject
             $title = "إضافة فرع تقديم يدويا";
             $title_detailed = $title . "لـ : " . $displ;
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationPlanBranch&currmod=adm&sel_application_plan_id=$my_id";
+            $link["TITLE"] = $title;
+            $link["UGROUPS"] = array();
+            $otherLinksArray[] = $link;
+
+
+            unset($link);
+            $link = array();
+            $title = "ترتيب الفروع يدويا";
+            $title_detailed = $title . "لـ : " . $displ;
+            $link["URL"] = "main.php?Main_Page=afw_mode_qedit.php&cl=ApplicationPlanBranch&currmod=adm&fixm=application_plan_id=$my_id&sel_application_plan_id=$my_id&id_origin=$my_id&class_origin=ApplicationPlan&module_origin=adm&step_origin=5&newo=-1";
             $link["TITLE"] = $title;
             $link["UGROUPS"] = array();
             $otherLinksArray[] = $link;
