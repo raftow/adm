@@ -1053,7 +1053,7 @@
                         $methodName = "resetCapacitiesToFirstMajorPath";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
                                         "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
-                                        'STEP' =>$this->stepOfAttribute("applicationModelConditionList"),
+                                        'STEP' =>$this->stepOfAttribute("applicationModelBranchList"),
                                         'CONFIRMATION_NEEDED' => true,
                                         'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarningAr, 'en' => $methodConfirmationWarningEn),
                                         'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestionAr, 'en' => $methodConfirmationQuestionEn),
