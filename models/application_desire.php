@@ -949,6 +949,7 @@ class ApplicationDesire extends AdmObject
                 $track_num = SortingPath::majorPathIdTrack($application_model_id, $major_path_id);
                 if(!$track_num) 
                 {
+                        $track_num = 1;
                         // die("For applicant_id=$applicant_id : track_num = $track_num = SortingPath::majorPathIdTrack(application_model_id=$application_model_id, major_path_id=$major_path_id)");
                 }
                 $this->set("track_num", $track_num);

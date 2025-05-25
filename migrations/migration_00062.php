@@ -39,7 +39,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sort
   last_approve_date datetime DEFAULT NULL , 
   upgraded char(1) NOT NULL DEFAULT 'N', 
   started_ind char(1) NOT NULL DEFAULT 'N',
-  applicant_id int(11) DEFAULT NULL, 
+  applicant_id varchar(20) NULL, 
 
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
