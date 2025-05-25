@@ -82,13 +82,17 @@
         'RETRIEVE' => false,
         'QEDIT' => true,
         'EDIT' => true,
-        'TYPE' => 'INT', 'MANDATORY' => false, 
+        'TYPE' => 'MFK', 'MANDATORY' => false, "ANSWER"=>"document_type","ANSMODULE"=>"adm",
         'STEP' => 1,
         'DISPLAY-UGROUPS' => '',
         'EDIT-UGROUPS' => '',
         'CSS' => 'width_pct_25',),
 
-
+'field_related' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => "60",  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
 
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  

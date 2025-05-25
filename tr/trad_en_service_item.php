@@ -13,6 +13,7 @@ class ServiceItemEnTranslator{
 	$trad["service_item"]["service_item_name_en"] = "service item name english";
 	$trad["service_item"]["upload_file_ind"] = "upload file";
 	$trad["service_item"]["document_type_mfk"] = "document type";
+    $trad["service_item"]["field_related"] = "field related";
         return $trad;
         }
 
