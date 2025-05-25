@@ -5,9 +5,9 @@ $project = "AUTO-SCHEDULED ADMISSION SIMULATOR JOB";
 
 $date_time_run = $argv[1];
 
-$lib_root_path = "/var/www/html/v2/lib";
-$batch_root_path = "/var/www/hub_batch";
+$batchs_dir_name = dirname(__FILE__); 
 
+$lib_root_path = "$batchs_dir_name/../../lib";
 
 
 require_once("$lib_root_path/../afw/afw_autoloader.php");
@@ -142,7 +142,7 @@ $body[] = "Date of run : $forced_job_timestamp";
 $body[] = AfwBatch::html_data($recap_header,$recap_data, $recap_colors);
 $body[] = footerMail();
 
-$res = hzmMail($project_code,"$project_code-$run_timestamp",$to_email_arr,$subject,$body, $send_from, $format="html", $language="ar");
+$res = hzmMail($project_code,"$project_code-php$run_timestamp-sys$date_time_run",$to_email_arr,$subject,$body, $send_from, $format="html", $language="ar");
 
 /*
 $jb_run->endOfRun(count($errors)+$nb_errors, 0, $nb_surveyed+$nbrows_migrated);

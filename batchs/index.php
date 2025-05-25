@@ -1,4 +1,1 @@
-<?php
-//
-
-echo __FILE__;
+Access denied
