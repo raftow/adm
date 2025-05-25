@@ -229,6 +229,21 @@ class ApplicationPlan extends AdmObject
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_model_name_ar"));
 
 
+        $methodConfirmationWarningEn = "You agree that you want to cancel capacity planning for different sorting paths";
+        $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
+        $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
+        $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
+        $color = "orange";
+        $title_ar = "تجميع الطاقة الاستيعابية"; 
+        $methodName = "resetCapacitiesToFirstMajorPath";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
+                        "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
+                        'STEP' =>$this->stepOfAttribute("applicationModelConditionList"),
+                        'CONFIRMATION_NEEDED' => true,
+                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarningAr, 'en' => $methodConfirmationWarningEn),
+                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestionAr, 'en' => $methodConfirmationQuestionEn),
+                );
+
         if ($this->canApply()) {
 
             $color = "green";
@@ -603,8 +618,15 @@ class ApplicationPlan extends AdmObject
         return false;
     }
 
+    public function resetCapacitiesToFirstMajorPath($lang="ar")
+    {
+            $coefs = [1=>100, 2=>0, 3=>0, 4=>0];
+            $this->resetCapacitiesAsMajorPath($coefs);
 
-    public function resetCapacitiesToFirstMajorPath($coefs)
+            return ["", "done"];
+    }
+
+    public function resetCapacitiesAsMajorPath($coefs)
     {
             foreach($coefs as $c => $cv) ${"coef_$c"} = $cv/100.0;
             $sets_arr = ['capacity_track1'=>"round(seats_capacity*$coef_1)",

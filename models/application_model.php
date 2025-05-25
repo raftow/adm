@@ -862,11 +862,11 @@
 
                                 if($nbMajorPaths>0)
                                 {
-                                        $this->resetCapacitiesToFirstMajorPath($coefs); 
+                                        $this->resetCapacitiesAsMajorPath($coefs); 
                                         $planList = $this->getNextPlans();
                                         foreach($planList as $planObj)
                                         {
-                                                $planObj->resetCapacitiesToFirstMajorPath($coefs);
+                                                $planObj->resetCapacitiesAsMajorPath($coefs);
                                         }
                                 }
 
@@ -880,7 +880,14 @@
                         return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
                 }
 
-                public function resetCapacitiesToFirstMajorPath($coefs)
+                public function resetCapacitiesToFirstMajorPath($lang="ar")
+                {
+                        $coefs = [1=>100, 2=>0, 3=>0, 4=>0];
+                        $this->resetCapacitiesAsMajorPath($coefs);
+                        return ["", "done"];
+                }
+
+                public function resetCapacitiesAsMajorPath($coefs)
                 {
                         foreach($coefs as $c => $cv) ${"coef_$c"} = $cv/100.0;
                         $sets_arr = ['capacity_track1'=>"round(seats_capacity*$coef_1)",
@@ -1037,7 +1044,20 @@
                         $methodName = "reorderBranchs";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
-
+                        $methodConfirmationWarningEn = "You agree that you want to cancel capacity planning for different sorting paths";
+                        $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
+                        $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
+                        $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
+                        $color = "orange";
+                        $title_ar = "تجميع الطاقة الاستيعابية"; 
+                        $methodName = "resetCapacitiesToFirstMajorPath";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
+                                        "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
+                                        'STEP' =>$this->stepOfAttribute("applicationModelConditionList"),
+                                        'CONFIRMATION_NEEDED' => true,
+                                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarningAr, 'en' => $methodConfirmationWarningEn),
+                                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestionAr, 'en' => $methodConfirmationQuestionEn),
+                                );
                         
 
                         $color = "orange";
@@ -1050,7 +1070,12 @@
                         $color = "orange";
                         $title_ar = "تحديث الشاشات والخدمات"; 
                         $methodName = "genereScreensAndModels";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelFieldList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = 
+                           array("METHOD"=>$methodName,"COLOR"=>$color, 
+                                 "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
+                                 'STEP' =>$this->stepOfAttribute("applicationModelFieldList"),
+                                 
+                                );
                         
                         $amList = $this->getBrothers();
                         /**
@@ -1615,6 +1640,21 @@
 
                 return self::$arrQualificationMfk[$what][$this->id];        
         }
+
+        public function notRetrieve($field_name, $col_struct)
+        {
+                if(($field_name=="applicationModelBranchList") and ($col_struct=="DO-NOT-RETRIEVE-COLS"))
+                {
+                        $split_sorting_by_enum = $this->getVal("split_sorting_by_enum");                        
+                        if($split_sorting_by_enum==1)
+                        {
+                                return ["capacity_track2", "capacity_track3"];
+                        }
+                }
+
+                throw new AfwRuntimeException("ApplicationModel::notRetrieve($field_name, $col_struct) not implemented");
+        }
+        
 
 }
 

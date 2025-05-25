@@ -159,7 +159,7 @@
     $messages["The application has been reset"] = "تم تصفير جميع بيانات التقديم والعودة الى مرحلة البداية";
     $messages["The applicant has some accepted desires and can't be deleted"] = "لدى المتقدم بعض الرغبات المقبولة ولا يمكن حذفها";
     $messages["The applicant has been reset and can be deleted"] = "تم تصفير جميع بيانات التقديم لهذا المتقدم";
-
+    $messages["You agree that you want to cancel capacity planning for different sorting paths"] = "أنت توافق على أنك تريد إلغاء تقسيم الطاقة الاستيعابية على مسارات الفرز المختلفة";
 
     // $messages[""] = "";
     

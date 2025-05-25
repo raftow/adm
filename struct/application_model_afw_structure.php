@@ -366,12 +366,13 @@
                                                 'TYPE' => 'FK',  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_path',  'ANSMODULE' => 'adm',  'ITEM' => 'application_model_id',  'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_100', ),
-                                        
+                                                
                                         'applicationModelBranchList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_branch', 'ANSMODULE' => 'adm','QEDIT' => false,  
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 4,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'MOVE_UP-ICON' => true,
+                                                'DO-NOT-RETRIEVE-COLS' => '::notRetrieve',
                                                 'VIEW-ICON'=>false, 'CSS' => 'width_pct_100',
                                                 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
