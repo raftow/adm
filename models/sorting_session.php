@@ -752,7 +752,7 @@ class SortingSession extends AFWObject
         $desireList = $obj->loadMany(1000);
         foreach($desireList as $desireItem)
         {
-            $desireItem->repareData($lang);
+            $desireItem->repareData($lang, true);
         }
 
         return ["", "done"];

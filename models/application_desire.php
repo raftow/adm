@@ -18,6 +18,12 @@ class ApplicationDesire extends AdmObject
          */
         private $applicationObj = null;
 
+
+        /**
+         * @var Applicant $applicantObj
+         */
+        private $applicantObj = null;
+
         public function __construct()
         {
                 parent::__construct("application_desire", "id", "adm");
@@ -429,10 +435,20 @@ class ApplicationDesire extends AdmObject
                 return false;
         }
 
-        public function repareData($lang = "ar")
+        public function repareData($lang = "ar", $fullRepare=false)
         {
                 $is_to_commit = false;
                 $lang = AfwLanguageHelper::getGlobalLanguage();
+
+                if($fullRepare)
+                {
+                        if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                        if ($this->applicantObj) 
+                        {
+                                $this->applicantObj->runNeededApis($lang);
+                        }
+                }
+
                 $step_num = $this->getVal("step_num");
                 if ((!$step_num) or ($step_num == "0")) {
                         $objStep = $this->het("application_step_id");
