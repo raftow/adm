@@ -431,6 +431,23 @@ class SortingSession extends AFWObject
         
         $pbms = array();
 
+        
+
+        $methodConfirmationWarningEn = "You formally agree that the sorting data are not correct and you want to update it";
+        $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+        $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+        $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                    
+        $color = "orange";
+        $title_ar = "تصحيح بيانات الفرز";
+        $methodName = "updataFarzData";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
+                                        "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                        'CONFIRMATION_NEEDED' => true,
+                                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                        'STEP' => $this->stepOfAttribute("statsPanel"));
+
         if($this->sureIs("validated"))
         {
             if($this->sureIs("published"))
@@ -683,6 +700,15 @@ class SortingSession extends AFWObject
         $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
         
+        $keyDecodeArr = [];
+        $keyDecodeArr["badw"] = "يحتاج اعادة حساب النسبة الموزونة";
+        $vmin = 40;
+        $sql_nb_by_sorting_path = "SELECT 'badw' as categ, min(sorting_value_1) as min FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
+        $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","min");
+        $html .= "<h1>".$this->translate("need recalculations", $lang)."</h1>";
+        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
+        
+
         $html .= "   </div> <!-- stats_panel -->";   
         $html .= "</div> <!-- stats-panel -->";
         $html .= "</div> <!-- sorting-panel -->";
@@ -707,10 +733,50 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
+    public function updataFarzData($lang = "ar")
+    {
+        $vmin = 40;
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        $sorting_step_id = $this->calc("sorting_step_id");
 
+        /**
+         * @var ApplicationDesire $desireItem
+         */
+        $obj = new ApplicationDesire();
+        $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)");
+        $desireList = $obj->loadMany(1000);
+        foreach($desireList as $desireItem)
+        {
+            $desireItem->repareData($lang);
+        }
+
+        return ["", "done"];
+    }
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
+
+        /*@todo
+
+        just to be able to do queries like :
+ 
+        INSERT INTO uoh_adm.application_plan_branch(id,min_app_score1) VALUES (81,-88),(86,-88),(87,-88),(88,-88),(89,-88),(90,-88),(91,-88),(92,-88),(82,-88),(83,-88),(128,-88),(115,-88),(80,-88),(117,-88),(126,-88),(116,-88),(121,-88),(118,-88),(124,-88),(123,-88),(122,-88),(119,-88),(58,-88),(57,-88),(59,-88),(62,-88),(64,-88),(127,-88),(129,-88),(125,-88),(120,-88),(60,-88),(61,-88),(72,-88),(105,-88),(78,-88),(77,-88),(73,-88),(63,-88),(67,-88),(93,-88),(96,-88),(133,-88),(84,-88),(130,-88),(66,-88),(70,-88),(68,-88),(71,-88),(65,-88),(113,-88),(111,-88),(97,-88),(112,-88),(106,-88),(94,-88),(95,-88),(103,-88),(108,-88),(102,-88),(99,-88),(110,-88),(131,-88),(132,-88),(101,-88),(79,-88),(76,-88),(75,-88),(74,-88),(85,-88),(114,-88),(135,-88),(134,-88),(104,-88),(69,-88),(107,-88),(100,-88),(98,-88),(109,-88) ON DUPLICATE KEY UPDATE min_app_score1=VALUES(min_app_score1)
+
+        we need :
+
+        ALTER TABLE `application_plan_branch`
+            CHANGE `created_by` `created_by` int NULL AFTER `id`,
+            CHANGE `created_at` `created_at` datetime NULL AFTER `created_by`,
+            CHANGE `updated_by` `updated_by` int NULL AFTER `created_at`,
+            CHANGE `updated_at` `updated_at` datetime NULL AFTER `updated_by`,
+            CHANGE `active` `active` char(1) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `validated_at`,
+            CHANGE `draft` `draft` char(1) COLLATE 'utf8mb3_unicode_ci' NULL DEFAULT 'Y' AFTER `active`,
+            CHANGE `application_model_branch_id` `application_model_branch_id` int NULL DEFAULT '0' AFTER `program_offering_id`,
+            CHANGE `branch_order` `branch_order` smallint NULL AFTER `application_model_branch_id`,
+            CHANGE `min_weighted_percentage` `min_weighted_percentage` decimal(5,2) NULL DEFAULT '0.00' AFTER `sorting_group_id`;
+
+         */
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
         $MODE_BATCH_LOURD = true;
