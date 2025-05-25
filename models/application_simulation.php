@@ -505,6 +505,25 @@ class ApplicationSimulation extends AdmObject{
                         $applicantItem = Applicant::loadById($apid); 
                         
                         $logMe = $applicantItem->sureIs("log");
+                        if((!$applicantItem->getVal("first_name_ar")) or (!$applicantItem->getVal("father_name_ar")) or (!$applicantItem->getVal("last_name_ar")))
+                        {
+                            $applicantItem->runNeededApis($lang);
+                        }
+                        /*
+                        
+                        $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", false);
+                        
+                        $api_runner_class = self::loadApiRunner();
+                        if ($applicantItem->id>0) {
+                                
+                                $register_apis = $api_runner_class::register_apis();
+                                // create register apis call requests to be done by applicant-api-request-job                        
+                                foreach ($register_apis as $register_api) {
+                                        $aepObj = ApiEndpoint::loadByMainIndex($register_api);
+                                        if (!$aepObj) throw new AfwRuntimeException("the register API $register_api is not found in DB");
+                                        ApplicantApiRequest::loadByMainIndex($applicantItem->id, $aepObj->id, true);
+                                }
+                        }*/
                         list($pbm_result, $tech_result) = $applicantItem->simulateApplication($applicationPlanObj, $this, $offlineDesiresRows[$apid],$lang, $only_reset);
                         $bootstraps += $tech_result['bootstraps'];
                         $desire_bootstraps += $tech_result['desire_bootstraps'];
