@@ -711,7 +711,7 @@ class SortingSession extends AFWObject
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
         $sql_nb_by_sorting_path = "SELECT 'count' as categ, count(*) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
-        
+        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
 
         $html .= "   </div> <!-- stats_panel -->";   
         $html .= "</div> <!-- stats-panel -->";
