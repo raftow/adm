@@ -403,7 +403,7 @@
                                 if($objPlan)
                                 {
                                         // because if sorting Has Started for current plan we can not change the sorting method setted
-                                        return (!$objPlan->sortingHasStarted());
+                                        if($objPlan->sortingHasStarted()) return [false, 'Aplan id '.$objPlan->id.' sorting has started'];
                                 }
                         }
 
