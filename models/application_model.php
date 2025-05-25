@@ -3,6 +3,7 @@
 
 
                 private $applicationStepList = null;
+                private $currentPlan = null;
                 
                 private static $arrSortingStepIdByModelId = [];
 
@@ -14,6 +15,7 @@
                 public static $stepAppModelFieldList=[];
                 public static $arrAllApplicationModels=[];
                 public static $arrQualificationMfk=[];
+                
                 
                 // public static $copypast = true;
 
@@ -246,7 +248,7 @@
                         if($fields_updated["split_sorting_by_enum"])
                         {
                                 // if sorting sessions has started refuse the update
-                                if($this->currentSortingSession()) return false;
+                                // @toremove if($this->getCurrentPlan()) return false;
                         }
 
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
@@ -402,8 +404,9 @@
                                 $objPlan = $this->getCurrentPlan();
                                 if($objPlan)
                                 {
-                                        // because if sorting Has Started for current plan we can not change the sorting method setted
-                                        if($objPlan->sortingHasStarted()) return [false, 'Aplan id '.$objPlan->id.' sorting has started'];
+                                        // because if there's current plan we can not change the sorting method setted
+                                        // except after this plan is ended and become old plan
+                                        // @toremove return [false, 'Aplan id '.$objPlan->id.' has started wait the end'];
                                 }
                         }
 
@@ -1564,13 +1567,21 @@
 
         public function getCurrentPlan($dateApplyGreg="")
         {
+                
                 if(!$dateApplyGreg) $dateApplyGreg = date("Y-m-d");
-                $academic_level_id = $this->getVal("academic_level_id");
-                $objTerm = AcademicTerm::getCurrentTerm($academic_level_id, $dateApplyGreg);
-                if(!$objTerm or !$objTerm->id) return null;
+                if(!$this->currentPlan[$dateApplyGreg])
+                {
+                        $academic_level_id = $this->getVal("academic_level_id");
+                        $objTerm = AcademicTerm::getCurrentTerm($academic_level_id, $dateApplyGreg);
+                        if(!$objTerm or !$objTerm->id) $this->currentPlan[$dateApplyGreg] = null;                        
+                        else $this->currentPlan[$dateApplyGreg] = ApplicationPlan::loadByMainIndex($this->id, $objTerm->id); 
+                        if(!$this->currentPlan[$dateApplyGreg]) $this->currentPlan[$dateApplyGreg] = "NOT-FOUND";
+                }
 
+                if($this->currentPlan[$dateApplyGreg]=="NOT-FOUND") return null;
 
-                return ApplicationPlan::loadByMainIndex($this->id, $objTerm->id); 
+                return $this->currentPlan[$dateApplyGreg];
+                
         }
 
 
