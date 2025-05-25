@@ -823,13 +823,15 @@
                                 // SortingPath::deleteWhere("application_model_id = $application_model_id and sorting_path_code not like '$the_code-%' or sorting_num > $max_sorting_num"); 
                                 // SortingPath::updateWhere(['active'=>'N'], "application_model_id = $application_model_id");
                                 
-
+                                $nbMajorPaths = count($majorPathList);
                                 $capacity_pct_total = 100;
-                                $capacity_pct_part = $capacity_pct_total / count($majorPathList);
+                                $capacity_pct_part = $capacity_pct_total / $nbMajorPaths;
                                 $sorting_num = 0;
+                                $coefs = [];
                                 foreach($majorPathList as $majorPathItem)
                                 {
                                         $sorting_num++;
+                                        $coefs[$sorting_num] = $capacity_pct_part;
                                         $sorting_path_code = $the_code."-".$majorPathItem->id;
                                         $name_ar = $this->t("sorting_path", "ar")." : ".$majorPathItem->getShortDisplay("ar");
                                         $desc_ar = "";
@@ -855,7 +857,17 @@
                                         }
                                 }
 
-                                SortingPath::deleteWhere("application_model_id = $application_model_id and active='N'");
+                                if($nbMajorPaths>0)
+                                {
+                                        $this->resetCapacitiesToFirstMajorPath($coefs); 
+                                        $planList = $this->getNextPlans();
+                                        foreach($planList as $planObj)
+                                        {
+                                                $planObj->resetCapacitiesToFirstMajorPath($coefs);
+                                        }
+                                }
+
+                                // SortingPath::deleteWhere("application_model_id = $application_model_id and active='N'");
                         }
                         
 
@@ -863,6 +875,18 @@
                         $inf_arr[] = "$nb_updated من المسارات موجودة سابقا";
 
                         return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr);
+                }
+
+                public function resetCapacitiesToFirstMajorPath($coefs)
+                {
+                        foreach($coefs as $c => $cv) ${"coef_$c"} = $cv/100.0;
+                        $sets_arr = ['capacity_track1'=>"round(seats_capacity*$coef_1)",
+                                        'capacity_track2'=>"round(seats_capacity*$coef_2)",
+                                        'capacity_track3'=>"round(seats_capacity*$coef_3)",
+                                        'capacity_track4'=>"seats_capacity-capacity_track1-capacity_track2-capacity_track3",                                                     
+                                ];
+                        $where_clause = "application_model_id = ".$this->id;
+                        ApplicationModelBranch::updateWhere($sets_arr, $where_clause);
                 }
 
                 public function genereApplicationModelBranchList($lang="ar")
@@ -1547,6 +1571,14 @@
 
 
                 return ApplicationPlan::loadByMainIndex($this->id, $objTerm->id); 
+        }
+
+
+        public function getNextPlans()
+        {
+                $application_model_id = $this->id;
+                $academic_level_id = $this->getVal("academic_level_id");
+                return ApplicationPlan::nextPlans($application_model_id, $academic_level_id); 
         }
 
         public function calcQualification_mfk($what = "value")

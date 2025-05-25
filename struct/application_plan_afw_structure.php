@@ -101,7 +101,8 @@
 
 
                                                         'start_date' => [
-                                                            'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.start_date', 
+                                                            'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                            'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.start_date', 
                                                             'SEARCH' => true,
                                                             'SHOW' => true,
                                                             'RETRIEVE' => false,
@@ -122,7 +123,8 @@
             
             
                                                         'end_date' => [
-                                                                    'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.end_date', 
+                                                                    'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                                    'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.end_date', 
                                                                     'SEARCH' => true,
                                                                     'SHOW' => true,
                                                                     'RETRIEVE' => false,
@@ -145,7 +147,8 @@
                                                         
                 
                                                         'application_start_date' => [
-                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_start_date', 
+                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                                'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_start_date', 
                                                                 'SEARCH' => true,
                                                                 'SHOW' => true,
                                                                 'RETRIEVE' => false,
@@ -165,7 +168,8 @@
                                                             ],
                 
                                                         'application_start_time' => [
-                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_start_time', 
+                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                                'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_start_time', 
                                                                 'SEARCH' => true,
                                                                 'SHOW' => true,
                                                                 'RETRIEVE' => false,
@@ -188,7 +192,8 @@
                 
                 
                                                         'application_end_date' => [
-                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_end_date', 
+                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                                'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_end_date', 
                                                                 'SEARCH' => true,
                                                                 'SHOW' => true,
                                                                 'RETRIEVE' => false,
@@ -208,7 +213,8 @@
                                                             ],
                 
                                                         'application_end_time' => [
-                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_end_time', 
+                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                                'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.application_end_time', 
                                                                 'SEARCH' => true,
                                                                 'SHOW' => true,
                                                                 'RETRIEVE' => false,
@@ -229,7 +235,8 @@
                 
                 
                                                         'sorting_start_date' => [
-                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.sorting_start_date', 
+                                                                'IMPORTANT' => 'IN', 'FGROUP' => 'term_id', 'READONLY'=>true, 
+                                                                'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'term_id.sorting_start_date', 
                                                                 'SEARCH' => true,
                                                                 'SHOW' => true,
                                                                 'RETRIEVE' => false,

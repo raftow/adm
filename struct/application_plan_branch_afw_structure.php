@@ -284,7 +284,7 @@
                                                         'EDIT-UGROUPS' => '',
                                                         'CSS' => 'width_pct_25',),
 
-
+                                                        
                                         'capacity_track1' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,

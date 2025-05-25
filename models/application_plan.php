@@ -63,6 +63,17 @@ class ApplicationPlan extends AdmObject
         return self::$arrApplicationPlan[$id];
     }
 
+
+    public static function nextPlans($application_model_id, $academic_level_id)
+    {         
+        $obj = new ApplicationPlan();
+        $obj->select("application_model_id", $application_model_id);
+        $ids = implode(",",AcademicTerm::getComingTermsIds($academic_level_id));
+        $obj->where("term_id in ($ids)");
+
+        return $obj->loadMany();
+    }
+
     public static function loadByMainIndex($application_model_id, $term_id, $create_obj_if_not_found = false)
     {
         if (!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
@@ -590,6 +601,19 @@ class ApplicationPlan extends AdmObject
         }
 
         return false;
+    }
+
+
+    public function resetCapacitiesToFirstMajorPath($coefs)
+    {
+            foreach($coefs as $c => $cv) ${"coef_$c"} = $cv/100.0;
+            $sets_arr = ['capacity_track1'=>"round(seats_capacity*$coef_1)",
+                            'capacity_track2'=>"round(seats_capacity*$coef_2)",
+                            'capacity_track3'=>"round(seats_capacity*$coef_3)",
+                            'capacity_track4'=>"seats_capacity-capacity_track1-capacity_track2-capacity_track3",                                                     
+                    ];
+            $where_clause = "application_plan_id = ".$this->id;
+            ApplicationPlanBranch::updateWhere($sets_arr, $where_clause);
     }
 
 
