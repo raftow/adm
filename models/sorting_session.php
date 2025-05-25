@@ -433,7 +433,7 @@ class SortingSession extends AFWObject
 
         
 
-        $methodConfirmationWarningEn = "You formally agree that the sorting data are not correct and you want to update it";
+        $methodConfirmationWarningEn = "You agree that the sorting data are not correct and you want to update it";
         $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
         $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
         $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
@@ -701,12 +701,16 @@ class SortingSession extends AFWObject
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
         
         $keyDecodeArr = [];
-        $keyDecodeArr["badw"] = "يحتاج اعادة حساب النسبة الموزونة";
+        $keyDecodeArr["badw"] = "اقل نسبة موزونة";
+        $keyDecodeArr["count"] = "عدد الحالات";
+        
         $vmin = 40;
-        $sql_nb_by_sorting_path = "SELECT 'badw' as categ, min(sorting_value_1) as min FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
-        $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","min");
-        $html .= "<h1>".$this->translate("need recalculations", $lang)."</h1>";
+        $html .= "<h1>".$this->tm("need recalculations", $lang)."</h1>";
+        $sql_nb_by_sorting_path = "SELECT 'badw' as categ, min(sorting_value_1) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
+        $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
+        $sql_nb_by_sorting_path = "SELECT 'count' as categ, count(*) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
+        $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
         
 
         $html .= "   </div> <!-- stats_panel -->";   
