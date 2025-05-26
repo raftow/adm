@@ -187,8 +187,8 @@ class ApplicationModelBranch extends AdmObject
                 $application_model_id = $this->getVal("application_model_id");
                 $appModelObj = ApplicationModel::loadById($application_model_id);
                 $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
-                $academic_program_id = $this->getVal("academic_program_id");
-                $maxPaths = SortingPath::nbPaths($application_model_id);
+                
+                
                 if($split_sorting_by_enum==1)
                 {
                         if ($attribute == "capacity_track1") return true;
@@ -198,6 +198,8 @@ class ApplicationModelBranch extends AdmObject
                 }
                 elseif($split_sorting_by_enum==2)
                 {
+                        $academic_program_id = $this->getVal("academic_program_id");
+                        $maxPaths = SortingPath::nbPaths($application_model_id);
                         for($spath=1; $spath<=$maxPaths; $spath++)
                         {
                                 $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);

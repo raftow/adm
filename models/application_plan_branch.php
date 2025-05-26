@@ -219,23 +219,32 @@ class ApplicationPlanBranch extends AdmObject
                 $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
                 $appModelObj = ApplicationModel::loadById($application_model_id);
                 $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
-                $academic_program_id = $this->getVal("program_id");
-                $maxPaths = SortingPath::nbPaths($application_model_id);
-                // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
-                for ($spath = 1; $spath <= $maxPaths; $spath++) {
-                        $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
-                        if ($attribute == "capacity_track$spath") {
-                                $return = ProgramQualification::pathExistsFor($academic_program_id, $split_sorting_by_enum, $majorPathId);
-                                // die("ProgramQualification::pathExistsFor(this, $split_sorting_by_enum, $majorPathId) = ".var_export($return,true));
-                                return $return;
+                if($split_sorting_by_enum==1)
+                {
+                        if ($attribute == "capacity_track1") return true;
+                        if ($attribute == "capacity_track2") return false;
+                        if ($attribute == "capacity_track3") return false;
+                        if ($attribute == "capacity_track4") return false;
+                }
+                elseif($split_sorting_by_enum==2)
+                {
+                        $academic_program_id = $this->getVal("program_id");
+                        $maxPaths = SortingPath::nbPaths($application_model_id);
+                        // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
+                        for ($spath = 1; $spath <= $maxPaths; $spath++) {
+                                $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
+                                if ($attribute == "capacity_track$spath") {
+                                        $return = ProgramQualification::pathExistsFor($academic_program_id, $split_sorting_by_enum, $majorPathId);
+                                        // die("ProgramQualification::pathExistsFor(this, $split_sorting_by_enum, $majorPathId) = ".var_export($return,true));
+                                        return $return;
+                                }
+                        }
+                        for ($spath = $maxPaths + 1; $spath <= 4; $spath++) {
+                                if ($attribute == "capacity_track$spath") {
+                                        return false;
+                                }
                         }
                 }
-                for ($spath = $maxPaths + 1; $spath <= 4; $spath++) {
-                        if ($attribute == "capacity_track$spath") {
-                                return false;
-                        }
-                }
-
                 return true;
         }
 
