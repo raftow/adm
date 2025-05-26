@@ -241,8 +241,9 @@ class SortingSessionStat extends AFWObject{
             $capacity = $this->getVal("capacity");
 
             if(!$capacity) return $euh;
+            if($nb_accepted<$capacity) return $euh;
 
-            $correct = ($nb_accepted<=$capacity);
+            $correct = ($nb_accepted==$capacity);
             return $correct ? $yes : $no;
         }
 

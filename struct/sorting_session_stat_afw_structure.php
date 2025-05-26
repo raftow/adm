@@ -226,6 +226,7 @@ class AdmSortingSessionStatAfwStructure
                         'SHOW' => true,
                         'EDIT' => true,
                         'RETRIEVE' => true,
+                        'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
