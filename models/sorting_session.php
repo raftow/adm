@@ -613,17 +613,28 @@ class SortingSession extends AFWObject
                 {
                     $rowData = $arrDataMinAccepted[$applicationPlanBranchItem->id];
                     foreach($rowData as $rowCol => $rowVal) $$rowCol = $rowVal;
+                    if(!$rowData["nb_accepted"]) die("rowData=".var_export($rowData,true));
                     $application_plan_branch_id = $applicationPlanBranchItem->id;
                     $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
                     $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
                     $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
                     $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
                     $min_weighted_percentage = $applicationPlanBranchItem->getVal("min_weighted_percentage");
+                    if(!$execo) $execo = 0;
+                    if(!$min_weighted_percentage) $min_weighted_percentage = 0;
+                    if(!$min_acc_score1) $min_acc_score1 = 0;
+                    if(!$min_acc_score2) $min_acc_score2 = 0;
+                    if(!$min_acc_score3) $min_acc_score3 = 0;
+                    if(!$nb_accepted) $nb_accepted = 0;
+
+                    if(!$min_app_score1) $min_app_score1 = 0;
+                    if(!$min_app_score2) $min_app_score2 = 0;
+                    if(!$min_app_score3) $min_app_score3 = 0;
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
-                    $application_plan_branch_id, $capacity, '$execo', '$min_weighted_percentage',
-                    '$min_app_score1', '$min_app_score2', '$min_app_score3',
-                    $nb_accepted, '$min_acc_score1', '$min_acc_score2', '$min_acc_score3'),\n";
+                    $application_plan_branch_id, $capacity, $execo, $min_weighted_percentage,
+                    $min_app_score1, $min_app_score2, $min_app_score3,
+                    $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3),\n";
                     
                     $count_values++;
 

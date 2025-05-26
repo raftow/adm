@@ -322,6 +322,9 @@ class ApplicationPlanBranch extends AdmObject
                 $msf3,$sf3_order_sens,$sf3_func) = SortingGroup::getGroupingCriterea($sorting_group_id);
 
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                // @todo below should be dynamic min(xx) from application_plan_branch ...etc
+                $sorting_value_1_min = 60;
                 
                 $msf_functions = trim("$sf1_func,$sf2_func,$sf3_func"," ,");
                 $msf_cols = trim("$msf1,$msf2,$msf3"," ,");
@@ -331,6 +334,7 @@ class ApplicationPlanBranch extends AdmObject
                        AND application_simulation_id = $application_simulation_id
                        AND application_step_id = $sorting_step_id
                        AND active = 'Y'
+                       AND sorting_value_1 > $sorting_value_1_min
                      GROUP BY application_plan_branch_id  
                 ";
 
