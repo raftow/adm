@@ -440,7 +440,7 @@ class SortingSession extends AFWObject
                     
         $color = "orange";
         $title_ar = "تصحيح بيانات الفرز";
-        $methodName = "updataFarzData";
+        $methodName = "updateFarzData";
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
                                         "ADMIN-ONLY" => true, "BF-ID" => "", 
                                         'CONFIRMATION_NEEDED' => true,
@@ -738,7 +738,7 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
-    public function updataFarzData($lang = "ar")
+    public function updateFarzData($lang = "ar")
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
             $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -774,7 +774,7 @@ class SortingSession extends AFWObject
          */
         foreach($desireList as $desireItem)
         {
-            $desireItem->repareData($lang, false);
+            $desireItem->repareData($lang, true);
             $total ++; 
         }
 
@@ -984,7 +984,7 @@ class SortingSession extends AFWObject
                                     AND track_num = $spath
                                     AND active = 'Y'
                                     AND sorting_value_1 > $sorting_value_1_min
-                                    GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
+                                    GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert active  
                                     ";
 
 
