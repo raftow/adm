@@ -212,10 +212,10 @@ class Applicant extends AdmObject
                         if ($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id");
                 }
 
-                /* I am afraid of infinite loop as apis run may trigger beforeMaj find another solution
-                $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", false);
+                
+                // $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", false);
                 $api_runner_class = self::loadApiRunner();
-                if ($this->id and ($first_register or $register_apis_need_refresh)) {
+                if ($this->id and $first_register) {
                         
                         $register_apis = $api_runner_class::register_apis();
                         // create register apis call requests to be done by applicant-api-request-job                        
@@ -224,7 +224,7 @@ class Applicant extends AdmObject
                                 if (!$aepObj) throw new AfwRuntimeException("the register API $register_api is not found in DB");
                                 ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
                         }
-                }*/
+                }
                 $file_dir_name = dirname(__FILE__);
                 
                 $eval_settings = require("$file_dir_name/../extra/eval_settings.php");

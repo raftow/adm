@@ -763,16 +763,17 @@ class SortingSession extends AFWObject
         $application_simulation_id = $this->getVal("application_simulation_id");
         $sorting_step_id = $this->calc("sorting_step_id");
 
-        /**
-         * @var ApplicationDesire $desireItem
-         */
+        
         $obj = new ApplicationDesire();
         $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)");
         $desireList = $obj->loadMany(1500);
         $total = 0;
+        /**
+         * @var ApplicationDesire $desireItem
+         */
         foreach($desireList as $desireItem)
         {
-            $desireItem->repareData($lang, true);
+            $desireItem->repareData($lang, false);
             $total ++; 
         }
 
