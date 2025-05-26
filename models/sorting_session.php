@@ -688,7 +688,7 @@ class SortingSession extends AFWObject
         $html .= "<div class='stats-panel'>";  
         $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-
+        /*
         $sortingGroupList = $this->get("sortingGroupList");
         $keyDecodeArr = [];
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
@@ -698,6 +698,7 @@ class SortingSession extends AFWObject
         // die("keyDecodeArr = ".var_export($keyDecodeArr,true));
         //  and (sorting_value_1>=$amin)
         // sorting_group_id, 
+        
         $sql_nb_by_sorting_group = "SELECT 1 as sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y'";
         $rows_by_sorting_group = AfwDatabase::db_recup_index($sql_nb_by_sorting_group,"sorting_group_id","nb");
         $html .= "<h1>".$this->translate("sorting group stats", $lang)."</h1>";
@@ -717,6 +718,7 @@ class SortingSession extends AFWObject
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"track_num","nb");
         $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
+        */
         /*
         $keyDecodeArr = [];
         $keyDecodeArr["badw"] = "اقل نسبة موزونة";
@@ -1181,6 +1183,23 @@ class SortingSession extends AFWObject
 
         return AfwFormatHelper::pbm_result($err_arr, $info_arr, $war_arr);
 
+    }
+
+    public function notRetrieve($field_name, $col_struct)
+    {
+            if(($field_name=="statList") and ($col_struct=="DO-NOT-RETRIEVE-COLS"))
+            {
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+                $appModelObj = ApplicationModel::loadById($application_model_id);
+                $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
+                if($split_sorting_by_enum==1)
+                {
+                            return ["track_num", ];
+                }
+            }
+
+            throw new AfwRuntimeException("SortingSession::notRetrieve($field_name, $col_struct) not implemented");
     }
 
 

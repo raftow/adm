@@ -48,7 +48,8 @@
 	$trad["application_plan_branch"]["sorting_group_id"] = "مجموعة الفرز";
 
 	$trad["application_plan_branch"]["min_weighted_percentage"] = "النسبة الموزونة الدنيا";
-	$trad["application_plan_branch"]["min_weighted_percentage.short"] = "نسبة التقديم";
+	$trad["application_plan_branch"]["min_weighted_percentage.short"] = "الحد الأدنى للتقديم";  
+	$trad["application_plan_branch"]["cond_weighted_percentage"] = "الحد الأدنى للقبول"; 
 
 	
 

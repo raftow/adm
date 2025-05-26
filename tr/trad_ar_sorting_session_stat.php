@@ -22,15 +22,17 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["farz-branch"] = "الفرع المعني بالفرز";
 		$trad["sorting_session_stat"]["scores"] = "نتائج الفرز";
 
-		$trad["sorting_session_stat"]["min_weighted_percentage"] = "النسبة الموزونة الدنيا";
+		$trad["sorting_session_stat"]["min_weighted_percentage"] = "الحد الأدنى للتقديم";
 
-		$trad["sorting_session_stat"]["min_acc_score1"] = "نسبة القبول";
-		$trad["sorting_session_stat"]["min_acc_score2"] = "نسبة القبول 2";
-		$trad["sorting_session_stat"]["min_acc_score3"] = "نسبة القبول 3";
+		$trad["sorting_session_stat"]["cond_weighted_percentage"] = "الحد الأدنى للقبول";
+
+		$trad["sorting_session_stat"]["min_acc_score1"] = "نسبة القبول الدنيا";
+		$trad["sorting_session_stat"]["min_acc_score2"] = "نسبة القبول الدنيا 2";
+		$trad["sorting_session_stat"]["min_acc_score3"] = "نسبة القبول الدنيا 3";
 		
-		$trad["sorting_session_stat"]["min_app_score1"] = "نسبة التقديم";
-		$trad["sorting_session_stat"]["min_app_score2"] = "نسبة التقديم 2";
-		$trad["sorting_session_stat"]["min_app_score3"] = "نسبة التقديم 3";
+		$trad["sorting_session_stat"]["min_app_score1"] = "نسبة التقديم الدنيا";
+		$trad["sorting_session_stat"]["min_app_score2"] = "نسبة التقديم الدنيا 2";
+		$trad["sorting_session_stat"]["min_app_score3"] = "نسبة التقديم الدنيا 3";
 
 		$trad["sorting_session_stat"]["sorting_session_id"] = "كرة الفرز";
 		$trad["sorting_session_stat"]["applicationDesireList"] = "الملفات التي سيتم قبولها بشكل مبدئي";

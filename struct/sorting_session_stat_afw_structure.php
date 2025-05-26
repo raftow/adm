@@ -239,12 +239,13 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'correct' => array(
+                        'FGROUP' => 'scores',
 			'SIZE' => 40,
 			'CSS' => 'width_pct_25',
 			'TYPE' => 'YN',
 			'CATEGORY' => 'FORMULA',
-                        'SHOW' => true,
-                        'EDIT' => true,
+                        'SHOW' => false,
+                        'EDIT' => false,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
@@ -287,6 +288,17 @@ class AdmSortingSessionStatAfwStructure
                 'min_app_score3' => array(
                         'FGROUP' => 'scores',
                         'TYPE' => 'FLOAT',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
+                'cond_weighted_percentage' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
