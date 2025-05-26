@@ -1190,6 +1190,10 @@ class SortingSession extends AFWObject
             if(($field_name=="statList") and ($col_struct=="DO-NOT-RETRIEVE-COLS"))
             {
                 $application_plan_id = $this->getVal("application_plan_id");
+                if(!$application_plan_id)
+                {
+                    return [];
+                }
                 $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                 $appModelObj = ApplicationModel::loadById($application_model_id);
                 $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
