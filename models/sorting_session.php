@@ -745,11 +745,11 @@ class SortingSession extends AFWObject
             $old_boucle_loadObjectFK = $boucle_loadObjectFK;
         set_time_limit(1800); 
 
-        AfwSession::setConfig("_sql_analysis_seuil_calls",7000);
-        AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",10000);
-        AfwSession::setConfig("applicant-sql-analysis-max-calls",8000);
-        AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
-        AfwSession::setConfig('MAX_INSTANCES_BY_REQUEST',25000);
+        AfwSession::setConfig("_sql_analysis_seuil_calls",70000);
+        AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",100000);
+        AfwSession::setConfig("applicant-sql-analysis-max-calls",80000);
+        AfwSession::setConfig("application_desire-sql-analysis-max-calls",100000);
+        AfwSession::setConfig('MAX_INSTANCES_BY_REQUEST',250000);
 
         $err_arr = [];
         $inf_arr = [];
