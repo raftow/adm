@@ -632,7 +632,9 @@ class SortingSession extends AFWObject
                         $sql_values = trim($sql_values);
                         $sql_values = trim($sql_values,",");
                         
-                        AfwDatabase::db_query($sql_insert_into.$sql_values.";");
+                        $sql_total = $sql_insert_into.$sql_values.";";
+                        die("sql_total=$sql_total");
+                        AfwDatabase::db_query($sql_total);
 
                         $sql_values = "";
                         $count_values=0;
