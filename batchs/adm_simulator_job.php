@@ -72,7 +72,7 @@ $recap_data[] = $row_0;
 
 $objSS = SortingSession::loadById(1);
 
-list($err, $inf, $war, $tech, $result_arr) = $objSS->updataFarzData($lang);
+list($err, $inf, $war, $tech, $result_arr) = $objSS->updateFarzData($lang);
 
 $total = $result_arr["total"];
 $success = $total;
