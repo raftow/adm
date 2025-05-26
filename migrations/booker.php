@@ -74,6 +74,7 @@ $migrations = [
     '00068' => ['by'=>'medali','title'=>'service item changes'],
     '00069' => ['by'=>'medali','title'=>'applicant_file.document_type_id + service_request.application_plan_id'],
     '00070' => ['by'=>'rafik','title'=>'sorting screen needs'],
+    '00071' => ['by'=>'medali','title'=>'add field to service_request'],
     
 
 ];
