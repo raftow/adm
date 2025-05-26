@@ -676,6 +676,7 @@ class SortingSession extends AFWObject
 
     public function calcStatsPanel($what = "value")
     {
+        $amin = 60;
         $application_simulation_id = $this->getVal("application_simulation_id");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
@@ -695,7 +696,7 @@ class SortingSession extends AFWObject
             $keyDecodeArr[$sortingGroupId] = $sortingGroupItem->getDisplay($lang);
         }
         // die("keyDecodeArr = ".var_export($keyDecodeArr,true));
-        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by sorting_group_id";
+        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y'  and (sorting_value_1>=$amin) group by sorting_group_id";
         $rows_by_sorting_group = AfwDatabase::db_recup_index($sql_nb_by_sorting_group,"sorting_group_id","nb");
         $html .= "<h1>".$this->translate("sorting group stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_group, $keyDecodeArr);
@@ -709,23 +710,23 @@ class SortingSession extends AFWObject
         }
         
         
-        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by track_num";
+        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1>=$amin) group by track_num";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"track_num","nb");
         $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
-        
+        /*
         $keyDecodeArr = [];
         $keyDecodeArr["badw"] = "اقل نسبة موزونة";
         $keyDecodeArr["count"] = "عدد الحالات";
-        
         $vmin = 40;
+        
         $html .= "<h1>".$this->tm("need recalculations", $lang)."</h1>";
         $sql_nb_by_sorting_path = "SELECT 'badw' as categ, min(sorting_value_1) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
         $sql_nb_by_sorting_path = "SELECT 'count' as categ, count(*) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
-        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
+        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);*/
 
         $html .= "   </div> <!-- stats_panel -->";   
         $html .= "</div> <!-- stats-panel -->";
@@ -790,8 +791,8 @@ class SortingSession extends AFWObject
         foreach($desireList as $desireItem)
         {
             $total ++; 
-            if($echo) AfwBatch::print_info("found to repare : ".count($desireList));
-            $desireItem->repareData($lang, true);            
+            if($echo) AfwBatch::print_info("repare case $total / $desireListCount");
+            $desireItem->repareData($lang, true, $echo);            
         }
 
         $result_arr["total"] = $total;
