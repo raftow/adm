@@ -227,6 +227,12 @@ class SortingSessionStat extends AFWObject{
             if($what=="withPrefix") return $sorting_table; else return $sorting_table_without_prefix;
         }
 
+
+        public function calcFree($what="value")
+        {
+            return $this->getVal("capacity") - $this->getVal("nb_accepted");
+        }
+
         public function calcCorrect($what="value")
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();

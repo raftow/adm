@@ -217,6 +217,19 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
+                'free' => array(
+                        'FGROUP' => 'scores',
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'INT',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => false,
+                        'EDIT' => false,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+		),
+
                 'execo' => array(
                         'FGROUP' => 'scores',
                         'SEARCH' => true,
