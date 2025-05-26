@@ -47,7 +47,7 @@ $print_important = true;
 
                               
 $recap_data = array();
-
+/*
 $objSim = ApplicationSimulation::loadById(3);
 
 list($err, $inf, $war, $tech, $result_arr) = $objSim->runSimulation($lang);
@@ -68,7 +68,7 @@ $row_0 = array('jobname'=>$project_code,
         );
 
 $recap_data[] = $row_0;
-
+*/
 
 $objSS = SortingSession::loadById(1);
 
