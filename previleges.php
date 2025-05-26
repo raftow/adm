@@ -181,6 +181,10 @@
   array (
     'name' => 'disability',
   ),
+  13957 => 
+  array (
+    'name' => 'educational_zone',
+  ),
   13944 => 
   array (
     'name' => 'employee_scope',
@@ -2283,6 +2287,50 @@
       'id' => -1,
     ),
   ),
+  'educational_zone' => 
+  array (
+    'id' => '13957',
+    'display' => 
+    array (
+      'id' => -1,
+    ),
+    'search' => 
+    array (
+      'id' => -1,
+    ),
+    'qsearch' => 
+    array (
+      'id' => -1,
+    ),
+    'edit' => 
+    array (
+      'id' => -1,
+    ),
+    'qedit' => 
+    array (
+      'id' => -1,
+    ),
+    'crossed' => 
+    array (
+      'id' => -1,
+    ),
+    'stats' => 
+    array (
+      'id' => -1,
+    ),
+    'ddb' => 
+    array (
+      'id' => -1,
+    ),
+    'minibox' => 
+    array (
+      'id' => -1,
+    ),
+    'delete' => 
+    array (
+      'id' => -1,
+    ),
+  ),
   'employee_scope' => 
   array (
     'id' => '13944',
@@ -3300,23 +3348,23 @@
     'id' => '13952',
     'display' => 
     array (
-      'id' => -1,
+      'id' => '105007',
     ),
     'search' => 
     array (
-      'id' => -1,
+      'id' => '105008',
     ),
     'qsearch' => 
     array (
-      'id' => -1,
+      'id' => '105009',
     ),
     'edit' => 
     array (
-      'id' => -1,
+      'id' => '105004',
     ),
     'qedit' => 
     array (
-      'id' => -1,
+      'id' => '105005',
     ),
     'crossed' => 
     array (
@@ -3324,7 +3372,7 @@
     ),
     'stats' => 
     array (
-      'id' => -1,
+      'id' => '105010',
     ),
     'ddb' => 
     array (
@@ -3336,7 +3384,7 @@
     ),
     'delete' => 
     array (
-      'id' => -1,
+      'id' => '105006',
     ),
   ),
   'sorting_session_stat' => 
@@ -3745,6 +3793,17 @@
           'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=SortingGroup&currmod=adm',
           'css' => 'bf',
           'icon' => 'bficon-104974 bfc-',
+        ),
+        105009 => 
+        array (
+          'id' => '105009',
+          'code' => 'f2-a-sorting_session/qsearch',
+          'level' => '1',
+          'menu_name_ar' => 'كرات فرز',
+          'menu_name_en' => 'sorting session',
+          'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=SortingSession&currmod=adm',
+          'css' => 'bf',
+          'icon' => 'bficon-105009 bfc-',
         ),
       ),
       'sub-folders' => 
