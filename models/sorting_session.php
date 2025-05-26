@@ -832,6 +832,10 @@ class SortingSession extends AFWObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
 
+
+        // @todo below should be dynamic min(xx) from application_plan_branch ...etc
+        $sorting_value_1_min = 60;
+
         $this->set("started_ind", "Y");
         $this->commit();
 
@@ -979,6 +983,7 @@ class SortingSession extends AFWObject
                                     AND sorting_group_id = $sortingGroupId
                                     AND track_num = $spath
                                     AND active = 'Y'
+                                    AND sorting_value_1 > $sorting_value_1_min
                                     GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert active  
                                     ";
 
