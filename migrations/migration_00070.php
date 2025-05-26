@@ -4,6 +4,8 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
+    $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_session', 180, "+t", "qsearch", null);
+
     AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session_stat;");
 
     AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sorting_session_stat` (
