@@ -863,7 +863,7 @@ class Applicant extends AdmObject
                 return $this->runNeededApis($lang, false);
         }
 
-        public function runNeededApis($lang = "ar", $force=true)
+        public function runNeededApis($lang = "ar", $force=true, $echo=false)
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -903,6 +903,10 @@ class Applicant extends AdmObject
                                                 $api_runner_method = "run_api_" . $api_endpoint_code;
                                                 $api_runner_class = self::loadApiRunner();
                                                 list($err, $inf, $war, $tech) = $api_runner_class::$api_runner_method($this);
+                                                if($echo and $err) AfwBatch::print_error($err);
+                                                if($echo and $inf) AfwBatch::print_info($err);
+                                                if($echo and $war) AfwBatch::print_warning($err);
+                                                if($echo and $tech) AfwBatch::print_debugg($err);
 
                                                 if ($err) $err_arr[] = "$api_name : " . $err;
                                                 if ($inf) $inf_arr[] = "$api_name : " . $inf;

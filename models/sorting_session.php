@@ -751,7 +751,7 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
-    public function updateFarzData($lang = "ar")
+    public function updateFarzData($lang = "ar", $echo=false)
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
             $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -781,14 +781,17 @@ class SortingSession extends AFWObject
         $obj = new ApplicationDesire();
         $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)");
         $desireList = $obj->loadMany(1500);
+        $desireListCount = count($desireList);
+        if($echo) AfwBatch::print_info("found to repare : ".$desireListCount);
         $total = 0;
         /**
          * @var ApplicationDesire $desireItem
          */
         foreach($desireList as $desireItem)
         {
-            $desireItem->repareData($lang, true);
             $total ++; 
+            if($echo) AfwBatch::print_info("found to repare : ".count($desireList));
+            $desireItem->repareData($lang, true);            
         }
 
         $result_arr["total"] = $total;
