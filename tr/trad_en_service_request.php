@@ -19,6 +19,8 @@ class ServiceRequestEnTranslator{
 	$trad["service_request"]["subject"] = "subject";
 	$trad["service_request"]["description"] = "description";
 	$trad["service_request"]["applicant_file_id"] = "applicant file";
+	$trad["service_request"]["application_plan_id"] = "application plan";
+
         return $trad;
         }
 

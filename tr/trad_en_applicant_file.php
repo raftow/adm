@@ -15,6 +15,8 @@ class ApplicantFileEnTranslator{
 		$trad["applicant_file"]["applicant_id"] = "The applicant";
 		$trad["applicant_file"]["workflow_file_id"] = "The file";
 		$trad["applicant_file"]["doc_type_id"] = "The document type";
+		$trad["applicant_file"]["document_type_id"] = "document type (admission portal)";
+
         // steps
         return $trad;
     }

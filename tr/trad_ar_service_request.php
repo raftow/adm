@@ -19,6 +19,9 @@ class ServiceRequestArTranslator{
 	$trad["service_request"]["subject"] = "موضوع الطلب";
 	$trad["service_request"]["description"] = "رسالة الطلب";
 	$trad["service_request"]["applicant_file_id"] = "الملف المرفق";
+	$trad["service_request"]["application_plan_id"] = "خطة القبول";
+
+    
         return $trad;
         }
 

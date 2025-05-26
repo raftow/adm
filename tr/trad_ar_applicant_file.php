@@ -16,6 +16,8 @@ class ApplicantFileArTranslator{
 		$trad["applicant_file"]["idn"] = "رقم هوية المتقدم";
 		$trad["applicant_file"]["workflow_file_id"] = "الملف";
 		$trad["applicant_file"]["doc_type_id"] = "نوع المستند";
+		$trad["applicant_file"]["document_type_id"] = "نوع الوثيقة (في البوابة)";
+
 		$trad["applicant_file"]["approved"] = "حالة الاعتماد";
 		$trad["applicant_file"]["approved.YES"] = "تم الاعتماد";
 		$trad["applicant_file"]["approved.NO"]  = "تم الرفض";
