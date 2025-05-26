@@ -445,7 +445,7 @@ class ApplicationDesire extends AdmObject
                         if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                         if ($this->applicantObj) 
                         {
-                                $this->applicantObj->runOnlyNeedUpdateApis($lang);
+                                $this->applicantObj->runNeededApis($lang, true);
                         }
                 }
 
