@@ -217,6 +217,27 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
+                'execo' => array(
+                        'FGROUP' => 'scores',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'INT',
+                        'READONLY' => true,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
                 'correct' => array(
 			'SIZE' => 40,
 			'CSS' => 'width_pct_25',
@@ -228,6 +249,19 @@ class AdmSortingSessionStatAfwStructure
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
 		),
+
+
+                'min_weighted_percentage' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'RETRIEVE' => true,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
 
                 'min_app_score1' => array(
                         'FGROUP' => 'scores',

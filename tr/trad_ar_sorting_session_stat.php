@@ -15,11 +15,14 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["track_num"] = "مسار الفرز";
 		$trad["sorting_session_stat"]["capacity"] = "الطاقة الاستيعابية";
 		$trad["sorting_session_stat"]["nb_accepted"] = "عدد المقبولين";
+		$trad["sorting_session_stat"]["execo"] = "متساوين";
 
 		$trad["sorting_session_stat"]["step1"] = "نتائج الفرز";
 		$trad["sorting_session_stat"]["step2"] = "المقبولين";
 		$trad["sorting_session_stat"]["farz-branch"] = "الفرع المعني بالفرز";
 		$trad["sorting_session_stat"]["scores"] = "نتائج الفرز";
+
+		$trad["sorting_session_stat"]["min_weighted_percentage"] = "النسبة الموزونة الدنيا";
 
 		$trad["sorting_session_stat"]["min_acc_score1"] = "نسبة القبول";
 		$trad["sorting_session_stat"]["min_acc_score2"] = "نسبة القبول 2";
