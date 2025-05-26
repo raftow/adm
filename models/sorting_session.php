@@ -595,7 +595,7 @@ class SortingSession extends AFWObject
         $sql_insert_into = "INSERT INTO ".$server_db_prefix."adm.sorting_session_stat 
                        (`created_by`, `updated_by`, `created_at`, `updated_at`, active, version,
                         `application_plan_id`, `session_num`, `application_simulation_id`, `track_num`,
-                        `application_plan_branch_id`, `capacity`, 
+                        `application_plan_branch_id`, `capacity`, `execo`, min_weighted_percentage,
                         `min_app_score1`, `min_app_score2`, `min_app_score3`, 
                         nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3) VALUES ";
 
@@ -618,9 +618,10 @@ class SortingSession extends AFWObject
                     $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
                     $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
                     $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
+                    $min_weighted_percentage = $applicationPlanBranchItem->getVal("min_weighted_percentage");
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
-                    $application_plan_branch_id, $capacity, 
+                    $application_plan_branch_id, $capacity, '$execo', '$min_weighted_percentage',
                     '$min_app_score1', '$min_app_score2', '$min_app_score3',
                     $nb_accepted, '$min_acc_score1', '$min_acc_score2', '$min_acc_score3'),\n";
                     
@@ -999,6 +1000,7 @@ class SortingSession extends AFWObject
                 $old_score = null;
                 $farz_rows = 0;
                 $farz_rows_sql_values = "";
+                
                 foreach($farzRows as $farzRow)
                 {
                     $applicant_id = $farzRow["applicant_id"];
@@ -1037,6 +1039,13 @@ class SortingSession extends AFWObject
                                 
                                 $desire_assigned = $desire_num_to_assign;
                                 $application_plan_branch_id_assigned = $application_plan_branch_id_to_assign;
+
+                                if($branchsCapacityMatrix[$application_plan_branch_id_assigned]<=0) 
+                                {
+                                    if($arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"]) $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"]++;
+                                    else $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"] = 2; // 2 = 1 + 1 : him and his first execo
+                                }
+
                                 if($applicant_id == $object_id_for_audit)
                                 {
                                     $war_arr[] = "audit desire num $desire_assigned assigned APB-ID = $application_plan_branch_id_assigned";
