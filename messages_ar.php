@@ -162,5 +162,6 @@
     $messages["You agree that you want to cancel capacity planning for different sorting paths"] = "أنت توافق على أنك تريد إلغاء تقسيم الطاقة الاستيعابية على مسارات الفرز المختلفة";
     $messages["need recalculations"] = "يحتاج تحديث بيانات الفرز";
     $messages["You agree that the sorting data are not correct and you want to update it"] = "أنت توافق أن بيانات الفرز ليست محدثة وترغب في تحديثها قبل اجراء الفرز. هذه العملية قد تستغرق بعض الوقت لأنك ربما ستحتاج إلى تكرارها الى حين زوال الحالات الخاطئة إذا كانت الحالات كثيرة جدا";
+    $messages["You agree that you want to erase capacity planning with sample values"] = "أنت توافق على أنك تريد استبدال الطاقة الاستيعابية للفروع باستخدام قيم تجريبية عشوائية ";
     // $messages[""] = "";
 ?>

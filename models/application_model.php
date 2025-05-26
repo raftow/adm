@@ -1020,10 +1020,17 @@
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
 
-                        $color = "blue";
+                        $methodConfirmationWarningEn = "You agree that you want to erase capacity planning with sample values";
+                        $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
+                        $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
+                        $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
+
+                        $color = "red";
                         $title_ar = "فتح جميع فروع القبول بطاقة استيعابية تجريبية"; 
                         $methodName = "testOpenApplicationModelBranchList";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
+                             "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
+                             'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
 
                         if(!$this->currentSortingSession())
                         {
@@ -1058,9 +1065,9 @@
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
                         $color = "orange";
-                        $title_ar = "اعادة ترتيب جميع الفروع من البرامج المتاحة"; 
+                        $title_ar = "اعادة ترتيب جميع الفروع من ترتيب البرامج"; 
                         $methodName = "reorderBranchsFromProgramOffering";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
 
                         $methodConfirmationWarningEn = "You agree that you want to cancel capacity planning for different sorting paths";
