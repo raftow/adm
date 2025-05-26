@@ -952,7 +952,7 @@ class SortingSession extends AFWObject
                     for($f=1;$f<=9;$f++)
                     {
                         $ff = $sortingCriterea["f$f"];
-                        $ff_sql .= $ff ? "formula_value_$f float NOT NULL, " : "";
+                        $ff_sql .= $ff ? "formula_value_$f float NULL, " : "";
                         $ff_insert .= $ff ? "formula_value_$f, " : "";
                     }
 
