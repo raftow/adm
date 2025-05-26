@@ -696,7 +696,8 @@ class SortingSession extends AFWObject
             $keyDecodeArr[$sortingGroupId] = $sortingGroupItem->getDisplay($lang);
         }
         // die("keyDecodeArr = ".var_export($keyDecodeArr,true));
-        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y'  and (sorting_value_1>=$amin) group by sorting_group_id";
+        //  and (sorting_value_1>=$amin)
+        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y'  group by sorting_group_id";
         $rows_by_sorting_group = AfwDatabase::db_recup_index($sql_nb_by_sorting_group,"sorting_group_id","nb");
         $html .= "<h1>".$this->translate("sorting group stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_group, $keyDecodeArr);
@@ -709,8 +710,8 @@ class SortingSession extends AFWObject
             $keyDecodeArr[$spath] = SortingPath::trackTranslation($application_model_id, $spath, $lang);
         }
         
-        
-        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1>=$amin) group by track_num";
+        //  and (sorting_value_1>=$amin)
+        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by track_num";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"track_num","nb");
         $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
