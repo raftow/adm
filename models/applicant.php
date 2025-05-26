@@ -244,13 +244,7 @@ class Applicant extends AdmObject
                                         $eval_result = $this->getVal($eval_attribute);
                                         if($eval_date and $eval_result)
                                         {
-                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, true);
-                                                if($objEval)
-                                                {
-                                                        $objEval->set("eval_result", $eval_result);
-                                                        $objEval->set("imported", "N");
-                                                        $objEval->commit();
-                                                }
+                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, $eval_result, true);
                                         }
                                         
                                 }

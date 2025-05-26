@@ -60,7 +60,7 @@ class ApplicantEvaluation extends AdmObject
                 return $obj->func("max(eval_result)");
         }
 
-        public static function loadByMainIndex($evaluation_id, $applicant_id, $eval_date, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($evaluation_id, $applicant_id, $eval_date, $eval_result, $create_obj_if_not_found = false)
         {
                 if (!$evaluation_id) throw new AfwRuntimeException("loadByMainIndex : evaluation_id is mandatory field");
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
@@ -72,13 +72,15 @@ class ApplicantEvaluation extends AdmObject
                 $obj->select("eval_date", $eval_date);
 
                 if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
+                        $obj->set("eval_result", $eval_result);
+                        if ($create_obj_if_not_found) $obj->activate();                        
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("evaluation_id", $evaluation_id);
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("eval_date", $eval_date);
-
+                        $obj->set("eval_result", $eval_result);
+                        $obj->set("imported", "N");
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
