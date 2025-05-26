@@ -164,15 +164,28 @@ class ApplicationPlan extends AdmObject
         return true;
     }
 
+    public function reorderBranchsFromAppModel($lang="ar")
+    {
+        return $this->reorderBranchs($lang, $fromAppModel=true);
+    }
 
-    public function reorderBranchs($lang="ar")
+    public function reorderBranchs($lang="ar", $fromAppModel=false)
     {
             $applicationPlanBranchList = $this->get("applicationPlanBranchList");   
             $branch_order = 0;
             $log_arr = [];
             foreach($applicationPlanBranchList as $applicationPlanBranchItem)
             {
-                    $old_branch_order = $applicationPlanBranchItem->getVal("branch_order"); 
+                
+                if($fromAppModel)
+                {
+                    $applicationModelBranchItem = $applicationPlanBranchItem->het("application_model_branch_id");
+                    if($applicationModelBranchItem) $old_branch_order = $applicationModelBranchItem->getVal("branch_order"); 
+                    else $old_branch_order = 0;
+                    if(!$old_branch_order) $fromAppModel=false;
+                }
+                
+                if(!$fromAppModel) $old_branch_order = $applicationPlanBranchItem->getVal("branch_order"); 
                     if($branch_order<=0) {
                             $branch_order = $old_branch_order; 
                             if($branch_order<=0) $branch_order = 1;
@@ -262,7 +275,11 @@ class ApplicationPlan extends AdmObject
             $methodName = "reorderBranchs";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
             
-
+            $color = "orange";
+            $title_ar = "اعادة ترتيب جميع الفروع من النموذج"; 
+            $methodName = "reorderBranchsFromAppModel";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+            
 
 
             $color = "yellow";

@@ -416,14 +416,27 @@
                         return [true, ''];
                 }
 
-                public function reorderBranchs($lang="ar")
+                public function reorderBranchsFromProgramOffering($lang="ar")
+                {
+                        return $this->reorderBranchs($lang, $fromProgramOffering=true);
+                }
+
+                public function reorderBranchs($lang="ar", $fromProgramOffering=false)
                 {
                         $applicationModelBranchList = $this->get("applicationModelBranchList");   
                         $branch_order = 0;
                         $log_arr = [];
                         foreach($applicationModelBranchList as $applicationModelBranchItem)
                         {
-                                $old_branch_order = $applicationModelBranchItem->getVal("branch_order"); 
+                                if($fromProgramOffering)
+                                {
+                                        $programOfferingItem = $applicationModelBranchItem->het("program_offering_id");
+                                        if($programOfferingItem) $old_branch_order = $programOfferingItem->getVal("academic_program_id.program_rank"); 
+                                        else $old_branch_order = 0;
+                                        if(!$old_branch_order) $fromProgramOffering=false;
+                                }
+                                
+                                if(!$fromProgramOffering) $old_branch_order = $applicationModelBranchItem->getVal("branch_order"); 
                                 if($branch_order<=0) {
                                         $branch_order = $old_branch_order; 
                                         if($branch_order<=0) $branch_order = 1;
@@ -1044,6 +1057,12 @@
                         $methodName = "reorderBranchs";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
+                        $color = "orange";
+                        $title_ar = "اعادة ترتيب جميع الفروع من البرامج المتاحة"; 
+                        $methodName = "reorderBranchsFromProgramOffering";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationPlanBranchList"));
+                        
+
                         $methodConfirmationWarningEn = "You agree that you want to cancel capacity planning for different sorting paths";
                         $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
                         $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";

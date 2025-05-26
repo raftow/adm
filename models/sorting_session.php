@@ -739,6 +739,25 @@ class SortingSession extends AFWObject
     
     public function updataFarzData($lang = "ar")
     {
+        global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
+            $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+            $MODE_BATCH_LOURD = true;
+            $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+        set_time_limit(1800); 
+
+        AfwSession::setConfig("_sql_analysis_seuil_calls",7000);
+        AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls",10000);
+        AfwSession::setConfig("applicant-sql-analysis-max-calls",8000);
+        AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
+        AfwSession::setConfig('MAX_INSTANCES_BY_REQUEST',25000);
+
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        $log_arr = [];
+        $result_arr = [];
+
         $vmin = 40;
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
@@ -755,7 +774,10 @@ class SortingSession extends AFWObject
             $desireItem->repareData($lang, true);
         }
 
-        return ["", "done"];
+        $inf_arr[] = "done";
+        $boucle_loadObjectFK = $old_boucle_loadObjectFK;
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
     }
 
     public function runSorting($lang = "ar", $preSorting = true)
