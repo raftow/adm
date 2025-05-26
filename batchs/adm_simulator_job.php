@@ -69,6 +69,28 @@ $row_0 = array('jobname'=>$project_code,
 
 $recap_data[] = $row_0;
 
+
+$objSS = SortingSession::loadById(1);
+
+list($err, $inf, $war, $tech, $result_arr) = $objSS->updataFarzData($lang);
+
+$total = $result_arr["total"];
+$success = $total;
+$aboots = "n/a";
+$dboots = "n/a";
+$errors = "n/a";
+$warnings = "n/a";
+
+
+$row_1 = array('jobname'=>$project_code,
+               'total'=>$total, 'success'=>$success, 
+               'aboots'=>$aboots, 'dboots'=>$dboots, 
+               'errors'=>$errors, 'warnings'=>$warnings, 
+        
+        );
+
+$recap_data[] = $row_1;
+
 // $jb_run->setNewItemValue($row_0["jobname"],"errors",$nb_errors);
 // $jb_run->setNewItemValue($row_0["jobname"],"surveyed",$nb_surveyed);
 // $jb_run->setNewItemValue($row_0["jobname"],"migrated",$nbrows_migrated);
