@@ -4682,33 +4682,75 @@ div#stats_panel .cols3.cols3_value.even {
 }
 
 tr.csr_correct>td.hzm_col_afw_nb_accepted {
-    background-color: #f4d2c16e;
-    text-align: center;
-    font-weight: bold;
+    background-color: #fff5b26e !important;
+    text-align: center !important;
+    font-weight: bold !important;
 }
 
-tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span {
-    background-color: #f85c1fd1;
-    color: white !important;
-    text-align: center;
-    padding: 4px !important;
-    max-width: 40px;
-    display: block;
-}
 
 tr.csr_correct>td.hzm_col_afw_free {
-    background-color: #d2f4c16e;
-    text-align: center;
-    font-weight: bold;
+    background-color: #d2f4c16e !important;
+    text-align: center !important;
+    font-weight: bold !important;
 }
 
-tr.csr_correct.hzm_row_W>td.hzm_col_afw_free>span {
+tr.csr_correct.hzm_row_W>td.hzm_col_afw_free>span,
+tr.csr_correct.hzm_row_W>td.hzm_col_afw_nb_accepted>span {
+    background-color: #5319c4d1;
+    color: white !important;
+    text-align: center;
+    padding: 2px !important;
+    width: 60%;
+    margin-right: 20%;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+tr.csr_correct.hzm_row_Y>td.hzm_col_afw_free>span,
+tr.csr_correct.hzm_row_Y>td.hzm_col_afw_nb_accepted>span {
     background-color: #53c419d1;
     color: white !important;
     text-align: center;
     padding: 2px !important;
-    max-width: 30px;
+    width: 60%;
+    margin-right: 20%;
     display: block;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
+}
+
+tr.csr_correct.hzm_row_N>td.hzm_col_afw_free>span,
+tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span {
+    background-color: #f85c1fd1;
+    color: white !important;
+    text-align: center;
+    padding: 2px !important;
+    width: 60%;
+    margin-right: 20%;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span {
+    background-color: #949991d1;
+    color: white !important;
+    text-align: center;
+    padding: 2px !important;
+    width: 60%;
+    margin-right: 20%;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+
+table.obsolete td.hzm_col_afw_nb_accepted, 
+table.obsolete td.hzm_col_afw_free, 
+table.obsolete td.hzm_col_afw_execo, 
+table.obsolete td.hzm_col_afw_min_acc_score1,
+table.obsolete td.hzm_col_afw_min_weighted_percentage {
+    opacity: 20%;
 }

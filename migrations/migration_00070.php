@@ -38,10 +38,11 @@ try
         min_app_score1 float DEFAULT NULL , 
         min_app_score2 float DEFAULT NULL , 
         min_app_score3 float DEFAULT NULL , 
+        cond_weighted_percentage float DEFAULT NULL,
         min_acc_score1 float DEFAULT NULL , 
         min_acc_score2 float DEFAULT NULL , 
         min_acc_score3 float DEFAULT NULL , 
-
+        
         
         PRIMARY KEY (`id`)
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");

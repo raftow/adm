@@ -263,6 +263,8 @@ class AdmSortingSessionAfwStructure
                                                 'TYPE' => 'FK', 'STEP' => 5,  
                                                 'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_session_stat',  'ANSMODULE' => 'adm',  
                                                 'DO-NOT-RETRIEVE-COLS' => '::notRetrieve',
+                                                'DISABLE_DATA_TABLE' => true,
+                                                'RETRIEVE-POPUP-EDITOR' => ['cond_weighted_percentage','capacity',],
                                                 'WHERE' => 'application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§ and session_num=§session_num§ and active=\'Y\'',  
                                                 'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_100', ),                        

@@ -19,6 +19,29 @@ class SortingSessionStat extends AFWObject{
 		parent::__construct("sorting_session_stat","id","adm");
             AdmSortingSessionStatAfwStructure::initInstance($this);    
 	    }
+
+        public function popupEditConfig($col, $auser = null)
+        {
+            $authorized = false;
+            $title = "";
+            $text = "";
+
+            if($col=="capacity")
+            {
+                $authorized = true;
+                $title = "لاجل الفرز";
+                $text = "لاجل شاشة الفرز";
+            }
+
+            if($col=="cond_weighted_percentage")
+            {
+                $authorized = true;
+                $title = "لاجل الفرز";
+                $text = "لاجل شاشة الفرز";
+            }
+
+            return [$authorized, $title, $text];
+        }
         
         public static function loadById($id)
         {
@@ -107,6 +130,19 @@ class SortingSessionStat extends AFWObject{
 
                 
                 return implode(" - كرة فرز رقم ",$data);
+        }
+
+        public function getShortDisplay($lang="ar")
+        {
+                
+                $data = array();
+                $link = array();
+                
+
+                list($data[0],$link[0]) = $this->displayAttribute("application_plan_branch_id",false, $lang);
+                
+                
+                return implode(" ",$data);
         }
         
 

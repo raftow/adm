@@ -613,7 +613,7 @@ class SortingSession extends AFWObject
                 {
                     $rowData = $arrDataMinAccepted[$applicationPlanBranchItem->id];
                     foreach($rowData as $rowCol => $rowVal) $$rowCol = $rowVal;
-                    if(!$rowData["nb_accepted"]) die("rowData=".var_export($rowData,true));
+                    // if(!$rowData["nb_accepted"]) die("rowData=".var_export($rowData,true));
                     $application_plan_branch_id = $applicationPlanBranchItem->id;
                     $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
                     $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
@@ -1201,6 +1201,7 @@ class SortingSession extends AFWObject
                 {
                             return ["track_num", ];
                 }
+                else return [];
             }
 
             throw new AfwRuntimeException("SortingSession::notRetrieve($field_name, $col_struct) not implemented");
