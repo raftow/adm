@@ -613,17 +613,28 @@ class SortingSession extends AFWObject
                 {
                     $rowData = $arrDataMinAccepted[$applicationPlanBranchItem->id];
                     foreach($rowData as $rowCol => $rowVal) $$rowCol = $rowVal;
+                    if(!$rowData["nb_accepted"]) die("rowData=".var_export($rowData,true));
                     $application_plan_branch_id = $applicationPlanBranchItem->id;
                     $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
                     $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
                     $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
                     $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
                     $min_weighted_percentage = $applicationPlanBranchItem->getVal("min_weighted_percentage");
+                    if(!$execo) $execo = 0;
+                    if(!$min_weighted_percentage) $min_weighted_percentage = 0;
+                    if(!$min_acc_score1) $min_acc_score1 = 0;
+                    if(!$min_acc_score2) $min_acc_score2 = 0;
+                    if(!$min_acc_score3) $min_acc_score3 = 0;
+                    if(!$nb_accepted) $nb_accepted = 0;
+
+                    if(!$min_app_score1) $min_app_score1 = 0;
+                    if(!$min_app_score2) $min_app_score2 = 0;
+                    if(!$min_app_score3) $min_app_score3 = 0;
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
-                    $application_plan_branch_id, $capacity, '$execo', '$min_weighted_percentage',
-                    '$min_app_score1', '$min_app_score2', '$min_app_score3',
-                    $nb_accepted, '$min_acc_score1', '$min_acc_score2', '$min_acc_score3'),\n";
+                    $application_plan_branch_id, $capacity, $execo, $min_weighted_percentage,
+                    $min_app_score1, $min_app_score2, $min_app_score3,
+                    $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3),\n";
                     
                     $count_values++;
 
@@ -632,7 +643,9 @@ class SortingSession extends AFWObject
                         $sql_values = trim($sql_values);
                         $sql_values = trim($sql_values,",");
                         
-                        AfwDatabase::db_query($sql_insert_into.$sql_values.";");
+                        $sql_total = $sql_insert_into.$sql_values.";";
+                        die("sql_total=$sql_total");
+                        AfwDatabase::db_query($sql_total);
 
                         $sql_values = "";
                         $count_values=0;
@@ -663,6 +676,7 @@ class SortingSession extends AFWObject
 
     public function calcStatsPanel($what = "value")
     {
+        $amin = 60;
         $application_simulation_id = $this->getVal("application_simulation_id");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
@@ -674,7 +688,7 @@ class SortingSession extends AFWObject
         $html .= "<div class='stats-panel'>";  
         $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-
+        /*
         $sortingGroupList = $this->get("sortingGroupList");
         $keyDecodeArr = [];
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
@@ -682,7 +696,10 @@ class SortingSession extends AFWObject
             $keyDecodeArr[$sortingGroupId] = $sortingGroupItem->getDisplay($lang);
         }
         // die("keyDecodeArr = ".var_export($keyDecodeArr,true));
-        $sql_nb_by_sorting_group = "SELECT sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by sorting_group_id";
+        //  and (sorting_value_1>=$amin)
+        // sorting_group_id, 
+        
+        $sql_nb_by_sorting_group = "SELECT 1 as sorting_group_id, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y'";
         $rows_by_sorting_group = AfwDatabase::db_recup_index($sql_nb_by_sorting_group,"sorting_group_id","nb");
         $html .= "<h1>".$this->translate("sorting group stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_group, $keyDecodeArr);
@@ -695,24 +712,26 @@ class SortingSession extends AFWObject
             $keyDecodeArr[$spath] = SortingPath::trackTranslation($application_model_id, $spath, $lang);
         }
         
-        
-        $sql_nb_by_sorting_path = "SELECT track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' group by track_num";
+        //  and (sorting_value_1>=$amin)
+        //  group by track_num
+        $sql_nb_by_sorting_path = "SELECT 1 as track_num, count(*) as nb FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y'";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"track_num","nb");
         $html .= "<h1>".$this->translate("sorting path stats", $lang)."</h1>";
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
-        
+        */
+        /*
         $keyDecodeArr = [];
         $keyDecodeArr["badw"] = "اقل نسبة موزونة";
         $keyDecodeArr["count"] = "عدد الحالات";
-        
         $vmin = 40;
+        
         $html .= "<h1>".$this->tm("need recalculations", $lang)."</h1>";
         $sql_nb_by_sorting_path = "SELECT 'badw' as categ, min(sorting_value_1) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
         $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
         $sql_nb_by_sorting_path = "SELECT 'count' as categ, count(*) as vvv FROM ".$server_db_prefix."adm.`application_desire` WHERE `application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)";
         $rows_by_sorting_path = AfwDatabase::db_recup_index($sql_nb_by_sorting_path,"categ","vvv");
-        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);
+        $html .= AfwHtmlHelper::arrayToHtml($rows_by_sorting_path, $keyDecodeArr);*/
 
         $html .= "   </div> <!-- stats_panel -->";   
         $html .= "</div> <!-- stats-panel -->";
@@ -738,7 +757,7 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
-    public function updateFarzData($lang = "ar")
+    public function updateFarzData($lang = "ar", $echo=false)
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
             $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -768,14 +787,17 @@ class SortingSession extends AFWObject
         $obj = new ApplicationDesire();
         $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)");
         $desireList = $obj->loadMany(1500);
+        $desireListCount = count($desireList);
+        if($echo) AfwBatch::print_info("found to repare : ".$desireListCount);
         $total = 0;
         /**
          * @var ApplicationDesire $desireItem
          */
         foreach($desireList as $desireItem)
         {
-            $desireItem->repareData($lang, true);
             $total ++; 
+            if($echo) AfwBatch::print_info("repare case $total / $desireListCount");
+            $desireItem->repareData($lang, true, $echo);            
         }
 
         $result_arr["total"] = $total;
@@ -1161,6 +1183,27 @@ class SortingSession extends AFWObject
 
         return AfwFormatHelper::pbm_result($err_arr, $info_arr, $war_arr);
 
+    }
+
+    public function notRetrieve($field_name, $col_struct)
+    {
+            if(($field_name=="statList") and ($col_struct=="DO-NOT-RETRIEVE-COLS"))
+            {
+                $application_plan_id = $this->getVal("application_plan_id");
+                if(!$application_plan_id)
+                {
+                    return [];
+                }
+                $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+                $appModelObj = ApplicationModel::loadById($application_model_id);
+                $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
+                if($split_sorting_by_enum==1)
+                {
+                            return ["track_num", ];
+                }
+            }
+
+            throw new AfwRuntimeException("SortingSession::notRetrieve($field_name, $col_struct) not implemented");
     }
 
 

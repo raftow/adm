@@ -435,7 +435,7 @@ class ApplicationDesire extends AdmObject
                 return false;
         }
 
-        public function repareData($lang = "ar", $fullRepare=false)
+        public function repareData($lang = "ar", $fullRepare=false, $echo=false)
         {
                 $is_to_commit = false;
                 $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -445,7 +445,7 @@ class ApplicationDesire extends AdmObject
                         if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                         if ($this->applicantObj) 
                         {
-                                $this->applicantObj->runNeededApis($lang, true);
+                                $this->applicantObj->runNeededApis($lang, true, $echo);
                         }
                 }
 
@@ -485,7 +485,8 @@ class ApplicationDesire extends AdmObject
 
 
                 if ($this->sortingCritereaNeedRefresh()) {
-                        $this->reComputeSortingCriterea($lang, false);
+                        if($echo) AfwBatch::print_debugg("sorting Criterea Need Refresh");
+                        $this->reComputeSortingCriterea($lang, false, $echo);
                         $is_to_commit = true;
                 }
 
@@ -973,7 +974,7 @@ class ApplicationDesire extends AdmObject
                 else $war = "sorting Criterea wasnt Needing Refresh";
                 if ($commit) $this->commit();
 
-                return ["", $this->translate("done", $lang), ""];
+                return ["", $this->translate("done", $lang), $war];
         }
 
         public function attributeIsApplicable($attribute)

@@ -4681,6 +4681,12 @@ div#stats_panel .cols3.cols3_value.even {
     background-color: #d6f6d6;
 }
 
+tr.csr_correct>td.hzm_col_afw_nb_accepted {
+    background-color: #f4d2c16e;
+    text-align: center;
+    font-weight: bold;
+}
+
 tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span {
     background-color: #f85c1fd1;
     color: white !important;
@@ -4688,4 +4694,21 @@ tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span {
     padding: 4px !important;
     max-width: 40px;
     display: block;
+}
+
+tr.csr_correct>td.hzm_col_afw_free {
+    background-color: #d2f4c16e;
+    text-align: center;
+    font-weight: bold;
+}
+
+tr.csr_correct.hzm_row_W>td.hzm_col_afw_free>span {
+    background-color: #53c419d1;
+    color: white !important;
+    text-align: center;
+    padding: 2px !important;
+    max-width: 30px;
+    display: block;
+    font-size: 18px;
+    font-weight: normal;
 }

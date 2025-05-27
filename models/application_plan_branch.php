@@ -219,23 +219,32 @@ class ApplicationPlanBranch extends AdmObject
                 $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
                 $appModelObj = ApplicationModel::loadById($application_model_id);
                 $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
-                $academic_program_id = $this->getVal("program_id");
-                $maxPaths = SortingPath::nbPaths($application_model_id);
-                // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
-                for ($spath = 1; $spath <= $maxPaths; $spath++) {
-                        $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
-                        if ($attribute == "capacity_track$spath") {
-                                $return = ProgramQualification::pathExistsFor($academic_program_id, $split_sorting_by_enum, $majorPathId);
-                                // die("ProgramQualification::pathExistsFor(this, $split_sorting_by_enum, $majorPathId) = ".var_export($return,true));
-                                return $return;
+                if($split_sorting_by_enum==1)
+                {
+                        if ($attribute == "capacity_track1") return true;
+                        if ($attribute == "capacity_track2") return false;
+                        if ($attribute == "capacity_track3") return false;
+                        if ($attribute == "capacity_track4") return false;
+                }
+                elseif($split_sorting_by_enum==2)
+                {
+                        $academic_program_id = $this->getVal("program_id");
+                        $maxPaths = SortingPath::nbPaths($application_model_id);
+                        // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
+                        for ($spath = 1; $spath <= $maxPaths; $spath++) {
+                                $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
+                                if ($attribute == "capacity_track$spath") {
+                                        $return = ProgramQualification::pathExistsFor($academic_program_id, $split_sorting_by_enum, $majorPathId);
+                                        // die("ProgramQualification::pathExistsFor(this, $split_sorting_by_enum, $majorPathId) = ".var_export($return,true));
+                                        return $return;
+                                }
+                        }
+                        for ($spath = $maxPaths + 1; $spath <= 4; $spath++) {
+                                if ($attribute == "capacity_track$spath") {
+                                        return false;
+                                }
                         }
                 }
-                for ($spath = $maxPaths + 1; $spath <= 4; $spath++) {
-                        if ($attribute == "capacity_track$spath") {
-                                return false;
-                        }
-                }
-
                 return true;
         }
 
@@ -313,6 +322,9 @@ class ApplicationPlanBranch extends AdmObject
                 $msf3,$sf3_order_sens,$sf3_func) = SortingGroup::getGroupingCriterea($sorting_group_id);
 
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                // @todo below should be dynamic min(xx) from application_plan_branch ...etc
+                $sorting_value_1_min = 60;
                 
                 $msf_functions = trim("$sf1_func,$sf2_func,$sf3_func"," ,");
                 $msf_cols = trim("$msf1,$msf2,$msf3"," ,");
@@ -322,6 +334,7 @@ class ApplicationPlanBranch extends AdmObject
                        AND application_simulation_id = $application_simulation_id
                        AND application_step_id = $sorting_step_id
                        AND active = 'Y'
+                       AND sorting_value_1 > $sorting_value_1_min
                      GROUP BY application_plan_branch_id  
                 ";
 

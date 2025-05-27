@@ -220,6 +220,15 @@
                                                                         'TYPE' => 'PCTG',  /*'UNIT' => '%', */ 'READONLY' => false,  'DNA' => true, 
                                                                         'CSS' => 'width_pct_25', ),
 
+                                        'cond_weighted_percentage' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                                        'EDIT' => true,  'QEDIT' => true,  
+                                                                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+                                                                        'TYPE' => 'PCTG',  /*'UNIT' => '%', */ 'READONLY' => false,  'DNA' => true, 
+                                                                        'CSS' => 'width_pct_25', ),
+
+
+                                                                       
+
                                         'min_app_score1' => array('STEP' => 2,
                                                 'TYPE' => 'FLOAT',
                                                 'RETRIEVE' => true,

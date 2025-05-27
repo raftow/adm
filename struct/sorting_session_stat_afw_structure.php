@@ -217,6 +217,21 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
+                'free' => array(
+                        'FGROUP' => 'scores',
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'INT',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'RETRIEVE' => true,
+                        'READONLY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+		),
+
                 'execo' => array(
                         'FGROUP' => 'scores',
                         'SEARCH' => true,
@@ -226,6 +241,7 @@ class AdmSortingSessionStatAfwStructure
                         'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => false,
+                        'READONLY' => true,
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
@@ -239,12 +255,13 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'correct' => array(
+                        'FGROUP' => 'scores',
 			'SIZE' => 40,
 			'CSS' => 'width_pct_25',
 			'TYPE' => 'YN',
 			'CATEGORY' => 'FORMULA',
-                        'SHOW' => true,
-                        'EDIT' => true,
+                        'SHOW' => false,
+                        'EDIT' => false,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,
@@ -287,6 +304,17 @@ class AdmSortingSessionStatAfwStructure
                 'min_app_score3' => array(
                         'FGROUP' => 'scores',
                         'TYPE' => 'FLOAT',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
+                'cond_weighted_percentage' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
