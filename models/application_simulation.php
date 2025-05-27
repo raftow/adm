@@ -333,11 +333,21 @@ class ApplicationSimulation extends AdmObject{
             $arrOptions = $this->getOptions();
             $applicants_to_show = $arrOptions["SHOW_APPLICANTS"];
             $max_applicants_to_show = $arrOptions["SHOW_APPLICANTS_MAX"];
-
+            if(!$max_applicants_to_show) $max_applicants_to_show = 10;
             if($applicants_to_show=="BLOCKED") 
             {
-                if(!$max_applicants_to_show) $max_applicants_to_show = 10;
+                
                 if($apblocked and (count($blocked_applicants)<$max_applicants_to_show))
+                {
+                    $blocked_applicants[] = $apid;
+                    return [true, $blocked_applicants];
+                }
+                else return [false, $blocked_applicants];
+                
+            }
+            elseif($applicants_to_show=="SUCCESS") 
+            {
+                if((!$apblocked) and (count($blocked_applicants)<$max_applicants_to_show))
                 {
                     $blocked_applicants[] = $apid;
                     return [true, $blocked_applicants];
@@ -727,7 +737,7 @@ class ApplicationSimulation extends AdmObject{
     {
         $to_show = $this->getOptions("SHOW_APPLICANTS", true);
         if(!$to_show) $to_show = "BLOCKED";
-        if($to_show == "BLOCKED")
+        if(($to_show == "BLOCKED") or ($to_show == "SUCCESS"))
         {
             $show_applicants_mfk = $this->getVal("blocked_applicants_mfk");
         }
