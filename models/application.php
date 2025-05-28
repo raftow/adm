@@ -1154,9 +1154,9 @@ class Application extends AdmObject
                                 {
                                         if(!$this->commit(true))
                                         {
-                                                $application_id = $this->id;
-                                                $error = "columns $hasChanged has changed for application id = $application_id (after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id) but forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
-                                                $err_arr[] = $error;
+                                                // $application_id = $this->id;
+                                                // $error = "columns $hasChanged has changed for application id = $application_id (after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id) but forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
+                                                // $err_arr[] = $error;
                                                 $currentStepObj = $this->het("application_step_id");
                                                 $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
                                         }
