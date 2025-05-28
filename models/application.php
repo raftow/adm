@@ -1131,7 +1131,7 @@ class Application extends AdmObject
                         $desiresSelectionStepObj = $this->het("application_step_id");
                         $desiresSelectionStepNum = $desiresSelectionStepObj->getVal("step_num");
                         $desiresSelectionStepCode = $desiresSelectionStepObj->getVal("step_code");
-                        die("desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id." descr = ".$desiresSelectionStepObj->getDisplay("ar"));
+                        // die("desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id." descr = ".$desiresSelectionStepObj->getDisplay("ar"));
                         if($desiresSelectionStepCode != "DSR")
                         {
                              $err_arr[] = "strange desiresSelectionStepCode=$desiresSelectionStepCode";
@@ -1145,14 +1145,17 @@ class Application extends AdmObject
                                 $this->set("comments", $war);                        
                                 if(!$this->commit(true))
                                 {
-                                        $err_arr[] = "forceGotoDesireStep commit failed : ".$this->getTechnicalNotes();
+                                        $error = "forceGotoDesireStep commit failed : ".$this->getTechnicalNotes();
+                                        $err_arr[] = $error;
                                         $currentStepObj = $this->het("application_step_id");
                                         $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
+                                        die($error);
                                 }
                                 else
                                 {
                                         $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
                                         $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                                        die("rafik we succeeded desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id);
                                 }
                         }
                         
