@@ -383,20 +383,26 @@ class Application extends AdmObject
                         if ($fields_updated["step_num"] or (!$this->getVal("application_step_id"))) {
                                 $this->getApplicationModel();
                                 if ($this->objApplicationModel) {
-                                        $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
-                                        if((!$appStepObj) or (!$appStepObj->sureIs("general")))
+                                        $setted_step_num = $this->getVal("step_num");
+                                        $appStepObj = $this->objApplicationModel->convertStepNumToObject($setted_step_num);
+                                        $step_invalid_reason = "";
+                                        if(!$appStepObj) $step_invalid_reason = "step $setted_step_num not found";
+                                        if(!$appStepObj->sureIs("general")) $step_invalid_reason = "step $setted_step_num is not general";
+                                        if($step_invalid_reason)
                                         {
                                                 $this->set("step_num", 1);
-                                                $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
-                                        }
-                                        if ($appStepObj) {
-                                                $application_step_id = $appStepObj->id;
-                                                if($this->getVal("application_step_id") != $application_step_id)
-                                                {
-                                                        $fields_updated["application_step_id"] = $this->getVal("application_step_id") ? $this->getVal("application_step_id") : "@WasEmpty";
+                                                $appStepObj = $this->objApplicationModel->convertStepNumToObject(1);
+                                                if ($appStepObj) {
+                                                        $application_step_id = $appStepObj->id;
                                                         $this->set("application_step_id", $application_step_id);                                                
+                                                        $this->set("comments", "invalid step by beforeMaj : $setted_step_num reason $step_invalid_reason");
+                                                        $fields_updated["application_step_id"] = $this->getVal("application_step_id") ? $this->getVal("application_step_id") : "@WasEmpty";
                                                 }
-                                                
+                                                else
+                                                {
+                                                        $this->set("application_step_id", 0);                                                
+                                                        $this->set("comments", "step 1 not found");
+                                                }                                                
                                         }
                                 } else {
                                         AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
