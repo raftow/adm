@@ -1149,21 +1149,29 @@ class Application extends AdmObject
                                 $war = $this->tm("conditions apply skipped",$lang)." !!";
                                 $war_arr[]  = $war;
                                 $this->set("comments", $war);                        
-                                if(!$this->commit(true))
+                                if($this->isChanged())
                                 {
-                                        $application_id = $this->id;
-                                        $error = "for application id = $application_id after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
-                                        $err_arr[] = $error;
-                                        $currentStepObj = $this->het("application_step_id");
-                                        $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
-                                        die($error);
+                                        if(!$this->commit(true))
+                                        {
+                                                $application_id = $this->id;
+                                                $error = "for application id = $application_id after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
+                                                $err_arr[] = $error;
+                                                $currentStepObj = $this->het("application_step_id");
+                                                $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
+                                        }
+                                        else
+                                        {
+                                                $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
+                                                $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                                                // die("rafik we succeeded desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id);
+                                        }
                                 }
                                 else
                                 {
-                                        $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
-                                        $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
-                                        // die("rafik we succeeded desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id);
+                                        $currentStepObj = $this->het("application_step_id");
+                                        $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
                                 }
+                                
                         }
                         
                         
