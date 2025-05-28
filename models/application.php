@@ -1156,7 +1156,7 @@ class Application extends AdmObject
                                 {
                                         $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
                                         $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
-                                        die("rafik we succeeded desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id);
+                                        // die("rafik we succeeded desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id);
                                 }
                         }
                         
