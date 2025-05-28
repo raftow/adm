@@ -1104,6 +1104,7 @@ class Application extends AdmObject
 
         public function forceGotoDesireStep($lang = "ar")
         {
+                $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
