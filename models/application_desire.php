@@ -323,7 +323,7 @@ class ApplicationDesire extends AdmObject
                         $desireStepCode = $currentStepObj->getVal("step_code");
                         $this->set("step_num", $desireStepNum);
                         $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
-                        $war = $this->tm("conditions apply skipped") . " !!";
+                        $war = $this->tm("conditions apply skipped", $lang) . " !!";
                         $war_arr[]  = $war;
                         $this->set("comments", $war);
                         $this->commit();

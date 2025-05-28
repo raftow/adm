@@ -1128,25 +1128,34 @@ class Application extends AdmObject
                 {
                         $application_step_id = $this->objApplicationModel->calcDesires_selection_step_id();
                         $this->set("application_step_id", $application_step_id);
-                        $currentStepObj = $this->het("application_step_id");
-                        $desiresSelectionStepNum = $currentStepObj->getVal("step_num");
-                        $desiresSelectionStepCode = $currentStepObj->getVal("step_code");
-                        $this->set("step_num", $desiresSelectionStepNum);
-                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                        $war = $this->tm("conditions apply skipped",$lang)." !!";
-                        $war_arr[]  = $war;
-                        $this->set("comments", $war);                        
-                        if(!$this->commit(true))
+                        $desiresSelectionStepObj = $this->het("application_step_id");
+                        $desiresSelectionStepNum = $desiresSelectionStepObj->getVal("step_num");
+                        $desiresSelectionStepCode = $desiresSelectionStepObj->getVal("step_code");
+                        die("desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id." descr = ".$desiresSelectionStepObj->getDisplay("ar"));
+                        if($desiresSelectionStepCode != "DSR")
                         {
-                                $err_arr[] = "forceGotoDesireStep commit failed : ".$this->getTechnicalNotes();
-                                $currentStepObj = $this->het("application_step_id");
-                                $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
+                             $err_arr[] = "strange desiresSelectionStepCode=$desiresSelectionStepCode";
                         }
                         else
                         {
-                                $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
-                                $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                                $this->set("step_num", $desiresSelectionStepNum);
+                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                $war = $this->tm("conditions apply skipped",$lang)." !!";
+                                $war_arr[]  = $war;
+                                $this->set("comments", $war);                        
+                                if(!$this->commit(true))
+                                {
+                                        $err_arr[] = "forceGotoDesireStep commit failed : ".$this->getTechnicalNotes();
+                                        $currentStepObj = $this->het("application_step_id");
+                                        $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
+                                }
+                                else
+                                {
+                                        $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
+                                        $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                                }
                         }
+                        
                         
                 }
                 else
