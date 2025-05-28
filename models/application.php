@@ -325,89 +325,97 @@ class Application extends AdmObject
 
         public function beforeMaj($id, $fields_updated)
         {
-                $objApplicant = null;
-                $objApplicantQual = null;
-                $objApplicationPlan = null;
-                $application_model_id = $this->getVal("application_model_id");
-                if (!$application_model_id) {
-                        $objApplicationPlan = $this->het("application_plan_id");
-                        if ($objApplicationPlan) {
-                                $this->set("application_model_id", $objApplicationPlan->getVal("application_model_id"));
-                                $fields_updated["application_model_id"] = "@WasEmpty";
-                        }
-                }
-
-                if (!$this->getVal("idn")) {
-                        if(!$objApplicant) $objApplicant = $this->het("applicant_id");
-                        if ($objApplicant) {
-                                $this->set("idn", $objApplicant->getVal("idn"));
-                                $fields_updated["idn"] = "@WasEmpty";
-                        }
-                }
-
-                if (!$this->getVal("applicant_qualification_id")) {
-                        $this->getApplicant();
-                        if ($this->applicantObj) {
-                                $objApplicantQual = $this->applicantObj->getLastQualification();
-                                if ($objApplicantQual) {
-                                        $this->set("applicant_qualification_id", $objApplicantQual->id);
-                                        $fields_updated["applicant_qualification_id"] = "@WasEmpty";
+                try
+                {
+                        $objApplicant = null;
+                        $objApplicantQual = null;
+                        $objApplicationPlan = null;
+                        $application_model_id = $this->getVal("application_model_id");
+                        if (!$application_model_id) {
+                                $objApplicationPlan = $this->het("application_plan_id");
+                                if ($objApplicationPlan) {
+                                        $this->set("application_model_id", $objApplicationPlan->getVal("application_model_id"));
+                                        $fields_updated["application_model_id"] = "@WasEmpty";
                                 }
                         }
-                }
 
-                if (!$this->getVal("step_num")) {
-                        $fields_updated["step_num"] = "@WasEmpty";
-                        $this->set("step_num", 1);
-                }
+                        if (!$this->getVal("idn")) {
+                                if(!$objApplicant) $objApplicant = $this->het("applicant_id");
+                                if ($objApplicant) {
+                                        $this->set("idn", $objApplicant->getVal("idn"));
+                                        $fields_updated["idn"] = "@WasEmpty";
+                                }
+                        }
 
+                        if (!$this->getVal("applicant_qualification_id")) {
+                                $this->getApplicant();
+                                if ($this->applicantObj) {
+                                        $objApplicantQual = $this->applicantObj->getLastQualification();
+                                        if ($objApplicantQual) {
+                                                $this->set("applicant_qualification_id", $objApplicantQual->id);
+                                                $fields_updated["applicant_qualification_id"] = "@WasEmpty";
+                                        }
+                                }
+                        }
 
-                if ($fields_updated["applicant_qualification_id"] and $this->getVal("applicant_qualification_id")) {
-
-                        if (!$objApplicantQual) $objApplicantQual = $this->het("applicant_qualification_id");
-                        if ($objApplicantQual) {
-                                $this->set("qualification_id",  $objApplicantQual->getVal("qualification_id"));
-                                $this->set("major_category_id", $objApplicantQual->getVal("major_category_id"));
-                                // reset step to 1 when applicant_qualification_id change
-                                $fields_updated["step_num"] = $this->getVal("step_num") ? $this->getVal("step_num") : "@WasEmpty";
+                        if (!$this->getVal("step_num")) {
+                                $fields_updated["step_num"] = "@WasEmpty";
                                 $this->set("step_num", 1);
                         }
-                }
 
-                if ($fields_updated["step_num"]) $this->requestAPIsOfStep($this->getVal("step_num"));
 
-                // if(!$objApplicationPlan) $objApplicationPlan = $this->het("application_plan_id");
+                        if ($fields_updated["applicant_qualification_id"] and $this->getVal("applicant_qualification_id")) {
 
-                if ($fields_updated["step_num"] or (!$this->getVal("application_step_id"))) {
-                        $this->getApplicationModel();
-                        if ($this->objApplicationModel) {
-                                $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
-                                if((!$appStepObj) or (!$appStepObj->sureIs("general")))
-                                {
+                                if (!$objApplicantQual) $objApplicantQual = $this->het("applicant_qualification_id");
+                                if ($objApplicantQual) {
+                                        $this->set("qualification_id",  $objApplicantQual->getVal("qualification_id"));
+                                        $this->set("major_category_id", $objApplicantQual->getVal("major_category_id"));
+                                        // reset step to 1 when applicant_qualification_id change
+                                        $fields_updated["step_num"] = $this->getVal("step_num") ? $this->getVal("step_num") : "@WasEmpty";
                                         $this->set("step_num", 1);
+                                }
+                        }
+
+                        if ($fields_updated["step_num"]) $this->requestAPIsOfStep($this->getVal("step_num"));
+
+                        // if(!$objApplicationPlan) $objApplicationPlan = $this->het("application_plan_id");
+
+                        if ($fields_updated["step_num"] or (!$this->getVal("application_step_id"))) {
+                                $this->getApplicationModel();
+                                if ($this->objApplicationModel) {
                                         $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
-                                }
-                                if ($appStepObj) {
-                                        $application_step_id = $appStepObj->id;
-                                        if($this->getVal("application_step_id") != $application_step_id)
+                                        if((!$appStepObj) or (!$appStepObj->sureIs("general")))
                                         {
-                                                $fields_updated["application_step_id"] = $this->getVal("application_step_id") ? $this->getVal("application_step_id") : "@WasEmpty";
-                                                $this->set("application_step_id", $application_step_id);                                                
+                                                $this->set("step_num", 1);
+                                                $appStepObj = $this->objApplicationModel->convertStepNumToObject($this->getVal("step_num"));
                                         }
-                                        
+                                        if ($appStepObj) {
+                                                $application_step_id = $appStepObj->id;
+                                                if($this->getVal("application_step_id") != $application_step_id)
+                                                {
+                                                        $fields_updated["application_step_id"] = $this->getVal("application_step_id") ? $this->getVal("application_step_id") : "@WasEmpty";
+                                                        $this->set("application_step_id", $application_step_id);                                                
+                                                }
+                                                
+                                        }
+                                } else {
+                                        AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
                                 }
-                        } else {
-                                AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
+                        }
+
+                        if ($fields_updated["application_step_id"])
+                        {
+                                $dsrStepObj = ApplicationStep::loadDesiresSelectionStep($application_model_id); 
+                                if($dsrStepObj->id == $this->getVal("application_step_id"))
+                                {
+                                        $this->storeWeightedPercentage(50.0);
+                                }
                         }
                 }
-
-                if ($fields_updated["application_step_id"])
+                catch(Exception $e)
                 {
-                        $dsrStepObj = ApplicationStep::loadDesiresSelectionStep($application_model_id); 
-                        if($dsrStepObj->id == $this->getVal("application_step_id"))
-                        {
-                                $this->storeWeightedPercentage(50.0);
-                        }
+                        $this->setTechnicalNotes($e->getMessage());
+                        return false;
                 }
                 
                 return true;
@@ -1128,10 +1136,23 @@ class Application extends AdmObject
                         $war = $this->tm("conditions apply skipped",$lang)." !!";
                         $war_arr[]  = $war;
                         $this->set("comments", $war);                        
-                        $this->commit();
-
-                        $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
-                        $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                        if(!$this->commit(true))
+                        {
+                                $err_arr[] = "forceGotoDesireStep commit failed : ".$this->getTechnicalNotes();
+                                $currentStepObj = $this->het("application_step_id");
+                                $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
+                        }
+                        else
+                        {
+                                $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
+                                $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
+                        }
+                        
+                }
+                else
+                {
+                        $currentStepObj = $this->het("application_step_id");
+                        $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
                 }
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);

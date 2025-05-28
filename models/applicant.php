@@ -1000,10 +1000,24 @@ class Applicant extends AdmObject
                                 $appObj->setApplicantObject($this);
                                 if($skipConditionsApply)
                                 {
-                                        list($err, $inf, $war, $tech) = $appObj->forceGotoDesireStep($lang);
-                                        $stepCode = "DSR";
-                                        $bootstrapAppResult = "no-bootstrap";
-                                        $bootstrapAppResultDetails = "no-bootstrap";
+                                        list($err, $inf, $war, $tech, $result) = $appObj->forceGotoDesireStep($lang);
+                                        if ($err) $err_arr[] = $err; 
+                                        if ($inf) $inf_arr[] = $inf;
+                                        if ($war) $war_arr[] = $war;
+                                        if ($tech) $tech_arr[] = $tech;
+                                        if (!$err)
+                                        {
+                                                $stepCode = $result["STEP_CODE"];
+                                                $bootstrapAppResult = "forceGotoDesireStep";
+                                                $bootstrapAppResultDetails = "no-error";
+                                        }
+                                        else
+                                        {
+                                                $stepCode = $result["STEP_CODE"];
+                                                $bootstrapAppResult = "forceGotoDesireStep-failed";
+                                                $bootstrapAppResultDetails = $err;
+                                        }
+                                        
                                 }
                                 else
                                 {
