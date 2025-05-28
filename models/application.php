@@ -294,10 +294,31 @@ class Application extends AdmObject
                 }
         }
 
-        public function storeWeightedPercentage()
+        public function storeWeightedPercentage($min_weighted_pctg=-1)
         {
                 $wp = $this->calcWeighted_percentage();
                 if(!$wp) $wp = 0.0;
+                if($wp<$min_weighted_pctg)
+                {
+                        /**
+                         * @var Applicant $applicantObj
+                         */
+                        $applicantObj = $this->het("applicant_id");
+                        $api_runner_class = self::loadApiRunner();
+                        $wp_apis = $api_runner_class::weighted_perecentage_apis();
+                        // create register apis call requests to be done by applicant-api-request-job                        
+                        foreach ($wp_apis as $wp_api) {
+                                $aepObj = ApiEndpoint::loadByMainIndex($wp_api);
+                                if (!$aepObj) throw new AfwRuntimeException("the register API $wp_api is not found in DB");                                
+                                ApplicantApiRequest::loadByMainIndex($applicantObj->id, $aepObj->id, true);
+                        }
+
+                        $applicantObj->runNeededApis("ar", true, false, $stopMethod="readyWeighted_percentage");
+                        $wp = $this->calcWeighted_percentage();
+                        if(!$wp) $wp = 0.0;
+                }
+                
+                
                 $this->set("weighted_pctg", $wp);
         }
 
@@ -385,7 +406,7 @@ class Application extends AdmObject
                         $dsrStepObj = ApplicationStep::loadDesiresSelectionStep($application_model_id); 
                         if($dsrStepObj->id == $this->getVal("application_step_id"))
                         {
-                                $this->storeWeightedPercentage();
+                                $this->storeWeightedPercentage(50.0);
                         }
                 }
                 
@@ -1093,7 +1114,8 @@ class Application extends AdmObject
                 {
                         $err_arr[] = $this->tm("Error happened, no application model defined for this application", $lang);
                 }
-                else
+                
+                if(count($err_arr)==0)
                 {
                         $application_step_id = $this->objApplicationModel->calcDesires_selection_step_id();
                         $this->set("application_step_id", $application_step_id);
@@ -1106,6 +1128,7 @@ class Application extends AdmObject
                         $war_arr[]  = $war;
                         $this->set("comments", $war);                        
                         $this->commit();
+
                         $inf_arr[] = $this->tm("quick arrive to desires selection step", $lang)." ".$this->tm("has been successfully done", $lang);
                         $result_arr["STEP_CODE"] = $desiresSelectionStepCode;
                 }

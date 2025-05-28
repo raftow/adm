@@ -863,7 +863,7 @@ class Applicant extends AdmObject
                 return $this->runNeededApis($lang, false);
         }
 
-        public function runNeededApis($lang = "ar", $force=true, $echo=false)
+        public function runNeededApis($lang = "ar", $force=true, $echo=false, $stopMethod="")
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -879,6 +879,13 @@ class Applicant extends AdmObject
                          * @var ApplicantApiRequest $applicantApiRequestItem
                          */
                         foreach ($applicantApiRequestList as $applicantApiRequestItem) {
+
+                                if($stopMethod)
+                                {
+                                        $war_arr[] = "Stopped by stop method = $stopMethod";
+                                        if($this->$stopMethod()) break;
+                                }
+
                                 /**
                                  * @var ApiEndpoint $apiEndPoint
                                  */
@@ -1393,6 +1400,14 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 return $this->weighted_percentage($what);
         }
 
+        public function readyWeighted_percentage()
+        {
+                if($this->calcWeighted_percentage()>=60.0)
+                {
+                        return true;
+                }
+        }
+
         public function weighted_percentage($what = "value", $program_track_id = null, $major_path_id = null, $objSQ = null)
         {
                 try {
@@ -1509,7 +1524,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                                 $col_structure = $obj->getMyDbStructure('structure', $col);
                                 $col_structure["NO-FGROUP"] = true;
                                 $openedInGroupDiv = false;
-                                list($htmlDiv, $openedInGroupDiv, $fgroup) = attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
+                                list($htmlDiv, $openedInGroupDiv, $fgroup) = AfwEditMotor::attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
                                 $whendone = "hide";
                                 $drop_class = "hide";
                         }
