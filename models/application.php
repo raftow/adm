@@ -1126,9 +1126,8 @@ class Application extends AdmObject
                 
                 if(count($err_arr)==0)
                 {
-                        $application_step_id = $this->objApplicationModel->calcDesires_selection_step_id();
-                        $this->set("application_step_id", $application_step_id);
-                        $desiresSelectionStepObj = $this->het("application_step_id");
+                        $desiresSelectionStepObj = $this->objApplicationModel->calcDesires_selection_step_id("object");
+                        $application_step_id = $desiresSelectionStepObj->id;
                         $desiresSelectionStepNum = $desiresSelectionStepObj->getVal("step_num");
                         $desiresSelectionStepCode = $desiresSelectionStepObj->getVal("step_code");
                         // die("desiresSelectionStepCode=$desiresSelectionStepCode desiresSelectionStepNum=$desiresSelectionStepNum desiresSelectionStepObjId= ".$desiresSelectionStepObj->id." descr = ".$desiresSelectionStepObj->getDisplay("ar"));
@@ -1138,6 +1137,7 @@ class Application extends AdmObject
                         }
                         else
                         {
+                                $this->set("application_step_id", $application_step_id);
                                 $this->set("step_num", $desiresSelectionStepNum);
                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                 $war = $this->tm("conditions apply skipped",$lang)." !!";
@@ -1145,7 +1145,7 @@ class Application extends AdmObject
                                 $this->set("comments", $war);                        
                                 if(!$this->commit(true))
                                 {
-                                        $error = "forceGotoDesireStep commit failed : ".$this->getTechnicalNotes();
+                                        $error = "after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
                                         $err_arr[] = $error;
                                         $currentStepObj = $this->het("application_step_id");
                                         $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
