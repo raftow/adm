@@ -1149,12 +1149,13 @@ class Application extends AdmObject
                                 $war = $this->tm("conditions apply skipped",$lang)." !!";
                                 $war_arr[]  = $war;
                                 $this->set("comments", $war);                        
-                                if($this->isChanged())
+                                $hasChanged = $this->hasChanged();
+                                if($hasChanged)
                                 {
                                         if(!$this->commit(true))
                                         {
                                                 $application_id = $this->id;
-                                                $error = "for application id = $application_id after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
+                                                $error = "columns $hasChanged has changed for application id = $application_id (after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id) but forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
                                                 $err_arr[] = $error;
                                                 $currentStepObj = $this->het("application_step_id");
                                                 $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
