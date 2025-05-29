@@ -221,6 +221,7 @@ class ApplicationSimulation extends AdmObject
                 if (!$continue_from_stop) $last_done_idn = "000-1";
                 else {
                     $last_done_idn = ApplicantSimulation::aggreg("max(applicant_id)", "done='Y'");
+                    die("select max(applicant_id) as res from uoh_adm.applicant_simulation me where 1 and (done='Y') => $last_done_idn");
                     if (!$last_done_idn) $last_done_idn = "0000";
                 }
 
