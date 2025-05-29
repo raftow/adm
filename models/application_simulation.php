@@ -393,6 +393,13 @@ class ApplicationSimulation extends AdmObject
         if ($this->id == 2) $typeRun = $this->tm("Real application", $lang);
         else $typeRun = $this->tm("Application simulation", $lang);
 
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        $log_arr = [];
+        $result_arr = [];
+
         $arrOptions = $this->getOptions();
         if (!$arrOptions["DATE"]) $arrOptions["DATE"] = date("Y-m-d");
         if (!$arrOptions["LOG"]) {
@@ -405,6 +412,10 @@ class ApplicationSimulation extends AdmObject
         $log_tech = AfwStringHelper::stringContain($arrOptions["LOG"], "DEBUGG");
         if ($only_reset) $arrOptions["RESET_SIMULATION"] = "all";
         if ($arrOptions["RESET_SIMULATION"] and (strtolower($arrOptions["RESET_SIMULATION"]) != "none")) {
+            if($arrOptions["RESET_SIMULATION"] == "all")
+            {
+                $war_arr[] = "<p class='important'>We have done a reset as per your request in settings (RESET_SIMULATION=all) </a>";
+            }
             $this->resetSimulation($arrOptions["RESET_SIMULATION"]);
         }
 
@@ -421,12 +432,7 @@ class ApplicationSimulation extends AdmObject
 
         $blocked_applicants = [];
 
-        $err_arr = [];
-        $inf_arr = [];
-        $war_arr = [];
-        $tech_arr = [];
-        $log_arr = [];
-        $result_arr = [];
+        
         $simulation_method = $this->getVal("simul_method_enum");
         $simulation_method_dec = $this->decode("simul_method_enum");
         if ($fromProspect and ($simulation_method != 4)) {
