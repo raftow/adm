@@ -757,6 +757,7 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
+    /*
     public function updateFarzData($lang = "ar", $echo=false)
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
@@ -793,6 +794,8 @@ class SortingSession extends AFWObject
         /**
          * @var ApplicationDesire $desireItem
          */
+
+         /*
         foreach($desireList as $desireItem)
         {
             $total ++; 
@@ -806,7 +809,7 @@ class SortingSession extends AFWObject
         $boucle_loadObjectFK = $old_boucle_loadObjectFK;
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
-    }
+    }*/
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
@@ -888,9 +891,20 @@ class SortingSession extends AFWObject
         $war_arr = [];
         $info_arr = [];
         $err_arr = [];
-
+        $applicantsDesiresMatrix = null;
+        $sortingGroupCount = count($sortingGroupList);
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
         {
+            $sf1Obj = $sortingGroupItem->het("sorting_field_1_id");
+            $sf2Obj = $sortingGroupItem->het("sorting_field_2_id");
+            $sf3Obj = $sortingGroupItem->het("sorting_field_3_id");
+
+            $sorting_with_only_weighted_percentage = (($sortingGroupCount==1) and (!$sf2Obj) and (!$sf3Obj) and ($sf1Obj->getVal("field_name")=="weighted_percentage"));
+
+            if($sorting_with_only_weighted_percentage and (!$applicantsDesiresMatrix))
+            {
+                $applicantsDesiresMatrix = ApplicationDesire::getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id);
+            }
             $info_arr[]  = "For SG{$sortingGroupId} : ";
             if($preSorting)
             {
@@ -943,7 +957,7 @@ class SortingSession extends AFWObject
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($application_plan_id, $sortingGroupId, $spath);
                 $branchsCapacityMatrixStart = $branchsCapacityMatrix;
                 $branchsLastScoreMatrix = [];
-                $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
+                if(!$sorting_with_only_weighted_percentage) $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
                 $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
                 $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
                 $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
@@ -996,21 +1010,40 @@ class SortingSession extends AFWObject
 
                     AfwDatabase::db_query($sql_create);
 
-                    $sql_insert = "INSERT INTO $sorting_table 
+                    if(!$sorting_with_only_weighted_percentage)
+                    {
+                        $sql_insert = "INSERT INTO $sorting_table 
                                     (applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert sorting_num)".
                                 "SELECT applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert 0
                                     FROM ".$server_db_prefix."adm.application_desire
                                     WHERE application_plan_id = $application_plan_id 
-                                    AND application_simulation_id = $application_simulation_id 
-                                    AND sorting_group_id = $sortingGroupId
-                                    AND track_num = $spath
-                                    AND active = 'Y'
-                                    AND sorting_value_1 > $sorting_value_1_min
+                                      AND application_simulation_id = $application_simulation_id 
+                                      AND sorting_group_id = $sortingGroupId
+                                      AND track_num = $spath
+                                      AND active = 'Y'
+                                      AND sorting_value_1 > $sorting_value_1_min
                                     GROUP BY applicant_id, $sf1_insert $sf2_insert $sf3_insert $ff_insert active  
                                     ";
 
 
-                    AfwDatabase::db_query($sql_insert);
+                        AfwDatabase::db_query($sql_insert);
+                    }
+                    else
+                    {
+                        $sql_insert = "INSERT INTO $sorting_table 
+                                    (applicant_id, sorting_value_1, sorting_num)".
+                                "SELECT applicant_id, weighted_pctg, 0
+                                    FROM ".$server_db_prefix."adm.application
+                                    WHERE application_plan_id = $application_plan_id 
+                                      AND application_simulation_id = $application_simulation_id 
+                                      AND active = 'Y'
+                                      AND weighted_pctg > $sorting_value_1_min";
+
+
+                        AfwDatabase::db_query($sql_insert);
+                    }
+
+                    
 
                     // die("sorting_table insert for farz : ".$sql_insert);
                 }

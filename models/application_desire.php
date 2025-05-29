@@ -72,6 +72,7 @@ class ApplicationDesire extends AdmObject
         public static function getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $track_num)
         {
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                
                 $sql_matrix = "SELECT applicant_id, desire_num, application_plan_branch_id
                                 FROM ".$server_db_prefix."adm.application_desire
                                 WHERE application_plan_id = $application_plan_id 
@@ -80,8 +81,30 @@ class ApplicationDesire extends AdmObject
                                 AND track_num = $track_num
                                 AND active = 'Y'
                                 ORDER BY applicant_id, desire_num, application_plan_branch_id";
-
+                
                 return AfwDatabase::db_recup_bi_index($sql_matrix, "applicant_id", "desire_num", "application_plan_branch_id");                                
+        }
+
+        public static function getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                $sql_matrix = "SELECT applicant_id, application_plan_branch_mfk
+                                FROM ".$server_db_prefix."adm.application
+                                WHERE application_plan_id = $application_plan_id 
+                                  AND application_simulation_id = $application_simulation_id                                   
+                                  AND active = 'Y'";
+
+                $rows_matrix = AfwDatabase::db_recup_rows($sql_matrix);                  
+
+                $result_rows = [];
+
+                foreach($rows_matrix as $row_matrix)
+                {
+                        $result_rows[$row_matrix["applicant_id"]] = self::mfkValueToOrderedList($row_matrix["application_plan_branch_mfk"], $start_from=1);
+                }
+
+                return $result_rows;
         }
 
         public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $desire_num)

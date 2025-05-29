@@ -5,7 +5,7 @@ $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
     $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_session', 180, "+t", "qsearch", null);
-
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add key(application_plan_id, application_simulation_id, active);");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   cond_weighted_percentage decimal(5,2) NOT NULL  AFTER min_weighted_percentage;");
     AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session_stat;");
 
