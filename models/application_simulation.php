@@ -108,7 +108,9 @@ class ApplicationSimulation extends AdmObject
         $title_ar = "تنفيذ المحاكاة";
         $methodName = "runSimulation";
         list($dangerous_ar, $dangerous_en) = $this->calcDangerous();
-        $pbRow = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_plan_id"));
+        $pbRow = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
+                        "ADMIN-ONLY" => true, "BF-ID" => "", 'TIMER' => true,
+                        'STEP' => $this->stepOfAttribute("application_plan_id"));
         if ($dangerous_en) {
             $by_settings_en = "By simulation settings";
             $by_settings_ar = $this->tm($by_settings_en, "ar");
