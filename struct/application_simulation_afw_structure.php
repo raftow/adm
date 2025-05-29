@@ -163,7 +163,7 @@ class AdmApplicationSimulationAfwStructure
 		),
 
 		'application_model_branch_mfk' => array(
-			'STEP' => 2,
+			'STEP' => 1,
 			'SHORTNAME' => 'model_branchs',
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -201,7 +201,7 @@ class AdmApplicationSimulationAfwStructure
 			'MIN-SIZE' => 1,
 			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
 			'UTF8' => false,
-			'ROWS' => 12,
+			'ROWS' => 22,
 			'TYPE' => 'TEXT',
 			'TEXT-ALIGN' => 'left',
 			'DIR' => 'ltr',			

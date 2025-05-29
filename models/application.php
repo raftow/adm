@@ -390,6 +390,8 @@ class Application extends AdmObject
                                         if(!$appStepObj->sureIs("general")) $step_invalid_reason = "step $setted_step_num is not general";
                                         if($step_invalid_reason)
                                         {
+                                                throw new AfwRuntimeException("Error setting application step num to value $setted_step_num : $step_invalid_reason");
+                                                /*
                                                 $this->set("step_num", 1);
                                                 $appStepObj = $this->objApplicationModel->convertStepNumToObject(1);
                                                 if ($appStepObj) {
@@ -402,7 +404,7 @@ class Application extends AdmObject
                                                 {
                                                         $this->set("application_step_id", 0);                                                
                                                         $this->set("comments", "step 1 not found");
-                                                }                                                
+                                                }*/                                                
                                         }
                                 } else {
                                         AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
