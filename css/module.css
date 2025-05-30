@@ -4775,10 +4775,29 @@ div#div_data_statList tr>th
     background-size: 16px;
     background-position: 5px center;
     color: #129d12;
+    cursor: pointer;
+}
+
+.execo {
+    width: 28px;
+    background-color: #bfe0ff;
+    border: 1px solid #4d91d1;
+    border-radius: 9px;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -5px;
+    margin-right: 16px;
+    font-size: 14px;
+    font-family: 'DIGI';
+    font-weight: bold;
+    color: #226eb7;
+    padding: 0;
+    z-index: 999;
+    position: relative;
 }
 
 .dlike {
-    margin-top: 4px;
+    margin-top: -7px;
     width: 60px;
     font-family: 'DIGI';
     font-size: 20px;
@@ -4792,4 +4811,5 @@ div#div_data_statList tr>th
     background-size: 16px;
     background-position: 5px center;
     color: #ce6015;
+    cursor: pointer;
 }
