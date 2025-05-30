@@ -272,6 +272,7 @@ class SortingSessionStat extends AFWObject{
         public function calcExeco_action($what="value")
         {
             $id = $this->id;
+            $execo = $this->getVal("execo");
             $valueLike = $this->getVal("nb_accepted");
             $valueUnLike = $this->getVal("nb_accepted") - $this->getVal("execo");
             $diffLike = $valueLike - $this->getVal("capacity");
@@ -280,6 +281,7 @@ class SortingSessionStat extends AFWObject{
             if($diffUnLike>0) $diffUnLike = "+".$diffUnLike;
             return "<div>
                         <div class='elike' idobj='$id' val='$valueLike'>$diffLike</div>
+                        <div class='execo'>$execo</div>
                         <div class='dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
                     </div>";
         }
