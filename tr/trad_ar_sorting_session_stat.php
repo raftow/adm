@@ -17,6 +17,8 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["nb_accepted"] = "عدد المقبولين";
 		$trad["sorting_session_stat"]["free"] = "مقاعد شاغرة";
 		$trad["sorting_session_stat"]["execo"] = "متساوين";
+		$trad["sorting_session_stat"]["execo_action"] = "قرار المتساوين";
+		
 
 		$trad["sorting_session_stat"]["step1"] = "نتائج الفرز";
 		$trad["sorting_session_stat"]["step2"] = "المقبولين";

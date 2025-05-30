@@ -233,7 +233,7 @@ class SortingSessionStat extends AFWObject{
 
         public function attributeIsApplicable($attribute)
         {
-                if($attribute == "execo")
+                if(($attribute == "execo") or ($attribute == "execo_action"))
                 {
                     return ($this->getVal("free")<0);
                 }
@@ -268,6 +268,22 @@ class SortingSessionStat extends AFWObject{
             if($what=="withPrefix") return $sorting_table; else return $sorting_table_without_prefix;
         }
 
+
+        public function calcExeco_action($what="value")
+        {
+            $id = $this->id;
+            $valueLike = $this->getVal("nb_accepted");
+            $valueUnLike = $this->getVal("nb_accepted") - $this->getVal("execo");
+            $diffLike = $valueLike - $this->getVal("capacity");
+            if($diffLike>0) $diffLike = "+".$diffLike;
+            $diffUnLike = $valueUnLike - $this->getVal("capacity");
+            if($diffUnLike>0) $diffUnLike = "+".$diffUnLike;
+            return "<div>
+                        <div class='elike' idobj='$id' val='$valueLike'>$diffLike</div>
+                        <div class='elike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
+                    </div>";
+        }
+        
 
         public function calcFree($what="value")
         {

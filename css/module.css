@@ -4754,3 +4754,9 @@ table.obsolete td.hzm_col_afw_min_acc_score1,
 table.obsolete td.hzm_col_afw_min_weighted_percentage {
     opacity: 20%;
 }
+
+div#div_data_statList tr>th
+{
+    text-align: center !important;
+    font-size: 13px !important;
+}

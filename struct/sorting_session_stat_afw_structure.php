@@ -238,7 +238,7 @@ class AdmSortingSessionStatAfwStructure
                         'QSEARCH' => false,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => false,
                         'READONLY' => true,
@@ -253,6 +253,22 @@ class AdmSortingSessionStatAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
+
+                'execo_action' => array(
+                        'FGROUP' => 'scores',
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'TEXT',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => false,
+                        'EDIT' => false,
+                        'STEP' => 99,
+                        'RETRIEVE' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+                        'CSS' => 'width_pct_50',
+		),
 
                 'correct' => array(
                         'FGROUP' => 'scores',
