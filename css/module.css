@@ -4760,3 +4760,35 @@ div#div_data_statList tr>th
     text-align: center !important;
     font-size: 13px !important;
 }
+
+.elike {
+    width: 60px;
+    font-family: 'DIGI';
+    font-size: 20px;
+    font-weight: bold;
+    border: solid 1px #2fcc2f;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: #bbfabb78;
+    background-image: url(../../lib/images/like32.png) !important;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: 5px center;
+    color: #129d12;
+}
+
+.dlike {
+    width: 60px;
+    font-family: 'DIGI';
+    font-size: 20px;
+    font-weight: bold;
+    border: solid 1px #e4762b;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: #f9874145;
+    background-image: url(../../lib/images/dislike32.png) !important;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: 5px center;
+    color: #ce6015;
+}
