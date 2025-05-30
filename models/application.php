@@ -327,6 +327,10 @@ class Application extends AdmObject
         {
                 try
                 {
+                        if(!$this->getVal("weighted_pctg"))
+                        {
+                                $this->setForce("weighted_pctg", 0, true);
+                        }
                         $objApplicant = null;
                         $objApplicantQual = null;
                         $objApplicationPlan = null;
