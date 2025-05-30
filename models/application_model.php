@@ -341,6 +341,25 @@
                         return $needed;
                 }
 
+
+                public function getMandatoryNeededAttributes($step_num)
+                {
+                        $needed = [];
+                        $afOEFieldsList = $this->getApplicationModelFieldListOfStep($step_num, true, true);
+
+                        foreach($afOEFieldsList as $afOEField)
+                        {
+                                $applicationFieldObj = $afOEField->het("application_field_id");
+                                if($applicationFieldObj)
+                                {
+                                        $field_name = $applicationFieldObj->getVal("field_name");
+                                        if($field_name) $needed[$field_name] = true;                                        
+                                }
+                        }
+
+                        return $needed;
+                }
+
                 public function getAppModelFieldsOfStep($stepNum, $splitByTable=false, $onlyTitles=false, $lang="ar", $onlyMandatory=false)
                 {
                         if(!$stepNum) $stepNum = 0;

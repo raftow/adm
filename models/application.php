@@ -121,6 +121,8 @@ class Application extends AdmObject
 
         }
 
+        
+
         public function getNeededAttributes()
         {
                 
@@ -131,10 +133,23 @@ class Application extends AdmObject
                 else return [];
         }
 
+        public function getMandatoryNeededAttributes()
+        {
+                
+                $this->getApplicationModel();
+                if ($this->objApplicationModel) {
+                        return $this->objApplicationModel->getMandatoryNeededAttributes($this->getVal("step_num"));                            
+                }
+                else return [];
+        }
+
         public function saveNeededAttributes($input_arr, $commit = true)
         {
+                $ok = true;
+                $not_ok_reason = "";
                 $saved = [];
                 $needed = $this->getNeededAttributes();
+                $mandatoryNeeded = $this->getMandatoryNeededAttributes();
                 foreach($needed as $field_name)
                 {
                         if(isset($input_arr[$field_name]))
@@ -142,13 +157,18 @@ class Application extends AdmObject
                                 $this->set($field_name, $input_arr[$field_name]);
                                 $saved[$field_name] = $input_arr[$field_name];
                         }
+                        elseif($mandatoryNeeded[$field_name])
+                        {
+                                $ok = false;
+                                $not_ok_reason = "$field_name is missed";
+                        }
                 }
                 
 
                 if($commit) $this->commit();
                 
 
-                return [$input_arr, $saved, "saveNeededAttributes : ".$this->getTechnicalNotes()];
+                return [$input_arr, $saved, "saveNeededAttributes : ".$this->getTechnicalNotes(), $ok, $not_ok_reason];
         }
 
 
@@ -191,23 +211,34 @@ class Application extends AdmObject
                                 $apis_war = "case of data does not need update";
                         }
 
-                        list($received, $saved, $notes) = $applicationObj->saveNeededAttributes($input_arr);
-                        // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
-                        list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
-                        
-                        
-                        
-                        $move_step_status = $result["result"];
-                        $move_step_message = $result["message"];
-                        $move_step_details = $result["details"];
-                        $move_step_details_2 = $result["details_2"];
-                        if(!$error_message)
+                        list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
+                        if($ok)
                         {
-                                $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
-                                list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg,"nextApplicationStep", $whereiam);
+                                // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
+                                list($error_message,$inf,$war,$tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
+                                
+                                
+                                
+                                $move_step_status = $result["result"];
+                                $move_step_message = $result["message"];
+                                $move_step_details = $result["details"];
+                                $move_step_details_2 = $result["details_2"];
+                                if(!$error_message)
+                                {
+                                        $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg,"nextApplicationStep", $whereiam);
+                                }
+                                else
+                                {
+                                        $applicationData = null;
+                                }
                         }
                         else
                         {
+                                $move_step_status = "fail";
+                                $move_step_message = $not_ok_reason;
+                                $move_step_details = "";
+                                $move_step_details_2 = "";
                                 $applicationData = null;
                         }
                         
