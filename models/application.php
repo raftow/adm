@@ -1403,8 +1403,8 @@ class Application extends AdmObject
                                                         $last_step_num = $lastStepObj->getVal("step_num");
                                                         $this->set("step_num", $last_step_num);
                                                         $this->set("application_step_id", $lastStepObj->id);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                        $this->set("comments", $this->tm("application last step is the desire selection",$lang)." = ".$last_step_num);
+                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                        $this->set("comments", $this->tm("please select the desires",$lang));
                                                 }
                                                 
                                                 
