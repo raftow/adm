@@ -280,7 +280,7 @@ class SortingSessionStat extends AFWObject{
             if($diffUnLike>0) $diffUnLike = "+".$diffUnLike;
             return "<div>
                         <div class='elike' idobj='$id' val='$valueLike'>$diffLike</div>
-                        <div class='elike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
+                        <div class='dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
                     </div>";
         }
         

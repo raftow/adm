@@ -4768,7 +4768,7 @@ div#div_data_statList tr>th
     font-weight: bold;
     border: solid 1px #2fcc2f;
     border-radius: 4px;
-    padding: 4px;
+    padding: 2px 4px;
     background-color: #bbfabb78;
     background-image: url(../../lib/images/like32.png) !important;
     background-repeat: no-repeat;
@@ -4778,13 +4778,14 @@ div#div_data_statList tr>th
 }
 
 .dlike {
+    margin-top: 4px;
     width: 60px;
     font-family: 'DIGI';
     font-size: 20px;
     font-weight: bold;
     border: solid 1px #e4762b;
     border-radius: 4px;
-    padding: 4px;
+    padding: 2px 4px;
     background-color: #f9874145;
     background-image: url(../../lib/images/dislike32.png) !important;
     background-repeat: no-repeat;
