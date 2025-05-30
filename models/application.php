@@ -384,6 +384,7 @@ class Application extends AdmObject
                                 $this->getApplicationModel();
                                 if ($this->objApplicationModel) {
                                         $setted_step_num = $this->getVal("step_num");
+                                        if(!$setted_step_num) $setted_step_num = 1;
                                         $appStepObj = $this->objApplicationModel->convertStepNumToObject($setted_step_num);
                                         $step_invalid_reason = "";
                                         if(!$appStepObj) $step_invalid_reason = "step $setted_step_num not found";
@@ -405,6 +406,22 @@ class Application extends AdmObject
                                                         $this->set("application_step_id", 0);                                                
                                                         $this->set("comments", "step 1 not found");
                                                 }*/                                                
+                                        }
+                                        else
+                                        {
+                                                $application_step_id = $appStepObj->id;
+                                                if($application_step_id != $this->getVal("application_step_id"))
+                                                {
+                                                        $fields_updated["application_step_id"] = $this->getVal("application_step_id") ? $this->getVal("application_step_id") : "@empty";
+                                                        $this->set("application_step_id", $application_step_id);
+                                                }
+
+                                                if($setted_step_num != $this->getVal("step_num"))
+                                                {
+                                                        $fields_updated["step_num"] = $this->getVal("step_num") ? $this->getVal("step_num") : "@empty";
+                                                        $this->set("step_num", $setted_step_num);
+                                                }
+                                                
                                         }
                                 } else {
                                         AfwSession::pushError($this->getDisplay("en") . " : Application Model Not Found : " . $this->getVal("application_model_id"));
