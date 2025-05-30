@@ -157,7 +157,7 @@ class Application extends AdmObject
                                 $this->set($field_name, $input_arr[$field_name]);
                                 $saved[$field_name] = $input_arr[$field_name];
                         }
-                        elseif($mandatoryNeeded[$field_name])
+                        elseif($mandatoryNeeded[$field_name] and (!$this->getVal($field_name)))
                         {
                                 $ok = false;
                                 $not_ok_reason = "$field_name is missed";
