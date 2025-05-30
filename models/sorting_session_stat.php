@@ -233,6 +233,11 @@ class SortingSessionStat extends AFWObject{
 
         public function attributeIsApplicable($attribute)
         {
+                if($attribute == "execo")
+                {
+                    return ($this->getVal("free")<0);
+                }
+
                 if (($attribute == "min_app_score2") or
                     ($attribute == "min_app_score3") or
                     ($attribute == "min_acc_score2") or
