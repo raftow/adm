@@ -269,6 +269,35 @@ class SortingSessionStat extends AFWObject{
         }
 
 
+        
+
+        public function calcWp_recommended($what="value")
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            $id = $this->id;
+            // $execo = $this->getVal("execo");
+            $cond_weighted_percentage = $this->getVal("cond_weighted_percentage");
+            $free = $this->getVal("free");
+            $waiting = $this->getVal("waiting");
+            if(($free>=3) and (!$waiting))
+            {
+                $text = $this->tm("There are no waiting list and you have not reached the wanted seats, you may need to review your minimum accepted weighted percentage", $lang);
+                return AfwShowHelper::tooltipText($text);
+            }
+            $min_acc_score1 = $this->getVal("min_acc_score1");
+            if($free<=0) return "";
+            $z = ($free > $waiting) ? $free : $waiting;
+            if($z<=0) return "";
+            $fraction = $free / $z;
+            if($fraction>1.0) $fraction = 1.0;
+            $recommended = $cond_weighted_percentage + $fraction*($min_acc_score1 - $cond_weighted_percentage);
+            
+            return "<div class='farz-wizard'>
+                        <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
+                        <div class='execo'>$waiting</div>
+                    </div>";
+        }
+
         public function calcExeco_action($what="value")
         {
             $id = $this->id;
@@ -279,10 +308,10 @@ class SortingSessionStat extends AFWObject{
             if($diffLike>0) $diffLike = "+".$diffLike;
             $diffUnLike = $valueUnLike - $this->getVal("capacity");
             if($diffUnLike>0) $diffUnLike = "+".$diffUnLike;
-            return "<div>
-                        <div class='elike' idobj='$id' val='$valueLike'>$diffLike</div>
+            return "<div class='farz-wizard'>
+                        <div class='wizcapacity elike' idobj='$id' val='$valueLike'>$diffLike</div>
                         <div class='execo'>$execo</div>
-                        <div class='dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
+                        <div class='wizcapacity dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
                     </div>";
         }
         

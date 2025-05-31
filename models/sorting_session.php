@@ -263,6 +263,21 @@ class SortingSession extends AFWObject
             }
         }
 
+        if ($fields_updated["cond_weighted_percentage"]) {
+            $planBranchObj = $this->het("application_plan_branch_id");
+            $planBranchObj->set("cond_weighted_percentage", $this->getVal("cond_weighted_percentage"));
+            $planBranchObj->commit();
+        }
+        
+        if ($fields_updated["capacity"]) {
+            $planBranchObj = $this->het("application_plan_branch_id");
+            $planBranchObj->set("capacity", $this->getVal("capacity"));
+            $planBranchObj->commit();
+        }
+
+        
+        
+
 
         return true;
     }
@@ -556,7 +571,7 @@ class SortingSession extends AFWObject
         return $pbms;
     }
 
-    public function postSortingStats($sorting_group_id, $track_num, $arrDataMinAccepted)    
+    public function postSortingStats($sorting_group_id, $track_num, $arrDataMinAccepted, $branchsWaitingMatrix)    
     {
         $objme = AfwSession::getUserConnected();
         if(!$objme) throw new AfwBusinessException("Please login before");
@@ -595,15 +610,16 @@ class SortingSession extends AFWObject
         $sql_insert_into = "INSERT INTO ".$server_db_prefix."adm.sorting_session_stat 
                        (`created_by`, `updated_by`, `created_at`, `updated_at`, active, version,
                         `application_plan_id`, `session_num`, `application_simulation_id`, `track_num`,
-                        `application_plan_branch_id`, `capacity`, `execo`, min_weighted_percentage,
+                        `application_plan_branch_id`, `branch_order`, `capacity`, `execo`, min_weighted_percentage,
                         `min_app_score1`, `min_app_score2`, `min_app_score3`, 
-                        nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3) VALUES ";
+                        nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3, waiting) VALUES ";
 
         $sql_values = "";
         $count_values = 0;
         $now = date("Y-m-d H:i:s");
         foreach($applicationPlanBranchList as $applicationPlanBranchItem)
         {
+            $waiting = $branchsWaitingMatrix[$applicationPlanBranchItem->id];
             // foreach($pathData as $spath => $spathLabel)
             // for ($spath = $track_num; $spath <= $track_num; $spath++) 
             $spath = $track_num;
@@ -615,8 +631,9 @@ class SortingSession extends AFWObject
                     foreach($rowData as $rowCol => $rowVal) $$rowCol = $rowVal;
                     // if(!$rowData["nb_accepted"]) die("rowData=".var_export($rowData,true));
                     $application_plan_branch_id = $applicationPlanBranchItem->id;
-                    $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
                     $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
+                    $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
+                    $branch_order = $applicationPlanBranchItem->getVal("branch_order");
                     $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
                     $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
                     $min_weighted_percentage = $applicationPlanBranchItem->getVal("min_weighted_percentage");
@@ -632,9 +649,9 @@ class SortingSession extends AFWObject
                     if(!$min_app_score3) $min_app_score3 = 0;
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
-                    $application_plan_branch_id, $capacity, $execo, $min_weighted_percentage,
+                    $application_plan_branch_id, $branch_order, $capacity, $execo, $min_weighted_percentage,
                     $min_app_score1, $min_app_score2, $min_app_score3,
-                    $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3),\n";
+                    $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3, $waiting),\n";
                     
                     $count_values++;
 
@@ -952,7 +969,7 @@ class SortingSession extends AFWObject
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
                 $arrDataMinAccepted = [];
-
+                $branchsWaitingMatrix = [];
                 $info_arr[]  = "For SPATH{$spath} : ";
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($application_plan_id, $sortingGroupId, $spath);
                 $branchsCapacityMatrixStart = $branchsCapacityMatrix;
@@ -1082,6 +1099,7 @@ class SortingSession extends AFWObject
                     $desire_num_to_assign = 0;
                     $desire_assigned = 0;
                     $application_plan_branch_id_assigned = 0;
+                    
                     while((!$desire_assigned) and ($desire_num_to_assign<$MAX_DESIRES))
                     {
                         $desire_num_to_assign++;
@@ -1158,6 +1176,8 @@ class SortingSession extends AFWObject
                                     }
                                     $war_arr[] = "audit desire num $desire_num_to_assign (APB-ID=$application_plan_branch_id_to_assign) not assigned, ".$log_not_ass;
                                 }
+                                if(!$branchsWaitingMatrix[$application_plan_branch_id_to_assign]) $branchsWaitingMatrix[$application_plan_branch_id_to_assign] = 1;
+                                else $branchsWaitingMatrix[$application_plan_branch_id_to_assign]++;
                             }
                         }
                         
@@ -1200,7 +1220,7 @@ class SortingSession extends AFWObject
                 }
 
                 $info_arr[] = " Nb applicants = $nb_applicants, Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]";
-                $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted); 
+                $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted, $branchsWaitingMatrix); 
             }
                
 

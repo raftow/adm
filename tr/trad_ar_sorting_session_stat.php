@@ -18,6 +18,10 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["free"] = "مقاعد شاغرة";
 		$trad["sorting_session_stat"]["execo"] = "متساوين";
 		$trad["sorting_session_stat"]["execo_action"] = "قرار المتساوين";
+
+		$trad["sorting_session_stat"]["waiting"] = "قائمة انتظار";
+		$trad["sorting_session_stat"]["wp_recommended"] = "الحد الأدنى المُستَحسَن";
+
 		
 
 		$trad["sorting_session_stat"]["step1"] = "نتائج الفرز";

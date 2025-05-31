@@ -10,7 +10,7 @@ class AdmSortingSessionStatAfwStructure
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
                         
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
-                        $obj->ORDER_BY_FIELDS = "";
+                        $obj->ORDER_BY_FIELDS = "application_plan_id, session_num, application_simulation_id, application_plan_branch_id, track_num, branch_order";
                         $obj->UNIQUE_KEY = array('application_plan_id', 'session_num', 'application_simulation_id', 'application_plan_branch_id', 'track_num');
 
                         $obj->showQeditErrors = true;
@@ -128,6 +128,13 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
+                'branch_order' => array('IMPORTANT' => 'IN',  'SHOW' => true, 'EXCEL' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  
+                                                'TYPE' => 'INT',  'STEP' => 1, 'DISPLAY' => true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
+                                                'CSS' => 'width_pct_25',
+                                                ),
+
                 'application_plan_branch_id' => array(
                         'FGROUP' => 'farz-branch',
                         'SHORTNAME' => 'plan_branch',
@@ -173,6 +180,49 @@ class AdmSortingSessionStatAfwStructure
                         'READONLY' => true,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
+                ),
+
+                'min_weighted_percentage' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'RETRIEVE' => true,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
+
+                'min_app_score1' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'RETRIEVE' => true,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
+                'min_app_score2' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
+                'min_app_score3' => array(
+                        'FGROUP' => 'scores',
+                        'TYPE' => 'FLOAT',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
                 ),
                 
                 'capacity' => array(
@@ -284,48 +334,43 @@ class AdmSortingSessionStatAfwStructure
 		),
 
 
-                'min_weighted_percentage' => array(
+                'waiting' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'READONLY' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'INT',
+                        'READONLY' => true,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'wp_recommended' => array(
+                        'FGROUP' => 'scores',
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'TEXT',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => false,
+                        'EDIT' => false,
+                        'STEP' => 99,
                         'RETRIEVE' => true,
-                        'SHOW' => true,
-                        'EDIT' => true,
-                        'READONLY' => true,
-                        'SIZE' => 255,
-                        'CSS' => 'width_pct_25',
-                ),
-
-
-                'min_app_score1' => array(
-                        'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
-                        'RETRIEVE' => true,
-                        'SHOW' => true,
-                        'EDIT' => true,
-                        'READONLY' => true,
-                        'SIZE' => 255,
-                        'CSS' => 'width_pct_25',
-                ),
-
-                'min_app_score2' => array(
-                        'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
-                        'SHOW' => true,
-                        'EDIT' => true,
-                        'READONLY' => true,
-                        'SIZE' => 255,
-                        'CSS' => 'width_pct_25',
-                ),
-
-                'min_app_score3' => array(
-                        'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
-                        'SHOW' => true,
-                        'EDIT' => true,
-                        'READONLY' => true,
-                        'SIZE' => 255,
-                        'CSS' => 'width_pct_25',
-                ),
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+                        'CSS' => 'width_pct_50',
+		),
 
                 'cond_weighted_percentage' => array(
                         'FGROUP' => 'scores',
