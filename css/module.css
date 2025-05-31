@@ -4750,6 +4750,8 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span {
 table.obsolete td.hzm_col_afw_nb_accepted, 
 table.obsolete td.hzm_col_afw_free, 
 table.obsolete td.hzm_col_afw_execo, 
+table.obsolete td.hzm_col_afw_execo_action, 
+table.obsolete td.hzm_col_afw_wp_recommended, 
 table.obsolete td.hzm_col_afw_min_acc_score1,
 table.obsolete td.hzm_col_afw_min_weighted_percentage {
     opacity: 20%;
@@ -4796,6 +4798,24 @@ div#div_data_statList tr>th
     position: relative;
 }
 
+.waiting {
+    width: 28px;
+    background-color: #f0ffbf;
+    border: 1px solid #6d9c20;
+    border-radius: 9px;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -5px;
+    margin-right: 34px;
+    font-size: 12px;
+    font-family: 'DIGI';
+    font-weight: bold;
+    color: #6d9c20;
+    padding: 0;
+    z-index: 999;
+    position: relative;
+}
+
 .dlike {
     margin-top: -7px;
     width: 60px;
@@ -4812,4 +4832,9 @@ div#div_data_statList tr>th
     background-position: 5px center;
     color: #ce6015;
     cursor: pointer;
+}
+
+.wiz_min_weigh_pctg.elike {
+    width: 80px;
+    font-size: 16px;
 }
