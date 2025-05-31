@@ -296,7 +296,7 @@ class SortingSessionStat extends AFWObject{
             
             return "<div class='farz-wizard'>
                         <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
-                        <div class='execo'>$waiting</div>
+                        <div class='waiting'>$waiting</div>
                     </div>";
         }
 
