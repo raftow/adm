@@ -276,21 +276,21 @@ class SortingSessionStat extends AFWObject{
             $lang = AfwLanguageHelper::getGlobalLanguage();
             $id = $this->id;
             // $execo = $this->getVal("execo");
-            $cond_weighted_percentage = $this->getVal("cond_weighted_percentage");
-            $free = $this->getVal("free");
-            $waiting = $this->getVal("waiting");
+            $cond_weighted_percentage = floatval($this->getVal("cond_weighted_percentage"));
+            $free = intval($this->getVal("free"));
+            $waiting = intval($this->getVal("waiting"));
             if(($free>=3) and (!$waiting))
             {
                 $text = $this->tm("There are no waiting list and you have not reached the wanted seats, you may need to review your minimum accepted weighted percentage", $lang);
                 return AfwShowHelper::tooltipText($text);
             }
-            $min_acc_score1 = $this->getVal("min_acc_score1");
+            $min_acc_score1 = floatval($this->getVal("min_acc_score1"));
             if($free<=0) return "";
             $z = ($free > $waiting) ? $free : $waiting;
             if($z<=0) return "";
             $fraction = $free / $z;
             if($fraction>1.0) $fraction = 1.0;
-            $recommended = $cond_weighted_percentage + $fraction*($min_acc_score1 - $cond_weighted_percentage);
+            $recommended = round(($cond_weighted_percentage + $fraction*($min_acc_score1 - $cond_weighted_percentage))*10)/10;
             
             return "<div class='farz-wizard'>
                         <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
