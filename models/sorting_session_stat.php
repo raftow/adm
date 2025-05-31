@@ -277,6 +277,8 @@ class SortingSessionStat extends AFWObject{
             $id = $this->id;
             // $execo = $this->getVal("execo");
             $cond_weighted_percentage = floatval($this->getVal("cond_weighted_percentage"));
+            if($cond_weighted_percentage<=0.5) $cond_weighted_percentage = floatval($this->getVal("min_weighted_percentage"));
+            if($cond_weighted_percentage<=0.5) return "";
             $free = intval($this->getVal("free"));
             $waiting = intval($this->getVal("waiting"));
             if(($free>=3) and (!$waiting))
