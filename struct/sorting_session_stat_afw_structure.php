@@ -128,7 +128,7 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'branch_order' => array('IMPORTANT' => 'IN',  'SHOW' => true, 'EXCEL' => false,  
+                'branch_order' => array('IMPORTANT' => 'IN',  'SHOW' => true, 'EXCEL' => false, 'RETRIEVE' => true, 
                                                 'EDIT' => true,  'QEDIT' => true,  
                                                 'TYPE' => 'INT',  'STEP' => 1, 'DISPLAY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
