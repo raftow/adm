@@ -402,9 +402,9 @@ class SortingSession extends AFWObject
         $lang = AfwLanguageHelper::getGlobalLanguage();
         list($yes , $no, $euh) = $this->translateMyYesNo("sorting_ready", $what, $lang);
 
-        $details = $this->calcApplication_ongoing();
+        $details = $this->calcSorting_ready_details();
 
-        return $details ? $details : $yes;
+        return ($details=="") ?  $yes : $no;
     }
 
     public function calcApplication_ongoing($what = "value")
