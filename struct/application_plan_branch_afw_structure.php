@@ -231,7 +231,7 @@
 
                                         'min_app_score1' => array('STEP' => 2,
                                                 'TYPE' => 'FLOAT',
-                                                'RETRIEVE' => true,
+                                                'RETRIEVE' => false,
                                                 'SHOW' => true,
                                                 'EDIT' => true,
                                                 'READONLY' => true,
@@ -310,7 +310,7 @@
                                         'capacity_track2' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => true,
+                                                'RETRIEVE' => false,
                                                 'QEDIT' => false,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,

@@ -514,6 +514,7 @@
                                         'applicationPlanBranchList' => array('TYPE' => 'FK', 'ANSWER' => 'application_plan_branch', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_plan_id', 'STEP' => 5,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
+                                                'DO-NOT-RETRIEVE-COLS' => ['name_ar','name_en',],
                                                 'DISABLE_DATA_TABLE' => true,
                                                 'RETRIEVE-POPUP-EDITOR' => ['branch_order','capacity',],
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
