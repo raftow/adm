@@ -14,4 +14,10 @@ $(document).ready(function() {
                 $("#tr-object-"+idobj).removeClass("hzm_row_W"); 
                 $("#tr-object-"+idobj).addClass("hzm_row_0"); 
         });
+
+
+        $(".dlike").click(function() {
+                var idobj = $(this).attr("idobj");
+                $("#tr-object-"+idobj).addClass("remove-execo"); 
+        });
 });

@@ -4835,3 +4835,13 @@ div#div_data_statList tr>th
     width: 80px;
     font-size: 16px;
 }
+
+tr.hzm_row_0 .farz-wizard {
+    display: none;
+}
+
+
+tr.remove-execo>td.hzm_col_afw_free>span, 
+tr.remove-execo>td.hzm_col_afw_nb_accepted>span {
+    visibility: hidden;
+}
