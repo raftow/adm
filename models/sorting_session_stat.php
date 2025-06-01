@@ -354,9 +354,17 @@ class SortingSessionStat extends AFWObject{
                 }
             }
 
+            if ($fields_updated["cond_weighted_percentage"]) {
+                $planBranchObj = $this->het("application_plan_branch_id");
+                $planBranchObj->set("cond_weighted_percentage", $this->getVal("cond_weighted_percentage"));
+                $planBranchObj->commit();
+            }
             
-
-            
+            if ($fields_updated["capacity"]) {
+                $planBranchObj = $this->het("application_plan_branch_id");
+                $planBranchObj->set("capacity", $this->getVal("capacity"));
+                $planBranchObj->commit();
+            }
             
 
 
