@@ -10,7 +10,7 @@ class AdmSortingSessionStatAfwStructure
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
                         
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
-                        $obj->ORDER_BY_FIELDS = "application_plan_id, session_num, application_simulation_id, application_plan_branch_id, track_num, branch_order";
+                        $obj->ORDER_BY_FIELDS = "application_plan_id, session_num, application_simulation_id, branch_order";
                         $obj->UNIQUE_KEY = array('application_plan_id', 'session_num', 'application_simulation_id', 'application_plan_branch_id', 'track_num');
 
                         $obj->showQeditErrors = true;
