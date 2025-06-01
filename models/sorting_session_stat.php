@@ -345,5 +345,22 @@ class SortingSessionStat extends AFWObject{
 
             return ($what=="value") ? $obj->id : $obj;
         }
+
+        public function beforeMaj($id, $fields_updated)
+        {
+            if ($fields_updated["capacity"]) {
+                if ($this->getVal("capacity") < $this->getVal("nb_accepted")) {
+                    $this->set("nb_accepted", $this->getVal("capacity"));
+                }
+            }
+
+            
+
+            
+            
+
+
+            return true;
+        }
              
 }
