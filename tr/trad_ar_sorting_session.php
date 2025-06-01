@@ -5,12 +5,12 @@ class SortingSessionArTranslator{
     {
         $trad = [];
 		$trad["sorting_session"]["step1"] = "معلومات أساسية";
-		$trad["sorting_session"]["step2"] = "عملية الفرز";
-		$trad["sorting_session"]["step3"] = "لوحة التحكم";
-		$trad["sorting_session"]["step4"] = "الاعتماد والنشر";
-		$trad["sorting_session"]["step5"] = "احصائيات الفرز";
+		$trad["sorting_session"]["step2"] = "إعدادات الفرز";
+		$trad["sorting_session"]["step3"] = "مؤشرات الجاهزية";
+		$trad["sorting_session"]["step5"] = "الاعتماد والنشر";
+		$trad["sorting_session"]["step4"] = "لوحة التحكم";
 		
-		$trad["sorting_session"]["controlPanel"] = "لوحة التحكم";
+		// $trad["sorting_session"]["controlPanel"] = "";
 		$trad["sorting_session"]["sortingsession.single"] = "كرة فرز";
 		$trad["sorting_session"]["sortingsession.new"] = "جديدة";
 		$trad["sorting_session"]["sorting_session"] = "كرات فرز";
@@ -43,13 +43,14 @@ class SortingSessionArTranslator{
 
 		$trad["sorting_session"]["applicant_id"] = "رقم تسلسلي تحت المراقبة";
 
-	    
-		
-		
+		$trad["sorting_session"]["settings"] = "إعدادات الفرز";
+		$trad["sorting_session"]["desires_nb"] = "عدد الترشحات";
+		$trad["sorting_session"]["applicants_nb"] = "عدد المتقدمين";
+		$trad["sorting_session"]["errors_nb"] = "عدد الأخطاء";
+		$trad["sorting_session"]["data_date"] = "تاريخ البيانات";
+		$trad["sorting_session"]["stats_date"] = "تاريخ المؤشرات";
 
-		
-		
-        // steps
+		// steps
         return $trad;
     }
 

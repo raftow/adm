@@ -4845,3 +4845,8 @@ tr.remove-execo>td.hzm_col_afw_free>span,
 tr.remove-execo>td.hzm_col_afw_nb_accepted>span {
     visibility: hidden;
 }
+
+
+tr.add-execo>td.hzm_col_afw_free>span {
+    visibility: hidden;
+}

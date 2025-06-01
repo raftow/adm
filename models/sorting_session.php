@@ -8,6 +8,7 @@ $file_dir_name = dirname(__FILE__);
 class SortingSession extends AFWObject
 {
     private $nb_desires = null;
+    private $nb_applications = null;
     public static $MY_ATABLE_ID = 13952;
 
     public static $DATABASE            = "uoh_adm";
@@ -415,6 +416,64 @@ class SortingSession extends AFWObject
         return $this->nb_desires; 
     }
 
+    public function calcStamp_desires($what = "value")
+    {
+        return $this->getRelation("applicationDesireList")->func('max(updated_at)');
+    }
+
+
+    public function getOptions($option = "all", $value = false)
+    {
+        $options_arr = [];
+        // $options_arr["KARRA-ID"] = $this->id;
+        // $options_arr["KARRA-NUM"] = $this->getVal("session_num");
+        $settings_arr = explode("\n", $this->getVal("settings"));
+        foreach ($settings_arr as $settings_item) {
+            $settings_item = trim($settings_item);
+            list($optionItem, $optionVal) = explode("=", $settings_item);
+            if ($option == "all" or $option == $optionItem) {
+                if ($value) {
+                    // return "($option==all or $option=$optionItem) $settings_item => optionVal=$optionVal";
+                    return $optionVal;
+                }
+                $options_arr[$optionItem] = $optionVal;
+            }
+        }
+        if ($value) return null;
+        return $options_arr;
+    }
+
+    public function calcErrors_nb($what = "value")
+    {
+        $vmin = $this->getOptions("SORTING_VALUE_MIN", true);
+        if(!$vmin) $vmin = 0.0;
+        if($this->sortingCase()=="wp")
+        {
+            return $this->getRelation("applicationList")->resetWhere("weighted_pctg is null or weighted_pctg < $vmin")->count();
+        }
+        else
+        {
+            return $this->getRelation("applicationDesireList")->resetWhere("sorting_value_1 is null or sorting_value_1 < $vmin")->count();
+        }
+        
+    }
+
+    
+
+    public function calcNb_applications($what = "value")
+    {
+        if(!$this->nb_applications)
+        {
+            $this->nb_applications = $this->getRelation("applicationList")->count();
+        }
+        return $this->nb_applications; 
+    }
+
+    public function calcStamp_applications($what = "value")
+    {
+        return $this->getRelation("applicationList")->func('max(updated_at)');
+    }
+
     /**
      * @todo implement this method ASAP
      */
@@ -436,7 +495,13 @@ class SortingSession extends AFWObject
         
         $pbms = array();
 
-        
+        $color = "green";
+        $title_ar = "تحديث مؤشرات الجاهزية";
+        $methodName = "updateReadyIndicators";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
+                                        "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                        'STEP' => $this->stepOfAttribute("data_date"));
+
 
         $methodConfirmationWarningEn = "You agree that the sorting data are not correct and you want to update it";
         $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
@@ -540,7 +605,7 @@ class SortingSession extends AFWObject
                                                 'CONFIRMATION_NEEDED' => true,
                                                 'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
-                                                'STEP' => $this->stepOfAttribute("started_ind"));
+                                                'STEPS' => 'all');
 
 
             $color = "green";
@@ -549,7 +614,7 @@ class SortingSession extends AFWObject
             $methodName = "lightSorting";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
                                                 "ADMIN-ONLY" => true, "BF-ID" => "", 
-                                                'STEP' => $this->stepOfAttribute("started_ind"));
+                                                'STEPS' => 'all');
 
 
                                                                                                 
@@ -680,6 +745,27 @@ class SortingSession extends AFWObject
         return "جاري التطوير ...";
     }
     
+
+    public function updateReadyIndicators($what = "value")
+    {
+        $trad["sorting_session"][] = "عدد الترشحات";
+		$trad["sorting_session"][""] = "عدد المتقدمين";
+		$trad["sorting_session"][""] = "عدد الأخطاء";
+		$trad["sorting_session"][""] = "تاريخ البيانات";
+		$trad["sorting_session"][""] = "تاريخ المؤشرات";
+        
+        $this->set("desires_nb", $this->calcNb_desires());
+        $this->set("applicants_nb", $this->calcNb_applications());
+        $this->set("errors_nb", $this->calcErrors_nb());
+        $stmp_des = $this->calcStamp_desires();
+        $stmp_app = $this->calcStamp_applications();
+
+        $stmp = ($stmp_app>$stmp_des) ? $stmp_app : $stmp_des;
+        $this->set("data_date", $stmp);
+        $now = date("Y-m-d H:i:s");
+        $this->set("stats_date", $now);
+        $this->commit();
+    }
 
     public function calcStatsPanel($what = "value")
     {
@@ -817,6 +903,33 @@ class SortingSession extends AFWObject
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
     }*/
+
+    public function sortingCase()
+    {
+        $sortingGroupList = $this->get("sortingGroupList");
+        $sortingGroupCount = count($sortingGroupList);
+        if($sortingGroupCount>1) return "complex";
+        if($sortingGroupCount<=0) return "not-ready";
+        $sf1Obj = null;
+        $sf2Obj = null;
+        $sf3Obj = null;
+        foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+        {
+            $sf1Obj = $sortingGroupItem->het("sorting_field_1_id");
+            $sf2Obj = $sortingGroupItem->het("sorting_field_2_id");
+            $sf3Obj = $sortingGroupItem->het("sorting_field_3_id");
+        }
+        if(!$sf1Obj) return "not-defined";
+        if($sf2Obj) return "complex";
+        if($sf3Obj) return "complex";
+        
+
+        if($sf1Obj->getVal("field_name")=="weighted_percentage")
+        {
+            return "wp";
+        }
+        else return $sf1Obj->getVal("field_name");
+    }
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
@@ -1043,6 +1156,7 @@ class SortingSession extends AFWObject
                                     FROM ".$server_db_prefix."adm.application
                                     WHERE application_plan_id = $application_plan_id 
                                       AND application_simulation_id = $application_simulation_id 
+                                      AND application_status_enum = 2
                                       AND active = 'Y'
                                       AND weighted_pctg > $sorting_value_1_min";
 

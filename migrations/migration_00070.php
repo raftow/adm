@@ -5,6 +5,14 @@ $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 try
 {
     $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_session', 180, "+t", "qsearch", null);
+
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   desires_nb smallint DEFAULT NULL  AFTER started_ind;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   applicants_nb smallint DEFAULT NULL  AFTER desires_nb;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   errors_nb smallint DEFAULT NULL  AFTER applicants_nb;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   data_date datetime DEFAULT NULL  AFTER errors_nb;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   stats_date datetime DEFAULT NULL  AFTER data_date;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   settings text  DEFAULT NULL  AFTER applicant_id;");
+
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add key(application_plan_id, application_simulation_id, active);");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   cond_weighted_percentage decimal(5,2) NOT NULL  AFTER min_weighted_percentage;");
     AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.sorting_session_stat;");

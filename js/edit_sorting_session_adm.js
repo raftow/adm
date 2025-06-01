@@ -20,4 +20,9 @@ $(document).ready(function() {
                 var idobj = $(this).attr("idobj");
                 $("#tr-object-"+idobj).addClass("remove-execo"); 
         });
+
+        $(".elike").click(function() {
+                var idobj = $(this).attr("idobj");
+                $("#tr-object-"+idobj).addClass("add-execo"); 
+        });
 });
