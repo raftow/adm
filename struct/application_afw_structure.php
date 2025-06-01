@@ -310,28 +310,6 @@
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                
 
-                                        /*'sortingSessionStatList' => array('STEP' => 97, 'TYPE' => 'FK', 'ANSWER' => 'sorting_session_stat', 'ANSMODULE' => 'adm', 
-                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_plan_id=§application_plan_id§ and application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§', 
-                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
-                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),*/
-
-                                        'farz_karra_table' => array('SHOW' => true,  'EDIT' => true,  'READONLY' => true,
-                                                                'TYPE' => 'TEXT',  'NO-COTE' => true, 'STEP' => 97,    
-                                                                'CATEGORY' => 'FORMULA',  'SEARCH-BY-ONE' => '',  'DISPLAY' => '', 
-                                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                                ),                                                
-
-                                        'sortedDesireList' => array('SHOW' => true,  'EDIT' => true,  'READONLY' => true, 'FORMAT' => 'retrieve',  
-                                                'ICONS' => true,  'DE'.'LETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  
-                                                'AUDIT' => false,  'RETRIEVE' => false,  
-                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
-                                                'MANDATORY' => false,  'UTF8' => false,  
-                                                'TYPE' => 'FK', 'STEP' => 97,  
-                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  
-                                                'WHERE' => 'application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§ and active=\'Y\' and me.applicant_id in (select applicant_id from §DBPREFIX§adm.§farz_karra_table§ farz where farz.application_plan_branch_id=§application_plan_branch_id§)',  
-                                                'READONLY' => true,  'CAN-BE-SETTED' => true, 
-                                                'CSS' => 'width_pct_50', ),                                                
-
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
