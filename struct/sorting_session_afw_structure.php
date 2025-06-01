@@ -236,6 +236,12 @@ class AdmSortingSessionAfwStructure
                         'CSS' => 'width_pct_25',
                 ],
 
+                'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                                'EDIT' => true,  'READONLY' => true, 
+                                                'TYPE' => 'YN',  'STEP' => 3, 'READONLY'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),   
+
 
                 'sorting_ready' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                 'EDIT' => true,  'READONLY' => true,
@@ -277,11 +283,7 @@ class AdmSortingSessionAfwStructure
                                                 'READONLY' => true,  'CAN-BE-SETTED' => true, 
                                                 'CSS' => 'width_pct_50', ),
 
-                'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
-                                                'EDIT' => true,  'READONLY' => true, 
-                                                'TYPE' => 'YN',  'STEP' => 3, 'READONLY'=>true,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),                                                
+                                                             
 
 
                 'applicant_id' => array('STEP' => 2, 'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  

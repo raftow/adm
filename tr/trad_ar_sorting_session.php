@@ -50,6 +50,9 @@ class SortingSessionArTranslator{
 		$trad["sorting_session"]["data_date"] = "تاريخ البيانات";
 		$trad["sorting_session"]["stats_date"] = "تاريخ المؤشرات";
 		$trad["sorting_session"]["sorting_ready"] = "جاهزية الفرز";
+		$trad["sorting_session"]["sorting_ready.YES"] = "جاهز"; 
+		$trad["sorting_session"]["sorting_ready.NO"] = "غير جاهز"; 
+		$trad["sorting_session"]["sorting_ready.EUH"] = "غير جاهز"; 
 		$trad["sorting_session"]["sorting_ready_details"] = "سبب عدم جاهزية الفرز";
 
 		
