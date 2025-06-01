@@ -1,0 +1,17 @@
+$(document).ready(function() {
+        $(".wizcapacity").click(function() {
+                var col = 'capacity';
+                var cls = 'SortingSessionStat';
+                var mod = 'adm';
+                var idobj = $(this).attr("idobj");
+                var val = $(this).attr("val");
+                save_popup(mod, cls, idobj, col, val);
+                
+                var parent_container = $("#popup_edit_parent_capacity").val();
+                $("#"+parent_container).addClass("obsolete"); 
+                $("#tr-object-"+idobj).removeClass("hzm_row_Y"); 
+                $("#tr-object-"+idobj).removeClass("hzm_row_N"); 
+                $("#tr-object-"+idobj).removeClass("hzm_row_W"); 
+                $("#tr-object-"+idobj).addClass("hzm_row_0"); 
+        });
+});
