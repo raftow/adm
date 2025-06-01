@@ -298,6 +298,7 @@
                                                               "except-application_simulation_id" => true,
                                                               "except-application_model_branch_id" => true,
                                                         ],
+                                                        'DO-NOT-RETRIEVE-COLS' => ['applicant_id', ],
                                                         'IMPORTANT' => 'HEIGH', 'TYPE' => 'FK',  
                                                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  'ITEM' => 'application_id', 
                                                         'WHERE' => 'applicant_id = §applicant_id§',
@@ -308,6 +309,11 @@
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§', 
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                
+
+                                        'sortingSessionStatList' => array('STEP' => 97, 'TYPE' => 'FK', 'ANSWER' => 'sorting_session_stat', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_plan_id=§application_plan_id§ and application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§', 
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                                                                
 
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
