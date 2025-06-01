@@ -985,7 +985,7 @@ class SortingSession extends AFWObject
 
                 $sql_create_final = "CREATE TABLE $final_sorting_table (
                     applicant_id bigint(20) NOT NULL,
-                    sorting_num smallint DEFAULT NULL, 
+                    sorting_num int DEFAULT NULL, 
                     assigned_desire_num smallint DEFAULT NULL, 
                     application_plan_branch_id int(11) NULL, 
                     PRIMARY KEY (`applicant_id`)
@@ -1021,7 +1021,7 @@ class SortingSession extends AFWObject
                             $sf3_sql
 
                             $ff_sql
-                            sorting_num smallint DEFAULT NULL,                             
+                            sorting_num int DEFAULT NULL,                             
                             PRIMARY KEY (`applicant_id`)
                             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;";
 
