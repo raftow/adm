@@ -2164,5 +2164,22 @@ class Application extends AdmObject
                 if($attribute=="current_fields_matrix") return true;
                 return false;
         }
+
+        public function calcFarz_karra_table($what="withPrefix")
+        {
+            $session_num = 1;// @todo not hard code it but use current karra 
+            $application_plan_id = $this->getVal("application_plan_id");
+            $application_simulation_id = $this->getVal("application_simulation_id");
+            $track_num = 1; // @todo not hard code it but use current sorting path 
+            $sorting_group_id = 1; // @todo not hard code it but use current sorting group
+            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                
+
+            $sorting_table_without_prefix = "final_farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sorting_group_id"."_pth$track_num";
+            $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+
+            if($what=="withPrefix") return $sorting_table; else return $sorting_table_without_prefix;
+        }
 }
 
