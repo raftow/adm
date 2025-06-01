@@ -362,7 +362,7 @@ class SortingSessionStat extends AFWObject{
             
             if ($fields_updated["capacity"]) {
                 $planBranchObj = $this->het("application_plan_branch_id");
-                $planBranchObj->set("capacity", $this->getVal("capacity"));
+                $planBranchObj->set("seats_capacity", $this->getVal("capacity"));
                 $planBranchObj->commit();
             }
             
