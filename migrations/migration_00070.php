@@ -6,8 +6,8 @@ try
 {
     $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_session', 180, "+t", "qsearch", null);
 
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   desires_nb smallint DEFAULT NULL  AFTER started_ind;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   applicants_nb smallint DEFAULT NULL  AFTER desires_nb;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   desires_nb int DEFAULT NULL  AFTER started_ind;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   applicants_nb int DEFAULT NULL  AFTER desires_nb;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   errors_nb smallint DEFAULT NULL  AFTER applicants_nb;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   data_date datetime DEFAULT NULL  AFTER errors_nb;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   stats_date datetime DEFAULT NULL  AFTER data_date;");

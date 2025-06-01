@@ -404,7 +404,7 @@ class SortingSession extends AFWObject
 
         $details = $this->calcApplication_ongoing();
 
-        return $details ? $no : $yes;
+        return $details ? $details : $yes;
     }
 
     public function calcApplication_ongoing($what = "value")
