@@ -206,12 +206,13 @@ class AdmSortingSessionAfwStructure
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATETIME',
                         'DISPLAY' => true,
                         'STEP' => 3,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ],
 
                 'stats_date' => [
@@ -226,13 +227,27 @@ class AdmSortingSessionAfwStructure
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATETIME',
                         'DISPLAY' => true,
                         'STEP' => 3,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ],
+
+
+                'sorting_ready' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                'EDIT' => true,  'READONLY' => true,
+                                'TYPE' => 'YN',  'STEP' => 3, 'READONLY'=>true,
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25',),
+
+                'sorting_ready_details' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                'EDIT' => true,  'READONLY' => true,
+                                'TYPE' => 'TEXT',  'STEP' => 3, 'READONLY'=>true,
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_100',),
 
                                         'sorting_step_id' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                                                 'EDIT' => true,  'READONLY' => true,

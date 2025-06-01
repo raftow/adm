@@ -166,5 +166,14 @@
     $messages["There are no waiting list and you have not reached the wanted seats, you may need to review your minimum accepted weighted percentage"] = 
          "لا توجد قائمة انتظار ولم تصل إلى المقاعد المطلوبة، قد تحتاج إلى مراجعة النسبة الموزونة الدنيا المقبولة لديك";
     
+
+    $messages["Application process should be closed before start sorting"] = "يجب إغلاق عملية التقديم قبل البدء في الفرز";
+    $messages["Please update ready indicators because they are old"] = "يرجى تحديث مؤشرات الجاهزية للفرز لأنها قديمة";
+
+    $messages["Few number of applicants, please check"] = "عدد المتقدمين قليل، يرجى التحقق";
+    $messages["Few number of applied branchs, please check"] = "عدد الترشحات على الفروع قليل، يرجى التحقق";
+
+    $messages["Too much erroned cases, please fix before run sorting"] = "هناك الكثير من الحالات الخاطئة، يرجى الإصلاح قبل تشغيل الفرز";
+
     // $messages[""] = "";
 ?>

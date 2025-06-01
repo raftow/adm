@@ -369,6 +369,44 @@ class SortingSession extends AFWObject
     }
 
 
+    public function calcSorting_ready_details($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed before start sorting", $lang);
+        
+        if($this->getVal("data_date")>=$this->getVal("stats_date")) return $this->tm("Please update ready indicators because they are old", $lang);
+        
+        $applicants_nb = $this->getVal("applicants_nb");
+        $applicants_min = $this->getOptions("APPLICANTS_COUNT_MIN");
+        if(!$applicants_min) $applicants_min = 500;
+        if($applicants_nb<$applicants_min) return $this->tm("Few number of applicants, please check", $lang);
+        
+        
+        $min_desires_by_applicant = $this->getOptions("MIN_DESIRES_BY_APPLICANT");
+        if(!$min_desires_by_applicant) $min_desires_by_applicant = 10;
+        $desires_nb = $this->getVal("desires_nb");
+        $desires_nb_min = $min_desires_by_applicant * $applicants_nb;
+        if($desires_nb<$desires_nb_min) return $this->tm("Few number of applied branchs, please check", $lang);
+
+
+        $errors_nb_max = $this->getOptions("ERRORS_NB_MAX");
+        $errors_nb = $this->getVal("errors_nb");
+        if(!$errors_nb_max) $errors_nb_max = round($applicants_nb / 10);
+        if($errors_nb>$errors_nb_max) return $this->tm("Too much erroned cases, please fix before run sorting", $lang);
+
+        return "";
+    }
+
+    public function calcSorting_ready($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        list($yes , $no, $euh) = $this->translateMyYesNo("sorting_ready", $what, $lang);
+
+        $details = $this->calcApplication_ongoing();
+
+        return $details ? $no : $yes;
+    }
+
     public function calcApplication_ongoing($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -589,7 +627,7 @@ class SortingSession extends AFWObject
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                                                 'STEP' => $this->stepOfAttribute("published"));
         }
-        elseif(!$this->sureIs("application_ongoing"))
+        elseif($this->sureIs("sorting_ready"))
         {
             $methodConfirmationWarningEn = "You agree that the application data and desires are correct and ready for sorting";
             $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
@@ -748,12 +786,6 @@ class SortingSession extends AFWObject
 
     public function updateReadyIndicators($what = "value")
     {
-        $trad["sorting_session"][] = "عدد الترشحات";
-		$trad["sorting_session"][""] = "عدد المتقدمين";
-		$trad["sorting_session"][""] = "عدد الأخطاء";
-		$trad["sorting_session"][""] = "تاريخ البيانات";
-		$trad["sorting_session"][""] = "تاريخ المؤشرات";
-        
         $this->set("desires_nb", $this->calcNb_desires());
         $this->set("applicants_nb", $this->calcNb_applications());
         $this->set("errors_nb", $this->calcErrors_nb());

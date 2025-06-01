@@ -1035,6 +1035,7 @@ class Applicant extends AdmObject
                                 $stepCodeTile = self::standard_application_step_title_by_code($stepCode);
                                 if($stepCode=="DSR")
                                 {
+                                        
                                         $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
                                         list($appDesireList, $log, $nb_desires_gen, $nb_desires_mfk) = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
                                         $tech_arr[] = $log;
@@ -1088,6 +1089,13 @@ class Applicant extends AdmObject
         
                                                 unset($appDesireItem);
                                                 unset($appDesireList[$appDesireId]);                                                
+                                        }
+
+                                        if($appDesireListCount>0)
+                                        {
+                                                $appObj->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                                $appObj->set("comments", $this->tm("application is complete",$lang));
+                                                $appObj->commit();
                                         }
         
                                         // the minimum nb of desires authorized by application model

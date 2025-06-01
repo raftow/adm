@@ -49,6 +49,10 @@ class SortingSessionArTranslator{
 		$trad["sorting_session"]["errors_nb"] = "عدد الأخطاء";
 		$trad["sorting_session"]["data_date"] = "تاريخ البيانات";
 		$trad["sorting_session"]["stats_date"] = "تاريخ المؤشرات";
+		$trad["sorting_session"]["sorting_ready"] = "جاهزية الفرز";
+		$trad["sorting_session"]["sorting_ready_details"] = "سبب عدم جاهزية الفرز";
+
+		
 
 		// steps
         return $trad;
