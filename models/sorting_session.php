@@ -390,9 +390,10 @@ class SortingSession extends AFWObject
 
 
         $errors_nb_max = $this->getOptions("ERRORS_NB_MAX",true);
+        $pct_errors_max = $this->getOptions("MAX_ERRORS_IN_THOUSAND_APPLICANTS",true);
         $errors_nb = $this->getVal("errors_nb");
-        if(!$errors_nb_max) $errors_nb_max = round($applicants_nb / 10);
-        if($errors_nb>$errors_nb_max) return $this->tm("Too much erroned cases, please fix before run sorting", $lang);
+        if(!$errors_nb_max) $errors_nb_max = round($applicants_nb * $pct_errors_max / 1000);
+        if($errors_nb>$errors_nb_max) return $this->tm("Too much erroned cases, please fix before run sorting", $lang)."<!-- $errors_nb_max -->";
 
         return "";
     }
