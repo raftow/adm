@@ -4706,6 +4706,13 @@ tr.csr_correct.hzm_row_W>td.hzm_col_afw_nb_accepted>span {
     font-size: 16px;
     font-weight: normal;
 }
+.legend>.title{
+    max-width: 180px;
+}
+.legend_color {
+    width: auto;
+    max-width: 100px;
+}
 
 tr.csr_correct.hzm_row_Y>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_Y>td.hzm_col_afw_nb_accepted>span,

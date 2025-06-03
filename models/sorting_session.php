@@ -1424,9 +1424,9 @@ class SortingSession extends AFWObject
         $need_run_sorting_again = $this->tm("need run sorting again", $lang);
         return "<div class='legend'>
                 <div class='title'>$title</div>
-                <div class='good_sorting'>$Seems_good</div>
-                <div class='fix_sorting'>$need_to_be_fixed</div>
-                <div class='need_re_sorting'>$need_run_sorting_again</div>
+                <div class='legend_color good_sorting'>$Seems_good</div>
+                <div class='legend_color fix_sorting'>$need_to_be_fixed</div>
+                <div class='legend_color need_re_sorting'>$need_run_sorting_again</div>
         </div>";
     }
 
