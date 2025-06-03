@@ -362,7 +362,21 @@ class AdmSortingSessionAfwStructure
 					"NO-LABEL" => true,
 					'CSS' => 'width_pct_100',
 					'INPUT_WIDE' => true
-			),  */                       
+			),  */   
+                        
+                'colors_legend' => array(
+					'STEP' => 4,
+					'TYPE' => 'TEXT',
+					'CATEGORY' => 'FORMULA',
+					'SHOW' => true,
+					'EDIT' => true,
+					'READONLY' => true,
+					"CAN-BE-SETTED" => false,
+					'SIZE' => 255,
+					"NO-LABEL" => true,
+					'CSS' => 'width_pct_100',
+					'INPUT_WIDE' => true
+			),        
                         
                 'statList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
                                                 'ICONS' => true,  'DE'.'LETE-ICON' => false, 'EDIT-ICON' => false,   
