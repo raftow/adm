@@ -4708,7 +4708,8 @@ tr.csr_correct.hzm_row_W>td.hzm_col_afw_nb_accepted>span {
 }
 
 tr.csr_correct.hzm_row_Y>td.hzm_col_afw_free>span,
-tr.csr_correct.hzm_row_Y>td.hzm_col_afw_nb_accepted>span {
+tr.csr_correct.hzm_row_Y>td.hzm_col_afw_nb_accepted>span,
+div.good_sorting {
     background-color: #53c419d1;
     color: white !important;
     text-align: center;
@@ -4721,7 +4722,8 @@ tr.csr_correct.hzm_row_Y>td.hzm_col_afw_nb_accepted>span {
 }
 
 tr.csr_correct.hzm_row_N>td.hzm_col_afw_free>span,
-tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span {
+tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span,
+div.fix_sorting {
     background-color: #f85c1fd1;
     color: white !important;
     text-align: center;
@@ -4734,7 +4736,8 @@ tr.csr_correct.hzm_row_N>td.hzm_col_afw_nb_accepted>span {
 }
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
-tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span {
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
+div.need_re_sorting {
     background-color: #949991d1;
     color: white !important;
     text-align: center;
@@ -4867,3 +4870,4 @@ div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_Y {
     padding: 10px !important;
     margin-right: 25px;
 }
+

@@ -174,6 +174,9 @@
     $messages["Few number of applied branchs, please check"] = "عدد الترشحات على الفروع قليل، يرجى التحقق";
 
     $messages["Too much erroned cases, please fix before run sorting"] = "هناك الكثير من الحالات الخاطئة، يرجى الإصلاح قبل تشغيل الفرز";
-
+    $messages["Colors legend"] = "شرح الألوان";
+    $messages["Seems good"] = "يبدوا جيدا";
+    $messages["need to be fixed"] = "يحتاج قرارا من قبلكم";
+    $messages["need run sorting again"] = "يحتاج اعادة تنفيذ الفرز";
     // $messages[""] = "";
 ?>
