@@ -552,7 +552,7 @@ class SortingSession extends AFWObject
         $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
                     
         $color = "orange";
-        $title_ar = "تصحيح بيانات الفرز";
+        $title_ar = "معالجة أخطاء البيانات";
         $methodName = "updateFarzData";
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
                                         "ADMIN-ONLY" => true, "BF-ID" => "", 
@@ -887,7 +887,7 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
-    /*
+    
     public function updateFarzData($lang = "ar", $echo=false)
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
@@ -909,7 +909,7 @@ class SortingSession extends AFWObject
         $log_arr = [];
         $result_arr = [];
 
-        $vmin = 40;
+        $vmin = $this->getOptions("MIN_ACCEPTED_WEIGHTED_PCTG",true);
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
         $sorting_step_id = $this->calc("sorting_step_id");
@@ -925,7 +925,7 @@ class SortingSession extends AFWObject
          * @var ApplicationDesire $desireItem
          */
 
-         /*
+         
         foreach($desireList as $desireItem)
         {
             $total ++; 
@@ -939,7 +939,7 @@ class SortingSession extends AFWObject
         $boucle_loadObjectFK = $old_boucle_loadObjectFK;
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
-    }*/
+    }
 
     public function sortingCase()
     {
