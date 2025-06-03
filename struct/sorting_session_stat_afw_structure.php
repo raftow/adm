@@ -18,7 +18,7 @@ class AdmSortingSessionStatAfwStructure
                         $obj->general_check_errors = true;
                         $obj->editByStep = true;
                         $obj->editNbSteps = 2; 
-                        $obj->after_save_edit = array("class"=>'SortingSession',"attribute_formula"=>'sorting_session_id', "currmod"=>'adm',"currstep"=>2);
+                        $obj->after_save_edit = array("class"=>'SortingSession',"formulaAttribute"=>'sorting_session_id', "currmod"=>'adm',"currstep"=>2);
                         // $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'SortingSessionStat', "submit" => true);
                 } else {
                         SortingSessionStatArTranslator::initData();

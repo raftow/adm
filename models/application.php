@@ -2165,6 +2165,42 @@ class Application extends AdmObject
                 return false;
         }
 
-        
+        public function calcAdmission_history($what="value")
+        {
+                $application_plan_id = $this->getVal("application_plan_id");
+                $applicationPlanObj = $this->het("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+                // $appModelObj = ApplicationModel::loadById($application_model_id);
+                // $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
+                $maxPaths = SortingPath::nbPaths($application_model_id);
+                $sortingSessionList = $applicationPlanObj->get("sortingSessionList");
+                $sortingGroupList = $this->get("sortingGroupList");
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $data = [];
+                foreach($sortingSessionList as $sortingSessionId => $sortingSessionItem)
+                {
+                        if($sortingSessionItem->sureIs("started_ind"))
+                        {
+                                $session_num = $sortingSessionItem->getVal("session_num");
+                                foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+                                {
+                                        for ($spath = 1; $spath <= $maxPaths; $spath++) 
+                                        {
+                                                list($nb, $final_sorting_table) = SortingSession::hasBeenExecuted($application_plan_id, $application_simulation_id, $session_num, $sortingGroupId, $spath);
+                                                if($nb>0)
+                                                {
+                                                        $data_tmp = AfwDatabase::db_recup_rows("select $session_num as session_num, $sortingGroupId as sg_id, $spath as spath, st.* from $final_sorting_table st");
+                                                        $data = array_push($data, $data_tmp);
+                                                }                                        
+                                        }
+                                }
+                        }
+                }
+
+
+                // @todo : show result as html or other depending on $what parameter
+                
+        }
 }
 

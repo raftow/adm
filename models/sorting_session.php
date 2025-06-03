@@ -1397,6 +1397,25 @@ class SortingSession extends AFWObject
     }
 
 
+    public static function hasBeenExecuted($application_plan_id, $application_simulation_id, $session_num, $sortingGroupId, $spath)
+    {
+        $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        //$sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+        $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
+
+        try {
+            $nb = AfwDatabase::db_recup_value("select count(*) from $final_sorting_table");
+
+            return [$nb, $final_sorting_table];
+        }
+        catch(Exception $e)
+        {
+            return [-1, $final_sorting_table];
+        }
+    }
+
+
 }
 
 

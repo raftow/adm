@@ -310,6 +310,17 @@
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'VIEW-ICON'=>false, 'BUTTONS'=>true, 'NO-LABEL'=>false),                                                
 
+                                        'sortingGroupList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  
+                                                'ICONS' => false,  'DELETE-ICON' => false,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  
+                                                'AUDIT' => false,  'RETRIEVE' => false, 'EDIT' => true,  'SHOW' => true,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  
+                                                'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'FK', 'STEP' => 99,  
+                                                'CATEGORY' => 'ITEMS',  'ANSWER' => 'sorting_group',  'ANSMODULE' => 'adm',  
+                                                'WHERE' => 'id in (select distinct sorting_group_id from §DBPREFIX§adm.application_plan_branch where application_plan_id = §application_plan_id§ and active=\'Y\')',  
+                                                'READONLY' => true,  
+                                                'CSS' => 'width_pct_100', ),                                                
+
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 

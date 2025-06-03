@@ -132,6 +132,26 @@ class ApplicationPlanBranch extends AdmObject
                         $this->repareHijriApplicationEndDate("ar", false);
                 }
 
+
+                if ($fields_updated["seats_capacity"]) {
+                        // calculate the track's capacities try to modify only last ones                       
+                        $remain_capacity = $this->getVal("seats_capacity");
+                        $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
+                        $maxPaths = SortingPath::nbPaths($application_model_id);
+                        for($t=1;$t<=4;$t++)
+                        {
+                                if(($t>=$maxPaths) or ($remain_capacity<$this->getVal("capacity_track$t")))
+                                {
+                                        $this->set("capacity_track$t", $remain_capacity);
+                                        $remain_capacity = 0;
+                                }
+                                else
+                                {
+                                        $remain_capacity -= $this->getVal("capacity_track$t");
+                                }
+                        }
+                }
+
                 return true;
         }
 
@@ -212,7 +232,6 @@ class ApplicationPlanBranch extends AdmObject
                 // die("calling getAttributeLabel($attribute, $lang, short=$short)");
                 return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
         }
-
 
         public function attributeIsApplicable($attribute)
         {
