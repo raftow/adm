@@ -379,14 +379,14 @@ class SortingSession extends AFWObject
         $applicants_nb = $this->getVal("applicants_nb");
         $applicants_min = $this->getOptions("APPLICANTS_COUNT_MIN",true);
         if(!$applicants_min) $applicants_min = 500;
-        if($applicants_nb<$applicants_min) return $this->tm("Few number of applicants, please check", $lang)." : $applicants_min";
+        if($applicants_nb<$applicants_min) return $this->tm("Few number of applicants, please check", $lang)."<!-- $applicants_min -->";
         
         
         $min_desires_by_applicant = $this->getOptions("MIN_DESIRES_BY_APPLICANT",true);
         if(!$min_desires_by_applicant) $min_desires_by_applicant = 10;
         $desires_nb = $this->getVal("desires_nb");
         $desires_nb_min = $min_desires_by_applicant * $applicants_nb;
-        if($desires_nb<$desires_nb_min) return $this->tm("Few number of applied branchs, please check", $lang)." : $desires_nb_min";
+        if($desires_nb<$desires_nb_min) return $this->tm("Few number of applied branchs, please check", $lang)."<!-- $desires_nb_min -->";
 
 
         $errors_nb_max = $this->getOptions("ERRORS_NB_MAX",true);
