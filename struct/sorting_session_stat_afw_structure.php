@@ -365,7 +365,7 @@ class AdmSortingSessionStatAfwStructure
                         'SHOW' => false,
                         'EDIT' => false,
                         'STEP' => 99,
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'ERROR-CHECK' => true,

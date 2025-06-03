@@ -293,6 +293,8 @@ class SortingSessionStat extends AFWObject{
             $fraction = $free / $z;
             if($fraction>1.0) $fraction = 1.0;
             $recommended = round(($cond_weighted_percentage + $fraction*($min_acc_score1 - $cond_weighted_percentage))*10)/10;
+            if($recommended>98) return "...";
+            if(abs($recommended-$cond_weighted_percentage)<0.1) return "===";
             
             return "<div class='farz-wizard'>
                         <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
