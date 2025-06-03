@@ -9,7 +9,7 @@ class SortingSessionStat extends AFWObject{
 
         public static $MY_ATABLE_ID=13955; 
   
-        public static $DATABASE		= "uoh_adm";
+        public static $DATABASE		= "";
         public static $MODULE		        = "adm";        
         public static $TABLE			= "sorting_session_stat";
 
@@ -327,6 +327,7 @@ class SortingSessionStat extends AFWObject{
 
         public function calcCorrect($what="value")
         {
+            if($this->getVal("draft")=="N") return 0;
             $lang = AfwLanguageHelper::getGlobalLanguage();
             list($yes , $no, $euh) = $this->translateMyYesNo("correct", $what, $lang);
             $nb_accepted = $this->getVal("nb_accepted"); 
@@ -350,27 +351,40 @@ class SortingSessionStat extends AFWObject{
 
         public function beforeMaj($id, $fields_updated)
         {
+            
+            
+
+
+            return true;
+        }
+
+        public function beforeUpdate($id, $fields_updated)
+        {
             if ($fields_updated["capacity"]) {
                 if ($this->getVal("capacity") < $this->getVal("nb_accepted")) {
                     $this->set("nb_accepted", $this->getVal("capacity"));
                 }
             }
-
+            $farz_edited = false;
             if ($fields_updated["cond_weighted_percentage"]) {
+                $farz_edited = true;
                 $planBranchObj = $this->het("application_plan_branch_id");
                 $planBranchObj->set("cond_weighted_percentage", $this->getVal("cond_weighted_percentage"));
                 $planBranchObj->commit();
             }
             
             if ($fields_updated["capacity"]) {
+                $farz_edited = true;
                 $planBranchObj = $this->het("application_plan_branch_id");
                 $planBranchObj->set("seats_capacity", $this->getVal("capacity"));
                 $planBranchObj->commit();
             }
+            if($farz_edited)
+            {
+                $this->set("draft", "N");
+            }
             
-
-
-            return true;
+            return $this->beforeMaj($id, $fields_updated);
         }
              
 }
