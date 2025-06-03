@@ -1415,6 +1415,21 @@ class SortingSession extends AFWObject
         }
     }
 
+    public function calcColors_legend($what="value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $title = $this->tm("Colors legend", $lang);
+        $Seems_good = $this->tm("Seems good", $lang);
+        $need_to_be_fixed = $this->tm("need to be fixed", $lang);
+        $need_run_sorting_again = $this->tm("need run sorting again", $lang);
+        return "<div class='legend'>
+                <div class='title'>$title</div>
+                <div class='good_sorting'>$Seems_good</div>
+                <div class='fix_sorting'>$need_to_be_fixed</div>
+                <div class='need_re_sorting'>$need_run_sorting_again</div>
+        </div>";
+    }
+
 
 }
 
