@@ -41,6 +41,7 @@ try
         application_plan_branch_id int(11) NOT NULL , 
         track_num smallint NULL , 
         capacity smallint NULL , 
+        original_capacity smallint NULL,
         nb_accepted smallint NULL , 
         execo smallint NULL , 
         waiting smallint NULL , 

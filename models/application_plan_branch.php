@@ -81,6 +81,24 @@ class ApplicationPlanBranch extends AdmObject
         }
 
 
+        public function flagBranchsCapacitiesToParent($lang = "ar")
+        {
+                $applicationModelBranchObj = $this->het("application_model_branch_id");
+
+                $applicationModelBranchObj->set("direct_adm_capacity", $this->getVal("direct_adm_capacity"));
+                $applicationModelBranchObj->set("seats_capacity",  $this->getVal("seats_capacity"));
+                $applicationModelBranchObj->set("capacity_track1", $this->getVal("capacity_track1"));
+                $applicationModelBranchObj->set("capacity_track2", $this->getVal("capacity_track2"));
+                $applicationModelBranchObj->set("capacity_track3", $this->getVal("capacity_track3"));
+                $applicationModelBranchObj->set("capacity_track4", $this->getVal("capacity_track4"));
+                $applicationModelBranchObj->set("sorting_group_id", $this->getVal("sorting_group_id"));
+                
+
+                $applicationModelBranchObj->commit();
+
+                return ["", "flag done to AMB " . $applicationModelBranchObj->id, ""];
+        }
+
         public function inheritBranchsCapacities($lang = "ar")
         {
                 $applicationModelBranchObj = $this->het("application_model_branch_id");

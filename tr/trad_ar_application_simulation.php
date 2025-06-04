@@ -20,9 +20,9 @@ class ApplicationSimulationArTranslator{
 		
 		
 
-		$trad["application_simulation"]["applicationsimulation.single"] = "طلب محاكاة تقديم";
-		$trad["application_simulation"]["applicationsimulation.new"] = "جديد(ة)";
-		$trad["application_simulation"]["application_simulation"] = "طلبات محاكاة التقديم";
+		$trad["application_simulation"]["applicationsimulation.single"] = "نوع تقديم";
+		$trad["application_simulation"]["applicationsimulation.new"] = "جديد";
+		$trad["application_simulation"]["application_simulation"] = "أنواع التقديم";
 		$trad["application_simulation"]["name_ar"] = "مسمى  بالعربية";
 		$trad["application_simulation"]["name_en"] = "مسمى  بالانجليزية";
 

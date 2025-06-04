@@ -1014,7 +1014,7 @@
                        $currentPlan = $this->getCurrentPlan(); 
                        if(!$currentPlan) return null;
 
-                       return $currentPlan->getCurrentSortingSession(); 
+                       return $currentPlan->currentSortingSession(); 
                 }
 
                 
@@ -1033,23 +1033,8 @@
                         $methodName = "resetNames";
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_model_name_ar"));
                         
-                        $color = "green";
-                        $title_ar = "تحديث فروع القبول حسب البرامج المتاحة وباقي الاعدادات"; 
-                        $methodName = "genereApplicationModelBranchList";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
                         
-
-                        $methodConfirmationWarningEn = "You agree that you want to erase capacity planning with sample values";
-                        $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
-                        $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
-                        $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
-
-                        $color = "red";
-                        $title_ar = "فتح جميع فروع القبول بطاقة استيعابية تجريبية"; 
-                        $methodName = "testOpenApplicationModelBranchList";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
-                             "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
-                             'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                        
 
                         if(!$this->currentSortingSession())
                         {
@@ -1066,89 +1051,111 @@
                                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sortingPathList"));                                                                
                         }
                         
+                        if(!$this->currentPlan())
+                        {
+                                $color = "green";
+                                $title_ar = "تحديث فروع القبول حسب البرامج المتاحة وباقي الاعدادات"; 
+                                $methodName = "genereApplicationModelBranchList";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                        
+                                $methodConfirmationWarningEn = "You agree that you want to erase capacity planning with sample values";
+                                $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
+                                $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
+                                $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
 
-                        $color = "blue";
-                        $title_ar = "انشاء جميع المراحل الافتراضية"; 
-                        $methodName = "createDefaultSteps";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
-                        
-                        $color = "green";
-                        $title_ar = "اعادة ترتيب جميع المراحل"; 
-                        $methodName = "reorderSteps";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
-                        
-
-                        $color = "red";
-                        $title_ar = "اعادة ترتيب جميع الفروع"; 
-                        $methodName = "reorderBranchs";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
-                        
-                        $color = "orange";
-                        $title_ar = "اعادة ترتيب جميع الفروع من ترتيب البرامج"; 
-                        $methodName = "reorderBranchsFromProgramOffering";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
-                        
-
-                        $methodConfirmationWarningEn = "You agree that you want to cancel capacity planning for different sorting paths";
-                        $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
-                        $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
-                        $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
-                        $color = "orange";
-                        $title_ar = "تجميع الطاقة الاستيعابية"; 
-                        $methodName = "resetCapacitiesToFirstMajorPath";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
+                                $color = "red";
+                                $title_ar = "فتح جميع فروع القبول بطاقة استيعابية تجريبية"; 
+                                $methodName = "testOpenApplicationModelBranchList";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
                                         "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
-                                        'STEP' =>$this->stepOfAttribute("applicationModelBranchList"),
                                         'CONFIRMATION_NEEDED' => true,
                                         'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarningAr, 'en' => $methodConfirmationWarningEn),
                                         'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestionAr, 'en' => $methodConfirmationQuestionEn),
-                                );
-                        
+                                        'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
 
-                        $color = "orange";
-                        $title_ar = "تحديث الشروط"; 
-                        $methodName = "genereApplicationModelConditionList";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelConditionList"));
-                        
-                        
-
-                        $color = "orange";
-                        $title_ar = "تحديث الشاشات والخدمات"; 
-                        $methodName = "genereScreensAndModels";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = 
-                           array("METHOD"=>$methodName,"COLOR"=>$color, 
-                                 "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
-                                 'STEP' =>$this->stepOfAttribute("applicationModelFieldList"),
-                                 
-                                );
-                        
-                        $amList = $this->getBrothers();
-                        /**
-                         * @var ApplicationModel $amItem
-                         */
-                        foreach($amList as $amItem)
-                        {
-                                $application_field_mfk = $amItem->getVal("application_field_mfk");
-                                if(strlen($application_field_mfk)>2)
-                                {
-                                        $color = "yellow";
-                                        $title_ar = "نسخ حقول SIS من ".$amItem->getDisplay("ar"); 
-                                        $title_en = "copy SIS fields from ".$amItem->getDisplay("en"); 
-                                        $methodName = "copySISFieldsFrom".$amItem->id;
-                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_field_mfk"));
-                                }
-
-                                $thisAsCount = $this->getRelation("applicationStepList")->count();
-                                $asCount = $amItem->getRelation("applicationStepList")->count();
-                                if(($asCount>1) and ($thisAsCount<$asCount or !$this->isActive()))
-                                {
-                                        $color = "yellow";
-                                        $title_ar = "تحديث المراحل من ".$amItem->getDisplay("ar")." من $thisAsCount إلى $asCount خطوات"; 
-                                        $title_en = "copy steps from ".$amItem->getDisplay("en")." from $thisAsCount to $asCount steps"; 
-                                        $methodName = "copyStepsFrom".$amItem->id;
-                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 
-                                }
+                                $color = "blue";
+                                $title_ar = "انشاء جميع المراحل الافتراضية"; 
+                                $methodName = "createDefaultSteps";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
                                 
+                                $color = "green";
+                                $title_ar = "اعادة ترتيب جميع المراحل"; 
+                                $methodName = "reorderSteps";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList"));
+                                
+
+                                $color = "red";
+                                $title_ar = "اعادة ترتيب جميع الفروع"; 
+                                $methodName = "reorderBranchs";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                                
+                                $color = "orange";
+                                $title_ar = "اعادة ترتيب جميع الفروع من ترتيب البرامج"; 
+                                $methodName = "reorderBranchsFromProgramOffering";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelBranchList"));
+                                
+
+                                $methodConfirmationWarningEn = "You agree that you want to cancel capacity planning for different sorting paths";
+                                $methodConfirmationWarningAr = $this->tm($methodConfirmationWarningEn, "ar");
+                                $methodConfirmationQuestionEn = "Are you sure you want to do this approve ?";
+                                $methodConfirmationQuestionAr = $this->tm($methodConfirmationQuestionEn, "ar");
+                                $color = "orange";
+                                $title_ar = "تجميع الطاقة الاستيعابية"; 
+                                $methodName = "resetCapacitiesToFirstMajorPath";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, 
+                                                "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
+                                                'STEP' =>$this->stepOfAttribute("applicationModelBranchList"),
+                                                'CONFIRMATION_NEEDED' => true,
+                                                'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarningAr, 'en' => $methodConfirmationWarningEn),
+                                                'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestionAr, 'en' => $methodConfirmationQuestionEn),
+                                        );
+                                
+
+                                $color = "orange";
+                                $title_ar = "تحديث الشروط"; 
+                                $methodName = "genereApplicationModelConditionList";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationModelConditionList"));
+                                
+                                
+
+                                $color = "orange";
+                                $title_ar = "تحديث الشاشات والخدمات"; 
+                                $methodName = "genereScreensAndModels";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = 
+                                array("METHOD"=>$methodName,"COLOR"=>$color, 
+                                        "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 
+                                        'STEP' =>$this->stepOfAttribute("applicationModelFieldList"),
+                                        
+                                        );
+                                
+                                $amList = $this->getBrothers();
+                                /**
+                                 * @var ApplicationModel $amItem
+                                 */
+                                foreach($amList as $amItem)
+                                {
+                                        $application_field_mfk = $amItem->getVal("application_field_mfk");
+                                        if(strlen($application_field_mfk)>2)
+                                        {
+                                                $color = "yellow";
+                                                $title_ar = "نسخ حقول SIS من ".$amItem->getDisplay("ar"); 
+                                                $title_en = "copy SIS fields from ".$amItem->getDisplay("en"); 
+                                                $methodName = "copySISFieldsFrom".$amItem->id;
+                                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("application_field_mfk"));
+                                        }
+
+                                        $thisAsCount = $this->getRelation("applicationStepList")->count();
+                                        $asCount = $amItem->getRelation("applicationStepList")->count();
+                                        if(($asCount>1) and ($thisAsCount<$asCount or !$this->isActive()))
+                                        {
+                                                $color = "yellow";
+                                                $title_ar = "تحديث المراحل من ".$amItem->getDisplay("ar")." من $thisAsCount إلى $asCount خطوات"; 
+                                                $title_en = "copy steps from ".$amItem->getDisplay("en")." from $thisAsCount to $asCount steps"; 
+                                                $methodName = "copyStepsFrom".$amItem->id;
+                                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "LABEL_EN"=>$title_en, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("applicationStepList")); 
+                                        }
+                                        
+                                }
                         }
                         
                         
@@ -1695,6 +1702,7 @@
                         {
                                 return ["capacity_track2", "capacity_track3"];
                         }
+                        else return [];
                 }
 
                 throw new AfwRuntimeException("ApplicationModel::notRetrieve($field_name, $col_struct) not implemented");

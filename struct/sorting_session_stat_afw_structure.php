@@ -224,6 +224,27 @@ class AdmSortingSessionStatAfwStructure
                         'SIZE' => 255,
                         'CSS' => 'width_pct_25',
                 ),
+
+                'original_capacity' => array(
+                        'FGROUP' => 'farz-branch',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'INT',
+                        'READONLY' => true,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
                 
                 'capacity' => array(
                         'FGROUP' => 'farz-branch',
@@ -245,6 +266,21 @@ class AdmSortingSessionStatAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
+
+                'capacity_history' => array(
+                        'FGROUP' => 'scores',
+			'SIZE' => 40,
+			'CSS' => 'width_pct_25',
+			'TYPE' => 'TEXT',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'RETRIEVE' => true,
+                        'READONLY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+		),
 
                 'nb_accepted' => array(
                         'FGROUP' => 'scores',

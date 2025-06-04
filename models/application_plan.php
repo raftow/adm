@@ -257,10 +257,10 @@ class ApplicationPlan extends AdmObject
                         'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestionAr, 'en' => $methodConfirmationQuestionEn),
                 );
 
-        if ($this->canApply()) {
-
+        if(!$this->sureIs("closed"))
+        {
             $color = "green";
-            $title_ar = "جلب الطاقة الاستيعابية الافتراضية لجميع فروع القبول";
+            $title_ar = "جلب الطاقة الاستيعابية الاصلية لجميع فروع القبول";
             $methodName = "inheritBranchsCapacities";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
 
@@ -287,6 +287,10 @@ class ApplicationPlan extends AdmObject
             $methodName = "inheritBranchsMinWeightedPercentage";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
 
+
+        }
+
+        if (!$this->currentSortingSession()) {
             $color = "blue";
             $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج";
             $methodName = "addPossibleBranchs";
@@ -355,10 +359,34 @@ class ApplicationPlan extends AdmObject
         $inf_arr = [];
         $war_arr = [];
         $tech_arr = [];
-
+        /**
+         * @var ApplicationPlanBranch $applicationPlanBranchItem
+         */
         $applicationPlanBranchList = $this->get("applicationPlanBranchList");
         foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
             list($err, $inf, $war, $tech) = $applicationPlanBranchItem->inheritBranchsCapacities($lang);
+
+            if ($err) $err_arr[] = $err;
+            if ($inf) $inf_arr[] = $inf;
+            if ($war) $war_arr[] = $war;
+        }
+
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+    }
+
+
+    public function flagBranchsCapacitiesToParent($lang = "ar")
+    {
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        /**
+         * @var ApplicationPlanBranch $applicationPlanBranchItem
+         */
+        $applicationPlanBranchList = $this->get("applicationPlanBranchList");
+        foreach ($applicationPlanBranchList as $applicationPlanBranchItem) {
+            list($err, $inf, $war, $tech) = $applicationPlanBranchItem->flagBranchsCapacitiesToParent($lang);
 
             if ($err) $err_arr[] = $err;
             if ($inf) $inf_arr[] = $inf;
@@ -490,7 +518,7 @@ class ApplicationPlan extends AdmObject
         $inf_arr = [];
         $war_arr = [];
         $tech_arr = [];
-
+        $this->flagBranchsCapacitiesToParent($lang);
         $this->set("published", "Y");
         if ($commit) $this->commit();
         $inf_arr[] = $this->tm("the application plan has been successfully published");
@@ -690,7 +718,7 @@ class ApplicationPlan extends AdmObject
         if ($mode == "mode_sortingSessionList") {
             unset($link);
             $link = array();
-            $title = "إضافة كرة فرز جديدة";
+            $title = "إضافة تنفيذ فرز جديد";
             $title_detailed = $title . "لـ : " . $displ;
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=SortingSession&currmod=adm&sel_application_plan_id=$my_id";
             $link["TITLE"] = $title;
@@ -806,7 +834,7 @@ class ApplicationPlan extends AdmObject
     }
 
 
-    public function getCurrentSortingSession()
+    public function currentSortingSession()
     {
         return $this->getRelation("sortingSessionList")->resetWhere("started_ind='Y'")->orderBy("session_num asc")->getFirst();
     }

@@ -129,7 +129,7 @@ class SortingSessionStat extends AFWObject{
                 list($data[1],$link[1]) = $this->displayAttribute("session_num",false, $lang);
 
                 
-                return implode(" - كرة فرز رقم ",$data);
+                return implode(" تنفيذ الفرز رقم ",$data);
         }
 
         public function getShortDisplay($lang="ar")
@@ -340,6 +340,36 @@ class SortingSessionStat extends AFWObject{
 
             $correct = ($nb_accepted==$capacity);
             return $correct ? $yes : $no;
+        }
+
+
+        public function calcCapacity_history($what="value")
+        {
+            $objSS = $this->calcSorting_session_id("object");
+
+            $max_capacity_upgrade = $objSS->getOptions("MAX_CAPACITY_UPGRADE",true);
+            $max_capacity_downgrade = $objSS->getOptions("MAX_CAPACITY_DOWNGRADE",true);
+            $id = $this->id;
+            $valueLike = $this->getVal("nb_accepted");
+            $capacity = $this->getVal("capacity");            
+            $original_capacity = $this->getVal("original_capacity");
+
+            $diff = $capacity - $original_capacity;
+            $sign = "";
+            $classe_css = "";
+            if($diff>0) 
+            {
+                $sign = "+";
+                if($diff > $max_capacity_upgrade) $classe_css = "mistake";
+            }
+            else
+            {
+                if($diff < -$max_capacity_downgrade) $classe_css = "mistake";
+            }
+            $diff_aff = $sign.$diff;
+            return "<div class='farz-wizard'>
+                        <div class='wizcapacity $classe_css'>$diff_aff</div>
+                    </div>";
         }
 
         public function calcSorting_session_id($what="value")

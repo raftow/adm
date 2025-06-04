@@ -234,7 +234,7 @@ class SortingSession extends AFWObject
         if (($which == "all") or ($which == "ar")) {
             $num = $this->getVal("session_num");
             if (!$num) $num = 1;
-            $new_name = "كرة الفرز رقم $num";
+            $new_name = "تنفيذ الفرز رقم $num";
             $this->set("name_ar", $new_name);
         }
 
@@ -249,7 +249,7 @@ class SortingSession extends AFWObject
 
         if ($commit) $this->commit();
 
-        return ["", "تم تصفير مسمى كرة الفرز بنجاح"];
+        return ["", "تم تصفير مسمى تنفيذ الفرز بنجاح"];
     }
 
     public function beforeMaj($id, $fields_updated)
@@ -708,7 +708,7 @@ class SortingSession extends AFWObject
         $sql_insert_into = "INSERT INTO ".$server_db_prefix."adm.sorting_session_stat 
                        (`created_by`, `updated_by`, `created_at`, `updated_at`, active, version,
                         `application_plan_id`, `session_num`, `application_simulation_id`, `track_num`,
-                        `application_plan_branch_id`, `branch_order`, `capacity`, `execo`, min_weighted_percentage,
+                        `application_plan_branch_id`, `branch_order`, `original_capacity`, `capacity`, `execo`, min_weighted_percentage,
                         `min_app_score1`, `min_app_score2`, `min_app_score3`, 
                         nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3, waiting) VALUES ";
 
@@ -717,6 +717,7 @@ class SortingSession extends AFWObject
         $now = date("Y-m-d H:i:s");
         foreach($applicationPlanBranchList as $applicationPlanBranchItem)
         {
+            $applicationModelBranchItem = $applicationPlanBranchItem->het("application_model_branch_id");
             $waiting = $branchsWaitingMatrix[$applicationPlanBranchItem->id];
             // foreach($pathData as $spath => $spathLabel)
             // for ($spath = $track_num; $spath <= $track_num; $spath++) 
@@ -731,6 +732,7 @@ class SortingSession extends AFWObject
                     $application_plan_branch_id = $applicationPlanBranchItem->id;
                     $min_app_score1 = $applicationPlanBranchItem->getVal("min_app_score1");
                     $capacity = $applicationPlanBranchItem->getVal("capacity_track$spath");
+                    $original_capacity = $applicationModelBranchItem->getVal("capacity_track$spath");
                     $branch_order = $applicationPlanBranchItem->getVal("branch_order");
                     $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
                     $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
@@ -747,7 +749,7 @@ class SortingSession extends AFWObject
                     if(!$min_app_score3) $min_app_score3 = 0;
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
-                    $application_plan_branch_id, $branch_order, $capacity, $execo, $min_weighted_percentage,
+                    $application_plan_branch_id, $branch_order, $original_capacity, $capacity, $execo, $min_weighted_percentage,
                     $min_app_score1, $min_app_score2, $min_app_score3,
                     $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3, $waiting),\n";
                     
@@ -759,7 +761,7 @@ class SortingSession extends AFWObject
                         $sql_values = trim($sql_values,",");
                         
                         $sql_total = $sql_insert_into.$sql_values.";";
-                        die("sql_total=$sql_total");
+                        // die("sql_total=$sql_total");
                         AfwDatabase::db_query($sql_total);
 
                         $sql_values = "";

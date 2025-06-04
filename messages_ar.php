@@ -23,8 +23,8 @@
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
 
-    $messages["the sorting session has been successfully published"] = "تم نشر كرة الفرز بنجاح";
-    $messages["the sorting session has been successfully unpublished"] = "تم الغاء نشر كرة الفرز";
+    $messages["the sorting session has been successfully published"] = "تم نشر نتائج الفرز بنجاح";
+    $messages["the sorting session has been successfully unpublished"] = "تم الغاء نشر نتائج الفرز";
 
     
     
