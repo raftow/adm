@@ -4746,9 +4746,27 @@ div.fix_sorting {
     font-weight: normal;
 }
 
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span>div
+{
+    display: none;
+    visibility: hidden;
+}
+
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
+    background-color: #847961d1;
+    color: white !important;
+    text-align: center;
+    padding: 2px !important;
+    width: 60%;
+    margin-right: 20%;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
-tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span,
 div.need_re_sorting {
     background-color: #949991d1;
     color: white !important;
