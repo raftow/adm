@@ -4882,3 +4882,12 @@ div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_Y {
     margin-right: 25px;
 }
 
+.wizcapacity.ok {
+    font-family: 'DIGI';
+    background-color: green;
+    color: white;
+    width: auto;
+    max-width: 30px;
+    text-align: center;
+    font-size: 18px;
+}

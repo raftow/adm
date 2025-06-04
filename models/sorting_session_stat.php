@@ -356,7 +356,7 @@ class SortingSessionStat extends AFWObject{
 
             $diff = $capacity - $original_capacity;
             $sign = "";
-            $classe_css = "";
+            $classe_css = "ok";
             if($diff>0) 
             {
                 $sign = "+";
@@ -367,7 +367,7 @@ class SortingSessionStat extends AFWObject{
                 if($diff < -$max_capacity_downgrade) $classe_css = "mistake";
             }
             $diff_aff = $sign.$diff;
-            return "<div class='farz-wizard'>
+            return "<div class='farz-indicator'>
                         <div class='wizcapacity $classe_css'>$diff_aff</div>
                     </div>";
         }
