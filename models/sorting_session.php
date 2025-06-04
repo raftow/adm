@@ -538,7 +538,7 @@ class SortingSession extends AFWObject
         
         $pbms = array();
 
-        $color = "green";
+        $color = "gray";
         $title_ar = "تحديث مؤشرات الجاهزية";
         $methodName = "updateReadyIndicators";
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
