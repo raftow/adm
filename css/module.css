@@ -4708,6 +4708,8 @@ tr.csr_correct.hzm_row_W>td.hzm_col_afw_nb_accepted>span {
 }
 .legend>.title{
     max-width: 180px;
+    float: right;
+    margin: 0;
 }
 .legend_color {
     width: auto;
