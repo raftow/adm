@@ -4682,7 +4682,7 @@ div#stats_panel .cols3.cols3_value.even {
 }
 
 tr.csr_correct>td.hzm_col_afw_capacity_history {
-    background-color: #ffb2f56e !important;
+    background-color: #cfd0f86e !important;
     text-align: center !important;
     font-weight: bold !important;
 }
@@ -4922,18 +4922,22 @@ div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_Y {
     font-family: 'DIGI';
     background-color: #35b635;
     color: white;
-    width: auto;
-    max-width: 30px;
+    width: 60%;
+    margin-right: 20%;
+    max-width: 60px;
     text-align: center;
     font-size: 18px;
+    font-weight: normal;
 }
 
 .wizcapacity.mistake {
     font-family: 'DIGI';
     background-color: #dc421d;
     color: white;
-    width: auto;
-    max-width: 30px;
+    width: 60%;
+    margin-right: 20%;
+    max-width: 60px;
     text-align: center;
     font-size: 18px;
+    font-weight: normal;
 }
