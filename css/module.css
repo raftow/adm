@@ -4746,7 +4746,7 @@ div.fix_sorting {
     font-weight: normal;
 }
 
-tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span>div
+table.obsolete td.hzm_col_afw_capacity_history>span>div
 {
     display: none;
     visibility: hidden;
@@ -4767,6 +4767,7 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span,
 div.need_re_sorting {
     background-color: #949991d1;
     color: white !important;
