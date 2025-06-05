@@ -4786,8 +4786,9 @@ div.need_re_sorting {
     width: 60%;
     margin-right: 20%;
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
+    font-style: oblique;
 }
 
 .hzm_col_afw_nb_accepted>span, 
@@ -4798,12 +4799,20 @@ div.need_re_sorting {
     text-align: center;
 }
 
+table.grid.obsolete th {
+    background-color: #a7aba5 !important;
+    color: white;
+    font-weight: normal !important;
+    font-style: oblique;
+}
+
+/*
 table.obsolete td.hzm_col_afw_nb_accepted, 
 table.obsolete td.hzm_col_afw_free, 
 table.obsolete td.hzm_col_afw_execo, 
 table.obsolete td.hzm_col_afw_min_acc_score1 {
     opacity: 40%;
-}
+}*/
 
 div#div_data_statList tr>th
 {
