@@ -1321,6 +1321,10 @@ class SortingSession extends AFWObject
                                     if($arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"]) $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"]++;
                                     else $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"] = 2; // 2 = 1 + 1 : him and his first execo
                                 }
+                                else
+                                {
+                                    $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"] = 0;
+                                }
 
                                 if($applicant_id == $object_id_for_audit)
                                 {
