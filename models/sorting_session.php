@@ -810,7 +810,7 @@ class SortingSession extends AFWObject
             if(($execo_suggested_upgrade>0) and ($execo_suggested_upgrade<=$max_capacity_auto_upgrade))
             {
                 $new_capacity = $nb_accepted;
-                $upg++;
+                $upg+=$execo_suggested_upgrade;
             }
 
             if(!$new_capacity)
@@ -822,7 +822,7 @@ class SortingSession extends AFWObject
                 if(($execo_suggested_downgrade>0) and ($execo_suggested_downgrade<=$max_capacity_auto_downgrade))
                 {
                     $new_capacity = $nb_accepted - $execo;
-                    $downg++;
+                    $downg+=$execo_suggested_downgrade;
                 }
             }
             
@@ -1344,7 +1344,7 @@ class SortingSession extends AFWObject
 
                                 if($application_plan_branch_id_assigned == $object_id_for_audit)
                                 {
-                                    $war_arr[] = "audit assigned applicant $applicant_id (score=$imploded_score) capacity become : ".$branchsCapacityMatrix[$application_plan_branch_id_assigned]."/".$branchsCapacityMatrixStart[$application_plan_branch_id_assigned];
+                                    $war_arr[] = "audit assigned applicant $applicant_id (score=$imploded_score) capacity become : ".$branchsCapacityMatrix[$application_plan_branch_id_assigned]."/".$branchsCapacityMatrixStart[$application_plan_branch_id_assigned]." execo is now : ".$arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"];
                                 }
 
 
