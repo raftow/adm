@@ -4779,7 +4779,7 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span,
 div.need_re_sorting {
     background-color: #949991d1;
-    color: white !important;
+    color: white;
     text-align: center;
     padding: 2px !important;
     width: 60%;
@@ -4897,15 +4897,14 @@ tr.hzm_row_0 .farz-wizard {
 }
 
 tr.remove-execo>td.hzm_col_afw_free>span, 
-tr.remove-execo>td.hzm_col_afw_nb_accepted>span {
-    visibility: hidden;
+tr.remove-execo>td.hzm_col_afw_nb_accepted>span,
+tr.remove-execo>td.hzm_col_capacity_history>span,
+tr.add-execo>td.hzm_col_afw_free>span, 
+tr.add-execo>td.hzm_col_afw_nb_accepted>span,
+tr.add-execo>td.hzm_col_capacity_history>span {
+    background-color: #494747 !important;
+    color: #0c0c0c !important;
 }
-
-
-tr.add-execo>td.hzm_col_afw_free>span {
-    visibility: hidden;
-}
-
 
 div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_N {
     background-color: #ff7300 !important;
