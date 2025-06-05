@@ -208,7 +208,7 @@ class ApplicationSimulation extends AdmObject
         $apContext = "defined";
         if (!$applicationPlanObj) {
             $apContext = "current (at $applyDateGreg)";
-            $applicationPlanObj = $applicationModelObj->getCurrentPlan($applyDateGreg);
+            $applicationPlanObj = $applicationModelObj->currentPlan($applyDateGreg);
         }
         if (!$applicationPlanObj) return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, [], "No $apContext application plan"];
         $application_plan_id = $applicationPlanObj->id;

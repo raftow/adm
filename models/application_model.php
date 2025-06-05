@@ -248,7 +248,7 @@
                         if($fields_updated["split_sorting_by_enum"])
                         {
                                 // if sorting sessions has started refuse the update
-                                // @toremove if($this->getCurrentPlan()) return false;
+                                // @toremove if($this->currentPlan()) return false;
                         }
 
                         if($fields_updated["academic_level_id"] or $fields_updated["gender_enum"] or $fields_updated["training_period_enum"])
@@ -420,7 +420,7 @@
 
                         if($attribute=="split_sorting_by_enum")
                         {
-                                $objPlan = $this->getCurrentPlan();
+                                $objPlan = $this->currentPlan();
                                 if($objPlan)
                                 {
                                         // because if there's current plan we can not change the sorting method setted
@@ -1011,7 +1011,7 @@
 
                 public function currentSortingSession()
                 {
-                       $currentPlan = $this->getCurrentPlan(); 
+                       $currentPlan = $this->currentPlan(); 
                        if(!$currentPlan) return null;
 
                        return $currentPlan->currentSortingSession(); 
@@ -1642,7 +1642,7 @@
             }    
 	}
 
-        public function getCurrentPlan($dateApplyGreg="")
+        public function currentPlan($dateApplyGreg="")
         {
                 
                 if(!$dateApplyGreg) $dateApplyGreg = date("Y-m-d");
