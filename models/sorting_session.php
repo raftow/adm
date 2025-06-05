@@ -747,6 +747,10 @@ class SortingSession extends AFWObject
                     if(!$min_app_score1) $min_app_score1 = 0;
                     if(!$min_app_score2) $min_app_score2 = 0;
                     if(!$min_app_score3) $min_app_score3 = 0;
+
+                    
+
+
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
                     $application_plan_branch_id, $branch_order, $original_capacity, $capacity, $execo, $min_weighted_percentage,
@@ -781,9 +785,58 @@ class SortingSession extends AFWObject
             $sql_values = "";
             $count_values=0;
         }
+
+        return self::execoAutoDecisionForSortingStats($application_plan_id,$application_simulation_id,$session_num,$track_num);
         
     }
 
+    public function execoAutoDecisionForSortingStats($application_plan_id,$application_simulation_id,$session_num,$track_num)
+    {
+        $objSSS = new SortingSessionStat();
+        $objSSS->where("application_plan_id=$application_plan_id and session_num=$session_num and application_simulation_id=$application_simulation_id and track_num = $track_num");
+        $objSSSList = $objSSS->loadMany();
+        $upg = 0;
+        $downg = 0;
+        foreach($objSSSList as $objSSSItem)
+        {
+            $nb_accepted = $objSSSItem->getVal("nb_accepted");
+            $original_capacity = $objSSSItem->getVal("original_capacity");
+            $execo = $objSSSItem->getVal("execo");
+            $new_capacity = null;
+            // auto accept execo ?
+            $max_capacity_auto_upgrade = $this->getOptions("MAX_CAPACITY_AUTO_UPGRADE",true);
+            if(!$max_capacity_auto_upgrade) $max_capacity_auto_upgrade = 0;
+            $execo_suggested_upgrade = $nb_accepted - $original_capacity;
+            if(($execo_suggested_upgrade>0) and ($execo_suggested_upgrade<=$max_capacity_auto_upgrade))
+            {
+                $new_capacity = $nb_accepted;
+                $upg++;
+            }
+
+            if(!$new_capacity)
+            {
+                // auto reject execo ?
+                $max_capacity_auto_downgrade = $this->getOptions("MAX_CAPACITY_AUTO_DOWNGRADE",true);
+                if(!$max_capacity_auto_downgrade) $max_capacity_auto_downgrade = 0;
+                $execo_suggested_downgrade = $original_capacity + $execo - $nb_accepted;   
+                if(($execo_suggested_downgrade>0) and ($execo_suggested_downgrade<=$max_capacity_auto_downgrade))
+                {
+                    $new_capacity = $nb_accepted - $execo;
+                    $downg++;
+                }
+            }
+            
+            if($new_capacity)
+            {
+                $objSSSItem->set("capacity", $new_capacity);
+                $objSSSItem->commit();
+            }
+
+        }
+
+        return [$upg, $downg];
+                    
+    }
 
     public function calcControlPanel($what = "value")
     {
@@ -1362,8 +1415,8 @@ class SortingSession extends AFWObject
                     $farz_rows=0;
                 }
 
-                $info_arr[] = " Nb applicants = $nb_applicants, Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]";
-                $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted, $branchsWaitingMatrix); 
+                list($upg, $downg) = $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted, $branchsWaitingMatrix); 
+                $info_arr[] = "Capacity upgraded : $upg, Capacity downgraded : $downg, Nb applicants = $nb_applicants, Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]";
             }
                
 
@@ -1429,11 +1482,14 @@ class SortingSession extends AFWObject
         $Seems_good = $this->tm("Seems good", $lang);
         $need_to_be_fixed = $this->tm("need to be fixed", $lang);
         $need_run_sorting_again = $this->tm("need run sorting again", $lang);
+        $need_page_refresh = $this->tm("The page need refresh", $lang);
         return "<div class='legend'>
                 <div class='title'>$title</div>
                 <div class='legend_color good_sorting'>$Seems_good</div>
                 <div class='legend_color fix_sorting'>$need_to_be_fixed</div>
                 <div class='legend_color need_re_sorting'>$need_run_sorting_again</div>
+                <div class='legend_color need_page_refresh'>$need_page_refresh</div>
+                
         </div>";
     }
 

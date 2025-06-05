@@ -302,6 +302,19 @@ class SortingSessionStat extends AFWObject{
                     </div>";
         }
 
+        public function acceptExeco($commit=false)
+        {
+            $this->set("capacity", $this->getVal("nb_accepted"));
+            if($commit) $this->commit();
+        }
+
+        public function rejectExeco($commit=false)
+        {
+            $capacity = $this->getVal("nb_accepted") - $this->getVal("execo");
+            $this->set("capacity", $capacity);
+            if($commit) $this->commit();
+        }
+
         public function calcExeco_action($what="value")
         {
             $id = $this->id;

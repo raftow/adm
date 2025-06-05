@@ -4911,9 +4911,11 @@ tr.remove-execo>td.hzm_col_afw_nb_accepted>span,
 tr.remove-execo>td.hzm_col_capacity_history>span,
 tr.add-execo>td.hzm_col_afw_free>span, 
 tr.add-execo>td.hzm_col_afw_nb_accepted>span,
-tr.add-execo>td.hzm_col_capacity_history>span {
+tr.add-execo>td.hzm_col_capacity_history>span,
+.need_page_refresh {
     background-color: #494747 !important;
-    color: #0c0c0c !important;
+    color: #c3bdbd !important;
+    font-style: italic !important;
 }
 
 div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_N {

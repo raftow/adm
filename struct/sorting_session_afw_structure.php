@@ -286,7 +286,8 @@ class AdmSortingSessionAfwStructure
                                                              
 
 
-                'applicant_id' => array('STEP' => 2, 'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                'applicant_id' => array('STEP' => 2, 'SEARCH' => true,  'QSEARCH' => false,  
+                                'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'TEXT', 'READONLY' => false,
