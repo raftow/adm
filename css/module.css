@@ -4681,6 +4681,12 @@ div#stats_panel .cols3.cols3_value.even {
     background-color: #d6f6d6;
 }
 
+tr.csr_correct>td.hzm_col_afw_capacity_history {
+    background-color: #ffb2f56e !important;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
 tr.csr_correct>td.hzm_col_afw_nb_accepted {
     background-color: #fff5b26e !important;
     text-align: center !important;
