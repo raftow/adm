@@ -4764,6 +4764,9 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
     font-weight: normal;
 }
 
+tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span .wizcapacity {
+    background-color: #a7aa9f;
+}
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
@@ -4780,6 +4783,13 @@ div.need_re_sorting {
     font-weight: normal;
 }
 
+.hzm_col_afw_nb_accepted>span, 
+.hzm_col_afw_free>span,
+.hzm_col_afw_capacity_history>span {
+    font-family: 'DIGI';
+    font-size: 18px;
+    text-align: center;
+}
 
 table.obsolete td.hzm_col_afw_nb_accepted, 
 table.obsolete td.hzm_col_afw_free, 
