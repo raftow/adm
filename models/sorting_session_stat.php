@@ -296,7 +296,7 @@ class SortingSessionStat extends AFWObject{
             if($recommended>98) return "...";
             if(abs($recommended-$cond_weighted_percentage)<0.1) return "===";
             
-            return "<div class='farz-wizard'>
+            return "<div class='farz-wizard disable'>
                         <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
                         <div class='waiting'>$waiting</div>
                     </div>";
@@ -312,7 +312,7 @@ class SortingSessionStat extends AFWObject{
             if($diffLike>0) $diffLike = "+".$diffLike;
             $diffUnLike = $valueUnLike - $this->getVal("capacity");
             if($diffUnLike>0) $diffUnLike = "+".$diffUnLike;
-            return "<div class='farz-wizard'>
+            return "<div class='farz-wizard disable'>
                         <div class='wizcapacity elike' idobj='$id' val='$valueLike'>$diffLike</div>
                         <div class='execo'>=$execo=</div>
                         <div class='wizcapacity dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>

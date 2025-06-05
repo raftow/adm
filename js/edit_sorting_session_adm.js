@@ -25,4 +25,7 @@ $(document).ready(function() {
                 var idobj = $(this).attr("idobj");
                 $("#tr-object-"+idobj).addClass("add-execo"); 
         });
+
+        $(".farz-wizard").removeClass("disable"); 
+        
 });
