@@ -4752,11 +4752,12 @@ div.fix_sorting {
     font-weight: normal;
 }
 
+/*
 table.obsolete td.hzm_col_afw_capacity_history>span>div
 {
     background-color: #494747 !important;
     color: #0c0c0c !important;
-}
+}*/
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
     background-color: #847961d1;
