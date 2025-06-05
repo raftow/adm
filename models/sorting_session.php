@@ -1302,19 +1302,21 @@ class SortingSession extends AFWObject
                         $application_plan_branch_id_to_assign = $applicantsDesiresMatrix[$applicant_id][$desire_num_to_assign];
                         if($application_plan_branch_id_to_assign)
                         {
-                            $mandatoryToGiveAsPreviouslyGivedForSameScore = false;
+                            $sameScore = false;
                             if(self::isSameScore($new_score, $branchsLastScoreMatrix[$application_plan_branch_id_to_assign], $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
                             {                            
-                                $mandatoryToGiveAsPreviouslyGivedForSameScore = true;
+                                $sameScore = true;
                             }
                             
-                            if($mandatoryToGiveAsPreviouslyGivedForSameScore or ($branchsCapacityMatrix[$application_plan_branch_id_to_assign]>0))
+                            // give APB if capacity still > 0
+                            // or if it is mandatory to give APB as previously gived for same score
+                            if($sameScore or ($branchsCapacityMatrix[$application_plan_branch_id_to_assign]>0))
                             {
                                 
                                 $desire_assigned = $desire_num_to_assign;
                                 $application_plan_branch_id_assigned = $application_plan_branch_id_to_assign;
 
-                                if($branchsCapacityMatrix[$application_plan_branch_id_assigned]<=0) 
+                                if($sameScore) 
                                 {
                                     if($arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"]) $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"]++;
                                     else $arrDataMinAccepted[$application_plan_branch_id_assigned]["execo"] = 2; // 2 = 1 + 1 : him and his first execo
