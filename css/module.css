@@ -4754,8 +4754,8 @@ div.fix_sorting {
 
 table.obsolete td.hzm_col_afw_capacity_history>span>div
 {
-    display: none;
-    visibility: hidden;
+    background-color: #494747 !important;
+    color: #0c0c0c !important;
 }
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
