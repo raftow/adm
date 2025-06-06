@@ -104,7 +104,7 @@ class Application extends AdmObject
                 $obj->select("application_simulation_id",$application_simulation_id);
                 $obj->select("active", 'Y');
                 if($applicant_ids_arr) $obj->selectIn("applicant_id", $applicant_ids_arr);
-                $obj->where("validated_at is null or validated_at='0000-00-00 00:00:00' or validated_at <= '$indicators_update_date'");
+                $obj->where("validated_at is null or validated_at <= '$indicators_update_date'");
                 
                 $done = 0;
                 $objList = $obj->loadMany(5000);
