@@ -269,7 +269,7 @@ class AdmApplicantQualificationAfwStructure
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',
-                        'MANDATORY' => true,
+                        'MANDATORY' => false,
                         'READONLY' => false,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',

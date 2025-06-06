@@ -33,6 +33,7 @@ class Aparameter extends AdmObject
                 if(!self::$subContextValueArray[$subContext]) 
                 {
                         $paramValueObj = AparameterValue::loadByMainIndex($aparameter_id, $application_model_id, $application_plan_id, $training_unit_id, $department_id, $application_model_branch_id, $major_path_id, $program_track_id);                
+                        if(!$paramValueObj) $paramValueObj = AparameterValue::loadByMainIndex($aparameter_id, $application_model_id, $application_plan_id, $training_unit_id, $department_id, $application_model_branch_id, 0, 0);                
                         if($paramValueObj) self::$subContextValueArray[$subContext] = $paramValueObj->getVal("value");
                         elseif($throwErrorIfNotFound) throw new AfwRuntimeException("no parameter value object for sub-context $subContext, log : <br>$sub_context_log <br>");
                         if(!self::$subContextValueArray[$subContext]) self::$subContextValueArray[$subContext]="NOTHING-FOUND";
