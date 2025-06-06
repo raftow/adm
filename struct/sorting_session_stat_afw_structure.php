@@ -184,7 +184,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_weighted_percentage' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
@@ -196,7 +196,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_app_score1' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
@@ -207,7 +207,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_app_score2' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
@@ -217,7 +217,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_app_score3' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
@@ -410,7 +410,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'cond_weighted_percentage' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
@@ -421,7 +421,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_acc_score1' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
@@ -432,7 +432,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_acc_score2' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
@@ -442,7 +442,7 @@ class AdmSortingSessionStatAfwStructure
 
                 'min_acc_score3' => array(
                         'FGROUP' => 'scores',
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,

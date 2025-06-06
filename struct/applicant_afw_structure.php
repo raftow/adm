@@ -1279,7 +1279,7 @@ class AdmApplicantAfwStructure
                 'qiyas_achievement_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT',  'READONLY' => true, 
+				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
 				'CSS' => 'width_pct_50', ),
 
 		'qiyas_achievement_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1291,7 +1291,7 @@ class AdmApplicantAfwStructure
                 'qiyas_achievement_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT',  'READONLY' => true, 
+				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
 				'CSS' => 'width_pct_50', ),
 
 		'qiyas_achievement_th_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1303,7 +1303,7 @@ class AdmApplicantAfwStructure
 		'qiyas_aptitude_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT',  'READONLY' => true, 
+				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
 				'CSS' => 'width_pct_50', ),
 
 		'qiyas_aptitude_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1315,13 +1315,13 @@ class AdmApplicantAfwStructure
                                 'aptitude_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
                                         'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'FLOAT',  'READONLY' => false, 
+                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                         'CSS' => 'width_pct_50', ),
 
 		'qiyas_aptitude_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT',  'READONLY' => true, 
+				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
 				'CSS' => 'width_pct_50', ),
 
 		'qiyas_aptitude_th_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
@@ -1335,7 +1335,7 @@ class AdmApplicantAfwStructure
                                 'achievement_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
                                         'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'FLOAT',  'READONLY' => false, 
+                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                         'CSS' => 'width_pct_50', ),
                 
 
@@ -1370,7 +1370,7 @@ class AdmApplicantAfwStructure
                 'weighted_percentage' => array(
                         'FGROUP' => 'weighted_percentage',
                         'STEP' => 3,
-                        'TYPE' => 'FLOAT',
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'CATEGORY' => 'FORMULA',
                         'SHOW' => true,
                         'EDIT' => true,
@@ -1427,7 +1427,7 @@ class AdmApplicantAfwStructure
                                 'secondary_cumulative_pct' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
                                         'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'FLOAT',  'READONLY' => false, 
+                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                         'CSS' => 'width_pct_50', ),
                 
 'Profile_populated' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  

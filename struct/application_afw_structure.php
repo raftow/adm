@@ -166,7 +166,7 @@
                                        'weighted_percentage' => array(
                                                 'FGROUP' => 'weighted_percentage',
                                                 'STEP' => 5,
-                                                'TYPE' => 'FLOAT',
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'CATEGORY' => 'FORMULA',
                                                 'SHOW' => true,
                                                 'EDIT' => true,
@@ -181,7 +181,7 @@
                                         'weighted_pctg' => array(
                                                 'FGROUP' => 'weighted_percentage',
                                                 'STEP' => 5,
-                                                'TYPE' => 'FLOAT',
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'DEFAULT' => 0.1,
                                                 'SHOW' => true,
                                                 'EDIT' => true,

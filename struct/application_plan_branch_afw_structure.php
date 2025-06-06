@@ -230,7 +230,7 @@
                                                                        
 
                                         'min_app_score1' => array('STEP' => 2,
-                                                'TYPE' => 'FLOAT',
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'RETRIEVE' => false,
                                                 'SHOW' => true,
                                                 'EDIT' => true,
@@ -240,7 +240,7 @@
                                         ),
 
                                         'min_app_score2' => array('STEP' => 2,
-                                                'TYPE' => 'FLOAT',
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'SHOW' => true,
                                                 'EDIT' => true,
                                                 'READONLY' => true,
@@ -249,7 +249,7 @@
                                         ),
 
                                         'min_app_score3' => array('STEP' => 2,
-                                                'TYPE' => 'FLOAT',
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'SHOW' => true,
                                                 'EDIT' => true,
                                                 'READONLY' => true,

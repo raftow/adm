@@ -223,7 +223,7 @@
                                         'weighted_percentage' => array(
                                                                 'FGROUP' => 'weighted_percentage',
                                                                 'STEP' => 2,
-                                                                'TYPE' => 'FLOAT',
+                                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                                 'CATEGORY' => 'FORMULA',
                                                                 'SHOW' => true,
                                                                 'EDIT' => true,
@@ -236,7 +236,7 @@
                                         /*'weighted_pctg' => array(
                                                 'FGROUP' => 'weighted_percentage',
                                                 'STEP' => 5,
-                                                'TYPE' => 'FLOAT',
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                                                 'DEFAULT' => 0.1,
                                                 'SHOW' => true,
                                                 'EDIT' => true,
@@ -806,19 +806,19 @@
                                                 'secondary_cumulative_pct' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
                                                         'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                                        'TYPE' => 'FLOAT',  'READONLY' => false, 
+                                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'READONLY' => false, 
                                                         'CSS' => 'width_pct_50', ),
 
                                                 'aptitude_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
                                                         'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                                        'TYPE' => 'FLOAT',  'READONLY' => false, 
+                                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'READONLY' => false, 
                                                         'CSS' => 'width_pct_50', ),
 
                                                 'achievement_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                         'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
                                                         'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                                        'TYPE' => 'FLOAT',  'READONLY' => false, 
+                                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'READONLY' => false, 
                                                         'CSS' => 'width_pct_50', ),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
