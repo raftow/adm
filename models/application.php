@@ -98,18 +98,25 @@ class Application extends AdmObject
                 $obj->select("active", 'Y');
                 if($applicant_ids_arr) $obj->selectIn("applicant_id", $applicant_ids_arr);
 
+                $done = 0;
                 $objList = $obj->loadMany();
+                $objListIds = array_keys($objList);
+                $total = count($objList);
                 /**
                  * @var Application $objItem
                  */
-                foreach($objList as $objItem)
+                foreach($objListIds as $objListId)
                 {
-                        $objItem->storeWeightedPercentage();
-                        $objItem->commit();
+                        
+                        $objList[$objListId]->storeWeightedPercentage();
+                        if($objList[$objListId]->commit()) $done++;
+                        unset($objList[$objListId]);
                 }
 
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
                 AfwQueryAnalyzer::resetQueriesExecuted();
+
+                return [$done, $total];
         }
 
         /**
