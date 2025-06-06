@@ -108,6 +108,7 @@ class Application extends AdmObject
                 
                 $done = 0;
                 $objList = $obj->loadMany(5000);
+                $found = count($objList);
                 $objListIds = array_keys($objList);
                 
                 foreach($objListIds as $objListId)
@@ -122,7 +123,7 @@ class Application extends AdmObject
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
                 AfwQueryAnalyzer::resetQueriesExecuted();
 
-                return [$done, $total];
+                return [$done, $found, $total];
         }
 
         /**

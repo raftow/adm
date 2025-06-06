@@ -883,9 +883,9 @@ class SortingSession extends AFWObject
         $indicators_update_date = $this->getVal("stats_date");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-        list($done, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date);
+        list($done, $found, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date);
 
-        return ["", $this->tm("done", $lang)." : $done ".$this->tm("total", $lang)." : $total "];
+        return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total "];
     }
 
     public function updateReadyIndicators($lang="ar")
