@@ -244,7 +244,7 @@ class Applicant extends AdmObject
                                         $eval_result = $this->getVal($eval_attribute);
                                         if($eval_date and $eval_result)
                                         {
-                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, $eval_result, true);
+                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, $eval_result, true, true);
                                         }
                                         
                                 }
