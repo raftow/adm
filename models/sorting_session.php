@@ -360,6 +360,11 @@ class SortingSession extends AFWObject
             {
                 return ($this->id>0);
             }
+
+            if(($attribute=="colors_legend") or ($attribute=="statList")) 
+            {
+                return $this->sortingHasStarted();
+            }
             
 
             return true;
@@ -678,7 +683,7 @@ class SortingSession extends AFWObject
             $recompute_weighted_pctg = "";//strtolower($this->getOptions("RECOM PUTE_WEIGHTED_PCTG",true));
             // because if we need recompute of weighted percentage the lightSorting is not 
             // sufficient we should do hard sorting
-            if((!$recompute_weighted_pctg) or ($recompute_weighted_pctg=="off"))
+            if(((!$recompute_weighted_pctg) or ($recompute_weighted_pctg=="off")) and ($this->sortingHasStarted()))
             {
                     $color = "green";
                     $title_ar = "تحديث الفرز";
@@ -882,6 +887,9 @@ class SortingSession extends AFWObject
         $application_simulation_id = $this->getVal("application_simulation_id");
         list($done, $found, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date);
 
+        $this->set("started_ind", "N");
+        $this->commit();
+
         return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total "];
     }
 
@@ -1030,6 +1038,9 @@ class SortingSession extends AFWObject
             if($echo) AfwBatch::print_info("repare case $total / $desireListCount");
             $desireItem->repareData($lang, true, $echo);            
         }
+
+        $this->set("started_ind", "N");
+        $this->commit();
 
         $result_arr["total"] = $total;
 
