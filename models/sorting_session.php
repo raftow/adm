@@ -369,6 +369,7 @@ class SortingSession extends AFWObject
     }
 
 
+
     public function calcSorting_ready_details($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -484,6 +485,25 @@ class SortingSession extends AFWObject
         }
         if ($value) return null;
         return $options_arr;
+    }
+
+    public function calcErrors_wp($what = "value")
+    {
+        $applicants_nb = $this->getVal("applicants_nb");    
+        $pct_errors_max = $this->getOptions("MAX_ERRORS_IN_THOUSAND_APPLICANTS",true);
+        $echantillon_nb = round($applicants_nb / 10);
+        if($echantillon_nb>1000) $echantillon_nb = 1000;
+        if($echantillon_nb<100) $echantillon_nb = 100;
+        if($echantillon_nb>$applicants_nb) $echantillon_nb = $applicants_nb;
+        
+        $echantillon_pct = round($echantillon_nb * 100 / $applicants_nb);
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        $nb_err = Application::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct);
+
+        $nb_err = round($nb_err * 100 / $echantillon_pct);
+
+        return $nb_err;
     }
 
     public function calcErrors_nb($what = "value")
@@ -855,7 +875,7 @@ class SortingSession extends AFWObject
     {
         $this->set("desires_nb", $this->calcNb_desires());
         $this->set("applicants_nb", $this->calcNb_applications());
-        $this->set("errors_nb", $this->calcErrors_nb());
+        $this->set("errors_nb", $this->calcErrors_nb() + $this->calcErrors_wp());
         $stmp_des = $this->calcStamp_desires();
         $stmp_app = $this->calcStamp_applications();
 

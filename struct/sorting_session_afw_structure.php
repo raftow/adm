@@ -144,7 +144,7 @@ class AdmSortingSessionAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'DISPLAY' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ],
 
 
@@ -165,16 +165,24 @@ class AdmSortingSessionAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'DISPLAY' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ],
 
                 'started_ind' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => false,  'STEP' => 3, 
+				'EDIT' => true,  'QEDIT' => false,  'STEP' => 1, 
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
                                 'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => true,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
+
+                'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                                'EDIT' => true,  'READONLY' => true, 
+                                                'TYPE' => 'YN',  'STEP' => 3, 'READONLY'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),   
+
+                
                 'desires_nb' => array('SHOW' => true, 
                                         'EDIT' => true,  'READONLY' => true, 
                                         'TYPE' => 'INT',  'STEP' => 3, 'READONLY'=>true,
@@ -191,7 +199,13 @@ class AdmSortingSessionAfwStructure
                                         'EDIT' => true,  'READONLY' => true, 
                                         'TYPE' => 'INT',  'STEP' => 3, 'READONLY'=>true,
                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                        'CSS' => 'width_pct_25',),                                                                                
+                                        'CSS' => 'width_pct_25',),  
+                                        
+                'errors_wp' => array('SHOW' => true, 
+                                        'EDIT' => true,  'READONLY' => true, 
+                                        'TYPE' => 'INT',  'STEP' => 3, 'READONLY'=>true,
+                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                        'CSS' => 'width_pct_25',), 
 
 
                 'data_date' => [
@@ -236,11 +250,7 @@ class AdmSortingSessionAfwStructure
                         'CSS' => 'width_pct_25',
                 ],
 
-                'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
-                                                'EDIT' => true,  'READONLY' => true, 
-                                                'TYPE' => 'YN',  'STEP' => 3, 'READONLY'=>true,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),   
+                
 
 
                 'sorting_ready' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
