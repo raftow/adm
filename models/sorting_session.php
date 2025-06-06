@@ -565,6 +565,13 @@ class SortingSession extends AFWObject
                                         "ADMIN-ONLY" => true, "BF-ID" => "", 
                                         'STEP' => $this->stepOfAttribute("data_date"));
 
+        $color = "blue";
+        $title_ar = "إعادة حساب النسبة الموزونة";
+        $methodName = "recomputeWP";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
+                                        "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                        'STEP' => $this->stepOfAttribute("data_date"));                                        
+
 
         $methodConfirmationWarningEn = "You agree that the sorting data are not correct and you want to update it";
         $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
@@ -572,7 +579,7 @@ class SortingSession extends AFWObject
         $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
                     
         $color = "orange";
-        $title_ar = "معالجة أخطاء البيانات";
+        $title_ar = "معالجة البيانات وإعادة جلبها إذا دعت الحاجة";
         $methodName = "updateFarzData";
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
                                         "ADMIN-ONLY" => true, "BF-ID" => "", 
@@ -871,7 +878,17 @@ class SortingSession extends AFWObject
     }
     
 
-    public function updateReadyIndicators($what = "value")
+    public function recomputeWP($lang="ar")
+    {
+
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id);
+
+        return ["", $this->tm("done", $lang)];
+    }
+
+    public function updateReadyIndicators($lang="ar")
     {
         $this->set("desires_nb", $this->calcNb_desires());
         $this->set("applicants_nb", $this->calcNb_applications());
@@ -884,6 +901,8 @@ class SortingSession extends AFWObject
         $now = date("Y-m-d H:i:s");
         $this->set("stats_date", $now);
         $this->commit();
+
+        return ["", $this->tm("done", $lang)];
     }
 
     public function calcStatsPanel($what = "value")
@@ -1049,6 +1068,7 @@ class SortingSession extends AFWObject
         }
         else return $sf1Obj->getVal("field_name");
     }
+    
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
