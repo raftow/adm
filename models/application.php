@@ -55,6 +55,12 @@ class Application extends AdmObject
 
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct)
         {
+                global $MODE_BATCH_LOURD;
+                $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+                $MODE_BATCH_LOURD = true;
+
+
+
                 $errors = 0;
                 $obj = new Application();
                 $obj->select("application_plan_id", $application_plan_id);
@@ -72,6 +78,10 @@ class Application extends AdmObject
                         $wpStored = $objItem->getVal("weighted_pctg");
                         if(abs($wpCalculated-$wpStored)>=0.01) $errors++;
                 }
+
+                $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+                AfwQueryAnalyzer::resetQueriesExecuted();
+
 
                 return $errors;
         }

@@ -1484,6 +1484,8 @@ class SortingSession extends AFWObject
 
     }
 
+    
+
     public function notRetrieve($field_name, $col_struct)
     {
             if(($field_name=="statList") and ($col_struct=="DO-NOT-RETRIEVE-COLS"))
