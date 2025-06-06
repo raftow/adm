@@ -201,11 +201,11 @@ class AdmSortingSessionAfwStructure
                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                         'CSS' => 'width_pct_25',),  
                                         
-                'errors_wp' => array('SHOW' => true, 
+                /*'errors_wp' => array('SHOW' => true, 
                                         'EDIT' => true,  'READONLY' => true, 
                                         'TYPE' => 'INT',  'STEP' => 3, 'READONLY'=>true,
                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                        'CSS' => 'width_pct_25',), 
+                                        'CSS' => 'width_pct_25',), */
 
 
                 'data_date' => [
