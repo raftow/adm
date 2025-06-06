@@ -98,6 +98,14 @@ class Application extends AdmObject
                 $obj0->select("active", 'Y');
                 if($applicant_ids_arr) $obj0->selectIn("applicant_id", $applicant_ids_arr);
                 $total = $obj0->count();
+                $obj1 = new Application();
+                $obj1->select("application_plan_id", $application_plan_id);
+                $obj1->select("application_simulation_id",$application_simulation_id);
+                $obj1->select("active", 'Y');
+                if($applicant_ids_arr) $obj1->selectIn("applicant_id", $applicant_ids_arr);
+                $obj1->where("validated_at > '$indicators_update_date'");
+                $total_done = $obj1->count();
+
                 
                 $obj = new Application();
                 $obj->select("application_plan_id", $application_plan_id);
@@ -106,7 +114,8 @@ class Application extends AdmObject
                 if($applicant_ids_arr) $obj->selectIn("applicant_id", $applicant_ids_arr);
                 $obj->where("validated_at is null or validated_at <= '$indicators_update_date'");
                 
-                $done = 0;
+                $now_done = 0;
+                
                 $objList = $obj->loadMany(5000);
                 $found = count($objList);
                 $objListIds = array_keys($objList);
@@ -115,7 +124,7 @@ class Application extends AdmObject
                 {
                         
                         $objList[$objListId]->storeWeightedPercentage();
-                        if($objList[$objListId]->commit()) $done++;
+                        if($objList[$objListId]->commit()) $now_done++;
                         // memory optimize
                         unset($objList[$objListId]);
                 }
@@ -123,7 +132,7 @@ class Application extends AdmObject
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
                 AfwQueryAnalyzer::resetQueriesExecuted();
 
-                return [$done, $found, $total];
+                return [$total_done, $found, $total, $now_done];
         }
 
         /**
