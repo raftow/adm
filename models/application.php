@@ -120,13 +120,14 @@ class Application extends AdmObject
                 $found = count($objList);
                 $objListIds = array_keys($objList);
                 
-                foreach($objListIds as $objListId)
+                foreach($objListIds as $objId)
                 {
                         
-                        $objList[$objListId]->storeWeightedPercentage();
-                        if($objList[$objListId]->commit()) $now_done++;
+                        $objList[$objId]->storeWeightedPercentage();
+                        die("hasChanged after storeWeightedPercentage".$objList[$objId]->hasChanged());
+                        if($objList[$objId]->commit()) $now_done++;
                         // memory optimize
-                        unset($objList[$objListId]);
+                        unset($objList[$objId]);
                 }
 
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
