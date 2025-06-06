@@ -153,10 +153,7 @@ class ApplicantSimulation extends AFWObject
         return  "active";
     }
 
-    public function isTechField($attribute)
-    {
-        return (($attribute == "created_by") or ($attribute == "created_at") or ($attribute == "updated_by") or ($attribute == "updated_at") or ($attribute == "validated_by") or ($attribute == "validated_at") or ($attribute == "version"));
-    }
+    
 
 
     public function beforeDelete($id, $id_replace)
