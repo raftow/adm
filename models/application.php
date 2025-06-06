@@ -88,6 +88,10 @@ class Application extends AdmObject
 
         public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $applicant_ids_arr=null)
         {
+                global $MODE_BATCH_LOURD;
+                $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+                $MODE_BATCH_LOURD = true;
+
                 $obj = new Application();
                 $obj->select("application_plan_id", $application_plan_id);
                 $obj->select("application_simulation_id",$application_simulation_id);
@@ -103,6 +107,9 @@ class Application extends AdmObject
                         $objItem->storeWeightedPercentage();
                         $objItem->commit();
                 }
+
+                $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+                AfwQueryAnalyzer::resetQueriesExecuted();
         }
 
         /**
