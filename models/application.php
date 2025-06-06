@@ -124,7 +124,7 @@ class Application extends AdmObject
                 {
                         
                         $objList[$objId]->storeWeightedPercentage();
-                        die("hasChanged after storeWeightedPercentage".$objList[$objId]->hasChanged());
+                        die("hasChanged after storeWeightedPercentage : ".$objList[$objId]->hasChanged());
                         if($objList[$objId]->commit()) $now_done++;
                         // memory optimize
                         unset($objList[$objId]);
