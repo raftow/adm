@@ -678,7 +678,7 @@ class SortingSession extends AFWObject
                                                 'STEPS' => 'all');
 
 
-            $recompute_weighted_pctg = strtolower($this->getOptions("RECOMPUTE_WEIGHTED_PCTG",true));
+            $recompute_weighted_pctg = "";//strtolower($this->getOptions("RECOM PUTE_WEIGHTED_PCTG",true));
             // because if we need recompute of weighted percentage the lightSorting is not 
             // sufficient we should do hard sorting
             if((!$recompute_weighted_pctg) or ($recompute_weighted_pctg=="off"))
@@ -880,16 +880,17 @@ class SortingSession extends AFWObject
 
     public function recomputeWP($lang="ar")
     {
-
+        $indicators_update_date = $this->getVal("stats_date");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-        list($done, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id);
+        list($done, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date);
 
         return ["", $this->tm("done", $lang)." : $done ".$this->tm("total", $lang)." : $total "];
     }
 
     public function updateReadyIndicators($lang="ar")
     {
+        $now = date("Y-m-d H:i:s");
         $this->set("desires_nb", $this->calcNb_desires());
         $this->set("applicants_nb", $this->calcNb_applications());
         $this->set("errors_nb", $this->calcErrors_nb() + $this->calcErrors_wp());
@@ -897,8 +898,7 @@ class SortingSession extends AFWObject
         $stmp_app = $this->calcStamp_applications();
 
         $stmp = ($stmp_app>$stmp_des) ? $stmp_app : $stmp_des;
-        $this->set("data_date", $stmp);
-        $now = date("Y-m-d H:i:s");
+        $this->set("data_date", $stmp);        
         $this->set("stats_date", $now);
         $this->commit();
 
@@ -1125,12 +1125,12 @@ class SortingSession extends AFWObject
 
         // @todo : bring from aparameter value
         $MAX_DESIRES = 50;
-        $recompute_weighted_pctg = null;
-        $recompute_weighted_pctg_done = false;
+        // $recompute_weighted_pctg = null;
+        // $recompute_weighted_pctg_done = false;
         if($preSorting)
         {
 
-            $recompute_weighted_pctg = strtolower($this->getOptions("RECOMPUTE_WEIGHTED_PCTG",true));
+            // $recompute_weighted_pctg = strtolower($this->getOptions("RECOM PUTE_WEIGHTED_PCTG",true));
 
             
 
@@ -1168,6 +1168,7 @@ class SortingSession extends AFWObject
                 $applicantsDesiresMatrix = ApplicationDesire::getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id);
             }
 
+            /*
             if($recompute_weighted_pctg and ($recompute_weighted_pctg!="off") and (!$recompute_weighted_pctg_done))
             {
                 if($sorting_with_only_weighted_percentage)
@@ -1177,9 +1178,10 @@ class SortingSession extends AFWObject
                 }
                 else
                 {
-                    throw new AfwBusinessException("recompute weighted pctg requested (option RECOMPUTE_WEIGHTED_PCTG) when sorting is not only with weighted percentage");
+                    throw new AfwBusinessException("recompute weighted pctg requested (option RECOM PUTE_WEIGHTED_PCTG) when sorting is not only with weighted percentage");
                 }
             }
+            */
 
             $info_arr[]  = "For SG{$sortingGroupId} : ";
             if($preSorting)

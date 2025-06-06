@@ -86,30 +86,36 @@ class Application extends AdmObject
                 return $errors;
         }
 
-        public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $applicant_ids_arr=null)
+        public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date, $applicant_ids_arr=null)
         {
                 global $MODE_BATCH_LOURD;
                 $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
                 $MODE_BATCH_LOURD = true;
 
+                $obj0 = new Application();
+                $obj0->select("application_plan_id", $application_plan_id);
+                $obj0->select("application_simulation_id",$application_simulation_id);
+                $obj0->select("active", 'Y');
+                if($applicant_ids_arr) $obj0->selectIn("applicant_id", $applicant_ids_arr);
+                $total = $obj0->count();
+                
                 $obj = new Application();
                 $obj->select("application_plan_id", $application_plan_id);
                 $obj->select("application_simulation_id",$application_simulation_id);
                 $obj->select("active", 'Y');
                 if($applicant_ids_arr) $obj->selectIn("applicant_id", $applicant_ids_arr);
-
+                $obj->where("validated_at <= '$indicators_update_date'");
+                
                 $done = 0;
-                $objList = $obj->loadMany();
+                $objList = $obj->loadMany(5000);
                 $objListIds = array_keys($objList);
-                $total = count($objList);
-                /**
-                 * @var Application $objItem
-                 */
+                
                 foreach($objListIds as $objListId)
                 {
                         
                         $objList[$objListId]->storeWeightedPercentage();
                         if($objList[$objListId]->commit()) $done++;
+                        // memory optimize
                         unset($objList[$objListId]);
                 }
 
@@ -416,8 +422,10 @@ class Application extends AdmObject
                         if(!$wp) $wp = 0.0;
                 }
                 
+                $now = date("Y-m-d H:i:s");
                 
                 $this->set("weighted_pctg", $wp);
+                $this->set("validated_at", $now);
         }
 
 
