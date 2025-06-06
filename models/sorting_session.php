@@ -651,13 +651,20 @@ class SortingSession extends AFWObject
                                                 'STEPS' => 'all');
 
 
-            $color = "green";
-            $title_ar = "تحديث الفرز";
-            $title_en = "Update the sorting";
-            $methodName = "lightSorting";
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
-                                                "ADMIN-ONLY" => true, "BF-ID" => "", 
-                                                'STEPS' => 'all');
+            $recompute_weighted_pctg = strtolower($this->getOptions("RECOMPUTE_WEIGHTED_PCTG",true));
+            // because if we need recompute of weighted percentage the lightSorting is not 
+            // sufficient we should do hard sorting
+            if((!$recompute_weighted_pctg) or ($recompute_weighted_pctg=="off"))
+            {
+                    $color = "green";
+                    $title_ar = "تحديث الفرز";
+                    $title_en = "Update the sorting";
+                    $methodName = "lightSorting";
+                    $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
+                                                        "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                                        'STEPS' => 'all');
+            }
+            
 
 
                                                                                                 
@@ -1078,9 +1085,12 @@ class SortingSession extends AFWObject
 
         // @todo : bring from aparameter value
         $MAX_DESIRES = 50;
-
+        $recompute_weighted_pctg = null;
+        $recompute_weighted_pctg_done = false;
         if($preSorting)
         {
+
+            $recompute_weighted_pctg = strtolower($this->getOptions("RECOMPUTE_WEIGHTED_PCTG",true));
 
             
 
@@ -1117,6 +1127,20 @@ class SortingSession extends AFWObject
             {
                 $applicantsDesiresMatrix = ApplicationDesire::getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id);
             }
+
+            if($recompute_weighted_pctg and ($recompute_weighted_pctg!="off") and (!$recompute_weighted_pctg_done))
+            {
+                if($sorting_with_only_weighted_percentage)
+                {                    
+                    Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id);
+                    $recompute_weighted_pctg_done = true;
+                }
+                else
+                {
+                    throw new AfwBusinessException("recompute weighted pctg requested (option RECOMPUTE_WEIGHTED_PCTG) when sorting is not only with weighted percentage");
+                }
+            }
+
             $info_arr[]  = "For SG{$sortingGroupId} : ";
             if($preSorting)
             {

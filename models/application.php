@@ -52,6 +52,26 @@ class Application extends AdmObject
                 } else return null;
         }
 
+
+        public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $applicant_ids_arr=null)
+        {
+                $obj = new Application();
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id",$application_simulation_id);
+                $obj->select("active", 'Y');
+                if($applicant_ids_arr) $obj->selectIn("applicant_id", $applicant_ids_arr);
+
+                $objList = $obj->loadMany();
+                /**
+                 * @var Application $objItem
+                 */
+                foreach($objList as $objItem)
+                {
+                        $objItem->storeWeightedPercentage();
+                        $objItem->commit();
+                }
+        }
+
         /**
          * @return Application
          */
