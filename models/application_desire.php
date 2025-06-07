@@ -965,6 +965,7 @@ class ApplicationDesire extends AdmObject
                 $obj->select("application_plan_id", $application_plan_id);
                 $obj->select("application_simulation_id",$application_simulation_id);
                 $obj->select("active", 'Y');
+                $obj->select("desire_num", 1);
                 $obj->where("applicant_id % 100 < $pct");
 
                 $objList = $obj->loadMany();
