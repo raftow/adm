@@ -883,10 +883,11 @@ class SortingSession extends AFWObject
 
     public function recomputeWP($lang="ar")
     {
+        $sortingCaseIsWP = ($this->sortingCase()=="wp");
         $indicators_update_date = $this->getVal("stats_date");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-        list($done, $found, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date);
+        list($done, $found, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date,null,$sortingCaseIsWP);
 
         $this->set("started_ind", "N");
         $this->commit();

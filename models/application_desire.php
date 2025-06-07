@@ -952,6 +952,13 @@ class ApplicationDesire extends AdmObject
                 return false;
         }
 
+        public static function refreshWeightedPctgForAllApplicantDesires($applicant_id, $application_plan_id, $application_simulation_id, $wp)
+        {
+                $sets_arr = [];
+                $sets_arr["sorting_value_1"] = $wp;
+                $where_clause = "applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id";
+                ApplicationDesire::updateWhere($sets_arr, $where_clause,true);
+        }
 
         public function reComputeSortingCriterea($lang = "ar", $commit = true)
         {

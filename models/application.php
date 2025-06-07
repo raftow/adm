@@ -122,8 +122,7 @@ class Application extends AdmObject
                 
                 foreach($objListIds as $objId)
                 {
-                        
-                        $objList[$objId]->storeWeightedPercentage();
+                        $objList[$objId]->storeWeightedPercentage(-1,true);
                         // die("hasChanged after storeWeightedPercentage : ".$objList[$objId]->hasChanged()." : sql commit = ".$objList[$objId]->sqlCommit());
                         if($objList[$objId]->commit()) $now_done++;
                         // memory optimize
@@ -409,7 +408,7 @@ class Application extends AdmObject
                 }
         }
 
-        public function storeWeightedPercentage($min_weighted_pctg=-1)
+        public function storeWeightedPercentage($min_weighted_pctg=-1, $updateDesires=false)
         {
                 $wp = $this->calcWeighted_percentage();
                 if(!$wp) $wp = 0.0;
@@ -437,6 +436,12 @@ class Application extends AdmObject
                 
                 $this->set("weighted_pctg", $wp);
                 $this->set("validated_at", $now);
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                if($updateDesires)
+                {
+                        ApplicationDesire::refreshWeightedPctgForAllApplicantDesires($this->getVal("applicant_id"), $application_plan_id, $application_simulation_id, $wp);                
+                }
         }
 
 
