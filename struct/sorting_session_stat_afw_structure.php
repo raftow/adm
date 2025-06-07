@@ -160,6 +160,21 @@ class AdmSortingSessionStatAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
+                'branch_code' => array(
+                        'FGROUP' => 'farz-branch',
+			'SIZE' => 40,
+			'TYPE' => 'INT',
+			'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'RETRIEVE' => true,
+                        'READONLY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'ERROR-CHECK' => true,
+                        'CSS' => 'width_pct_50',
+		),
+
                 'track_num' => array(
                         'FGROUP' => 'farz-branch',
                         'SEARCH' => false,

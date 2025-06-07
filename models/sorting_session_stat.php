@@ -246,7 +246,10 @@ class SortingSessionStat extends AFWObject{
                 return true;
         }
 
-
+        public function calcBranch_code($what="value")
+        {
+            return $this->getVal("application_plan_branch_id");
+        }
 
         public function calcFarz_karra_table($what="withPrefix")
         {
