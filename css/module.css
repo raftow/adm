@@ -4957,3 +4957,13 @@ div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_Y {
     font-size: 18px;
     font-weight: normal;
 }
+
+
+div#header_group_show_score>h5 {
+    background-color: #6ac5ef !important;
+    color: white;
+}
+
+div#body_group_show_score {
+    background-color: #ccefffc4;
+}

@@ -29,7 +29,7 @@ class SortingSessionStatArTranslator{
 		
 
 		$trad["sorting_session_stat"]["step1"] = "نتائج الفرز";
-		$trad["sorting_session_stat"]["step2"] = "المقبولين";
+		$trad["sorting_session_stat"]["step2"] = "المقبولين مبدئيا";
 		$trad["sorting_session_stat"]["farz-branch"] = "الفرع المعني بالفرز";
 		$trad["sorting_session_stat"]["scores"] = "نتائج الفرز";
 
@@ -47,7 +47,7 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["min_app_score3"] = "نسبة التقديم الدنيا 3";
 
 
-		$trad["sorting_session_stat"]["show_score"] = "إظهار المقبولين مبدئيا الذين لديهم نسبة :";
+		$trad["sorting_session_stat"]["show_score"] = "فلترة المقبولين مبدئيا الذين لديهم نسبة :";
 		$trad["sorting_session_stat"]["min_show_score"] = "من"; 
 		$trad["sorting_session_stat"]["max_show_score"] = "إلى";
 		
