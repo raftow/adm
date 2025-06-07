@@ -393,7 +393,7 @@
                                         'sorting_value_1' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => false,
+                                                'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'SIZE' => 32, 

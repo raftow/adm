@@ -20,6 +20,8 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["free"] = "مقاعد شاغرة";
 		$trad["sorting_session_stat"]["execo"] = "متساوين";
 		$trad["sorting_session_stat"]["branch_order"] = "ترتيب";
+		$trad["sorting_session_stat"]["branch_code"] = "رمز الفرع";
+		
 		
 		$trad["sorting_session_stat"]["execo_action"] = "قرار المتساوين";
 
