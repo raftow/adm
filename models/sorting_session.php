@@ -745,7 +745,7 @@ class SortingSession extends AFWObject
                        (`created_by`, `updated_by`, `created_at`, `updated_at`, active, version,
                         `application_plan_id`, `session_num`, `application_simulation_id`, `track_num`,
                         `application_plan_branch_id`, `branch_order`, `original_capacity`, `capacity`, `execo`, min_weighted_percentage,
-                        `min_app_score1`, `min_app_score2`, `min_app_score3`, 
+                        `min_app_score1`, `min_app_score2`, `min_app_score3`, min_show_score , max_show_score, 
                         nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3, waiting) VALUES ";
 
         $sql_values = "";
@@ -784,13 +784,14 @@ class SortingSession extends AFWObject
                     if(!$min_app_score2) $min_app_score2 = 0;
                     if(!$min_app_score3) $min_app_score3 = 0;
 
-                    
+                    $min_show_score = (100.0+$min_acc_score1)/2;
+                    $max_show_score = 100.0;
 
 
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
                     $application_plan_branch_id, $branch_order, $original_capacity, $capacity, $execo, $min_weighted_percentage,
-                    $min_app_score1, $min_app_score2, $min_app_score3,
+                    $min_app_score1, $min_app_score2, $min_app_score3, $min_show_score , $max_show_score,
                     $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3, $waiting),\n";
                     
                     $count_values++;

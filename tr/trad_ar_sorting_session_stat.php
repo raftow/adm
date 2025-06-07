@@ -46,6 +46,12 @@ class SortingSessionStatArTranslator{
 		$trad["sorting_session_stat"]["min_app_score2"] = "نسبة التقديم الدنيا 2";
 		$trad["sorting_session_stat"]["min_app_score3"] = "نسبة التقديم الدنيا 3";
 
+
+		$trad["sorting_session_stat"]["show_score"] = "إظهار المقبولين مبدئيا الذين لديهم نسبة :";
+		$trad["sorting_session_stat"]["min_show_score"] = "من"; 
+		$trad["sorting_session_stat"]["max_show_score"] = "إلى";
+		
+
 		$trad["sorting_session_stat"]["sorting_session_id"] = "تنفيذ الفرز";
 		$trad["sorting_session_stat"]["applicationDesireList"] = "الملفات التي سيتم قبولها بشكل مبدئي";
 		

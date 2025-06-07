@@ -183,7 +183,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'min_weighted_percentage' => array(
-                        'FGROUP' => 'scores',
+                        'FGROUP' => 'farz-branch',
                         'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'RETRIEVE' => true,
                         'SHOW' => true,
@@ -195,7 +195,7 @@ class AdmSortingSessionStatAfwStructure
 
 
                 'min_app_score1' => array(
-                        'FGROUP' => 'scores',
+                        'FGROUP' => 'farz-branch',
                         'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'RETRIEVE' => true,
                         'SHOW' => true,
@@ -206,7 +206,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'min_app_score2' => array(
-                        'FGROUP' => 'scores',
+                        'FGROUP' => 'farz-branch',
                         'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'SHOW' => true,
                         'EDIT' => true,
@@ -216,7 +216,7 @@ class AdmSortingSessionStatAfwStructure
                 ),
 
                 'min_app_score3' => array(
-                        'FGROUP' => 'scores',
+                        'FGROUP' => 'farz-branch',
                         'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
                         'SHOW' => true,
                         'EDIT' => true,
@@ -456,13 +456,37 @@ class AdmSortingSessionStatAfwStructure
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                         ),
 
+                'min_show_score' => array('STEP' => 2, 'FGROUP' => 'show_score', 
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
+                        'RETRIEVE' => true,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'NO-COTE' => true,
+                        "DEFAULT" => 0.0,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
+                'max_show_score' => array('STEP' => 2, 'FGROUP' => 'show_score',  
+                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
+                        'RETRIEVE' => true,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        'NO-COTE' => true,
+                        "DEFAULT" => 100.0,
+                        'SIZE' => 255,
+                        'CSS' => 'width_pct_25',
+                ),
+
 
                 'applicationDesireList' => array('SHOW' => true,  'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                         'EDIT' => false,  'QEDIT' => false,  
                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                         'TYPE' => 'FK', 'STEP' => 2,  
                         'CATEGORY' => 'ITEMS',  'ANSWER' => 'application_desire',  'ANSMODULE' => 'adm',  
-                        'WHERE' => 'me.application_plan_id=§application_plan_id§ and me.application_simulation_id=§application_simulation_id§ and me.application_plan_branch_id=§application_plan_branch_id§ and me.applicant_id in (select applicant_id from §DBPREFIX§adm.§farz_karra_table§ farz where farz.application_plan_branch_id=§application_plan_branch_id§ and sorting_value_1<89.0)', 
+                        'WHERE' => 'me.application_plan_id=§application_plan_id§ and me.application_simulation_id=§application_simulation_id§ and me.application_plan_branch_id=§application_plan_branch_id§ and me.applicant_id in (select applicant_id from §DBPREFIX§adm.§farz_karra_table§ farz where farz.application_plan_branch_id=§application_plan_branch_id§ and sorting_value_1 between §min_show_score§ and §max_show_score§)', 
                         'SHOW_MAX_DATA'=>900, 
                         'DO-NOT-RETRIEVE-COLS' => ['applicant_id', 'comments','step_num','application_step_id','application_plan_branch_id'],
                         'FORCE-RETRIEVE-COLS' => ['idn', 'sorting_value_1'],

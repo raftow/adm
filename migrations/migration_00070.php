@@ -53,7 +53,8 @@ try
         min_acc_score1 float DEFAULT NULL , 
         min_acc_score2 float DEFAULT NULL , 
         min_acc_score3 float DEFAULT NULL , 
-        
+        min_show_score float DEFAULT 0.0 ,
+        max_show_score float DEFAULT 100.0 ,
         
         PRIMARY KEY (`id`)
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
