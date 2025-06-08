@@ -952,14 +952,14 @@ class ApplicationDesire extends AdmObject
                 return false;
         }
 
-        public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct)
+        public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what="value")
         {
                 global $MODE_BATCH_LOURD;
                 $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
                 $MODE_BATCH_LOURD = true;
 
 
-
+                $examples = "";
                 $errors = 0;
                 $obj = new ApplicationDesire();
                 $obj->select("application_plan_id", $application_plan_id);
@@ -979,8 +979,13 @@ class ApplicationDesire extends AdmObject
                         {
                                 $wpCalculated = $objItem->calcWeighted_percentage(); 
                                 $wpStored = $objItem->getVal("weighted_pctg");
-                                if(abs($wpCalculated-$wpStored)>=0.01) $errors++;
                                 $current_applicant_id = $objItem->getVal("applicant_id");
+                                if(abs($wpCalculated-$wpStored)>=0.01) 
+                                {
+                                        $errors++;
+                                        if(strlen($examples)<256) $examples .= "AD1-$current_applicant_id (Calculated=$wpCalculated-Stored=$wpStored)>";
+                                }
+                                
                         }
                         else
                         {
@@ -992,7 +997,8 @@ class ApplicationDesire extends AdmObject
                 AfwQueryAnalyzer::resetQueriesExecuted();
 
 
-                return $errors;
+                if($what=="value") return $errors;
+                else return $examples;
         }
 
         public static function refreshWeightedPctgForAllApplicantDesires($applicant_id, $application_plan_id, $application_simulation_id, $wp)

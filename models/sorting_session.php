@@ -501,11 +501,18 @@ class SortingSession extends AFWObject
         $echantillon_pct = round($echantillon_nb * 100 / $applicants_nb);
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-        $nb_err = ApplicationDesire::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct);
-
-        $nb_err = round($nb_err * 100 / $echantillon_pct);
-
-        return $nb_err;
+        if($what == "value")
+        {
+            $nb_err = ApplicationDesire::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct,"value");
+            $nb_err = round($nb_err * 100 / $echantillon_pct);
+            return $nb_err;
+        }
+        else
+        {
+            $examples = ApplicationDesire::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct,"examples");
+            return $examples;
+        }
+        
     }
 
     public function calcErrors_wp($what = "value")
@@ -520,24 +527,44 @@ class SortingSession extends AFWObject
         $echantillon_pct = round($echantillon_nb * 100 / $applicants_nb);
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-        $nb_err = Application::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct);
-
-        $nb_err = round($nb_err * 100 / $echantillon_pct);
-
-        return $nb_err;
+        if($what == "value")
+        {
+            $nb_err = Application::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct, "value");
+            $nb_err = round($nb_err * 100 / $echantillon_pct);
+            return $nb_err;
+        }
+        else
+        {
+            $examples = Application::checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $echantillon_pct,"examples");
+            return $examples;
+        }
     }
 
     public function calcErrors_nb($what = "value")
     {
         $vmin = $this->getOptions("SORTING_VALUE_MIN", true);
         if(!$vmin) $vmin = 0.0;
-        if($this->sortingCase()=="wp")
+        if($what == "value")
         {
-            return $this->getRelation("applicationList")->resetWhere("weighted_pctg is null or weighted_pctg < $vmin")->count();
+            if($this->sortingCase()=="wp")
+            {
+                return $this->getRelation("applicationList")->resetWhere("weighted_pctg is null or weighted_pctg < $vmin")->count();
+            }
+            else
+            {
+                return $this->getRelation("applicationDesireList")->resetWhere("sorting_value_1 is null or sorting_value_1 < $vmin")->count();
+            }
         }
         else
         {
-            return $this->getRelation("applicationDesireList")->resetWhere("sorting_value_1 is null or sorting_value_1 < $vmin")->count();
+            if($this->sortingCase()=="wp")
+            {
+                return "APP-".$this->getRelation("applicationList")->resetWhere("weighted_pctg is null or weighted_pctg < $vmin")->func("min(applicant_id)");
+            }
+            else
+            {
+                return "DSR-".$this->getRelation("applicationDesireList")->resetWhere("sorting_value_1 is null or sorting_value_1 < $vmin")->func("min(applicant_id)");
+            }
         }
         
     }
@@ -920,16 +947,23 @@ class SortingSession extends AFWObject
         $now = date("Y-m-d H:i:s");
         $this->set("desires_nb", $this->calcNb_desires());
         $this->set("applicants_nb", $this->calcNb_applications());
-        $this->set("errors_nb", $this->calcErrors_nb() + $this->calcErrors_wp() + $this->calcErrors_desire_wp());
+        $errors_nb = $this->calcErrors_nb() + $this->calcErrors_wp() + $this->calcErrors_desire_wp();
+        $this->set("errors_nb", $errors_nb);
         $stmp_des = $this->calcStamp_desires();
         $stmp_app = $this->calcStamp_applications();
+
+        $examples = $this->calcErrors_nb("examples") . " >> " . $this->calcErrors_wp("examples") . " >> " . $this->calcErrors_desire_wp("examples");
 
         $stmp = ($stmp_app>$stmp_des) ? $stmp_app : $stmp_des;
         $this->set("data_date", $stmp);        
         $this->set("stats_date", $now);
         $this->commit();
 
-        return ["", $this->tm("done", $lang)];
+
+        $message = $this->tm("done", $lang);
+        if($errors_nb>0) $message .= " : $errors_nb error(s), example(s) : $examples";
+
+        return ["", $message];
     }
 
     public function calcStatsPanel($what = "value")

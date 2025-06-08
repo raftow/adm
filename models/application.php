@@ -53,14 +53,14 @@ class Application extends AdmObject
         }
 
 
-        public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct)
+        public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what="value")
         {
                 global $MODE_BATCH_LOURD;
                 $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
                 $MODE_BATCH_LOURD = true;
 
 
-
+                $examples = "";
                 $errors = 0;
                 $obj = new Application();
                 $obj->select("application_plan_id", $application_plan_id);
@@ -76,17 +76,23 @@ class Application extends AdmObject
                 {
                         $wpCalculated = $objItem->calcWeighted_percentage(); 
                         $wpStored = $objItem->getVal("weighted_pctg");
-                        if(abs($wpCalculated-$wpStored)>=0.01) $errors++;
+                        $current_applicant_id = $objItem->getVal("applicant_id");
+                        if(abs($wpCalculated-$wpStored)>=0.01) 
+                        {
+                                $errors++;
+                                if(strlen($examples)<256) $examples .= "AD1-$current_applicant_id (Calculated=$wpCalculated-Stored=$wpStored)>";
+                        }
                 }
 
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
                 AfwQueryAnalyzer::resetQueriesExecuted();
 
 
-                return $errors;
+                if($what=="value") return $errors;
+                else return $examples;
         }
 
-        public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date, $applicant_ids_arr=null)
+        public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date, $applicant_ids_arr=null, $updateDesires=false)
         {
                 global $MODE_BATCH_LOURD;
                 $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -122,7 +128,7 @@ class Application extends AdmObject
                 
                 foreach($objListIds as $objId)
                 {
-                        $objList[$objId]->storeWeightedPercentage(-1,true);
+                        $objList[$objId]->storeWeightedPercentage(-1, $updateDesires);
                         // die("hasChanged after storeWeightedPercentage : ".$objList[$objId]->hasChanged()." : sql commit = ".$objList[$objId]->sqlCommit());
                         if($objList[$objId]->commit()) $now_done++;
                         // memory optimize
