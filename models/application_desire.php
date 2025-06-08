@@ -978,7 +978,7 @@ class ApplicationDesire extends AdmObject
                         if($current_applicant_id != $objItem->getVal("applicant_id"))
                         {
                                 $wpCalculated = $objItem->calcWeighted_percentage(); 
-                                $wpStored = $objItem->getVal("weighted_pctg");
+                                $wpStored = $objItem->getVal("sorting_value_1");
                                 $current_applicant_id = $objItem->getVal("applicant_id");
                                 if(abs($wpCalculated-$wpStored)>=0.01) 
                                 {
