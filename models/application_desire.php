@@ -1069,6 +1069,14 @@ class ApplicationDesire extends AdmObject
 
         public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
         {
+
+                for ($s = 1; $s <= 3; $s++) {
+                        if ($attribute == "sorting_value_" . $s) {
+                                $objFld = $this->het("sorting_field_" . $s . "_id");
+                                if($objFld) return $objFld->getShortDisplay($lang);
+                        }
+                }
+
                 for ($f = 1; $f <= 9; $f++) {
                         if ($attribute == "formula_value_" . $f) {
                                 $objFld = $this->het("formula_field_" . $f . "_id");
