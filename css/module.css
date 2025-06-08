@@ -4719,7 +4719,7 @@ tr.csr_correct.hzm_row_W>td.hzm_col_afw_nb_accepted>span {
 }
 .legend_color {
     width: auto;
-    max-width: 220px;
+    max-width: 180px;
     margin-right: 15px !important;
     float: right;
 }
@@ -4778,7 +4778,7 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span .wizcapacity {
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span,
-div.need_re_sorting, div.need_page_refresh {
+div.need_re_sorting, div.need_page_refresh, div.policy_broken {
     background-color: #949991d1;
     color: white;
     text-align: center;
