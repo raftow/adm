@@ -361,8 +361,15 @@ class SortingSession extends AFWObject
                 return ($this->id>0);
             }
 
-            if(($attribute=="colors_legend") or ($attribute=="statList")) 
-            {
+            if(($attribute=="colors_legend") or 
+               ($attribute=="statList") or
+               ($attribute=="validate_date") or
+               ($attribute=="publish_date") or
+               ($attribute=="last_approve_date") or
+               ($attribute=="validated") or
+               ($attribute=="published") or
+               ($attribute=="upgraded")) 
+            {      
                 return $this->sortingHasStarted();
             }
             

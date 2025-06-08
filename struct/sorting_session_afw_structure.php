@@ -424,7 +424,7 @@ class AdmSortingSessionAfwStructure
                         'EDIT-UGROUPS' => '',
                         'READONLY' => true,
                         'CSS' => 'width_pct_33',
-                ],
+                ], 
 
                 
                 'publish_date' => [
@@ -464,7 +464,7 @@ class AdmSortingSessionAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_33',
-                ],
+                ], 
 
                 'validated' => array('RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                         'TYPE' => 'YN',  'FORMAT' => 'icon',  'READONLY' => true,  'STEP' => 5, 

@@ -1066,4 +1066,17 @@ class ApplicationDesire extends AdmObject
 
                 return true;
         }
+
+        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        {
+                for ($f = 1; $f <= 9; $f++) {
+                        if ($attribute == "formula_value_" . $f) {
+                                $objFld = $this->het("formula_field_" . $f . "_id");
+                                if($objFld) return $objFld->getShortDisplay($lang);
+                        }
+                }
+
+                // die("calling getAttributeLabel($attribute, $lang, short=$short)");
+                return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
+        }
 }
