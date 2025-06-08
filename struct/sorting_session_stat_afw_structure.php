@@ -504,7 +504,7 @@ class AdmSortingSessionStatAfwStructure
                         'WHERE' => 'me.application_plan_id=§application_plan_id§ and me.application_simulation_id=§application_simulation_id§ and me.application_plan_branch_id=§application_plan_branch_id§ and me.applicant_id in (select applicant_id from §DBPREFIX§adm.§farz_karra_table§ farz where farz.application_plan_branch_id=§application_plan_branch_id§ and sorting_value_1 between §min_show_score§ and §max_show_score§)', 
                         'ORDER_BY' => 'sorting_value_1 desc, sorting_value_2 desc, sorting_value_3 desc',
                         'SHOW_MAX_DATA'=>900, 
-                        'DO-NOT-RETRIEVE-COLS' => ['applicant_id', 'comments','step_num','application_step_id','application_plan_branch_id'],
+                        'DO-NOT-RETRIEVE-COLS' => ['applicant_id', 'comments','step_num','application_step_id','application_plan_branch_id', 'track_num', 'desire_status_enum'],
                         'FORCE-RETRIEVE-COLS' => ['idn', 'sorting_value_1'],
                         'READONLY' => true,  'CAN-BE-SETTED' => true, 
                         'CSS' => 'width_pct_100', ),
