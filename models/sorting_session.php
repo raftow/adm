@@ -902,7 +902,8 @@ class SortingSession extends AFWObject
 
     public function recomputeWP($lang="ar")
     {
-        $sortingCaseIsWP = ($this->sortingCase()=="wp");
+        $sortingCase = $this->sortingCase();
+        $sortingCaseIsWP = ($sortingCase=="wp");
         $indicators_update_date = $this->getVal("stats_date");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
@@ -911,7 +912,7 @@ class SortingSession extends AFWObject
         $this->set("started_ind", "N");
         $this->commit();
 
-        return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total "];
+        return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total (sortingCase=$sortingCase)"];
     }
 
     public function updateReadyIndicators($lang="ar")
