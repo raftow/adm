@@ -2288,7 +2288,7 @@ class Application extends AdmObject
                                                 if($nb>0)
                                                 {
                                                         $data_tmp = AfwDatabase::db_recup_rows("select $session_num as session_num, $sortingGroupId as sg_id, $spath as spath, st.* from $final_sorting_table st");
-                                                        array_push($data, $data_tmp);
+                                                        $data = array_merge($data, $data_tmp);
                                                 }                                        
                                         }
                                 }
