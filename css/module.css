@@ -4958,6 +4958,10 @@ div.hzm_data.hzm_data_sorting_ready.hzm_value_sorting_ready_Y {
     font-weight: normal;
 }
 
+.legend_color.policy_broken{
+    background-color: #dc421d;
+    color: white;
+}
 
 div#header_group_show_score>h5 {
     background-color: #6ac5ef !important;
