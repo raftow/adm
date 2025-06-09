@@ -978,7 +978,7 @@ class SortingSession extends AFWObject
         if($origin_partition=="SCHEDULE")
         {
             $partition = intval($this->getVal("task_pct"));
-            $partition = AfwStringHelper::left_complete_len($partition,3,"0") ;
+            $partition = AfwStringHelper::left_complete_len($partition,2,"0") ;
         }
         else $partition = $origin_partition;
         $err_arr = [];
