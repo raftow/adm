@@ -83,7 +83,7 @@ class SortingSession extends AFWObject
     {
         $obj = new SortingSession();
         $obj->select_visibilite_horizontale();
-        $obj->where("settings like 'SCHEDULE=%'");
+        $obj->where("settings like 'SCHEDULE%'");
         if($obj->load()) return $obj;
         else return null;
     }
