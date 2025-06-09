@@ -952,7 +952,7 @@ class SortingSession extends AFWObject
     }
 
 
-    public function reloadSortingData($lang="ar", $origin_partition = null, $force=true, $echo=false)
+    public function reloadSortingData($lang="ar", $origin_partition = "SCHEDULE", $force=true, $echo=false)
     {
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;

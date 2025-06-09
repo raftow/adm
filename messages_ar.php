@@ -180,5 +180,6 @@
     $messages["need run sorting again"] = "الفرز يحتاج إلى تحديث";
     $messages["The page need refresh"] = "الصفحة تحتاج إلى تحديث";
     $messages["violating university policy"] = "مخالف لسياسة الجامعة";
+    $messages["reloadSortingData"] = "إعادة جلب بيانات الفرز";
     // $messages[""] = "";
 ?>
