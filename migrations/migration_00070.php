@@ -6,6 +6,19 @@ try
 {
     $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_session', 180, "+t", "qsearch", null);
 
+    AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.api_endpoint 
+                SET id=18, api_endpoint_code = _utf8'offline_evqual', 
+                    published = 'N', import = 'N', 
+                    api_endpoint_title = _utf8'تحديث الشهادة والاختبارات من البيانات الجاهزة', 
+                    api_endpoint_name_ar = _utf8'تحديث الشهادة والاختبارات من البيانات الجاهزة', 
+                    api_endpoint_name_en = 'Updating the certificate and tests from the offline data', 
+                    active = 'Y', can_refresh = 'N', duration_expiry = 15, adm_file_id = 0, 
+                    api_url = _utf8'xx/offline_evqual', api_endpoint_mfk = ',', application_field_mfk = ',110332,', institution_id = 0, created_by = 1, updated_by = 1, validated_by = 0, update_groups_mfk = ',', delete_groups_mfk = ',', display_groups_mfk = ',', failure_text = _utf8'', created_at = '2025-06-09 16:51:26', updated_at = '2025-06-09 16:51:26', version = 1");
+    
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`api_endpoint`
+        CHANGE `api_endpoint_name_ar` `api_endpoint_name_ar` varchar(128) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `api_endpoint_title`,
+        CHANGE `api_endpoint_name_en` `api_endpoint_name_en` varchar(128) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `api_endpoint_name_ar`;");
+
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   desires_nb int DEFAULT NULL  AFTER started_ind;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   applicants_nb int DEFAULT NULL  AFTER desires_nb;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   errors_nb int DEFAULT NULL  AFTER applicants_nb;");
