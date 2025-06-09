@@ -383,7 +383,7 @@ class SortingSession extends AFWObject
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
 
-        $hours = AfwDateHelper::timeDiffInHours($this->getVal("stats_date"), date("Y-m-d H:i:s"));
+        $hours = AfwDateHelper::timeDiffInHours(date("Y-m-d H:i:s"), $this->getVal("stats_date"));
         if($hours>4) return $this->tm("Please update ready indicators because they are old", $lang). "($hours h)";
 
         if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed before start sorting", $lang);
