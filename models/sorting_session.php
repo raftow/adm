@@ -992,13 +992,16 @@ class SortingSession extends AFWObject
         $obj = new ApplicationDesire();
         $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and applicant_id like '%$partition' and active = 'Y' and desire_num = 1");
         $applicantIdsArr = $obj->loadCol("applicant_id", true);
+        $total = 0;
+        $success = 0;
         foreach($applicantIdsArr as $applicantId)
         {
             if($applicantId)
             {
+                $total++;
                 $objApplicant = Applicant::loadById($applicantId);
                 list($err, $inf, $war, $tech) = $objApplicant->updateSortingData($lang, $force, $echo, $ignorePublish);
-                if ($err) $err_arr[] = $err;
+                if ($err) $err_arr[] = $err; else $success++;
                 if ($inf) $inf_arr[] = $inf;
                 if ($war) $war_arr[] = $war;
                 if ($tech) $tech_arr[] = $tech;
@@ -1015,6 +1018,11 @@ class SortingSession extends AFWObject
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
         AfwQueryAnalyzer::resetQueriesExecuted();
+
+
+        $result_arr = [];
+        $result_arr["total"] = $total;
+        $result_arr["success"] = $success;
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, [], 50);
     }
@@ -1033,7 +1041,11 @@ class SortingSession extends AFWObject
         $this->set("started_ind", "N");
         $this->commit();
 
-        return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total (sortingCase=$sortingCase)"];
+        $result_arr = [];
+        $result_arr["total"] = $total;
+        $result_arr["success"] = $done+$found;
+
+        return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total (sortingCase=$sortingCase)", "", "", $result_arr];
     }
 
     public function updateReadyIndicators($lang="ar")

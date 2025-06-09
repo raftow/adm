@@ -76,7 +76,7 @@ $objSS = SortingSession::loadScheduled();
 list($err, $inf, $war, $tech, $result_arr) = $objSS->runTheSchedule($lang);
 
 $total = $result_arr["total"];
-$success = $total;
+$success = $result_arr["success"];
 $aboots = "n/a";
 $dboots = "n/a";
 $errors = "n/a";
