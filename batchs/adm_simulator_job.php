@@ -48,7 +48,8 @@ $print_important = true;
                               
 $recap_data = array();
 
-$objSim = ApplicationSimulation::loadById(3);
+/*
+$objSim = ApplicationSimulation::loadScheduled();
 
 list($err, $inf, $war, $tech, $result_arr) = $objSim->runSimulation($lang);
 
@@ -68,11 +69,11 @@ $row_0 = array('jobname'=>$project_code,
         );
 
 $recap_data[] = $row_0;
+*/
 
-/*
-$objSS = SortingSession::loadById(1);
+$objSS = SortingSession::loadScheduled();
 
-list($err, $inf, $war, $tech, $result_arr) = $objSS->updateFarzData($lang,true);
+list($err, $inf, $war, $tech, $result_arr) = $objSS->runTheSchedule($lang);
 
 $total = $result_arr["total"];
 $success = $total;
@@ -90,7 +91,7 @@ $row_1 = array('jobname'=>$project_code,
         );
 
 $recap_data[] = $row_1;
-*/
+
 // $jb_run->setNewItemValue($row_0["jobname"],"errors",$nb_errors);
 // $jb_run->setNewItemValue($row_0["jobname"],"surveyed",$nb_surveyed);
 // $jb_run->setNewItemValue($row_0["jobname"],"migrated",$nbrows_migrated);

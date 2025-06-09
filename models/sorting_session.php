@@ -79,6 +79,15 @@ class SortingSession extends AFWObject
 
 
 
+    public static function loadScheduled()
+    {
+        $obj = new SortingSession();
+        $obj->select_visibilite_horizontale();
+        $obj->where("settings like 'SCHEDULE=%'");
+        if($obj->load()) return $obj;
+        else return null;
+    }
+
     public static function loadById($id)
     {
         $obj = new SortingSession();
@@ -447,6 +456,13 @@ class SortingSession extends AFWObject
 
         if($applicationSimulationObj->isRunning() or (!$period_of_sorting)) return $yes;
         return $no;
+    }
+
+
+    public function runTheSchedule($lang)
+    {
+        $schedMethod = $this->getOptions("SCHEDULE",true);
+        return $this->$schedMethod($lang);
     }
 
     public function calcSorting_step_id($what = "value")
