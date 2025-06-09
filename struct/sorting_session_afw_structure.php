@@ -265,7 +265,7 @@ class AdmSortingSessionAfwStructure
                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                 'CSS' => 'width_pct_100',),
 
-                'task_pct' => array('STEP' => 99,
+                'task_pct' => array('STEP' => 97,
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
