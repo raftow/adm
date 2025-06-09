@@ -382,6 +382,10 @@ class SortingSession extends AFWObject
     public function calcSorting_ready_details($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
+
+        $hours = AfwDateHelper::timeDiffInHours($this->getVal("stats_date"), date("Y-m-d H:i:s"));
+        if($hours>4) return $this->tm("Please update ready indicators because they are old", $lang). "($hours h)";
+
         if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed before start sorting", $lang);
         
         if($this->getVal("data_date")>=$this->getVal("stats_date")) return $this->tm("Please update ready indicators because they are old", $lang);
