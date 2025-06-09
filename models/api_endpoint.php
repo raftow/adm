@@ -7,6 +7,7 @@ class ApiEndpoint extends AdmObject
         public static $TABLE                        = "api_endpoint";
         public static $DB_STRUCTURE = null;
         public static $allApiEndpointList = null;
+        public static $apiEndpointByCode = null;
         public static $apiEndpointListForField = [];
         // public static $copypast = true;
 
@@ -30,6 +31,14 @@ class ApiEndpoint extends AdmObject
         public static function loadAllApiEndpoints()
         {
                 if(!self::$allApiEndpointList) self::$allApiEndpointList = ApiEndpoint::loadAll(false); 
+                if(!self::$apiEndpointByCode)
+                {
+                        foreach(self::$allApiEndpointList as $apiEndpoint)
+                        {
+                                $code = $apiEndpoint->getVal("api_endpoint_code");
+                                self::$apiEndpointByCode[$code] = $apiEndpoint;
+                        }
+                }
         }
 
         public static function findAllApiEndpointForField($application_field_id, $nb_max=9999)
@@ -64,21 +73,32 @@ class ApiEndpoint extends AdmObject
         {
                 if (!$api_endpoint_code) throw new AfwRuntimeException("loadByMainIndex : api_endpoint_code is mandatory field");
 
+                if(!self::$apiEndpointByCode[$api_endpoint_code])
+                {
+                        $obj = new ApiEndpoint();
+                        $obj->select("api_endpoint_code", $api_endpoint_code);
 
-                $obj = new ApiEndpoint();
-                $obj->select("api_endpoint_code", $api_endpoint_code);
+                        if ($obj->load()) {
+                                if ($create_obj_if_not_found) $obj->activate();
+                                self::$apiEndpointByCode[$api_endpoint_code] = $obj;
+                        } elseif ($create_obj_if_not_found) {
+                                $obj->set("api_endpoint_code", $api_endpoint_code);
+                                $obj->insertNew();
+                                if (!$obj->id) self::$apiEndpointByCode[$api_endpoint_code] = null; // means beforeInsert rejected insert operation
+                                else
+                                {
+                                        $obj->is_new = true;
+                                        self::$apiEndpointByCode[$api_endpoint_code] = $obj;
+                                }
+                                
+                        } else self::$apiEndpointByCode[$api_endpoint_code] = null;
 
-                if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
-                        return $obj;
-                } elseif ($create_obj_if_not_found) {
-                        $obj->set("api_endpoint_code", $api_endpoint_code);
+                        if(!self::$apiEndpointByCode[$api_endpoint_code]) self::$apiEndpointByCode[$api_endpoint_code] = "NOT-FOUND";
+                }
 
-                        $obj->insertNew();
-                        if (!$obj->id) return null; // means beforeInsert rejected insert operation
-                        $obj->is_new = true;
-                        return $obj;
-                } else return null;
+                if(self::$apiEndpointByCode[$api_endpoint_code] == "NOT-FOUND") return null;
+
+                return self::$apiEndpointByCode[$api_endpoint_code];
         }
 
         public function getDisplay($lang = 'ar')

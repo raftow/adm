@@ -384,7 +384,7 @@ class SortingSession extends AFWObject
         $lang = AfwLanguageHelper::getGlobalLanguage();
 
         $hours = AfwDateHelper::timeDiffInHours(date("Y-m-d H:i:s"), $this->getVal("stats_date"));
-        if($hours>4) return $this->tm("Please update ready indicators because they are old", $lang). "($hours h)";
+        if($hours>4) return $this->tm("Please update ready indicators because they are old", $lang). " ($hours h)";
 
         if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed before start sorting", $lang);
         
@@ -952,6 +952,11 @@ class SortingSession extends AFWObject
 
     public function reloadSortingData($lang="ar", $force=true, $echo=false)
     {
+        global $MODE_BATCH_LOURD;
+        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+        $MODE_BATCH_LOURD = true;
+
+
         $err_arr = [];
         $inf_arr = [];
         $war_arr = [];
@@ -977,6 +982,9 @@ class SortingSession extends AFWObject
             }
             
         }
+
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        AfwQueryAnalyzer::resetQueriesExecuted();
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, [], 50);
     }
