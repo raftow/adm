@@ -152,7 +152,7 @@ class Applicant extends AdmObject
         }
 
 
-        public function updateSortingData($lang="ar", $force=true, $echo=false)
+        public function updateSortingData($lang="ar", $force=true, $echo=false, $ignorePublish = false)
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -167,7 +167,7 @@ class Applicant extends AdmObject
                                 $aepObj = ApiEndpoint::loadByMainIndex($sorting_api);
                                 if (!$aepObj) throw new AfwRuntimeException("the register API $sorting_api is not found in DB");
                                 $applicantApiRequestObject = ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
-                                list($err, $inf, $war, $tech) = $applicantApiRequestObject->runMeOn($this, $lang, $force, $echo);
+                                list($err, $inf, $war, $tech) = $applicantApiRequestObject->runMeOn($this, $lang, $force, $echo, $ignorePublish);
                                 if ($err) $err_arr[] = $err;
                                 if ($inf) $inf_arr[] = $inf;
                                 if ($war) $war_arr[] = $war;

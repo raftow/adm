@@ -969,7 +969,7 @@ class SortingSession extends AFWObject
         $inf_arr = [];
         $war_arr = [];
         $tech_arr = [];
-
+        $ignorePublish = (strtolower($this->getOptions("IGNORE-SCHEDULED-API-PUBLISH",true))=="on");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
         $sorting_step_id = $this->calc("sorting_step_id");
@@ -981,7 +981,7 @@ class SortingSession extends AFWObject
             if($applicantId)
             {
                 $objApplicant = Applicant::loadById($applicantId);
-                list($err, $inf, $war, $tech) = $objApplicant->updateSortingData($lang, $force, $echo);
+                list($err, $inf, $war, $tech) = $objApplicant->updateSortingData($lang, $force, $echo, $ignorePublish);
                 if ($err) $err_arr[] = $err;
                 if ($inf) $inf_arr[] = $inf;
                 if ($war) $war_arr[] = $war;
