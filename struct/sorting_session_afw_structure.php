@@ -265,6 +265,32 @@ class AdmSortingSessionAfwStructure
                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                 'CSS' => 'width_pct_100',),
 
+                'task_pct' => array('STEP' => 99,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'PCTG',
+                        'READONLY' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'task_html' => array(
+                        'STEP' => 3,
+                        'CATEGORY' => "FORMULA",
+                        'TYPE' => 'TEXT',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'CSS' => 'width_pct_100',
+                        'INPUT_WIDE' => true
+                ),
+
+
                                         'sorting_step_id' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                                                 'EDIT' => true,  'READONLY' => true,
                                                                 'TYPE' => 'INT',  'STEP' => 99, 'READONLY'=>true,

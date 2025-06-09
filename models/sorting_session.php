@@ -649,6 +649,7 @@ class SortingSession extends AFWObject
                                         'STEP' => $this->stepOfAttribute("statsPanel"));
         */
 
+        /* can only be scheduled */
         $color = "orange";
         $title_ar = "إعادة استيراد البيانات لحساب النسبة الموزونة";
         $methodName = "reloadSortingData";
@@ -658,6 +659,7 @@ class SortingSession extends AFWObject
                                         'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                                         'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                                         'STEP' => $this->stepOfAttribute("statsPanel"));
+        
 
         if($this->sureIs("validated"))
         {
@@ -950,13 +952,19 @@ class SortingSession extends AFWObject
     }
 
 
-    public function reloadSortingData($lang="ar", $force=true, $echo=false)
+    public function reloadSortingData($lang="ar", $origin_partition = null, $force=true, $echo=false)
     {
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
         $MODE_BATCH_LOURD = true;
 
-
+        if(!$origin_partition) return ["partition not defined to do reloadSortingData", ""];
+        if($origin_partition=="SCHEDULE")
+        {
+            $partition = intval($this->getVal("task_pct"));
+            $partition = AfwStringHelper::left_complete_len($partition,3,"0") ;
+        }
+        else $partition = $origin_partition;
         $err_arr = [];
         $inf_arr = [];
         $war_arr = [];
@@ -966,7 +974,7 @@ class SortingSession extends AFWObject
         $application_simulation_id = $this->getVal("application_simulation_id");
         $sorting_step_id = $this->calc("sorting_step_id");
         $obj = new ApplicationDesire();
-        $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and desire_num = 1");
+        $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and applicant_id like '%$partition' and active = 'Y' and desire_num = 1");
         $applicantIdsArr = $obj->loadCol("applicant_id", true);
         foreach($applicantIdsArr as $applicantId)
         {
@@ -981,6 +989,12 @@ class SortingSession extends AFWObject
                 unset($objApplicant);
             }
             
+        }
+
+        if($origin_partition=="SCHEDULE")
+        {
+            $this->set("task_pct", intval($this->getVal("task_pct"))+1);
+            $this->commit();
         }
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
@@ -1028,6 +1042,35 @@ class SortingSession extends AFWObject
         if($errors_nb>0) $message .= " : $errors_nb error(s), example(s) : $examples";
 
         return ["", $message];
+    }
+
+    
+
+    public function calcTask_html($what = "value")    
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $simulation_progress_task = $this->tm($this->getOptions("SCHEDULE",true),$lang);
+        if(!$simulation_progress_task) return "";
+        $progress_value = $this->getVal("task_pct");
+        if(!$progress_value) $progress_value = 0;
+        $simulation_progress_value = 5 * intval(floor($progress_value / 5));
+        $simulation_real_progress = intval(floor($progress_value * 100)) / 100.0;
+        if ($simulation_progress_value > 0) {
+            $simulation_progress_value_pct = "$simulation_real_progress%";
+        } else {
+            $simulation_progress_value_pct = "";
+        }
+        
+        
+        
+        $html = "<div class='simulation-panel'>";
+        $html .= "  <div id=\"simulation_progress_bar\" class=\"simulation_progress bar\" >
+                        <div id=\"simulation_progress_value\" class=\"simulation_progress value-$simulation_progress_value\" >&nbsp</div>
+                    </div>";
+        $html .= "  <div id=\"simulation_progress_task\" class=\"simulation_progress task\" >$simulation_progress_value_pct - $simulation_progress_task</div>";
+        $html .= "</div> <!-- simulation-panel -->";
+
+        return $html;
     }
 
     public function calcStatsPanel($what = "value")
