@@ -1010,6 +1010,8 @@ class SortingSession extends AFWObject
             
         }
 
+        $tech_arr[] = "total $total success $success";
+
         if($origin_partition=="SCHEDULE")
         {
             $this->set("task_pct", intval($this->getVal("task_pct"))+1);
