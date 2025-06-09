@@ -266,6 +266,8 @@ class AdmSortingSessionAfwStructure
                                 'CSS' => 'width_pct_100',),
 
                 'task_pct' => array('STEP' => 97,
+                        'SHOW' => true,
+                        'EDIT' => true,
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
