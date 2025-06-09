@@ -968,7 +968,7 @@ class SortingSession extends AFWObject
     }
 
 
-    public function reloadSortingData($lang="ar", $origin_partition = "SCHEDULE", $force=true, $echo=false)
+    public function reloadSortingData($lang="ar", $origin_partition = "SCHEDULE", $force=true, $echo=true)
     {
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -1024,7 +1024,7 @@ class SortingSession extends AFWObject
         $result_arr["total"] = $total;
         $result_arr["success"] = $success;
 
-        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, [], 50);
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr, 50);
     }
 
     
