@@ -110,4 +110,56 @@ class ApplicantApiRequest extends AdmObject
 
         return [$switcher_authorized, $switcher_title, $switcher_text];
     }
+
+
+    public function runMeOn($applicantObject, $lang="ar", $force=false, $echo=false)
+    {
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        /**
+         * @var ApiEndpoint $apiEndPoint
+         */
+        $apiEndPoint = $this->het("api_endpoint_id");
+        //
+        if ($apiEndPoint and $apiEndPoint->sureIs("published")) {
+                $run_date = $this->getVal("run_date");
+                if ($run_date == "0000-00-00") $run_date = "";
+                if ($run_date == "0000-00-00 00:00:00") $run_date = "";
+
+                $refresh_needed = ($this->sureIs("refresh_needed") or $force);
+
+                if ($run_date) $can_refresh = $apiEndPoint->sureIs("can_refresh");
+                else $can_refresh = true;
+
+                if ($refresh_needed and $can_refresh) {
+                        $api_name = $apiEndPoint->getShortDisplay($lang);
+                        $api_endpoint_code = $apiEndPoint->getVal("api_endpoint_code");
+                        $api_runner_method = "run_api_" . $api_endpoint_code;
+                        $api_runner_class = self::loadApiRunner();
+                        list($err, $inf, $war, $tech) = $api_runner_class::$api_runner_method($applicantObject);
+                        if($echo and $err) AfwBatch::print_error($err);
+                        if($echo and $inf) AfwBatch::print_info($err);
+                        if($echo and $war) AfwBatch::print_warning($err);
+                        if($echo and $tech) AfwBatch::print_debugg($err);
+
+                        if ($err) $err_arr[] = "$api_name : " . $err;
+                        if ($inf) $inf_arr[] = "$api_name : " . $inf;
+                        if ($war) $war_arr[] = "$api_name : " . $war;
+                        if ($tech) $tech_arr[] = $tech;
+
+                        if (!$err) {
+                                $this->set("need_refresh", "N");
+                                $this->set("run_date", date("Y-m-d H:i:s"));
+                                $this->commit();
+                        }
+                } 
+                elseif (!$refresh_needed) $war_arr[] = $apiEndPoint . " " . $this->tm("doesn't need update as recently updated at") . " $run_date";
+                elseif (!$can_refresh) $war_arr[] = $apiEndPoint . " " . $this->tm("can not be refreshed and already called at") . " $run_date";
+        } else $war_arr[] = $apiEndPoint . " " . $this->tm("is not published");
+
+
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+    }
 }

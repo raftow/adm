@@ -633,9 +633,21 @@ class SortingSession extends AFWObject
         $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
         $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
                     
+        /* method need review
         $color = "orange";
         $title_ar = "معالجة البيانات وإعادة جلبها إذا دعت الحاجة";
         $methodName = "updateFarzData";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
+                                        "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                        'CONFIRMATION_NEEDED' => true,
+                                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                        'STEP' => $this->stepOfAttribute("statsPanel"));
+        */
+
+        $color = "orange";
+        $title_ar = "إعادة استيراد البيانات لحساب النسبة الموزونة";
+        $methodName = "reloadSortingData";
         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
                                         "ADMIN-ONLY" => true, "BF-ID" => "", 
                                         'CONFIRMATION_NEEDED' => true,
@@ -932,6 +944,39 @@ class SortingSession extends AFWObject
     {
         return "جاري التطوير ...";
     }
+
+
+    public function reloadSortingData($lang="ar", $force=true, $echo=false)
+    {
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        $sorting_step_id = $this->calc("sorting_step_id");
+        $obj = new ApplicationDesire();
+        $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and desire_num = 1");
+        $applicantIdsArr = $obj->loadCol("applicant_id", true);
+        foreach($applicantIdsArr as $applicantId)
+        {
+            if($applicantId)
+            {
+                $objApplicant = Applicant::loadById($applicantId);
+                list($err, $inf, $war, $tech) = $objApplicant->updateSortingData($lang, $force, $echo);
+                if ($err) $err_arr[] = $err;
+                if ($inf) $inf_arr[] = $inf;
+                if ($war) $war_arr[] = $war;
+                if ($tech) $tech_arr[] = $tech;
+                unset($objApplicant);
+            }
+            
+        }
+
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, [], 50);
+    }
+
     
 
     public function recomputeWP($lang="ar")
@@ -1056,7 +1101,7 @@ class SortingSession extends AFWObject
         return $this->runSorting($lang, $preSorting = false);
     }
     
-    
+    /* because need too much optimization it has bloqued the server 
     public function updateFarzData($lang = "ar", $echo=false)
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
@@ -1093,7 +1138,7 @@ class SortingSession extends AFWObject
         /**
          * @var ApplicationDesire $desireItem
          */
-
+/*
          
         foreach($desireList as $desireItem)
         {
@@ -1111,7 +1156,7 @@ class SortingSession extends AFWObject
         $boucle_loadObjectFK = $old_boucle_loadObjectFK;
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
-    }
+    }*/
 
     public function sortingCase()
     {
