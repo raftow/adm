@@ -274,7 +274,7 @@ class AdmSortingSessionAfwStructure
                         'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
                         'UTF8' => false,
                         'TYPE' => 'PCTG',
-                        'READONLY' => true,
+                        'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
 
