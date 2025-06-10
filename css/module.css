@@ -4793,7 +4793,8 @@ div.need_re_sorting, div.need_page_refresh, div.policy_broken {
 
 tr.csr_correct.hzm_row_1>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_1>td.hzm_col_afw_nb_accepted>span,
-tr.csr_correct.hzm_row_1>td.hzm_col_afw_capacity_history>span {
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_capacity_history>span,
+div.updated_by_sorting {
     background-color: #a9a62e;
     color: white;
     text-align: center;
