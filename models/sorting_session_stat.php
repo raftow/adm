@@ -344,7 +344,7 @@ class SortingSessionStat extends AFWObject{
         public function calcCorrect($what="value")
         {
             if($this->getVal("draft")=="N") return 0;
-            if($this->getVal("draft")=="N") return 1;
+            if($this->getVal("draft")=="W") return 1;
             $lang = AfwLanguageHelper::getGlobalLanguage();
             list($yes , $no, $euh) = $this->translateMyYesNo("correct", $what, $lang);
             $nb_accepted = $this->getVal("nb_accepted"); 

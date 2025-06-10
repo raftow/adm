@@ -177,11 +177,11 @@
     $messages["Colors legend"] = "شرح الألوان";
     $messages["Seems good"] = "يبدوا جيدا";
     $messages["need to be fixed"] = "يحتاج قرارا من قبلكم";
-    $messages["need run sorting again"] = "الفرز يحتاج إلى تحديث";
-    $messages["The page need refresh"] = "الصفحة تحتاج إلى تحديث";
-    $messages["violating university policy"] = "مخالف لسياسة الجامعة";
+    $messages["need sorting rerun"] = "الفرز يحتاج إلى تحديث";
+    $messages["page need refresh"] = "الصفحة تحتاج تحديث";
+    $messages["violating policy"] = "مخالف لسياسة الجامعة";
     $messages["reloadSortingData"] = "إعادة جلب بيانات الفرز";
 
-    $messages["This value has been modified by sorting"] = "تم تعديل هذه القيمة عن طريق الفرز";
+    $messages["modified by sorting"] = "قام الفرز بتعديلها";
     // $messages[""] = "";
 ?>

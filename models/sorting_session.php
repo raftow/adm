@@ -1769,10 +1769,10 @@ class SortingSession extends AFWObject
         $title = $this->tm("Colors legend", $lang);
         $Seems_good = $this->tm("Seems good", $lang);
         $need_to_be_fixed = $this->tm("need to be fixed", $lang);
-        $need_run_sorting_again = $this->tm("need run sorting again", $lang);
-        $need_page_refresh = $this->tm("The page need refresh", $lang);
-        $policy_broken = $this->tm("violating university policy", $lang);
-        $updated_by_sorting = $this->tm("This value has been modified by sorting", $lang);
+        $need_run_sorting_again = $this->tm("need sorting rerun", $lang);
+        $need_page_refresh = $this->tm("page need refresh", $lang);
+        $policy_broken = $this->tm("violating policy", $lang);
+        $updated_by_sorting = $this->tm("modified by sorting", $lang);
         return "<div class='legend'>
                 <div class='title'>$title</div>
                 <div class='legend_color good_sorting'>$Seems_good</div>
