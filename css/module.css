@@ -4999,15 +4999,16 @@ div#body_group_show_score {
     background-color: #ccefffc4;
 }
 
-button.btn.refresh_wizard
-{
-    background-color: #549115 !important;
+button.btn.refresh_wizard {
+    background-color: #0e0e0e !important;
     border: none !important;
     color: rgb(255 253 248) !important;
-    /* width: 100px !important; */
-    max-width: 70px !important;
-    /* --webkit-appearance: butt; */
+    max-width: 80px !important;
     min-width: 70px !important;
-    font-size: 14px !important;
+    font-size: 11px !important;
     margin: 0;
+    border-radius: 0;
+    padding: 2px;
+    white-space: break-spaces;
+    line-height: 17px;
 }
