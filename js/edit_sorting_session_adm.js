@@ -1,4 +1,5 @@
-$(document).ready(function() {
+function pageWizardReady()
+{
         $(".wizcapacity").click(function() {
                 var col = 'capacity';
                 var cls = 'SortingSessionStat';
@@ -27,5 +28,9 @@ $(document).ready(function() {
         });
 
         $(".farz-wizard").removeClass("disable"); 
-        
+        $(".btn.refresh_wizard").addClass("hide"); 
+}
+
+$(document).ready(function() {
+       pageWizardReady();         
 });

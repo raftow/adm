@@ -755,7 +755,7 @@ class SortingSession extends AFWObject
             $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
             $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
             
-            $color = "blue";
+            $color = "orange";
             $title_ar = "تنفيذ الفرز";
             $title_en = "Run the sorting";
             $methodName = "runSorting";
@@ -772,7 +772,7 @@ class SortingSession extends AFWObject
             // sufficient we should do hard sorting
             if(((!$recompute_weighted_pctg) or ($recompute_weighted_pctg=="off")) and ($this->sortingHasStarted()))
             {
-                    $color = "green";
+                    $color = "blue";
                     $title_ar = "تحديث الفرز";
                     $title_en = "Update the sorting";
                     $methodName = "lightSorting";
@@ -1770,7 +1770,7 @@ class SortingSession extends AFWObject
         $Seems_good = $this->tm("Seems good", $lang);
         $need_to_be_fixed = $this->tm("need to be fixed", $lang);
         $need_run_sorting_again = $this->tm("need sorting rerun", $lang);
-        $need_page_refresh = $this->tm("page need refresh", $lang);
+        $need_page_refresh = $this->tm("wizard need refresh", $lang);
         $policy_broken = $this->tm("violating policy", $lang);
         $updated_by_sorting = $this->tm("modified by sorting", $lang);
         return "<div class='legend'>

@@ -178,10 +178,11 @@
     $messages["Seems good"] = "يبدوا جيدا";
     $messages["need to be fixed"] = "يحتاج قرارا من قبلكم";
     $messages["need sorting rerun"] = "الفرز يحتاج إلى تحديث";
-    $messages["page need refresh"] = "الصفحة تحتاج تحديث";
+    $messages["wizard need refresh"] = "المساعد يحتاج تحديث";
     $messages["violating policy"] = "مخالف لسياسة الجامعة";
     $messages["reloadSortingData"] = "إعادة جلب بيانات الفرز";
 
     $messages["modified by sorting"] = "قام الفرز بتعديلها";
+    $messages["refresh wizard"] = "تحديث المساعد";
     // $messages[""] = "";
 ?>
