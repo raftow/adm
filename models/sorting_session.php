@@ -1049,7 +1049,10 @@ class SortingSession extends AFWObject
         $application_simulation_id = $this->getVal("application_simulation_id");
         list($total_done, $found, $total, $now_done) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date,null,$sortingCaseIsWP);
 
+
+        $new_task_pct = floor(100.0*$total_done/$total);
         $this->set("started_ind", "N");
+        $this->set("task_pct", $new_task_pct);
         $this->commit();
 
         $result_arr = [];
