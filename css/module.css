@@ -4814,6 +4814,10 @@ div.updated_by_sorting {
     font-style: oblique;
 }
 
+tr.csr_correct.hzm_row_1 div.wizcapacity.ok {
+    background-color: transparent;
+}
+
 .hzm_col_afw_nb_accepted>span, 
 .hzm_col_afw_free>span,
 .hzm_col_afw_capacity_history>span {
