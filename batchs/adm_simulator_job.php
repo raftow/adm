@@ -79,8 +79,8 @@ $total = $result_arr["total"];
 $success = $result_arr["success"];
 $aboots = "n/a";
 $dboots = "n/a";
-$errors = "n/a";
-$warnings = "n/a";
+$errors = count(explode("<br>\n", $err));
+$warnings = count(explode("<br>\n", $war));
 
 
 $row_1 = array('jobname'=>$project_code,
@@ -142,7 +142,11 @@ $recap_colors = array(
 
 AfwBatch::print_data($recap_header,$recap_data, $recap_colors);
 
-
+if($err) AfwBatch::print_error($err);
+if($war) AfwBatch::print_warning($war);
+if($inf) AfwBatch::print_info($inf);
+if($tech) AfwBatch::print_debugg($tech);
+AfwBatch::print_the_log();
 //die("nbrows_migrated = ".$nbrows_migrated);
 
 // send mail to managers

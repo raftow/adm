@@ -967,17 +967,26 @@ class SortingSession extends AFWObject
         return "جاري التطوير ...";
     }
 
+    public function resetTaskPCT($lang="ar")
+    {
+        $this->set("task_pct", 0);
+        $this->commit();
+    }
 
     public function reloadSortingData($lang="ar", $origin_partition = "SCHEDULE", $force=true, $echo=true)
     {
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
         $MODE_BATCH_LOURD = true;
-
+        $old_task_pct=intval($this->getVal("task_pct"));
+        $result_arr = [];
+        $result_arr["total"] = -1;
+        $result_arr["success"] = -1;
         if(!$origin_partition) return ["partition not defined to do reloadSortingData", ""];
+        if($old_task_pct>=100) return ["task finished you can stop the cron if you have scheduled", "", "", "", $result_arr];
         if($origin_partition=="SCHEDULE")
         {
-            $partition = intval($this->getVal("task_pct"));
+            $partition = $old_task_pct;
             $partition = AfwStringHelper::left_complete_len($partition,2,"0") ;
         }
         else $partition = $origin_partition;
@@ -1012,9 +1021,9 @@ class SortingSession extends AFWObject
 
         $tech_arr[] = "total $total success $success";
 
-        if($origin_partition=="SCHEDULE")
+        if(($origin_partition=="SCHEDULE") and ($old_task_pct<=99))
         {
-            $this->set("task_pct", intval($this->getVal("task_pct"))+1);
+            $this->set("task_pct", $old_task_pct+1);
             $this->commit();
         }
 
@@ -1022,7 +1031,7 @@ class SortingSession extends AFWObject
         AfwQueryAnalyzer::resetQueriesExecuted();
 
 
-        $result_arr = [];
+        
         $result_arr["total"] = $total;
         $result_arr["success"] = $success;
 
