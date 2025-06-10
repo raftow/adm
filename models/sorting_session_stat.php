@@ -303,7 +303,7 @@ class SortingSessionStat extends AFWObject{
                         <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
                         <div class='waiting'>$waiting</div>
                     </div>
-                    <button class='btn btn-blue refresh_wizard' value='$refresh_wizard' onclick='pageWizardReady()'/>";
+                    <button class='btn refresh_wizard' value='$refresh_wizard' onclick='pageWizardReady()'/>";
         }
 
         public function acceptExeco($commit=false)

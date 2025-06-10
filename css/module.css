@@ -4998,3 +4998,16 @@ div#header_group_show_score>h5 {
 div#body_group_show_score {
     background-color: #ccefffc4;
 }
+
+button.btn.refresh_wizard
+{
+    background-color: #549115 !important;
+    border: none !important;
+    color: rgb(255 253 248) !important;
+    /* width: 100px !important; */
+    max-width: 70px !important;
+    /* --webkit-appearance: butt; */
+    min-width: 70px !important;
+    font-size: 14px !important;
+    margin: 0;
+}
