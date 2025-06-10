@@ -28,7 +28,7 @@ function pageWizardReady()
         });
 
         $(".farz-wizard").removeClass("disable"); 
-        $(".btn.refresh_wizard").addClass("hide"); 
+        $("button.refresh_wizard").addClass("hide"); 
 
         return false;
 }
