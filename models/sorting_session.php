@@ -83,7 +83,7 @@ class SortingSession extends AFWObject
     {
         $obj = new SortingSession();
         $obj->select_visibilite_horizontale();
-        $obj->where("settings like '%SCHEDULE=%'");
+        $obj->where("settings like '%SCHEDULE=%' and settings not like '%SCHEDULE=off%'");
         if($obj->load()) return $obj;
         else return null;
     }
@@ -1038,16 +1038,16 @@ class SortingSession extends AFWObject
         $indicators_update_date = $this->getVal("stats_date");
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
-        list($done, $found, $total) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date,null,$sortingCaseIsWP);
+        list($total_done, $found, $total, $now_done) = Application::recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date,null,$sortingCaseIsWP);
 
         $this->set("started_ind", "N");
         $this->commit();
 
         $result_arr = [];
         $result_arr["total"] = $total;
-        $result_arr["success"] = $done+$found;
+        $result_arr["success"] = $total_done;
 
-        return ["", $this->tm("done", $lang)." : $done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total (sortingCase=$sortingCase)", "", "", $result_arr];
+        return ["", $this->tm("success", $lang)." : $total_done ".$this->tm("found", $lang)." : $found ".$this->tm("total", $lang)." : $total (sortingCase=$sortingCase)", "", "", $result_arr];
     }
 
     public function updateReadyIndicators($lang="ar")
