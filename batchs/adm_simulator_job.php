@@ -79,8 +79,8 @@ $total = $result_arr["total"];
 $success = $result_arr["success"];
 $aboots = "n/a";
 $dboots = "n/a";
-$errors = count(explode("<br>\n", $err));
-$warnings = count(explode("<br>\n", $war));
+if($err) $errors = count(explode("<br>\n", $err)); else $errors = 0;
+if($war) $warnings = count(explode("<br>\n", $war)); else $warnings = 0;
 
 
 $row_1 = array('jobname'=>$project_code,

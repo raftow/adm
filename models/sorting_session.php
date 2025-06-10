@@ -953,6 +953,7 @@ class SortingSession extends AFWObject
             if($new_capacity)
             {
                 $objSSSItem->set("capacity", $new_capacity);
+                $objSSSItem->set("draft", "W"); // means automatically updated
                 $objSSSItem->commit();
             }
 

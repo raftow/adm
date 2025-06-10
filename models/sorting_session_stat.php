@@ -344,6 +344,7 @@ class SortingSessionStat extends AFWObject{
         public function calcCorrect($what="value")
         {
             if($this->getVal("draft")=="N") return 0;
+            if($this->getVal("draft")=="N") return 1;
             $lang = AfwLanguageHelper::getGlobalLanguage();
             list($yes , $no, $euh) = $this->translateMyYesNo("correct", $what, $lang);
             $nb_accepted = $this->getVal("nb_accepted"); 
@@ -425,9 +426,9 @@ class SortingSessionStat extends AFWObject{
                 $planBranchObj->set("seats_capacity", $this->getVal("capacity"));
                 $planBranchObj->commit();
             }
-            if($farz_edited)
+            if($farz_edited and (!$fields_updated["draft"]))
             {
-                $this->set("draft", "N");
+                $this->set("draft", "N"); // means manually updated
             }
             
             return $this->beforeMaj($id, $fields_updated);

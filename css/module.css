@@ -4772,14 +4772,29 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
 }
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span .wizcapacity {
-    background-color: #a7aa9f;
+    background-color: transparent;
 }
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span,
 div.need_re_sorting, div.need_page_refresh, div.policy_broken {
-    background-color: #949991d1;
+    background-color: #6786c5;
+    color: white;
+    text-align: center;
+    padding: 2px !important;
+    width: 60%;
+    margin-right: 20%;
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: oblique;
+}
+
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_free>span,
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_nb_accepted>span,
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_capacity_history>span {
+    background-color: #a9a62e;
     color: white;
     text-align: center;
     padding: 2px !important;
