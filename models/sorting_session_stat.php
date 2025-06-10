@@ -336,7 +336,7 @@ class SortingSessionStat extends AFWObject{
                         <div class='execo'>=$execo=</div>
                         <div class='wizcapacity dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
                     </div>
-                    <button class='btn refresh_wizard' value='$refresh_wizard' />";
+                    <button class='btn refresh_wizard' value='$refresh_wizard' onclick='pageWizardReady()' >$refresh_wizard</button>";
         }
         
 
