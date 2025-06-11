@@ -385,7 +385,7 @@ class SortingSession extends AFWObject
 
             if($attribute=="task_html")
             {
-                $this->taskIsRunning();
+                return $this->taskIsRunning();
             }
             
 
