@@ -956,8 +956,11 @@ class SortingSession extends AFWObject
             $max_capacity_auto_upgrade = $this->getOptions("MAX_CAPACITY_AUTO_UPGRADE",true);
             if(!$max_capacity_auto_upgrade) $max_capacity_auto_upgrade = 0;
             $execo_suggested_upgrade = $nb_accepted - $original_capacity;
+            $need_fix = ($execo>0);
+            $fixed = null;
             if(($execo_suggested_upgrade>0) and ($execo_suggested_upgrade<=$max_capacity_auto_upgrade))
             {
+                $fixed = true;
                 $new_capacity = $nb_accepted;
                 $upg+=$execo_suggested_upgrade;
             }
@@ -970,6 +973,7 @@ class SortingSession extends AFWObject
                 $execo_suggested_downgrade = $original_capacity + $execo - $nb_accepted;   
                 if(($execo_suggested_downgrade>0) and ($execo_suggested_downgrade<=$max_capacity_auto_downgrade))
                 {
+                    $fixed = true;
                     $new_capacity = $nb_accepted - $execo;
                     $downg+=$execo_suggested_downgrade;
                 }
@@ -981,9 +985,10 @@ class SortingSession extends AFWObject
                 $objSSSItem->set("draft", "W"); // means automatically updated
                 $objSSSItem->commit();
             }
-            else
+            
+            if($need_fix and (!$fixed))
             {
-                if($execo>0) $needIntervention[$objSSSItem->id]=$objSSSItem->getShortDisplay($lang);
+                $needIntervention[$objSSSItem->id]=$objSSSItem->getShortDisplay($lang);
             }
 
         }
