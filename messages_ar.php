@@ -168,6 +168,7 @@
     
 
     $messages["Application process should be closed before start sorting"] = "يجب إغلاق عملية التقديم قبل البدء في الفرز";
+    $messages["Please wait the current task finish, before start sorting"] = "يجب إنتظار انتهاء مهمة التحديث الحالية قبل البدء في الفرز";
     $messages["Please update ready indicators because they are old"] = "يرجى تحديث مؤشرات الجاهزية للفرز لأنها قديمة";
 
     $messages["Few number of applicants, please check"] = "عدد المتقدمين قليل، يرجى التحقق";

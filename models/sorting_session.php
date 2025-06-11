@@ -397,9 +397,13 @@ class SortingSession extends AFWObject
     public function calcSorting_ready_details($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
+        $taskIsRunning = $this->taskIsRunning();
+        if($taskIsRunning) return $this->tm("Please wait the current task finish, before start sorting", $lang)." : $taskIsRunning";
 
         $hours = AfwDateHelper::timeDiffInHours(date("Y-m-d H:i:s"), $this->getVal("stats_date"));
         if($hours>4) return $this->tm("Please update ready indicators because they are old", $lang). " ($hours h)";
+
+        
 
         if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed before start sorting", $lang);
         
@@ -640,7 +644,9 @@ class SortingSession extends AFWObject
         if($simulation_progress_task and ($simulation_progress_task != "off"))
         {
             $task_pct=intval($this->getVal("task_pct"));
-            return (($task_pct>0) and ($task_pct<100));
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            $simulation_progress_trans = $this->tm($this->getOptions("SCHEDULE",true),$lang);
+            return (($task_pct>0) and ($task_pct<100)) ? $simulation_progress_trans : "";
         }
         else return null;
     }
