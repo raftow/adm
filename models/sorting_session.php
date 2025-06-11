@@ -988,7 +988,7 @@ class SortingSession extends AFWObject
             
             if($need_fix and (!$fixed))
             {
-                $needIntervention[$objSSSItem->id]=$objSSSItem->getShortDisplay($lang);
+                $needIntervention[$objSSSItem->id]=$objSSSItem->getShortDisplay($lang)." (execo=$execo>0 fixed=$fixed)";
             }
 
         }
