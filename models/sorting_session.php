@@ -956,7 +956,8 @@ class SortingSession extends AFWObject
             $max_capacity_auto_upgrade = $this->getOptions("MAX_CAPACITY_AUTO_UPGRADE",true);
             if(!$max_capacity_auto_upgrade) $max_capacity_auto_upgrade = 0;
             $execo_suggested_upgrade = $nb_accepted - $original_capacity;
-            $need_fix = ($execo>0);
+            $curr_capacity = $objSSSItem->getVal("capacity");
+            $need_fix = ($nb_accepted != $curr_capacity);
             $fixed = null;
             if(($execo_suggested_upgrade>0) and ($execo_suggested_upgrade<=$max_capacity_auto_upgrade))
             {
