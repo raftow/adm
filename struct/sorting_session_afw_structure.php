@@ -4,6 +4,12 @@
 class AdmSortingSessionAfwStructure
 {
         // token separator = §
+
+        public static function pageCode($uri_items)
+        {
+                return "manage_sorting_session";
+        }
+
         public static function initInstance(&$obj)
         {
                 if ($obj instanceof SortingSession) {
