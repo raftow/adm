@@ -381,6 +381,12 @@ class SortingSession extends AFWObject
             {      
                 return $this->sortingHasStarted();
             }
+
+
+            if($attribute=="task_html")
+            {
+                $this->taskIsRunning();
+            }
             
 
             return true;
@@ -626,6 +632,17 @@ class SortingSession extends AFWObject
     public function sortingHasStarted()
     {
         return $this->sureIs("started_ind");
+    }
+
+    public function taskIsRunning()
+    {
+        $simulation_progress_task = strtolower($this->getOptions("SCHEDULE",true));
+        if($simulation_progress_task and ($simulation_progress_task != "off"))
+        {
+            $task_pct=intval($this->getVal("task_pct"));
+            return (($task_pct>0) and ($task_pct<100));
+        }
+        else return null;
     }
 
     protected function getPublicMethods()
