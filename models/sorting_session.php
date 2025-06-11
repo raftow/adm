@@ -939,11 +939,13 @@ class SortingSession extends AFWObject
 
     public function execoAutoDecisionForSortingStats($application_plan_id,$application_simulation_id,$session_num,$track_num)
     {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
         $objSSS = new SortingSessionStat();
         $objSSS->where("application_plan_id=$application_plan_id and session_num=$session_num and application_simulation_id=$application_simulation_id and track_num = $track_num");
         $objSSSList = $objSSS->loadMany();
         $upg = 0;
         $downg = 0;
+        $needIntervention = [];
         foreach($objSSSList as $objSSSItem)
         {
             $nb_accepted = $objSSSItem->getVal("nb_accepted");
@@ -979,10 +981,14 @@ class SortingSession extends AFWObject
                 $objSSSItem->set("draft", "W"); // means automatically updated
                 $objSSSItem->commit();
             }
+            else
+            {
+                if($execo>0) $needIntervention[$objSSSItem->id]=$objSSSItem->getShortDisplay($lang);
+            }
 
         }
 
-        return [$upg, $downg];
+        return [$upg, $downg, $needIntervention];
                     
     }
 
@@ -1358,7 +1364,7 @@ class SortingSession extends AFWObject
         $sorting_value_1_min = 60;
 
         $this->set("started_ind", "Y");
-        $this->commit();
+        
 
         // @todo : bring from aparameter value
         $MAX_DESIRES = 50;
@@ -1724,12 +1730,26 @@ class SortingSession extends AFWObject
                     $farz_rows=0;
                 }
 
-                list($upg, $downg) = $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted, $branchsWaitingMatrix); 
+                list($upg, $downg, $needIntervention) = $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted, $branchsWaitingMatrix); 
+                foreach($needIntervention as $needInterventionId => $needInterventionDesc)
+                {
+                    if(count($err_arr)==0) $err_arr[] = $this->tm("Need manually action", $lang)." : ";
+                    $err_arr[] = "<a href='#execo_action-$needInterventionId'>$needInterventionDesc</a>";
+                }
                 $info_arr[] = "Capacity upgraded : $upg, Capacity downgraded : $downg, Nb applicants = $nb_applicants, Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]";
             }
                
 
-            
+            if(count($err_arr)==0) 
+            {
+                $this->set("sorting_well_done", "Y");                
+            }
+            else
+            {
+                $this->set("sorting_well_done", "N");                
+            }
+
+            $this->commit();
         }
 
         

@@ -181,6 +181,13 @@ class AdmSortingSessionAfwStructure
 				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => true,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
+                'sorting_well_done' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  'STEP' => 1, 
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
+                                'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => true,  'DNA' => true, 
+				'CSS' => 'width_pct_25', ),
+
 
                 'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                                 'EDIT' => true,  'READONLY' => true, 

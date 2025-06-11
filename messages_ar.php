@@ -185,5 +185,6 @@
 
     $messages["modified by sorting"] = "قام الفرز بتعديلها";
     $messages["refresh wizard"] = "تحديث المساعد";
+    $messages["Need manually action"] = "يحتاج تدخل يدوي";
     // $messages[""] = "";
 ?>
