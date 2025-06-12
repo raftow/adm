@@ -908,6 +908,7 @@ class SortingSession extends AFWObject
         {
             $applicationModelBranchItem = $applicationPlanBranchItem->het("application_model_branch_id");
             $waiting = $branchsWaitingMatrix[$applicationPlanBranchItem->id];
+            if(!$waiting) $waiting = 0;
             // foreach($pathData as $spath => $spathLabel)
             // for ($spath = $track_num; $spath <= $track_num; $spath++) 
             $spath = $track_num;
@@ -1743,6 +1744,7 @@ class SortingSession extends AFWObject
                                     }
                                     $war_arr[] = "audit desire num $desire_num_to_assign (APB-ID=$application_plan_branch_id_to_assign) not assigned, ".$log_not_ass;
                                 }
+
                                 if(!$branchsWaitingMatrix[$application_plan_branch_id_to_assign]) $branchsWaitingMatrix[$application_plan_branch_id_to_assign] = 1;
                                 else $branchsWaitingMatrix[$application_plan_branch_id_to_assign]++;
                             }
