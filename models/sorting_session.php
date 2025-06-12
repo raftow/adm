@@ -897,7 +897,7 @@ class SortingSession extends AFWObject
         $sql_insert_into = "INSERT INTO ".$server_db_prefix."adm.sorting_session_stat 
                        (`created_by`, `updated_by`, `created_at`, `updated_at`, active, version,
                         `application_plan_id`, `session_num`, `application_simulation_id`, `track_num`,
-                        `application_plan_branch_id`, `branch_order`, `original_capacity`, `capacity`, `execo`, min_weighted_percentage,
+                        `application_plan_branch_id`, `branch_order`, `original_capacity`, `capacity`, `execo`, min_weighted_percentage, cond_weighted_percentage,
                         `min_app_score1`, `min_app_score2`, `min_app_score3`, min_show_score , max_show_score, 
                         nb_accepted, min_acc_score1, min_acc_score2, min_acc_score3, waiting) VALUES ";
 
@@ -927,6 +927,7 @@ class SortingSession extends AFWObject
                     $min_app_score2 = $applicationPlanBranchItem->getVal("min_app_score2");
                     $min_app_score3 = $applicationPlanBranchItem->getVal("min_app_score3");
                     $min_weighted_percentage = $applicationPlanBranchItem->getVal("min_weighted_percentage");
+                    $cond_weighted_percentage = $applicationPlanBranchItem->getVal("cond_weighted_percentage");
                     if(!$execo) $execo = 0;
                     if(!$min_weighted_percentage) $min_weighted_percentage = 0;
                     if(!$min_acc_score1) $min_acc_score1 = 0;
@@ -944,7 +945,7 @@ class SortingSession extends AFWObject
 
                     $sql_values .= "($me,$me,'$now','$now', 'Y', 0,
                     $application_plan_id, $session_num, $application_simulation_id, $track_num, 
-                    $application_plan_branch_id, $branch_order, $original_capacity, $capacity, $execo, $min_weighted_percentage,
+                    $application_plan_branch_id, $branch_order, $original_capacity, $capacity, $execo, $min_weighted_percentage, $cond_weighted_percentage,
                     $min_app_score1, $min_app_score2, $min_app_score3, $min_show_score , $max_show_score,
                     $nb_accepted, $min_acc_score1, $min_acc_score2, $min_acc_score3, $waiting),\n";
                     
