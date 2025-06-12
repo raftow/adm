@@ -22,7 +22,7 @@
     $messages["the application plan has been successfully enabled"] = "تم تنشيط خطة القبول بنجاح";
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
-
+    $messages["the sorting session has been successfully validated"] = "تم اعتماد نتائج الفرز بنجاح";
     $messages["the sorting session has been successfully published"] = "تم نشر نتائج الفرز بنجاح";
     $messages["the sorting session has been successfully unpublished"] = "تم الغاء نشر نتائج الفرز";
 
@@ -186,5 +186,7 @@
     $messages["modified by sorting"] = "قام الفرز بتعديلها";
     $messages["refresh wizard"] = "تحديث المساعد";
     $messages["Need manually action"] = "يحتاج تدخل يدوي";
+
+    $messages["You agree that the sorting data is correct and ready for approve"] = "أنت توافق على أن بيانات الفرز صحيحة وجاهزة للاعتماد";
     // $messages[""] = "";
 ?>

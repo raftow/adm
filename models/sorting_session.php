@@ -280,33 +280,73 @@ class SortingSession extends AFWObject
     }
 
 
-    public function validate($lang = "ar", $commit = true)
+    public function validateSorting($lang = "ar", $commit = true)
     {
         $err_arr = [];
         $inf_arr = [];
         $war_arr = [];
         $tech_arr = [];
         
-        $this->set("validated", "Y");
-        // $validate_date = date("Y-m-d");
-        // $this->set("validate_date", $validate_date);
-        // $days_between_validate_and_publish_sorting = AfwSession::config("days_between_validate_and_publish_sorting", 2);
-        // $publish_date = AfwDateHelper::shiftGregDate($validate_date, $days_between_validate_and_publish_sorting);
-        // $this->set("publish_date", $publish_date);
-        $this->set("published", "N");
-        // $days_between_publish_sorting_and_last_approve = AfwSession::config("days_between_publish_sorting_and_last_approve", 3);
-        // $last_approve_date = AfwDateHelper::shiftGregDate($publish_date, $days_between_publish_sorting_and_last_approve);
-        // $this->set("last_approve_date", $last_approve_date);
-        $this->set("upgraded", "N");
         
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        // $applicationPlanObj = $this->het("application_plan_id");
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+        $session_num = $this->getVal("session_num");        
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
+        // take a copy of applicatin desire status before approve
+        $app_des_bef_vld_srt_tmp_table = $server_db_prefix."adm.`adesire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num;
+        // $app_des_bef_vld_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_des_bef_vld_srt_tmp_table;";
+        // AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_drop);
 
+        $app_des_bef_vld_srt_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $app_des_bef_vld_srt_tmp_table as select applicant_id,application_plan_id,application_simulation_id,desire_num,desire_status_enum, comments from ".$server_db_prefix."adm.application_desire where application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id";
+        AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_create);
+        $sortingGroupList = $this->get("sortingGroupList");
+        
+        $maxPaths = SortingPath::nbPaths($application_model_id);
+        $sortingGroupCount = count($sortingGroupList);
+        
+        foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+        {
+            for ($spath = 1; $spath <= $maxPaths; $spath++) 
+            {
+                // apply new desire status approved
+                $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
+                $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+                $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
+
+                $sortingRows = AfwDatabase::db_recup_rows("select * from $final_sorting_table where application_plan_branch_id > 0");
+                foreach($sortingRows as $sortingRow)
+                {
+                    // update the assigned desire
+                    $sql_update = "";
+                    // update the lower classed desire
+                    // @todo
+                    // update the higher classed desire
+                    // @todo
+                }
+            }    
+        }
+        
+        /* $sql_create_final = "CREATE TABLE $final_sorting_table (
+            applicant_id bigint(20) NOT NULL,
+            sorting_num int DEFAULT NULL, 
+            assigned_desire_num smallint DEFAULT NULL, 
+            application_plan_branch_id int(11) NULL, 
+            PRIMARY KEY (`applicant_id`)";*/
+
+          
+        $this->set("validated", "Y");
+        $this->set("published", "N");
+        $this->set("upgraded", "N");
         if ($commit) $this->commit();
-        $inf_arr[] = $this->tm("the sorting session has been successfully published");
+        $inf_arr[] = $this->tm("the sorting session has been successfully validated");
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
 
-    public function unvalidate($lang = "ar", $commit = true)
+    public function unvalidateSorting($lang = "ar", $commit = true)
     {
         $err_arr = [];
         $inf_arr = [];
@@ -753,24 +793,7 @@ class SortingSession extends AFWObject
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                                                 'STEP' => $this->stepOfAttribute("published"));
             }
-        }    
-        elseif($this->isExecuted())
-        {
-            $methodConfirmationWarningEn = "You formally agree that the sorting results are correct and ready for publish";
-            $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
-            $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
-            $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
-            
-            $color = "green";
-            $title_ar = "اعتماد الفرز";
-            $methodName = "validate";
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
-                                                "ADMIN-ONLY" => true, "BF-ID" => "", 
-                                                'CONFIRMATION_NEEDED' => true,
-                                                'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
-                                                'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
-                                                'STEP' => $this->stepOfAttribute("published"));
-        }
+        }            
         elseif($this->sureIs("sorting_ready"))
         {
             $methodConfirmationWarningEn = "You agree that the application data and desires are correct and ready for sorting";
@@ -802,6 +825,26 @@ class SortingSession extends AFWObject
                     $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
                                                         "ADMIN-ONLY" => true, "BF-ID" => "", 
                                                         'STEPS' => 'all');
+            }
+
+            if($this->isExecuted() and $this->sureIs("sorting_well_done"))
+            {
+                $methodConfirmationWarningEn = "You agree that the sorting data is correct and ready for approve";
+                $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+                $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                
+                $color = "green";
+                $title_ar = "اعتماد الفرز";
+                $title_en = "Approve the sorting";
+                $methodName = "validateSorting";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
+                                                    "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                                    'CONFIRMATION_NEEDED' => true,
+                                                    'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                                    'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                                    'STEP' => $this->stepOfAttribute("validated"));
+                
             }
             
 
@@ -1321,14 +1364,13 @@ class SortingSession extends AFWObject
 
     public function runSorting($lang = "ar", $preSorting = true)
     {
-
         /*@todo
 
         just to be able to do queries like :
  
         INSERT INTO uoh_adm.application_plan_branch(id,min_app_score1) VALUES (81,-88),(86,-88),(87,-88),(88,-88),(89,-88),(90,-88),(91,-88),(92,-88),(82,-88),(83,-88),(128,-88),(115,-88),(80,-88),(117,-88),(126,-88),(116,-88),(121,-88),(118,-88),(124,-88),(123,-88),(122,-88),(119,-88),(58,-88),(57,-88),(59,-88),(62,-88),(64,-88),(127,-88),(129,-88),(125,-88),(120,-88),(60,-88),(61,-88),(72,-88),(105,-88),(78,-88),(77,-88),(73,-88),(63,-88),(67,-88),(93,-88),(96,-88),(133,-88),(84,-88),(130,-88),(66,-88),(70,-88),(68,-88),(71,-88),(65,-88),(113,-88),(111,-88),(97,-88),(112,-88),(106,-88),(94,-88),(95,-88),(103,-88),(108,-88),(102,-88),(99,-88),(110,-88),(131,-88),(132,-88),(101,-88),(79,-88),(76,-88),(75,-88),(74,-88),(85,-88),(114,-88),(135,-88),(134,-88),(104,-88),(69,-88),(107,-88),(100,-88),(98,-88),(109,-88) ON DUPLICATE KEY UPDATE min_app_score1=VALUES(min_app_score1)
 
-        we need :
+        we need :created_by,created_at,updated_by,updated_at
 
         ALTER TABLE `application_plan_branch`
             CHANGE `created_by` `created_by` int NULL AFTER `id`,
@@ -1482,6 +1524,11 @@ class SortingSession extends AFWObject
                 $branchsWaitingMatrix = [];
                 $info_arr[]  = "For SPATH{$spath} : ";
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($application_plan_id, $sortingGroupId, $spath);
+                if($sorting_with_only_weighted_percentage)
+                {
+                    $branchsCondWPMatrix = ApplicationPlanBranch::getBranchsCondWPMatrix($application_plan_id, $sortingGroupId, $spath);
+                }
+                
                 $branchsCapacityMatrixStart = $branchsCapacityMatrix;
                 $branchsLastScoreMatrix = [];
                 if(!$sorting_with_only_weighted_percentage) $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath);
@@ -1615,7 +1662,10 @@ class SortingSession extends AFWObject
                     {
                         $desire_num_to_assign++;
                         $application_plan_branch_id_to_assign = $applicantsDesiresMatrix[$applicant_id][$desire_num_to_assign];
-                        if($application_plan_branch_id_to_assign)
+                        $branchCondWP = $branchsCondWPMatrix[$application_plan_branch_id_to_assign];
+                        $new_score0 = $new_score[0];
+                        $branchCondWPIsOk = ((!$sorting_with_only_weighted_percentage) or ($new_score0>=$branchCondWP));
+                        if($application_plan_branch_id_to_assign and $branchCondWPIsOk)
                         {
                             $sameScore = false;
                             if(self::isSameScore($new_score, $branchsLastScoreMatrix[$application_plan_branch_id_to_assign], $sf1["field_name"], $sf2["field_name"], $sf3["field_name"]))
@@ -1695,6 +1745,21 @@ class SortingSession extends AFWObject
                                 }
                                 if(!$branchsWaitingMatrix[$application_plan_branch_id_to_assign]) $branchsWaitingMatrix[$application_plan_branch_id_to_assign] = 1;
                                 else $branchsWaitingMatrix[$application_plan_branch_id_to_assign]++;
+                            }
+                        }
+                        else
+                        {
+                            if($applicant_id == $object_id_for_audit)
+                            {
+                                if($new_score0<$branchCondWP)
+                                {
+                                    $log_not_ass = "<b>branch id=$application_plan_branch_id_to_assign skipped because insufficiant WP = $new_score0 </b>";
+                                }
+                                else
+                                {
+                                    $log_not_ass = "<h1><b>branch strange case id=$application_plan_branch_id_to_assign/score=$new_score0/cond=$branchCondWP</b></h1>";
+                                }
+                                $war_arr[] = "audit desire num $desire_num_to_assign (APB-ID=$application_plan_branch_id_to_assign) not assigned, ".$log_not_ass;
                             }
                         }
                         
