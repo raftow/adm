@@ -20,6 +20,11 @@ class ServiceRequestEnTranslator{
 	$trad["service_request"]["description"] = "description";
 	$trad["service_request"]["applicant_file_id"] = "applicant file";
 	$trad["service_request"]["application_plan_id"] = "application plan";
+	$trad["service_request"]["request_status_id"] = "request status";
+	$trad["service_request"]["request_type_id"] = "request type";
+	$trad["service_request"]["status_comment"] = "status comment";
+    $trad["service_request"]["status_date"] = "status date";
+    $trad["service_request"]["applicant_id"] = "applicant";
 
         return $trad;
         }

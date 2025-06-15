@@ -34,5 +34,41 @@
                         return false;
                 }
 
+                public function beforeMaj($id, $fields_updated)
+                {
+                        if($fields_updated["request_status"])      
+                        {
+                                $this->set("status_date", "now()");
+                               
+                        }
+                        
+
+                        return true;
+                }
+
+                public function calcApplicantIdLink($what = "value")
+                {
+                        $app_id = $this->getVal("applicant_id");
+                        
+                        if($app_id)
+                        {
+                                return "<a href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$app_id."'>المتقدم</a>";
+                        }else{
+                                return "بدون حساب".$app_id;
+                        }
+                }
+                public function calcapplicantFileIdLink($what = "value")
+                {
+                        if($this->getVal("applicant_file_id"))
+                        {
+                                $obj = ApplicantFile::loadById($this->getVal("applicant_file_id"));
+                                return "<a href='https://objectstorage.me-jeddah-1.oraclecloud.com/p/RMGCewYtsTMiZBX2x_Tl6BkeE_qN7LER9Ls6QFkAkPWtTneKg159OcuLlx8i_ueQ/n/axrrw2c1zxeb/b/admission_dev/o/".$obj->name_ar."'>".$obj->name_ar."</a>";
+                        
+                        }else{
+                                return "لا مرفقات";
+                        }
+                       
+                }
+
         }
 ?>
