@@ -151,6 +151,32 @@ class Applicant extends AdmObject
                 return false;
         }
 
+
+        public function updateSortingData($lang="ar", $force=true, $echo=false, $ignorePublish = false)
+        {
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                $api_runner_class = self::loadApiRunner();
+                if ($this->id) 
+                {                        
+                        $sorting_apis = $api_runner_class::sorting_apis();
+                        // create register apis call requests to be done by applicant-api-request-job                        
+                        foreach ($sorting_apis as $sorting_api) {
+                                $aepObj = ApiEndpoint::loadByMainIndex($sorting_api);
+                                if (!$aepObj) throw new AfwRuntimeException("the register API $sorting_api is not found in DB");
+                                $applicantApiRequestObject = ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
+                                list($err, $inf, $war, $tech) = $applicantApiRequestObject->runMeOn($this, $lang, $force, $echo, $ignorePublish);
+                                if ($err) $err_arr[] = $err;
+                                if ($inf) $inf_arr[] = $inf;
+                                if ($war) $war_arr[] = $war;
+                                if ($tech) $tech_arr[] = $tech;
+                        }
+                }
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+        }
         
 
         public function beforeMaj($id, $fields_updated)
@@ -886,49 +912,11 @@ class Applicant extends AdmObject
                                         if($this->$stopMethod()) break;
                                 }
 
-                                /**
-                                 * @var ApiEndpoint $apiEndPoint
-                                 */
-                                $apiEndPoint = $applicantApiRequestItem->het("api_endpoint_id");
-                                //
-                                if ($apiEndPoint and $apiEndPoint->sureIs("published")) {
-                                        $run_date = $applicantApiRequestItem->getVal("run_date");
-                                        if ($run_date == "0000-00-00") $run_date = "";
-                                        if ($run_date == "0000-00-00 00:00:00") $run_date = "";
-
-                                        $refresh_needed = ($applicantApiRequestItem->sureIs("refresh_needed") or $force);
-
-
-
-
-                                        if ($run_date) $can_refresh = $apiEndPoint->sureIs("can_refresh");
-                                        else $can_refresh = true;
-
-                                        if ($refresh_needed and $can_refresh) {
-                                                $api_name = $apiEndPoint->getShortDisplay($lang);
-                                                $api_endpoint_code = $apiEndPoint->getVal("api_endpoint_code");
-                                                $api_runner_method = "run_api_" . $api_endpoint_code;
-                                                $api_runner_class = self::loadApiRunner();
-                                                list($err, $inf, $war, $tech) = $api_runner_class::$api_runner_method($this);
-                                                if($echo and $err) AfwBatch::print_error($err);
-                                                if($echo and $inf) AfwBatch::print_info($err);
-                                                if($echo and $war) AfwBatch::print_warning($err);
-                                                if($echo and $tech) AfwBatch::print_debugg($err);
-
-                                                if ($err) $err_arr[] = "$api_name : " . $err;
-                                                if ($inf) $inf_arr[] = "$api_name : " . $inf;
-                                                if ($war) $war_arr[] = "$api_name : " . $war;
-                                                if ($tech) $tech_arr[] = $tech;
-
-                                                if (!$err) {
-                                                        $applicantApiRequestItem->set("need_refresh", "N");
-                                                        $applicantApiRequestItem->set("run_date", date("Y-m-d H:i:s"));
-                                                        $applicantApiRequestItem->commit();
-                                                }
-                                        } 
-                                        elseif (!$refresh_needed) $war_arr[] = $apiEndPoint . " " . $this->tm("doesn't need update as recently updated at") . " $run_date";
-                                        elseif (!$can_refresh) $war_arr[] = $apiEndPoint . " " . $this->tm("can not be refreshed and already called at") . " $run_date";
-                                } else $war_arr[] = $apiEndPoint . " " . $this->tm("is not published");
+                                list($err, $inf, $war, $tech) = $applicantApiRequestItem->runMeOn($this, $lang, $force, $echo);
+                                if ($err) $err_arr[] = $err;
+                                if ($inf) $inf_arr[] = $inf;
+                                if ($war) $war_arr[] = $war;
+                                if ($tech) $tech_arr[] = $tech;
                         }
                 } catch (Exception $e) {
                         $err_arr[] = $e->getMessage();

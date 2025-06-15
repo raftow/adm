@@ -287,6 +287,8 @@ class SortingSessionStat extends AFWObject{
                 $text = $this->tm("There are no waiting list and you have not reached the wanted seats, you may need to review your minimum accepted weighted percentage", $lang);
                 return AfwShowHelper::tooltipText($text);
             }
+
+            $refresh_wizard = $this->tm("refresh wizard", $lang);
             $min_acc_score1 = floatval($this->getVal("min_acc_score1"));
             if($free<=0) return "";
             $z = ($free > $waiting) ? $free : $waiting;
@@ -300,7 +302,8 @@ class SortingSessionStat extends AFWObject{
             return "<div class='farz-wizard disable'>
                         <div class='wiz_min_weigh_pctg elike' idobj='$id' val='$recommended'>$recommended</div>
                         <div class='waiting'>$waiting</div>
-                    </div>";
+                    </div>
+                    <button class='btn refresh_wizard' value='$refresh_wizard' onclick='pageWizardReady()' >$refresh_wizard</button>";
         }
 
         public function acceptExeco($commit=false)
@@ -318,6 +321,7 @@ class SortingSessionStat extends AFWObject{
 
         public function calcExeco_action($what="value")
         {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
             $id = $this->id;
             $execo = $this->getVal("execo");
             $valueLike = $this->getVal("nb_accepted");
@@ -326,11 +330,13 @@ class SortingSessionStat extends AFWObject{
             if($diffLike>0) $diffLike = "+".$diffLike;
             $diffUnLike = $valueUnLike - $this->getVal("capacity");
             if($diffUnLike>0) $diffUnLike = "+".$diffUnLike;
+            $refresh_wizard = $this->tm("refresh wizard", $lang);
             return "<div class='farz-wizard disable'>
                         <div class='wizcapacity elike' idobj='$id' val='$valueLike'>$diffLike</div>
                         <div class='execo'>=$execo=</div>
                         <div class='wizcapacity dlike' idobj='$id' val='$valueUnLike'>$diffUnLike</div>
-                    </div>";
+                    </div>
+                    <button class='btn refresh_wizard' value='$refresh_wizard' onclick='pageWizardReady()' >$refresh_wizard</button>";
         }
         
 
@@ -344,6 +350,7 @@ class SortingSessionStat extends AFWObject{
         public function calcCorrect($what="value")
         {
             if($this->getVal("draft")=="N") return 0;
+            if($this->getVal("draft")=="W") return 1;
             $lang = AfwLanguageHelper::getGlobalLanguage();
             list($yes , $no, $euh) = $this->translateMyYesNo("correct", $what, $lang);
             $nb_accepted = $this->getVal("nb_accepted"); 
@@ -425,9 +432,9 @@ class SortingSessionStat extends AFWObject{
                 $planBranchObj->set("seats_capacity", $this->getVal("capacity"));
                 $planBranchObj->commit();
             }
-            if($farz_edited)
+            if($farz_edited and (!$fields_updated["draft"]))
             {
-                $this->set("draft", "N");
+                $this->set("draft", "N"); // means manually updated
             }
             
             return $this->beforeMaj($id, $fields_updated);

@@ -22,7 +22,7 @@
     $messages["the application plan has been successfully enabled"] = "تم تنشيط خطة القبول بنجاح";
     $messages["the application plan has been successfully disabled"] = "تم تعطيل خطة القبول";
     $messages["used in some applications as applicant qualification"] = "مستخدم كمؤهل علمي في بعض التقديمات";
-
+    $messages["the sorting session has been successfully validated"] = "تم اعتماد نتائج الفرز بنجاح";
     $messages["the sorting session has been successfully published"] = "تم نشر نتائج الفرز بنجاح";
     $messages["the sorting session has been successfully unpublished"] = "تم الغاء نشر نتائج الفرز";
 
@@ -168,6 +168,7 @@
     
 
     $messages["Application process should be closed before start sorting"] = "يجب إغلاق عملية التقديم قبل البدء في الفرز";
+    $messages["Please wait the current task finish, before start sorting"] = "يجب إنتظار انتهاء مهمة التحديث الحالية قبل البدء في الفرز";
     $messages["Please update ready indicators because they are old"] = "يرجى تحديث مؤشرات الجاهزية للفرز لأنها قديمة";
 
     $messages["Few number of applicants, please check"] = "عدد المتقدمين قليل، يرجى التحقق";
@@ -177,8 +178,15 @@
     $messages["Colors legend"] = "شرح الألوان";
     $messages["Seems good"] = "يبدوا جيدا";
     $messages["need to be fixed"] = "يحتاج قرارا من قبلكم";
-    $messages["need run sorting again"] = "الفرز يحتاج إلى تحديث";
-    $messages["The page need refresh"] = "الصفحة تحتاج إلى تحديث";
-    $messages["violating university policy"] = "مخالف لسياسة الجامعة";
+    $messages["need sorting rerun"] = "الفرز يحتاج إلى تحديث";
+    $messages["wizard need refresh"] = "المساعد يحتاج تحديث";
+    $messages["violating policy"] = "مخالف لسياسة الجامعة";
+    $messages["reloadSortingData"] = "إعادة جلب بيانات الفرز";
+
+    $messages["modified by sorting"] = "قام الفرز بتعديلها";
+    $messages["refresh wizard"] = "تحديث المساعد";
+    $messages["Need manually action"] = "يحتاج تدخل يدوي";
+
+    $messages["You agree that the sorting data is correct and ready for approve"] = "أنت توافق على أن بيانات الفرز صحيحة وجاهزة للاعتماد";
     // $messages[""] = "";
 ?>

@@ -48,7 +48,8 @@ $print_important = true;
                               
 $recap_data = array();
 
-$objSim = ApplicationSimulation::loadById(3);
+/*
+$objSim = ApplicationSimulation::loadScheduled();
 
 list($err, $inf, $war, $tech, $result_arr) = $objSim->runSimulation($lang);
 
@@ -68,18 +69,18 @@ $row_0 = array('jobname'=>$project_code,
         );
 
 $recap_data[] = $row_0;
+*/
 
-/*
-$objSS = SortingSession::loadById(1);
+$objSS = SortingSession::loadScheduled();
 
-list($err, $inf, $war, $tech, $result_arr) = $objSS->updateFarzData($lang,true);
+list($err, $inf, $war, $tech, $result_arr) = $objSS->runTheSchedule($lang);
 
 $total = $result_arr["total"];
-$success = $total;
+$success = $result_arr["success"];
 $aboots = "n/a";
 $dboots = "n/a";
-$errors = "n/a";
-$warnings = "n/a";
+if($err) $errors = count(explode("<br>\n", $err)); else $errors = 0;
+if($war) $warnings = count(explode("<br>\n", $war)); else $warnings = 0;
 
 
 $row_1 = array('jobname'=>$project_code,
@@ -90,7 +91,7 @@ $row_1 = array('jobname'=>$project_code,
         );
 
 $recap_data[] = $row_1;
-*/
+
 // $jb_run->setNewItemValue($row_0["jobname"],"errors",$nb_errors);
 // $jb_run->setNewItemValue($row_0["jobname"],"surveyed",$nb_surveyed);
 // $jb_run->setNewItemValue($row_0["jobname"],"migrated",$nbrows_migrated);
@@ -141,7 +142,11 @@ $recap_colors = array(
 
 AfwBatch::print_data($recap_header,$recap_data, $recap_colors);
 
-
+if($err) AfwBatch::print_error($err);
+if($war) AfwBatch::print_warning($war);
+if($inf) AfwBatch::print_info($inf);
+if($tech) AfwBatch::print_debugg($tech);
+AfwBatch::print_the_log();
 //die("nbrows_migrated = ".$nbrows_migrated);
 
 // send mail to managers

@@ -53,6 +53,12 @@ class ApplicationPlanBranch extends AdmObject
         }
 
 
+        public static function getBranchsCondWPMatrix($application_plan_id, $sorting_group_id)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                return AfwDatabase::db_recup_index("SELECT id, cond_weighted_percentage from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "cond_weighted_percentage");
+        }
+
         public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track)
         {
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");

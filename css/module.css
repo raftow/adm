@@ -4712,16 +4712,23 @@ tr.csr_correct.hzm_row_W>td.hzm_col_afw_nb_accepted>span {
     font-size: 16px;
     font-weight: normal;
 }
-.legend>.title{
-    max-width: 180px;
+
+.legend>.title {
+    max-width: 1180px;
+    width: 1180px;
     float: right;
     margin: 0;
+    margin-bottom: 8px;
+    text-align: center;
+    margin-right: 20px;
 }
+
 .legend_color {
     width: auto;
-    max-width: 180px;
-    margin-right: 15px !important;
+    max-width: 160px;
+    margin-right: 5px !important;
     float: right;
+    font-size: 14px !important;
 }
 
 tr.csr_correct.hzm_row_Y>td.hzm_col_afw_free>span,
@@ -4772,14 +4779,14 @@ tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span {
 }
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span .wizcapacity {
-    background-color: #a7aa9f;
+    background-color: transparent;
 }
 
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_free>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_nb_accepted>span,
 tr.csr_correct.hzm_row_0>td.hzm_col_afw_capacity_history>span,
 div.need_re_sorting, div.need_page_refresh, div.policy_broken {
-    background-color: #949991d1;
+    background-color: #6786c5;
     color: white;
     text-align: center;
     padding: 2px !important;
@@ -4791,6 +4798,26 @@ div.need_re_sorting, div.need_page_refresh, div.policy_broken {
     font-style: oblique;
 }
 
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_free>span,
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_nb_accepted>span,
+tr.csr_correct.hzm_row_1>td.hzm_col_afw_capacity_history>span,
+div.updated_by_sorting {
+    background-color: #a9a62e;
+    color: white;
+    text-align: center;
+    padding: 2px !important;
+    width: 60%;
+    margin-right: 20%;
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: oblique;
+}
+
+tr.csr_correct.hzm_row_1 div.wizcapacity.ok {
+    background-color: transparent;
+}
+
 .hzm_col_afw_nb_accepted>span, 
 .hzm_col_afw_free>span,
 .hzm_col_afw_capacity_history>span {
@@ -4800,7 +4827,7 @@ div.need_re_sorting, div.need_page_refresh, div.policy_broken {
 }
 
 table.grid.obsolete th {
-    background-color: #a7aba5 !important;
+    background-color: #6786c5 !important;
     color: white;
     font-weight: normal !important;
     font-style: oblique;
@@ -4970,4 +4997,18 @@ div#header_group_show_score>h5 {
 
 div#body_group_show_score {
     background-color: #ccefffc4;
+}
+
+button.btn.refresh_wizard {
+    background-color: #0e0e0e !important;
+    border: none !important;
+    color: rgb(255 253 248) !important;
+    max-width: 80px !important;
+    min-width: 70px !important;
+    font-size: 11px !important;
+    margin: 0;
+    border-radius: 0;
+    padding: 2px;
+    white-space: break-spaces;
+    line-height: 17px;
 }

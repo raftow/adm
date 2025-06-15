@@ -39,6 +39,8 @@ class SortingSessionArTranslator{
 		$trad["sorting_session"]["sorting path stats"] = "الاحصائيات حسب مسارات الفرز";
 		
 		$trad["sorting_session"]["started_ind"] = "بدأ الفرز";
+		$trad["sorting_session"]["sorting_well_done"] = "الفرز صحيح ومكتمل";
+		
 		$trad["sorting_session"]["statList"] = "احصائيات الفرز";
 
 		$trad["sorting_session"]["applicant_id"] = "رقم تسلسلي تحت المراقبة";

@@ -4,6 +4,12 @@
 class AdmSortingSessionAfwStructure
 {
         // token separator = §
+
+        public static function pageCode($uri_items)
+        {
+                return "manage_sorting_session";
+        }
+
         public static function initInstance(&$obj)
         {
                 if ($obj instanceof SortingSession) {
@@ -175,6 +181,13 @@ class AdmSortingSessionAfwStructure
 				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => true,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
+                'sorting_well_done' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  'STEP' => 1, 
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
+                                'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+				'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => true,  'DNA' => true, 
+				'CSS' => 'width_pct_25', ),
+
 
                 'application_ongoing' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                                 'EDIT' => true,  'READONLY' => true, 
@@ -264,6 +277,34 @@ class AdmSortingSessionAfwStructure
                                 'TYPE' => 'TEXT',  'STEP' => 3, 'READONLY'=>true,
                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                 'CSS' => 'width_pct_100',),
+
+                'task_pct' => array('STEP' => 97,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'PCTG',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'task_html' => array(
+                        'STEP' => 3,
+                        'CATEGORY' => "FORMULA",
+                        'TYPE' => 'TEXT',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'CSS' => 'width_pct_100',
+                        'INPUT_WIDE' => true
+                ),
+
 
                                         'sorting_step_id' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
                                                                 'EDIT' => true,  'READONLY' => true,
