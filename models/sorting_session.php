@@ -287,6 +287,11 @@ class SortingSession extends AdmObject
         $war_arr = [];
         $tech_arr = [];
         
+        global $MODE_BATCH_LOURD;
+        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+        $MODE_BATCH_LOURD = true;
+
+        
         
         $application_simulation_id = $this->getVal("application_simulation_id");
         // $applicationPlanObj = $this->het("application_plan_id");
@@ -295,6 +300,9 @@ class SortingSession extends AdmObject
         $session_num = $this->getVal("session_num");        
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
         $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
+
+        AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
+
         // take a copy of applicatin desire status before approve
         $app_des_bef_vld_srt_tmp_table = $server_db_prefix."adm.`adesire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."`";
         // $app_des_bef_vld_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_des_bef_vld_srt_tmp_table;";
@@ -306,7 +314,8 @@ class SortingSession extends AdmObject
         
         $maxPaths = SortingPath::nbPaths($application_model_id);
         $sortingGroupCount = count($sortingGroupList);
-        
+        $updates_nb = 0;
+        $sql_update = "BEGIN";
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
         {
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
@@ -325,23 +334,41 @@ class SortingSession extends AdmObject
                     $sorting_num = $sortingRow["sorting_num"];
                     $application_plan_branch_id = $sortingRow["application_plan_branch_id"];
                     $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
-                    $sql_update = "UPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id";
-                    AfwDatabase::db_query($sql_update);
+                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
+                    $updates_nb++;
+                    
                     // update the lower classed desire
                     $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
-                    $sql_update = "UPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num>$desire_num";
-                    AfwDatabase::db_query($sql_update);
+                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num>$desire_num;";
+                    $updates_nb++;
+                    
                     // update the higher classed desire
                     if($desire_num>1)
                     {
                         $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
-                        $sql_update = "UPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num<$desire_num";
-                        AfwDatabase::db_query($sql_update);
+                        $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num<$desire_num;";                        
                     }
+
+                    if($updates_nb>$db_insert_bloc)
+                    {
+                        $sql_update .= "\nEND;";
+                        AfwDatabase::db_query($sql_update);
+                        $sql_update = "BEGIN";
+                        $updates_nb = 0;
+                    }
+                    
                     
                     
                 }
             }    
+        }
+
+        if($updates_nb>0)
+        {
+            $sql_update .= "\nEND;";
+            AfwDatabase::db_query($sql_update);
+            $sql_update = "";
+            $updates_nb = 0;
         }
         
         /* $sql_create_final = "CREATE TABLE $final_sorting_table (
@@ -357,6 +384,9 @@ class SortingSession extends AdmObject
         $this->set("upgraded", "N");
         if ($commit) $this->commit();
         $inf_arr[] = $this->tm("the sorting session has been successfully validated");
+
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        AfwQueryAnalyzer::resetQueriesExecuted();
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
@@ -1886,7 +1916,7 @@ class SortingSession extends AdmObject
 
     }
 
-    
+        
 
     public function notRetrieve($field_name, $col_struct)
     {
