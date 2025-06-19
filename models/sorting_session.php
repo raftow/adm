@@ -314,7 +314,7 @@ class SortingSession extends AdmObject
         
         $maxPaths = SortingPath::nbPaths($application_model_id);
         $sortingGroupCount = count($sortingGroupList);
-        $updates_nb = 0;
+        $updates_nb = 1; $q = 0;
         $sql_update = "START TRANSACTION;";
         $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
         $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
@@ -329,27 +329,29 @@ class SortingSession extends AdmObject
                 $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
                 $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
 
-                $sortingRows = AfwDatabase::db_recup_rows("select * from $final_sorting_table where application_plan_branch_id > 0 and assigned_desire_num > 0");
+                $sortingRows = AfwDatabase::db_recup_rows("select * from $final_sorting_table where application_plan_branch_id > 0 and assigned_desire_num > 0 order by sorting_num, applicant_id");
                 foreach($sortingRows as $sortingRow)
                 {
+                    $q++;
                     // update the assigned desire
                     $desire_num = $sortingRow["assigned_desire_num"];
                     $applicant_id = $sortingRow["applicant_id"];
                     $sorting_num = $sortingRow["sorting_num"];
                     $application_plan_branch_id = $sortingRow["application_plan_branch_id"];
-                    
-                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k=$session_num yo=$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
+                    $comments_str = "k=$session_num yo=$sorting_num Q$q";
+
+                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
                     $updates_nb++;
                     
                     // update the lower classed desire
-                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k=$session_num yo=$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num > $desire_num;";
+                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num > $desire_num;";
                     $updates_nb++;
                     
                     // update the higher classed desire
                     if($desire_num>1)
                     {
                         
-                        $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k=$session_num yo=$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
+                        $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
                     }
 
                     if(($updates_nb>$db_update_bloc) or ($sorting_num==6599))
