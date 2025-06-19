@@ -315,7 +315,11 @@ class SortingSession extends AdmObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         $sortingGroupCount = count($sortingGroupList);
         $updates_nb = 0;
-        $sql_update = "BEGIN";
+        $sql_update = "START TRANSACTION;";
+        $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
+        $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
+        $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
+                    
         foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
         {
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
@@ -333,27 +337,26 @@ class SortingSession extends AdmObject
                     $applicant_id = $sortingRow["applicant_id"];
                     $sorting_num = $sortingRow["sorting_num"];
                     $application_plan_branch_id = $sortingRow["application_plan_branch_id"];
-                    $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
+                    
                     $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
                     $updates_nb++;
                     
                     // update the lower classed desire
-                    $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
                     $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num>$desire_num;";
                     $updates_nb++;
                     
                     // update the higher classed desire
                     if($desire_num>1)
                     {
-                        $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
+                        
                         $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num<$desire_num;";                        
                     }
 
                     if($updates_nb>$db_insert_bloc)
                     {
-                        $sql_update .= "\nEND;";
+                        $sql_update .= "\nCOMMIT;";
                         AfwDatabase::db_query($sql_update);
-                        $sql_update = "BEGIN";
+                        $sql_update = "START TRANSACTION;";
                         $updates_nb = 0;
                     }
                     
@@ -365,7 +368,7 @@ class SortingSession extends AdmObject
 
         if($updates_nb>0)
         {
-            $sql_update .= "\nEND;";
+            $sql_update .= "\nCOMMIT;";
             AfwDatabase::db_query($sql_update);
             $sql_update = "";
             $updates_nb = 0;
