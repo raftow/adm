@@ -338,24 +338,24 @@ class SortingSession extends AdmObject
                     $sorting_num = $sortingRow["sorting_num"];
                     $application_plan_branch_id = $sortingRow["application_plan_branch_id"];
                     
-                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
+                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k=$session_num yo=$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
                     $updates_nb++;
                     
                     // update the lower classed desire
-                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num > $desire_num;";
+                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k=$session_num yo=$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num > $desire_num;";
                     $updates_nb++;
                     
                     // update the higher classed desire
                     if($desire_num>1)
                     {
                         
-                        $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
+                        $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k=$session_num yo=$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
                     }
 
-                    if($updates_nb>$db_update_bloc)
+                    if(($updates_nb>$db_update_bloc) or ($sorting_num==6599))
                     {
                         $sql_update .= "\nCOMMIT;";
-                        // die($sql_update);
+                        if($sorting_num==6599) die($sql_update);
                         AfwDatabase::db_query($sql_update);
                         $sql_update = "START TRANSACTION;";
                         $updates_nb = 0;
