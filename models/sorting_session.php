@@ -355,7 +355,7 @@ class SortingSession extends AdmObject
                     if(($updates_nb>$db_update_bloc) or ($sorting_num==6599))
                     {
                         $sql_update .= "\nCOMMIT;";
-                        if($sorting_num==6599) die($sql_update);
+                        //if($sorting_num==6599) die($sql_update);
                         AfwDatabase::db_query($sql_update);
                         $sql_update = "START TRANSACTION;";
                         $updates_nb = 0;
