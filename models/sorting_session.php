@@ -315,7 +315,7 @@ class SortingSession extends AdmObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         $sortingGroupCount = count($sortingGroupList);
         $updates_nb = 1; $q = 0;
-        $sql_update = "START TRANSACTION;";
+        $sql_update = "START TRANSACTION";
         $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
         $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
         $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
