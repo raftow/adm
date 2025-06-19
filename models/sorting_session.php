@@ -296,7 +296,7 @@ class SortingSession extends AdmObject
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
         $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
         // take a copy of applicatin desire status before approve
-        $app_des_bef_vld_srt_tmp_table = $server_db_prefix."adm.`adesire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num;
+        $app_des_bef_vld_srt_tmp_table = $server_db_prefix."adm.`adesire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."`";
         // $app_des_bef_vld_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_des_bef_vld_srt_tmp_table;";
         // AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_drop);
 
