@@ -5,7 +5,7 @@ $file_dir_name = dirname(__FILE__);
 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class SortingSession extends AFWObject
+class SortingSession extends AdmObject
 {
     private $nb_desires = null;
     private $nb_applications = null;
@@ -320,11 +320,26 @@ class SortingSession extends AFWObject
                 foreach($sortingRows as $sortingRow)
                 {
                     // update the assigned desire
-                    $sql_update = "";
+                    $desire_num = $sortingRow["assigned_desire_num"];
+                    $applicant_id = $sortingRow["applicant_id"];
+                    $sorting_num = $sortingRow["sorting_num"];
+                    $application_plan_branch_id = $sortingRow["application_plan_branch_id"];
+                    $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
+                    $sql_update = "UPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id";
+                    AfwDatabase::db_query($sql_update);
                     // update the lower classed desire
-                    // @todo
+                    $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
+                    $sql_update = "UPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num>$desire_num";
+                    AfwDatabase::db_query($sql_update);
                     // update the higher classed desire
-                    // @todo
+                    if($desire_num>1)
+                    {
+                        $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
+                        $sql_update = "UPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num<$desire_num";
+                        AfwDatabase::db_query($sql_update);
+                    }
+                    
+                    
                 }
             }    
         }
@@ -667,7 +682,36 @@ class SortingSession extends AFWObject
      */
     public function isExecuted()
     {
-        return false;
+        try{
+            $application_simulation_id = $this->getVal("application_simulation_id");
+            $application_plan_id = $this->getVal("application_plan_id");
+            $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+            $session_num = $this->getVal("session_num");        
+            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+            $sortingGroupList = $this->get("sortingGroupList");
+            $maxPaths = SortingPath::nbPaths($application_model_id);
+            $sortingGroupCount = count($sortingGroupList);
+            if($sortingGroupCount==0) return false;
+            foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+            {
+                for ($spath = 1; $spath <= $maxPaths; $spath++) 
+                {
+                    // apply new desire status approved
+                    $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
+                    // $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+                    $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
+    
+                    $sortingRowsCount = AfwDatabase::db_recup_value("select count(*) from $final_sorting_table where application_plan_branch_id > 0");
+                    if($sortingRowsCount==0) return false;
+                }
+            }
+
+            return true;
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
     }
 
     /**
@@ -984,6 +1028,7 @@ class SortingSession extends AFWObject
 
     public function execoAutoDecisionForSortingStats($application_plan_id,$application_simulation_id,$session_num,$track_num)
     {
+        $ignore_free_seats = (strtolower($this->getOptions("IGNORE-FREE-SEATS",true)) == "on");
         $lang = AfwLanguageHelper::getGlobalLanguage();
         $objSSS = new SortingSessionStat();
         $objSSS->where("application_plan_id=$application_plan_id and session_num=$session_num and application_simulation_id=$application_simulation_id and track_num = $track_num");
@@ -1002,7 +1047,7 @@ class SortingSession extends AFWObject
             if(!$max_capacity_auto_upgrade) $max_capacity_auto_upgrade = 0;
             $execo_suggested_upgrade = $nb_accepted - $original_capacity;
             $curr_capacity = $objSSSItem->getVal("capacity");
-            $need_fix = ($nb_accepted != $curr_capacity);
+            $need_fix = ((!$ignore_free_seats and ($nb_accepted != $curr_capacity)) or ($nb_accepted > $curr_capacity));
             $fixed = null;
             if(($execo_suggested_upgrade>0) and ($execo_suggested_upgrade<=$max_capacity_auto_upgrade))
             {
@@ -1818,7 +1863,7 @@ class SortingSession extends AFWObject
             }
                
 
-            if(count($err_arr)==0) 
+            if(count($needIntervention)==0) 
             {
                 $this->set("sorting_well_done", "Y");                
             }

@@ -465,9 +465,9 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_desire_status_enum["ar"][6] = "منسحب";
                 $arr_list_of_desire_status_enum["code"][6] = "withdrawn";
                                                        
-                $arr_list_of_desire_status_enum["en"][7] = "rejected";
-                $arr_list_of_desire_status_enum["ar"][7] = "مرفوض";
-                $arr_list_of_desire_status_enum["code"][7] = "rejected";
+                $arr_list_of_desire_status_enum["en"][7] = "Did not achieve the required percentage";
+                $arr_list_of_desire_status_enum["ar"][7] = "لم يحقق النسبة المطلوبة";
+                $arr_list_of_desire_status_enum["code"][7] = "not-achieved";
                                                        
                 $arr_list_of_desire_status_enum["en"][8] = "excluded";
                 $arr_list_of_desire_status_enum["ar"][8] = "مستبعد";
