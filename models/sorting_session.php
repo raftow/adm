@@ -299,7 +299,7 @@ class SortingSession extends AdmObject
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
         $session_num = $this->getVal("session_num");        
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-        $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
+        $db_update_bloc = AfwSession::config("db_update_bloc", 101);
 
         AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
 
@@ -329,7 +329,7 @@ class SortingSession extends AdmObject
                 $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
                 $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
 
-                $sortingRows = AfwDatabase::db_recup_rows("select * from $final_sorting_table where application_plan_branch_id > 0");
+                $sortingRows = AfwDatabase::db_recup_rows("select * from $final_sorting_table where application_plan_branch_id > 0 and assigned_desire_num > 0");
                 foreach($sortingRows as $sortingRow)
                 {
                     // update the assigned desire
@@ -352,7 +352,7 @@ class SortingSession extends AdmObject
                         $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='k$sorting_num' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
                     }
 
-                    if($updates_nb>$db_insert_bloc)
+                    if($updates_nb>$db_update_bloc)
                     {
                         $sql_update .= "\nCOMMIT;";
                         die($sql_update);
