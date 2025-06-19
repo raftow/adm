@@ -1805,11 +1805,15 @@ class SortingSession extends AFWObject
                 }
 
                 list($upg, $downg, $needIntervention) = $this->postSortingStats($sortingGroupId, $spath, $arrDataMinAccepted, $branchsWaitingMatrix); 
-                foreach($needIntervention as $needInterventionId => $needInterventionDesc)
+                if(count($needIntervention)>0)
                 {
-                    if(count($err_arr)==0) $err_arr[] = $this->tm("Need manually action", $lang)." : ";
-                    $err_arr[] = "<a href='#execo_action-$needInterventionId'>$needInterventionDesc</a>";
+                    $war_arr[] = $this->tm("Need manually action", $lang)." : ";
+                    foreach($needIntervention as $needInterventionId => $needInterventionDesc)
+                    {                    
+                        $war_arr[] = "<a href='#execo_action-$needInterventionId'>$needInterventionDesc</a>";
+                    }
                 }
+                
                 $info_arr[] = "Capacity upgraded : $upg, Capacity downgraded : $downg, Nb applicants = $nb_applicants, Nb applicants assigned = $nb_desire_assigned, Nb applicants can not assign = $nb_desire_assign_failed, [example applicant failed to assign $applicant_assign_failed]";
             }
                
