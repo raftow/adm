@@ -315,7 +315,7 @@ class SortingSession extends AdmObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         $sortingGroupCount = count($sortingGroupList);
         $updates_nb = 1; $q = 0;
-        $sql_update = "START TRANSACTION";
+        $sql_update = ""; // START TRANSACTION
         $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
         $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
         $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
@@ -356,10 +356,10 @@ class SortingSession extends AdmObject
 
                     if(($updates_nb>$db_update_bloc) or ($sorting_num==6599))
                     {
-                        $sql_update .= "\nCOMMIT;";
+                        $sql_update .= "\n"; // COMMIT;
                         //if($sorting_num==6599) die($sql_update);
                         AfwDatabase::db_query($sql_update);
-                        $sql_update = "START TRANSACTION;";
+                        $sql_update = ""; // START TRANSACTION;
                         $updates_nb = 0;
                     }
                     
@@ -371,7 +371,7 @@ class SortingSession extends AdmObject
 
         if($updates_nb>0)
         {
-            $sql_update .= "\nCOMMIT;";
+            $sql_update .= "\n"; // COMMIT;
             AfwDatabase::db_query($sql_update);
             $sql_update = "";
             $updates_nb = 0;
