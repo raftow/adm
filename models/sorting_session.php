@@ -315,7 +315,7 @@ class SortingSession extends AdmObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         $sortingGroupCount = count($sortingGroupList);
         $updates_nb = 1; $q = 0;
-        $sql_update = ""; // START TRANSACTION
+        // $sql_update = ""; // START TRANSACTION
         $not_achieved_status = self::desire_status_enum_by_code('not-achieved');
         $initial_acceptance_status = self::desire_status_enum_by_code('initial-acceptance');
         $higher_desire_status = self::desire_status_enum_by_code('higher-desire');
@@ -340,20 +340,23 @@ class SortingSession extends AdmObject
                     $application_plan_branch_id = $sortingRow["application_plan_branch_id"];
                     $comments_str = "k=$session_num yo=$sorting_num Q$q";
 
-                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
+                    $sql_update = "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$initial_acceptance_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num=$desire_num and application_plan_branch_id=$application_plan_branch_id;";
+                    AfwDatabase::db_query($sql_update);
                     $updates_nb++;
                     
                     // update the lower classed desire
-                    $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num > $desire_num;";
+                    $sql_update = "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$higher_desire_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num > $desire_num;";
+                    AfwDatabase::db_query($sql_update);
                     $updates_nb++;
                     
                     // update the higher classed desire
                     if($desire_num>1)
                     {
-                        
-                        $sql_update .= "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
+                        $sql_update = "\n\tUPDATE ".$server_db_prefix."adm.application_desire set desire_status_enum = '$not_achieved_status', comments='$comments_str' where applicant_id=$applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id and desire_num < $desire_num;";                        
+                        AfwDatabase::db_query($sql_update);
+                        $updates_nb++;
                     }
-
+                    /*
                     if(($updates_nb>$db_update_bloc) or ($sorting_num==6599))
                     {
                         $sql_update .= "\n"; // COMMIT;
@@ -362,20 +365,20 @@ class SortingSession extends AdmObject
                         $sql_update = ""; // START TRANSACTION;
                         $updates_nb = 0;
                     }
-                    
+                    */
                     
                     
                 }
             }    
         }
-
+        /*
         if($updates_nb>0)
         {
             $sql_update .= "\n"; // COMMIT;
             AfwDatabase::db_query($sql_update);
             $sql_update = "";
             $updates_nb = 0;
-        }
+        }*/
         
         /* $sql_create_final = "CREATE TABLE $final_sorting_table (
             applicant_id bigint(20) NOT NULL,
