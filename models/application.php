@@ -877,6 +877,11 @@ class Application extends AdmObject
         {
                 $curr_status = $this->getVal("application_status_enum");
                 $curr_status_code = self::application_status_code($curr_status);
+                if($curr_status == self::application_status_enum_by_code('accepted'))
+                {
+                        return ["This application is already in final acceptance", ""];
+                }
+
                 if($curr_status != self::application_status_enum_by_code('complete')) return ["application status ".$curr_status."/".$curr_status_code." is not allowed to switch to final acceptance"];
                 $desireObj = $this->loadInitialAcceptanceDesire();
                 if(!$desireObj) return ["no initial acceptance desire found", ""];

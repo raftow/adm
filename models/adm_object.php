@@ -428,18 +428,18 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_application_status_enum["ar"][3] = "منسحب";
                 $arr_list_of_application_status_enum["code"][3] = "withdrawn";
 
-                $arr_list_of_application_status_enum["en"][4] = "excluded";
-                $arr_list_of_application_status_enum["ar"][4] = "مستبعد";
-                $arr_list_of_application_status_enum["code"][4] = "excluded";
-
-                $arr_list_of_application_status_enum["en"][5] = "data review";
-                $arr_list_of_application_status_enum["ar"][5] = "مراجعة البيانات";
-                $arr_list_of_application_status_enum["code"][5] = "data-review";
+                $arr_list_of_application_status_enum["en"][4] = "data review";
+                $arr_list_of_application_status_enum["ar"][4] = "مراجعة البيانات";
+                $arr_list_of_application_status_enum["code"][4] = "data-review";
 
                 $arr_list_of_application_status_enum["en"][5] = "accepted";
                 $arr_list_of_application_status_enum["ar"][5] = "مقبول";
                 $arr_list_of_application_status_enum["code"][5] = "accepted";
                 
+                $arr_list_of_application_status_enum["en"][6] = "excluded";
+                $arr_list_of_application_status_enum["ar"][6] = "مستبعد";
+                $arr_list_of_application_status_enum["code"][6] = "excluded";
+
                 return $arr_list_of_application_status_enum;
         }
 
