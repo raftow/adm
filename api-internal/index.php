@@ -70,6 +70,23 @@ $allowed_methods["accept_offer"] = ["class"=>'Application',
                                               "plan_id"      => ['type'=>'INT', 'required'=>true], 
                                          ]
                              ];                                  
+
+$allowed_methods["accept_offer_wp"] = ["class"=>'Application',
+                             "method"=>'acceptOfferWithUpgradeRequest',
+                             "submit-method"=>'BOTH',
+                             "input"=>  [
+                                             "applicant_id" => ['type'=>'INT', 'required'=>true], 
+                                             "plan_id"      => ['type'=>'INT', 'required'=>true], 
+                                        ]
+                            ];                                  
+$allowed_methods["reject_offer"] = ["class"=>'Application',
+                             "method"=>'rejectOffer',
+                             "submit-method"=>'BOTH',
+                             "input"=>  [
+                                             "applicant_id" => ['type'=>'INT', 'required'=>true], 
+                                             "plan_id"      => ['type'=>'INT', 'required'=>true], 
+                                        ]
+                            ];                                                               
 try
 {
     $error = false;
