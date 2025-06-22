@@ -278,13 +278,52 @@ class Application extends AdmObject
         }
 
 
+        public static function acceptOffer($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
+        {
+                $application_simulation_id = $input_arr['simulation_id'];
+                $application_plan_id = $input_arr['plan_id'];
+                $applicant_id = $input_arr['applicant_id'];
+                $lang = $input_arr['lang'];
+                // $whereiam = $input_arr['whereiam'];
+                if(!$application_simulation_id) $application_simulation_id = AfwSession::config("default-simulation-id",2);
+
+                $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                $decide_offer_infos = null;
+                $decide_offer_wars = null;
+                if($applicationObj)
+                {
+                        list($error_message, $decide_offer_infos, $decide_offer_wars, $assignedDesire) = $applicationObj->decideAcceptOffer($lang);                        
+
+                }
+                else
+                {
+                        $decide_offer_status = null;
+                        $assignedDesire = null;
+                        $error_message = self::transMess("This application is not found", $lang);
+                }
+
+                
+
+                $data = [
+                        "decide_offer_infos" => $decide_offer_infos,
+                        "decide_offer_wars" => $decide_offer_wars,
+                        "assigned_desire" => $assignedDesire,
+                        
+
+                ];
+
+                $status = $error_message ? "error" : "success";
+                return [$status, $error_message, $data]; 
+        }
+
         public static function nextApplicationStep($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
+                $application_simulation_id = $input_arr['simulation_id'];
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 $whereiam = $input_arr['whereiam'];
-                $application_simulation_id = 2;
+                if(!$application_simulation_id) $application_simulation_id = AfwSession::config("default-simulation-id",2);
                 $move_step_details = null;
                 $move_step_details_2 = null;
 
@@ -779,7 +818,7 @@ class Application extends AdmObject
                 }
                 $desireObj->commit();
                 if($commit) $this->commit();
-                return ["", "done"];
+                return ["", "done", "", $desireObj];
         }
 
         protected function getPublicMethods()
