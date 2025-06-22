@@ -285,7 +285,7 @@ class Application extends AdmObject
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 // $whereiam = $input_arr['whereiam'];
-                if(!$application_simulation_id) $application_simulation_id = AfwSession::config("default-simulation-id",2);
+                if(!$application_simulation_id) $application_simulation_id = AfwSession::config("default-simulation-id",3);
 
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 $decide_offer_infos = null;
