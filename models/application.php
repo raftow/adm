@@ -801,7 +801,74 @@ class Application extends AdmObject
                 if ($this->objApplicationModel) {
                         
                         
-                        
+                        $initialAcceptanceDesire = $this->loadInitialAcceptanceDesire();
+                        if($initialAcceptanceDesire)
+                        {
+                                $color = "red";
+                                $title_en = "reject admission";
+                                $title_ar = $this->tm($title_en, 'ar');                                
+                                $methodName = "decideRejectOffer";
+                                $methodConfirmationWarningEn = "I refuse the nomination for admission and am not entitled to reclaim the seat";
+                                $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+                                $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                                $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        'CONFIRMATION_NEEDED' => true,
+                                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                        "BF-ID" => "",
+                                        'STEP' => $this->stepOfAttribute("applicant_decision_enum")
+                                );  
+
+
+                                $color = "green";
+                                $title_en = "accept admission";
+                                $title_ar = $this->tm($title_en, 'ar');                                
+                                $methodName = "decideAcceptOffer";
+                                $methodConfirmationWarningEn = "This means that the applicant confirms his acceptance at the university without seeking any alternative options";
+                                $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+                                $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                                $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        'CONFIRMATION_NEEDED' => true,
+                                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                        "BF-ID" => "",
+                                        'STEP' => $this->stepOfAttribute("applicant_decision_enum")
+                                ); 
+
+
+                                $color = "blue";
+                                $title_en = "accept admission with a request for promotion";
+                                $title_ar = $this->tm($title_en, 'ar');                                
+                                $methodName = "decideAcceptOfferWithUpgradeRequest";
+                                $methodConfirmationWarningEn = "This means that the applicant's first choice was not fulfilled, and he was offered a lower option. He wishes to confirm his acceptance along with a request for promotion";
+                                $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+                                $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                                $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        'CONFIRMATION_NEEDED' => true,
+                                        'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                        'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                        "BF-ID" => "",
+                                        'STEP' => $this->stepOfAttribute("applicant_decision_enum")
+                                ); 
+                        }
 
 
                         $color = "orange";

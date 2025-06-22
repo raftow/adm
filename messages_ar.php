@@ -188,5 +188,11 @@
     $messages["Need manually action"] = "يحتاج تدخل يدوي";
 
     $messages["You agree that the sorting data is correct and ready for approve"] = "أنت توافق على أن بيانات الفرز صحيحة وجاهزة للاعتماد";
+    $messages["reject admission"] = "رفض القبول";
+    $messages["I refuse the nomination for admission and am not entitled to reclaim the seat"] = "أرفض ترشيح القبول ولا يحق لي المطالبة بالمقعد مرة اخرى";
+    $messages["accept admission"] = "تأكيد القبول";
+    $messages["This means that the applicant confirms his acceptance at the university without seeking any alternative options"] = "هذا يعني أنه تحققت رغبة المتقدم بالقبول ويرغب بتثبيت قبوله بالجامعة بدون طلب ترقية لرغبة أعلى";
+    $messages["accept admission with a request for promotion"] = "تأكيد القبول مع طلب الترقية";
+    $messages["This means that the applicant's first choice was not fulfilled, and he was offered a lower option. He wishes to confirm his acceptance along with a request for promotion"] = "هذا يعني أنه لم تتحقق رغبة المتقدم الاولى وتم قبوله على رغبة أدني ويرغب بتأكيد القبول مع طلب ترقية  علما ان الترقية ستكون وفقا للمقاعد الشاعرة والنسبة الموزونة";
     // $messages[""] = "";
 ?>
