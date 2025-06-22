@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 5; 
+                                $obj->editNbSteps = 6; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                         else 
@@ -218,13 +218,28 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'READONLY'=>true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_75',),  
+
+                                        'assignedDesire' => array(
+                                                        'STEP' => 6,
+                                                        'CATEGORY' => 'FORMULA',
+                                                        'TYPE' => 'FK',
+                                                        'ANSWER' => 'application_desire',
+                                                        'ANSMODULE' => 'adm',
+                                                        'SHOW' => true,
+                                                        'NO-COTE' => true,
+                                                        'EDIT' => true,
+                                                        'READONLY' => true,
+                                                        "CAN-BE-SETTED" => false,
+                                                        'SIZE' => 255,
+                                                        'CSS' => 'width_pct_75',
+                                                ),                                                
                                                 
                                         'applicant_decision_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>false,    
-                                                'DISPLAY' => true,  'STEP' => 2, 'DEFAULT' => 1,
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY' => true,    
+                                                'DISPLAY' => true,  'STEP' => 6, 'DEFAULT' => 1,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100', ),                                                
+                                                'CSS' => 'width_pct_25', ),                                                
 
                                                                                         
 

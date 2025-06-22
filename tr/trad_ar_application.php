@@ -9,6 +9,7 @@ class ApplicationArTranslator{
 		$trad["application"]["step3"] = "اختيار الرغبات";
 		$trad["application"]["step4"] = "ترتيب الرغبات";
 		$trad["application"]["step5"] = "بيانات المتقدم";
+		$trad["application"]["step6"] = "القبول";
 
 		$trad["application"]["application.single"] = "طلب تقديم";
 		$trad["application"]["application.new"] = "جديد";

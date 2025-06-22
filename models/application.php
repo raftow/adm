@@ -774,7 +774,7 @@ class Application extends AdmObject
                 }
                 else
                 {
-                        $desireObj->set("desire_status_enum", self::desire_status_enum_by_code('withdrawn'));
+                        $desireObj->set("desire_status_enum", self::desire_status_enum_by_code('rejected-acceptance'));
                         $this->set("application_status_enum", self::application_status_enum_by_code('withdrawn'));
                 }
                 $desireObj->commit();
@@ -2375,10 +2375,14 @@ class Application extends AdmObject
                 else return $return;
         }
 
+
+
         public function shouldBeCalculatedField($attribute){
                 if($attribute=="gender_enum") return true;
                 if($attribute=="allow_add_qualification") return true;
                 if($attribute=="qualification_mfk") return true;
+                if($attribute=="assignedDesire") return true;
+                
                 if($attribute=="weighted_percentage") return true;
                 if($attribute=="weighted_percentage_details") return true;
                 if($attribute=="sis_fields_available") return true;
@@ -2387,6 +2391,16 @@ class Application extends AdmObject
                 if($attribute=="nb_desires") return true;
                 if($attribute=="current_fields_matrix") return true;
                 return false;
+        }
+
+        public function calcAssignedDesire($what="value")
+        {
+                $application_plan_id = $this->getVal("application_plan_id");
+                $applicant_id = $this->getVal("applicant_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                $obj = ApplicationDesire::loadAssignedDesire($applicant_id, $application_plan_id, $application_simulation_id);
+
+                return ($what=="value") ? $obj->id : $obj;
         }
 
         public function calcAdmission_history($what="value")

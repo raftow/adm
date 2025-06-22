@@ -159,12 +159,36 @@ class ApplicationDesire extends AdmObject
                 $statuses = [];
                 $statuses[] = self::desire_status_enum_by_code('initial-acceptance');
                 $statuses[] = self::desire_status_enum_by_code('final-acceptance');
+                $statuses[] = self::desire_status_enum_by_code('rejected-acceptance');
                 $statuses[] = self::desire_status_enum_by_code('higher-desire');
                 $statuses[] = self::desire_status_enum_by_code('not-achieved');
 
                 $obj->selectIn("desire_status_enum", $statuses);
 
                 return $obj->count();
+        }
+
+        public static function loadAssignedDesire($applicant_id, $application_plan_id, $application_simulation_id)
+        {
+                if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
+                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
+
+                $statuses = [];
+                $statuses[] = self::desire_status_enum_by_code('initial-acceptance');
+                $statuses[] = self::desire_status_enum_by_code('final-acceptance');
+                $statuses[] = self::desire_status_enum_by_code('rejected-acceptance');
+
+                $obj = new ApplicationDesire();
+                $obj->select("applicant_id", $applicant_id);
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id", $application_simulation_id);
+                $obj->selectIn("desire_status_enum", $statuses);
+
+                if ($obj->load()) {
+                        return $obj;
+                }
+                else return null;
         }
 
         public static function loadInitialAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id)
