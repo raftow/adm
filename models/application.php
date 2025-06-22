@@ -307,7 +307,7 @@ class Application extends AdmObject
                 $data = [
                         "decide_offer_infos" => $decide_offer_infos,
                         "decide_offer_wars" => $decide_offer_wars,
-                        "assigned_desire" => $assignedDesire->getJsonMe(),
+                        "assigned_desire" => $assignedDesire ? $assignedDesire->getJsonMe() : null,
                         
 
                 ];
