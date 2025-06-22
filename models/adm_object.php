@@ -99,7 +99,9 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_applicant_decision["en"][3] = "Admission rejected";
                 $arr_list_of_applicant_decision["ar"][3] = "رفض القبول";
                 
-
+                $arr_list_of_applicant_decision["code"][4] = "WAD";
+                $arr_list_of_applicant_decision["en"][4] = "Waiting applicant decision";
+                $arr_list_of_applicant_decision["ar"][4] = "في انتظار قرار المتقدم";
                 
 
                 
