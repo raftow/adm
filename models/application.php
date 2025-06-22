@@ -20,6 +20,12 @@ class Application extends AdmObject
         private $attribIsApplic = [];
         private $nb_desires = null;
 
+        public function __construct()
+        {
+                parent::__construct("application", "id", "adm");
+                AdmApplicationAfwStructure::initInstance($this);
+        }
+
         public function setApplicantObject(&$applicantObj)
         {
                 $this->applicantObj = $applicantObj;
@@ -37,11 +43,7 @@ class Application extends AdmObject
                 return $this->objApplicationModel;
         }
 
-        public function __construct()
-        {
-                parent::__construct("application", "id", "adm");
-                AdmApplicationAfwStructure::initInstance($this);
-        }
+        
 
         public static function loadById($id)
         {
@@ -58,6 +60,14 @@ class Application extends AdmObject
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 return ApplicationDesire::loadInitialAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id);
+        }
+
+        public function countSortedDesires()
+        {
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                return ApplicationDesire::countSortedDesires($applicant_id, $application_plan_id, $application_simulation_id);
         }
 
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what="value")
@@ -2030,7 +2040,7 @@ class Application extends AdmObject
 
                 if ($attribute == "applicant_decision_enum") 
                 {
-                        return ($this->getVal("application_status_enum") == self::application_status_enum_by_code("accepted"));
+                        return ($this->countSortedDesires()>0);
                 }
 
                 return true;
