@@ -902,29 +902,26 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public function shouldBeCalculatedField($attribute)
-        {
-                if ($attribute == "sorting_field_1_id") return true;
-                if ($attribute == "sorting_field_2_id") return true;
-                if ($attribute == "sorting_field_3_id") return true;
-                if ($attribute == "formula_field_1_id") return true;
-                if ($attribute == "formula_field_2_id") return true;
-                if ($attribute == "formula_field_3_id") return true;
-                if ($attribute == "formula_field_4_id") return true;
-                if ($attribute == "formula_field_5_id") return true;
-                if ($attribute == "formula_field_6_id") return true;
-                if ($attribute == "formula_field_7_id") return true;
-                if ($attribute == "formula_field_8_id") return true;
-                if ($attribute == "formula_field_9_id") return true;
-                if ($attribute == "weighted_percentage") return true;
-                if ($attribute == "weighted_percentage_details") return true;
-                if ($attribute == "current_fields_matrix") return true;
-                if ($attribute == "secondary_cumulative_pct") return true;
-                if ($attribute == "achievement_score") return true;
-                if ($attribute == "aptitude_score") return true;
-
-
-
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="sorting_field_1_id") return true;
+                if($attribute=="sorting_field_2_id") return true;
+                if($attribute=="sorting_field_3_id") return true;
+                if($attribute=="applicant_decision_enum") return true;
+                if($attribute=="formula_field_1_id") return true;
+                if($attribute=="formula_field_2_id") return true;
+                if($attribute=="formula_field_3_id") return true;
+                if($attribute=="formula_field_4_id") return true;
+                if($attribute=="formula_field_5_id") return true;
+                if($attribute=="formula_field_6_id") return true;
+                if($attribute=="formula_field_7_id") return true;
+                if($attribute=="formula_field_8_id") return true;
+                if($attribute=="formula_field_9_id") return true;
+                if($attribute=="weighted_percentage") return true;
+                if($attribute=="weighted_percentage_details") return true;
+                if($attribute=="current_fields_matrix") return true;
+                if($attribute=="secondary_cumulative_pct") return true;
+                if($attribute=="aptitude_score") return true;
+                if($attribute=="achievement_score") return true;
                 return false;
         }
 
