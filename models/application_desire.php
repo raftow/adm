@@ -1129,6 +1129,13 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
+                if ($attribute == "applicant_decision_enum") 
+                {
+                        return (($this->getVal("desire_status_enum") == self::desire_status_enum_by_code('initial-acceptance')) or
+                                ($this->getVal("desire_status_enum") == self::desire_status_enum_by_code('final-acceptance')) or
+                                ($this->getVal("desire_status_enum") == self::desire_status_enum_by_code('rejected-acceptance')));
+                }
+
                 return true;
         }
 
