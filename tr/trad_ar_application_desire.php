@@ -75,6 +75,8 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["formula_value_8"] = "قيمة الحقل خـ 8";    
 		$trad["application_desire"]["formula_value_9"] = "قيمة الحقل خـ 9";
 
+		$trad["application_desire"]["applicant_decision_enum"] = "قرار المتقدم";
+
 		$trad["application_desire"]["step1"] = "التعريف بالرغبة";
 		$trad["application_desire"]["step2"] = "البيانات";
 		$trad["application_desire"]["step3"] = "حالة التقديم";

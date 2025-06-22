@@ -482,6 +482,10 @@ class SortingSession extends AdmObject
                 return $this->taskIsRunning();
             }
             
+            if($this->stepOfAttribute($attribute) == 3)
+            {
+                return $this->isNot("validated");
+            } 
 
             return true;
     }
@@ -773,7 +777,7 @@ class SortingSession extends AdmObject
         }
         else return null;
     }
-
+    
     protected function getPublicMethods()
     {
         

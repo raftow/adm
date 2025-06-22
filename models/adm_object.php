@@ -375,6 +375,17 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_standard_application_step_enum;
         }
 
+        public static function application_status_code($application_status_enum)        
+        {
+            $arr = self::application_status_enum();
+            foreach($arr['code'] as $eid => $code)
+            {
+                if($application_status_enum==$eid) return $code;
+            }
+
+            return "??";
+        }
+
         public static function application_status_enum_by_code($the_code=null)        
         {
             $result = [];
@@ -464,7 +475,7 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_desire_status_enum["en"][6] = "withdrawn";
                 $arr_list_of_desire_status_enum["ar"][6] = "منسحب";
                 $arr_list_of_desire_status_enum["code"][6] = "withdrawn";
-                                                       
+                                                        
                 $arr_list_of_desire_status_enum["en"][7] = "Did not achieve the required percentage";
                 $arr_list_of_desire_status_enum["ar"][7] = "لم يحقق النسبة المطلوبة";
                 $arr_list_of_desire_status_enum["code"][7] = "not-achieved";

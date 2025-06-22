@@ -52,6 +52,13 @@ class Application extends AdmObject
                 } else return null;
         }
 
+        public function loadInitialAcceptanceDesire()
+        {
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                return ApplicationDesire::loadInitialAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id);
+        }
 
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what="value")
         {
@@ -720,6 +727,49 @@ class Application extends AdmObject
                 
 
                 
+        }
+
+        public function decideAcceptOffer($lang="ar")
+        {
+                // [1] = "تأكيد القبول" - "Admission accepted"
+                return $this->decideForOffer($lang, 1);
+        }
+
+        public function decideAcceptOfferWithUpgradeRequest($lang="ar")
+        {
+                // [2] = "تأكيد القبول مع طلب ترقية" - "Admission accepted with Upgrade Request"
+                return $this->decideForOffer($lang, 2);
+        }
+
+        public function decideRejectOffer($lang="ar")
+        {
+                // [3] = "رفض القبول" - "Admission rejected"
+                return $this->decideForOffer($lang, 3);
+        }
+
+        
+        public function decideForOffer($lang="ar", $new_applicant_decision_enum=null, $commit = true)
+        {
+                $curr_status = $this->getVal("application_status_enum");
+                $curr_status_code = self::application_status_code($curr_status);
+                if($curr_status != self::application_status_enum_by_code('complete')) return ["application status "+$curr_status+"/"+$curr_status_code+" is not allowed to switch to final acceptance"];
+                $desireObj = $this->loadInitialAcceptanceDesire();
+                if(!$desireObj) return ["no initial acceptance desire found", ""];
+                $this->set("applicant_decision_enum", $new_applicant_decision_enum);
+                
+                if(($new_applicant_decision_enum==1) or ($new_applicant_decision_enum==2))
+                {
+                        $desireObj->set("desire_status_enum", self::desire_status_enum_by_code('final-acceptance'));
+                        $this->set("application_status_enum", self::application_status_enum_by_code('accepted'));
+                }
+                else
+                {
+                        $desireObj->set("desire_status_enum", self::desire_status_enum_by_code('withdrawn'));
+                        $this->set("application_status_enum", self::application_status_enum_by_code('withdrawn'));
+                }
+                $desireObj->commit();
+                if($commit) $this->commit();
+                return ["", "done"];
         }
 
         protected function getPublicMethods()

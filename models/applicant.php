@@ -821,7 +821,8 @@ class Applicant extends AdmObject
                 $pbms = array();
 
 
-
+                //@todo
+                // checkOtherUniversityAcceptance
                 $color = "blue";
                 $title_ar = $this->tm("Force updating data via electronic services", 'ar');
                 $title_en = $this->tm("Force updating data via electronic services", 'en');
