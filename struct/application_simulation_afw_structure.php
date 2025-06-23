@@ -3,6 +3,11 @@
 
 class AdmApplicationSimulationAfwStructure
 {
+	public static function pageCode($uri_items)
+	{
+			return "edit_application_simulation_adm";
+	}
+	
 	// token separator = §
 	public static function initInstance(&$obj)
 	{
