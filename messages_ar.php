@@ -194,5 +194,7 @@
     $messages["This means that the applicant confirms his acceptance at the university without seeking any alternative options"] = "هذا يعني أنه تحققت رغبة المتقدم بالقبول ويرغب بتثبيت قبوله بالجامعة بدون طلب ترقية لرغبة أعلى";
     $messages["accept admission with a request for promotion"] = "تأكيد القبول مع طلب الترقية";
     $messages["This means that the applicant's first choice was not fulfilled, and he was offered a lower option. He wishes to confirm his acceptance along with a request for promotion"] = "هذا يعني أنه لم تتحقق رغبة المتقدم الاولى وتم قبوله على رغبة أدني ويرغب بتأكيد القبول مع طلب ترقية  علما ان الترقية ستكون وفقا للمقاعد الشاعرة والنسبة الموزونة";
+
+    $messages["This action will reset all branchs capacities exactly as it is in the application model"] = "سيؤدي هذا الإجراء إلى إعادة تعيين الطاقة الاستيعابية لجميع الفروع تمامًا كما هي في نموذج التقديم";
     // $messages[""] = "";
 ?>

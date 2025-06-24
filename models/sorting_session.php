@@ -883,6 +883,23 @@ class SortingSession extends AdmObject
         }            
         elseif($this->sureIs("sorting_ready"))
         {
+
+            $methodConfirmationWarningEn = "This action will reset all branchs capacities exactly as it is in the application model";
+            $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+            $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+            $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+
+            $color = "orange";
+            $title_ar = "جلب الطاقة الاستيعابية الاصلية لجميع فروع القبول";
+            $methodName = "inheritBranchsCapacities";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, 
+                        "COLOR" => $color, 
+                        "LABEL_AR" => $title_ar, 
+                        "ADMIN-ONLY" => true, 
+                        "BF-ID" => "", 
+                        'STEPS' => 'all');
+
+
             $methodConfirmationWarningEn = "You agree that the application data and desires are correct and ready for sorting";
             $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
             $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
@@ -943,6 +960,15 @@ class SortingSession extends AdmObject
         
 
         return $pbms;
+    }
+
+
+    public function inheritBranchsCapacities($lang="ar")
+    {
+        $applicationPlanObj = $this->het("application_plan_id");
+
+        if(!$applicationPlanObj) return ["No application plan defined", ""];
+        return $applicationPlanObj->inheritBranchsCapacities($lang);
     }
 
     public function postSortingStats($sorting_group_id, $track_num, $arrDataMinAccepted, $branchsWaitingMatrix)    
