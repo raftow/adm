@@ -142,7 +142,23 @@ class ApplicationDesire extends AdmObject
                 } else return null;
         }
 
-        
+        public static function loadAllAssignedDesire($application_plan_id, $application_simulation_id)
+        {
+                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
+
+                $statuses = [];
+                $statuses[] = self::desire_status_enum_by_code('initial-acceptance');
+                $statuses[] = self::desire_status_enum_by_code('final-acceptance');
+                $statuses[] = self::desire_status_enum_by_code('rejected-acceptance');
+
+                $obj = new ApplicationDesire();
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id", $application_simulation_id);
+                $obj->selectIn("desire_status_enum", $statuses);
+
+                return $obj->loadMany();
+        }
 
         public static function countSortedDesires($applicant_id, $application_plan_id, $application_simulation_id)
         {

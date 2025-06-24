@@ -455,6 +455,9 @@ class ApplicationSimulation extends AdmObject
         // $applicationPlanObj = $this->het("application_plan_id");
         
         $applicantRows = ApplicationDesire::getInitialAcceptanceApplicantIds($application_plan_id, $application_simulation_id);
+        
+        
+        
         $accepted = 0;
         $promotion = 0;
         $rejected = 0;
@@ -488,7 +491,7 @@ class ApplicationSimulation extends AdmObject
                     $objAppliction->decideAcceptOfferWithUpgradeRequest($lang);
                 }
                 else
-                {
+                {                    
                     $accepted++;
                     $objAppliction->decideAcceptOffer($lang);
                 }
@@ -498,7 +501,6 @@ class ApplicationSimulation extends AdmObject
             
         }
 
-        
 
         $inf_arr[] = "Nb of accepted : $accepted";
         $inf_arr[] = "Nb of accepted with promotion : $promotion";
@@ -1055,6 +1057,32 @@ class ApplicationSimulation extends AdmObject
         // die("decoderArr=".var_export($decoderArr,true));
         $html .= AfwHtmlHelper::tableToHtml($rows_bootstrap, $header_bootstrap, $decoderArr);
 
+        $accepted_by_dn = [];
+        $promotion_by_dn = [];
+        $rejected_by_dn = [];
+        $application_simulation_id = $this->id;
+        $application_plan_id = $this->getVal("application_plan_id"); 
+        $desireList = ApplicationDesire::loadAllAssignedDesire($application_plan_id, $application_simulation_id);
+        foreach($desireList as $desireItem)
+        {
+            $desire_num = $desireItem->getVal("desire_num");
+            $decision_enum = $desireItem->calc("applicant_decision_enum");
+            if($decision_enum==3)
+            {
+                if(!$rejected_by_dn[$desire_num]) $rejected_by_dn[$desire_num] = 0;
+                $rejected_by_dn[$desire_num]++;
+            }
+            elseif($decision_enum==2)
+            {
+                if(!$promotion_by_dn[$desire_num]) $promotion_by_dn[$desire_num] = 0;
+                $promotion_by_dn[$desire_num]++;
+            }
+            elseif($decision_enum==1)
+            {
+                if(!$accepted_by_dn[$desire_num]) $accepted_by_dn[$desire_num] = 0;
+                $accepted_by_dn[$desire_num]++;
+            }
+        }        
 
         $html .= "   </div> <!-- stats_panel -->";
         $html .= "</div> <!-- stats-panel -->";
@@ -1136,6 +1164,26 @@ class ApplicationSimulation extends AdmObject
         $html .= "</div> <!-- stats-panel -->";
         $html .= "</div> <!-- simulation-panel -->";
         return $html;
+    }
+
+    public function attributeIsApplicable($attribute)
+    {
+
+            if (($attribute == "applicationDesireList") or
+                ($attribute == "applicationList"))
+            {
+                $arrOptions = $this->getOptions(); 
+                $type = strtoupper($arrOptions["TYPE"]);
+                if(!$type) $type = "APPLICATION";
+        
+                if($type == "APPLICATION")
+                {
+                    return true;
+                }
+                else return false;
+            }
+
+            return true;
     }
 }
 

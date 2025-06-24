@@ -36,7 +36,7 @@ class ApplicationSimulationArTranslator{
 		$trad["application_simulation"]["simul_method_enum"] = "طريقة المحاكاة";
 
 		$trad["application_simulation"]["applicationList"] = "مشاهدة نتائج محاكاة التقديم";
-		$trad["application_simulation"]["applicationdesireList"] = "مشاهدة نتائج محاكاة الرغبات";
+		$trad["application_simulation"]["applicationDesireList"] = "مشاهدة نتائج محاكاة الرغبات";
 		
 		$trad["application_simulation"]["progress_task"] = "المهمة الحالية";
 		$trad["application_simulation"]["progress_value"] = "تقدم التنفيذ";

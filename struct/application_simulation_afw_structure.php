@@ -342,7 +342,7 @@ class AdmApplicationSimulationAfwStructure
 			'READONLY' => true,  'CAN-BE-SETTED' => true, 
 			'CSS' => 'width_pct_100', ),
 
-		'applicationdesireList' => array('STEP' => 3,
+		'applicationDesireList' => array('STEP' => 3,
 			'SHORTNAME' => 'desires',  'SHOW' => true,  'FORMAT' => 'retrieve',  
 			'ICONS' => true, 'MOVE_UP-ICON' =>false, 'VIEW-ICON' =>false, 'DELETE-ICON' => false, 
 			'BUTTONS' => true,  'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  

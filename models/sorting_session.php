@@ -872,7 +872,7 @@ class SortingSession extends AdmObject
                             
                 $color = "orange";
                 $title_ar = "الغاء اعتماد الفرز";
-                $methodName = "unvalidate";
+                $methodName = "unvalidateSorting";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, 
                                                 "ADMIN-ONLY" => true, "BF-ID" => "", 
                                                 'CONFIRMATION_NEEDED' => true,
