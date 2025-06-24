@@ -76,9 +76,9 @@ class AdmObject extends AfwMomkenObject{
             return self::applicant_decision()[$lang][$applicant_decision_enum];            
         }
         
-        public static function list_of_applicant_decision_enum()
+        public static function list_of_applicant_decision_enum($lang = null)
         {
-            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::applicant_decision()[$lang];
         }
         
@@ -405,9 +405,9 @@ class AdmObject extends AfwMomkenObject{
 
 
 
-        public static function list_of_application_status_enum()
+        public static function list_of_application_status_enum($lang = null)
         {
-            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
             return self::application_status_enum()[$lang];
         }
         

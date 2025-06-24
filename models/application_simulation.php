@@ -979,6 +979,91 @@ class ApplicationSimulation extends AdmObject
 
     public function calcStatsPanel($what = "value")
     {
+        $arrOptions = $this->getOptions(); 
+        $type = strtoupper($arrOptions["TYPE"]);
+        if(!$type) $type = "APPLICATION";
+        
+        if($type == "APPLICATION")
+        {
+            return $this->calcApplicationStatsPanel($what);
+        }
+        elseif($type == "DECISION")
+        {
+            return $this->calcDecisionStatsPanel($what);
+        }
+        else
+        {
+            throw new AfwBusinessException("Unknown simulation type : ".$type);
+        }
+    }
+
+    
+    public function calcDecisionStatsPanel($what = "value")
+    {
+        $smid = $this->id;
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $simulation_progress_task = $this->getVal("progress_task");
+        if ($simulation_progress_task == "--STOP--") $simulation_progress_task = "";
+        $html = "<div class='simulation-panel'>";
+        $html .= "<div class='stats-panel'>";
+        $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+        $arrOptions = $this->getOptions();
+        $keyDecodeArr = [];
+        $keyDecodeArr["done"] = $this->translate("done", $lang);
+        $keyDecodeArr["to-do"] = $this->translate("to-do", $lang);
+        $keyDecodeArr["standby"] = $this->translate("standby", $lang);
+
+        $fromProspect = false;
+        if (($arrOptions["REGISTER_APPLICANTS"] == "PROSPECT")) {
+            $fromProspect = true;
+            $arrOptions["REGISTER_APPLICANTS"] = "";
+        }
+
+        $sql_done = "SELECT 'done' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'Y'
+                    union
+                    SELECT 'to-do' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'N'
+                    union
+                    SELECT 'standby' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'W'";
+
+        
+
+        $rows_done = AfwDatabase::db_recup_index($sql_done, "status", "nb");
+        $html .= "<h1>" . $this->tm("Simulation results by status", $lang) . "</h1>";
+        $html .= AfwHtmlHelper::arrayToHtml($rows_done, $keyDecodeArr);
+        $application_model_id = $this->getVal("application_model_id");
+        $applicant_group_id = $this->getVal("applicant_group_id");
+
+        $sql_bootstrap = "SELECT b.status_enum, b.decision_enum, b.nb, b.example_applicant, b.example_applicant2 from 
+                           (SELECT application_status_enum as status_enum, applicant_decision_enum as decision_enum, count(*) as nb, min(applicant_id) as example_applicant, max(applicant_id) as example_applicant2 
+                                        FROM " . $server_db_prefix . "adm.`application` WHERE `application_simulation_id` = $smid 
+                                            group by application_status_enum, applicant_decision_enum) b order by b.status_enum, b.decision_enum";
+
+
+
+        $rows_bootstrap = AfwDatabase::db_recup_rows($sql_bootstrap);
+
+        $header_bootstrap = ["status_enum", "decision_enum", "nb", "example_applicant", "example_applicant2"];
+        $header_bootstrap = AfwLanguageHelper::translateCols($this, $header_bootstrap, $lang, true);
+        $html .= "<h1>" . $this->tm("Simulation results", $lang) . "</h1>";
+        $decoderArr = [];
+        $decoderArr["status_enum"] = self::list_of_application_status_enum($lang);
+        $decoderArr["decision_enum"] = self::list_of_applicant_decision_enum($lang);
+        
+
+        // die("decoderArr=".var_export($decoderArr,true));
+        $html .= AfwHtmlHelper::tableToHtml($rows_bootstrap, $header_bootstrap, $decoderArr);
+
+
+        $html .= "   </div> <!-- stats_panel -->";
+        $html .= "</div> <!-- stats-panel -->";
+        $html .= "</div> <!-- simulation-panel -->";
+        return $html;
+    }
+
+    public function calcApplicationStatsPanel($what = "value")
+    {
         $smid = $this->id;
         $lang = AfwLanguageHelper::getGlobalLanguage();
         $simulation_progress_task = $this->getVal("progress_task");
