@@ -210,6 +210,20 @@ class ApplicationDesire extends AdmObject
                 else return null;
         }
 
+        public static function getInitialAcceptanceApplicantIds($application_plan_id, $application_simulation_id)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $initial_acceptance = self::desire_status_enum_by_code('initial-acceptance');
+                $sql = "SELECT applicant_id, desire_num
+                                FROM ".$server_db_prefix."adm.application_desire
+                                WHERE application_plan_id = $application_plan_id 
+                                  AND application_simulation_id = $application_simulation_id                                   
+                                  AND desire_status_enum = $initial_acceptance
+                                  AND active = 'Y'";
+
+                return AfwDatabase::db_recup_rows($sql);
+        }
+
         /**
          * 
          * @param Application $applicationObj

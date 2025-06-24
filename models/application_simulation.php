@@ -359,10 +359,19 @@ class ApplicationSimulation extends AdmObject
         ApplicantSimulation::updateWhere($sets_arr, $where_clause);
     }
 
-    public function resetSimulation($cases)
+    public function resetApplicationSimulation($cases)
     {
         $application_simulation_id = $this->id;
         $sets_arr = ['done' => 'N'];
+        $where_clause = "active='Y' and application_simulation_id=$application_simulation_id";
+        if ($cases and (strtolower($cases) != "all")) $where_clause = "and applicant_id in ($cases)";
+        ApplicantSimulation::updateWhere($sets_arr, $where_clause);
+    }
+
+    public function resetDecisionSimulation($cases)
+    {
+        $application_simulation_id = $this->id;
+        $sets_arr = ['decided' => 'N'];
         $where_clause = "active='Y' and application_simulation_id=$application_simulation_id";
         if ($cases and (strtolower($cases) != "all")) $where_clause = "and applicant_id in ($cases)";
         ApplicantSimulation::updateWhere($sets_arr, $where_clause);
@@ -372,10 +381,173 @@ class ApplicationSimulation extends AdmObject
 
     public function resetMySimulation($lang = "ar")
     {
-        return $this->runSimulation($lang, $only_reset = true);
+        return $this->runApplicationSimulation($lang, $only_reset = true);
     }
 
+
     public function runSimulation($lang = "ar", $only_reset = false)
+    {
+        $arrOptions = $this->getOptions(); 
+        $type = strtoupper($arrOptions["TYPE"]);
+        if(!$type) $type = "APPLICATION";
+        
+        if($type == "APPLICATION")
+        {
+            return $this->runApplicationSimulation($lang, $only_reset);
+        }
+        elseif($type == "DECISION")
+        {
+            return $this->runDecisionSimulation($lang, $only_reset);
+        }
+        else
+        {
+            throw new AfwBusinessException("Unknown simulation type : ".$type);
+        }
+    }
+
+    public function runDecisionSimulation($lang = "ar", $only_reset = false)
+    {
+        global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
+        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+        $MODE_BATCH_LOURD = true;
+        $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+        set_time_limit(1800);
+
+        AfwSession::setConfig("_sql_analysis_seuil_calls", 700000);
+        AfwSession::setConfig("applicant_api_request-sql-analysis-max-calls", 100000);
+        AfwSession::setConfig("applicant-sql-analysis-max-calls", 8000);
+        AfwSession::setConfig("applicant_simulation-sql-analysis-max-calls", 8000);
+        AfwSession::setConfig("applicant_qualification-sql-analysis-max-calls", 8000);
+        AfwSession::setConfig("application-sql-analysis-max-calls", 8000);
+        AfwSession::setConfig("application_desire-sql-analysis-max-calls", 250000);
+        AfwSession::setConfig('MAX_INSTANCES_BY_REQUEST', 250000);
+        $MAX_TO_LOG = 10;
+        if ($this->id == 2) $typeRun = $this->tm("Real application", $lang);
+        else $typeRun = $this->tm("Application simulation", $lang);
+
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        $log_arr = [];
+        $result_arr = [];
+
+        $arrOptions = $this->getOptions();
+        // if (!$arrOptions["DATE"]) $arrOptions["DATE"] = date("Y-m-d");
+        if (!$arrOptions["LOG"]) {
+            $arrOptions["LOG"] = "ERROR,WARNING";
+        }
+        $log = true;
+        $log_err = AfwStringHelper::stringContain($arrOptions["LOG"], "ERROR");
+        $log_inf = AfwStringHelper::stringContain($arrOptions["LOG"], "INFO");
+        $log_war = AfwStringHelper::stringContain($arrOptions["LOG"], "WARNING");
+        $log_tech = AfwStringHelper::stringContain($arrOptions["LOG"], "DEBUGG");
+        if ($only_reset) $arrOptions["RESET_SIMULATION"] = "all";
+        if ($arrOptions["RESET_SIMULATION"] and (strtolower($arrOptions["RESET_SIMULATION"]) != "none")) {
+            if($arrOptions["RESET_SIMULATION"] == "all")
+            {
+                $war_arr[] = "<p class='important'>We have done a reset as per your request in settings (RESET_SIMULATION=all) </a>";
+            }
+            $this->resetDecisionSimulation($arrOptions["RESET_SIMULATION"]);
+        }
+        $application_simulation_id = $this->id;
+        $application_plan_id = $this->getVal("application_plan_id"); 
+        // $applicationPlanObj = $this->het("application_plan_id");
+        
+        $applicantRows = ApplicationDesire::getInitialAcceptanceApplicantIds($application_plan_id, $application_simulation_id);
+        $accepted = 0;
+        $promotion = 0;
+        $rejected = 0;
+        $total = 0;
+        foreach($applicantRows as $applicantRow)
+        {          
+            
+            $applicant_id = $applicantRow["applicant_id"];
+            $desire_num = $applicantRow["desire_num"];
+            
+            $p1 = self::p1($desire_num);
+            $p2 = self::p2($desire_num);
+
+            $P1 = round(100*$p1);
+            $P2 = round(100*($p1+$p2));
+
+            $rr = rand(0,100);
+
+            $objAppliction = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+            if($objAppliction)
+            {
+                $total++;
+                if($rr<=$P1)
+                {
+                    $rejected++;
+                    $objAppliction->decideRejectOffer($lang);
+                }
+                elseif($rr<=$P2)
+                {
+                    $promotion++;
+                    $objAppliction->decideAcceptOfferWithUpgradeRequest($lang);
+                }
+                else
+                {
+                    $accepted++;
+                    $objAppliction->decideAcceptOffer($lang);
+                }
+
+                unset($objAppliction);
+            }
+            
+        }
+
+        
+
+        $inf_arr[] = "Nb of accepted : $accepted";
+        $inf_arr[] = "Nb of accepted with promotion : $promotion";
+        $inf_arr[] = "Nb of rejected : $rejected";
+        $inf_arr[] = "Nb total : $total";
+
+        $the_log = implode("\n", $log_arr);
+
+        $this->set("progress_task", "");
+        $this->set("log", $the_log);
+        $this->commit();
+        /*    
+            } catch (Exception $e) {
+                $err_arr[] = $e->getMessage();
+            } catch (Error $e) {
+                $err_arr[] = $e->__toString();
+            }
+                */
+        // die("war_arr=".var_export($war_arr));
+
+        $result_arr["errors"] = count($err_arr);
+        $result_arr["warnings"] = count($war_arr);
+
+        $boucle_loadObjectFK = $old_boucle_loadObjectFK;
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+    }
+
+
+    private static function p1($desire_num)
+    {
+        $a = 0.00036;
+        $b = 0.04964;
+
+        return $a*$desire_num*$desire_num + $b;
+    }
+
+    private static function p2($desire_num)
+    {
+        $c = -0.00164779;
+        $d = 0.0850576;
+        $e = -0.08341;
+
+        return $c*$desire_num*$desire_num + $d*$desire_num + $e;
+    }
+
+    
+
+    public function runApplicationSimulation($lang = "ar", $only_reset = false)
     {
         global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -418,7 +590,7 @@ class ApplicationSimulation extends AdmObject
             {
                 $war_arr[] = "<p class='important'>We have done a reset as per your request in settings (RESET_SIMULATION=all) </a>";
             }
-            $this->resetSimulation($arrOptions["RESET_SIMULATION"]);
+            $this->resetApplicationSimulation($arrOptions["RESET_SIMULATION"]);
         }
 
         $fromProspect = false;

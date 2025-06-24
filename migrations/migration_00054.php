@@ -78,6 +78,7 @@ AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_simulati
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.prospect_desire add   done char(1) DEFAULT 'N';");
 AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.prospect_desire set done='N' where done is null");
+
 // AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_simulation;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_simulation` (

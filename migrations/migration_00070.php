@@ -6,6 +6,9 @@ try
 {
     $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_session', 180, "+t", "qsearch", null);
 
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_simulation add   decided char(1) DEFAULT 'N';");
+    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.applicant_simulation set decided='N' where done is null");
+
     AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.api_endpoint 
                 SET id=18, api_endpoint_code = _utf8'offline_evqual', 
                     published = 'N', import = 'N', 
