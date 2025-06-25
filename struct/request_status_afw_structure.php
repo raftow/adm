@@ -1,5 +1,5 @@
 <?php
-class CrmRequestStatusAfwStructure
+class AdmRequestStatusAfwStructure
 {
         public static $DB_STRUCTURE = array(
 
@@ -139,7 +139,7 @@ class CrmRequestStatusAfwStructure
                         'DEFAUT' => ',1,',
                         'TYPE' => 'MFK',
                         'ANSWER' => 'response_type',
-                        'ANSMODULE' => 'crm',
+                        'ANSMODULE' => 'adm',
                         'READONLY' => false,
                         'SEARCH-BY-ONE' => false,
                         'DISPLAY' => true,

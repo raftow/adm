@@ -13,7 +13,7 @@ $file_dir_name = dirname(__FILE__);
 
 // old include of afw.php
 
-class RequestStatus extends CrmObject
+class RequestStatus extends AdmObject
 {
 
      public static $MY_ATABLE_ID = 3570;
@@ -56,7 +56,7 @@ class RequestStatus extends CrmObject
 
 
      public static $DATABASE          = "";
-     public static $MODULE              = "crm";
+     public static $MODULE              = "adm";
      public static $TABLE               = "request_status";
      public static $DB_STRUCTURE = null;
 
@@ -65,7 +65,7 @@ class RequestStatus extends CrmObject
 
      public function __construct()
      {
-          parent::__construct("request_status", "id", "crm");
+          parent::__construct("request_status", "id", "adm");
           $this->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
           $this->DISPLAY_FIELD = "request_status_name_ar";
           $this->ORDER_BY_FIELDS = "lookup_code";
@@ -168,13 +168,13 @@ class RequestStatus extends CrmObject
 
                     // FK not part of me - replaceable 
                     // crm.request-حالة التذكرة	status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.request set status_id='$id_replace' where status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.request set status_id='$id_replace' where status_id='$id' ");
                     // crm.response-الحالة الجديدة للطلب	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.response set new_status_id='$id_replace' where new_status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.response set new_status_id='$id_replace' where new_status_id='$id' ");
                     // crm.action_policy-حالة التذكرة قبل	old_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.action_policy set old_status_id='$id_replace' where old_status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.action_policy set old_status_id='$id_replace' where old_status_id='$id' ");
                     // crm.action_policy-حالة التذكرة بعد	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.action_policy set new_status_id='$id_replace' where new_status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.action_policy set new_status_id='$id_replace' where new_status_id='$id' ");
 
 
 
@@ -183,13 +183,13 @@ class RequestStatus extends CrmObject
                } else {
                     $server_db_prefix = AfwSession::config("db_prefix", "default_db_"); // FK on me 
                     // crm.request-حالة التذكرة	status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.request set status_id='$id_replace' where status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.request set status_id='$id_replace' where status_id='$id' ");
                     // crm.response-الحالة الجديدة للطلب	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.response set new_status_id='$id_replace' where new_status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.response set new_status_id='$id_replace' where new_status_id='$id' ");
                     // crm.action_policy-حالة التذكرة قبل	old_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.action_policy set old_status_id='$id_replace' where old_status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.action_policy set old_status_id='$id_replace' where old_status_id='$id' ");
                     // crm.action_policy-حالة التذكرة بعد	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}crm.action_policy set new_status_id='$id_replace' where new_status_id='$id' ");
+                    $this->execQuery("update ${server_db_prefix}adm.action_policy set new_status_id='$id_replace' where new_status_id='$id' ");
 
 
                     // MFK
