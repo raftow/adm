@@ -25,6 +25,8 @@ class ServiceRequestArTranslator{
 	$trad["service_request"]["status_comment"] = "ملاحظات الحالة";
     $trad["service_request"]["status_date"] = "تاريخ الحالة";
     $trad["service_request"]["applicant_id"] = "المتقدم";
+	$trad["service_request"]["applicantFileIdLink"] = "المرفقات";
+	$trad["service_request"]["applicantIdLink"] = "المتقدم";
 
         return $trad;
         }
