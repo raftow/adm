@@ -559,7 +559,7 @@ class SortingSession extends AdmObject
 
         $sorting_start_date = $this->getVal("start_date");
         $sorting_end_date = $this->getVal("end_date"); 
-        $now = date("Y-m-d");
+        $now = date("Y-m-d H:i:s");
 
         $period_of_sorting = (($now>=$sorting_start_date) and ($now<=$sorting_end_date));
 
@@ -581,7 +581,7 @@ class SortingSession extends AdmObject
 
         $sorting_start_date = $this->getVal("start_date");
         $sorting_end_date = $this->getVal("end_date"); 
-        $now = date("Y-m-d");
+        $now = date("Y-m-d H:i:s");
 
         $period_of_sorting = (($now>=$sorting_start_date) and ($now<=$sorting_end_date));
 
