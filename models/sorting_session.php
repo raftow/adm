@@ -889,7 +889,7 @@ class SortingSession extends AdmObject
             $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
             $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
 
-            $color = "orange";
+            $color = "yellow";
             $title_ar = "جلب الطاقة الاستيعابية الاصلية لجميع فروع القبول";
             $methodName = "inheritBranchsCapacities";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, 

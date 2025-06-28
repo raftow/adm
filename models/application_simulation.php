@@ -1060,6 +1060,7 @@ class ApplicationSimulation extends AdmObject
         $accepted_by_dn = [];
         $promotion_by_dn = [];
         $rejected_by_dn = [];
+        $dataBubble = [];
         $application_simulation_id = $this->id;
         $application_plan_id = $this->getVal("application_plan_id"); 
         $desireList = ApplicationDesire::loadAllAssignedDesire($application_plan_id, $application_simulation_id);
@@ -1067,22 +1068,34 @@ class ApplicationSimulation extends AdmObject
         {
             $desire_num = $desireItem->getVal("desire_num");
             $decision_enum = $desireItem->calc("applicant_decision_enum");
+            $wp_approx = round(5*$desireItem->getVal("sorting_value_1"))/5;
+            if($wp_approx<65) $wp_approx = 65;
+
             if($decision_enum==3)
             {
-                if(!$rejected_by_dn[$desire_num]) $rejected_by_dn[$desire_num] = 0;
-                $rejected_by_dn[$desire_num]++;
+                if(!$rejected_by_dn[$desire_num][$wp_approx]) $rejected_by_dn[$desire_num][$wp_approx] = 0;
+                $rejected_by_dn[$desire_num][$wp_approx]++;
             }
             elseif($decision_enum==2)
             {
-                if(!$promotion_by_dn[$desire_num]) $promotion_by_dn[$desire_num] = 0;
-                $promotion_by_dn[$desire_num]++;
+                if(!$promotion_by_dn[$desire_num][$wp_approx]) $promotion_by_dn[$desire_num][$wp_approx] = 0;
+                $promotion_by_dn[$desire_num][$wp_approx]++;
             }
             elseif($decision_enum==1)
             {
-                if(!$accepted_by_dn[$desire_num]) $accepted_by_dn[$desire_num] = 0;
-                $accepted_by_dn[$desire_num]++;
+                if(!$accepted_by_dn[$desire_num][$wp_approx]) $accepted_by_dn[$desire_num][$wp_approx] = 0;
+                $accepted_by_dn[$desire_num][$wp_approx]++;
             }
+
+            if(!$dataBubble[$decision_enum][$desire_num][$wp_approx]) $dataBubble[$decision_enum][$desire_num][$wp_approx] = 0;
+            $dataBubble[$decision_enum][$desire_num][$wp_approx]++;
         }        
+
+        $labels = self::list_of_applicant_decision_enum($lang);
+
+        $html .= "<div class='qfilter col-sm-10 col-md-10 pb10'><h1>توزيع المقبولين مبدئيا حسب ترتيب الرغبة المسندة والنسبة الموزونة</h1></div>";
+        $html .= "<canvas id=\"dbdnwp\" style=\"width:100%;max-width:900px;margin:auto\"></canvas>";
+        $html .= AfwChartHelper::bubbleChartScript($dataBubble, "dbdnwp", $labels);
 
         $html .= "   </div> <!-- stats_panel -->";
         $html .= "</div> <!-- stats-panel -->";
