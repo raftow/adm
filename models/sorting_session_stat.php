@@ -397,7 +397,8 @@ class SortingSessionStat extends AFWObject{
         {
             $session_num = $this->getVal("session_num");
             $application_plan_id = $this->getVal("application_plan_id");
-            $obj = SortingSession::loadByMainIndex($application_plan_id, $session_num);
+            $application_simulation_id = $this->getVal("application_simulation_id");
+            $obj = SortingSession::loadByMainIndex($application_plan_id, $application_simulation_id, $session_num);
 
             return ($what=="value") ? $obj->id : $obj;
         }

@@ -44,7 +44,7 @@ class SortingSession extends AdmObject
                     }
                     $sorting_end_date = $applicationPlanObj->getVal("sorting_end_date");
                 } elseif ($session_num > 1) {
-                    $sessPrevious = self::loadByMainIndex($application_plan_id, $session_num - 1);
+                    $sessPrevious = self::loadByMainIndex($application_plan_id, $application_simulation_id, $session_num - 1);
                     if ($sessPrevious) {
                         $prev_end_date = $sessPrevious->getVal("end_date");
                         $sorting_start_date = AfwDateHelper::shiftGregDate($prev_end_date, 1);
@@ -102,10 +102,11 @@ class SortingSession extends AdmObject
         } else return null;
     }
     
-    public static function loadByMainIndex($application_plan_id, $session_num, $create_obj_if_not_found = false)
+    public static function loadByMainIndex($application_plan_id, $application_simulation_id, $session_num, $create_obj_if_not_found = false)
     {
         $obj = new SortingSession();
         $obj->select("application_plan_id", $application_plan_id);
+        $obj->select("application_simulation_id", $application_simulation_id);
         $obj->select("session_num", $session_num);
 
         if ($obj->load()) {
@@ -113,6 +114,7 @@ class SortingSession extends AdmObject
             return $obj;
         } elseif ($create_obj_if_not_found) {
             $obj->set("application_plan_id", $application_plan_id);
+            $obj->set("application_simulation_id", $application_simulation_id);
             $obj->set("session_num", $session_num);
 
             $obj->insertNew();
