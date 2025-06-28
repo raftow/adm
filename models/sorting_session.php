@@ -572,6 +572,29 @@ class SortingSession extends AdmObject
         return $no;
     }
 
+    public function calcApplication_ongoing_details($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $applicationSimulationObj = $this->het("application_simulation_id");
+        if(!$applicationSimulationObj) return $this->tm("No-Application-Simulation-Object", $lang);
+
+
+        $sorting_start_date = $this->getVal("start_date");
+        $sorting_end_date = $this->getVal("end_date"); 
+        $now = date("Y-m-d");
+
+        $period_of_sorting = (($now>=$sorting_start_date) and ($now<=$sorting_end_date));
+
+        if($applicationSimulationObj->id==2) // reelle not simulation
+        {
+            return $period_of_sorting ? ".." : $this->tm("real sorting that has not yet started", $lang);
+        }
+
+        if($applicationSimulationObj->isRunning()) return $this->tm("Application simulation is running", $lang);
+        if(!$period_of_sorting) return $this->tm("out of sorting period", $lang);
+        return "...";
+    }
+
 
     public function runTheSchedule($lang)
     {

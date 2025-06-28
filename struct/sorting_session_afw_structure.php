@@ -199,6 +199,13 @@ class AdmSortingSessionAfwStructure
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),   
 
+                'application_ongoing_details' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                                'EDIT' => true,  'READONLY' => true, 
+                                                'TYPE' => 'TEXT',  'STEP' => 3, 'READONLY'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),   
+
+
                 
                 'desires_nb' => array('SHOW' => true, 
                                         'EDIT' => true,  'READONLY' => true, 
