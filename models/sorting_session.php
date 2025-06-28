@@ -511,7 +511,7 @@ class SortingSession extends AdmObject
 
         
 
-        if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed before start sorting", $lang);
+        if($this->mayBe("application_ongoing")) return $this->tm("Application process should be closed and sorting start & end dates should be reviewed before perform sorting", $lang);
         
         if($this->getVal("data_date")>=$this->getVal("stats_date")) return $this->tm("Please update ready indicators because they are old", $lang);
         

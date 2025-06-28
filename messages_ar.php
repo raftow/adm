@@ -168,7 +168,7 @@
          "لا توجد قائمة انتظار ولم تصل إلى المقاعد المطلوبة، قد تحتاج إلى مراجعة النسبة الموزونة الدنيا المقبولة لديك";
     
 
-    $messages["Application process should be closed before start sorting"] = "يجب إغلاق عملية التقديم قبل البدء في الفرز";
+    $messages["Application process should be closed and sorting start & end dates should be reviewed before perform sorting"] = "يجب إغلاق عملية التقديم ومراجعة تواريخ الفرز قبل البدء في الفرز";
     $messages["Please wait the current task finish, before start sorting"] = "يجب إنتظار انتهاء مهمة التحديث الحالية قبل البدء في الفرز";
     $messages["Please update ready indicators because they are old"] = "يرجى تحديث مؤشرات الجاهزية للفرز لأنها قديمة";
 
