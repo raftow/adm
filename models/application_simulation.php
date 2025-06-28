@@ -104,6 +104,27 @@ class ApplicationSimulation extends AdmObject
 
         $pbms = array();
 
+        $color = "yellow";
+        $title_ar = "استنساخ المحاكاة";
+        $methodName = "cloneSimulation";
+        $methodConfirmationWarningEn = "Please do not do this action except if really needed !";
+        $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+
+        $methodConfirmationQuestionEn = "Are you sure you want to clone the simulation ?";
+        $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+        $pbms[AfwStringHelper::hzmEncode($methodName)] =
+            array(
+                "METHOD" => $methodName,
+                "COLOR" => $color,
+                "LABEL_AR" => $title_ar,
+                "ADMIN-ONLY" => true,
+                "BF-ID" => "",
+                'CONFIRMATION_NEEDED' => true,
+                'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                'STEP' => $this->stepOfAttribute("settings")
+            );
+
         $color = "green";
         $title_ar = "تنفيذ المحاكاة";
         $methodName = "runSimulation";
@@ -377,6 +398,82 @@ class ApplicationSimulation extends AdmObject
         ApplicantSimulation::updateWhere($sets_arr, $where_clause);
     }
 
+
+    public function cloneSimulation($lang = "ar")
+    {
+
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        
+        global $MODE_BATCH_LOURD;
+        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+        $MODE_BATCH_LOURD = true;
+
+        $objme = AfwSession::getUserConnected();
+        $me = $objme->id;
+
+        if(!$me) return ["Please authenticate before", ""];
+        
+        
+        $application_simulation_id = $this->id;
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        
+
+        $cloneMe = clone $this;
+        $cloneMe->setForce("id", 0);
+        $cloneMe->set("name_ar", "نسخة من ".$this->getVal("name_ar"));
+        $cloneMe->set("name_en", "clone of ".$this->getVal("name_en"));
+        $cloneMe->commit();
+        $new_application_simulation_id = $cloneMe->id; 
+
+        AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
+
+        $now = date("Ymdhis");
+
+        // take a copy of applicatin desire status before approve
+        $suffix = "_$me"."_$now";
+
+        $app_tmp_sql_drop = "DROP TABLE IF EXISTS $server_db_prefix"."tempo.application$suffix";
+        $app_tmp_sql_create = "CREATE TABLE $server_db_prefix"."tempo.application$suffix as select * from $server_db_prefix"."adm.application where application_simulation_id=$application_simulation_id";
+        $app_tmp_sql_update = "UPDATE $server_db_prefix"."tempo.application$suffix set application_simulation_id=$new_application_simulation_id where application_simulation_id=$application_simulation_id";
+        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.application as select * from $server_db_prefix"."tempo.application$suffix";
+        AfwDatabase::db_query($app_tmp_sql_drop);
+        AfwDatabase::db_query($app_tmp_sql_create);
+        AfwDatabase::db_query($app_tmp_sql_update);
+        AfwDatabase::db_query($app_tmp_sql_insert);
+        $inf_arr[] = "application done";
+        
+        $tblOrigin = "applicant_simulation";
+        $app_tmp_sql_drop = "DROP TABLE IF EXISTS $server_db_prefix"."tempo.$tblOrigin$suffix";
+        $app_tmp_sql_create = "CREATE TABLE $server_db_prefix"."tempo.$tblOrigin$suffix as select * from $server_db_prefix"."adm.$tblOrigin where application_simulation_id=$application_simulation_id";
+        $app_tmp_sql_update = "UPDATE $server_db_prefix"."tempo.$tblOrigin$suffix set application_simulation_id=$new_application_simulation_id where application_simulation_id=$application_simulation_id";
+        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.$tblOrigin as select * from $server_db_prefix"."tempo.$tblOrigin$suffix";
+        AfwDatabase::db_query($app_tmp_sql_drop);
+        AfwDatabase::db_query($app_tmp_sql_create);
+        AfwDatabase::db_query($app_tmp_sql_update);
+        AfwDatabase::db_query($app_tmp_sql_insert);
+        $inf_arr[] = "applicant simulation done";
+
+
+        $tblOrigin = "application_desire";
+        $app_tmp_sql_drop = "DROP TABLE IF EXISTS $server_db_prefix"."tempo.$tblOrigin$suffix";
+        $app_tmp_sql_create = "CREATE TABLE $server_db_prefix"."tempo.$tblOrigin$suffix as select * from $server_db_prefix"."adm.$tblOrigin where application_simulation_id=$application_simulation_id";
+        $app_tmp_sql_update = "UPDATE $server_db_prefix"."tempo.$tblOrigin$suffix set application_simulation_id=$new_application_simulation_id where application_simulation_id=$application_simulation_id";
+        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.$tblOrigin as select * from $server_db_prefix"."tempo.$tblOrigin$suffix";
+        AfwDatabase::db_query($app_tmp_sql_drop);
+        AfwDatabase::db_query($app_tmp_sql_create);
+        AfwDatabase::db_query($app_tmp_sql_update);
+        AfwDatabase::db_query($app_tmp_sql_insert);
+        $inf_arr[] = "application desire done";
+        
+
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr); 
+
+
+    }
 
 
     public function resetMySimulation($lang = "ar")

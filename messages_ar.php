@@ -118,6 +118,7 @@
     $messages["conditions successfully passed"] = "من الشروط تم تجاوزها بنجاح";
 
     $messages["Are you sure you want to reset the simulation ?"] = "هل أنت متأكد أنك ترغب في تصفير المحاكاة ومسح جميع نتائجها";
+    $messages["Are you sure you want to clone the simulation ?"] = "هل أنت متأكد أنك ترغب في استنساخ المحاكاة لأن هذا يتطلب استخدام جزء من ذاكرة قاعدة البيانات لا بأس به";
     
     $messages["You formally agree that the sorting results are not correct and you want to unpublish them"] = "أنت توافق رسميًا على أن نتائج الفرز غير صحيحة وتريد إلغاء نشرها";
     $messages["You formally agree that the sorting results are correct and ready for publish"] = "أنت توافق رسميًا على أن نتائج الفرز صحيحة وجاهزة للنشر";
@@ -196,5 +197,7 @@
     $messages["This means that the applicant's first choice was not fulfilled, and he was offered a lower option. He wishes to confirm his acceptance along with a request for promotion"] = "هذا يعني أنه لم تتحقق رغبة المتقدم الاولى وتم قبوله على رغبة أدني ويرغب بتأكيد القبول مع طلب ترقية  علما ان الترقية ستكون وفقا للمقاعد الشاعرة والنسبة الموزونة";
 
     $messages["This action will reset all branchs capacities exactly as it is in the application model"] = "سيؤدي هذا الإجراء إلى إعادة تعيين الطاقة الاستيعابية لجميع الفروع تمامًا كما هي في نموذج التقديم";
+
+    $messages["Please do not do this action except if really needed !"] = "من فضلك لا تفعل هذا الإجراء إلا إذا كان ضروريًا حقًا!";
     // $messages[""] = "";
 ?>
