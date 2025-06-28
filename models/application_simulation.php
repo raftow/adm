@@ -440,7 +440,7 @@ class ApplicationSimulation extends AdmObject
         $app_tmp_sql_drop = "DROP TABLE IF EXISTS $server_db_prefix"."tempo.application$suffix";
         $app_tmp_sql_create = "CREATE TABLE $server_db_prefix"."tempo.application$suffix as select * from $server_db_prefix"."adm.application where application_simulation_id=$application_simulation_id";
         $app_tmp_sql_update = "UPDATE $server_db_prefix"."tempo.application$suffix set application_simulation_id=$new_application_simulation_id where application_simulation_id=$application_simulation_id";
-        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.application as select * from $server_db_prefix"."tempo.application$suffix";
+        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.application select * from $server_db_prefix"."tempo.application$suffix";
         AfwDatabase::db_query($app_tmp_sql_drop);
         AfwDatabase::db_query($app_tmp_sql_create);
         AfwDatabase::db_query($app_tmp_sql_update);
@@ -451,7 +451,7 @@ class ApplicationSimulation extends AdmObject
         $app_tmp_sql_drop = "DROP TABLE IF EXISTS $server_db_prefix"."tempo.$tblOrigin$suffix";
         $app_tmp_sql_create = "CREATE TABLE $server_db_prefix"."tempo.$tblOrigin$suffix as select * from $server_db_prefix"."adm.$tblOrigin where application_simulation_id=$application_simulation_id";
         $app_tmp_sql_update = "UPDATE $server_db_prefix"."tempo.$tblOrigin$suffix set application_simulation_id=$new_application_simulation_id where application_simulation_id=$application_simulation_id";
-        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.$tblOrigin as select * from $server_db_prefix"."tempo.$tblOrigin$suffix";
+        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.$tblOrigin select * from $server_db_prefix"."tempo.$tblOrigin$suffix";
         AfwDatabase::db_query($app_tmp_sql_drop);
         AfwDatabase::db_query($app_tmp_sql_create);
         AfwDatabase::db_query($app_tmp_sql_update);
@@ -463,7 +463,7 @@ class ApplicationSimulation extends AdmObject
         $app_tmp_sql_drop = "DROP TABLE IF EXISTS $server_db_prefix"."tempo.$tblOrigin$suffix";
         $app_tmp_sql_create = "CREATE TABLE $server_db_prefix"."tempo.$tblOrigin$suffix as select * from $server_db_prefix"."adm.$tblOrigin where application_simulation_id=$application_simulation_id";
         $app_tmp_sql_update = "UPDATE $server_db_prefix"."tempo.$tblOrigin$suffix set application_simulation_id=$new_application_simulation_id where application_simulation_id=$application_simulation_id";
-        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.$tblOrigin as select * from $server_db_prefix"."tempo.$tblOrigin$suffix";
+        $app_tmp_sql_insert = "INSERT INTO $server_db_prefix"."adm.$tblOrigin select * from $server_db_prefix"."tempo.$tblOrigin$suffix";
         AfwDatabase::db_query($app_tmp_sql_drop);
         AfwDatabase::db_query($app_tmp_sql_create);
         AfwDatabase::db_query($app_tmp_sql_update);
