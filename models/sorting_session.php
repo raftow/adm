@@ -1283,7 +1283,7 @@ class SortingSession extends AdmObject
         $message = $this->tm("done", $lang);
         if($errors_nb>0) $message .= " : $errors_nb error(s), example(s) : $examples";
 
-        return ["", $message];
+        return ["", $message, ""];
     }
 
     

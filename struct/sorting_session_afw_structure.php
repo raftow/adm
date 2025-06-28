@@ -22,7 +22,7 @@ class AdmSortingSessionAfwStructure
 
 
 
-                        $obj->UNIQUE_KEY = array('application_plan_id', 'session_num');
+                        $obj->UNIQUE_KEY = array('application_plan_id', 'application_simulation_id', 'session_num');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;

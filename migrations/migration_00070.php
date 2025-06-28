@@ -32,6 +32,9 @@ try
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   settings text  DEFAULT NULL  AFTER applicant_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   task_pct decimal(5,2) DEFAULT NULL  AFTER stats_date;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session add   sorting_well_done char(1) DEFAULT NULL  AFTER started_ind;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_session
+                        ADD UNIQUE `application_plan_id_application_simulation_id_session_num` (`application_plan_id`, `application_simulation_id`, `session_num`),
+                        DROP INDEX `uk_sorting_session`;");
     
 
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add key(application_plan_id, application_simulation_id, active);");
