@@ -423,6 +423,8 @@ class ApplicationSimulation extends AdmObject
 
         $cloneMe = clone $this;
         $cloneMe->setForce("id", 0);
+        $cloneMe->set("active", "N");
+        $cloneMe->set("active", "Y");
         $cloneMe->set("name_ar", "نسخة من ".$this->getVal("name_ar"));
         $cloneMe->set("name_en", "clone of ".$this->getVal("name_en"));
         $cloneMe->commit();
