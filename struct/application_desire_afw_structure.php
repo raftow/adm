@@ -435,8 +435,8 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_33',),
 
-                                        'applicant_decision_enum' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_id.applicant_decision_enum',
-                                                'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'applicant_decision_enum' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_id.',
+                                                'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>false,    
                                                 'DISPLAY' => true,  'STEP' => 2, 'DEFAULT' => 1,
