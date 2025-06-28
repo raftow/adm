@@ -502,8 +502,9 @@ class SortingSession extends AdmObject
         $lang = AfwLanguageHelper::getGlobalLanguage();
         $taskIsRunning = $this->taskIsRunning();
         if($taskIsRunning) return $this->tm("Please wait the current task finish, before start sorting", $lang)." : $taskIsRunning";
-
-        $hours = AfwDateHelper::timeDiffInHours(date("Y-m-d H:i:s"), $this->getVal("stats_date"));
+        $stats_date = $this->getVal("stats_date");
+        if(!$stats_date) $stats_date = "1990-01-01";
+        $hours = AfwDateHelper::timeDiffInHours(date("Y-m-d H:i:s"), $stats_date);
         if($hours>4) return $this->tm("Please update ready indicators because they are old", $lang). " ($hours h)";
 
         
