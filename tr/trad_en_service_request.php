@@ -25,6 +25,8 @@ class ServiceRequestEnTranslator{
 	$trad["service_request"]["status_comment"] = "status comment";
     $trad["service_request"]["status_date"] = "status date";
     $trad["service_request"]["applicant_id"] = "applicant";
+	$trad["service_request"]["applicantFileIdLink"] = "Attachments";
+	$trad["service_request"]["applicantIdLink"] = "applicant";
 
         return $trad;
         }
