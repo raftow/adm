@@ -199,5 +199,6 @@
     $messages["This action will reset all branchs capacities exactly as it is in the application model"] = "سيؤدي هذا الإجراء إلى إعادة تعيين الطاقة الاستيعابية لجميع الفروع تمامًا كما هي في نموذج التقديم";
 
     $messages["Please do not do this action except if really needed !"] = "من فضلك لا تفعل هذا الإجراء إلا إذا كان ضروريًا حقًا!";
+    $messages["Verify enrollment at another university"] = "التثبت من التسجيل في جامعة أخرى";
     // $messages[""] = "";
 ?>

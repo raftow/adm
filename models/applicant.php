@@ -821,11 +821,21 @@ class Applicant extends AdmObject
                 $pbms = array();
 
 
+
+                $color = "orange";
+                $title_en = "Verify enrollment at another university";
+                $title_ar = $this->tm($title_en, 'ar');                
+                $methodName = "verifyEnrollment";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                        "LABEL_AR" => $title_ar, 
+                                        "LABEL_EN" => $title_en, 
+                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+
                 //@todo
                 // checkOtherUniversityAcceptance
                 $color = "blue";
-                $title_ar = $this->tm("Force updating data via electronic services", 'ar');
-                $title_en = $this->tm("Force updating data via electronic services", 'en');
+                $title_en = "Force updating data via electronic services";
+                $title_ar = $this->tm($title_en, 'ar');                
                 $methodName = "runNeededApis";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
                                         "LABEL_AR" => $title_ar, 
@@ -888,6 +898,35 @@ class Applicant extends AdmObject
         public function runOnlyNeedUpdateApis($lang = "ar")
         {
                 return $this->runNeededApis($lang, false);
+        }
+
+
+        public function verifyEnrollment($lang = "ar")
+        {
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];  
+
+
+                try {
+                        // medali to implement your code of mourakaba
+                        // ...
+
+
+                        // if you find error that happened
+                        $err_arr[] = "your error text here";
+                        // if you want to show info as result
+                        $inf_arr[] = "your info text here";
+                        // if you find warning that you want to show to administrator
+                        $war_arr[] = "your warning text here";
+
+                } catch (Exception $e) {
+                        $err_arr[] = $e->getMessage();
+                } catch (Error $e) {
+                        $err_arr[] = $e->__toString();
+                }
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
         public function runNeededApis($lang = "ar", $force=true, $echo=false, $stopMethod="")
