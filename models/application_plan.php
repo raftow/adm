@@ -716,14 +716,20 @@ class ApplicationPlan extends AdmObject
         }
 
         if ($mode == "mode_sortingSessionList") {
-            unset($link);
-            $link = array();
-            $title = "إضافة تنفيذ فرز جديد";
-            $title_detailed = $title . "لـ : " . $displ;
-            $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=SortingSession&currmod=adm&sel_application_plan_id=$my_id";
-            $link["TITLE"] = $title;
-            $link["UGROUPS"] = array();
-            $otherLinksArray[] = $link;
+            $simList = ApplicationSimulation::loadAllLookupObjects();
+            foreach($simList as $sim_id => $simItem)
+            {
+                $displ_sim = $simItem->getDisplay($lang);
+                unset($link);
+                $link = array();
+                $title = "إضافة تنفيذ فرز جديد";
+                $title_detailed = $title . "لـ : " . $displ_sim;
+                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=SortingSession&currmod=adm&sel_application_plan_id=$my_id&sel_application_simulation_id=$sim_id";
+                $link["TITLE"] = $title_detailed;
+                $link["UGROUPS"] = array();
+                $otherLinksArray[] = $link;
+            }
+            
         }
 
         /*

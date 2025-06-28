@@ -64,15 +64,18 @@ class AdmSortingSessionAfwStructure
                         'RELATION' => 'OneToMany',
                         'READONLY' => true,
                         'DNA' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_25',
                 ),
 
-                'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
+                'application_simulation_id' => array('IMPORTANT' => 'IN',  
+                        'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  
+                        'RETRIEVE' => true,  
                         'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                         'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 2,    
-                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'AUTOCOMPLETE' => false,
+                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 
+                        'MANDATORY' => true, 'AUTOCOMPLETE' => false, 'READONLY' => true,
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                        'CSS' => 'width_pct_25', ),
+                        'CSS' => 'width_pct_50', ),
 
                 'session_num' => array(
                         'STEP' => 1,
