@@ -26,11 +26,16 @@ class SortingSession extends AdmObject
 
     protected function afterSetAttribute($attribute)
     {
-        if (($attribute == "application_plan_id") and (!$this->getVal("session_num"))) {
+        if ((($attribute == "application_plan_id") or ($attribute == "application_simulation_id")) and (!$this->getVal("session_num"))) {
+            /** 
+             * @var ApplicationPlan $applicationPlanObj 
+             * 
+            */
             $applicationPlanObj = $this->het("application_plan_id");
-            if ($applicationPlanObj) {
+            $application_simulation_id = $this->getVal("application_simulation_id");
+            if ($applicationPlanObj and $application_simulation_id) {
                 $application_plan_id = $applicationPlanObj->id;
-                $session_num = $applicationPlanObj->getRelation("sortingSessionList")->func("max(session_num)") + 1;
+                $session_num = $applicationPlanObj->getRelation("sortingSessionList")->resetWhere("application_simulation_id=$application_simulation_id")->func("max(session_num)") + 1;
                 if ($session_num == 1) {
                     $sorting_start_date = $applicationPlanObj->getVal("sorting_start_date");
                     if (!$sorting_start_date) {
