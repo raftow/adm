@@ -591,7 +591,7 @@ class SortingSession extends AdmObject
         }
 
         if($applicationSimulationObj->isRunning()) return $this->tm("Application simulation is running", $lang);
-        if(!$period_of_sorting) return $this->tm("out of sorting period", $lang);
+        if(!$period_of_sorting) return $this->tm("out of sorting period, this not correct : (($now>=$sorting_start_date) and ($now<=$sorting_end_date))", $lang);
         return "...";
     }
 
