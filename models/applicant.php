@@ -952,6 +952,7 @@ class Applicant extends AdmObject
                         ];
                         $ch = curl_init("http://212.138.86.196/api/morakaba/");
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
                         curl_setopt($ch, CURLOPT_HTTPHEADER, [
                         'Authorization: Bearer ' . $token,
