@@ -967,7 +967,7 @@ class Applicant extends AdmObject
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
                         $nb_univ = 0;
-                        $inf_arr[] = $token;
+                        //$inf_arr[] = $token;
                         foreach($data as $row){
                                 if($row["Universities_Graduated_ind"]==true){
                                         $nb_univ++;
