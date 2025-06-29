@@ -5012,3 +5012,7 @@ button.btn.refresh_wizard {
     white-space: break-spaces;
     line-height: 17px;
 }
+
+canvas#dbdnwp {
+    background-color: #f7fae9;
+}

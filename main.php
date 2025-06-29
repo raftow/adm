@@ -11,6 +11,10 @@ else
 {
     $Main_Page = "home.php";
 }
-$options = AfwMainPage::getDefaultOptions($Main_Page);
+$table = strtolower($_REQUEST["cl"]); 
+// $table = AfwStringHelper::classToTable($_REQUEST["cl"]);
+if(!$table) $table = "all";
+
+$options = AfwMainPage::getDefaultOptions($Main_Page, "adm", $table);
 // die("main-options for $Main_Page : ".var_export($options,true));
 AfwMainPage::echoMainPage($MODULE, $Main_Page, $file_dir_name, $options);
