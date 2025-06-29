@@ -11,7 +11,7 @@ else
 {
     $Main_Page = "home.php";
 }
-$table = AfwStringHelper::classToTable($_REQUEST["cl"]);
+$table = $_REQUEST["cl"]; // AfwStringHelper::classToTable($_REQUEST["cl"]);
 if(!$table) $table = "all";
 
 $options = AfwMainPage::getDefaultOptions($Main_Page, "adm", $table);
