@@ -1196,7 +1196,7 @@ class ApplicationSimulation extends AdmObject
             }
 
             if(!$dataBubble[$decision_enum][$desire_num][$wp_approx]) $dataBubble[$decision_enum][$desire_num][$wp_approx] = 0;
-            $dataBubble[$decision_enum][$desire_num][$wp_approx]++;
+            if($dataBubble[$decision_enum][$desire_num][$wp_approx]<10) $dataBubble[$decision_enum][$desire_num][$wp_approx]+=0.1;
         }        
 
         $labels = self::list_of_applicant_decision_enum($lang);
