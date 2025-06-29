@@ -1170,7 +1170,7 @@ class ApplicationSimulation extends AdmObject
         foreach($desireList as $desireItem)
         {
             $desire_num = $desireItem->getVal("desire_num");
-            $decision_enum = $desireItem->calc("applicant_decision_enum");
+            $decision_enum = $desireItem->getVal("applicant_decision_enum");
             $wp_approx = round(5*$desireItem->getVal("sorting_value_1"))/5;
             if($wp_approx<65) $wp_approx = 65;
 

@@ -886,6 +886,7 @@ class Application extends AdmObject
                 $desireObj = $this->loadInitialAcceptanceDesire();
                 if(!$desireObj) return ["no initial acceptance desire found", ""];
                 $this->set("applicant_decision_enum", $new_applicant_decision_enum);
+                $desireObj->set("applicant_decision_enum", $new_applicant_decision_enum);
                 
                 if(($new_applicant_decision_enum==1) or ($new_applicant_decision_enum==2))
                 {
