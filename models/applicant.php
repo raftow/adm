@@ -965,13 +965,23 @@ class Applicant extends AdmObject
                 
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
+                        $nb_univ = 0;
+                        foreach($data as $row){
+                                if($row["Universities_Graduated_ind"]==true){
+                                        $nb_univ++;
+                                        $war_arr[] = "المتقدم مقبول في جامعة ".$row["UniversityNameAr"]." (".$row["UniversityID"].")";
+                                        //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
+                                }
+                        }
 
+                        if($nb_univ==0){
+                                $inf_arr[] = "لا توجد سجلات للمتقدم في الجامعات السعودية";
+                        }
                         // if you find error that happened
                         $err_arr[] = "your error text here";
                         // if you want to show info as result
-                        $inf_arr[] = $data;
                         // if you find warning that you want to show to administrator
-                        $war_arr[] = "your warning text here";
+                        //$war_arr[] = "your warning text here";
 
                 } catch (Exception $e) {
                         $err_arr[] = $e->getMessage();
