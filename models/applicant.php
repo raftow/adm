@@ -900,7 +900,40 @@ class Applicant extends AdmObject
                 return $this->runNeededApis($lang, false);
         }
 
-
+        /***** added by medali */
+        public function getToken(){
+                $authUrl = 'http://212.138.86.196/api/apilogin';
+                $credentials = [
+                    "email"=>'admission@uoh.com', 
+                    "password"=>'admin102030'
+                ];
+        
+                $ch = curl_init($authUrl);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($credentials));
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    'Accept: application/json',
+                    'Content-Type: application/json'
+                ]);
+        
+                $response = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    //die('Auth Error: ' . curl_error($ch));
+                    return false;
+                }
+                curl_close($ch);
+        
+                // استخراج التوكن
+                $result = json_decode($response, true);
+                $token = $result['token'] ?? null;
+        
+                if (!$token) {
+                    return false;
+                }
+                return $token;
+            }
+            /*** end medali code */
         public function verifyEnrollment($lang = "ar")
         {
                 $err_arr = [];
@@ -912,12 +945,31 @@ class Applicant extends AdmObject
                 try {
                         // medali to implement your code of mourakaba
                         // ...
-
+                        $token = $this->getToken();
+                        $request = [
+                                "idn"=>$idn,       
+                        ];
+                        $ch = curl_init("http://212.138.86.196/api/morakaba/".$this->idn);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                        'Authorization: Bearer ' . $token,
+                        'Accept: application/json'
+                        ]);
+                
+                        $dataResponse = curl_exec($ch);
+                        if (curl_errno($ch)) {
+                        $err_arr[] = curl_errno($ch);
+                        }
+                        curl_close($ch);
+                
+                        // تحليل الاستجابة
+                        $data = json_decode($dataResponse, true);
 
                         // if you find error that happened
                         $err_arr[] = "your error text here";
                         // if you want to show info as result
-                        $inf_arr[] = "your info text here";
+                        $inf_arr[] = $data;
                         // if you find warning that you want to show to administrator
                         $war_arr[] = "your warning text here";
 
