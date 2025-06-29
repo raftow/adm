@@ -967,6 +967,7 @@ class Applicant extends AdmObject
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
                         $nb_univ = 0;
+                        $inf_arr[] = $data;
                         foreach($data as $row){
                                 if($row["Universities_Graduated_ind"]==true){
                                         $nb_univ++;
@@ -979,7 +980,7 @@ class Applicant extends AdmObject
                                 $inf_arr[] = "لا توجد سجلات للمتقدم في الجامعات السعودية";
                         }
                         // if you find error that happened
-                        $err_arr[] = "your error text here";
+                        //$err_arr[] = "your error text here";
                         // if you want to show info as result
                         // if you find warning that you want to show to administrator
                         //$war_arr[] = "your warning text here";
