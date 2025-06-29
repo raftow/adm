@@ -945,6 +945,7 @@ class Applicant extends AdmObject
                 try {
                         // medali to implement your code of mourakaba
                         // ...
+                        $idn = $this->getVal("idn");
                         $token = $this->getToken();
                         $request = [
                                 "idn"=>$idn,       
