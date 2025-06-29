@@ -950,10 +950,10 @@ class Applicant extends AdmObject
                         $request = [
                                 "idn"=>$idn,       
                         ];
-                        $ch = curl_init("http://212.138.86.196/api/morakaba/");
+                        $ch = curl_init("http://212.138.86.196/api/morakaba?idn=".$idn);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+                        //curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
                         curl_setopt($ch, CURLOPT_HTTPHEADER, [
                         'Authorization: Bearer ' . $token,
                         'Accept: application/json'
