@@ -570,40 +570,45 @@ class ApplicationSimulation extends AdmObject
             
             $applicant_id = $applicantRow["applicant_id"];
             $desire_num = $applicantRow["desire_num"];
-            
-            $p1 = self::p1($desire_num);
-            $p2 = self::p2($desire_num);
-
-            $P1 = round(100*$p1);
-            $P2 = round(100*($p1+$p2));
-
-            $rr = rand(0,100);
-
-            $objAppliction = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
-            if($objAppliction)
+            $applicantSimItem = ApplicantSimulation::loadByMainIndex($application_simulation_id, $applicant_id);
+            if($applicantSimItem)
             {
-                $total++;
-                if($rr<=$P1)
-                {
-                    $rejected++;
-                    $objAppliction->decideRejectOffer($lang);
-                }
-                elseif($rr<=$P2)
-                {
-                    $promotion++;
-                    $objAppliction->decideAcceptOfferWithUpgradeRequest($lang);
-                }
-                else
-                {                    
-                    $accepted++;
-                    $objAppliction->decideAcceptOffer($lang);
-                }
+                $applicantSimItem->set("decided", "N");
+                $p1 = self::p1($desire_num);
+                $p2 = self::p2($desire_num);
 
-                unset($objAppliction);
+                $P1 = round(100*$p1);
+                $P2 = round(100*($p1+$p2));
+
+                $rr = rand(0,100);
+
+                $objAppliction = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                if($objAppliction)
+                {
+                    $total++;
+                    if($rr<=$P1)
+                    {
+                        $rejected++;
+                        $objAppliction->decideRejectOffer($lang);
+                    }
+                    elseif($rr<=$P2)
+                    {
+                        $promotion++;
+                        $objAppliction->decideAcceptOfferWithUpgradeRequest($lang);
+                    }
+                    else
+                    {                    
+                        $accepted++;
+                        $objAppliction->decideAcceptOffer($lang);
+                    }
+
+                    unset($objAppliction);
+                }
+                $applicantSimItem->set("decided", "Y");
+                $applicantSimItem->commit();
             }
             
         }
-
 
         $inf_arr[] = "Nb of accepted : $accepted";
         $inf_arr[] = "Nb of accepted with promotion : $promotion";
@@ -1117,7 +1122,7 @@ class ApplicationSimulation extends AdmObject
         $arrOptions = $this->getOptions();
         $keyDecodeArr = [];
         $keyDecodeArr["done"] = $this->translate("done", $lang);
-        $keyDecodeArr["to-do"] = $this->translate("to-do", $lang);
+        $keyDecodeArr["to-decide"] = $this->translate("to-decide", $lang);
         $keyDecodeArr["standby"] = $this->translate("standby", $lang);
 
         $fromProspect = false;
@@ -1128,7 +1133,7 @@ class ApplicationSimulation extends AdmObject
 
         $sql_done = "SELECT 'done' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'Y'
                     union
-                    SELECT 'to-do' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'N'
+                    SELECT 'to-decide' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'N'
                     union
                     SELECT 'standby' as `status`, count(*) as nb FROM " . $server_db_prefix . "adm.`applicant_simulation` WHERE `application_simulation_id`=$smid and decided = 'W'";
 

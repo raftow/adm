@@ -15,6 +15,7 @@ class ApplicationSimulationArTranslator{
 
 		$trad["application_simulation"]["prospect"] = "بانتظار محاكاة التسجيل";
 		$trad["application_simulation"]["to-do"] = "بانتظار محاكاة التقديم";
+		$trad["application_simulation"]["to-decide"] = "بانتظار محاكاة قرار المتقدم";
 		$trad["application_simulation"]["done"] = "تمت المحاكاة";
 		$trad["application_simulation"]["standby"] = "محاكاة متعثرة";
 		

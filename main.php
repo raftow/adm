@@ -11,6 +11,9 @@ else
 {
     $Main_Page = "home.php";
 }
-$options = AfwMainPage::getDefaultOptions($Main_Page);
+$cl = strtolower($_REQUEST["cl"]);
+if(!$cl) $cl = "all";
+
+$options = AfwMainPage::getDefaultOptions($Main_Page, "adm", $cl);
 // die("main-options for $Main_Page : ".var_export($options,true));
 AfwMainPage::echoMainPage($MODULE, $Main_Page, $file_dir_name, $options);
