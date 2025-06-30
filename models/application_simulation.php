@@ -1202,7 +1202,7 @@ class ApplicationSimulation extends AdmObject
         $labels = self::list_of_applicant_decision_enum($lang);
 
         $html .= "<div class='qfilter col-sm-10 col-md-10 pb10'><h1>توزيع المقبولين مبدئيا حسب ترتيب الرغبة المسندة والنسبة الموزونة</h1></div>";
-        $html .= "<canvas id=\"dbdnwp\" style=\"width:100%;max-width:900px;margin:auto\"></canvas>";
+        $html .= "<div><canvas id=\"dbdnwp\" style=\"width:100%;max-width:900px;margin:auto\"></canvas></div>";
         $html .= AfwChartHelper::bubbleChartScript($dataBubble, "dbdnwp", $labels);
 
         $html .= "   </div> <!-- stats_panel -->";
