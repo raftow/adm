@@ -75,6 +75,7 @@ class Application extends AdmObject
         public function countSortedDesires()
         {
                 $applicant_id = $this->getVal("applicant_id");
+                if(!$applicant_id) return -1;
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 return ApplicationDesire::countSortedDesires($applicant_id, $application_plan_id, $application_simulation_id);
