@@ -86,7 +86,17 @@ $allowed_methods["reject_offer"] = ["class"=>'Application',
                                              "applicant_id" => ['type'=>'INT', 'required'=>true], 
                                              "plan_id"      => ['type'=>'INT', 'required'=>true], 
                                         ]
-                            ];                                                               
+                            ];    
+                            
+// إخلاء طرف                            
+$allowed_methods["disclaim"] = ["class"=>'Application',
+                             "method"=>'disclaim',
+                             "submit-method"=>'BOTH',
+                             "input"=>  [
+                                             "applicant_id" => ['type'=>'INT', 'required'=>true], 
+                                             "plan_id"      => ['type'=>'INT', 'required'=>true], 
+                                        ]
+                            ];                             
 try
 {
     $error = false;

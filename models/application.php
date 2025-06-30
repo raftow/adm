@@ -54,6 +54,16 @@ class Application extends AdmObject
                 } else return null;
         }
 
+        
+
+        public function loadFinalAcceptanceDesire()
+        {
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                return ApplicationDesire::loadFinalAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id);
+        }
+
         public function loadInitialAcceptanceDesire()
         {
                 $applicant_id = $this->getVal("applicant_id");
@@ -354,6 +364,8 @@ class Application extends AdmObject
                 return [$status, $error_message, $data]; 
         }
 
+        
+
         public static function rejectOffer($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
                 $application_simulation_id = $input_arr['simulation_id'];
@@ -383,6 +395,44 @@ class Application extends AdmObject
                 $data = [
                         "decide_offer_infos" => $decide_offer_infos,
                         "decide_offer_wars" => $decide_offer_wars,
+                        "assigned_desire" => $assignedDesire ? $assignedDesire->getJsonMe() : null,
+                        
+
+                ];
+
+                $status = $error_message ? "error" : "success";
+                return [$status, $error_message, $data]; 
+        }
+
+        public static function disclaim($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
+        {
+                $application_simulation_id = $input_arr['simulation_id'];
+                $application_plan_id = $input_arr['plan_id'];
+                $applicant_id = $input_arr['applicant_id'];
+                $lang = $input_arr['lang'];
+                // $whereiam = $input_arr['whereiam'];
+                if(!$application_simulation_id) $application_simulation_id = AfwSession::config("default-simulation-id",3);
+
+                $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                $disclaim_infos = null;
+                $disclaim_wars = null;
+                if($applicationObj)
+                {
+                        list($error_message, $disclaim_infos, $disclaim_wars, $assignedDesire) = $applicationObj->disclaim($lang);                        
+
+                }
+                else
+                {
+                        // $disclaim_status = null;
+                        $assignedDesire = null;
+                        $error_message = self::transMess("This application is not found", $lang);
+                }
+
+                
+
+                $data = [
+                        "disclaim_infos" => $disclaim_infos,
+                        "disclaim_wars" => $disclaim_wars,
                         "assigned_desire" => $assignedDesire ? $assignedDesire->getJsonMe() : null,
                         
 
@@ -854,6 +904,8 @@ class Application extends AdmObject
                 
         }
 
+
+
         public function decideAcceptOffer($lang="ar")
         {
                 // [1] = "تأكيد القبول" - "Admission accepted"
@@ -872,7 +924,26 @@ class Application extends AdmObject
                 return $this->decideForOffer($lang, 3);
         }
 
-        
+        public function disclaimOffer($lang="ar", $commit = true)
+        {
+                $curr_status = $this->getVal("application_status_enum");
+                if($curr_status != self::application_status_enum_by_code('accepted'))
+                {
+                        return ["This application is not in final acceptance", ""];
+                }
+
+                $desireObj = $this->loadFinalAcceptanceDesire();
+                if(!$desireObj) return ["no final acceptance desire found", ""];
+
+
+                $desireObj->set("desire_status_enum", self::desire_status_enum_by_code('disclaimer'));
+                $this->set("application_status_enum", self::application_status_enum_by_code('withdrawn'));
+
+                $desireObj->commit();
+                if($commit) $this->commit();
+                return ["", "done", "", $desireObj];
+        }
+
         public function decideForOffer($lang="ar", $new_applicant_decision_enum=null, $commit = true)
         {
                 $curr_status = $this->getVal("application_status_enum");
@@ -957,6 +1028,9 @@ class Application extends AdmObject
                                 );  
 
 
+                                
+
+
                                 $color = "green";
                                 $title_en = "accept admission";
                                 $title_ar = $this->tm($title_en, 'ar');                                
@@ -999,6 +1073,34 @@ class Application extends AdmObject
                                         "BF-ID" => "",
                                         'STEP' => $this->stepOfAttribute("applicant_decision_enum")
                                 ); 
+                        }
+                        else
+                        {
+                                $finalAcceptanceDesire = $this->loadFinalAcceptanceDesire();
+                                if($finalAcceptanceDesire)
+                                {
+                                        $color = "red";
+                                        $title_en = "disclaim";
+                                        $title_ar = $this->tm($title_en, 'ar');                                
+                                        $methodName = "disclaimOffer";
+                                        $methodConfirmationWarningEn = "I refuse the nomination for admission and am not entitled to reclaim the seat";
+                                        $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+                                        $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                                        $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                "METHOD" => $methodName,
+                                                "COLOR" => $color,
+                                                "LABEL_AR" => $title_ar,
+                                                "LABEL_EN" => $title_en,
+                                                "ADMIN-ONLY" => true,
+                                                'CONFIRMATION_NEEDED' => true,
+                                                'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                                'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                                "BF-ID" => "",
+                                                'STEP' => $this->stepOfAttribute("applicant_decision_enum")
+                                        );
+                                }
+                                
                         }
 
 

@@ -1198,13 +1198,13 @@ class ApplicationSimulation extends AdmObject
             if(!$dataBubble[$decision_enum][$desire_num][$wp_approx]) $dataBubble[$decision_enum][$desire_num][$wp_approx] = 0;
             if($dataBubble[$decision_enum][$desire_num][$wp_approx]<10) $dataBubble[$decision_enum][$desire_num][$wp_approx]+=0.1;
         }        
-
+        /*
         $labels = self::list_of_applicant_decision_enum($lang);
-
+        
         $html .= "<div class='qfilter col-sm-10 col-md-10 pb10'><h1>توزيع المقبولين مبدئيا حسب ترتيب الرغبة المسندة والنسبة الموزونة</h1></div>";
         $html .= "<div><canvas id=\"dbdnwp\" style=\"width:100%;max-width:900px;margin:auto\"></canvas></div>";
         $html .= AfwChartHelper::bubbleChartScript($dataBubble, "dbdnwp", $labels);
-
+        */
         $html .= "   </div> <!-- stats_panel -->";
         $html .= "</div> <!-- stats-panel -->";
         $html .= "</div> <!-- simulation-panel -->";

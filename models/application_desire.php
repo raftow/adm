@@ -207,6 +207,27 @@ class ApplicationDesire extends AdmObject
                 else return null;
         }
 
+
+
+        public static function loadFinalAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id)
+        {
+                if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
+                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
+
+
+                $obj = new ApplicationDesire();
+                $obj->select("applicant_id", $applicant_id);
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id", $application_simulation_id);
+                $obj->select("desire_status_enum", self::desire_status_enum_by_code('final-acceptance'));
+
+                if ($obj->load()) {
+                        return $obj;
+                }
+                else return null;
+        }
+
         public static function loadInitialAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");

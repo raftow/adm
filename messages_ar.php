@@ -200,5 +200,6 @@
 
     $messages["Please do not do this action except if really needed !"] = "من فضلك لا تفعل هذا الإجراء إلا إذا كان ضروريًا حقًا!";
     $messages["Verify enrollment at another university"] = "التثبت من التسجيل في جامعة أخرى";
+    $messages["disclaim"] = "إخلاء طرف";
     // $messages[""] = "";
 ?>

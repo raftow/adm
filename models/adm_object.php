@@ -489,6 +489,10 @@ class AdmObject extends AfwMomkenObject{
                 $arr_list_of_desire_status_enum["en"][9] = "withdrawn";
                 $arr_list_of_desire_status_enum["ar"][9] = "منسحب";
                 $arr_list_of_desire_status_enum["code"][9] = "withdrawn";
+
+                $arr_list_of_desire_status_enum["en"][10] = "disclaimer";
+                $arr_list_of_desire_status_enum["ar"][10] = "إخلاء طرف";
+                $arr_list_of_desire_status_enum["code"][10] = "disclaimer";
                 
                 
                 
