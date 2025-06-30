@@ -418,7 +418,7 @@ class Application extends AdmObject
                 $disclaim_wars = null;
                 if($applicationObj)
                 {
-                        list($error_message, $disclaim_infos, $disclaim_wars, $assignedDesire) = $applicationObj->disclaim($lang);                        
+                        list($error_message, $disclaim_infos, $disclaim_wars, $assignedDesire) = $applicationObj->disclaimoffer($lang);                        
 
                 }
                 else
