@@ -959,15 +959,16 @@ class Application extends AdmObject
 
                 $desireObj = $this->loadInitialAcceptanceDesire();
                 if(!$desireObj) return ["no initial acceptance desire found", ""];
-
-                $applicantObj = $this->het("applicant_id");
-                list($err, $inf, $war, $tech, $result) = $applicantObj->verifyEnrollment($lang);
-                if($result["universities"]>0)
+                if(($new_applicant_decision_enum==1) or ($new_applicant_decision_enum==2))
                 {
-                        $universities_names = implode("\n<br>", $result["universities_arr"][$lang]);
-                        return [$this->tm("applicant is already enrolled in the following universities",$lang)." : ".$universities_names, "", ""]; 
+                        $applicantObj = $this->het("applicant_id");
+                        list($err, $inf, $war, $tech, $result) = $applicantObj->verifyEnrollment($lang);
+                        if($result["universities"]>0)
+                        {
+                                $universities_names = implode("\n<br>", $result["universities_arr"][$lang]);
+                                return [$this->tm("applicant is already enrolled in the following universities",$lang)." : ".$universities_names, "", ""]; 
+                        }
                 }
-
 
                 $this->set("applicant_decision_enum", $new_applicant_decision_enum);
                 $desireObj->set("applicant_decision_enum", $new_applicant_decision_enum);
