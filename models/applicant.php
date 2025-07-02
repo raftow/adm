@@ -900,53 +900,26 @@ class Applicant extends AdmObject
                 return $this->runNeededApis($lang, false);
         }
 
-        /***** added by medali */
-        public function getToken(){
-                $authUrl = 'http://212.138.86.196/api/apilogin';
-                $credentials = [
-                    "email"=>'admission@uoh.com', 
-                    "password"=>'admin102030'
-                ];
         
-                $ch = curl_init($authUrl);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($credentials));
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'Accept: application/json',
-                    'Content-Type: application/json'
-                ]);
-        
-                $response = curl_exec($ch);
-                if (curl_errno($ch)) {
-                    //die('Auth Error: ' . curl_error($ch));
-                    return false;
-                }
-                curl_close($ch);
-        
-                // استخراج التوكن
-                $result = json_decode($response, true);
-                $token = $result['token'] ?? null;
-        
-                if (!$token) {
-                    return false;
-                }
-                return $token;
-            }
-            /*** end medali code */
+
         public function verifyEnrollment($lang = "ar")
         {
+                $idn = $this->getVal("idn");
+                return self::verifyEnrollmentForIdn($idn, $lang = "ar");
+        }
+
+        public static function verifyEnrollmentForIdn($idn, $lang = "ar")
+        {                
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];  
-
+                $result = [];  
 
                 try {
                         // medali to implement your code of mourakaba
                         // ...
-                        $idn = $this->getVal("idn");
-                        $token = $this->getToken();
+                        $token = self::getToken();        
                         $request = [
                                 "idn"=>$idn,       
                         ];
@@ -961,17 +934,20 @@ class Applicant extends AdmObject
                 
                         $dataResponse = curl_exec($ch);
                         if (curl_errno($ch)) {
-                        $err_arr[] = curl_errno($ch);
+                        $err_arr[] = 'Curl error: ' . curl_error($ch);
                         }
                         curl_close($ch);
                 
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
                         $nb_univ = 0;
+                        $universities_arr = [];
                         //$inf_arr[] = $dataResponse;
                         foreach($data as $row){
                                 if($row["Universities_Graduated_ind"]==true){
                                         $nb_univ++;
+                                        $universities_arr["ar"][] = $row["UniversityNameAr"];
+                                        $universities_arr["en"][] = $row["UniversityNameEn"];
                                         $war_arr[] = "المتقدم مقبول في جامعة ".$row["UniversityNameAr"]." (".$row["UniversityID"].")";
                                         //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
                                 }
@@ -980,6 +956,9 @@ class Applicant extends AdmObject
                         if($nb_univ==0){
                                 $inf_arr[] = "لا توجد سجلات للمتقدم في الجامعات السعودية";
                         }
+
+                        $result["universities"] = $nb_univ;
+                        $result["universities_arr"] = $universities_arr;
                         // if you find error that happened
                         //$err_arr[] = "your error text here";
                         // if you want to show info as result
@@ -991,7 +970,7 @@ class Applicant extends AdmObject
                 } catch (Error $e) {
                         $err_arr[] = $e->__toString();
                 }
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr,$result);
         }
 
         public function runNeededApis($lang = "ar", $force=true, $echo=false, $stopMethod="")

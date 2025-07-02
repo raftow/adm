@@ -956,8 +956,19 @@ class Application extends AdmObject
                 }
 
                 if($curr_status != self::application_status_enum_by_code('complete')) return ["application status ".$curr_status."/".$curr_status_code." is not allowed to switch to final acceptance"];
+
                 $desireObj = $this->loadInitialAcceptanceDesire();
                 if(!$desireObj) return ["no initial acceptance desire found", ""];
+
+                $applicantObj = $this->het("applicant_id");
+                list($err, $inf, $war, $tech, $result) = $applicantObj->verifyEnrollment($lang);
+                if($result["universities"]>0)
+                {
+                        $universities_names = implode("\n<br>", $result["universities_arr"][$lang]);
+                        return [$this->tm("applicant is already enrolled in the following universities",$lang)." : ".$universities_names, "", ""]; 
+                }
+
+
                 $this->set("applicant_decision_enum", $new_applicant_decision_enum);
                 $desireObj->set("applicant_decision_enum", $new_applicant_decision_enum);
                 

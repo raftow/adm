@@ -1383,4 +1383,39 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_hierarchy_level;
         }
 
+        /***** added by medali */
+        public static function getToken(){
+                $authUrl = 'http://212.138.86.196/api/apilogin';
+                $credentials = [
+                    "email"=>'admission@uoh.com', 
+                    "password"=>'admin102030'
+                ];
+        
+                $ch = curl_init($authUrl);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($credentials));
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    'Accept: application/json',
+                    'Content-Type: application/json'
+                ]);
+        
+                $response = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    //die('Auth Error: ' . curl_error($ch));
+                    return false;
+                }
+                curl_close($ch);
+        
+                // استخراج التوكن
+                $result = json_decode($response, true);
+                $token = $result['token'] ?? null;
+        
+                if (!$token) {
+                    return false;
+                }
+                return $token;
+        }
+        /*** end medali code */
+
 }
