@@ -930,7 +930,7 @@ class Application extends AdmObject
                 $curr_status = $this->getVal("application_status_enum");
                 if($curr_status != self::application_status_enum_by_code('accepted'))
                 {
-                        $curr_status_phrase = ", current status = $curr_status != ".self::application_status_enum_by_code('accepted');
+                        $curr_status_phrase = ", current status = [$curr_status] != (".self::application_status_enum_by_code('accepted').")";
                         return ["This application is not in final acceptance".$curr_status_phrase, ""];
                 }
 
