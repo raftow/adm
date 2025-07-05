@@ -77,6 +77,7 @@ $migrations = [
     '00071' => ['by'=>'medali','title'=>'add field to service_request'],
     '00072' => ['by'=>'medali','title'=>'size qualification major name'],
     '00073' => ['by'=>'medali','title'=>'request status insert'],
+    '00074' => ['by'=>'medali','title'=>'add simulation tno institution'],
 
 ];
 
