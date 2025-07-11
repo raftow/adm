@@ -25,6 +25,15 @@ class Institution extends AdmObject
                 } else return null;
         }
 
+        public static function loadSingleton()
+        {
+                $obj = new Institution();
+                $obj->select("active", "Y");
+                if ($obj->load()) {
+                        return $obj;
+                } else return null;
+        }
+
         public static function loadByMainIndex($institution_code, $create_obj_if_not_found = false)
         {
                 if (!$institution_code) throw new AfwRuntimeException("loadByMainIndex : institution_code is mandatory field");

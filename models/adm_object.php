@@ -2,6 +2,15 @@
 
 class AdmObject extends AfwMomkenObject{
 
+        public static function currentApplicationSimulation()
+        {
+            $instObj = Institution::loadSingleton();
+            $application_simulation_id = $instObj->getVal("application_simulation_id");
+            if(!$application_simulation_id) $application_simulation_id = 2;
+
+            return $application_simulation_id;
+        }
+        
         public function getMyPlanBranchArr()
         {
             $application_model_branch_liste = trim(trim($this->getVal("application_model_branch_mfk")),",");
