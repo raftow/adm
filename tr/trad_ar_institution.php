@@ -39,6 +39,7 @@ $trad["institution"]["application_plan_id"] = "محاكاة حملة التقد�
 		$trad["institution"]["instagram_profile_link"] = "رابط الحساب على انستجرام";
 		$trad["institution"]["application_model_id"] = "محاكاة نموذج القبول";
 		$trad["institution"]["application_plan_id"] = "محاكاة حملة التقديم";
+		$trad["institution"]["application_simulation_id"] = "الوضع الحالي : محاكاة او تقديم حقيقي";
 		$trad["institution"]["simulation_applicants_ids"] = "محاكاة بعض المتقدمين";
 		$trad["institution"]["institution_code"] = "رمز المؤسسة";
 	$trad["institution"]["institution_name_ar"] = "الاسم العربي";
