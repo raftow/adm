@@ -202,5 +202,6 @@
     $messages["Verify enrollment at another university"] = "التثبت من التسجيل في جامعة أخرى";
     $messages["disclaim"] = "إخلاء طرف";
     $messages["applicant is already enrolled in the following universities"] = "المتقدم مسجل بالفعل في الجامعات التالية";
+    $messages["The upgrade sorting will be executed and you can't rollback"] = "سيتم تنفيذ فرز الترقية ولا يمكنك التراجع بعد ذلك";
     // $messages[""] = "";
 ?>

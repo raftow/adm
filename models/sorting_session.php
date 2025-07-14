@@ -287,6 +287,45 @@ class SortingSession extends AdmObject
     }
 
 
+    public function upgradeSorting($lang = "ar", $commit = true)
+    {
+        $err_arr = [];
+        $inf_arr = [];
+        $war_arr = [];
+        $tech_arr = [];
+        
+        global $MODE_BATCH_LOURD;
+        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
+        $MODE_BATCH_LOURD = true;
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        // $applicationPlanObj = $this->het("application_plan_id");
+        $application_plan_id = $this->getVal("application_plan_id");
+        $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
+        $session_num = $this->getVal("session_num");        
+        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $db_update_bloc = AfwSession::config("db_update_bloc", 101);
+
+        AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
+
+        // take a copy of applicatin desire status before approve
+        $app_des_bef_vld_srt_tmp_table = $server_db_prefix."adm.`bu_desire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."`";
+        $app_des_bef_vld_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_des_bef_vld_srt_tmp_table;";
+        AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_drop);
+
+        $app_des_bef_vld_srt_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $app_des_bef_vld_srt_tmp_table as select applicant_id,application_plan_id,application_simulation_id,desire_num,desire_status_enum, comments from ".$server_db_prefix."adm.application_desire where application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id";
+        AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_create);
+        
+
+        $this->set("upgraded", "Y");
+        if ($commit) $this->commit();
+        $inf_arr[] = $this->tm("the sorting session has been successfully validated", $lang);
+
+        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        AfwQueryAnalyzer::resetQueriesExecuted();
+
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+    }
+
     public function validateSorting($lang = "ar", $commit = true)
     {
         $err_arr = [];
@@ -399,7 +438,7 @@ class SortingSession extends AdmObject
         $this->set("published", "N");
         $this->set("upgraded", "N");
         if ($commit) $this->commit();
-        $inf_arr[] = $this->tm("the sorting session has been successfully validated");
+        $inf_arr[] = $this->tm("the sorting session has been successfully validated", $lang);
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
         AfwQueryAnalyzer::resetQueriesExecuted();
@@ -860,8 +899,31 @@ class SortingSession extends AdmObject
 
         if($this->sureIs("validated"))
         {
+            if($this->sureIs("upgraded"))
+            {
+            }
+            else
+            {
+                $methodConfirmationWarningEn = "The upgrade sorting will be executed and you can't rollback";
+                $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
+                $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
+                $methodConfirmationQuestion = $this->tm($methodConfirmationQuestionEn, "ar");
+                
+                $color = "yellow";
+                $title_ar = "فرز الترقية";
+                $title_en = "Upgrade sorting";
+                $methodName = "upgradeSorting";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "LABEL_EN" => $title_en, 
+                                                    "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                                    'CONFIRMATION_NEEDED' => true,
+                                                    'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
+                                                    'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
+                                                    'STEP' => $this->stepOfAttribute("upgraded"));    
+            }
+
             if($this->sureIs("published"))
             {
+                /* تحتاج أكثر دراسة
                 $methodConfirmationWarningEn = "You formally agree that the sorting results are not correct and you want to unpublish them";
                 $methodConfirmationWarning = $this->tm($methodConfirmationWarningEn, "ar");
                 $methodConfirmationQuestionEn = "Are you sure you want to do this action ?";
@@ -875,7 +937,7 @@ class SortingSession extends AdmObject
                                                 'CONFIRMATION_NEEDED' => true,
                                                 'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                                                 'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
-                                                'STEP' => $this->stepOfAttribute("published"));
+                                                'STEP' => $this->stepOfAttribute("published"));*/
             }    
             else
             {
@@ -979,6 +1041,7 @@ class SortingSession extends AdmObject
                                                     'CONFIRMATION_WARNING' => array('ar' => $methodConfirmationWarning, 'en' => $methodConfirmationWarningEn),
                                                     'CONFIRMATION_QUESTION' => array('ar' => $methodConfirmationQuestion, 'en' => $methodConfirmationQuestionEn),
                                                     'STEP' => $this->stepOfAttribute("validated"));
+
                 
             }
             
