@@ -1003,6 +1003,12 @@ class Application extends AdmObject
                 return ["", "done", "", $desireObj];
         }
 
+
+        public function notifyDesireAssign($application_plan_branch_id, $desire_num, $process)
+        {
+                // @todo implementation
+        }
+
         protected function getPublicMethods()
         {
 

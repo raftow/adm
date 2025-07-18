@@ -69,9 +69,18 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public static function getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $track_num)
+        public static function getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $track_num, $onlyForUpgrade=false)
         {
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+
+                if($onlyForUpgrade)
+                {
+                        $onlyForUpgradeSQL = "AND desire_status_enum = 7";
+                }
+                else
+                {
+                        $onlyForUpgradeSQL = "";
+                }
                 
                 $sql_matrix = "SELECT applicant_id, desire_num, application_plan_branch_id
                                 FROM ".$server_db_prefix."adm.application_desire
@@ -79,21 +88,30 @@ class ApplicationDesire extends AdmObject
                                 AND application_simulation_id = $application_simulation_id 
                                 AND sorting_group_id = $sortingGroupId
                                 AND track_num = $track_num
+                                $onlyForUpgradeSQL
                                 AND active = 'Y'
                                 ORDER BY applicant_id, desire_num, application_plan_branch_id";
                 
                 return AfwDatabase::db_recup_bi_index($sql_matrix, "applicant_id", "desire_num", "application_plan_branch_id");                                
         }
 
-        public static function getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id)
+        public static function getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $where="1")
         {
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $application_table = $server_db_prefix."adm.application";
 
+                // << updated_at asc >> below is because amjad at 17/07/2025 in whatsapp voice-message
+                // has requested that for upgrade sorting if execo applicants we prior the one who  
+                // has requested the upgrade before (oldest update date)
                 $sql_matrix = "SELECT applicant_id, application_plan_branch_mfk
-                                FROM ".$server_db_prefix."adm.application
+                                FROM $application_table
                                 WHERE application_plan_id = $application_plan_id 
                                   AND application_simulation_id = $application_simulation_id                                   
-                                  AND active = 'Y'";
+                                  AND active = 'Y'
+                                  AND $where
+                                ORDER BY weighted_pctg desc, updated_at asc";
+
+
 
                 $rows_matrix = AfwDatabase::db_recup_rows($sql_matrix);                  
 
@@ -547,10 +565,18 @@ class ApplicationDesire extends AdmObject
                                 $inf_arr[]  = $success_message;
                                 $tech_arr[] = $tech;
                         } else {
-                                if ((!$error_message) and ($success === false)) $result_arr["result"] = "fail";
-                                else $result_arr["result"] = "standby";
+                                if ((!$error_message) and ($success === false)) 
+                                {
+                                        $result_arr["result"] = "fail";
+                                        $new_status = self::desire_status_enum_by_code('excluded');
+                                }
+                                else 
+                                {
+                                        $result_arr["result"] = "standby";
+                                        $new_status = self::desire_status_enum_by_code('data-review');
+                                }
                                 $fail_message .= " " . $error_message;
-                                $this->set("desire_status_enum", self::desire_status_enum_by_code('rejected'));
+                                $this->set("desire_status_enum", $new_status);
                                 $this->set("comments", $fail_message);
                                 $this->commit();
                                 $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
@@ -1170,6 +1196,33 @@ class ApplicationDesire extends AdmObject
                 if ($commit) $this->commit();
 
                 return ["", $this->translate("done", $lang), $war];
+        }
+
+
+        public static function upgradeApplicantTo($application_plan_id, $application_simulation_id, $applicant_id, $application_plan_branch_id_desired, $desire_num, $branchsCapacityMatrix)
+        {
+                $objCurrentDesireToFree = ApplicationDesire::loadFinalAcceptanceDesire($applicant_id, $application_plan_id, $application_simulation_id);
+                $application_plan_branch_id_to_free = $objCurrentDesireToFree->getVal("application_plan_branch_id");
+                $objDesireToUpgrade = ApplicationDesire::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $desire_num);
+                $objApplication = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                // check by security if mistake abort the upgrade and not continue
+                if($objApplication and ($objDesireToUpgrade->getVal("application_plan_branch_id") == $application_plan_branch_id_desired))
+                {
+                        if($branchsCapacityMatrix[$application_plan_branch_id_desired]>0)
+                        {
+                                $branchsCapacityMatrix[$application_plan_branch_id_desired]--;
+                                $branchsCapacityMatrix[$application_plan_branch_id_to_free]++;
+                                $objApplication->set("application_status_enum", self::application_status_enum_by_code('accepted'));
+                                $objDesireToUpgrade->set("desire_status_enum", self::desire_status_enum_by_code('final-acceptance'));
+                                $objCurrentDesireToFree->set("desire_status_enum", self::desire_status_enum_by_code('higher-desire'));
+
+                                $objApplication->notifyDesireAssign($application_plan_branch_id_desired, $desire_num, "upgradeSorting");
+                        }
+                        
+                }
+
+                
+                return $branchsCapacityMatrix;
         }
 
         public function attributeIsApplicable($attribute)
