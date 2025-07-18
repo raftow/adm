@@ -399,11 +399,11 @@ class SortingSession extends AdmObject
             
             for ($spath = 1; $spath <= $maxPaths; $spath++) 
             {
-                $arrDataMinAccepted = [];
-                $branchsWaitingMatrix = [];
+                // $arrDataMinAccepted = [];
+                // $branchsWaitingMatrix = [];
                 $info_arr[]  = "US for SPATH{$spath} : ";
                 $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($application_plan_id, $sortingGroupId, $spath, true);
-                $branchsCapacityMatrixStart = $branchsCapacityMatrix;
+                // $branchsCapacityMatrixStart = $branchsCapacityMatrix;
                 foreach($applicantsDesiresMatrix as $applicant_id => $desiresData)
                 {
                     foreach($desiresData as $desire_num => $application_plan_branch_id_desired)
