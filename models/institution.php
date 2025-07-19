@@ -127,7 +127,7 @@ class Institution extends AdmObject
         {
                 $hrm_code = $this->getVal("institution_code");        
                 $Ymd = date("Ymd");
-                return substr(md5("GP".$hrm_code.$Ymd),1,5);
+                return substr(md5("GP".$hrm_code.$Ymd),0,15);
         }
 
         
