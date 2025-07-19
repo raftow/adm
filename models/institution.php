@@ -125,9 +125,9 @@ class Institution extends AdmObject
 
         public function calcGolden_password($what = "value")
         {
-                $hrm_code = $this->getVal("institution_code");        
+                $hrm_code = strtoupper(trim($this->getVal("institution_code")));        
                 $Ymd = date("Ymd");
-                return substr(md5("GP".$hrm_code.$Ymd),0,15);
+                return substr(md5($hrm_code."GOLDPASS".$Ymd),1,6);
         }
 
         
