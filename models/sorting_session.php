@@ -293,6 +293,7 @@ class SortingSession extends AdmObject
         $inf_arr = [];
         $war_arr = [];
         $tech_arr = [];
+
         
         global $MODE_BATCH_LOURD;
         $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
@@ -302,19 +303,135 @@ class SortingSession extends AdmObject
         $application_plan_id = $this->getVal("application_plan_id");
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
         $session_num = $this->getVal("session_num");        
+        if(!$session_num) return ["Please define session num for this sorting session", ""];
+        if(!$application_plan_id) return ["Please define application plan for this sorting session", ""];
+        if(!$application_simulation_id) return ["Please define application simulation type for this sorting session", ""];
+        
+        $sortingGroupList = $this->get("sortingGroupList");
+        $sortingGroupCount = count($sortingGroupList);
+        if($sortingGroupCount>1) return ["Upgrade sorting is only implemented when one sorting criterea and it is the weighted percentage field", ""];
+        
+        foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+        {
+            $sf1Obj = $sortingGroupItem->het("sorting_field_1_id");
+            $sf2Obj = $sortingGroupItem->het("sorting_field_2_id");
+            $sf3Obj = $sortingGroupItem->het("sorting_field_3_id");
+            $sorting_with_only_weighted_percentage = ((!$sf2Obj) and (!$sf3Obj) and ($sf1Obj->getVal("field_name")=="weighted_percentage"));
+        }
+
+        if(!$sorting_with_only_weighted_percentage)
+        {
+            return ["Upgrade sorting is only implemented when sorting is with weighted percentage", ""];
+        }
+
         $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
         $db_update_bloc = AfwSession::config("db_update_bloc", 101);
-
+        $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
         AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
 
-        // take a copy of applicatin desire status before approve
-        $app_des_bef_vld_srt_tmp_table = $server_db_prefix."adm.`bu_desire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."`";
-        $app_des_bef_vld_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_des_bef_vld_srt_tmp_table;";
-        AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_drop);
 
-        $app_des_bef_vld_srt_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $app_des_bef_vld_srt_tmp_table as select applicant_id,application_plan_id,application_simulation_id,desire_num,desire_status_enum, comments from ".$server_db_prefix."adm.application_desire where application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id";
-        AfwDatabase::db_query($app_des_bef_vld_srt_tmp_sql_create);
+        // take a copy of applicatin desire status before approve
+        $app_des_bef_upgrade_srt_tmp_table = $server_db_prefix."adm.`bu_desire_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."`";
+        $app_des_bef_upgrade_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_des_bef_upgrade_srt_tmp_table;";
+        AfwDatabase::db_query($app_des_bef_upgrade_srt_tmp_sql_drop);
+
+        $app_des_bef_upgrade_srt_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $app_des_bef_upgrade_srt_tmp_table as select applicant_id,application_plan_id,application_simulation_id,desire_num,desire_status_enum, comments from ".$server_db_prefix."adm.application_desire where application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id";
+        AfwDatabase::db_query($app_des_bef_upgrade_srt_tmp_sql_create);
+
+
+        $app_application_bef_upgrade_srt_tmp_table = $server_db_prefix."adm.`bu_application_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."`";
+        $app_application_bef_upgrade_srt_tmp_sql_drop = "DROP TABLE IF EXISTS $app_application_bef_upgrade_srt_tmp_table;";
+        AfwDatabase::db_query($app_application_bef_upgrade_srt_tmp_sql_drop);
+
+        $app_application_bef_upgrade_srt_tmp_sql_create = "CREATE TABLE IF NOT EXISTS $app_application_bef_upgrade_srt_tmp_table 
+                        as 
+                        select applicant_id,application_plan_id,application_simulation_id,application_num,application_status_enum, comments 
+                        from ".$server_db_prefix."adm.application where application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id";
+        AfwDatabase::db_query($app_application_bef_upgrade_srt_tmp_sql_create);
+
+        // if applicant has not accepted the offer until end of period of decision
+        // before start upgrade sorting we consider him withdrawn and offer rejected
+        $rejected_acceptance_applicant_decision_enum = 3;
+        $rejected_acceptance = self::desire_status_enum_by_code('rejected-acceptance');        
+        $withdrawn = self::application_status_enum_by_code('withdrawn');
+
+        AfwDatabase::db_query("update $server_db_prefix"."adm.application_desire 
+        set desire_status_enum = $rejected_acceptance,
+            applicant_decision_enum = $rejected_acceptance_applicant_decision_enum 
+        WHERE application_plan_id = $application_plan_id 
+          AND application_simulation_id = $application_simulation_id
+          AND active = 'Y'
+          AND applicant_decision_enum = 4");
+          
+        AfwDatabase::db_query("update $server_db_prefix"."adm.application 
+        set application_status_enum = $withdrawn,
+            applicant_decision_enum = $rejected_acceptance_applicant_decision_enum 
+        WHERE application_plan_id = $application_plan_id 
+          AND application_simulation_id = $application_simulation_id
+          AND active = 'Y'
+          AND applicant_decision_enum = 4");
+          
         
+
+        
+        $maxPaths = SortingPath::nbPaths($application_model_id);
+
+        $applicantsDesiresMatrix = null;
+        
+        
+        foreach($sortingGroupList as $sortingGroupId => $sortingGroupItem)
+        {
+            $sf1Obj = $sortingGroupItem->het("sorting_field_1_id");
+            $sf2Obj = $sortingGroupItem->het("sorting_field_2_id");
+            $sf3Obj = $sortingGroupItem->het("sorting_field_3_id");
+
+            
+            
+            if(!$applicantsDesiresMatrix)
+            {
+                $applicantsDesiresMatrix = ApplicationDesire::getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id,"applicant_decision_enum = 1 and application_status_enum = 5");
+            }
+
+            /*list($sortingCriterea,
+                $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
+                $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,
+                $sf3,$sf3_order_sens,$sf3_sql,$sf3_insert,$sf3_order) = SortingGroup::getSortingCriterea($sortingGroupId);*/
+            
+            for ($spath = 1; $spath <= $maxPaths; $spath++) 
+            {
+                // $arrDataMinAccepted = [];
+                // $branchsWaitingMatrix = [];
+                $info_arr[]  = "US for SPATH{$spath} : ";
+                $branchsCapacityMatrix = ApplicationPlanBranch::getBranchsCapacityMatrix($application_plan_id, $sortingGroupId, $spath, true);
+                // $branchsCapacityMatrixStart = $branchsCapacityMatrix;
+                foreach($applicantsDesiresMatrix as $applicant_id => $desiresData)
+                {
+                    foreach($desiresData as $desire_num => $application_plan_branch_id_desired)
+                    {
+                        if($branchsCapacityMatrix[$application_plan_branch_id_desired]>0)
+                        $branchsCapacityMatrix = ApplicationDesire::upgradeApplicantTo($application_plan_id, $application_simulation_id, $applicant_id, $application_plan_branch_id_desired, $desire_num, $branchsCapacityMatrix);
+                    }
+                    
+                }
+
+                // amjad 17/07/2025 whatsapp voice message do not take in consideration when doing upgrade sorting
+                // the min weighted percentage choosen in main sorting (karrat al-farz)
+
+                
+
+
+                /*
+                $branchsLastScoreMatrix = [];
+                if(!$sorting_with_only_weighted_percentage) $applicantsDesiresMatrix = ApplicationDesire::getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $spath, true);
+                $sorting_table_without_prefix = "farz_upgrade_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
+                $sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
+                $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
+                AfwSession::setConfig("$sorting_table_without_prefix-sql-analysis-max-calls",80000000);
+                */
+            }
+        }
+
+        // ***
 
         $this->set("upgraded", "Y");
         if ($commit) $this->commit();
@@ -1617,7 +1734,7 @@ class SortingSession extends AdmObject
         $maxPaths = SortingPath::nbPaths($application_model_id);
         // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
 
-
+        
         // @todo below should be dynamic min(xx) from application_plan_branch ...etc
         $sorting_value_1_min = 60;
 
@@ -1722,7 +1839,7 @@ class SortingSession extends AdmObject
                 
             }    
             
-
+            
             list($sortingCriterea,
             $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
             $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,

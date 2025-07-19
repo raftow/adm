@@ -929,7 +929,8 @@ class Applicant extends AdmObject
                         $request = [
                                 "idn"=>$idn,       
                         ];
-                        $ch = curl_init("http://212.138.86.196/api/morakaba?idn=".$idn);
+                        $gsb_api_manager_enpoint = AfwSession::config("gsb_api_manager_enpoint", "http://212.138.86.196/api");
+                        $ch = curl_init("$gsb_api_manager_enpoint/morakaba?idn=".$idn);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                         //curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));

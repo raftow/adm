@@ -59,10 +59,32 @@ class ApplicationPlanBranch extends AdmObject
                 return AfwDatabase::db_recup_index("SELECT id, cond_weighted_percentage from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "cond_weighted_percentage");
         }
 
-        public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track)
+        public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track, $removeConfirmedSeats=false, $application_simulation_id=0)
         {
                 $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
-                return AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "capacity");
+                $return = AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "capacity");
+
+                if($removeConfirmedSeats)
+                {
+
+                        // desire_status_enum = 3  below means (accepted or accepted with upgrade)
+                        $to_remove = AfwDatabase::db_recup_index("SELECT application_plan_branch_id as id, count(*) as capacity
+                                        FROM uoh_adm.application_desire
+                                        WHERE application_plan_id = $application_plan_id 
+                                        AND application_simulation_id = $application_simulation_id
+                                        AND active = 'Y'
+                                        AND desire_status_enum = 3 
+                                        GROUP BY application_plan_branch_id","id", "capacity");
+
+                        foreach($to_remove as $apb_id => $torem)
+                        {
+                                $return[$apb_id] -= $torem;
+                        }
+                }
+
+                
+
+                return $return;
         }
 
         public function getDisplay($lang = 'ar')
