@@ -79,6 +79,6 @@ $migrations = [
     '00073' => ['by'=>'medali','title'=>'request status insert'],
     '00074' => ['by'=>'medali','title'=>'add simulation tno institution'],
     '00075' => ['by'=>'medali','title'=>'add country to applicant_qualification'],
-
+    '00076' => ['by'=>'rafik','title'=>'make application table partitionned'],
 ];
 
