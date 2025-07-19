@@ -830,6 +830,14 @@ class Applicant extends AdmObject
                                         "LABEL_AR" => $title_ar, 
                                         "LABEL_EN" => $title_en, 
                                         "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                $color = "gray";
+                $title_en = "Verify enrollment at UOH university";
+                $title_ar = $this->tm($title_en, 'ar');                
+                $methodName = "verifyEnrollmentUOH";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                        "LABEL_AR" => $title_ar, 
+                                        "LABEL_EN" => $title_en, 
+                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
 
                 //@todo
                 // checkOtherUniversityAcceptance
@@ -899,8 +907,6 @@ class Applicant extends AdmObject
         {
                 return $this->runNeededApis($lang, false);
         }
-
-        
 
         public function verifyEnrollment($lang = "ar")
         {
@@ -974,6 +980,77 @@ class Applicant extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr,$result);
         }
 
+        
+        
+        public function verifyEnrollmentUOH($lang = "ar")
+        {
+                $idn = $this->getVal("idn");
+                return self::verifyEnrollmentUOHForIdn($idn, $lang = "ar");
+        }
+
+        public static function verifyEnrollmentUOHForIdn($idn, $lang = "ar")
+        {                
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];  
+                $result = [];  
+
+                try {
+                        // medali to implement your code of mourakaba
+                        // ...
+                        $token = self::getTokenUOH();        
+                        $inf_arr[] = "token : ".$token;
+                        
+                        $request = [
+                                "idn"=>$idn,       
+                        ];
+                        $ch = curl_init("https://apis.uoh.edu.sa/uoh/StuProfileADM/GetStu/".$idn);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                        //curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                        'Authorization: Bearer ' . $token,
+                        'Accept: application/json'
+                        ]);
+                
+                        $dataResponse = curl_exec($ch);
+                        if (curl_errno($ch)) {
+                        $err_arr[] = 'Curl error: ' . curl_error($ch);
+                        }
+                        curl_close($ch);
+                
+                        // تحليل الاستجابة
+                        $data = json_decode($dataResponse, true);
+                        $nb_univ = 0;
+                        $universities_arr = [];
+                        if($row["Universities_Graduated_ind"]==true){
+                                        $nb_univ++;
+                                        $universities_arr["ar"][] = $row["UniversityNameAr"];
+                                        $universities_arr["en"][] = $row["UniversityNameEn"];
+                                        $war_arr[] = "المتقدم مقبول في جامعة ".$row["UniversityNameAr"]." (".$row["UniversityID"].")";
+                                        //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
+                                }
+                        
+                        if($nb_univ==0){
+                                $inf_arr[] = "لا توجد سجلات للمتقدم في الجامعات السعودية";
+                        }
+
+                        $result["universities"] = $nb_univ;
+                        $result["universities_arr"] = $universities_arr;
+                        // if you find error that happened
+                        //$err_arr[] = "your error text here";
+                        // if you want to show info as result
+                        // if you find warning that you want to show to administrator
+                        //$war_arr[] = "your warning text here";
+
+                } catch (Exception $e) {
+                        $err_arr[] = $e->getMessage();
+                } catch (Error $e) {
+                        $err_arr[] = $e->__toString();
+                }
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr,$result);
+        }
         public function runNeededApis($lang = "ar", $force=true, $echo=false, $stopMethod="")
         {
                 $err_arr = [];
