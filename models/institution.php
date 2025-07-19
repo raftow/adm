@@ -34,6 +34,8 @@ class Institution extends AdmObject
                 } else return null;
         }
 
+
+
         public static function loadByMainIndex($institution_code, $create_obj_if_not_found = false)
         {
                 if (!$institution_code) throw new AfwRuntimeException("loadByMainIndex : institution_code is mandatory field");
@@ -103,11 +105,32 @@ class Institution extends AdmObject
                 $methodName = "updateOrgunit";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>1);
                 
-
+                $color = "yellow";
+                $title_ar = "كلمة المرور الذهبية"; 
+                $methodName = "goldenPassword";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>1);
+                
                 
                 
                 return $pbms;
         }
+
+        
+
+        public function goldenPassword($lang = "ar")
+        {
+              $gp = $this->calcGolden_password();  
+              return ["", "The golden pwd : $gp"];
+        }
+
+        public function calcGolden_password($what = "value")
+        {
+                $hrm_code = $this->getVal("institution_code");        
+                $Ymd = date("Ymd");
+                return substr(md5("GP".$hrm_code.$Ymd),1,5);
+        }
+
+        
 
         public function updateOrgunit($lang = "ar")
         {
