@@ -1425,6 +1425,50 @@ class AdmObject extends AfwMomkenObject{
                 }
                 return $token;
         }
+
+        public static function getTokenUOH(){
+                $authUrl = 'https://apis.uoh.edu.sa/uoh/Token';
+                $credentials = [
+
+                        "username"=>"Anurag",
+                        "password"=>'H2$6aNd2023',
+                        "grant_type"=>"password",
+                ];
+
+                $ch = curl_init($authUrl."?". http_build_query($credentials));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+                curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+                curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+                //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
+                //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+                //curl_setopt($ch, CURLOPT_POST, true);
+                //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($credentials));
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                        'Accept: application/json'
+                ]);
+                curl_setopt($ch, CURLOPT_VERBOSE, true); // ⬅️ لعرض التفاصيل
+
+                $response = curl_exec($ch);
+                //return $response;
+                //$info = curl_getinfo($ch);
+                $requestHeaders = curl_getinfo($ch, CURLINFO_HEADER_OUT);
+die($requestHeaders."\n".$response);
+return false;
+                if (curl_errno($ch)) {
+                        die('Auth Error: ' . curl_error($ch));
+                        return false;
+                }
+                curl_close($ch);
+
+                // استخراج التوكن
+                $result = json_decode($response, true);
+                $token = $result['access_token'] ?? null;
+                if (!$token) {
+                        return false;
+                }
+                return $token;
+                }
+
         /*** end medali code */
 
 }
