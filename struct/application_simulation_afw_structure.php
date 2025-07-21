@@ -17,7 +17,8 @@ class AdmApplicationSimulationAfwStructure
 
 			// $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
 			$obj->ORDER_BY_FIELDS = "name_ar";
-
+			$obj->IS_LOOKUP = true;
+            $obj->IS_SMALL = true;
 			$obj->editByStep = true;
 			$obj->editNbSteps = 6; 
 
