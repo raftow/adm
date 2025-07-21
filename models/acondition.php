@@ -468,7 +468,8 @@ class Acondition extends AdmObject{
                 $objApplication = null;
                 $objDesire = null;
                 $applicant_id = 0;
-                $application_id = 0;
+                $application_plan_id = 0;
+                $application_simulation_id = 0;
                 $adesire_id = 0;
                 if($obj instanceof Applicant)
                 {                       
@@ -489,13 +490,12 @@ class Acondition extends AdmObject{
 
                 if($objDesire)
                 {
-                        $objApplication = $objDesire->het("application_id");
+                        $objApplication = $objDesire->getApplicationObject();
                         $adesire_id = $objDesire->id;
                 }
 
                 if($objApplication)
                 {
-                        $application_id = $objApplication->id;
                         $objApplicant = $objApplication->het("applicant_id");
                 } 
                 if($objApplicant)

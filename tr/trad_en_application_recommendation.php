@@ -9,7 +9,8 @@ class ApplicationRecommendationEnTranslator{
 	$trad["application_recommendation"]["applicationrecommendation.new"] = "new";
 	$trad["application_recommendation"]["application_recommendation"] = "Application recommendations";
 	$trad["application_recommendation"]["recommendation_letter_id"] = "recommendation letter";
-	$trad["application_recommendation"]["application_id"] = "Application";
+	$trad["application_recommendation"]["application_plan_id"] = "application plan";
+	$trad["application_recommendation"]["application_simulation_id"] = "application type";
 	$trad["application_recommendation"]["lor_status_enum"] = "LOR Status";
 	$trad["application_recommendation"]["notification_sent"] = "LOR approal Request";
 	$trad["application_recommendation"]["notification_date"] = "Approval Request Date";

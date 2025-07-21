@@ -44,7 +44,14 @@ class ApplicationDesire extends AdmObject
 
         public function getApplicationObject()
         {
-                if (!$this->applicationObj) $this->applicationObj = $this->het("application_id");
+                if (!$this->applicationObj) 
+                {
+                     $applicant_id = $this->getVal("applicant_id");   
+                     $application_plan_id = $this->getVal("application_plan_id");   
+                     $application_simulation_id = $this->getVal("application_simulation_id");   
+
+                     $this->applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                }
                 return $this->applicationObj;
         }
 
@@ -301,7 +308,6 @@ class ApplicationDesire extends AdmObject
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) {
                                 $obj->set("desire_num", $desire_num);
-                                $obj->set("application_id", $applicationObj->id);
                                 $obj->set("idn", $idn);
                                 $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
                                 $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
@@ -320,7 +326,6 @@ class ApplicationDesire extends AdmObject
                         $obj->set("application_plan_id", $application_plan_id);
                         $obj->set("application_simulation_id", $application_simulation_id);
                         $obj->set("application_plan_branch_id", $application_plan_branch_id);
-                        $obj->set("application_id", $applicationObj->id);
                         $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
                         $applicationModelBranchObj = $applicationPlanBranchObj->het("application_model_branch_id");
                         $obj->set("application_model_branch_id", $applicationModelBranchObj->id);

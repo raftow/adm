@@ -6,15 +6,23 @@
                 {
                         if ($obj instanceof Application) 
                         {
+                                $multiple_key_cols = "applicant_id,application_plan_id,application_simulation_id";
+                                $part_cols = "applicant_id";
+                                $context_cols = "";
+                                $obj->PK_MULTIPLE = "|";
+                                $obj->PK_MULTIPLE_ARR = explode(",",$multiple_key_cols);
+
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = array('applicant_id','application_plan_id', 'application_simulation_id');
-                                // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
+                                $obj->ORDER_BY_FIELDS = "applicant_id, application_plan_id, application_simulation_id";
                                 $obj->UNIQUE_KEY = array('applicant_id','application_plan_id','application_simulation_id');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 6; 
+                                $obj->setContextAndPartitionCols($part_cols, $context_cols);
+                                $obj->setMultiplePK($multiple_key_cols,$obj->PK_MULTIPLE); 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         }
                         else 

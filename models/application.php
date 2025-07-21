@@ -230,7 +230,9 @@ class Application extends AdmObject
                 $data = [
                         "current_step" => $step_num,
                         "application" => $applicationData,
-                        "application_id" => $applicationObj->id,
+                        "applicant_id" => $applicationObj->getVal("applicant_id"),
+                        "application_plan_id" => $applicationObj->getVal("application_plan_id"),
+                        "application_simulation_id" => $applicationObj->getVal("application_simulation_id"),
                 ];
 
                 $status = $error_message ? "error" : "success";
@@ -893,18 +895,25 @@ class Application extends AdmObject
 
         public function resetApplication($lang="ar")
         {
-                $id = $this->id;
                 $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
                 
 
                 $objDes = new ApplicationDesire();
-                $objDes->where("applicant_id = '$applicant_id' and application_id = '$id' and active='Y' and desire_status_enum in (2,3)");
+                $objDes->where("applicant_id = '$applicant_id' 
+                            and application_plan_id = '$application_plan_id' 
+                            and application_simulation_id = '$application_simulation_id' 
+                            and active='Y' 
+                            and desire_status_enum in (2,3)");
                 $nbRecordsCritical = $objDes->count();
 
                 
                 if(!$nbRecordsCritical)
                 {
-                        $objDes->deleteWhere("applicant_id = '$id' and application_id = '$id'");
+                        $objDes->deleteWhere("applicant_id = '$applicant_id' 
+                            and application_plan_id = '$application_plan_id' 
+                            and application_simulation_id = '$application_simulation_id'");
                         $this->set("application_plan_branch_mfk", ",");
                         $this->forceGotoFirstStep($lang);                        
                         return ["", $this->tm("The application has been reset",$lang )];
@@ -1506,8 +1515,11 @@ class Application extends AdmObject
                 if(strtolower($options["ERASE-EXISTING-DESIRES"])=="on")
                 {
                         $applicant_id = $this->getVal("applicant_id");
-                        $application_id = $this->id;   
-                        list($result, $row_count, $affected_row_count) = ApplicationDesire::deleteWhere("applicant_id = $applicant_id and application_id = $application_id");   
+                        $application_plan_id = $this->getVal("application_plan_id");
+                        $application_simulation_id = $this->getVal("application_simulation_id");
+                        list($result, $row_count, $affected_row_count) = ApplicationDesire::deleteWhere("applicant_id = '$applicant_id' 
+                                        and application_plan_id = '$application_plan_id' 
+                                        and application_simulation_id = '$application_simulation_id'");   
                         $this->set("application_plan_branch_mfk", "");   
                         $this->commit();
                         $old_application_plan_branch_mfk = "";
@@ -1690,8 +1702,7 @@ class Application extends AdmObject
                                 {
                                         if(!$this->commit(true))
                                         {
-                                                // $application_id = $this->id;
-                                                // $error = "columns $hasChanged has changed for application id = $application_id (after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id) but forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
+                                                // $error = "columns $hasChanged has changed for this application (after set step_num to $desiresSelectionStepNum and application_step_id to $application_step_id) but forceGotoDesireStep commit failed : ".$this->getTechnicalNotes()." ".$this->reallyUpdated();
                                                 // $err_arr[] = $error;
                                                 $currentStepObj = $this->het("application_step_id");
                                                 $result_arr["STEP_CODE"] = $currentStepObj->getVal("step_code");
@@ -2197,13 +2208,23 @@ class Application extends AdmObject
             
             if($id)
             {   
-               if($id_replace==0)
-               {
+                // $applicant_id = $this->getVal("applicant_id");
+                // $application_plan_id = $this->getVal("application_plan_id");
+                // $application_simulation_id = $this->getVal("application_simulation_id");
+                list($applicant_id,$application_plan_id,$application_simulation_id) = explode("|", $id);
+                list($replace_applicant_id,$replace_application_plan_id,$replace_application_simulation_id) = explode("|", $id_replace);
+                if($id_replace==0)
+                {
                    // FK part of me - not deletable 
-                       // adm.application_desire-ملف التقديم	application_id  أنا تفاصيل لها (required field)
+                       // adm.application_desire-ملف التقديم	نا تفاصيل لها (required field)
+                        
                         // require_once "../adm/application_desire.php";
                         $obj = new ApplicationDesire();
-                        $obj->where("application_id = '$id' and active='Y' and desire_status_enum in (2,3)");
+                        $obj->where("applicant_id = '$applicant_id' 
+                                 and application_plan_id = '$application_plan_id' 
+                                 and application_simulation_id = '$application_simulation_id' 
+                                 and active='Y' 
+                                 and desire_status_enum in (2,3)");
                         $nbRecords = $obj->count();
                         // check if there's no record that block the delete operation
                         if($nbRecords>0)
@@ -2212,7 +2233,10 @@ class Application extends AdmObject
                             return false;
                         }
                         // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
-                        if(!$simul) $obj->deleteWhere("application_id = '$id' and (active='N' or desire_status_enum not in (2,3))");
+                        if(!$simul) $obj->deleteWhere("applicant_id = '$applicant_id' 
+                                 and application_plan_id = '$application_plan_id' 
+                                 and application_simulation_id = '$application_simulation_id' 
+                                 and (active='N' or desire_status_enum not in (2,3))");
 
 
                         
@@ -2231,12 +2255,17 @@ class Application extends AdmObject
                         // FK on me 
  
 
-                        // adm.application_desire-ملف التقديم	application_id  أنا تفاصيل لها (required field)
+                        // adm.application_desire-ملف التقديم	  أنا تفاصيل لها (required field)
                         if(!$simul)
                         {
                             // require_once "../adm/application_desire.php";
-                            ApplicationDesire::updateWhere(array('application_id'=>$id_replace), "application_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.application_desire set application_id='$id_replace' where application_id='$id' ");
+                            ApplicationDesire::updateWhere(['applicant_id'=>$replace_applicant_id,
+                                                            'application_plan_id'=>$replace_application_plan_id,
+                                                            'application_simulation_id'=>$replace_application_simulation_id,    
+                                                ], "applicant_id = '$applicant_id' 
+                                                                and application_plan_id = '$application_plan_id' 
+                                                                and application_simulation_id = '$application_simulation_id'");
+                            
                             
                         } 
                         

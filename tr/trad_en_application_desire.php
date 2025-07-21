@@ -14,7 +14,6 @@ class ApplicationDesireEnTranslator{
 		$trad["application_desire"]["application_plan_id"] = "application plan";
 		$trad["application_desire"]["application_simulation_id"] = "application type";
 		$trad["application_desire"]["application_plan_branch_id"] = "application plan branch";
-		$trad["application_desire"]["application_id"] = "application id";
 		$trad["application_desire"]["step_num"] = "step number";
 		$trad["application_desire"]["application_step_id"] = "step id";
 		$trad["application_desire"]["desire_status_enum"] = "desire status";

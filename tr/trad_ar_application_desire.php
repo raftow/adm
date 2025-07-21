@@ -15,7 +15,7 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["application_plan_id"] = "حملة التقديم";
 		$trad["application_desire"]["application_simulation_id"] = "نوع التقديم";
 		$trad["application_desire"]["application_plan_branch_id"] = "فرع التقديم";
-		$trad["application_desire"]["application_id"] = "ملف التقديم";
+		
 		$trad["application_desire"]["step_num"] = "رقم المرحلة";
 		$trad["application_desire"]["application_step_id"] = "المرحلة الحالية";
 		$trad["application_desire"]["desire_status_enum"] = "حالة الرغبة";

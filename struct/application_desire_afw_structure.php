@@ -1,4 +1,5 @@
-<?php 
+         
+         <?php 
         class AdmApplicationDesireAfwStructure
         {
         
@@ -175,16 +176,6 @@
                                                         'CSS' => 'width_pct_50', ),
 
 
-                                        'application_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => false,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => true,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25', ),
-                                                
-                                        
-
-                                        
                                                 
                                         'applicant_qualification_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => true, 'UTF8' => false,  
