@@ -1430,21 +1430,27 @@ class AdmObject extends AfwMomkenObject{
                 $authUrl = 'https://apis.uoh.edu.sa/uoh/Token';
                 $credentials = [
 
+                        "grant_type"=>"password",
                         "username"=>"Anurag",
                         "password"=>'H2$6aNd2023',
-                        "grant_type"=>"password",
                 ];
-
+                
                 $ch = curl_init($authUrl."?". http_build_query($credentials));
+                //die($authUrl."?". http_build_query($credentials));
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
                 curl_setopt($ch, CURLOPT_TIMEOUT, 60);
                 curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+// Attach the parameters to the request body
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($credentials));
                 //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
                 //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
                 //curl_setopt($ch, CURLOPT_POST, true);
                 //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($credentials));
                 curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                        'Accept: application/json'
+                        'Accept: application/json',
+                        'Content-Type: application/x-www-form-urlencoded'
                 ]);
                 curl_setopt($ch, CURLOPT_VERBOSE, true); // ⬅️ لعرض التفاصيل
 
@@ -1452,10 +1458,10 @@ class AdmObject extends AfwMomkenObject{
                 //return $response;
                 //$info = curl_getinfo($ch);
                 $requestHeaders = curl_getinfo($ch, CURLINFO_HEADER_OUT);
-die($requestHeaders."\n".$response);
-return false;
+//die($requestHeaders."\n".$response);
+//return false;
                 if (curl_errno($ch)) {
-                        die('Auth Error: ' . curl_error($ch));
+                        //die('Auth Error: ' . curl_error($ch));
                         return false;
                 }
                 curl_close($ch);
