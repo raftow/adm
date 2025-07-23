@@ -830,7 +830,7 @@ class Applicant extends AdmObject
                                         "LABEL_AR" => $title_ar, 
                                         "LABEL_EN" => $title_en, 
                                         "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
-                $color = "gray";
+                $color = "grey";
                 $title_en = "Verify enrollment at UOH university";
                 $title_ar = $this->tm($title_en, 'ar');                
                 $methodName = "verifyEnrollmentUOH";
@@ -1018,7 +1018,7 @@ class Applicant extends AdmObject
                         $err_arr[] = 'Curl error: ' . curl_error($ch);
                         }
                         curl_close($ch);
-                        $inf_arr[] = "token : ".$dataResponse;
+                        //$inf_arr[] = "token : ".$dataResponse;
                 
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
@@ -1032,8 +1032,8 @@ class Applicant extends AdmObject
                         }
                         
 
-                        $result["universities"] = $nb_univ;
-                        $result["universities_arr"] = $universities_arr;
+                        /*$result["universities"] = $nb_univ;
+                        $result["universities_arr"] = $universities_arr;*/
                         // if you find error that happened
                         //$err_arr[] = "your error text here";
                         // if you want to show info as result

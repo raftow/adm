@@ -200,6 +200,7 @@
 
     $messages["Please do not do this action except if really needed !"] = "من فضلك لا تفعل هذا الإجراء إلا إذا كان ضروريًا حقًا!";
     $messages["Verify enrollment at another university"] = "التثبت من التسجيل في جامعة أخرى";
+    $messages["Verify enrollment at UOH university"] = "التثبت من التسجيل في جامعة حائل";
     $messages["disclaim"] = "إخلاء طرف";
     $messages["applicant is already enrolled in the following universities"] = "المتقدم مسجل بالفعل في الجامعات التالية";
     $messages["The upgrade sorting will be executed and you can't rollback"] = "سيتم تنفيذ فرز الترقية ولا يمكنك التراجع بعد ذلك";
