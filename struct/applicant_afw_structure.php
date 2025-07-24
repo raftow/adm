@@ -43,6 +43,28 @@ class AdmApplicantAfwStructure
                 ),
 
 
+                
+
+                'idn_type_id' => array(
+                        'FGROUP' => 'idn-infos',
+                        'IMPORTANT' => 'IN',
+                        'SHOW' => true,
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'RETRIEVE' => false,
+                        'QEDIT' => true,
+                        'READONLY-AFTER-INSERT' => true,
+                        'EDIT' => true,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'identity_type',
+                        'ANSMODULE' => 'adm',
+                        'REQUIRED' => true,
+                        'STEP' => 1,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25'
+                ),
+
                 'country_id' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
@@ -70,26 +92,6 @@ class AdmApplicantAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
-                ),
-
-                'idn_type_id' => array(
-                        'FGROUP' => 'idn-infos',
-                        'IMPORTANT' => 'IN',
-                        'SHOW' => true,
-                        'SEARCH' => true,
-                        'QSEARCH' => false,
-                        'RETRIEVE' => false,
-                        'QEDIT' => true,
-                        'READONLY-AFTER-INSERT' => true,
-                        'EDIT' => true,
-                        'TYPE' => 'FK',
-                        'ANSWER' => 'identity_type',
-                        'ANSMODULE' => 'adm',
-                        'REQUIRED' => true,
-                        'STEP' => 1,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25'
                 ),
 
 
