@@ -830,7 +830,7 @@ class Applicant extends AdmObject
                                         "LABEL_AR" => $title_ar, 
                                         "LABEL_EN" => $title_en, 
                                         "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
-                $color = "gray";
+                $color = "grey";
                 $title_en = "Verify enrollment at UOH university";
                 $title_ar = $this->tm($title_en, 'ar');                
                 $methodName = "verifyEnrollmentUOH";
@@ -1000,7 +1000,6 @@ class Applicant extends AdmObject
                         // medali to implement your code of mourakaba
                         // ...
                         $token = self::getTokenUOH();        
-                        $inf_arr[] = "token : ".$token;
                         
                         $request = [
                                 "idn"=>$idn,       
@@ -1019,25 +1018,22 @@ class Applicant extends AdmObject
                         $err_arr[] = 'Curl error: ' . curl_error($ch);
                         }
                         curl_close($ch);
+                        //$inf_arr[] = "token : ".$dataResponse;
                 
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
                         $nb_univ = 0;
                         $universities_arr = [];
-                        if($row["Universities_Graduated_ind"]==true){
-                                        $nb_univ++;
-                                        $universities_arr["ar"][] = $row["UniversityNameAr"];
-                                        $universities_arr["en"][] = $row["UniversityNameEn"];
-                                        $war_arr[] = "المتقدم مقبول في جامعة ".$row["UniversityNameAr"]." (".$row["UniversityID"].")";
-                                        //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
-                                }
-                        
-                        if($nb_univ==0){
-                                $inf_arr[] = "لا توجد سجلات للمتقدم في الجامعات السعودية";
+                        if($data["AdmissionStatusAr"]!=""){
+                                $war_arr[] = "المتقدم ".$data["AdmissionStatusAr"]." في جامعة حائل ";
+                                //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
+                        }else{
+                                $inf_arr[] = "لا توجد سجلات للمتقدم في جامعة حائل";
                         }
+                        
 
-                        $result["universities"] = $nb_univ;
-                        $result["universities_arr"] = $universities_arr;
+                        /*$result["universities"] = $nb_univ;
+                        $result["universities_arr"] = $universities_arr;*/
                         // if you find error that happened
                         //$err_arr[] = "your error text here";
                         // if you want to show info as result
