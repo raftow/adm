@@ -874,6 +874,26 @@ class Applicant extends AdmObject
                 return $pbms;
         }
 
+
+        protected function afterSetAttribute($attribute)
+        {
+                if($attribute=="idn") // and (!$this->getVal("idn_type_id"))) 
+                {
+                        list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($this->getVal("idn"));
+                        if($idn_correct)
+                        { 
+                                $this->set("idn_type_id", $idn_type_id);                                
+                        }  
+                }
+
+                if($attribute=="idn_type_id") // and (!$this->getVal("idn_type_id"))) 
+                {
+                        if($this->getVal("idn_type_id")==1)
+                        { 
+                                $this->set("country_id", 183);                                
+                        }  
+                }
+        }
         
 
         public function resetApplicant($lang="ar")
