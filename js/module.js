@@ -24,6 +24,8 @@ function job_status_enum_onchange(){
 
 
 function idn_type_id_onchange(){
+  
+  /*
   if($("#idn_type_id").val()!=3)
   {
     $("#mother_idn").prop("disabled", true);
@@ -35,5 +37,11 @@ function idn_type_id_onchange(){
     $("#mother_idn").prop("disabled", false);
     $("#mother_birth_date").prop("disabled", false);
 
+  }*/
+
+  if($("#idn_type_id").val()==1)
+  {
+      $("#country_id").val(183);
   }
+
 }
