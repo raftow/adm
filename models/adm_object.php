@@ -12,6 +12,8 @@ class AdmObject extends AfwMomkenObject{
                         self::$fields_manager_matrix = include_once($file_dir_name . "/../../client-$main_company/extra/fields_manager.php");
                 }
 
+                
+
                 $return = self::$fields_manager_matrix[$table_name][$field_name];
 
                 //if(!$return) die("no params for getAdditionalFieldParams($field_name) look additional_fields[$field_name] in additional_fields=".var_export($additional_fields,true));

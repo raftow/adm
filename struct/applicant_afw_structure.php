@@ -197,23 +197,26 @@ class AdmApplicantAfwStructure
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
                         'FORMAT' => 'SA-MOBILE',
+
+                        'STEP' => '::fields_manager',
+                        'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
                         'QSEARCH' => '::fields_manager',
                         'SHOW' => '::fields_manager',
                         'RETRIEVE' => '::fields_manager',
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
+                        'CSS' => '::fields_manager',
                         'SIZE' => '25',
                         'MAXLENGTH' => '25',
                         'UTF8' => true,
                         'TEXT-SEARCHABLE-SEPARATED' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        'STEP' => '::fields_manager',
-                        'MANDATORY' => '::fields_manager',
+                        
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_50'
+                        
                 ),
 
 
@@ -221,20 +224,23 @@ class AdmApplicantAfwStructure
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
                         'FORMAT' => 'EMAIL',
+
+                        'STEP' => '::fields_manager',
+                        'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
                         'QSEARCH' => '::fields_manager',
                         'SHOW' => '::fields_manager',
                         'RETRIEVE' => '::fields_manager',
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
+                        'CSS' => '::fields_manager',
                         'SIZE' => '25',
                         'MAXLENGTH' => '25',
                         'UTF8' => true,
                         'TEXT-SEARCHABLE-SEPARATED' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        'STEP' => 1,
-                        'MANDATORY' => true,
+                        
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'

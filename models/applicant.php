@@ -320,7 +320,7 @@ class Applicant extends AdmObject
                 $col_struct = strtolower($col_struct);
                 $return = $matrix[$col_struct];
                 if ($col_struct == "css") {
-                        // if($field_name=="attribute_18") throw new AfwRuntimeException("css additional for $field_name params=".var_export($params,true)." return=".$return);
+                        if (!$return) $return = 'width_pct_50';
                 }
                 return $return;
         }
