@@ -2,6 +2,23 @@
 
 class AdmObject extends AfwMomkenObject{
 
+        private static $fields_manager_matrix = null;
+        public static function getFieldsManagerMatrix($table_name, $field_name)
+        {
+                if (!self::$fields_manager_matrix) 
+                {
+                        $main_company = AfwSession::config("main_company", "all");
+                        $file_dir_name = dirname(__FILE__);
+                        self::$fields_manager_matrix = include_once($file_dir_name . "/../../client-$main_company/extra/fields_manager.php");
+                }
+
+                $return = self::$fields_manager_matrix[$table_name][$field_name];
+
+                //if(!$return) die("no params for getAdditionalFieldParams($field_name) look additional_fields[$field_name] in additional_fields=".var_export($additional_fields,true));
+
+                return $return;
+        }
+
         public static function currentApplicationSimulation()
         {
             $instObj = Institution::loadSingleton();

@@ -295,6 +295,9 @@ class Applicant extends AdmObject
         }
 
 
+        
+
+
         public static function getAdditionalFieldParams($field_name)
         {
                 global $additional_fields;
@@ -308,6 +311,17 @@ class Applicant extends AdmObject
 
                 //if(!$return) die("no params for getAdditionalFieldParams($field_name) look additional_fields[$field_name] in additional_fields=".var_export($additional_fields,true));
 
+                return $return;
+        }
+
+        public function fields_manager($field_name, $col_struct)
+        {
+                $matrix = self::getFieldsManagerMatrix("applicant", $field_name);
+                $col_struct = strtolower($col_struct);
+                $return = $matrix[$col_struct];
+                if ($col_struct == "css") {
+                        // if($field_name=="attribute_18") throw new AfwRuntimeException("css additional for $field_name params=".var_export($params,true)." return=".$return);
+                }
                 return $return;
         }
 

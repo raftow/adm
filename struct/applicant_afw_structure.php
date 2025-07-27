@@ -196,20 +196,21 @@ class AdmApplicantAfwStructure
                 'mobile' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
+                        'FORMAT' => 'SA-MOBILE',
+                        'SEARCH' => '::fields_manager',
+                        'QSEARCH' => '::fields_manager',
+                        'SHOW' => '::fields_manager',
+                        'RETRIEVE' => '::fields_manager',
+                        'EDIT' => '::fields_manager',
+                        'QEDIT' => '::fields_manager',
                         'SIZE' => '25',
                         'MAXLENGTH' => '25',
                         'UTF8' => true,
                         'TEXT-SEARCHABLE-SEPARATED' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        'STEP' => 1,
-                        'MANDATORY' => true,
+                        'STEP' => '::fields_manager',
+                        'MANDATORY' => '::fields_manager',
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
@@ -219,12 +220,13 @@ class AdmApplicantAfwStructure
                 'email' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => true,
+                        'FORMAT' => 'EMAIL',
+                        'SEARCH' => '::fields_manager',
+                        'QSEARCH' => '::fields_manager',
+                        'SHOW' => '::fields_manager',
+                        'RETRIEVE' => '::fields_manager',
+                        'EDIT' => '::fields_manager',
+                        'QEDIT' => '::fields_manager',
                         'SIZE' => '25',
                         'MAXLENGTH' => '25',
                         'UTF8' => true,
@@ -237,6 +239,18 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
+
+                'profile_populated' => array('STEP' => 2, 
+                        'SEARCH' => true,  
+                        'QSEARCH' => false,  
+                        'SHOW' => true,  
+                        'RETRIEVE' => false,  
+                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,    
+                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
+                        'TYPE' => 'YN', 'CHAR_TEMPLATE' => "ALPHABETIC,SPACE", 
+                        'READONLY' => true, 'DNA' => true, 
+                        /*'DISABLE-READONLY-ADMIN'=>true, */
+                        'CSS' => 'width_pct_50', ),
 
                                                            
 
@@ -1432,11 +1446,7 @@ class AdmApplicantAfwStructure
                                         'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                         'CSS' => 'width_pct_50', ),
                 
-'Profile_populated' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'YN',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
+                
                                 
                 'applicantEvaluationList' => array(
                         'STEP' => 3,
