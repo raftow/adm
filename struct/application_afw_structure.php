@@ -34,11 +34,6 @@
                 
                 
                 public static $DB_STRUCTURE = array(
-                                        'id' => array('SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  
-                                                'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
-
                                         'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
