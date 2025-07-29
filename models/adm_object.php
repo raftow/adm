@@ -1210,7 +1210,29 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_payment_method;
         }
 
+        public static function list_of_phase_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::phase()[$lang];
+        }
+        
+        public static function phase()
+        {
+                $arr_list_of_phase = array();
+                
+                
+                $arr_list_of_phase["en"][1] = "Application";
+                $arr_list_of_phase["ar"][1] = "التقديم";
+                $arr_list_of_phase["code"][1] = "APP";
 
+                $arr_list_of_phase["en"][2] = "Admission";
+                $arr_list_of_phase["ar"][2] = "القبول";
+                $arr_list_of_phase["code"][2] = "ADM";
+
+                
+                
+                return $arr_list_of_phase;
+        }
 
         public static function executeIndicator($object, $indicator, $normal_class, $arrObjectsRelated, $sens="asc", $default_red_pct=0, $default_orange_pct=0)
         {

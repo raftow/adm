@@ -124,7 +124,27 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
+                
+                'phase_enum' => array(
+                        'SHORTNAME' => 'phase',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => 'FUNCTION',
+                        'READONLY' => false,
+                        'EMPTY_IS_ALL' => true,
+                        'CSS' => 'width_pct_25',
+                ),
 
 
 

@@ -67,7 +67,11 @@
         'TYPE' => 'ENUM','ANSWER'=>'FUNCTION',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),
-        
+'payment_reference' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
+        'TYPE' => 'TEXT',  'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_50',),        
 
 
 
