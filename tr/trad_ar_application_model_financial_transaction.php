@@ -12,6 +12,8 @@ class ApplicationModelFinancialTransactionArTranslator{
 	$trad["application_model_financial_transaction"]["application_model_id"] = "نموذج القبول";
 	$trad["application_model_financial_transaction"]["amount"] = "المبلغ";
 	$trad["application_model_financial_transaction"]["process_enabled"] = "تفعيل معالجة الدفع";
+	$trad["application_model_financial_transaction"]["phase_enum"] = "المرحلة";
+	
         return $trad;
         }
 

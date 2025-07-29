@@ -131,9 +131,9 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                         'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => false,
-                        'QEDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
@@ -142,7 +142,7 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                         'TYPE' => 'ENUM',
                         'ANSWER' => 'FUNCTION',
                         'READONLY' => false,
-                        'EMPTY_IS_ALL' => true,
+                        
                         'CSS' => 'width_pct_25',
                 ),
 
