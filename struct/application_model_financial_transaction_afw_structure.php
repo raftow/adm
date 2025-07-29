@@ -12,9 +12,9 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                         // $obj->public_display = true;
                         // $obj->IS_LOOKUP = true;
 
-                        $obj->editByStep = true;
-                        $obj->editNbSteps = 1;
-                        // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                        $obj->editByStep = false;
+                        //$obj->editNbSteps = 1;
+                        $obj->after_save_edit = array("class"=>'applicationModel',"attribute"=>'application_model_id', "currmod"=>'adm',"currstep"=>6);
                 } else {
                         ApplicationModelFinancialTransactionArTranslator::initData();
                         ApplicationModelFinancialTransactionEnTranslator::initData();
@@ -124,7 +124,27 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
+                
+                'phase_enum' => array(
+                        'SHORTNAME' => 'phase',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => 'FUNCTION',
+                        'READONLY' => false,
+                        
+                        'CSS' => 'width_pct_25',
+                ),
 
 
 
