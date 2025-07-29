@@ -4,6 +4,7 @@ class ApplicationModelFinancialTransactionArTranslator{
     public static function initData()
     {
         $trad = [];
+	$trad["application_model_financial_transaction"]["step1"] = "البنود المالية";
 
 	$trad["application_model_financial_transaction"]["applicationmodelfinancialtransaction.single"] = "رسم نموذج قبول";
 	$trad["application_model_financial_transaction"]["applicationmodelfinancialtransaction.new"] = "جديد ة";

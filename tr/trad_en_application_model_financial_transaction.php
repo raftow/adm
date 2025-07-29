@@ -4,6 +4,7 @@ class ApplicationModelFinancialTransactionEnTranslator{
     public static function initData()
     {
         $trad = [];
+	$trad["application_model_financial_transaction"]["step1"] = "Financial Transaction";
 
 	$trad["application_model_financial_transaction"]["applicationmodelfinancialtransaction.single"] = "Application model financial transaction";
 	$trad["application_model_financial_transaction"]["applicationmodelfinancialtransaction.new"] = "new";
