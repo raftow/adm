@@ -427,10 +427,10 @@
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
 
-                                        'financialTransactionList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_financial_transaction', 'ANSMODULE' => 'adm', 'QEDIT' => false, 
+                                        'financialTransactionList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_financial_transaction', 'ANSMODULE' => 'adm', 'QEDIT' => true, 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 9,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
-                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => true, 'READONLY' => false, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
 
                                         
