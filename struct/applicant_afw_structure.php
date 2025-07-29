@@ -1194,7 +1194,7 @@ class AdmApplicantAfwStructure
                 'preferred_program_track_id' => array('FGROUP' => 'favorite', 'STEP' => 11,  
                                                 'IMPORTANT' => 'IN',  'SEARCH' => false,  'QSEARCH' => false,
                                                 'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,
                                                 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
