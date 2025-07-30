@@ -110,7 +110,12 @@ class ApplicationPlan extends AdmObject
         $lang = $input_arr['lang'];
         $uncomplete = $input_arr['uncomplete'];
         $deleteapp = $input_arr['deleteapp'];
-        list($application_model_id, $attributes, $error_message) = ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg,0,2,0, $method, $whereiam, $uncomplete, $deleteapp);
+        $application_simulation_id = $input_arr['application_simulation_id'];
+        if(!$application_simulation_id)
+        {
+                $application_simulation_id = self::currentApplicationSimulation();
+        }
+        list($application_model_id, $attributes, $error_message) = ApplicationStep::getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg,0,$application_simulation_id,0, $method, $whereiam, $uncomplete, $deleteapp);
         
         $data = ['attributes' => $attributes,
                  'apis' => ApplicationModel::getStepApis($applicant_id, $application_model_id, $step_num, $lang, $debugg),                 
