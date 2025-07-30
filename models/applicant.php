@@ -167,7 +167,7 @@ class Applicant extends AdmObject
                                 $aepObj = ApiEndpoint::loadByMainIndex($sorting_api);
                                 if (!$aepObj) throw new AfwRuntimeException("the register API $sorting_api is not found in DB");
                                 $applicantApiRequestObject = ApplicantApiRequest::loadByMainIndex($this->id, $aepObj->id, true);
-                                list($err, $inf, $war, $tech) = $applicantApiRequestObject->runMeOn($this, $lang, $force, $echo, $ignorePublish);
+                                list($err, $inf, $war, $tech) = $applicantApiRequestObject->runMe($aepObj, $this, $lang, $force, $echo, $ignorePublish);
                                 if ($err) $err_arr[] = $err;
                                 if ($inf) $inf_arr[] = $inf;
                                 if ($war) $war_arr[] = $war;
@@ -201,7 +201,7 @@ class Applicant extends AdmObject
                 if(!$idn_type_id) list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
                 if ((!$idn) or (!$idn_type_id)) // should never happen but ...
                 {
-                        throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
+                        throw new  AfwBusinessException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
                 }
 
                 if (($idn_type_id == 4) and (!trim($this->getVal("passeport_num")))) {
@@ -225,7 +225,7 @@ class Applicant extends AdmObject
                                 $country_id = $this->getVal("country_id");
                                 if (!$country_id) throw new  AfwBusinessException("The country/nationalty is required",$lang,"","","index.php","For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm");
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
-                                if (!$id) throw new  AfwRuntimeException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
+                                if (!$id) throw new  AfwBusinessException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
                                 $this->set("id", $id);
                         }
 
@@ -235,7 +235,7 @@ class Applicant extends AdmObject
                         $first_register = true;
                         // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") after set id=".var_export($id,true));
                 } elseif (($idn_type_id == 1) or ($idn_type_id == 2) or ($idn_type_id == 3)) {
-                        if ($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id");
+                        if ($id != $idn) throw new AfwBusinessException("beforeMaj Contact admin please because IDN=$idn != id=$id when idn_type_id == $idn_type_id");
                 }
 
                 
@@ -1104,7 +1104,7 @@ class Applicant extends AdmObject
                                         if($this->$stopMethod()) break;
                                 }
 
-                                list($err, $inf, $war, $tech) = $applicantApiRequestItem->runMeOn($this, $lang, $force, $echo);
+                                list($err, $inf, $war, $tech) = $applicantApiRequestItem->runMe(null, $this, $lang, $force, $echo);
                                 if ($err) $err_arr[] = $err;
                                 if ($inf) $inf_arr[] = $inf;
                                 if ($war) $war_arr[] = $war;

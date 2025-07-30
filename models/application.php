@@ -210,8 +210,12 @@ class Application extends AdmObject
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 $whereiam = $input_arr['whereiam'];
+                $application_simulation_id = $input_arr['simulation_id'];
+                if(!$application_simulation_id)
+                {
+                        $application_simulation_id = self::currentApplicationSimulation();
+                }
                 
-                $application_simulation_id = 2;
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if($applicationObj)
                 {
@@ -293,11 +297,11 @@ class Application extends AdmObject
 
         public static function acceptOfferWithUpgradeRequest($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
-                $application_simulation_id = $input_arr['simulation_id'];
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 // $whereiam = $input_arr['whereiam'];
+                $application_simulation_id = $input_arr['simulation_id'];
                 if(!$application_simulation_id)
                 {
                         $application_simulation_id = self::currentApplicationSimulation();
@@ -334,11 +338,11 @@ class Application extends AdmObject
 
         public static function acceptOffer($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
-                $application_simulation_id = $input_arr['simulation_id'];
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 // $whereiam = $input_arr['whereiam'];
+                $application_simulation_id = $input_arr['simulation_id'];
                 if(!$application_simulation_id)
                 {
                         $application_simulation_id = self::currentApplicationSimulation();
@@ -377,11 +381,11 @@ class Application extends AdmObject
 
         public static function rejectOffer($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
-                $application_simulation_id = $input_arr['simulation_id'];
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 // $whereiam = $input_arr['whereiam'];
+                $application_simulation_id = $input_arr['simulation_id'];
                 if(!$application_simulation_id)
                 {
                         $application_simulation_id = self::currentApplicationSimulation();
@@ -418,11 +422,11 @@ class Application extends AdmObject
 
         public static function disclaim($input_arr, $debugg=0, $dataShouldBeUpdated = true, $forceRunApis=true)
         {
-                $application_simulation_id = $input_arr['simulation_id'];
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 // $whereiam = $input_arr['whereiam'];
+                $application_simulation_id = $input_arr['simulation_id'];
                 if(!$application_simulation_id)
                 {
                         $application_simulation_id = self::currentApplicationSimulation();

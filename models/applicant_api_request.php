@@ -112,7 +112,7 @@ class ApplicantApiRequest extends AdmObject
     }
 
 
-    public function runMeOn($applicantObject, $lang="ar", $force=false, $echo=false, $ignorePublish=false)
+    public function runMe($apiEndPoint =null, $applicantObject=null, $lang="ar", $force=false, $echo=false, $ignorePublish=false)
     {
         $err_arr = [];
         $inf_arr = [];
@@ -121,7 +121,8 @@ class ApplicantApiRequest extends AdmObject
         /**
          * @var ApiEndpoint $apiEndPoint
          */
-        $apiEndPoint = $this->het("api_endpoint_id");
+        if(!$apiEndPoint) $apiEndPoint = $this->het("api_endpoint_id");
+        if(!$applicantObject) $applicantObject = $this->het("applicant_id");
         //
         if ($apiEndPoint and ($ignorePublish or $apiEndPoint->sureIs("published"))) {
                 $run_date = $this->getVal("run_date");
