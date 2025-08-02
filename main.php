@@ -11,7 +11,8 @@ else
 {
     $Main_Page = "home.php";
 }
-$table = strtolower($_REQUEST["cl"]); 
+$table = null;
+if(isset($_REQUEST["cl"])) $table = strtolower($_REQUEST["cl"]); 
 // $table = AfwStringHelper::classToTable($_REQUEST["cl"]);
 if(!$table) $table = "all";
 
