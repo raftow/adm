@@ -259,7 +259,7 @@ class SortingSessionStat extends AFWObject{
             $track_num = $this->getVal("track_num");
             $application_plan_branchObj = $this->het("application_plan_branch_id");
             $sorting_group_id = $application_plan_branchObj ? $application_plan_branchObj->getVal("sorting_group_id") : 0;
-            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+            $server_db_prefix = AfwSession::currentDBPrefix();
 
                 
 

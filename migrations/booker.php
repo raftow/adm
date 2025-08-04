@@ -81,6 +81,6 @@ $migrations = [
     '00075' => ['by'=>'medali','title'=>'add country to applicant_qualification'],
     '00076' => ['by'=>'rafik','title'=>'make application table partitionned'],
     '00077' => ['by'=>'medali','title'=>'payment module'],
-
+    '00078' => ['by'=>'rafik','title'=>'prepare some features for NAUSS'],
 ];
 

@@ -78,7 +78,7 @@ class ApplicationDesire extends AdmObject
 
         public static function getApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $sortingGroupId, $track_num, $onlyForUpgrade=false)
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
 
                 if($onlyForUpgrade)
                 {
@@ -104,7 +104,7 @@ class ApplicationDesire extends AdmObject
 
         public static function getSimpleApplicantsDesiresMatrix($application_plan_id, $application_simulation_id, $where="1")
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
                 $application_table = $server_db_prefix."adm.application";
 
                 // << updated_at asc >> below is because amjad at 17/07/2025 in whatsapp voice-message
@@ -274,7 +274,7 @@ class ApplicationDesire extends AdmObject
 
         public static function getInitialAcceptanceApplicantIds($application_plan_id, $application_simulation_id)
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
                 $initial_acceptance = self::desire_status_enum_by_code('initial-acceptance');
                 $sql = "SELECT applicant_id, desire_num
                                 FROM ".$server_db_prefix."adm.application_desire

@@ -55,7 +55,7 @@ class ApplicationSimulation extends AdmObject
     public static function checkSimulation($simulation_id)
     {
         $now = date("dHis");
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         $return = AfwDatabase::db_recup_row("select progress_value,progress_task from " . $server_db_prefix . "adm.application_simulation where id = '" . $simulation_id . "' -- $now");
 
         if ($return["progress_task"] == "--STOP--") {
@@ -210,7 +210,7 @@ class ApplicationSimulation extends AdmObject
     public function getMyApplicantList($applicationModelObj = null, $applicantGroupObj = null, $applicationPlanObj = null, $limit = '', $applyDateGreg = '', $registerApplicants = [], $fromProspect = false, $lang = 'ar', $pct_here = 30.0)
     {
         $application_simulation_id = $this->id;
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         if (!$applicationModelObj) $applicationModelObj = $this->het("application_model_id");
         if (!$applicationModelObj) return [$applicationModelObj, $applicantGroupObj, $applicationPlanObj, [], "No application model defined"];
         if (!$applicantGroupObj) $applicantGroupObj = $this->het("applicant_group_id");
@@ -248,7 +248,7 @@ class ApplicationSimulation extends AdmObject
                     if (!$last_done_idn) $last_done_idn = "";
                 }
 
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
                 $dataProspectDesires = AfwDatabase::db_recup_rows("select * from " . $server_db_prefix . "adm.prospect_desire where idn > '$last_done_idn' order by idn limit $limit");
                 $cntDone = 0;
                 $cntTotal = count($dataProspectDesires);
@@ -365,7 +365,7 @@ class ApplicationSimulation extends AdmObject
 
     public function resetSimulationForNotFinishedApplications()
     {
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         /** 
          * @var ApplicationPlan $applicationPlanObj 
          * */
@@ -418,7 +418,7 @@ class ApplicationSimulation extends AdmObject
         
         
         $application_simulation_id = $this->id;
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         
 
         $cloneMe = clone $this;
@@ -1117,7 +1117,7 @@ class ApplicationSimulation extends AdmObject
         $html = "<div class='simulation-panel'>";
         $html .= "<div class='stats-panel'>";
         $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
 
         $arrOptions = $this->getOptions();
         $keyDecodeArr = [];
@@ -1220,7 +1220,7 @@ class ApplicationSimulation extends AdmObject
         $html = "<div class='simulation-panel'>";
         $html .= "<div class='stats-panel'>";
         $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
 
         $arrOptions = $this->getOptions();
         $keyDecodeArr = [];

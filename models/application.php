@@ -1451,7 +1451,7 @@ class Application extends AdmObject
                         $idn = $this->getVal("idn");
                         if(!$offlineDesiresRow or (count($offlineDesiresRow)==0))
                         {
-                                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                                $server_db_prefix = AfwSession::currentDBPrefix();
                                 $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
                         }
                         if(!$nb_desires) $nb_desires = 999;
@@ -1497,7 +1497,7 @@ class Application extends AdmObject
                 if($applicationSimulationObj and $applicationPlanObj)
                 {
                         $idn = $this->getVal("idn");
-                        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                        $server_db_prefix = AfwSession::currentDBPrefix();
                         $offlineDesiresRow = AfwDatabase::db_recup_row("select * from ".$server_db_prefix."adm.prospect_desire where idn='$idn'");
                         list($myApplicationDesireList, $log)  = $this->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
                         $tech_arr[] = $log;
@@ -2468,7 +2468,7 @@ class Application extends AdmObject
                 }
                 else return ($what == "value") ? "," : [];
 
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
 
                 $po_id_arr = AfwDatabase::db_recup_liste("select po.id from ".$server_db_prefix."adm.academic_program_offering po
                                                 inner join ".$server_db_prefix."adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
@@ -2705,7 +2705,7 @@ class Application extends AdmObject
                 $maxPaths = SortingPath::nbPaths($application_model_id);
                 $sortingSessionList = $applicationPlanObj->get("sortingSessionList");
                 $sortingGroupList = $this->get("sortingGroupList");
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
                 $data = [];
                 foreach($sortingSessionList as $sortingSessionId => $sortingSessionItem)
                 {

@@ -51,7 +51,7 @@ try
 
     $simulation_id = $_GET['simid'];
 
-    $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+    $server_db_prefix = AfwSession::currentDBPrefix();
     if($simulation_id==2) die("This feature is only for simulation not for real application");
     $objSimulation = ApplicationSimulation::loadById($simulation_id);
     $objSimulation->stopSimulation($lang);

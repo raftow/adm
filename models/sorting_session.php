@@ -324,7 +324,7 @@ class SortingSession extends AdmObject
             return ["Upgrade sorting is only implemented when sorting is with weighted percentage", ""];
         }
 
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         $db_update_bloc = AfwSession::config("db_update_bloc", 101);
         $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
         AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
@@ -461,7 +461,7 @@ class SortingSession extends AdmObject
         $application_plan_id = $this->getVal("application_plan_id");
         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
         $session_num = $this->getVal("session_num");        
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         $db_update_bloc = AfwSession::config("db_update_bloc", 101);
 
         AfwSession::setConfig("application_desire-sql-analysis-max-calls",10000);
@@ -917,7 +917,7 @@ class SortingSession extends AdmObject
             $application_plan_id = $this->getVal("application_plan_id");
             $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
             $session_num = $this->getVal("session_num");        
-            $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+            $server_db_prefix = AfwSession::currentDBPrefix();
             $sortingGroupList = $this->get("sortingGroupList");
             $maxPaths = SortingPath::nbPaths($application_model_id);
             $sortingGroupCount = count($sortingGroupList);
@@ -1193,7 +1193,7 @@ class SortingSession extends AdmObject
         $application_plan_id = $this->getVal("application_plan_id");
         $session_num = $this->getVal("session_num");
         // $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
         // $statsData = [];
         
@@ -1534,7 +1534,7 @@ class SortingSession extends AdmObject
         $html = "<div class='sorting-panel'>";  
         $html .= "<div class='stats-panel'>";  
         $html .= "   <div id=\"stats_panel\" class=\"stats panel\" >";
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         /*
         $sortingGroupList = $this->get("sortingGroupList");
         $keyDecodeArr = [];
@@ -1720,7 +1720,7 @@ class SortingSession extends AdmObject
         $application_plan_id = $this->getVal("application_plan_id");
         $application_simulation_id = $this->getVal("application_simulation_id");
 
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         $db_insert_bloc = AfwSession::config("db_insert_bloc", 500);
         
         if(!$session_num) return ["Please define session num for this sorting session", ""];
@@ -2194,7 +2194,7 @@ class SortingSession extends AdmObject
     public static function hasBeenExecuted($application_plan_id, $application_simulation_id, $session_num, $sortingGroupId, $spath)
     {
         $sorting_table_without_prefix = "farz_ap".$application_plan_id."_as".$application_simulation_id."_k".$session_num."_sg$sortingGroupId"."_pth$spath";
-        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+        $server_db_prefix = AfwSession::currentDBPrefix();
         //$sorting_table = $server_db_prefix."adm.".$sorting_table_without_prefix;
         $final_sorting_table = $server_db_prefix."adm.final_".$sorting_table_without_prefix;
 

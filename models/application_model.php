@@ -1206,7 +1206,7 @@
 
                 public function copySISFieldsFrom($application_model_id, $lang="ar")
                 {
-                        $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                        $server_db_prefix = AfwSession::currentDBPrefix();
 
                         $application_field_mfk = AfwDatabase::db_recup_value("select application_field_mfk from ".$server_db_prefix."adm.application_model where id = $application_model_id");
                         if(strlen($application_field_mfk)>2)

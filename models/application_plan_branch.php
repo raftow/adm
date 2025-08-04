@@ -55,13 +55,13 @@ class ApplicationPlanBranch extends AdmObject
 
         public static function getBranchsCondWPMatrix($application_plan_id, $sorting_group_id)
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
                 return AfwDatabase::db_recup_index("SELECT id, cond_weighted_percentage from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "cond_weighted_percentage");
         }
 
         public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track, $removeConfirmedSeats=false, $application_simulation_id=0)
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
                 $return = AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "capacity");
 
                 if($removeConfirmedSeats)
@@ -333,7 +333,7 @@ class ApplicationPlanBranch extends AdmObject
 
         public function beforeDelete($id, $id_replace)
         {
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
 
                 if (!$id) {
                         $id = $this->getId();
@@ -386,7 +386,7 @@ class ApplicationPlanBranch extends AdmObject
                 $msf2,$sf2_order_sens,$sf2_func,
                 $msf3,$sf3_order_sens,$sf3_func) = SortingGroup::getGroupingCriterea($sorting_group_id);
 
-                $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+                $server_db_prefix = AfwSession::currentDBPrefix();
 
                 // @todo below should be dynamic min(xx) from application_plan_branch ...etc
                 $sorting_value_1_min = 60;

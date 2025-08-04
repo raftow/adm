@@ -111,7 +111,7 @@ class ApplicationField extends AdmObject
 
      public function select_visibilite_horizontale($dropdown = false)
      {
-          $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+          $server_db_prefix = AfwSession::currentDBPrefix();
           $objme = AfwSession::getUserConnected();
           $me = ($objme) ? $objme->id : 0;
           $this->select_visibilite_horizontale_default();
