@@ -27,7 +27,7 @@ $trad["institution"]["application_plan_id"] = "محاكاة حملة التقد�
 		$trad["institution"]["website"] = "رابط موقع الواب  Url";
 		$trad["institution"]["logo_file_id"] = "صورة شعار المؤسسة";
 		$trad["institution"]["background_file_id"] = "صورة الخلفية";
-		$trad["institution"]["adress"] = "العنوان";
+		$trad["institution"]["adress"] = "العنوان - انجليزي";
 		$trad["institution"]["postal_code"] = "رمز .......";
 		$trad["institution"]["orgunit_id"] = "العنصر في نظام الموارد البشرية";
 		$trad["institution"]["adm_orgunit_id"] = "إدارة قبول وتسجيل";
@@ -66,6 +66,12 @@ $trad["institution"]["application_plan_id"] = "محاكاة حملة التقد�
 
 		$trad["institution"]["Institution_description_ar"] = "وصف المؤسسة عربي";
 		$trad["institution"]["Institution_description_en"] = "وصف المؤسسة انجليزي";
+
+		$trad["institution"]["adress_ar"] = "العنوان - عربي";
+		$trad["institution"]["main_color1"] = "اللون 1";
+		$trad["institution"]["main_color2"] = "اللون 2";
+		$trad["institution"]["horizontal_logo_file_id"] = "صورة الشعار - أفقي";
+		
         return $trad;
     }
 

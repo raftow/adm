@@ -17,7 +17,7 @@ class InstitutionEnTranslator{
 		$trad["institution"]["website"] = "API Url";
 		$trad["institution"]["logo_file_id"] = "Logo";
 		$trad["institution"]["background_file_id"] = "Background";
-		$trad["institution"]["adress"] = "Adress";
+		$trad["institution"]["adress"] = "Adress English";
 		$trad["institution"]["facebook_profile_link"] = "Facebook";
 		$trad["institution"]["linkedin_profile_link"] = "Linkedin";
 		$trad["institution"]["youtube_profile_link"] = "Youtube";
@@ -36,6 +36,11 @@ class InstitutionEnTranslator{
 		$trad["institution"]["Institution_description_ar"] = "Institution description arabic ";
 
 		$trad["institution"]["Institution_description_en"] = "Institution description english ";
+
+		$trad["institution"]["adress_ar"] = "Adress arabic";
+		$trad["institution"]["main_color1"] = "Main color 1";
+		$trad["institution"]["main_color2"] = "Main color 2";
+		$trad["institution"]["horizontal_logo_file_id"] = "Horizontal logo file";
         return $trad;
     }
 
