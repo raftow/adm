@@ -5,7 +5,7 @@ $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'applicant_g
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'application_simulation', 198, "+t", "qsearch", null);
 
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 
 /* 

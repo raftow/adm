@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.training_unit_type change   training_unit_type_code training_unit_type_code varchar(30)  NOT NULL  AFTER id;");
 
 // more previleges (see list all goals command-line)

@@ -12,7 +12,7 @@ $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'sorting_gro
 
 
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 // par securite
 

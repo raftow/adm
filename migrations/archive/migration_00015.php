@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 // medali transaction fees moodule
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`fin_transaction` (

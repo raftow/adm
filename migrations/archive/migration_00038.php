@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.acondition_origin add   program_track_mfk varchar(255) DEFAULT NULL  AFTER academic_program_mfk;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.acondition_origin_scope add   program_track_id int(11) NOT NULL  AFTER application_model_branch_id;");

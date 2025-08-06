@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`applicant_evaluation` CHANGE `adm_file_id` `workflow_file_id` INT(11) NULL DEFAULT NULL;");
 

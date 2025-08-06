@@ -1,7 +1,7 @@
 <?php
 if(!class_exists("AfwSession")) die("Denied access");
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 if($server_db_prefix=="uoh_")
 {
     AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`program_qualification`;");

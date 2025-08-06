@@ -1,6 +1,6 @@
 <?php
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 if($migration_secure) // security to avoid mistake run of this script
 {

@@ -1,6 +1,6 @@
 <?php
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 // added by rafik : start
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program add   program_title_ar varchar(64)  NOT NULL  AFTER program_title;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program add   program_title_en varchar(64)  NOT NULL  AFTER program_title_ar;");

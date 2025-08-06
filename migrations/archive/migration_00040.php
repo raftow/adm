@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 AfwDatabase::db_query("CREATE TABLE ".$server_db_prefix."adm.prospect_qualification (
   `id` bigint(20) UNSIGNED NOT NULL,

@@ -1,6 +1,6 @@
 <?php
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 if($last_migration<51) // security to avoid mistake run of this script
 {
     // par securite d'executer ce script par erreur je desactive le drop

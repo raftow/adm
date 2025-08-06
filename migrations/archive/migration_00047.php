@@ -1,6 +1,6 @@
 <?php
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 /*
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."bau.`goal` (`id`, `id_aut`, `date_aut`, `id_mod`, `date_mod`, `id_valid`, `date_valid`, `avail`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `system_id`, `jobrole_id`, `module_id`, `atable_mfk`, `goal_code`, `domain_id`, `goal_type_id`, `goal_name_ar`, `goal_desc_ar`, `goal_name_en`, `goal_desc_en`, `parent_goal_id`) VALUES
 (201, 1, '2025-02-21 14:45:24', 1, '2025-03-18 14:25:43', 0, NULL, 'Y', 14, NULL, NULL, NULL, 2, 1230, 101, 1282, ',', 'supervisor', 25, 3, 'الاشراف العام', 'الاشراف العام', '', '', NULL),
@@ -14,7 +14,7 @@ $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'employee_sc
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'institution', 193, "-t", "qedit", null);
 
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.`academic_term` CHANGE `aplication_start_date` `application_start_date` DATETIME NULL DEFAULT NULL;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add application_simulation_id int(11) NOT NULL AFTER application_model_id;");

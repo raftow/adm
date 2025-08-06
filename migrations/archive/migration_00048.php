@@ -27,7 +27,7 @@ $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'employee_sc
 $migration_info .= " " . Atable::generateTablePrevileges($moduleId, 'institution', 193, "-t", "qedit", null);
 
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 AfwDatabase::db_query("TRUNCATE TABLE ".$server_db_prefix."adm.financial_transaction");
 AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.financial_transaction (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `fee_code`, `fee_description_ar`, `fee_description_en`, `sis_charge_code`, `sis_payment_code`) VALUES
 (1, 1, '2024-11-02 14:51:01', 1, '2024-11-02 14:51:01', 0, NULL, 'Y', 'Y', 1, NULL, NULL, NULL, 0, NULL, 'F001', 'رسوم التقديم', 'Application Fees', NULL, NULL),

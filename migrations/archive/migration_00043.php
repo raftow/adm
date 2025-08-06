@@ -1,6 +1,6 @@
 <?php
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program add   program_rank smallint NOT NULL  AFTER program_title;");

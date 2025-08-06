@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.program_track;");
 

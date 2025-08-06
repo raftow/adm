@@ -1,5 +1,5 @@
 <?php
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant change   mother_saudi_ind mother_saudi_ind char(1)  DEFAULT 0 ;");

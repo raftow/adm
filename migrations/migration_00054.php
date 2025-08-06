@@ -1,7 +1,7 @@
 <?php
 if(!class_exists("AfwSession")) die("Denied access");
 
-$server_db_prefix = AfwSession::config("db_prefix", "default_db_");
+$server_db_prefix = AfwSession::currentDBPrefix();
 
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_path add   sorting_num smallint NOT NULL  AFTER application_model_id;");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.sorting_path add   short_name_ar varchar(32)  NOT NULL  AFTER sorting_path_code;");
