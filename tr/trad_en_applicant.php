@@ -112,7 +112,7 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["qiyas_aptitude_th_date"] = "Date of general aptitude testing - theoretical";
 		$trad["applicant"]["qiyas_achievement_sc"] = "Academic achievement test score - scientific";
 		$trad["applicant"]["qiyas_achievement_sc_date"] = "Date of the achievement test - scientific";
-		$trad["applicant"]["Profile_populated"] = "Profile_populated";
+		$trad["applicant"]["profile_populated"] = "Profile populated";
 
 		return $trad;
     }

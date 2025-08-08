@@ -194,7 +194,7 @@ class AdmApplicantAfwStructure
                 ],
 
                 'mobile' => array(
-                        'FGROUP' => 'idn-infos',
+                        'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
                         'FORMAT' => 'SA-MOBILE',
 
@@ -221,7 +221,7 @@ class AdmApplicantAfwStructure
 
 
                 'email' => array(
-                        'FGROUP' => 'idn-infos',
+                        'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
                         'FORMAT' => 'EMAIL',
 
@@ -246,17 +246,23 @@ class AdmApplicantAfwStructure
                         'CSS' => 'width_pct_50'
                 ),
 
-                'profile_populated' => array('STEP' => 2, 
-                        'SEARCH' => true,  
-                        'QSEARCH' => false,  
-                        'SHOW' => true,  
-                        'RETRIEVE' => false,  
-                        'EDIT' => true,  'QEDIT' => false, 'UTF8' => false,    
+                'profile_populated' => array(
+                        'FGROUP' => 'profile',
+                        'STEP' => '::fields_manager',
+                        'MANDATORY' => '::fields_manager',
+                        'SEARCH' => '::fields_manager',
+                        'QSEARCH' => '::fields_manager',
+                        'SHOW' => '::fields_manager',
+                        'RETRIEVE' => '::fields_manager',
+                        'EDIT' => '::fields_manager',
+                        'QEDIT' => '::fields_manager',
+                        'CSS' => '::fields_manager',
+                        'UTF8' => false,    
                         'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
                         'TYPE' => 'YN', 'CHAR_TEMPLATE' => "ALPHABETIC,SPACE", 
                         'READONLY' => true, 'DNA' => true, 
                         /*'DISABLE-READONLY-ADMIN'=>true, */
-                        'CSS' => 'width_pct_50', ),
+                        ),
 
                                                            
 
