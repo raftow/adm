@@ -23,6 +23,16 @@ class ApplicationField extends AdmObject
      public static $TABLE               = "";
      public static $DB_STRUCTURE = null;
 
+     public static $arr_switchable_cols = [
+          "qsearch" => [true, "", ""],
+          "retrieve" => [true, "", ""],
+          "edit" => [true, "", ""],
+          "qedit" => [true, "", ""],
+          "readonly" => [true, "", ""],
+          "mandatory" => [true, "", ""],
+          "usable_in_conditions" => [true, "", "", "no-reverse"],
+
+     ];
      public static $appFieldByIndex = [];
 
 
@@ -38,12 +48,12 @@ class ApplicationField extends AdmObject
      public static function fieldNameToCode($field_name, $application_table_id)
      {
           $params = [];
-          if($application_table_id==1) $params = Applicant::getAdditionalFieldParams($field_name);
-          if($application_table_id==3) $params = Application::getApplicationAdditionalFieldParams($field_name);
+          if ($application_table_id == 1) $params = Applicant::getAdditionalFieldParams($field_name);
+          if ($application_table_id == 3) $params = Application::getApplicationAdditionalFieldParams($field_name);
           //if($application_table_id==2) $params = ApplicationDesire::getApplicationDesireAdditionalFieldParams($field_name);
 
           $field_code = $params["field_code"];
-          if(!$field_code) $field_code = $field_name;
+          if (!$field_code) $field_code = $field_name;
 
           return $field_code;
      }
@@ -51,21 +61,18 @@ class ApplicationField extends AdmObject
      public static function loadByMainIndex($field_name, $application_table_id, $create_obj_if_not_found = false)
      {
 
-          if(self::$appFieldByIndex["at$application_table_id.$field_name"])
-          {
-               if(self::$appFieldByIndex["at$application_table_id.$field_name"]=="NOT-FOUND")
-               {
+          if (self::$appFieldByIndex["at$application_table_id.$field_name"]) {
+               if (self::$appFieldByIndex["at$application_table_id.$field_name"] == "NOT-FOUND") {
                     return null;
                }
                return self::$appFieldByIndex["at$application_table_id.$field_name"];
-          } 
+          }
           $obj = new ApplicationField();
           $obj->select("field_name", $field_name);
           $obj->select("application_table_id", $application_table_id);
 
           if ($obj->load()) {
                if ($create_obj_if_not_found) $obj->activate();
-               
           } elseif ($create_obj_if_not_found) {
                $obj->set("field_name", $field_name);
                $obj->set("application_table_id", $application_table_id);
@@ -74,16 +81,13 @@ class ApplicationField extends AdmObject
                if (!$obj->id) return null; // means beforeInsert rejected insert operation
                $obj->is_new = true;
           } else $obj = null;
-          if($obj)
-          {
+          if ($obj) {
                self::$appFieldByIndex["at$application_table_id.$field_name"] = $obj;
                self::$appFieldByIndex["at$application_table_id.$field_name"]->is_new = null;
-          }
-          else
-          {
+          } else {
                self::$appFieldByIndex["at$application_table_id.$field_name"] = "NOT-FOUND";
           }
-          
+
 
           return $obj;
      }
@@ -92,13 +96,13 @@ class ApplicationField extends AdmObject
      public function getDisplay($lang = "ar")
      {
           if ($this->getVal("field_title_$lang")) return $this->getVal("field_title_$lang");
-          if($lang!="ar") throw new AfwRuntimeException("getDisplay failed for lang= $lang : this=".var_export($this, true));
-          return $this->getVal("field_name")." [".$this->id." / ".$this->getVal("application_table_id")."]";
+          if ($lang != "ar") throw new AfwRuntimeException("getDisplay failed for lang= $lang : this=" . var_export($this, true));
+          return $this->getVal("field_name") . " [" . $this->id . " / " . $this->getVal("application_table_id") . "]";
      }
 
      public function getDropDownDisplay($lang = "ar")
      {
-          return $this->getVal("shortname")."-".$this->getVal("field_name")."-".$this->getVal("field_title_$lang");
+          return $this->getVal("shortname") . "-" . $this->getVal("field_name") . "-" . $this->getVal("field_title_$lang");
      }
 
      /*
@@ -116,7 +120,7 @@ class ApplicationField extends AdmObject
           $me = ($objme) ? $objme->id : 0;
           $this->select_visibilite_horizontale_default();
           if (!$objme->isSuperAdmin()) {
-               $this->select("active",'Y');
+               $this->select("active", 'Y');
           }
      }
 
@@ -163,316 +167,452 @@ class ApplicationField extends AdmObject
           return 0;
      }
 
-     public function beforeDelete($id,$id_replace) 
-        {
-            $server_db_prefix = AfwSession::config("db_prefix","default_db_");
-            
-            if(!$id)
-            {
-                $id = $this->getId();
-                $simul = true;
-            }
-            else
-            {
-                $simul = false;
-            }
-            
-            if($id)
-            {   
-               if($id_replace==0)
-               {
-                   // FK part of me - not deletable 
-                       // adm.acondition-الحقل	afield_id  حقل يفلتر به (required field)
-                        // require_once "../adm/acondition.php";
-                        $obj = new Acondition();
-                        $obj->where("afield_id = '$id' and active='Y' ");
-                        $nbRecords = $obj->count();
-                        // check if there's no record that block the delete operation
-                        if($nbRecords>0)
-                        {
-                            $this->deleteNotAllowedReason = "Used in some application condition(s) as the condition field";
-                            return false;
-                        }
-                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
-                        if(!$simul) $obj->deleteWhere("afield_id = '$id' and active='N'");
+     public function beforeDelete($id, $id_replace)
+     {
+          $server_db_prefix = AfwSession::config("db_prefix", "default_db_");
 
-                       // adm.application_model_field-الحقل	application_field_id  أنا تفاصيل لها (required field)
-                        // require_once "../adm/application_model_field.php";
-                        $obj = new ApplicationModelField();
-                        $obj->where("application_field_id = '$id' and active='Y' ");
-                        $nbRecords = $obj->count();
-                        // check if there's no record that block the delete operation
-                        if($nbRecords>0)
-                        {
-                            $this->deleteNotAllowedReason = "Used in some application model field(s) as The field";
-                            return false;
-                        }
-                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
-                        if(!$simul) $obj->deleteWhere("application_field_id = '$id' and active='N'");
+          if (!$id) {
+               $id = $this->getId();
+               $simul = true;
+          } else {
+               $simul = false;
+          }
+
+          if ($id) {
+               if ($id_replace == 0) {
+                    // FK part of me - not deletable 
+                    // adm.acondition-الحقل	afield_id  حقل يفلتر به (required field)
+                    // require_once "../adm/acondition.php";
+                    $obj = new Acondition();
+                    $obj->where("afield_id = '$id' and active='Y' ");
+                    $nbRecords = $obj->count();
+                    // check if there's no record that block the delete operation
+                    if ($nbRecords > 0) {
+                         $this->deleteNotAllowedReason = "Used in some application condition(s) as the condition field";
+                         return false;
+                    }
+                    // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                    if (!$simul) $obj->deleteWhere("afield_id = '$id' and active='N'");
+
+                    // adm.application_model_field-الحقل	application_field_id  أنا تفاصيل لها (required field)
+                    // require_once "../adm/application_model_field.php";
+                    $obj = new ApplicationModelField();
+                    $obj->where("application_field_id = '$id' and active='Y' ");
+                    $nbRecords = $obj->count();
+                    // check if there's no record that block the delete operation
+                    if ($nbRecords > 0) {
+                         $this->deleteNotAllowedReason = "Used in some application model field(s) as The field";
+                         return false;
+                    }
+                    // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                    if (!$simul) $obj->deleteWhere("application_field_id = '$id' and active='N'");
 
 
-                        
-                   // FK part of me - deletable 
 
-                   
-                   // FK not part of me - replaceable 
+                    // FK part of me - deletable 
 
-                   
-                   
-                   // MFK
-                       // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/api_endpoint.php";
-                            ApiEndpoint::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.api_endpoint set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
-                        }
-                        
-                       // adm.app_model_api-الحقول المستعملة	application_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/app_model_api.php";
-                            AppModelApi::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
-                        }
-                        
-                       // adm.application_step-إظهار الحقول التالية	show_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/application_step.php";
-                            ApplicationStep::updateWhere(array('show_field_mfk'=>"REPLACE(show_field_mfk, ',$id,', ',')"), "show_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.application_step set show_field_mfk=REPLACE(show_field_mfk, ',$id,', ',') where show_field_mfk like '%,$id,%' ");
-                        }
-                        
-                       // adm.screen_model-الحقول المتوفرة في الشاشة	application_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/screen_model.php";
-                            ScreenModel::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.screen_model set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
-                        }
-                        
 
+                    // FK not part of me - replaceable 
+
+
+
+                    // MFK
+                    // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/api_endpoint.php";
+                         ApiEndpoint::updateWhere(array('application_field_mfk' => "REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.api_endpoint set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
+                    }
+
+                    // adm.app_model_api-الحقول المستعملة	application_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/app_model_api.php";
+                         AppModelApi::updateWhere(array('application_field_mfk' => "REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
+                    }
+
+                    // adm.application_step-إظهار الحقول التالية	show_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/application_step.php";
+                         ApplicationStep::updateWhere(array('show_field_mfk' => "REPLACE(show_field_mfk, ',$id,', ',')"), "show_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.application_step set show_field_mfk=REPLACE(show_field_mfk, ',$id,', ',') where show_field_mfk like '%,$id,%' ");
+                    }
+
+                    // adm.screen_model-الحقول المتوفرة في الشاشة	application_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/screen_model.php";
+                         ScreenModel::updateWhere(array('application_field_mfk' => "REPLACE(application_field_mfk, ',$id,', ',')"), "application_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.screen_model set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',') where application_field_mfk like '%,$id,%' ");
+                    }
+               } else {
+                    // FK on me 
+
+
+                    // adm.acondition-الحقل	afield_id  حقل يفلتر به (required field)
+                    if (!$simul) {
+                         // require_once "../adm/acondition.php";
+                         Acondition::updateWhere(array('afield_id' => $id_replace), "afield_id='$id'");
+                         // $this->execQuery("update ${server_db_prefix}adm.acondition set afield_id='$id_replace' where afield_id='$id' ");
+
+                    }
+
+
+
+
+                    // adm.application_model_field-الحقل	application_field_id  أنا تفاصيل لها (required field)
+                    if (!$simul) {
+                         // require_once "../adm/application_model_field.php";
+                         ApplicationModelField::updateWhere(array('application_field_id' => $id_replace), "application_field_id='$id'");
+                         // $this->execQuery("update ${server_db_prefix}adm.application_model_field set application_field_id='$id_replace' where application_field_id='$id' ");
+
+                    }
+
+
+
+
+                    // MFK
+                    // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/api_endpoint.php";
+                         ApiEndpoint::updateWhere(array('application_field_mfk' => "REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.api_endpoint set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
+                    }
+                    // adm.app_model_api-الحقول المستعملة	application_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/app_model_api.php";
+                         AppModelApi::updateWhere(array('application_field_mfk' => "REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
+                    }
+                    // adm.application_step-إظهار الحقول التالية	show_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/application_step.php";
+                         ApplicationStep::updateWhere(array('show_field_mfk' => "REPLACE(show_field_mfk, ',$id,', ',$id_replace,')"), "show_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.application_step set show_field_mfk=REPLACE(show_field_mfk, ',$id,', ',$id_replace,') where show_field_mfk like '%,$id,%' ");
+                    }
+                    // adm.screen_model-الحقول المتوفرة في الشاشة	application_field_mfk  حقل يفلتر به
+                    if (!$simul) {
+                         // require_once "../adm/screen_model.php";
+                         ScreenModel::updateWhere(array('application_field_mfk' => "REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
+                         // $this->execQuery("update ${server_db_prefix}adm.screen_model set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
+                    }
                }
-               else
-               {
-                        // FK on me 
- 
-
-                        // adm.acondition-الحقل	afield_id  حقل يفلتر به (required field)
-                        if(!$simul)
-                        {
-                            // require_once "../adm/acondition.php";
-                            Acondition::updateWhere(array('afield_id'=>$id_replace), "afield_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.acondition set afield_id='$id_replace' where afield_id='$id' ");
-                            
-                        } 
-                        
-
- 
-
-                        // adm.application_model_field-الحقل	application_field_id  أنا تفاصيل لها (required field)
-                        if(!$simul)
-                        {
-                            // require_once "../adm/application_model_field.php";
-                            ApplicationModelField::updateWhere(array('application_field_id'=>$id_replace), "application_field_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.application_model_field set application_field_id='$id_replace' where application_field_id='$id' ");
-                            
-                        } 
-                        
-
-
-                        
-                        // MFK
-                       // adm.api_endpoint-الحقول المتوفرة	application_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/api_endpoint.php";
-                            ApiEndpoint::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.api_endpoint set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
-                        }
-                       // adm.app_model_api-الحقول المستعملة	application_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/app_model_api.php";
-                            AppModelApi::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.app_model_api set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
-                        }
-                       // adm.application_step-إظهار الحقول التالية	show_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/application_step.php";
-                            ApplicationStep::updateWhere(array('show_field_mfk'=>"REPLACE(show_field_mfk, ',$id,', ',$id_replace,')"), "show_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.application_step set show_field_mfk=REPLACE(show_field_mfk, ',$id,', ',$id_replace,') where show_field_mfk like '%,$id,%' ");
-                        }
-                       // adm.screen_model-الحقول المتوفرة في الشاشة	application_field_mfk  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/screen_model.php";
-                            ScreenModel::updateWhere(array('application_field_mfk'=>"REPLACE(application_field_mfk, ',$id,', ',$id_replace,')"), "application_field_mfk like '%,$id,%'");
-                            // $this->execQuery("update ${server_db_prefix}adm.screen_model set application_field_mfk=REPLACE(application_field_mfk, ',$id,', ',$id_replace,') where application_field_mfk like '%,$id,%' ");
-                        }
-
-                   
-               } 
                return true;
-            }    
-	}
+          }
+     }
+
+     public function calcHtml_description($what = "value")
+     {
+          $lang = AfwLanguageHelper::getGlobalLanguage();
+          $isAdditional = $this->sureIs("additional");
+          
+          $titleAdditional = $this->getAttributeLabel("additional");  
+          $titleOriginal = $this->getAttributeLabel("original");  
+          $field_name = $this->getVal("field_name");  
+          $field_type = $this->showAttribute("application_field_type_id", null, true, $lang);
+          $field_title = $this->getVal("field_title_$lang");  
+          $isReel = $this->sureIs("reel");  
+          $titleReel = $this->getAttributeLabel("reel");  
+
+          $titleR = $isReel ? $titleReel : "";
+          $titleA = $isAdditional ? $titleAdditional : $titleOriginal;
+
+          $cssRA = $isReel ? "reel" : "virtual";
+          $cssRA .= $isAdditional ? " additional" : " original";
+
+
+          $html = "<div class='field-desc'>";
+          $html .= "<h1 class='field-desc'>$field_title</h1>";
+          $html .= "<h2 class='field-desc'>$field_name</h2>";
+          $html .= "<h3 class='field-desc'>$field_type</h3>";
+          $html .= "<p class='field-desc $cssRA'>$titleR | $titleA</p>";
+          $html .= "</div>";
+
+
+          return $html;
+     }
 
      public function calcUsagePanel($what = "value")
      {
           $afield_id = $this->id;
           $lang = AfwLanguageHelper::getGlobalLanguage();
-          $html = "";  
-          
+          $html = "";
+
           // conditions
-          $obj = new Acondition();   
-          $obj->select("afield_id",$afield_id);
-          $obj->select("active","Y");
+          $obj = new Acondition();
+          $obj->select("afield_id", $afield_id);
+          $obj->select("active", "Y");
           $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("afield_id", $lang);
-               $html .= "<h1>* $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("afield_id", $lang);
+               $html .= "<h1>* $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
                     $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
-               }
-               $html .= "</ul>";  
-          }     
-          // Api Endpoints
-          $obj = new ApiEndpoint();   
-          $obj->where("application_field_mfk like '%,$afield_id,%'");
-          $obj->select("active","Y");
-          $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
-               $html .= "<h1>** $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
-                    $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
-               }
-               $html .= "</ul>";  
-          }
-          // Application Model Apis
-          $obj = new AppModelApi();   
-          $obj->where("application_field_mfk like '%,$afield_id,%'");
-          $obj->select("active","Y");
-          $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
-               $html .= "<h1>*** $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
-                    $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
-               }
-               $html .= "</ul>"; 
-          }     
-
-          // Application Models
-          $obj = new ApplicationModel();   
-          $obj->where("application_field_mfk like '%,$afield_id,%'");
-          $obj->select("active","Y");
-          $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
-               $html .= "<h1>**** $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
-                    $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
-               }
-               $html .= "</ul>"; 
-          }
-
-          // Application Model Fields
-          $obj = new ApplicationModelField();   
-          $obj->select("application_field_id",$afield_id);
-          $obj->select("active","Y");
-          $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_id", $lang);
-               $html .= "<h1>***** $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
-                    $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
-               }
-               $html .= "</ul>";  
-          }
-
-          // Screen Models
-          $obj = new ScreenModel();   
-          $obj->where("application_field_mfk like '%,$afield_id,%'");
-          $obj->select("active","Y");
-          $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("application_field_mfk", $lang);
-               $html .= "<h1>****** $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
-                    $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
-               }
-               $html .= "</ul>"; 
-          }
-          // Sorting Groups
-          $obj = new SortingGroup();   
-          $obj->where("sorting_field_1_id = '$afield_id' or sorting_field_2_id = '$afield_id' or sorting_field_3_id = '$afield_id'");
-          $obj->select("active","Y");
-          $objList = $obj->loadMany();
-          if(count($objList)>0)
-          {
-               $title = $obj->transClassPlural($lang)." - ". $obj->translate("sorting_fields", $lang);
-               $html .= "<h1>******* $title</h1>";  
-               $html .= "<ul>";  
-               foreach($objList as $objItem)
-               {
-                    $item_title = $objItem->getDisplay($lang);
-                    $html .= "<p><li>$item_title</li></p>";  
+                    $html .= "<p><li>$item_title</li></p>";
                }
                $html .= "</ul>";
           }
-        
-          if(!$html) $html = $this->tm("Not used", $lang);
+          // Api Endpoints
+          $obj = new ApiEndpoint();
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active", "Y");
+          $objList = $obj->loadMany();
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>** $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";
+               }
+               $html .= "</ul>";
+          }
+          // Application Model Apis
+          $obj = new AppModelApi();
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active", "Y");
+          $objList = $obj->loadMany();
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>*** $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";
+               }
+               $html .= "</ul>";
+          }
 
-          $html = "<div class='usage-panel' id='usage-panel'> $html </div> <!- usage-panel ->";  
+          // Application Models
+          $obj = new ApplicationModel();
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active", "Y");
+          $objList = $obj->loadMany();
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>**** $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";
+               }
+               $html .= "</ul>";
+          }
 
-        return $html;
+          // Application Model Fields
+          $obj = new ApplicationModelField();
+          $obj->select("application_field_id", $afield_id);
+          $obj->select("active", "Y");
+          $objList = $obj->loadMany();
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("application_field_id", $lang);
+               $html .= "<h1>***** $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";
+               }
+               $html .= "</ul>";
+          }
 
-        
+          // Screen Models
+          $obj = new ScreenModel();
+          $obj->where("application_field_mfk like '%,$afield_id,%'");
+          $obj->select("active", "Y");
+          $objList = $obj->loadMany();
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("application_field_mfk", $lang);
+               $html .= "<h1>****** $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";
+               }
+               $html .= "</ul>";
+          }
+          // Sorting Groups
+          $obj = new SortingGroup();
+          $obj->where("sorting_field_1_id = '$afield_id' or sorting_field_2_id = '$afield_id' or sorting_field_3_id = '$afield_id'");
+          $obj->select("active", "Y");
+          $objList = $obj->loadMany();
+          if (count($objList) > 0) {
+               $title = $obj->transClassPlural($lang) . " - " . $obj->translate("sorting_fields", $lang);
+               $html .= "<h1>******* $title</h1>";
+               $html .= "<ul>";
+               foreach ($objList as $objItem) {
+                    $item_title = $objItem->getDisplay($lang);
+                    $html .= "<p><li>$item_title</li></p>";
+               }
+               $html .= "</ul>";
+          }
+
+          if (!$html) $html = $this->tm("Not used", $lang);
+
+          $html = "<div class='usage-panel' id='usage-panel'> $html </div> <!- usage-panel ->";
+
+          return $html;
      }
 
-     
-        public function attributeIsApplicable($attribute)
-        {
-               if (($attribute == "formula_field_1_id") or ($attribute == "formula_field_2_id") or ($attribute == "formula_field_3_id")) 
-               {
-                    return (!$this->sureIs("reel"));
-               }
 
-               return true;
-        }
+     public function attributeIsApplicable($attribute)
+     {
+          if (($attribute == "formula_field_1_id") or ($attribute == "formula_field_2_id") or ($attribute == "formula_field_3_id")) {
+               return (!$this->sureIs("reel"));
+          }
+
+          return true;
+     }
+
+
+
+     public static function code_of_width_pct($lkp_id = null)
+     {
+          $lang = AfwLanguageHelper::getGlobalLanguage();
+          if ($lkp_id) return self::width_pct()['code'][$lkp_id];
+          else return self::width_pct()['code'];
+     }
+
+     public static function name_of_width_pct($width_pct, $lang = "ar")
+     {
+          return self::width_pct()[$lang][$width_pct];
+     }
+
+     public static function list_of_width_pct($lang = null)
+     {
+          if (!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
+          return self::width_pct()[$lang];
+     }
+
+     public static function width_pct()
+     {
+          $arr_list_of_width_pct = array();
+
+
+          $arr_list_of_width_pct["code"][25] = "25";
+          $arr_list_of_width_pct["ar"][25] = "25%";
+          $arr_list_of_width_pct["en"][25] = "25%";
+
+          $arr_list_of_width_pct["code"][50] = "50";
+          $arr_list_of_width_pct["ar"][50] = "50%";
+          $arr_list_of_width_pct["en"][50] = "50%";
+
+          $arr_list_of_width_pct["code"][75] = "75";
+          $arr_list_of_width_pct["en"][75] = "75%";
+          $arr_list_of_width_pct["ar"][75] = "75%";
+
+          $arr_list_of_width_pct["code"][100] = "100";
+          $arr_list_of_width_pct["en"][100] = "100%";
+          $arr_list_of_width_pct["ar"][100] = "100%";
+
+          $arr_list_of_width_pct["code"][33] = "33";
+          $arr_list_of_width_pct["ar"][33] = "33%";
+          $arr_list_of_width_pct["en"][33] = "33%";
+
+          $arr_list_of_width_pct["code"][66] = "66";
+          $arr_list_of_width_pct["ar"][66] = "66%";
+          $arr_list_of_width_pct["en"][66] = "66%";
+
+
+
+          return $arr_list_of_width_pct;
+     }
+
+     public function switcherConfig($col, $auser = null)
+     {
+          $lang = AfwLanguageHelper::getGlobalLanguage();
+
+          list($switcher_authorized, $switcher_title, $switcher_text) = self::$arr_switchable_cols[$col];
+
+          $switcher_title = $this->tm($switcher_title, $lang);
+          $switcher_text = $this->tm($switcher_text, $lang);
+
+          return [$switcher_authorized, $switcher_title, $switcher_text];
+     }
+
+     protected function getPublicMethods()
+     {
+          $pbms = array();
+
+          $color = "red";
+          $title_ar = "الهندسة المعاكسة";
+          $methodName = "reverseEngineering";
+          $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => 3);
+
+          return $pbms;
+     }
+
+     public static function reverseEngineeringAll($lang = "ar")
+     {
+          $err_arr = [];
+          $inf_arr = [];
+          $war_arr = [];
+
+          $fld = new ApplicationField();
+          $fld->select_visibilite_horizontale();
+          $fldList = $fld->loadMany();
+          foreach($fldList as $fldItem)
+          {
+               list($err,$inf,$war) = $fldItem->reverseEngineering($lang);
+               if($err) $err_arr[] = $err;
+               if($inf) $inf_arr[] = $inf;
+               if($war) $war_arr[] = $war;
+          }
+
+          return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr);
+     }
+
+     public function reverseEngineering($lang = "ar")
+     {
+          $application_table_id = $this->getVal("application_table_id");
+          if ($application_table_id == 1) {
+               $classField = "Applicant";
+          } elseif ($application_table_id == 3) {
+               $classField = "Application";
+          } elseif ($application_table_id == 2) {
+               $classField = "ApplicationDesire";
+          }
+          $attribute = $this->getVal("field_name");
+
+          $struct = $classField::getDbStructure($return_type = 'structure', $attribute);
+
+          $reversed = "";
+
+          foreach(self::$arr_switchable_cols as $switchable_col => $switchable_col_settings)
+          {
+               $struct_prop = strtoupper($switchable_col);
+               if($switchable_col_settings[3] != "no-reverse")
+               {
+                    $switchable_col_value = $struct[$struct_prop] ? "Y" : "N";
+                    $this->set($switchable_col, $switchable_col_value);
+                    $reversed .= "," . $switchable_col;
+               }
+               
+          }
+          $step_value = $struct["STEP"];
+          if(!$step_value) $step_value = 1;
+          $this->set("step", $step_value);
+          
+          $width_pct_value = intval(substr($struct["CSS"], 10));
+          if(!self::name_of_width_pct($width_pct_value, "ar")) $width_pct_value = "";
+          if(!$width_pct_value) $width_pct_value = 50;
+          $this->set("width_pct", $width_pct_value);
+          $this->commit();
+
+          $reversed = trim($reversed,",");
+
+          return ["", "$attribute : $reversed", ""];
+     }
+
+
+     public function repeatRetrieveHeader()
+     {
+        return 5;
+     }     
+
 
      /**
       * To do Static public method That execute
       * update pmu_adm.application_field af set af.active = (select f.avail from pmu_pag.afield f where f.id = af.id);
 
       */
-
-
 }

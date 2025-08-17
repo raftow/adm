@@ -15,6 +15,24 @@ $trad["application_field"]["interface_saisie"] = "واجهة الإدخال";
 $trad["application_field"]["technical_info"] = "الخصائص الفنية";
 $trad["application_field"]["generation"] = "التوليد";
 
+$trad["application_field"]["modes"] = "الاستعمال في";
+$trad["application_field"]["qsearch"] = "معايير الاستعلام";
+$trad["application_field"]["retrieve"] = "نتائج البحث";
+$trad["application_field"]["edit"] = "تعديل";
+$trad["application_field"]["qedit"] = "شاشة التعديل السريع";
+$trad["application_field"]["mandatory"] = "الحقول الاجبارية";
+$trad["application_field"]["step"] = "المرحلة";
+$trad["application_field"]["readonly"] = "اظهار الحقل";
+$trad["application_field"]["width_pct"] = "عرض الحقل (%)";
+
+$trad["application_field"]["qsearch.short"] = "الاستعلام";
+$trad["application_field"]["retrieve.short"] = "نتائج البحث";
+$trad["application_field"]["edit.short"] = "تعديل";
+$trad["application_field"]["qedit.short"] = "تعديل سريع";
+$trad["application_field"]["mandatory.short"] = "حقل اجباري";
+$trad["application_field"]["readonly.short"] = "اظهار";
+$trad["application_field"]["width_pct.short"] = "العرض (%)";
+       
 
 
 $trad["application_field"]["title_after"] = "عنوان بعدي";
@@ -45,7 +63,9 @@ $trad["application_field"]["application_field_type_id"] = "نوع الحقل";
 
 $trad["application_field"]["utf8"] = "نص عربي";
 $trad["application_field"]["additional"] = "حقل إضافي";
+$trad["application_field"]["original"] = "حقل أصلي";
 $trad["application_field"]["reel"] = "حقل حقيقي";
+$trad["application_field"]["html_description"] = "وصف الحقل";
 
 /*
 
@@ -58,7 +78,7 @@ $trad["application_field"]["unit"] = "وحدة القياس";
 $trad["application_field"]["unit_en"] = "وحدة القياس بالانجليزي";
 
 $trad["application_field"]["usable_in_conditions"] = "قابل للاستخدام في الشروط";
-
+$trad["application_field"]["usable_in_conditions.short"] = "يستخدم كشرط";
 
 
 $trad["application_field"]["answer_props"] = "قائمة الإختيار";

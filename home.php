@@ -74,6 +74,8 @@ if(true)
 
 $out_scr .= "</div>";
 // Generations
+
+
 // list($error, $info, $warn, $technical) = ApplicationPlanBranch::genereAllNames($lang="ar");
 // AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "home");
 // list($error, $info, $warn, $technical) = AcademicProgramOffering::genereAllNames($lang="ar");

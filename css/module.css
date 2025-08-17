@@ -5016,3 +5016,34 @@ button.btn.refresh_wizard {
 canvas#dbdnwp {
     background-color: #f7fae9;
 }
+
+p.field-desc {
+    color: white;
+    background-color: black;
+    font-size: 13px;
+    width:auto;
+    padding: 4px;
+    float: right;
+}
+
+p.field-desc.virtual{
+    color: yellow;
+}
+
+p.field-desc.additional{
+    background-color: #124dc4;
+}
+
+h2.field-desc {
+    font-family: cursive;
+    font-size: 15px;
+    color: darkslateblue;
+}
+
+h1.field-desc {
+    color: purple;
+    font-weight: bold;
+    width: auto;
+    margin-top: 8px !important;
+    margin-bottom: 6px !important;
+}
