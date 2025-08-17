@@ -573,8 +573,9 @@ class ApplicationField extends AdmObject
           }
           $attribute = $this->getVal("field_name");
 
-          $struct = $classField::getDbStructure($return_type = 'structure', $attribute);
-
+          $classFieldObject = new Applicant(); // $classField
+          $struct = AfwStructureHelper::getStructureOf($classFieldObject, $attribute);
+          
           $reversed = "";
 
           foreach(self::$arr_switchable_cols as $switchable_col => $switchable_col_settings)
