@@ -42,7 +42,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 // to review because training_unit.training_unit_type_id is used only if mode option 'tu_college' = 'one',
                                                 //'WHERE'=>' id in (select o.id from §DBPREFIX§adm.academic_level l inner join §DBPREFIX§adm.training_unit o on training_unit_type_mfk like concat("%",o.training_unit_type_id,"%") and l.id=§academic_level_id§)',
-                                                'CSS' => 'width_pct_25', ),	
+                                                'CSS' => 'width_pct_50', ),	
 
 
 
