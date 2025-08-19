@@ -286,6 +286,24 @@ class TrainingUnit extends AdmObject
         
     }*/
 
+
+
+
+    public function initAllDepartments($active="N")
+    {
+        $allDepartments = Department::loadAllLookupObjects();
+        foreach($allDepartments as $oneDepartment)
+        {
+            $tudObj = TrainingUnitDepartment::loadByMainIndex($oneDepartment->id,$this->id, true);
+            if($tudObj->is_new)
+            {
+                $tudObj->set("active", $active);
+                $tudObj->commit();
+            }
+            
+        }
+    }
+
     public function initAllColleges($active="N")
     {
         $allColleges = TrainingUnitType::loadAllLookupObjects();
@@ -320,6 +338,10 @@ class TrainingUnit extends AdmObject
                     $this->initAllColleges();
                 }
                 
+                if($amd_options["tu_departments"] != "not-genere")
+                {
+                    $this->initAllDepartments();
+                }
 
                 $this->fixMyData("ar");
             }
