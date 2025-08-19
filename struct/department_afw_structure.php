@@ -49,7 +49,7 @@
                                                 'CSS' => 'width_pct_25',),
 
 
-                                        '       ' => array('TYPE' => 'FK', 'ANSWER' => 'major_department', 'ANSMODULE' => 'adm', 
+                                        'majorDepartmentList' => array('TYPE' => 'FK', 'ANSWER' => 'major_department', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'department_id', 'STEP' => 1,
                                                 // WHERE=>'xxx = §xxx§', HIDE_COLS => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 'ICONS'=>true, 'DELETE-ICON'=>true, 
