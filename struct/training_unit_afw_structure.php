@@ -234,7 +234,7 @@
 
 
                                                 'trainingUnitDepartmentList' => array('SHOW' => true, 'STEP' => 5,   
-                                                    'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => true,  'BUTTONS' => true,  
+                                                    'FORMAT' => 'retrieve',  'ICONS' => true,  'DELETE-ICON' => false, 'VIEW-ICON' => false, 'BUTTONS' => true,  
                                                     'SEARCH' => false,  'QSEARCH' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                     'EDIT' => false,  'QEDIT' => false,  
                                                     'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
