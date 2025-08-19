@@ -28,15 +28,12 @@
                 
                 public static function loadByMainIndex($department_id, $training_unit_id,$create_obj_if_not_found=false)
                 {
-        
-        
                    $obj = new TrainingUnitDepartment();
                    $obj->select("department_id",$department_id);
                    $obj->select("training_unit_id",$training_unit_id);
         
                    if($obj->load())
                    {
-                        if($create_obj_if_not_found) $obj->activate();
                         return $obj;
                    }
                    elseif($create_obj_if_not_found)

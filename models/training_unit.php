@@ -140,7 +140,7 @@ class TrainingUnit extends AdmObject
         $color = "yellow";
         $title_ar = "احداث/تحديث الأقسام";
         $methodName = "initDepartments";
-        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => 1);
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("trainingUnitDepartmentList"));
 
 
 

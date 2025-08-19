@@ -14,6 +14,10 @@ try
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   width_pct smallint DEFAULT NULL  AFTER step;");
     
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.atable modify column atable_name varchar(128) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;");
+
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."hrm.orgunit
+                        CHANGE `titre_short_en` `titre_short_en` varchar(96) COLLATE 'utf8mb3_general_ci' NULL AFTER `titre`,
+                        CHANGE `titre_en` `titre_en` varchar(255) COLLATE 'utf8mb3_general_ci' NULL AFTER `titre_short_en`;");
 }
 catch(Exception $e)
 {

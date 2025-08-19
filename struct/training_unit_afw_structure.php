@@ -240,6 +240,7 @@
                                                     'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
                                                     'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
                                                     'TYPE' => 'FK', 'CATEGORY' => 'ITEMS',  'ANSWER' => 'training_unit_department',  'ANSMODULE' => 'adm',  'ITEM' => 'training_unit_id',  
+                                                    'LOGICAL_DELETED_ITEMS_ALSO' => true,
                                                     'READONLY' => true,  
                                                     'CSS' => 'width_pct_100', ),
 
