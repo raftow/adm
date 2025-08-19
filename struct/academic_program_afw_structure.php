@@ -14,7 +14,7 @@
 
                                 $obj->editByStep = true;
                                 $obj->editNbSteps = 4; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'AcademicProgram',"submit"=>true);
                         }
                 }
                 
@@ -232,13 +232,13 @@
                 
                                         'program_duration_ar' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-AR' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
-                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 100,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
                                 
                                         'program_duration_en' => array('STEP' => 2,  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE-EN' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  
-                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 100,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
                 
