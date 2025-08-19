@@ -30,7 +30,6 @@ class TrainingUnitCollege extends AdmObject
                 $obj->select("college_id", $college_id);
 
                 if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("training_unit_id", $training_unit_id);
