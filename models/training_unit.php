@@ -77,7 +77,7 @@ class TrainingUnit extends AdmObject
             $link["UGROUPS"] = array();
             $otherLinksArray[] = $link;
         }
-        
+
 
         if ($mode == "mode_academicLevelOfferingList") {
             unset($link);
@@ -130,13 +130,19 @@ class TrainingUnit extends AdmObject
         $color = "blue";
         $title_ar = "تصحيح البيانات";
         $methodName = "fixMyData";
-        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("academicProgramOfferingList"));
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("academicProgramOfferingList"));
 
         $color = "green";
-        $title_ar = "احداث/تحديث عنصر الموارد البشرية"; 
+        $title_ar = "احداث/تحديث عنصر الموارد البشرية";
         $methodName = "updateOrgunit";
-        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "PUBLIC"=>true, "BF-ID"=>"", 'STEP' =>1);
-        
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => 1);
+
+        $color = "yellow";
+        $title_ar = "احداث/تحديث الأقسام";
+        $methodName = "initDepartments";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => 1);
+
+
 
 
 
@@ -255,18 +261,16 @@ class TrainingUnit extends AdmObject
 
     public function attributeIsApplicable($attribute)
     {
-        if($attribute=="training_unit_type_id")
-        {
-            $amd_options = AfwSession::config("amd_options",[]);
+        if ($attribute == "training_unit_type_id") {
+            $amd_options = AfwSession::config("amd_options", []);
             return ($amd_options["tu_college"] == "one");
         }
 
-        if($attribute=="trainingUnitCollegeList")
-        {
-            $amd_options = AfwSession::config("amd_options",[]);
+        if ($attribute == "trainingUnitCollegeList") {
+            $amd_options = AfwSession::config("amd_options", []);
             return ($amd_options["tu_college"] == "many");
         }
-            
+
 
         return true;
     }
@@ -289,71 +293,75 @@ class TrainingUnit extends AdmObject
 
 
 
-    public function initAllDepartments($active="N")
+    public function initAllDepartments($active = "N", $lang = "ar")
     {
         $allDepartments = Department::loadAllLookupObjects();
-        foreach($allDepartments as $oneDepartment)
-        {
-            $tudObj = TrainingUnitDepartment::loadByMainIndex($oneDepartment->id,$this->id, true);
-            if($tudObj->is_new)
-            {
+        $inf_arr = [];
+        $err_arr = [];
+        $war_arr = [];
+        $inf_arr[] = "found " . count($allDepartments) . " department(s)";
+
+        foreach ($allDepartments as $oneDepartment) {
+            $tudObj = TrainingUnitDepartment::loadByMainIndex($oneDepartment->id, $this->id, true);
+            if ($tudObj->is_new) {
                 $tudObj->set("active", $active);
                 $tudObj->commit();
-            }
-            
+                $inf_arr[] = "new : " . $tudObj->getDisplay($lang);
+            } else $inf_arr[] = "old : " . $tudObj->getDisplay($lang);
         }
+
+        return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr);
     }
 
-    public function initAllColleges($active="N")
+    public function initDepartments($lang = "ar")
+    {
+        return $this->initAllDepartments($active = "N", $lang);
+    }
+
+
+    
+
+    public function initAllColleges($active = "N")
     {
         $allColleges = TrainingUnitType::loadAllLookupObjects();
-        foreach($allColleges as $oneCollege)
-        {
-            $tucObj = TrainingUnitCollege::loadByMainIndex($this->id,$oneCollege->id, true);
-            if($tucObj->is_new)
-            {
+        foreach ($allColleges as $oneCollege) {
+            $tucObj = TrainingUnitCollege::loadByMainIndex($this->id, $oneCollege->id, true);
+            if ($tucObj->is_new) {
                 $tucObj->set("active", $active);
                 $tucObj->commit();
             }
-            
         }
     }
 
-    public function initMyCollege($active="N")
+    public function initMyCollege($active = "N")
     {
         // @what to do ?
     }
 
     public function afterMaj($id, $fields_updated)
     {
-            if(true)
-            {
-                $amd_options = AfwSession::config("amd_options",[]);
-                if($amd_options["tu_college"] == "one")
-                {
-                    $this->initMyCollege();
-                }
-                else
-                {
-                    $this->initAllColleges();
-                }
-                
-                if($amd_options["tu_departments"] != "not-genere")
-                {
-                    $this->initAllDepartments();
-                }
-
-                $this->fixMyData("ar");
+        if (true) {
+            $amd_options = AfwSession::config("amd_options", []);
+            if ($amd_options["tu_college"] == "one") {
+                $this->initMyCollege();
+            } else {
+                $this->initAllColleges();
             }
 
-            return true;
+            if ($amd_options["tu_departments"] != "not-genere") {
+                $this->initAllDepartments();
+            }
+
+            $this->fixMyData("ar");
+        }
+
+        return true;
     }
 
-    public function fixMyData($lang="ar")
+    public function fixMyData($lang = "ar")
     {
         $academicProgramOfferingList = $this->get("academicProgramOfferingList");
-        foreach($academicProgramOfferingList as $academicProgramOfferingItem)
-        {
+        foreach ($academicProgramOfferingList as $academicProgramOfferingItem) {
             $academicProgramOfferingItem->fixMyData($lang);
         }
 
@@ -372,61 +380,81 @@ class TrainingUnit extends AdmObject
         return 0;
     }
 
-    
 
-    
+
+
 
 
     public function updateOrgunit($lang = "ar")
     {
-            $hrm_code = $this->getVal("training_unit_code");
-            if(!$hrm_code) return ["please define training unit code before and if the training unit is already in HRM system use the same hrm-code to avoid create a duplicated orgunit"];
+        $hrm_code = $this->getVal("training_unit_code");
+        if (!$hrm_code) return ["please define training unit code before and if the training unit is already in HRM system use the same hrm-code to avoid create a duplicated orgunit"];
 
-            $institutionObj = $this->het("institution_id");
-            $parent_orgunit_id = 0;
-            if($institutionObj) $parent_orgunit_id = $institutionObj->getVal("orgunit_id");;
-            $UnitManager = self::loadUnitManager();
-            $id_sh_org = 0;
-            $tu_type = $this->getVal("training_unit_type_id");
-            $id_sh_type = 0;
-            if($UnitManager::convertTunitTypeToOrgunitType($tu_type) == "college") $id_sh_type = OrgunitType::$ORGUNIT_TYPE_COLLEGE;
-            if($UnitManager::convertTunitTypeToOrgunitType($tu_type) == "institute") $id_sh_type = OrgunitType::$ORGUNIT_TYPE_INSTITUTE;
-            $id_domain = Domain::$DOMAIN_ADMISSION;
-            
-            
-            $titre_short_ar = $titre_ar = $this->getVal("training_unit_name_ar");
-            $titre_short_en = $titre_en = $this->getVal("training_unit_name_en");
-            $orgunitObj = Orgunit::findOrgunit($id_sh_type, $id_sh_org, $hrm_code, 
-                            $titre_short_ar, $titre_ar, $titre_short_en, $titre_en, $id_domain, $hrm_crm = "crm", $create_obj_if_not_found = false);
-            if(!$orgunitObj)
-            {
-                    $orgunitObj = Orgunit::findOrgunit($id_sh_type, $id_sh_org, $hrm_code, 
-                            $titre_short_ar, $titre_ar, $titre_short_en, $titre_en, $id_domain, $hrm_crm = "hrm", $create_obj_if_not_found = true);
-            }
-            
-            $orgunitObj->set("gender_id", $this->getVal("gender_enum"));
-            $orgunitObj->set("id_sh_parent", $parent_orgunit_id);
-            $orgunitObj->set("addresse", $this->getVal("adress")); 
-            $city_id = $this->getVal("city_id");
-            if ($city_id > 0) $city_name = $this->get("city_id")->getDisplay($lang);
-            else $city_name = "";
-            $orgunitObj->set("city_name", $city_name);
-            $orgunitObj->set("cp", $this->getVal("postal_code"));
-            $orgunitObj->set("quarter", $this->getVal("quarter"));
-            $orgunitObj->commit();
-            $this->set("orgunit_id", $orgunitObj->getId());
-            $this->commit();
+        $institutionObj = $this->het("institution_id");
+        $parent_orgunit_id = 0;
+        if ($institutionObj) $parent_orgunit_id = $institutionObj->getVal("orgunit_id");;
+        $UnitManager = self::loadUnitManager();
+        $id_sh_org = 0;
+        $tu_type = $this->getVal("training_unit_type_id");
+        $id_sh_type = 0;
+        if ($UnitManager::convertTunitTypeToOrgunitType($tu_type) == "college") $id_sh_type = OrgunitType::$ORGUNIT_TYPE_COLLEGE;
+        if ($UnitManager::convertTunitTypeToOrgunitType($tu_type) == "institute") $id_sh_type = OrgunitType::$ORGUNIT_TYPE_INSTITUTE;
+        $id_domain = Domain::$DOMAIN_ADMISSION;
 
-            AdmOrgunit::loadByMainIndex($orgunitObj->id, true);
 
-            $return = $orgunitObj->is_new ? "New HRM Organization created" : "Existing HRM Organization found ";
-            $return .= " with ID = ".$orgunitObj->id;
+        $titre_short_ar = $titre_ar = $this->getVal("training_unit_name_ar");
+        $titre_short_en = $titre_en = $this->getVal("training_unit_name_en");
+        $orgunitObj = Orgunit::findOrgunit(
+            $id_sh_type,
+            $id_sh_org,
+            $hrm_code,
+            $titre_short_ar,
+            $titre_ar,
+            $titre_short_en,
+            $titre_en,
+            $id_domain,
+            $hrm_crm = "crm",
+            $create_obj_if_not_found = false
+        );
+        if (!$orgunitObj) {
+            $orgunitObj = Orgunit::findOrgunit(
+                $id_sh_type,
+                $id_sh_org,
+                $hrm_code,
+                $titre_short_ar,
+                $titre_ar,
+                $titre_short_en,
+                $titre_en,
+                $id_domain,
+                $hrm_crm = "hrm",
+                $create_obj_if_not_found = true
+            );
+        }
 
-            return ["", $return];
+        $orgunitObj->set("gender_id", $this->getVal("gender_enum"));
+        $orgunitObj->set("id_sh_parent", $parent_orgunit_id);
+        $orgunitObj->set("addresse", $this->getVal("adress"));
+        $city_id = $this->getVal("city_id");
+        if ($city_id > 0) $city_name = $this->get("city_id")->getDisplay($lang);
+        else $city_name = "";
+        $orgunitObj->set("city_name", $city_name);
+        $orgunitObj->set("cp", $this->getVal("postal_code"));
+        $orgunitObj->set("quarter", $this->getVal("quarter"));
+        $orgunitObj->commit();
+        $this->set("orgunit_id", $orgunitObj->getId());
+        $this->commit();
+
+        AdmOrgunit::loadByMainIndex($orgunitObj->id, true);
+
+        $return = $orgunitObj->is_new ? "New HRM Organization created" : "Existing HRM Organization found ";
+        $return .= " with ID = " . $orgunitObj->id;
+
+        return ["", $return];
     }
 
-    public function shouldBeCalculatedField($attribute){
-        if($attribute=="adm_orgunit_id") return true;
+    public function shouldBeCalculatedField($attribute)
+    {
+        if ($attribute == "adm_orgunit_id") return true;
         return false;
-     }
+    }
 }
