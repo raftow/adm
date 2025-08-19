@@ -49,6 +49,7 @@
                         $title_detailed = $title ."لـ : ". $displ;
                         $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=MajorDepartment&currmod=adm&sel_department_id=$my_id";
                         $link["TITLE"] = $title;
+                        $link["PUBLIC"] = true;
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
                     }
