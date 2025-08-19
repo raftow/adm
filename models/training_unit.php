@@ -86,7 +86,7 @@ class TrainingUnit extends AdmObject
             $title_detailed = $title . "لـ : " . $displ;
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicLevelOffering&currmod=adm&sel_training_unit_id=$my_id";
             $link["TITLE"] = $title;
-            $link["UGROUPS"] = array();
+            $link["PUBLIC"] = true;
             $otherLinksArray[] = $link;
         }
 
