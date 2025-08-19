@@ -40,7 +40,8 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'training_unit',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'WHERE'=>' id in (select o.id from §DBPREFIX§adm.academic_level l inner join §DBPREFIX§adm.training_unit o on training_unit_type_mfk like concat("%",o.training_unit_type_id,"%") and l.id=§academic_level_id§)',
+                                                // to review because training_unit.training_unit_type_id is used only if mode option 'tu_college' = 'one',
+                                                //'WHERE'=>' id in (select o.id from §DBPREFIX§adm.academic_level l inner join §DBPREFIX§adm.training_unit o on training_unit_type_mfk like concat("%",o.training_unit_type_id,"%") and l.id=§academic_level_id§)',
                                                 'CSS' => 'width_pct_25', ),	
 
 
