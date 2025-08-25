@@ -45,21 +45,25 @@
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100', ),                                                
+                                                'CSS' => 'width_pct_50', ),                                                
                                                 
 
-
+                                        // @rafik : not used for the moment
                                         'customizable' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1,  'SEARCH' => true, 'QSEARCH' => true,
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 99,  'SEARCH' => true, 'QSEARCH' => true,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
 
-
+                                        
                                         'afield_type_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 
+                                                
                                                 // 'FUNCTION_COL_NAME' => 'afield_type_enum',
+                                                // @rafik : This line commented above and line replacing below
+                                                // is aimed to to hide options 5 and 6 (FK and MFK) not used 
+                                                // for the moment in parameters
                                                 'FUNCTION_COL_NAME' => 'aparameter_type_enum',
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 

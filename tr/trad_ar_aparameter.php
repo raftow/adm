@@ -11,7 +11,7 @@
 
 	$trad["aparameter"]["aparameter_name_ar"] = "مسمى القيمة بالعربية";
 	$trad["aparameter"]["aparameter_name_en"] = "مسمى القيمة بالانجليزية";
-	$trad["aparameter"]["customizable"] = "قابل للتخصيص";
+	$trad["aparameter"]["customizable"] = "قابل للتخصيص بحسب الفرع";
 	$trad["aparameter"]["afield_type_id"] = "نوع القيمة";
 	$trad["aparameter"]["answer_table_id"] = "جدول الاختيارات";
 	$trad["aparameter"]["measurement_unit_ar"] = "وحدة-القياس بالعربية";
