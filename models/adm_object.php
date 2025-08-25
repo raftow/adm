@@ -903,7 +903,30 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_gender;
         }
 
+        public static function list_of_notification_channel_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::notification_channel()[$lang];
+        }
+        
+        public static function notification_channel()
+        {
+                $arr_notification_sending_channel = array();
+                
+                
+                $arr_notification_sending_channel["en"][1] = "SMS";
+                $arr_notification_sending_channel["ar"][1] = "الرسائل القصيرة";
+                $arr_notification_sending_channel["code"][1] = "SMS";
 
+                $arr_notification_sending_channel["en"][2] = "Email";
+                $arr_notification_sending_channel["ar"][2] = "البريد الالكتروني";
+                $arr_notification_sending_channel["code"][2] = "EMAIL";
+
+                $arr_notification_sending_channel["en"][3] = "All Channels";
+                $arr_notification_sending_channel["ar"][3] = "جميع القنوات";
+                $arr_notification_sending_channel["code"][3] = "ALL";
+                return $arr_notification_sending_channel;
+        }
         public static function list_of_gender_enum()
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();
