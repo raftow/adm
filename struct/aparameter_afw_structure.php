@@ -58,7 +58,9 @@
 
                                         'afield_type_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'afield_type_enum',
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 
+                                                // 'FUNCTION_COL_NAME' => 'afield_type_enum',
+                                                'FUNCTION_COL_NAME' => 'aparameter_type_enum',
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
