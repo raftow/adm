@@ -142,6 +142,47 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_applicant_decision;
         }
 
+        public static function code_of_notification_channel_enum($lkp_id=null)
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if($lkp_id) return self::notification_channel()['code'][$lkp_id];
+            else return self::notification_channel()['code'];
+        }
+
+        public static function name_of_notification_channel_enum($notification_channel_enum, $lang="ar")
+        {
+            return self::notification_channel()[$lang][$notification_channel_enum];            
+        }
+        
+        public static function list_of_notification_channel_enum($lang = null)
+        {
+            if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::notification_channel()[$lang];
+        }
+        
+        public static function notification_channel()
+        {
+                $arr_list_of_notification_channel = array();
+                
+                        
+                $arr_list_of_notification_channel["code"][1] = "SMS";
+                $arr_list_of_notification_channel["ar"][1] = "رسالة قصيرة";
+                $arr_list_of_notification_channel["en"][1] = "Admission accepted";
+
+                $arr_list_of_notification_channel["code"][2] = "EMAIL";
+                $arr_list_of_notification_channel["ar"][2] = "بريد الكتروني";
+                $arr_list_of_notification_channel["en"][2] = "Email";
+
+                $arr_list_of_notification_channel["code"][3] = "WHATSAPP";
+                $arr_list_of_notification_channel["ar"][3] = "واتساب";
+                $arr_list_of_notification_channel["en"][3] = "Whatsapp";
+                
+                
+
+                
+                return $arr_list_of_notification_channel;
+        }
+
         public static function code_of_split_sorting_by_enum($lkp_id=null)
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -903,30 +944,7 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_gender;
         }
 
-        public static function list_of_notification_channel_enum()
-        {
-            $lang = AfwLanguageHelper::getGlobalLanguage();
-            return self::notification_channel()[$lang];
-        }
-        
-        public static function notification_channel()
-        {
-                $arr_notification_sending_channel = array();
-                
-                
-                $arr_notification_sending_channel["en"][1] = "SMS";
-                $arr_notification_sending_channel["ar"][1] = "الرسائل القصيرة";
-                $arr_notification_sending_channel["code"][1] = "SMS";
 
-                $arr_notification_sending_channel["en"][2] = "Email";
-                $arr_notification_sending_channel["ar"][2] = "البريد الالكتروني";
-                $arr_notification_sending_channel["code"][2] = "EMAIL";
-
-                $arr_notification_sending_channel["en"][3] = "All Channels";
-                $arr_notification_sending_channel["ar"][3] = "جميع القنوات";
-                $arr_notification_sending_channel["code"][3] = "ALL";
-                return $arr_notification_sending_channel;
-        }
         public static function list_of_gender_enum()
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();
