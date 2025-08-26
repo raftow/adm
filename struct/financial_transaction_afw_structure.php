@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                  $obj->DISPLAY_FIELD = "fee_description_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                //  $obj->UNIQUE_KEY = array('fee_code');
+                                 $obj->UNIQUE_KEY = array('fee_code');
                                 // $obj->public_display = true;
                                  $obj->IS_LOOKUP = true;
 

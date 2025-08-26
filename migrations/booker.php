@@ -83,6 +83,7 @@ $migrations = [
     '00077' => ['by'=>'medali','title'=>'payment module'],
     '00078' => ['by'=>'rafik','title'=>'prepare some features for NAUSS'],
     '00079' => ['by'=>'medali','title'=>'add field to institution'],
+    '00080' => ['by'=>'medali','title'=>'add index unique to financial_transaction'],
 
 ];
 
