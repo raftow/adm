@@ -28,6 +28,10 @@ class ApplicantQualificationArTranslator{
 		$trad["applicant_qualification"]["source_name"] = "مصدر المؤهل - نص";
 		$trad["applicant_qualification"]["educational_zone_id"] = "المنطقة التعليمية";
 		
+		$trad["applicant_qualification"]["country_id"] = "الدولة";
+		$trad["applicant_qualification"]["grading_scale_id"] = "تصنيف الدرجة";
+
+		
         return $trad;
     }
 

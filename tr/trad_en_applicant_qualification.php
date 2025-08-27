@@ -26,6 +26,9 @@ class ApplicantQualificationEnTranslator
 		$trad["applicant_qualification"]["qualification_major_desc"] = "Qualification major description";
 		$trad["applicant_qualification"]["adm_file_id"] = "The document";
 		$trad["applicant_qualification"]["source_name"] = "Qualification source - text";
+
+		$trad["applicant_qualification"]["country_id"] = "country";
+		$trad["applicant_qualification"]["grading_scale_id"] = "grading scale";
 		return $trad;
 	}
 
