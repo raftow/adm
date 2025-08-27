@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 35;
                                 $obj->DISPLAY_FIELD = "qualifcation_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                // $obj->UNIQUE_KEY = array('qualifcation_name_ar','qualifcation_name_en');
+                                $obj->UNIQUE_KEY = array('sis_code');
                                 // $obj->public_display = true;
                                 $obj->IS_LOOKUP = true;
                                 $obj->IS_SMALL = true;

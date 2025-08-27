@@ -5,6 +5,13 @@ $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   gpa_from gpa_from smallint NOT NULL DEFAULT 0  AFTER maqbool_id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   qualifcation_name_ar qualifcation_name_ar varchar(64)  NOT NULL DEFAULT ''  AFTER id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   qualifcation_name_en qualifcation_name_en varchar(64)  NOT NULL DEFAULT ''  AFTER qualifcation_name_ar;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   level_enum level_enum smallint NOT NULL DEFAULT 0  AFTER qualifcation_name_en;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   maqbool_id maqbool_id varchar(10)  NOT NULL DEFAULT ''  AFTER level_enum;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   gpa_from gpa_from smallint NOT NULL DEFAULT 0  AFTER maqbool_id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   sis_code sis_code varchar(10)  NOT NULL DEFAULT ''  AFTER gpa_from;");
+
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   qsearch char(1) DEFAULT NULL  AFTER formula_field_3_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   retrieve char(1) DEFAULT NULL  AFTER qsearch;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   edit char(1) DEFAULT NULL  AFTER retrieve;");
