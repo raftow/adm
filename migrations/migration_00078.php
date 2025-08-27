@@ -4,6 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   gpa_from gpa_from smallint NOT NULL DEFAULT 0  AFTER maqbool_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   qsearch char(1) DEFAULT NULL  AFTER formula_field_3_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   retrieve char(1) DEFAULT NULL  AFTER qsearch;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_field add   edit char(1) DEFAULT NULL  AFTER retrieve;");
