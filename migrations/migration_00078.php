@@ -12,7 +12,7 @@ try
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   gpa_from gpa_from smallint NOT NULL DEFAULT 0  AFTER maqbool_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   qualifcation_name_ar qualifcation_name_ar varchar(64)  NOT NULL DEFAULT ''  AFTER id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   qualifcation_name_en qualifcation_name_en varchar(64)  NOT NULL DEFAULT ''  AFTER qualifcation_name_ar;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   level_enum level_enum smallint NOT NULL DEFAULT 0  AFTER qualifcation_name_en;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   level_enum level_enum smallint NULL AFTER qualifcation_name_en;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   maqbool_id maqbool_id varchar(10)  NOT NULL DEFAULT ''  AFTER level_enum;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.qualification change   gpa_from gpa_from smallint NOT NULL DEFAULT 0  AFTER maqbool_id;");
     AfwDatabase::db_query("CREATE unique index uk_qualification on ".$server_db_prefix."adm.qualification(sis_code);");
