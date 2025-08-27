@@ -13,5 +13,5 @@ try
 }
 catch(Exception $e)
 {
-    $migration_info .= " " . $e->getMessage();
+    $migration_error .= " " . $e->getMessage();
 }

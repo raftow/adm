@@ -41,5 +41,5 @@ AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_qualificat
 }
 catch(Exception $e)
 {
-    $migration_info .= " " . $e->getMessage();
+    $migration_error .= " " . $e->getMessage();
 }
