@@ -256,7 +256,7 @@
                                         'application_picture' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
                                                 'TYPE' => 'FK', 'ANSWER' => 'workflow_file',  'ANSMODULE' => 'workflow', 
-                                                /* 'WHERE' => 'doc_type_id = 555',*/
+                                                'WHERE' => 'doc_type_id = 13',
                                                 'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
