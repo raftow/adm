@@ -35,7 +35,7 @@
 				'CSS' => 'width_pct_25',
 				),
 
-			'field_name' => array('SHOW' => true,  'SEARCH' => true,  'RETRIEVE' => false,  'QEDIT' => true,  'EDIT' => true,  
+			'field_name' => array('SHOW' => true,  'SEARCH' => true, 'QSEARCH' => true, 'RETRIEVE' => false,  'QEDIT' => true,  'EDIT' => true,  
 				'TYPE' => 'TEXT',  'SIZE' => 25,  'STYLE' => 'width:150px', 'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'CSS' => 'width_pct_25',
 				),
@@ -47,10 +47,10 @@
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'READONLY' => true, 'DISABLE-READONLY-ADMIN'=> true,
 				/*'ANSWER' => 'application_table',  'ANSMODULE' => 'adm', */
 				'SIZE' => 40,  'DEFAUT' => 0,   
-				'WHERE' => "", 'CSS' => 'width_pct_25',
-				 
-				'RELATION' => 'OneToMany',  'CONTEXT-ANSWER' => 'getContextTables',  'SEARCH' => true,  
-				'SEARCH-BY-ONE' => true,  'QSEARCH' => true,  'AUTOCOMPLETE-SEARCH' => true,  'DISPLAY' => true,  'STEP' => 1,  
+				'WHERE' => "", 'CSS' => 'width_pct_25',				 
+				'RELATION' => 'OneToMany',  'CONTEXT-ANSWER' => 'getContextTables',  
+				'SEARCH' => true, 'SEARCH-BY-ONE' => true,  'QSEARCH' => true,  'AUTOCOMPLETE-SEARCH' => true,  
+				'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				),
 
