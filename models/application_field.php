@@ -11,6 +11,29 @@ class ApplicationField extends AdmObject
           AdmApplicationFieldAfwStructure::initInstance($this);
      }
 
+     public function af_manager($field_name, $col_struct)
+     {
+          $application_table_id = $this->getVal("application_table_id");
+          if ($application_table_id == 1) {
+               $classField = "Applicant";
+          } elseif ($application_table_id == 3) {
+               $classField = "Application";
+          } elseif ($application_table_id == 2) {
+               $classField = "ApplicationDesire";
+          }
+          $attribute = $this->getVal("field_name");
+          $attribute_prop = strtoupper($field_name);
+          // ex $field_name=qsearch , $col_struct = READONLY => $attribute_prop = QSEARCH
+          if($col_struct == "READONLY")
+          {
+               $structField = $classField::getDbStructure($return_type = 'structure',
+                         $attribute,'all',null, null, $repare=false);
+
+               return ($structField[$attribute_prop] !== "::fields_manager");
+          }
+          
+          return null;
+     }
 
 
 
@@ -140,7 +163,8 @@ class ApplicationField extends AdmObject
                }
           }
           
-          $matrix_item["step"] = $this->getVal("step");
+          $matrix_item["step"] = intval($this->getVal("step"));
+          if(!$matrix_item["step"]) $matrix_item["step"] = 1;
           $matrix_item["css"] = "width_pct_".$this->getVal("width_pct");
           
           return $matrix_item;
