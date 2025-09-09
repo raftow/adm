@@ -17,14 +17,22 @@ if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
 if(!$lang) $lang = "ar";
 
 
-
+$message = "action $action what means ?";
 // Generations
+if($action=="reverse")
+{
+    list($error, $info, $warn, $technical) = ApplicationField::reverseEngineeringAll($lang);    
+}
+else
+{
 
-list($error, $info, $warn, $technical) = ApplicationField::reverseEngineeringAll($lang);
+}
+
 AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "reverseEngineeringAll");
+$message = "done"; // with error=$error<br> $info<br> $warn, $technical
 
 $out_scr .= "<div id='page-content-wrapper' class='qsearch_page'><div class='row row-filter-request'>";
-$out_scr .= "done";
+$out_scr .= $message;
 $out_scr .= "</div>";
 
 

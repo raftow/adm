@@ -58,6 +58,117 @@ class ApplicationField extends AdmObject
           return $field_code;
      }
 
+     public static function genereClientFieldsManager($lang = "ar", $onlyIfNotDone = false, $throwError = false)
+     {
+          try {
+               $main_company = AfwSession::currentCompany();
+               $parent_project_path = AfwSession::config("parent_project_path", "");
+               if (!$parent_project_path) return ["please define parent_project_path system config parameter", ""];
+
+               $file_path = $parent_project_path . "/cache";
+               $fileName = $main_company . "_fields_manager.php";
+               $fileFullName = $file_path . "/" . $fileName;
+               if ($onlyIfNotDone and file_exists($fileFullName)) {
+                    return ["", "already generated file $fileFullName"];
+               }
+
+               $php = self::calcPhp(false);
+               AfwFileSystem::write($fileFullName, $php, 'erase', true);
+               return array("", "$fileFullName created successfully");
+          } catch (Exception $e) {
+               if ($throwError) throw $e;
+               return array($e->getMessage(), '');
+          }
+     }
+
+     public static function getApplicantOriginalFieldsMatrix()
+     {
+          return self::getFieldsMatrix("applicant", $additional=false, $original=true);
+     }
+
+     public static function getApplicationOriginalFieldsMatrix()
+     {
+          return self::getFieldsMatrix("application", $additional=false, $original=true);
+     }
+
+     public static function getApplicationDesireOriginalFieldsMatrix()
+     {
+          return self::getFieldsMatrix("adesire", $additional=false, $original=true);
+     }
+
+     public static function getFieldsMatrix($tableId, $additional, $original)
+     {
+          $matrix = [];
+          $apf = new ApplicationField();
+          if((!is_numeric($tableId)) and is_string($tableId))
+          {
+               $application_table = $tableId;
+               $tableId = self::application_table_id($application_table);
+          }
+
+          $apf->select("application_table_id", $tableId);
+          $apf->select("active", "Y");
+          if($additional and !$original)
+          {
+               $apf->select("additional", "Y");
+          }
+          elseif(!$additional and $original)
+          {
+               $apf->select("additional", "N");
+          }
+          elseif(!$additional and !$original)
+          {
+               $apf->select("additional", "W");
+          }
+
+          $apfList = $apf->loadMany();
+
+          foreach($apfList as $apfItem)
+          {
+               $matrix[$apfItem->getVal("field_name")] = $apfItem->getMyMatrix();     
+          }
+
+          return $matrix;
+     }
+
+     public function getMyMatrix()
+     {
+          $matrix_item = [];
+          foreach (self::$arr_switchable_cols as $switchable_col => $switchable_col_settings) {
+               if ($switchable_col_settings[3] != "no-reverse") {
+                    $matrix_item[$switchable_col] = $this->sureIs($switchable_col);
+               }
+          }
+          
+          $matrix_item["step"] = $this->getVal("step");
+          $matrix_item["css"] = "width_pct_".$this->getVal("width_pct");
+          
+          return $matrix_item;
+     }
+
+     public static function calcPhp($text_area = true)
+     {
+          $source_php = "";
+          if ($text_area) $source_php .= "<textarea cols='120' rows='30' style='width:100% !important;direction:ltr;text-align:left'>";
+          $source_php .= "<?php\n"; // ";
+          $applicant_fields = self::getApplicantOriginalFieldsMatrix();
+          $application_fields = self::getApplicationOriginalFieldsMatrix();
+          $application_desire_fields = self::getApplicationDesireOriginalFieldsMatrix();
+          
+
+          $source_php .= "\n\t\$applicant = " . var_export($applicant_fields, true) . ";";
+
+          $source_php .= "\n\t\$application = " . var_export($application_fields, true) . ";";
+
+          $source_php .= "\n\t\$application_desire = " . var_export($application_desire_fields, true) . ";";
+
+          $source_php .= "\n ?>";
+
+          if ($text_area) $source_php .= "</textarea>"; // 
+
+          return $source_php;
+     }
+
      public static function loadByMainIndex($field_name, $application_table_id, $create_obj_if_not_found = false)
      {
 
@@ -304,14 +415,14 @@ class ApplicationField extends AdmObject
      {
           $lang = AfwLanguageHelper::getGlobalLanguage();
           $isAdditional = $this->sureIs("additional");
-          
-          $titleAdditional = $this->getAttributeLabel("additional");  
-          $titleOriginal = $this->getAttributeLabel("original");  
-          $field_name = $this->getVal("field_name");  
+
+          $titleAdditional = $this->getAttributeLabel("additional");
+          $titleOriginal = $this->getAttributeLabel("original");
+          $field_name = $this->getVal("field_name");
           $field_type = $this->showAttribute("application_field_type_id", null, true, $lang);
-          $field_title = $this->getVal("field_title_$lang");  
-          $isReel = $this->sureIs("reel");  
-          $titleReel = $this->getAttributeLabel("reel");  
+          $field_title = $this->getVal("field_title_$lang");
+          $isReel = $this->sureIs("reel");
+          $titleReel = $this->getAttributeLabel("reel");
 
           $titleR = $isReel ? $titleReel : "";
           $titleA = $isAdditional ? $titleAdditional : $titleOriginal;
@@ -550,15 +661,14 @@ class ApplicationField extends AdmObject
           $fld = new ApplicationField();
           $fld->select_visibilite_horizontale();
           $fldList = $fld->loadMany();
-          foreach($fldList as $fldItem)
-          {
-               list($err,$inf,$war) = $fldItem->reverseEngineering($lang);
-               if($err) $err_arr[] = $err;
-               if($inf) $inf_arr[] = $inf;
-               if($war) $war_arr[] = $war;
+          foreach ($fldList as $fldItem) {
+               list($err, $inf, $war) = $fldItem->reverseEngineering($lang);
+               if ($err) $err_arr[] = $err;
+               if ($inf) $inf_arr[] = $inf;
+               if ($war) $war_arr[] = $war;
           }
 
-          return AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr);
+          return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr);
      }
 
      public function reverseEngineering($lang = "ar")
@@ -573,33 +683,33 @@ class ApplicationField extends AdmObject
           }
           $attribute = $this->getVal("field_name");
 
-          $classFieldObject = new Applicant(); // $classField
+          // $classFieldObject = new Applicant(); 
+          $classFieldObject = new $classField();
           $struct = AfwStructureHelper::getStructureOf($classFieldObject, $attribute);
-          
+
           $reversed = "";
 
-          foreach(self::$arr_switchable_cols as $switchable_col => $switchable_col_settings)
-          {
+          foreach (self::$arr_switchable_cols as $switchable_col => $switchable_col_settings) {
                $struct_prop = strtoupper($switchable_col);
-               if($switchable_col_settings[3] != "no-reverse")
-               {
+               if ($switchable_col_settings[3] != "no-reverse") {
                     $switchable_col_value = $struct[$struct_prop] ? "Y" : "N";
                     $this->set($switchable_col, $switchable_col_value);
                     $reversed .= "," . $switchable_col;
                }
-               
           }
           $step_value = $struct["STEP"];
-          if(!$step_value) $step_value = 1;
+          if (!$step_value) $step_value = 1;
           $this->set("step", $step_value);
-          
+          $reversed .= ",step";
+
           $width_pct_value = intval(substr($struct["CSS"], 10));
-          if(!self::name_of_width_pct($width_pct_value, "ar")) $width_pct_value = "";
-          if(!$width_pct_value) $width_pct_value = 50;
+          if (!self::name_of_width_pct($width_pct_value, "ar")) $width_pct_value = "";
+          if (!$width_pct_value) $width_pct_value = 50;
           $this->set("width_pct", $width_pct_value);
+          $reversed .= ",width_pct";
           $this->commit();
 
-          $reversed = trim($reversed,",");
+          $reversed = trim($reversed, ",");
 
           return ["", "$attribute : $reversed", ""];
      }
@@ -607,8 +717,8 @@ class ApplicationField extends AdmObject
 
      public function repeatRetrieveHeader()
      {
-        return 5;
-     }     
+          return 5;
+     }
 
 
      /**

@@ -9,7 +9,7 @@ class AdmObject extends AfwMomkenObject{
                 {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        self::$fields_manager_matrix = include_once($file_dir_name . "/../../client-$main_company/extra/fields_manager.php");
+                        self::$fields_manager_matrix = include_once($file_dir_name . "/../../cache/$main_company"."_fields_manager.php");
                 }
 
                 
@@ -1325,6 +1325,17 @@ class AdmObject extends AfwMomkenObject{
                 // die("$objective, $value, $value_class, $objective_red, $objective_orange");
                 return [$objective, $value, $value_class, $objective_red, $objective_orange];
 
+        }
+
+        public static function application_table_id($application_table)        
+        {
+            $arr = self::application_table()["code"];
+            foreach($arr as $eid => $table)
+            {
+                if($application_table==$table) return $eid;
+            }
+
+            return 0;
         }
 
         public static function code_of_application_table_id($lkp_id=null)
