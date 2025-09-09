@@ -24,10 +24,11 @@ class ApplicationField extends AdmObject
           $attribute = $this->getVal("field_name");
           $attribute_prop = strtoupper($field_name);
           $id = $this->id;
-          if(!$classField) throw new AfwRuntimeException("$attribute application field (id=$id) has stange table-id = ($application_table_id)");
+          // if(!$classField) throw new AfwRuntimeException("$attribute application field (id=$id) has stange table-id = ($application_table_id)");
           // ex $field_name=qsearch , $col_struct = READONLY => $attribute_prop = QSEARCH
           if($col_struct == "READONLY")
           {
+               if(!$classField) return false;
                $structField = $classField::getDbStructure($return_type = 'structure',
                          $attribute,'all',null, null, $repare=false);
 
