@@ -17,19 +17,23 @@ if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
 if(!$lang) $lang = "ar";
 
 
-$message = "action $action what means ?";
+$error = "action $action what means ?";
 // Generations
 if($action=="reverse")
 {
     list($error, $info, $warn, $technical) = ApplicationField::reverseEngineeringAll($lang);    
+    
 }
-else
+elseif($action=="genere")
 {
-
+    list($error, $info, $warn, $technical) = ApplicationField::genereClientFieldsManager($lang);    
 }
+
+if(!$error) $message = "$action process terminated sucessfully"; 
+else $message = "$action process terminated with error(s) : $error"; 
 
 AfwSession::pushPbmResult($lang, $error, $info, $warn, $technical, "reverseEngineeringAll");
-$message = "done"; // with error=$error<br> $info<br> $warn, $technical
+
 
 $out_scr .= "<div id='page-content-wrapper' class='qsearch_page'><div class='row row-filter-request'>";
 $out_scr .= $message;
