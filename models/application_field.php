@@ -28,6 +28,10 @@ class ApplicationField extends AdmObject
           // ex $field_name=qsearch , $col_struct = READONLY => $attribute_prop = QSEARCH
           if($col_struct == "READONLY")
           {
+               if($attribute=="qsearch")
+               {
+                    if(!$classField) throw new AfwRuntimeException("$attribute application field (for object=".var_export($this, true).") <br> has strange table-id = ($application_table_id)");
+               }     
                if(!$classField) return false;
                $structField = $classField::getDbStructure($return_type = 'structure',
                          $attribute,'all',null, null, $repare=false);
