@@ -26,6 +26,7 @@ class ApplicationField extends AdmObject
           $id = $this->id;
           // if(!$classField) throw new AfwRuntimeException("$attribute application field (id=$id) has stange table-id = ($application_table_id)");
           // ex $field_name=qsearch , $col_struct = READONLY => $attribute_prop = QSEARCH
+          $return = null;
           if($col_struct == "READONLY")
           {
                
@@ -41,10 +42,12 @@ class ApplicationField extends AdmObject
                {
                     throw new AfwRuntimeException("$attribute application field has not repared struct as following : ".var_export($structField, true));
                }
-               return ($structField[$attribute_prop] !== "::fields_manager");
+               $return = ($structField[$attribute_prop] !== "::fields_manager");
+
+               die("application field $id --> af_manager($field_name, $col_struct) => see attribute_prop=$attribute_prop in structField=".var_export($structField, true));
           }
           
-          return null;
+          return $return;
      }
 
 
