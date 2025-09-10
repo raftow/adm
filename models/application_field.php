@@ -44,8 +44,10 @@ class ApplicationField extends AdmObject
                }
                $return = ($structField[$attribute_prop] !== "::fields_manager");
 
-               die("application field $id --> af_manager($field_name, $col_struct) => see attribute_prop=$attribute_prop in structField=".var_export($structField, true));
+               die("application field $id --> af_manager($field_name, $col_struct) => see attribute_prop=$attribute_prop in structField=".var_export($structField, true));    
           }
+          
+          die("application field $id --> af_manager($field_name, $col_struct) => do nothing");
           
           return $return;
      }
