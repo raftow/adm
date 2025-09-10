@@ -2,7 +2,7 @@
 
 $trad["application_field"]["step1"] = "الخصائص الأساسية";
 $trad["application_field"]["step2"] = "الخصائص المتقدمة";
-$trad["application_field"]["step3"] = "خصائص أخرى";
+$trad["application_field"]["step3"] = "أين وكيف يظهر";
 $trad["application_field"]["step4"] = "الاستخدامات";
 
 
@@ -15,7 +15,7 @@ $trad["application_field"]["interface_saisie"] = "واجهة الإدخال";
 $trad["application_field"]["technical_info"] = "الخصائص الفنية";
 $trad["application_field"]["generation"] = "التوليد";
 
-$trad["application_field"]["modes"] = "الاستعمال في";
+$trad["application_field"]["modes"] = "أين وكيف يظهر";
 $trad["application_field"]["qsearch"] = "معايير الاستعلام";
 $trad["application_field"]["retrieve"] = "نتائج البحث";
 $trad["application_field"]["edit"] = "تعديل";
