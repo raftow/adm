@@ -68,10 +68,11 @@ class AdmApplicantAfwStructure
                 'country_id' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
+                        'SEARCH' => '::fields_manager',
+                        'QSEARCH' => '::fields_manager',
+                        'RETRIEVE' => '::fields_manager',
+                        
+                        'SHOW' => true,                        
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SHOW-ADMIN' => true,
