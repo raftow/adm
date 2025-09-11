@@ -760,6 +760,33 @@ class ApplicationField extends AdmObject
           return 5;
      }
 
+     public static function containAFieldManagedAttribute($attributes_arr)
+     {
+          if($attributes_arr['qsearch']) return true;
+          if($attributes_arr['retrieve']) return true;
+          if($attributes_arr['edit']) return true;
+          if($attributes_arr['qedit']) return true;
+          if($attributes_arr['readonly']) return true;
+          if($attributes_arr['mandatory']) return true;
+          if($attributes_arr['step']) return true;
+
+          return false;
+     }
+
+     public function afterMaj($id, $fields_updated)
+     {
+          if(!$this->sureIs("additional"))
+          {
+               $lang = AfwLanguageHelper::getGlobalLanguage();
+               if(self::containAFieldManagedAttribute($fields_updated))
+               {
+                    list($error, $info, $warn, $technical) = ApplicationField::genereClientFieldsManager($lang);    
+               }
+          }                         
+     }
+
+     
+
 
      /**
       * To do Static public method That execute
