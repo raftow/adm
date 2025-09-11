@@ -302,7 +302,7 @@ class Applicant extends AdmObject
         {
                 global $additional_fields;
                 if (!$additional_fields) {
-                        $main_company = AfwSession::config("main_company", "all");
+                        $main_company = AfwSession::currentCompany();
                         $file_dir_name = dirname(__FILE__);
                         require_once($file_dir_name . "/../../client-$main_company/extra/applicant_additional_fields-$main_company.php");
                 }
@@ -395,7 +395,7 @@ class Applicant extends AdmObject
         {
                 global $additional_fields;
                 if (!$additional_fields) {
-                        $main_company = AfwSession::config("main_company", "all");
+                        $main_company = AfwSession::currentCompany();
                         $file_dir_name = dirname(__FILE__);
                         require_once($file_dir_name . "/../../client-$main_company/extra/applicant_additional_fields-$main_company.php");
                 }
@@ -772,7 +772,7 @@ class Applicant extends AdmObject
 
         public function updateQualificationLevelFields()
         {
-                $main_company = AfwSession::config("main_company", "all");
+                $main_company = AfwSession::currentCompany();
                 $file_dir_name = dirname(__FILE__);
                 require_once($file_dir_name . "/../../client-$main_company/extra/qualification_level-$main_company.php");
                 // $lookup
@@ -1484,7 +1484,7 @@ class Applicant extends AdmObject
                         $params = self::getAdditionalFieldParams($attribute);
                         $formulaMethod = $params["formula"];
                         if ($formulaMethod) {
-                                $main_company = AfwSession::config("main_company", "all");
+                                $main_company = AfwSession::currentCompany();
                                 $classFM = AfwStringHelper::firstCharUpper($main_company) . "ApplicantFormulaManager";
                                 if (!class_exists($classFM)) {
                                         $file_dir_name = dirname(__FILE__);

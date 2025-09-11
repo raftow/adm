@@ -66,7 +66,7 @@ class Institution extends AdmObject
         {
                 
                 if (!self::$signleton) {
-                        $institution_code = AfwSession::config("main_company","");
+                        $institution_code = AfwSession::currentCompany();
                         if($institution_code)
                         {
                                 self::$signleton = self::loadByMainIndex($institution_code);

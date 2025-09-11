@@ -7,7 +7,7 @@ class AdmObject extends AfwMomkenObject{
         {
                 if (!self::$fields_manager_matrix) 
                 {
-                        $main_company = AfwSession::config("main_company", "all");
+                        $main_company = AfwSession::currentCompany();
                         $file_dir_name = dirname(__FILE__);
                         $fields_manager_full_file_name = $file_dir_name . "/../../cache/$main_company"."_fields_manager.php";
                         if(file_exists($fields_manager_full_file_name))
@@ -860,7 +860,7 @@ class AdmObject extends AfwMomkenObject{
         {
                 $arr_list_of_level = array();
 
-                $main_company = AfwSession::config("main_company","all");
+                $main_company = AfwSession::currentCompany();
                 $file_dir_name = dirname(__FILE__);        
                 include($file_dir_name."/../../client-$main_company/extra/qualification_level-$main_company.php");
 
@@ -1450,7 +1450,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function loadApiRunner()
         {
-                $main_company = AfwSession::config("main_company", "all");
+                $main_company = AfwSession::currentCompany();
                 $api_runner_file = $main_company . "_api_runner";
                 $api_runner_class = AfwStringHelper::tableToClass($api_runner_file);
                 if (!class_exists($api_runner_class, false)) {
@@ -1463,7 +1463,7 @@ class AdmObject extends AfwMomkenObject{
 
         public static function loadUnitManager()
         {
-                $main_company = AfwSession::config("main_company", "all");
+                $main_company = AfwSession::currentCompany();
                 $tunit_to_orgunit_file = $main_company . "_tunit_to_orgunit";
                 $tunit_to_orgunit_class = AfwStringHelper::tableToClass($tunit_to_orgunit_file);
                 if (!class_exists($tunit_to_orgunit_class, false)) {
@@ -1484,7 +1484,7 @@ class AdmObject extends AfwMomkenObject{
         {
                 $arr_list_of_hierarchy_level = array();
 
-                $main_company = AfwSession::config("main_company","all");
+                $main_company = AfwSession::currentCompany();
                 $current_domain = 25;
                 $file_dir_name = dirname(__FILE__);        
                 include($file_dir_name."/../../client-$main_company/extra/hierarchy_level-$main_company.php");

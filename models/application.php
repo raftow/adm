@@ -786,7 +786,7 @@ class Application extends AdmObject
         {
                 global $application_additional_fields;
                 if (!$application_additional_fields) {
-                        $main_company = AfwSession::config("main_company", "all");
+                        $main_company = AfwSession::currentCompany();
                         $file_dir_name = dirname(__FILE__);
                         require_once($file_dir_name . "/../../client-$main_company/extra/application_additional_fields-$main_company.php");
                 }
@@ -838,7 +838,7 @@ class Application extends AdmObject
                         $params = self::getApplicationAdditionalFieldParams($attribute);
                         $formulaMethod = $params["formula"];
                         if ($formulaMethod) {
-                                $main_company = AfwSession::config("main_company", "all");
+                                $main_company = AfwSession::currentCompany();
                                 $classFM = AfwStringHelper::firstCharUpper($main_company) . "ApplicationFormulaManager";
                                 if (!class_exists($classFM)) {
                                         $file_dir_name = dirname(__FILE__);
