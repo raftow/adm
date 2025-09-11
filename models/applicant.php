@@ -317,6 +317,7 @@ class Applicant extends AdmObject
         public function fields_manager($field_name, $col_struct)
         {
                 $matrix = self::getFieldsManagerMatrix("applicant", $field_name);
+                if($field_name=="country_id") die("getFieldsManagerMatrix(applicant, $field_name) = ".var_export($matrix, true));
                 $col_struct = strtolower($col_struct);
                 $return = $matrix[$col_struct];
                 if ($col_struct == "css") {
