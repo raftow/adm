@@ -9,14 +9,22 @@ class AdmObject extends AfwMomkenObject{
                 {
                         $main_company = AfwSession::config("main_company", "all");
                         $file_dir_name = dirname(__FILE__);
-                        self::$fields_manager_matrix = include_once($file_dir_name . "/../../cache/$main_company"."_fields_manager.php");
+                        $fields_manager_full_file_name = $file_dir_name . "/../../cache/$main_company"."_fields_manager.php";
+                        if(file_exists($fields_manager_full_file_name))
+                        {
+                            self::$fields_manager_matrix = include_once($fields_manager_full_file_name);
+                        }
+                        else
+                        {
+                            throw new AfwBusinessException("Fields Manager File $fields_manager_full_file_name has not been already generated");
+                        }
                 }
 
                 
 
                 $return = self::$fields_manager_matrix[$table_name][$field_name];
 
-                //if(!$return) die("no params for getAdditionalFieldParams($field_name) look additional_fields[$field_name] in additional_fields=".var_export($additional_fields,true));
+                if(!$return) throw new AfwBusinessException("no Fields Manager Matrix found for [$table_name.$field_name] in file $fields_manager_full_file_name");
 
                 return $return;
         }
