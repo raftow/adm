@@ -38,13 +38,13 @@ class ApplicationField extends AdmObject
                if(!$classField) return false;
                $structField = $classField::getDbStructure($return_type = 'structure',
                          $attribute,'all',null, null, $repare=false);
-               if(($attribute=="country_id") and ($field_name=="qsearch"))
+               /* if(($attribute=="country_id") and ($field_name=="qsearch"))
                {
                     throw new AfwRuntimeException("$attribute application field has not repared struct as following : ".var_export($structField, true));
-               }
+               }*/
                $return = ($structField[$attribute_prop] !== "::fields_manager");
 
-               die("application field $id --> af_manager($field_name, $col_struct) => see attribute_prop=$attribute_prop in structField=".var_export($structField, true));    
+               // die("application field $id --> af_manager($field_name, $col_struct) => see attribute_prop=$attribute_prop in structField=".var_export($structField, true));    
           }
           
           die("application field $id --> af_manager($field_name, $col_struct) => do nothing");
