@@ -195,14 +195,14 @@ class ApplicationField extends AdmObject
           $application_fields = self::getApplicationOriginalFieldsMatrix();
           $application_desire_fields = self::getApplicationDesireOriginalFieldsMatrix();
           
+          $source_php .= "\nreturn [";
+          $source_php .= "\n\t'applicant' => " . var_export($applicant_fields, true) . ",";
 
-          $source_php .= "\n\t\$applicant = " . var_export($applicant_fields, true) . ";";
+          $source_php .= "\n\t'application' => " . var_export($application_fields, true) . ",";
 
-          $source_php .= "\n\t\$application = " . var_export($application_fields, true) . ";";
+          $source_php .= "\n\t'application_desire' => " . var_export($application_desire_fields, true) . ",";
 
-          $source_php .= "\n\t\$application_desire = " . var_export($application_desire_fields, true) . ";";
-
-          $source_php .= "\n ?>";
+          $source_php .= "\n ];";
 
           if ($text_area) $source_php .= "</textarea>"; // 
 
