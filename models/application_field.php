@@ -253,7 +253,8 @@ class ApplicationField extends AdmObject
 
      public function getDropDownDisplay($lang = "ar")
      {
-          return $this->getVal("shortname") . "-" . $this->getVal("field_name") . "-" . $this->getVal("field_title_$lang");
+          return $this->getVal("field_name") . "-" . $this->getVal("field_title_$lang");
+          // $this->getVal("shortname") . "-" .
      }
 
      /*
@@ -715,6 +716,7 @@ class ApplicationField extends AdmObject
 
      public function reverseEngineering($lang = "ar")
      {
+          $warning = "";
           $application_table_id = $this->getVal("application_table_id");
           if ($application_table_id == 1) {
                $classField = "Applicant";
@@ -744,6 +746,50 @@ class ApplicationField extends AdmObject
           $this->set("step", $step_value);
           $reversed .= ",step";
 
+          if($struct["CATEGORY"])
+          {
+               $this->set("reel", "N");
+          }
+          else
+          {
+               $this->set("reel", "Y");
+          }
+
+          if($struct["OBSOLETE"])
+          {
+               $this->set("active", "N");
+               $warning = "$attribute : obsoleted";
+          }
+          else
+          {
+               $this->set("active", "Y");
+          }
+
+          $unit = $struct["UNIT"];
+          $unit_en = $struct["UNIT_EN"];
+          
+          $this->set("unit", $unit);
+          $this->set("unit_en", $unit_en);
+
+          $field_size = $struct["MAXLENGTH"];
+          if(!$field_size) $field_size = $struct["SIZE"];
+          $this->set("field_size", $field_size);
+
+          $afieldTypeId = self::fromAFWtoAfieldType($struct["TYPE"], $struct["CATEGORY"], $struct);
+          $this->set("application_field_type_id", $afieldTypeId);
+          $field_title_ar = $classFieldObject->getAttributeLabel($attribute, 'ar');
+          $field_title_en = $classFieldObject->getAttributeLabel($attribute, 'en');
+          $this->set("field_title_ar", $field_title_ar);
+          $this->set("field_title_en", $field_title_en);
+
+          if(AfwStringHelper::stringStartsWith($attribute, "attribute_"))
+          {
+               $this->set("additional", "Y");
+          }
+          else
+          {
+               $this->set("additional", "N");
+          }
           $width_pct_value = intval(substr($struct["CSS"], 10));
           if (!self::name_of_width_pct($width_pct_value, "ar")) $width_pct_value = "";
           if (!$width_pct_value) $width_pct_value = 50;
@@ -753,7 +799,7 @@ class ApplicationField extends AdmObject
 
           $reversed = trim($reversed, ",");
 
-          return ["", "$attribute : $reversed", ""];
+          return ["", "$attribute : $reversed", $warning];
      }
 
 

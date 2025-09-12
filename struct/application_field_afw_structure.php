@@ -79,12 +79,12 @@
 				),
 
 			
-
+			/*	
 			'shortname' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => false, 
 				'UTF8' => true,    'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'SEARCH' => true,  
 				'TYPE' => 'TEXT',  'SIZE' => 15,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 'CSS' => 'width_pct_25',
-				),
+				),*/
 
 				
 			'reel' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'SEARCH' => true,  'QSEARCH' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => false,  

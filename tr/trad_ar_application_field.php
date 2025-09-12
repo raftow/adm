@@ -38,8 +38,8 @@ $trad["application_field"]["width_pct.short"] = "العرض (%)";
 $trad["application_field"]["title_after"] = "عنوان بعدي";
 $trad["application_field"]["help_text"] = "مساعدة لفهم دور هذا الحقل";
 $trad["application_field"]["question_text"] = "السؤال الذي يطرح و يتعلق بهذا الحقل";
-$trad["application_field"]["shortname"] = "الرمز القصير";
-;
+// $trad["application_field"]["shortname"] = "الرمز القصير";
+
 $trad["application_field"]["field_title_ar"] = "مسمى الحقل بالعربية";
 $trad["application_field"]["field_title_en"] = "مسمى الحقل بالانجليزية";
 
