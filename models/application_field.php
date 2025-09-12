@@ -773,6 +773,7 @@ class ApplicationField extends AdmObject
 
           $field_size = $struct["MAXLENGTH"];
           if(!$field_size) $field_size = $struct["SIZE"];
+          if(!$field_size) $field_size = 33;
           $this->set("field_size", $field_size);
 
           $afieldTypeId = self::fromAFWtoAfieldType($struct["TYPE"], $struct["CATEGORY"], $struct);
