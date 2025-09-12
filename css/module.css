@@ -5048,7 +5048,8 @@ h1.field-desc {
     margin-bottom: 6px !important;
 }
 
-h1.field-desc.obsolete {
+h1.field-desc.obsolete,
+p.field-desc.obsolete {
     background-color: red;
     color: white;
     width: fit-content;
@@ -5056,4 +5057,9 @@ h1.field-desc.obsolete {
     padding: 3px;
     font-weight: normal;
     float: right;
+}
+
+h2.field-desc.obsolete, 
+h3.field-desc.obsolete {
+    color: red;
 }
