@@ -5047,3 +5047,13 @@ h1.field-desc {
     margin-top: 8px !important;
     margin-bottom: 6px !important;
 }
+
+h1.field-desc.obsolete {
+    background-color: red;
+    color: white;
+    width: fit-content;
+    min-width: 140px !important;
+    padding: 3px;
+    font-weight: normal;
+    float: right;
+}

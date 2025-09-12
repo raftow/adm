@@ -464,9 +464,10 @@ class ApplicationField extends AdmObject
           $field_title = $this->getVal("field_title_$lang");
           $isReel = $this->sureIs("reel");
           $isActive = $this->sureIs("active");
-          $titleReel = $this->getAttributeLabel("reel");
-          $titleVirtuel = $this->getAttributeLabel("virtuel");
+          $titleReel = $this->getAttributeLabel("reel",$lang);
+          $titleVirtuel = $this->getAttributeLabel("virtuel",$lang);
           
+          if(!$isActive) $field_title = $this->getAttributeLabel("obsolete",$lang);
           $active_class = $isActive ? "active" : "obsolete";
           $titleR = $isReel ? $titleReel : $titleVirtuel;
           $titleA = $isReel ? ($isAdditional ? $titleAdditional : $titleOriginal) : "";
