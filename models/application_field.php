@@ -463,10 +463,11 @@ class ApplicationField extends AdmObject
           $field_type = $this->showAttribute("application_field_type_id", null, true, $lang);
           $field_title = $this->getVal("field_title_$lang");
           $isReel = $this->sureIs("reel");
+          $isActive = $this->sureIs("active");
           $titleReel = $this->getAttributeLabel("reel");
           $titleVirtuel = $this->getAttributeLabel("virtuel");
           
-
+          $active_class = $isActive ? "active" : "obsolete";
           $titleR = $isReel ? $titleReel : $titleVirtuel;
           $titleA = $isReel ? ($isAdditional ? $titleAdditional : $titleOriginal) : "";
           if($titleA) $titleA = "| " . $titleA;
@@ -475,7 +476,7 @@ class ApplicationField extends AdmObject
 
 
           $html = "<div class='field-desc'>";
-          $html .= "<h1 class='field-desc'>$field_title</h1>";
+          $html .= "<h1 class='field-desc $active_class'>$field_title</h1>";
           $html .= "<h2 class='field-desc'>$field_name</h2>";
           $html .= "<h3 class='field-desc'>$field_type</h3>";
           $html .= "<p class='field-desc $cssRA'>$titleR $titleA</p>";

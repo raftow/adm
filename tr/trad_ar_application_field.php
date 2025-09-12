@@ -5,6 +5,7 @@ $trad["application_field"]["step2"] = "الخصائص المتقدمة";
 $trad["application_field"]["step3"] = "أين وكيف يظهر";
 $trad["application_field"]["step4"] = "الاستخدامات";
 
+$trad["application_field"]["active"] = "مستخدم";
 
 $trad["application_field"]["general_props"] = "الرموز";
 $trad["application_field"]["advanced_props"] = "الخصائص البرمجية";
