@@ -117,7 +117,8 @@
 							'INPUT_WIDE' => true
 					),
 
-			'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+			'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 
+				'QEDIT' => true, 'DEFAUT' => 'Y', 'SEARCH' => true,  'QSEARCH' => true, 
 				'TYPE' => 'YN', 'FORMAT' => 'icon',  'STEP' => 4,  
 				'READONLY' => true, 
 				'CSS' => 'width_pct_25',),
