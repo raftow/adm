@@ -65,6 +65,7 @@ $trad["application_field"]["utf8"] = "نص عربي";
 $trad["application_field"]["additional"] = "حقل إضافي";
 $trad["application_field"]["original"] = "حقل أصلي";
 $trad["application_field"]["reel"] = "حقل حقيقي";
+$trad["application_field"]["virtuel"] = "حقل محسوب";
 $trad["application_field"]["html_description"] = "وصف الحقل";
 
 /*
