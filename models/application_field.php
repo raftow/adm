@@ -478,9 +478,9 @@ class ApplicationField extends AdmObject
 
           $html = "<div class='field-desc'>";
           $html .= "<h1 class='field-desc $active_class'>$field_title</h1>";
-          $html .= "<h2 class='field-desc'>$field_name</h2>";
-          $html .= "<h3 class='field-desc'>$field_type</h3>";
-          $html .= "<p class='field-desc $cssRA'>$titleR $titleA</p>";
+          $html .= "<h2 class='field-desc $active_class'>$field_name</h2>";
+          $html .= "<h3 class='field-desc $active_class'>$field_type</h3>";
+          $html .= "<p class='field-desc $cssRA $active_class'>$titleR $titleA</p>";
           $html .= "</div>";
 
 
