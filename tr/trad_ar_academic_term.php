@@ -1,7 +1,7 @@
 <?php
 	$trad["academic_term"]["step1"] = "التعريف";
     $trad["academic_term"]["step2"] = "التقويم التدريبي";
-    $trad["academic_term"]["step3"] = "تواريخ هجرية";
+    $trad["academic_term"]["step3"] = "فترات التقديم";
 	// $trad["academic_term"]["step4"] = "معلومات متقدمة";
 
 
