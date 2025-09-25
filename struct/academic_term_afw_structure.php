@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 2; 
+                                $obj->editNbSteps = 3; 
                                 $obj->after_save_edit = array("class"=>'AcademicYear',"attribute"=>'academic_year_id', "currmod"=>'adm',"currstep"=>2);
                         }
                 }
@@ -549,6 +549,11 @@
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
                             
+                'academicPeriodList' => array('TYPE' => 'FK', 'ANSWER' => 'academic_period', 'ANSMODULE' => 'adm', 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'academic_term_id', 
+                                                'STEP' => 3, 'PILLAR' => true, 
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => false, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false,  'CAN-BE-SETTED' => true),
         
                                         'created_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  

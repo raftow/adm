@@ -104,4 +104,33 @@ class AcademicTerm extends AdmObject
 
                 return 0;
         }
+
+        public function getOtherLinksArray($mode,$genereLog=false,$step="all")  
+                {
+                    $lang = AfwLanguageHelper::getGlobalLanguage();
+                        // $objme = AfwSession::getUserConnected();
+                        // $me = ($objme) ? $objme->id : 0;
+
+                        $otherLinksArray = $this->getOtherLinksArrayStandard($mode,$genereLog,$step);
+                        $my_id = $this->getId();
+                        $displ = $this->getDisplay($lang);
+                    if($mode=="mode_academicPeriodList")
+                        {
+                                
+                                unset($link);
+                                $link = array();
+                                $title = "إضافة فترة تقديم جديدة";
+                                $title_detailed = $title ."لـ : ". $displ;
+                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicPeriod&currmod=adm&sel_academic_term_id=$my_id";
+                                $link["TITLE"] = $title;
+                                $link["PUBLIC"] = true;
+                                $link["UGROUPS"] = array();
+                                $otherLinksArray[] = $link;
+                        
+                                
+                        }
+                    return $otherLinksArray;
+
+                }
+
 }

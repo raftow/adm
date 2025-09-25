@@ -1400,6 +1400,30 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_answer_table;
         }
 
+
+        
+        public static function list_of_period_type()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::period_type()[$lang];
+        }
+        
+        public static function period_type()
+        {
+                $arr_period_type = array();
+                
+                
+                $arr_period_type["en"][1] = "principal period";
+                $arr_period_type["ar"][1] = "الفترة الأساسية";
+                
+                $arr_period_type["en"][2] = "The subsequent period";
+                $arr_period_type["ar"][2] = "الفترة الالحاقية";
+                
+                
+
+                
+                return $arr_period_type;
+        }
         public static function list_of_financial_element_unit_enum()
         {
             $lang = AfwLanguageHelper::getGlobalLanguage();
