@@ -162,7 +162,7 @@
                                                  
                                                 'UTF8' => false,
                                                 'TYPE' => 'TIME',
-                                                'FORMAT' => 'CLOCK',
+                                                'FORMAT' => 'CLOCK', "SEPARATOR" =>":",
                                                 'ANSWER_LIST' => '6/10/22',
                                                 // 'ANSWER_METHOD'=>'getXXXTimeList', 'FORMAT' => 'OBJECT',
                                                 'DISPLAY' => true,
@@ -204,7 +204,7 @@
                                                 'EDIT' => true,                                                
                                                 'UTF8' => false,
                                                 'TYPE' => 'TIME',
-                                                'FORMAT' => 'CLOCK',
+                                                'FORMAT' => 'CLOCK', "SEPARATOR" =>":",
                                                 'ANSWER_LIST' => '6/10/22',
                                                 // 'ANSWER_METHOD'=>'getXXXTimeList', 'FORMAT' => 'OBJECT', 
                                                 'DISPLAY' => true,
