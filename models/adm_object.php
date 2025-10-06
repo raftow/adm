@@ -1289,6 +1289,81 @@ class AdmObject extends AfwMomkenObject{
                 return $arr_list_of_phase;
         }
 
+        public static function list_of_residency_enum()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::residency_enum()[$lang];
+        }
+        
+        public static function residency_enum()
+        {
+                $arr_list_of_phase = array();
+                
+                
+                $arr_list_of_phase["en"][1] = "Domestic";
+                $arr_list_of_phase["ar"][1] = "داخلي";
+                $arr_list_of_phase["code"][1] = "DOM";
+
+                $arr_list_of_phase["en"][2] = "International";
+                $arr_list_of_phase["ar"][2] = "خارجي";
+                $arr_list_of_phase["code"][2] = "INT";
+
+                
+                
+                return $arr_list_of_phase;
+        }
+        public static function list_of_semester_type()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::semester_type()[$lang];
+        }
+        
+        public static function semester_type()
+        {
+                $arr_list_of_phase = array();
+                
+                
+                $arr_list_of_phase["en"][1] = "Fall";
+                $arr_list_of_phase["ar"][1] = "الفصل الخريفي";
+                $arr_list_of_phase["code"][1] = "FALL";
+
+                $arr_list_of_phase["en"][2] = "Spring";
+                $arr_list_of_phase["ar"][2] = "الفصل الربيعي";
+                $arr_list_of_phase["code"][2] = "SPRING";
+                
+                $arr_list_of_phase["en"][3] = "Summer";
+                $arr_list_of_phase["ar"][3] = "الفصل الصيفي";
+                $arr_list_of_phase["code"][3] = "SUMMER";
+
+                
+                
+                return $arr_list_of_phase;
+        }
+        
+        public static function list_of_tuition_model()
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::tuition_model()[$lang];
+        }
+        
+        public static function tuition_model()
+        {
+                $arr_list_of_phase = array();
+                
+                
+                $arr_list_of_phase["en"][1] = "Flat Per Term";
+                $arr_list_of_phase["ar"][1] = "لكل فصل";
+                $arr_list_of_phase["code"][1] = "TERM";
+
+                $arr_list_of_phase["en"][2] = "Per Credit Hour";
+                $arr_list_of_phase["ar"][2] = "لكل ساعة معتمدة";
+                $arr_list_of_phase["code"][2] = "HOUR";
+
+                
+                
+                return $arr_list_of_phase;
+        }
+
         public static function executeIndicator($object, $indicator, $normal_class, $arrObjectsRelated, $sens="asc", $default_red_pct=0, $default_orange_pct=0)
         {
                 global $MODE_SQL_PROCESS_LOURD, $nb_queries_executed;

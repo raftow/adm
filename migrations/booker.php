@@ -86,6 +86,7 @@ $migrations = [
     '00080' => ['by'=>'medali','title'=>'add index unique to financial_transaction'],
     '00081' => ['by'=>'medali','title'=>'add grading scale table'],
     '00082' => ['by'=>'medali','title'=>'add academic period table'],
+    '00083' => ['by'=>'medali','title'=>'add tuition base table'],
 
 ];
 
