@@ -22,9 +22,9 @@ class ApplicationField extends AdmObject
           return -1;
      }
 
-     public function af_manager($field_name, $col_struct)
-     {
-          $application_table_id = $this->getVal("application_table_id");
+     public static function applicationTableClassOfId($application_table_id)
+     {     
+          $classField = "???";
           if ($application_table_id == 1) {
                $classField = "Applicant";
           } elseif ($application_table_id == 3) {
@@ -32,6 +32,14 @@ class ApplicationField extends AdmObject
           } elseif ($application_table_id == 2) {
                $classField = "ApplicationDesire";
           }
+
+          return $classField;
+     }
+
+     public function af_manager($field_name, $col_struct)
+     {
+          $application_table_id = $this->getVal("application_table_id");
+          $classField = self::applicationTableClassOfId($application_table_id);
           $attribute = $this->getVal("field_name");
           $attribute_prop = strtoupper($field_name);
           $id = $this->id;
@@ -849,6 +857,14 @@ class ApplicationField extends AdmObject
           }                         
      }
 
+     public static function reversable($struct)
+     {
+          if(!$struct) return false;
+          if($struct["SHORTCUT"]) return false; // ex allow_add_qualification
+
+          return true;
+     }
+
      public static function reverseByCodes($object_code_arr)
      {
           $table=$object_code_arr[0];
@@ -869,6 +885,8 @@ class ApplicationField extends AdmObject
           }
           $objATId = $objAT->id;
           $applicationTableId = self::applicationTableIdOf($table);
+          $classTBL = self::applicationTableClassOfId($applicationTableId);
+          $instanceObj = new $classTBL();
           // $sql = "select * from $server_db_prefix"."pag.afield where";
           $sql_where = "atable_id = $objATId and avail='Y' and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
 
@@ -878,12 +896,18 @@ class ApplicationField extends AdmObject
           if($action=="show")
           {
                $message .= "<br>Info : Application-Field-Manger Will reverse these new fields : ";
-               $message .= "<br><div class='cline-message cline-info'>";
+               $message .= "<br><span class='cline-message cline-info'>";
                foreach($afieldList as $afieldItem)
                {
-                    $message .= "<br>".$afieldItem->getWideDisplay();
+                    $field_name = $afieldItem->getVal("field_name");
+                    $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
+                    if(self::reversable($struct))
+                    {
+                         $message .= "<br>".$afieldItem->getWideDisplay();
+                    }
+                    
                }
-               $message .= "</div>";
+               $message .= "</span>";
           }
           elseif($action=="do")
           {
