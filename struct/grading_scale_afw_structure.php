@@ -95,7 +95,7 @@
 'level' => array(
         'IMPORTANT' => 'IN',
         'SHOW' => true,
-        'RETRIEVE' => false,
+        'RETRIEVE' => true,
         'QEDIT' => true,
         'EDIT' => true,
         'TYPE' => 'INT', 'MANDATORY' => false, 
