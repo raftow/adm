@@ -949,7 +949,9 @@ class ApplicationField extends AdmObject
                          {
                               $message .= "<br>".$afieldItem->getWideDisplay();
                          }
+                         else $message .= "<br>$field_name will be ignored because it is set as reversable";
                     }
+                    else $message .= "<br>$field_name will be ignored because it is a framework designed field";
                     
                     
                }
