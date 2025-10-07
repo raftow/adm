@@ -919,7 +919,7 @@ class ApplicationField extends AdmObject
           }
           
 
-          return [$applicationFieldList, $message];
+          return [$applicationFieldList, $message, true];
 
      }
 
