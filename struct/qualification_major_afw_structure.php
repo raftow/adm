@@ -53,7 +53,7 @@
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_25','DEFAUT' => '0',),
 
 
 
