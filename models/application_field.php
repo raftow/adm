@@ -931,7 +931,7 @@ class ApplicationField extends AdmObject
           $keepAsIs = true;
           if(count($afieldList)==0)
           {
-               $message .= "<br>Warning : No field need to be reversed !";
+               $message .= "<br>Warning : No field need to be reversed for table $table !";
           }
           elseif($action=="show")
           {
