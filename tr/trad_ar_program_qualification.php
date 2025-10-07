@@ -12,3 +12,9 @@
 	$trad["program_qualification"]["qualification_major_id"] = "تخصص المؤهل";
 	$trad["program_qualification"]["bridging"] = "يحتاج مقررات تكميلية؟";
 	$trad["program_qualification"]["qual_source_mfk"] = "مصادر المؤهلات العلمية";
+
+	$trad["program_qualification"]["bridging_semester"] = "عدد فصول المقررات التكميلية";
+	$trad["program_qualification"]["bridging_fees"] = "رسوم المقررات التكميلية";
+
+	
+	

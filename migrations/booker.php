@@ -87,6 +87,7 @@ $migrations = [
     '00081' => ['by'=>'medali','title'=>'add grading scale table'],
     '00082' => ['by'=>'medali','title'=>'add academic period table'],
     '00083' => ['by'=>'medali','title'=>'add tuition base table'],
+    '00084' => ['by'=>'medali','title'=>'add bridging_semester and bridging_fees to program_qualification'],
 
 ];
 

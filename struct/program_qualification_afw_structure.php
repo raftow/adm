@@ -107,7 +107,23 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
-
+                                        'bridging_semester' => array(
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'STEP' => 1,
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),
+                                        
+                                        'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  
+                                                'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
+                                                'CSS' => 'width_pct_50', ),
 
                                         'qual_source_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  

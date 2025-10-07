@@ -12,3 +12,6 @@
 	$trad["program_qualification"]["qualification_major_id"] = "Qualification Major";
 	$trad["program_qualification"]["bridging"] = "Need supplementary courses?";
 	$trad["program_qualification"]["qual_source_mfk"] = "Qualification Source";
+
+	$trad["program_qualification"]["bridging_semester"] = "Bridging semester";
+	$trad["program_qualification"]["bridging_fees"] = "Bridging Fees";
