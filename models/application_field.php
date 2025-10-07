@@ -877,10 +877,13 @@ class ApplicationField extends AdmObject
           $message = "";
           if($action=="show")
           {
+               $message .= "<br>Info : Application-Field-Manger Will reverse these new fields : ";
+               $message .= "<br><div class='info rea_filebox editcard'>";
                foreach($afieldList as $afieldItem)
                {
-                    $message .= "<br>Info : Application-Field-Manger Will reverse this new field : ".$afieldItem->getWideDisplay();
+                    $message .= "<br>".$afieldItem->getWideDisplay();
                }
+               $message .= "</div>";
           }
           elseif($action=="do")
           {
