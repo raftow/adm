@@ -1,5 +1,7 @@
 <?php
 
+use Complex\Autoloader;
+
 global $enum_tables, $lookup_tables, $count_here;
 
 class ApplicationField extends AdmObject
@@ -9,6 +11,15 @@ class ApplicationField extends AdmObject
      {
           parent::__construct("application_field", "id", "adm");
           AdmApplicationFieldAfwStructure::initInstance($this);
+     }
+
+     public static function applicationTableIdOf($application_table)
+     {
+          if($application_table=="applicant") return 1;
+          if($application_table=="application_desire") return 2;
+          if($application_table=="application") return 3;
+
+          return -1;
      }
 
      public function af_manager($field_name, $col_struct)
@@ -838,7 +849,52 @@ class ApplicationField extends AdmObject
           }                         
      }
 
-     
+     public static function reverseByCodes($object_code_arr)
+     {
+          $table=$object_code_arr[0];
+          $action=$object_code_arr[1];
+          if(!$table) $table="application";
+          if(!$action) $action="show";
+          
+          $adm_application_id = AfwSession::config("adm_application_id",0);
+          if(!$adm_application_id) 
+          {
+               throw new AfwBusinessException("please define adm_application_id in your adm application config file");
+          }
+          $server_db_prefix = AfwSession::currentDBPrefix();
+          $objAT = Atable::loadByMainIndex($adm_application_id, $table);
+          if(!$objAT) 
+          {
+               throw new AfwBusinessException("application table not found in Pag system");
+          }
+          $objATId = $objAT->id;
+          $applicationTableId = self::applicationTableIdOf($table);
+          // $sql = "select * from $server_db_prefix"."pag.afield where";
+          $sql_where = "atable_id = $objATId and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
+
+          $afieldList = Afield::loadRecords($sql_where);
+          $applicationFieldList = [];
+          $message = "";
+          if($action=="show")
+          {
+               foreach($afieldList as $afieldItem)
+               {
+                    echo "<br>Application-Field-Manger Will reverse this new field : ".$afieldItem->getWideDisplay();
+               }
+          }
+          elseif($action=="do")
+          {
+
+          }
+          else
+          {
+               $message = "unknown action $action";
+          }
+          
+
+          return [$applicationFieldList, $message];
+
+     }
 
 
      /**
