@@ -929,7 +929,11 @@ class ApplicationField extends AdmObject
           $applicationFieldList = [];
           $message = "";
           $keepAsIs = true;
-          if($action=="show")
+          if(count($afieldList)==0)
+          {
+               $message .= "<br>Warning : No field need to be reversed !";
+          }
+          elseif($action=="show")
           {
                $message .= "<br>Info : Without do action show you what will be reversed :";
                $message .= "<br> use : [reverse application_field.adm application.do-xxxx] to perform reverse after you are sure";
