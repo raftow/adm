@@ -860,8 +860,10 @@ class ApplicationField extends AdmObject
      public static function reversable($struct)
      {
           if(!$struct) return false;
+          if($struct["NO-REVERSE"]) return false;
           if($struct["SHORTCUT"]) return false; // ex allow_add_qualification
-
+          if($struct["CATEGORY"]=='ITEMS') return false;
+          
           return true;
      }
 
