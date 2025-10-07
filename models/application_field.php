@@ -867,6 +867,39 @@ class ApplicationField extends AdmObject
           return true;
      }
 
+     public static function reverseAfield($afieldItem, $application_table_id)
+     {
+          $field_name = $afieldItem->getVal("field_name");
+          $shortname = $afieldItem->getVal("shortname");
+          $application_field_type_id = $afieldItem->getVal("afield_type_id");
+          $field_title_ar = $afieldItem->getVal("titre");
+          $field_title_en = $afieldItem->getVal("titre_en");
+          $reel = $afieldItem->getVal("reel");
+          $additional = $afieldItem->getVal("additional");
+          $unit = $afieldItem->getVal("unit");
+          $unit_en = $afieldItem->getVal("unit_en");
+          $field_order = $afieldItem->getVal("field_order");
+          $field_num = $afieldItem->getVal("field_num");
+          $field_size = $afieldItem->getVal("field_size");
+
+          $applicationFieldObj = ApplicationField::loadByMainIndex($field_name, $application_table_id, true);
+          $applicationFieldObj->set("shortname", $shortname);
+          $applicationFieldObj->set("application_field_type_id", $application_field_type_id);
+          $applicationFieldObj->set("field_title_ar", $field_title_ar);
+          $applicationFieldObj->set("field_title_en", $field_title_en);
+          $applicationFieldObj->set("reel", $reel);
+          $applicationFieldObj->set("additional", $additional);
+          $applicationFieldObj->set("unit", $unit);
+          $applicationFieldObj->set("unit_en", $unit_en);
+          $applicationFieldObj->set("field_order", $field_order);
+          $applicationFieldObj->set("field_num", $field_num);
+          $applicationFieldObj->set("field_size", $field_size);
+
+          $applicationFieldObj->commit();
+
+          return "$field_name reversed successfully";
+     }
+
      public static function reverseByCodes($object_code_arr)
      {
           $table=$object_code_arr[0];
@@ -895,10 +928,11 @@ class ApplicationField extends AdmObject
           $afieldList = Afield::loadRecords($sql_where);
           $applicationFieldList = [];
           $message = "";
+          $keepAsIs = true;
           if($action=="show")
           {
                $message .= "<br>Info : Without do action show you what will be reversed :";
-               $message .= "<br> use : [reverse application_field.adm application] to perform reverse after you are sure";
+               $message .= "<br> use : [reverse application_field.adm application.do-xxxx] to perform reverse after you are sure";
                $message .= "<br> Application-Field-Manger will reverse these new fields : ";
                $message .= "<br><div class='cline-message cline-info'>";
                foreach($afieldList as $afieldItem)
@@ -917,8 +951,23 @@ class ApplicationField extends AdmObject
                }
                $message .= "</div>";
           }
-          elseif($action=="do")
+          elseif(AfwStringHelper::stringStartsWith($action,"do-"))
           {
+               $keepAsIs = false;
+               list($action, $field_action) = explode("-", $action);
+               $message .= "<br>Application-Field-Manger start reversing ... ";
+               foreach($afieldList as $afieldItem)
+               {
+                    $field_name = $afieldItem->getVal("field_name");
+                    if((!$instanceObj->isFrameworkDesignedField($field_name)) and (($field_name==$field_action) or ("all"==$field_action)))
+                    {
+                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
+                         if(self::reversable($struct))
+                         {
+                              $message .= "<br>".self::reverseAfield($afieldItem, $applicationTableId);
+                         }
+                    }
+               }
 
           }
           else
@@ -927,7 +976,7 @@ class ApplicationField extends AdmObject
           }
           
 
-          return [$applicationFieldList, $message, true];
+          return [$applicationFieldList, $message, $keepAsIs];
 
      }
 
