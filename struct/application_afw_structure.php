@@ -204,6 +204,7 @@
                                                 'SHOW' => true,
                                                 'EDIT' => true,
                                                 'READONLY' => true,
+                                                'NO-REVERSE' => true,
                                                 "CAN-BE-SETTED" => false,
                                                 'SIZE' => 255,
                                                 'CSS' => 'width_pct_75',
@@ -214,13 +215,13 @@
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>true,    
                                                 'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'DEFAULT' => 1,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
                                                 'CSS' => 'width_pct_25', ),
 
                                         'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false, 'READONLY'=>true, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
                                                 'CSS' => 'width_pct_75',),  
 
                                         'assignedDesire' => array(
@@ -233,6 +234,7 @@
                                                         'NO-COTE' => true,
                                                         'EDIT' => true,
                                                         'READONLY' => true,
+                                                        'NO-REVERSE' => true,
                                                         "CAN-BE-SETTED" => false,
                                                         'SIZE' => 255,
                                                         'CSS' => 'width_pct_75',
@@ -375,7 +377,7 @@
                                         'current_fields_matrix' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
 								'TYPE' => 'TEXT',  'SIZE' => 'AREA', 'FORMAT' => 'HTML', 'STEP' => 2,
-								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
 								'CSS' => 'width_pct_100',),	
 
 
@@ -387,7 +389,7 @@
                                                 'EDIT' => true,
                                                 'READONLY' => true,
                                                 "CAN-BE-SETTED" => false,
-                                                'SIZE' => 'AREA',
+                                                'SIZE' => 'AREA', 'NO-REVERSE' => true,
                                                 'PRE' => true,
                                                 'CSS' => 'width_pct_100',
                                         ),                                                                
