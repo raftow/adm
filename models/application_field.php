@@ -960,8 +960,7 @@ class ApplicationField extends AdmObject
           elseif(AfwStringHelper::stringStartsWith($action,"do-"))
           {
                $keepAsIs = false;
-               list($action, $field_action) = explode("-", $action);
-               $message .= "<br>Application-Field-Manger start reversing ... ";
+               list($action, $field_action) = explode("-", $action);               
                foreach($afieldList as $afieldItem)
                {
                     $field_name = $afieldItem->getVal("field_name");
@@ -976,6 +975,9 @@ class ApplicationField extends AdmObject
                          }
                     }
                }
+
+               if($message) $message = "<br>Application-Field-Manger start reversing ... ".$message;
+               else $message .= "<br>Warning : No field need to be reversed for table $table !";
 
           }
           else
