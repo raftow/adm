@@ -879,7 +879,7 @@ class ApplicationField extends AdmObject
           {
                foreach($afieldList as $afieldItem)
                {
-                    echo "<br>Application-Field-Manger Will reverse this new field : ".$afieldItem->getWideDisplay();
+                    $message .= "<br>Info : Application-Field-Manger Will reverse this new field : ".$afieldItem->getWideDisplay();
                }
           }
           elseif($action=="do")
