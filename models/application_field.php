@@ -1,5 +1,7 @@
 <?php
 
+use Complex\Autoloader;
+
 global $enum_tables, $lookup_tables, $count_here;
 
 class ApplicationField extends AdmObject
@@ -11,9 +13,18 @@ class ApplicationField extends AdmObject
           AdmApplicationFieldAfwStructure::initInstance($this);
      }
 
-     public function af_manager($field_name, $col_struct)
+     public static function applicationTableIdOf($application_table)
      {
-          $application_table_id = $this->getVal("application_table_id");
+          if($application_table=="applicant") return 1;
+          if($application_table=="application_desire") return 2;
+          if($application_table=="application") return 3;
+
+          return -1;
+     }
+
+     public static function applicationTableClassOfId($application_table_id)
+     {     
+          $classField = "???";
           if ($application_table_id == 1) {
                $classField = "Applicant";
           } elseif ($application_table_id == 3) {
@@ -21,6 +32,14 @@ class ApplicationField extends AdmObject
           } elseif ($application_table_id == 2) {
                $classField = "ApplicationDesire";
           }
+
+          return $classField;
+     }
+
+     public function af_manager($field_name, $col_struct)
+     {
+          $application_table_id = $this->getVal("application_table_id");
+          $classField = self::applicationTableClassOfId($application_table_id);
           $attribute = $this->getVal("field_name");
           $attribute_prop = strtoupper($field_name);
           $id = $this->id;
@@ -838,7 +857,79 @@ class ApplicationField extends AdmObject
           }                         
      }
 
-     
+     public static function reversable($struct)
+     {
+          if(!$struct) return false;
+          if($struct["NO-REVERSE"]) return false;
+          if($struct["SHORTCUT"]) return false; // ex allow_add_qualification
+          if($struct["CATEGORY"]=='ITEMS') return false;
+
+          return true;
+     }
+
+     public static function reverseByCodes($object_code_arr)
+     {
+          $table=$object_code_arr[0];
+          $action=$object_code_arr[1];
+          if(!$table) $table="application";
+          if(!$action) $action="show";
+          
+          $adm_application_id = AfwSession::config("adm_application_id",0);
+          if(!$adm_application_id) 
+          {
+               throw new AfwBusinessException("please define adm_application_id in your adm application config file");
+          }
+          $server_db_prefix = AfwSession::currentDBPrefix();
+          $objAT = Atable::loadByMainIndex($adm_application_id, $table);
+          if(!$objAT) 
+          {
+               throw new AfwBusinessException("application table not found in Pag system");
+          }
+          $objATId = $objAT->id;
+          $applicationTableId = self::applicationTableIdOf($table);
+          $classTBL = self::applicationTableClassOfId($applicationTableId);
+          $instanceObj = new $classTBL();
+          // $sql = "select * from $server_db_prefix"."pag.afield where";
+          $sql_where = "atable_id = $objATId and avail='Y' and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
+
+          $afieldList = Afield::loadRecords($sql_where);
+          $applicationFieldList = [];
+          $message = "";
+          if($action=="show")
+          {
+               $message .= "<br>Info : Without do action show you what will be reversed :";
+               $message .= "<br> use : [reverse application_field.adm application] to perform reverse after you are sure";
+               $message .= "<br> Application-Field-Manger will reverse these new fields : ";
+               $message .= "<br><div class='cline-message cline-info'>";
+               foreach($afieldList as $afieldItem)
+               {
+                    $field_name = $afieldItem->getVal("field_name");
+                    if(!$instanceObj->isFrameworkDesignedField($field_name))
+                    {
+                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
+                         if(self::reversable($struct))
+                         {
+                              $message .= "<br>".$afieldItem->getWideDisplay();
+                         }
+                    }
+                    
+                    
+               }
+               $message .= "</div>";
+          }
+          elseif($action=="do")
+          {
+
+          }
+          else
+          {
+               $message = "unknown action $action";
+          }
+          
+
+          return [$applicationFieldList, $message, true];
+
+     }
 
 
      /**
