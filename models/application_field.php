@@ -874,11 +874,12 @@ class ApplicationField extends AdmObject
 
           $afieldList = Afield::loadRecords($sql_where);
           $applicationFieldList = [];
+          $error = "";
           $message = "";
           if($action=="show")
           {
                $message .= "<br>Info : Application-Field-Manger Will reverse these new fields : ";
-               $message .= "<br><div class='info rea_filebox editcard'>";
+               $message .= "<br><div class='cline-message cline-info'>";
                foreach($afieldList as $afieldItem)
                {
                     $message .= "<br>".$afieldItem->getWideDisplay();
@@ -895,7 +896,7 @@ class ApplicationField extends AdmObject
           }
           
 
-          return [$applicationFieldList, $message];
+          return [$applicationFieldList, $error, $message];
 
      }
 
