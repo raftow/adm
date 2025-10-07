@@ -863,7 +863,7 @@ class ApplicationField extends AdmObject
           if($struct["NO-REVERSE"]) return false;
           if($struct["SHORTCUT"]) return false; // ex allow_add_qualification
           if($struct["CATEGORY"]=='ITEMS') return false;
-          
+
           return true;
      }
 
@@ -902,11 +902,15 @@ class ApplicationField extends AdmObject
                foreach($afieldList as $afieldItem)
                {
                     $field_name = $afieldItem->getVal("field_name");
-                    $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
-                    if(self::reversable($struct))
+                    if(!$instanceObj->isFrameworkDesignedField($field_name))
                     {
-                         $message .= "<br>".$afieldItem->getWideDisplay();
+                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
+                         if(self::reversable($struct))
+                         {
+                              $message .= "<br>".$afieldItem->getWideDisplay();
+                         }
                     }
+                    
                     
                }
                $message .= "</span>";
