@@ -72,6 +72,7 @@
                                                 'DISPLAY' => true,
                                                 'STEP' => 1,
                                                 'REQUIRED' => true,
+                                                'NO-REVERSE' => true,
                                                 'READONLY' => true,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
@@ -276,7 +277,7 @@
 
                                         'sis_fields_not_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'TEXT',  'STEP' => 2, 'READONLY'=>true,
+								'TYPE' => 'TEXT',  'STEP' => 2, 'READONLY'=>true, 'NO-REVERSE' => true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_75',),   
 
@@ -369,6 +370,7 @@
                                                 'EDIT' => true,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
                                                 'DEFAULT'=>'1', 'READONLY'=>true,
+                                                'NO-REVERSE' => true,
                                                 'STEP' => 2,
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',

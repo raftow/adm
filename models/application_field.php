@@ -897,7 +897,9 @@ class ApplicationField extends AdmObject
           $message = "";
           if($action=="show")
           {
-               $message .= "<br>Info : Application-Field-Manger Will reverse these new fields : ";
+               $message .= "<br>Info : Without do action show you what will be reversed :";
+               $message .= "<br> use : [reverse application_field.adm application] to perform reverse after you are sure";
+               $message .= "<br> Application-Field-Manger will reverse these new fields : ";
                $message .= "<br><div class='cline-message cline-info'>";
                foreach($afieldList as $afieldItem)
                {
