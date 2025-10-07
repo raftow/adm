@@ -24,7 +24,7 @@ class ApplicationField extends AdmObject
 
      public static function applicationTableClassOfId($application_table_id)
      {     
-          $classField = "???";
+          $classField = null;
           if ($application_table_id == 1) {
                $classField = "Applicant";
           } elseif ($application_table_id == 3) {
@@ -39,8 +39,8 @@ class ApplicationField extends AdmObject
      public function af_manager($field_name, $col_struct)
      {
           $application_table_id = $this->getVal("application_table_id");
-          $classField = self::applicationTableClassOfId($application_table_id);
           $attribute = $this->getVal("field_name");
+          $classField = self::applicationTableClassOfId($application_table_id);
           $attribute_prop = strtoupper($field_name);
           $id = $this->id;
           // if(!$classField) throw new AfwRuntimeException("$attribute application field (id=$id) has stange table-id = ($application_table_id)");
@@ -49,7 +49,8 @@ class ApplicationField extends AdmObject
           if($col_struct == "READONLY")
           {
                
-               if(($attribute=="country_id") and ($field_name=="qsearch"))
+               // if(($attribute=="country_id") and ($field_name=="qsearch"))
+               if(true)
                {
                     if(!$classField) throw new AfwRuntimeException("$attribute application field (for object=".var_export($this, true).") <br> has strange table-id = ($application_table_id)");
                     // else die("for ($attribute==country_id) and ($field_name==qsearch) classField=$classField");
