@@ -86,6 +86,8 @@ $config_arr = array(
         'school_year_end' => 'CY-06-30',
         'school_year_date_current_year' => 'CY-02-01',
 
+        "reversable_by_code_arr" => ["application_field"],
+
 
         "workfile_settings"=>[
                 "Applicant"=>["fields"=>["employer_approval_afile_id"]],
