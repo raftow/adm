@@ -874,7 +874,6 @@ class ApplicationField extends AdmObject
 
           $afieldList = Afield::loadRecords($sql_where);
           $applicationFieldList = [];
-          $error = "";
           $message = "";
           if($action=="show")
           {
@@ -896,7 +895,7 @@ class ApplicationField extends AdmObject
           }
           
 
-          return [$applicationFieldList, $error, $message];
+          return [$applicationFieldList, $message];
 
      }
 
