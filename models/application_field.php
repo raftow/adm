@@ -883,7 +883,7 @@ class ApplicationField extends AdmObject
           $field_size = $afieldItem->getVal("field_size");
 
           $applicationFieldObj = ApplicationField::loadByMainIndex($field_name, $application_table_id, true);
-          $applicationFieldObj->set("shortname", $shortname);
+          // $applicationFieldObj->set("shortname", $shortname);
           $applicationFieldObj->set("application_field_type_id", $application_field_type_id);
           $applicationFieldObj->set("field_title_ar", $field_title_ar);
           $applicationFieldObj->set("field_title_en", $field_title_en);
