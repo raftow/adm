@@ -122,7 +122,7 @@
                                         'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  
                                                 'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
+                                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                                 'CSS' => 'width_pct_50', ),
 
                                         'qual_source_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
