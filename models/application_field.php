@@ -870,7 +870,7 @@ class ApplicationField extends AdmObject
           $objATId = $objAT->id;
           $applicationTableId = self::applicationTableIdOf($table);
           // $sql = "select * from $server_db_prefix"."pag.afield where";
-          $sql_where = "atable_id = $objATId and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
+          $sql_where = "atable_id = $objATId and avail='Y' and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
 
           $afieldList = Afield::loadRecords($sql_where);
           $applicationFieldList = [];
