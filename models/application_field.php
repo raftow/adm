@@ -897,7 +897,7 @@ class ApplicationField extends AdmObject
 
           $applicationFieldObj->commit();
 
-          return "$field_name reversed successfully";
+          return ["$field_name reversed successfully", $applicationFieldObj];
      }
 
      public static function reverseByCodes($object_code_arr)
@@ -964,7 +964,9 @@ class ApplicationField extends AdmObject
                          $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
                          if(self::reversable($struct))
                          {
-                              $message .= "<br>".self::reverseAfield($afieldItem, $applicationTableId);
+                              list($mess, $objFld) = self::reverseAfield($afieldItem, $applicationTableId);
+                              $applicationFieldList[] = $objFld;
+                              $message .= "<br>".$mess;
                          }
                     }
                }
