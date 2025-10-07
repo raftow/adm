@@ -48,13 +48,12 @@ class ApplicationField extends AdmObject
           $return = null;
           if($col_struct == "READONLY")
           {
-               
-               // if(($attribute=="country_id") and ($field_name=="qsearch"))
-               if(true)
+               /*
+               if(($attribute=="country_id") and ($field_name=="qsearch"))
                {
                     if(!$classField) throw new AfwRuntimeException("$attribute application field (for object=".var_export($this, true).") <br> has strange table-id = ($application_table_id)");
                     // else die("for ($attribute==country_id) and ($field_name==qsearch) classField=$classField");
-               }
+               }*/
                if(!$classField) return false;
                $structField = $classField::getDbStructure($return_type = 'structure',
                          $attribute,'all',null, null, $repare=false);
