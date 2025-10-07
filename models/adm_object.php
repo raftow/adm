@@ -105,6 +105,39 @@ class AdmObject extends AfwMomkenObject{
                 return AdmEmployee::isGeneralAdmin($employee_id);
         }
 
+                public static function code_of_grade_scale_enum($lkp_id=null)
+        {
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if($lkp_id) return self::grade_scale()['code'][$lkp_id];
+            else return self::grade_scale()['code'];
+        }
+
+        public static function name_of_grade_scale_enum($grade_scale_enum, $lang="ar")
+        {
+            return self::grade_scale()[$lang][$grade_scale_enum];            
+        }
+        
+        public static function list_of_grade_scale_enum($lang = null)
+        {
+            if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
+            return self::grade_scale()[$lang];
+        }
+        
+        public static function grade_scale()
+        {
+                $arr_list_of_grade_scale = array();
+                
+                $objList = GradingScale::loadAllLookupObjects();
+                foreach($objList as $objItem)        
+                {
+                    $arr_list_of_grade_scale["code"][$objItem->getVal("level")] = $objItem->getVal("grade_ar");
+                    $arr_list_of_grade_scale["ar"][$objItem->getVal("level")] = $objItem->getVal("value_ar");
+                    $arr_list_of_grade_scale["en"][$objItem->getVal("level")] = $objItem->getVal("value_en");
+                }
+                
+
+                return $arr_list_of_grade_scale;
+        }
 
         public static function code_of_applicant_decision_enum($lkp_id=null)
         {
