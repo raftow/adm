@@ -262,7 +262,7 @@
 									'READONLY' => "::af_manager", 
 									'CSS' => 'width_pct_25',),
 
-				'step' => array('FGROUP' => 'modes', 'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+				'step' => array('FGROUP' => 'modes', 'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 0,  
 									'TYPE' => 'INT', 'STEP' => 3,  
 									'READONLY' => "::af_manager", 
 									'CSS' => 'width_pct_25',),
