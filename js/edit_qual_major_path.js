@@ -1,3 +1,3 @@
-function qualification_id_onchange() {
+function major_path_id_onchange () {
     
 }
