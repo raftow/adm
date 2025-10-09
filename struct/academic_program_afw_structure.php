@@ -58,7 +58,7 @@
                                         'college_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,   'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'training_unit_type',  'ANSMODULE' => 'adm',  
-                                                'WHERE' => 'program_track_id = §program_track_id§',
+                                                'WHERE' => 'program_track_id = §program_track_id§ or program_track_id =0' ,
                                                 'DEPENDENCIES' => ['program_track_id'],
                                                 'SIZE' => 40,  'DEFAUT' => 11,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 
