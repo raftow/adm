@@ -226,6 +226,11 @@
                         return ($what == "value") ? $return->id : $return;
                 }
 
+                public function calcDoc_type_allowed_list($what = "value")
+                {
+                        return "";
+                }
+
                 public function afterMaj($id, $fields_updated)
                 {  
                         if($fields_updated["split_sorting_by_enum"])

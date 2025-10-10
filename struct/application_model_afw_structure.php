@@ -267,11 +267,19 @@
                                                 'TYPE' => 'MFK',  'ANSWER' => 'eval_type',  'ANSMODULE' => 'adm',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
 
-
+                                        'doc_type_allowed_list' => array(
+                                                        'TYPE' => 'TEXT',  
+                                                        'CATEGORY' => 'FORMULA', 
+                                                        'READONLY' => true,  
+                                                        'STEP' => 99,  
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        ),  
                                         'doc_type_mfk' => array('SHORTNAME' => 'types',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false, 'STEP' => 2, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
-                                                'TYPE' => 'MFK',  'ANSWER' => 'doc_type',  'ANSMODULE' => 'ums',  'READONLY' => false,  'DNA' => true, 
+                                                'TYPE' => 'MFK',  'ANSWER' => 'doc_type',  'ANSMODULE' => 'ums',  
+                                                'WHERE' => "id in (§doc_type_allowed_list§)",
+                                                'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_50', ),
 
                                         'pic_view' => array(
