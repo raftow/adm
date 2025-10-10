@@ -71,6 +71,8 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["web_application"] = "تمكين النشر على البوابة";
 
 		$trad["application_model"]["eval_type_mfk"] = "أنواع الاختبارات المطلوبة";
+		$trad["application_model"]["doc_type_mfk"] = "الوثائق المطلوبة";
+		
 		$trad["application_model"]["max_available_desire_enabled"] = "الحد الأقصى للرغبات";
 		
 
