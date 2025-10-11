@@ -13,3 +13,5 @@
 	$trad["program_track"]["sorting_formula"] = "صيغة المفاضلة";
 
 	$trad["program_track"]["sorting_group_id"] = "مجموعة الفرز";
+
+	$trad["program_track"]["doc_type_mfk"] = "الوثائق المطلوبة";
