@@ -816,16 +816,32 @@ class ApplicationDesire extends AdmObject
 
         public function calcProgram_track_id($what = "value")
         {
-                $program_track_id = ($what == "value") ? 0 : "all";
+                $program_track_id = ($what == "value") ? 0 : (($what == "object") ? null :"all");
                 $branchObj = $this->het("application_plan_branch_id");
                 if (!$branchObj) return $program_track_id;
                 $programObj = $branchObj->het("program_id");
                 if ($programObj) {
-                        $program_track_id = ($what == "value") ? $programObj->getVal("program_track_id") : $programObj->decode("program_track_id");
+                        $program_track_id = ($what == "value") ? $programObj->getVal("program_track_id") : (($what == "object") ? $programObj->het("program_track_id") : $programObj->decode("program_track_id"));
                 }
 
                 return $program_track_id;
         }
+
+        public function calcNeeded_docs_available($what = "value")
+        {
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+                $objProgramTrack = $this->calcProgram_track_id("object");
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                
+                $required_doc_type_arr = explode(",",trim($objProgramTrack->getVal("doc_type_mfk"),","));
+                foreach($required_doc_type_arr as $required_doc_type_id)
+                {
+                      if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;
+                }
+                return $yes;                 
+        }
+
+
 
         
 

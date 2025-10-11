@@ -25,6 +25,8 @@ class ApplicationArTranslator{
 		$trad["application"]["application_step_id"] = "المرحلة الحالية";
 		$trad["application"]["current_fields_matrix"] = "حالة تحديث البيانات";
 		$trad["application"]["applicantSimulationList"] = "نتيجة المحاكاة";
+
+		$trad["application"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";
 		
 
 		$trad["application"]["applicationQualificationList"] = "المؤهلات المسموحة للتقديم";

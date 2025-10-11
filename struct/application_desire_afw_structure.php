@@ -253,6 +253,13 @@
                                                 'CSS' => 'width_pct_75',
                                         ), 
 
+                                        'needed_docs_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'YN',  'STEP' => 2, 'READONLY'=>true,
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),
+
+
                                         'health_ind' => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

@@ -2505,6 +2505,19 @@ class Application extends AdmObject
                 return [$program_track_id, $major_path_id, $applicantQualificationObj, $program_track_name, $major_path_name];
         }
 
+        public function calcNeeded_docs_available($what = "value")
+        {
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+                $objApplicationModel = $this->getApplicationModel();
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");                
+                $required_doc_type_arr = explode(",",trim($objApplicationModel->getVal("doc_type_mfk"),","));
+                foreach($required_doc_type_arr as $required_doc_type_id)
+                {
+                      if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;
+                }
+                return $yes;                 
+        }
+
         public function calcWeighted_percentage($what = "value")
         {
                 list($program_track_id, $major_path_id, $applicantQualificationObj) = $this->calcTrackAndMajorPath($what);

@@ -25,6 +25,7 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["health_ind"] = "لائق طبيا";    
 		$trad["application_desire"]["desire_num"] = "ترتيب الرغبة"; 
 		$trad["application_desire"]["comments"] = "ملاحظات";    
+		$trad["application_desire"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";
 
 		$trad["application_desire"]["sorting_field_1_id"] = "معيار الفرز 1";    
 		$trad["application_desire"]["sorting_field_2_id"] = "معيار الفرز 2";    

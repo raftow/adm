@@ -352,7 +352,11 @@
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
-
+                                        'needed_docs_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'YN',  'STEP' => 4, 'READONLY'=>true,
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),
 
 
                                         'application_step_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
