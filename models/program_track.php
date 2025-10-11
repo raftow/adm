@@ -47,7 +47,7 @@ $file_dir_name = dirname(__FILE__);
                 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class ProgramTrack extends AFWObject{
+class ProgramTrack extends AdmObject{
 
         public static $MY_ATABLE_ID=13875; 
         // إحصائيات المسارات 
