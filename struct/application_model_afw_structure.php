@@ -271,6 +271,7 @@
                                                         'TYPE' => 'TEXT',  
                                                         'CATEGORY' => 'FORMULA', 
                                                         'READONLY' => true,  
+                                                        'NO-COTE' => true,  
                                                         'STEP' => 99,  
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         ),  
