@@ -226,10 +226,7 @@
                         return ($what == "value") ? $return->id : $return;
                 }
 
-                public function calcDoc_type_allowed_list($what = "value")
-                {
-                        return "6,18,19,20,27,28,29";
-                }
+                
 
                 public function afterMaj($id, $fields_updated)
                 {  
