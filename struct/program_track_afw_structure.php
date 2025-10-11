@@ -92,7 +92,7 @@
                                                 'CSS' => 'width_pct_100',),
 
                                         'doc_type_mfk' => array('SHORTNAME' => 'types',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => false, 'STEP' => 2, 
+                                                'EDIT' => true,  'QEDIT' => false, 'STEP' => 1, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'doc_type',  'ANSMODULE' => 'ums',  
                                                 'WHERE' => "id in (§doc_type_allowed_list§)",
