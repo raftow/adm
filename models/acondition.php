@@ -853,18 +853,17 @@ class Acondition extends AdmObject{
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
                 $my_id = $this->getId();
 
-                if(
-                        $my_id and (
+                if($my_id and $this->_isComposed())/* and (
                                 (($mode=="mode_condition_1_id") and (!$this->getVal("condition_1_id"))) or 
                                 (($mode=="mode_condition_2_id") and (!$this->getVal("condition_2_id")))
-                               )
-                        )
+                               )*/
+                        
 
                 {
                         $aco_id = $this->getVal("acondition_origin_id");
                         unset($link);
                         $link = array();
-                        $title = "إضافة هذا الشرط";
+                        $title = "إضافة جزء من شرط مركب";
                         $general = $this->getVal("general");
                         // $title_detailed = $title ."لـ : ". $displ;
                         $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=Acondition&currmod=adm&sel_acondition_origin_id=$aco_id&sel_general=$general&sel_acondition_type_id=3";
