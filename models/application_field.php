@@ -272,7 +272,7 @@ class ApplicationField extends AdmObject
 
      public function getDropDownDisplay($lang = "ar")
      {
-          return $this->getVal("field_name") . "-" . $this->getVal("field_title_$lang");
+          return $this->getVal("field_name") . "-" . $this->getVal("field_title_$lang")." [".self::list_of_application_table_id()[$this->getVal("application_table_id")]."]";
           // $this->getVal("shortname") . "-" .
      }
 
