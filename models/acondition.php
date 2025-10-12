@@ -853,7 +853,7 @@ class Acondition extends AdmObject{
                 $otherLinksArray = $this->getOtherLinksArrayStandard($mode, false, $step);
                 $my_id = $this->getId();
 
-                if($my_id and $this->_isComposed())/* and (
+                if($my_id and ($mode=="mode_edit") and $this->_isComposed())/* and (
                                 (($mode=="mode_condition_1_id") and (!$this->getVal("condition_1_id"))) or 
                                 (($mode=="mode_condition_2_id") and (!$this->getVal("condition_2_id")))
                                )*/
