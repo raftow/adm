@@ -2507,10 +2507,22 @@ class Application extends AdmObject
 
         public function calcNeeded_docs_available($what = "value")
         {
-                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
                 $objApplicationModel = $this->getApplicationModel();
-                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");                
                 $required_doc_type_arr = explode(",",trim($objApplicationModel->getVal("doc_type_mfk"),","));
+
+                return self::required_docs_available($required_doc_type_arr, $what);
+        }
+
+        public function calcTafrigh_available($what = "value")
+        {
+                $required_doc_type_arr = [self::$DOC_TYPE_TAFRIGH];
+                return self::required_docs_available($required_doc_type_arr, $what);
+        }
+
+        public function required_docs_available($required_doc_type_arr, $what = "value")
+        {                
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");                                
                 foreach($required_doc_type_arr as $required_doc_type_id)
                 {
                       if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;

@@ -54,7 +54,7 @@ class ApplicationArTranslator{
 		$trad["application"]["applicant_decision_enum"] = "قرار المتقدم";
 		
 		$trad["application"]["sis_fields_not_available"] = "الحقول الغير متوفرة للترحيل لنظام بيانات الطالب";
-		
+		$trad["application"]["tafrigh_available"] = "لديه تفريغ من جهة العمل";
 		
         return $trad;
     }

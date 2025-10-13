@@ -2,6 +2,34 @@
 
 class AdmObject extends AfwMomkenObject
 {
+    // lookup Value List codes 
+
+    // BACHELORS - شهادة البكالوريوس  
+    public static $DOC_TYPE_BACHELORS = 34; 
+
+    // CV - سيرة ذاتية  
+    public static $DOC_TYPE_CV = 20; 
+
+    // DIPLOMA - شهادة الدبلوم  
+    public static $DOC_TYPE_DIPLOMA = 35; 
+
+    // EMPLOYMENT - شهادة توظيف  
+    public static $DOC_TYPE_EMPLOYMENT = 19; 
+
+    // IDN_PHOTO - صورة الهوية  
+    public static $DOC_TYPE_IDN_PHOTO = 18; 
+
+    // MASTER - شهادة الماجستير  
+    public static $DOC_TYPE_MASTER = 33; 
+
+    // SEJEL - السجل الأكاديمي  
+    public static $DOC_TYPE_SEJEL = 29; 
+
+    // TAFRIGH - تفريغ من جهة العمل  
+    public static $DOC_TYPE_TAFRIGH = 28; 
+
+    // TAWSIA - توصية علمية  
+    public static $DOC_TYPE_TAWSIA = 27; 
 
     private static $fields_manager_matrix = null;
     public static function getFieldsManagerMatrix($table_name, $field_name)
