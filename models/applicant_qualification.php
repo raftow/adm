@@ -118,7 +118,7 @@ class ApplicantQualification extends AdmObject
                 return true;
         }
 
-        public function afterInsert($id, $fields_updated)
+        public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent=false)
         {
                 if ($fields_updated["qualification_id"]) {
                         /**

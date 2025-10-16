@@ -186,7 +186,7 @@ class AdmEmpRequest extends AdmObject
                 return true;
         }
 
-        public function afterUpdate($id, $fields_updated) {}
+        public function afterUpdate($id, $fields_updated, $disableAfterCommitDBEvent=false) {}
         /*
         public function updateFromExternalSources($lang="ar", $resetExisting=true, $commit=true, $forceDoApproval=false)
         {

@@ -201,7 +201,7 @@ class AdmEmployee extends AdmObject
         
 
 
-        public function afterInsert($id, $fields_updated) 
+        public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent=false) 
         {
                 if($this->sureIs("active") and ($this->getVal("employee_id")>0))
                 {
@@ -214,7 +214,7 @@ class AdmEmployee extends AdmObject
                 }
         }
 
-        public function afterUpdate($id, $fields_updated) 
+        public function afterUpdate($id, $fields_updated, $disableAfterCommitDBEvent=false) 
         {
                 if(($this->getVal("employee_id")>0) and 
                    ($fields_updated["active"] or $fields_updated["admin"] or $fields_updated["super_admin"] or $fields_updated["requests_nb"]))
