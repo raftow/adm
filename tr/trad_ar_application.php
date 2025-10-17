@@ -36,7 +36,7 @@ class ApplicationArTranslator{
 		$trad["application"]["comments"] = "ملاحظات"; 
 		$trad["application"]["qualification_id"] = "المؤهل";
 		$trad["application"]["major_category_id"] = "فئة التخصص";
-
+		$trad["application"]["application_fees_paid"] = "رسوم التقديم مدفوعة";
 
 		$trad["application"]["program_id"] = "البرنامج";
 		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";

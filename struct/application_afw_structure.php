@@ -269,9 +269,17 @@
 
                                         
 
+                                        
+                                        'application_fees_paid' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 99, 
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),
+
+
                                         'sis_fields_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 2, 'READONLY'=>true,
+								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 2, 
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
