@@ -8,6 +8,7 @@
 					$obj->DISPLAY_FIELD = "acondition_origin_type_name_ar";
 					$obj->ORDER_BY_FIELDS = "acondition_origin_type_name_ar";
 					$obj->public_display = true;
+					$obj->ENABLE_DISPLAY_MODE_IN_QEDIT = true;
 				}
 			}    
 			
@@ -21,7 +22,7 @@
 				'CSS' => 'width_pct_100',),
 
 			'acondition_origin_type_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true,  'QEDIT' => true,  'SIZE' => 48,  'SEARCH-ADMIN' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => true,  
-				'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1,  
+				'TYPE' => 'TEXT',   'MANDATORY' => true, 'DISPLAY' => true,  'STEP' => 1,  
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_100',),
 
