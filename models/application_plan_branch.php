@@ -28,29 +28,46 @@ class ApplicationPlanBranch extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($application_plan_id, $program_offering_id, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($application_plan_id, $program_offering_id, $gender_enum, $training_period_enum, $create_obj_if_not_found=false)
         {
-                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
-                if (!$program_offering_id) throw new AfwRuntimeException("loadByMainIndex : program_offering_id is mandatory field");
+           if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+           if(!$gender_enum) throw new AfwRuntimeException("loadByMainIndex : gender_enum is mandatory field");
+           if(!$training_period_enum) throw new AfwRuntimeException("loadByMainIndex : training_period_enum is mandatory field");
+           if(!$program_offering_id) throw new AfwRuntimeException("loadByMainIndex : program_offering_id is mandatory field");
 
 
-                $obj = new ApplicationPlanBranch();
-                $obj->select("application_plan_id", $application_plan_id);
-                $obj->select("program_offering_id", $program_offering_id);
+           $obj = new ApplicationPlanBranch();
+           $obj->select("application_plan_id",$application_plan_id);
+           $obj->select("gender_enum",$gender_enum);
+           $obj->select("training_period_enum",$training_period_enum);
+           $obj->select("program_offering_id",$program_offering_id);
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("application_plan_id",$application_plan_id);
+                $obj->set("gender_enum",$gender_enum);
+                $obj->set("training_period_enum",$training_period_enum);
+                $obj->set("program_offering_id",$program_offering_id);
 
-                if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
-                        return $obj;
-                } elseif ($create_obj_if_not_found) {
-                        $obj->set("application_plan_id", $application_plan_id);
-                        $obj->set("program_offering_id", $program_offering_id);
+                $applicationPlanObj = ApplicationPlan::loadById($application_plan_id);
+                $application_model_id = $applicationPlanObj->getVal("application_model_id");
+                $applicationModelBranchObj = ApplicationModelBranch::loadByMainIndex($application_model_id, $program_offering_id, $gender_enum, $training_period_enum);
+                $obj->set("application_model_branch_id",$applicationModelBranchObj->id);
 
-                        $obj->insertNew();
-                        if (!$obj->id) return null; // means beforeInsert rejected insert operation
-                        $obj->is_new = true;
-                        return $obj;
-                } else return null;
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
         }
+
+
 
 
         public static function getBranchsCondWPMatrix($application_plan_id, $sorting_group_id)
@@ -158,7 +175,7 @@ class ApplicationPlanBranch extends AdmObject
                                 $this->set("term_id", $applicationPlanObj->getVal("term_id"));
                         }
                 }
-
+                /* je pense que c inutile car on doit remplir tout cela a la creation et ca reste readonly
                 if ($fields_updated["program_id"] or $fields_updated["training_unit_id"] or true) {
                         if ($this->getVal("program_id") and $this->getVal("training_unit_id")) {
                                 $progOffObj = AcademicProgramOffering::loadByMainIndex($this->getVal("program_id"), $this->getVal("training_unit_id"));
@@ -166,13 +183,14 @@ class ApplicationPlanBranch extends AdmObject
                                         $this->set("program_offering_id", $progOffObj->id);
                                         if (!$applicationPlanObj) {
                                                 $applicationPlanObj = $this->het("application_plan_id");
-                                                $applicationModelBranchObj = ApplicationModelBranch::loadByMainIndex($progOffObj->id, $applicationPlanObj->getVal("application_model_id"));
+                                                $applicationModelBranchObj = ApplicationModelBranch::load ByMainIndex($applicationPlanObj->getVal("application_model_id"), $progOffObj->id, );
                                                 if ($applicationModelBranchObj) $this->set("application_model_branch_id", $applicationModelBranchObj->id);
                                                 $this->genereNames($lang, $progOffObj, false);
                                         }
                                 }
+                                        
                         }
-                }
+                }*/
 
                 if ($this->getVal("application_end_date") and $fields_updated["application_end_date"]) {
                         $this->repareHijriApplicationEndDate("ar", false);

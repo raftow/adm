@@ -955,7 +955,7 @@
 
                         $this->hideAllApplicationModelBranchList();
                         
-                        $trainingPeriodArr = [$this->getVal("training_period_enum")];
+                        $trainingPeriodArr = self::splitTrainingPeriods($this->getVal("training_period_enum"));
                         // $trainingPeriodArrCount = count($trainingPeriodArr);
                         foreach($trainingPeriodArr as $training_period_enum)
                         {
@@ -969,8 +969,8 @@
                                         if($progOffItem)
                                         {
                                                 $seats_capacity = 0;
-                                                $appModelBr = ApplicationModelBranch::loadByMainIndex($progOffItem->id, $this->id, $seats_capacity, $create_obj_if_not_found=true);
-                                                $appModelBr->set("gender_enum", $progOffItem->getVal("gender_enum"));
+                                                $gender_enum = $progOffItem->getVal("gender_enum");
+                                                $appModelBr = ApplicationModelBranch::loadByMainIndex($this->id, $progOffItem->id, $gender_enum, $training_period_enum, $seats_capacity, $create_obj_if_not_found=true);                                                
                                                 $appModelBr->set("major_id", $progOffItem->getVal("major_id"));
                                                 $appModelBr->set("academic_program_id", $progOffItem->getVal("academic_program_id"));  
                                                 $appModelBr->genereName($lang);

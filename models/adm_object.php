@@ -374,6 +374,13 @@ class AdmObject extends AfwMomkenObject
         return $arr_list_of_training_period;
     }
 
+
+    public static function splitTrainingPeriods($tp)
+    {
+        if($tp!=3) return [$tp];
+        return [1,2];
+    }
+
     public static function code_of_sorting_sens_enum($lkp_id = null)
     {
         if ($lkp_id) return self::sorting_sens()['code'][$lkp_id];

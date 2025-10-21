@@ -31,32 +31,47 @@ class ApplicationModelBranch extends AdmObject
 
 
 
-        public static function loadByMainIndex($program_offering_id, $application_model_id, $seats_capacity = 0, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($application_model_id, $program_offering_id, $gender_enum, $training_period_enum, $seats_capacity = 0,$create_obj_if_not_found=false)
         {
-                $obj = new ApplicationModelBranch();
-                $obj->select("program_offering_id", $program_offering_id);
-                $obj->select("application_model_id", $application_model_id);
+           if(!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
+           if(!$program_offering_id) throw new AfwRuntimeException("loadByMainIndex : program_offering_id is mandatory field");
+           if(!$gender_enum) throw new AfwRuntimeException("loadByMainIndex : gender_enum is mandatory field");
+           if(!$training_period_enum) throw new AfwRuntimeException("loadByMainIndex : training_period_enum is mandatory field");
 
-                if ($obj->load()) {
-                        if ($create_obj_if_not_found) {
-                                $obj->set("seats_capacity", $seats_capacity);
-                                $obj->activate();
-                        }
-                        return $obj;
-                } elseif ($create_obj_if_not_found) {
-                        $obj->set("program_offering_id", $program_offering_id);
-                        $obj->set("application_model_id", $application_model_id);
-                        $obj->set("seats_capacity", $seats_capacity);
-                        $obj->set("confirmation_days", 3);
-                        //@todo calculate direct_adm_capacity from pct
-                        $direct_adm_capacity_pct = 0.1;
-                        $obj->set("direct_adm_capacity", round($seats_capacity * $direct_adm_capacity_pct));
-                        $obj->insertNew();
-                        if (!$obj->id) return null; // means beforeInsert rejected insert operation
-                        $obj->is_new = true;
-                        return $obj;
-                } else return null;
+
+           $obj = new ApplicationModelBranch();
+           $obj->select("application_model_id",$application_model_id);
+           $obj->select("program_offering_id",$program_offering_id);
+           $obj->select("gender_enum",$gender_enum);
+           $obj->select("training_period_enum",$training_period_enum);
+
+           if($obj->load())
+           {
+                $obj->set("seats_capacity", $seats_capacity);
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("application_model_id",$application_model_id);
+                $obj->set("program_offering_id",$program_offering_id);
+                $obj->set("gender_enum",$gender_enum);
+                $obj->set("training_period_enum",$training_period_enum);
+                $obj->set("seats_capacity", $seats_capacity);
+                $obj->set("confirmation_days", 3);
+                //@todo calculate direct_adm_capacity from pct
+                $direct_adm_capacity_pct = 0.1;
+                $obj->set("direct_adm_capacity", round($seats_capacity * $direct_adm_capacity_pct));
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
         }
+
 
         public function getDisplay($lang = 'ar')
         {

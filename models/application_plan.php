@@ -329,7 +329,9 @@ class ApplicationPlan extends AdmObject
             $ambObj = ApplicationModelBranch::loadById($application_model_branch_id);
             if (!$ambObj) return 0;
             $program_offering_id = $ambObj->getVal("program_offering_id");
-            $obj = ApplicationPlanBranch::loadByMainIndex($this->id, $program_offering_id);
+            $gender_enum = $ambObj->getVal("gender_enum");
+            $training_period_enum = $ambObj->getVal("training_period_enum");
+            $obj = ApplicationPlanBranch::loadByMainIndex($this->id, $program_offering_id, $gender_enum, $training_period_enum);
             if (!$obj) return 0;
             // if($obj->id==65) throw new AfwRuntimeException("Here got a strange value pbid=65 from plan= $this->id and program_offering_id=$program_offering_id ");
             $this->mbToPb[$application_model_branch_id] = $obj->id;
@@ -444,7 +446,7 @@ class ApplicationPlan extends AdmObject
 
 
         $sql_insert = "insert into $db.application_plan_branch(created_by,  created_at, updated_by,updated_at, active, version, sci_id,
-                                academic_level_id,gender_enum,term_id,application_plan_id,
+                                academic_level_id,gender_enum,gender_enum,training_period_enum,term_id,application_plan_id,
                                 program_id,training_unit_id,department_id,major_id,
                                 program_offering_id,application_model_branch_id,
                                 name_ar, name_en, branch_order,
@@ -452,7 +454,7 @@ class ApplicationPlan extends AdmObject
                                 capacity_track1, capacity_track2, capacity_track3, capacity_track4, sorting_group_id,
                                 confirmation_days, application_end_date, hijri_application_end_date)
                                 select $me, now(), $me, now(), amb.active, 0 as version, 431 as sci_id,
-                                        $academic_level_id, amb.gender_enum, $term_id, $this_id, 
+                                        $academic_level_id, amb.gender_enum,amb.training_period_enum, $term_id, $this_id, 
                                         amb.academic_program_id, amb.training_unit_id, amb.department_id, amb.major_id,  
                                         amb.program_offering_id, amb.id,
                                         amb.branch_name_ar, amb.branch_name_en, amb.branch_order,
