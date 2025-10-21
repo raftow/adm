@@ -43,21 +43,18 @@
 
                                                                 
 
-                                                'gender_enum' => array('IMPORTANT' => 'IN',  'STEP' => 1, 
-                                                        'SHOW' => true, 'EDIT' => true, 'READONLY' => true,
-                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  
-                                                        'MANDATORY' => true, 
-                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        'CSS' => 'width_pct_25',
-                                                ),	
-
-
-                                                'training_period_enum' => array('IMPORTANT' => 'IN',  
-                                                        'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                        'EDIT' => true, 'READONLY' => true, 'QEDIT' => false,  'QSEARCH' => true,  
-                                                        'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'gender_enum' => array('IMPORTANT' => 'IN', 'FGROUP' => 'application_model_id', 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_model_id.gender_enum', 'SHOW' => true,  
+                                                        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                         'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'READONLY'=>true,
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_25', ),	
+
+
+                                                'training_period_enum' => array('IMPORTANT' => 'IN', 'FGROUP' => 'application_model_id', 'CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_model_id.training_period_enum', 'SHOW' => true,  
+                                                        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'READONLY'=>true,
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25', ),	
 

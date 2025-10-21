@@ -1006,7 +1006,7 @@ class AdmObject extends AfwMomkenObject
         return self::gender()[$lang];
     }
 
-    public static function gender()
+    public static function gender($gender_separed=false)
     {
         $arr_list_of_gender = array();
 
@@ -1019,9 +1019,13 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_gender["ar"][2] = "طالبات";
         $arr_list_of_gender["code"][2] = "F";
 
-        $arr_list_of_gender["en"][4] = "Male & Female Students";
-        $arr_list_of_gender["ar"][4] = "طلاب وطالبات";
-        $arr_list_of_gender["code"][4] = "X";
+        if(!$gender_separed)
+        {
+            $arr_list_of_gender["en"][4] = "Male & Female Students";
+            $arr_list_of_gender["ar"][4] = "طلاب وطالبات مختلط";
+            $arr_list_of_gender["code"][4] = "X";
+        }
+        
 
 
 
@@ -1049,7 +1053,7 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_genders["code"][2] = "F";
 
         $arr_list_of_genders["en"][3] = "Male & Female";
-        $arr_list_of_genders["ar"][3] = "الطلاب و الطالبات";
+        $arr_list_of_genders["ar"][3] = "كل من الطلاب و الطالبات";
         $arr_list_of_genders["code"][3] = "MF";
 
 

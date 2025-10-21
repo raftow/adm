@@ -9,8 +9,8 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "branch_name_ar";
-                                $obj->ORDER_BY_FIELDS = "application_model_id, branch_order";
-                                $obj->UNIQUE_KEY = array('program_offering_id','application_model_id',);
+                                $obj->ORDER_BY_FIELDS = "application_model_id, branch_order"; 
+                                $obj->UNIQUE_KEY = array('application_model_id','program_offering_id','gender_enum','training_period_enum');
                                 $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
                                 $obj->MOVE_UP_ACTION = true;

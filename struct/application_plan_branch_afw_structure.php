@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"name_ar", 'en'=>"name_en"];
                                 $obj->ORDER_BY_FIELDS = "application_plan_id, branch_order";
-                                $obj->UNIQUE_KEY = array('application_plan_id','program_offering_id');
+                                $obj->UNIQUE_KEY = array('application_plan_id','program_offering_id','gender_enum','training_period_enum');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
                                 $obj->MOVE_UP_ACTION = true;
@@ -39,6 +39,15 @@
                                                         'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 'READONLY'=>true, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_25', ),	
+
+                                                'training_period_enum' => array('IMPORTANT' => 'IN',  
+                                                        'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                        'EDIT' => true, 'READONLY' => true, 'QEDIT' => false,  'QSEARCH' => true,  
+                                                        'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_25', ),
 
                                                 
                                                 'academic_level_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
