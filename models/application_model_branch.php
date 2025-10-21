@@ -172,7 +172,7 @@ class ApplicationModelBranch extends AdmObject
                         if ($attribute == "capacity_track$spath")
                         {
                                 $application_model_id = $this->getVal("application_model_id");
-                                return SortingPath::trackTranslation($application_model_id, $spath, $lang);
+                                if($application_model_id) return SortingPath::trackTranslation($application_model_id, $spath, $lang);
                         }
                 }
 
