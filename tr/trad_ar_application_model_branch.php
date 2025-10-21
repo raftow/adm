@@ -48,4 +48,13 @@
 
 	$trad["application_model_branch"]["sorting_group_id"] = "مجموعة الفرز";
 
+
+	$trad["application_model_branch"]["academic_program_id"] = "البرنامج الأكاديمي";
+	$trad["application_model_branch"]["training_unit_id"] = "المنشأة المنفذة";
+	$trad["application_model_branch"]["department_id"] = "القسم";
+	$trad["application_model_branch"]["major_id"] = "تخصص البرنامح";
+	$trad["application_model_branch"]["training_period_enum"] = "فترة التدريب";
+	$trad["application_model_branch"]["gender_enum"] = "جنس المتدربين";
+	
+
 	

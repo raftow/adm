@@ -25,7 +25,7 @@
 	$trad["academic_program_offering"]["academic_level_id"] = "المرحلة التدريبية";
 	$trad["academic_program_offering"]["program_name_ar"] = "مسمى الفرع بالعربية";
 	$trad["academic_program_offering"]["program_name_en"] = "مسمى الفرع بالإنجليزية";
-	$trad["academic_program_offering"]["training_period_menum"] = "فترات التدريب";
+	$trad["academic_program_offering"]["training_period_enum"] = "فترة التدريب";
 	$trad["academic_program_offering"]["seats_capacity_1"] = "الطاقة الاستيعابية الصباحية";
 	$trad["academic_program_offering"]["seats_capacity_2"] = "الطاقة الاستيعابية المسائية";
 	$trad["academic_program_offering"]["seats_capacity_3"] = "الطاقة الاستيعابية عن بعد";

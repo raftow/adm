@@ -238,10 +238,11 @@ class AcademicProgramOffering extends AdmObject
                 }
         }
 
+        /*
         public static function list_of_training_period_menum()
         {
                 return self::list_of_training_period_enum();
-        }
+        }*/
 
         protected function getPublicMethods()
         {
