@@ -675,7 +675,7 @@ class AdmEmployee extends AdmObject
         }
 
 
-        protected function hideDisactiveRowsFor($auser)
+        protected function hideNonActiveRowsFor($auser)
         {
                 if(!$auser) return true;
                 if(AdmObject::userConnectedIsGeneralSupervisor($auser)) return false;
