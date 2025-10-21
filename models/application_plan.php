@@ -678,7 +678,7 @@ class ApplicationPlan extends AdmObject
 
     public function resetCapacitiesAsMajorPath($coefs)
     {
-            foreach($coefs as $c => $cv) ${"coef_$c"} = $cv/100.0;
+            foreach($coefs as $c => $cv) { ${"coef_$c"} = $cv/100.0; if(!${"coef_$c"}) ${"coef_$c"} = 0.0; }
             $sets_arr = ['capacity_track1'=>"round(seats_capacity*$coef_1)",
                             'capacity_track2'=>"round(seats_capacity*$coef_2)",
                             'capacity_track3'=>"round(seats_capacity*$coef_3)",
