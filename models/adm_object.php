@@ -104,7 +104,7 @@ class AdmObject extends AfwMomkenObject
         return $scopeList;
     }
 
-    public static function userConnectedIsSupervisor($objme = null)
+    public static function userIsSupervisor($objme = null)
     {
         if (!$objme) $objme = AfwSession::getUserConnected();
         if (!$objme) return 0;
@@ -115,7 +115,7 @@ class AdmObject extends AfwMomkenObject
         return AdmEmployee::isAdmin($employee_id);
     }
 
-    public static function userConnectedIsGeneralSupervisor($objme = null)
+    public static function userIsGeneralSupervisor($objme = null)
     {
         if (!$objme) $objme = AfwSession::getUserConnected();
         if (!$objme) return 0;

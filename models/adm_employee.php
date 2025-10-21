@@ -66,8 +66,8 @@ class AdmEmployee extends AdmObject
                 {
                         $empl_id = $objme ? $objme->getEmployeeId() : 0;
                         
-                        if($empl_id) $iam_general_supervisor = AdmObject::userConnectedIsGeneralSupervisor();
-                        if($empl_id) $iam_supervisor = AdmObject::userConnectedIsSupervisor();                        
+                        if($empl_id) $iam_general_supervisor = AdmObject::userIsGeneralSupervisor();
+                        if($empl_id) $iam_supervisor = AdmObject::userIsSupervisor();                        
                         if(!$iam_general_supervisor) $iam_general_supervisor = 0;
                         if(!$iam_supervisor) $iam_supervisor = 0;
 
@@ -675,10 +675,10 @@ class AdmEmployee extends AdmObject
         }
 
 
-        protected function hideDisactiveRowsFor($auser)
+        protected function hideNonActiveRowsFor($auser)
         {
                 if(!$auser) return true;
-                if(AdmObject::userConnectedIsGeneralSupervisor($auser)) return false;
+                if(AdmObject::userIsGeneralSupervisor($auser)) return false;
                 if($auser->isAdmin()) return false;  
                 return true;
         }
