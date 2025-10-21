@@ -49,8 +49,8 @@ class AdmOrgunit extends AdmObject{
                 {
                         $empl_id = $objme ? $objme->getEmployeeId() : 0;
                         
-                        if($empl_id) $iam_general_supervisor = AdmObject::userConnectedIsGeneralSupervisor();
-                        if($empl_id) $iam_supervisor = AdmObject::userConnectedIsSupervisor();
+                        if($empl_id) $iam_general_supervisor = AdmObject::userIsGeneralSupervisor();
+                        if($empl_id) $iam_supervisor = AdmObject::userIsSupervisor();
                         
                         if(!$iam_general_supervisor) $iam_general_supervisor = 0;
                         if(!$iam_supervisor) $iam_supervisor = 0;
@@ -179,7 +179,7 @@ class AdmOrgunit extends AdmObject{
         protected function getPublicMethods()
         {
                 $pbms = array();
-                $iam_general_supervisor = AdmObject::userConnectedIsGeneralSupervisor();
+                $iam_general_supervisor = AdmObject::userIsGeneralSupervisor();
                 if($iam_general_supervisor)
                 {
                         
