@@ -1015,6 +1015,9 @@ class AdmObject extends AfwMomkenObject
 
     public static function gender($multi_gender=false)
     {
+        // في البلدان التي فيها اختلاط الجنسين مثل بلدنا 
+        // الله يرحم حال بلدنا يجب وضع 
+        // gender-separed = false in config file
         $gender_separed = AfwSession::config("gender-separed", true);
         $arr_list_of_gender = array();
 
@@ -1029,9 +1032,16 @@ class AdmObject extends AfwMomkenObject
 
         if($multi_gender)
         {
+            $suffix_to_explain_ar = "";
+            $suffix_to_explain_en = "";
             // throw new AfwRuntimeException("multi_gender=true good");
-            $arr_list_of_gender["en"][3] = "Male & Female";
-            $arr_list_of_gender["ar"][3] = "طلاب و طالبات منفصل";
+            if(!$gender_separed)
+            {
+                $suffix_to_explain_ar = " منفصل";
+                $suffix_to_explain_en = " separed";
+            }    
+            $arr_list_of_gender["en"][3] = "Male & Female".$suffix_to_explain_en;            
+            $arr_list_of_gender["ar"][3] = "طلاب و طالبات".$suffix_to_explain_ar;
             $arr_list_of_gender["code"][3] = "MF";
         }
         // else throw new AfwRuntimeException("multi_gender=false ???");
