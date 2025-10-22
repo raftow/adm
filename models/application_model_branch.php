@@ -115,13 +115,19 @@ class ApplicationModelBranch extends AdmObject
                 if (!$appModelObj) return ["لم يتم تحديد نموذج القبول", ""];
 
                 if (($which == "all") or ($which == "ar")) {
-                        $new_name_ar = $appModelObj->getDisplay("ar") . "-" . $progOffr->getDisplay("ar");
+                        $new_name_ar = $appModelObj->getShortDisplay("ar") . "-" . 
+                                       $progOffr->getShortDisplay("ar") . "-" . 
+                                       $this->showAttribute('gender_enum',null,true,"ar") . "-" . 
+                                       $this->showAttribute('training_period_enum',null,true,"ar");
                         $this->set("branch_name_ar", $new_name_ar);
                         // die("reset name to : ".$new_name);
                 }
 
                 if (($which == "all") or ($which == "en")) {
-                        $new_name_en = $appModelObj->getDisplay("en") . "-" . $progOffr->getDisplay("en");
+                        $new_name_en = $appModelObj->getDisplay("en") . "-" . 
+                                       $progOffr->getDisplay("en") . "-" . 
+                                       $this->showAttribute('gender_enum',null,true,"en") . "-" . 
+                                       $this->showAttribute('training_period_enum',null,true,"en");
                         $this->set("branch_name_en", $new_name_en);
                 }
 

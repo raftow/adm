@@ -13,10 +13,7 @@ class AdmDisabilityAfwStructure
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
                         $obj->IS_LOOKUP = true;
-
-
-                        // $obj->UNIQUE_KEY = array('XXX', 'YYY');
-
+                        $obj->UNIQUE_KEY = array('lookup_code');
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
                         $obj->general_check_errors = true;
