@@ -1029,12 +1029,12 @@ class AdmObject extends AfwMomkenObject
 
         if($multi_gender)
         {
-            throw new AfwRuntimeException("multi_gender=true good");
-            $arr_list_of_genders["en"][3] = "Male & Female";
-            $arr_list_of_genders["ar"][3] = "طلاب و طالبات منفصل";
-            $arr_list_of_genders["code"][3] = "MF";
+            // throw new AfwRuntimeException("multi_gender=true good");
+            $arr_list_of_gender["en"][3] = "Male & Female";
+            $arr_list_of_gender["ar"][3] = "طلاب و طالبات منفصل";
+            $arr_list_of_gender["code"][3] = "MF";
         }
-        else throw new AfwRuntimeException("multi_gender=false ???");
+        // else throw new AfwRuntimeException("multi_gender=false ???");
 
 
         if(!$gender_separed)
