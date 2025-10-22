@@ -1029,6 +1029,7 @@ class AdmObject extends AfwMomkenObject
 
         if($multi_gender)
         {
+            throw new AfwRuntimeException("multi_gender=true good");
             $arr_list_of_genders["en"][3] = "Male & Female";
             $arr_list_of_genders["ar"][3] = "طلاب و طالبات منفصل";
             $arr_list_of_genders["code"][3] = "MF";
@@ -1049,7 +1050,7 @@ class AdmObject extends AfwMomkenObject
 
     public static function list_of_genders_enum()
     {
-        throw new AfwRuntimeException("list_of_genders_enum here entered");
+        // throw new AfwRuntimeException("list_of_genders_enum here entered");
         $lang = AfwLanguageHelper::getGlobalLanguage();
         return self::genders()[$lang];
     }
