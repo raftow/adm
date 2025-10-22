@@ -1049,6 +1049,7 @@ class AdmObject extends AfwMomkenObject
 
     public static function list_of_genders_enum()
     {
+        throw new AfwRuntimeException("list_of_genders_enum here entered");
         $lang = AfwLanguageHelper::getGlobalLanguage();
         return self::genders()[$lang];
     }
