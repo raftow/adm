@@ -1033,6 +1033,7 @@ class AdmObject extends AfwMomkenObject
             $arr_list_of_genders["ar"][3] = "طلاب و طالبات منفصل";
             $arr_list_of_genders["code"][3] = "MF";
         }
+        else throw new AfwRuntimeException("multi_gender=false ???");
 
 
         if(!$gender_separed)
