@@ -117,8 +117,8 @@ class ApplicationModelBranch extends AdmObject
                 if (($which == "all") or ($which == "ar")) {
                         $new_name_ar = $appModelObj->getShortDisplay("ar") . "-" . 
                                        $progOffr->getShortDisplay("ar");
-                        if($this->getVal('gender_enum') != 3) $new_name_ar .= "-" . $this->showAttribute('gender_enum',null,true,"ar");
-                        if($this->getVal('training_period_enum') != 3) $new_name_ar .= "-" . $this->showAttribute('training_period_enum',null,true,"ar");
+                        if($this->getVal('gender_enum') != 4) $new_name_ar .= "-" . $this->showAttribute('gender_enum',null,true,"ar");
+                        if($this->getVal('training_period_enum') != 4) $new_name_ar .= "-" . $this->showAttribute('training_period_enum',null,true,"ar");
                         $this->set("branch_name_ar", $new_name_ar);
                         // die("reset name to : ".$new_name);
                 }
@@ -126,8 +126,8 @@ class ApplicationModelBranch extends AdmObject
                 if (($which == "all") or ($which == "en")) {
                         $new_name_en = $appModelObj->getDisplay("en") . "-" . 
                                        $progOffr->getDisplay("en") . "-";
-                        if($this->getVal('gender_enum') != 3) $new_name_en .= "-" . $this->showAttribute('gender_enum',null,true,"en");
-                        if($this->getVal('training_period_enum') != 3) $new_name_en .= "-" . $this->showAttribute('training_period_enum',null,true,"en");
+                        if($this->getVal('gender_enum') != 4) $new_name_en .= "-" . $this->showAttribute('gender_enum',null,true,"en");
+                        if($this->getVal('training_period_enum') != 4) $new_name_en .= "-" . $this->showAttribute('training_period_enum',null,true,"en");
                         
                         $this->set("branch_name_en", $new_name_en);
                 }

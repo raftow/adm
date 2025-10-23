@@ -173,12 +173,18 @@
                 {
                         if(($which=="all") or ($which=="ar"))
                         {
-                                $this->set("application_model_name_ar", $this->decode("academic_level_id")."-".$this->decode("gender_enum")."-".$this->decode("training_period_enum"));
+                                $new_name_ar = $this->decode("academic_level_id",'', false, "ar");
+                                if($this->getVal('gender_enum') != 3) $new_name_ar .= "-".$this->decode("gender_enum",'', false, "ar");
+                                if($this->getVal('training_period_enum') != 3)$new_name_ar .= "-".$this->decode("training_period_enum",'', false, "ar");
+                                $this->set("application_model_name_ar", $new_name_ar);
                         }
 
                         if(($which=="all") or ($which=="en"))
                         {
-                                $this->set("application_model_name_en", $this->decode("academic_level_id")."-".$this->decode("gender_enum")."-".$this->decode("training_period_enum"));                        
+                                $new_name_en = $this->decode("academic_level_id",'', false, "en");
+                                if($this->getVal('gender_enum') != 3) $new_name_en .= "-".$this->decode("gender_enum",'', false, "en");
+                                if($this->getVal('training_period_enum') != 3)$new_name_en .= "-".$this->decode("training_period_enum",'', false, "en");
+                                $this->set("application_model_name_en", $new_name_en);
                         }
 
                         if($commit) $this->commit();
