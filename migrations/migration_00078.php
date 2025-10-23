@@ -4,6 +4,11 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch
+        CHANGE `branch_name_ar` `branch_name_ar` varchar(256) COLLATE 'utf8mb3_unicode_ci' NOT NULL DEFAULT '' AFTER `branch_order`,
+        CHANGE `branch_name_en` `branch_name_en` varchar(256) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `is_open`;");
+
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   gender_enum smallint NOT NULL DEFAULT 0  AFTER application_plan_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER gender_enum;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program_offering add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER sorting_group_id;");

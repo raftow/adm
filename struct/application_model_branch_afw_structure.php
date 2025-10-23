@@ -105,7 +105,7 @@
                                         
 
                                         'branch_order' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => true,  'EXCEL' => false,  'EDIT' => true,  'QEDIT' => true,  'EDIT_FGROUP' => true,  'QEDIT_FGROUP' => true,  'QEDIT_ALL_FGROUP' => true,  
-                                                                'TYPE' => 'INT',    'MANDATORY' => true,  'STEP' => 1,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
+                                                                'TYPE' => 'INT',    'MANDATORY' => false,  'STEP' => 1,  'SEARCH-BY-ONE' => '',  'DISPLAY' => true,  
                                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,  'ERROR-CHECK' => true, 
                                                                 'CSS' => 'width_pct_50',
                                                                 ),                                                

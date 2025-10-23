@@ -124,8 +124,8 @@ class ApplicationModelBranch extends AdmObject
                 }
 
                 if (($which == "all") or ($which == "en")) {
-                        $new_name_en = $appModelObj->getDisplay("en") . "-" . 
-                                       $progOffr->getDisplay("en") . "-";
+                        $new_name_en = $appModelObj->getShortDisplay("en") . "-" . 
+                                       $progOffr->getShortDisplay("en") . "-";
                         if($this->getVal('gender_enum') != 4) $new_name_en .= "-" . $this->showAttribute('gender_enum',null,true,"en");
                         if($this->getVal('training_period_enum') != 4) $new_name_en .= "-" . $this->showAttribute('training_period_enum',null,true,"en");
                         
