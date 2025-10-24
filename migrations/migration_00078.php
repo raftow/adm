@@ -4,10 +4,23 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`atable`
+            CHANGE `titre_en` `titre_en` text COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre_u_s`,
+            CHANGE `titre_short_en` `titre_short_en` varchar(128) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre_en`,
+            CHANGE `titre_u_en` `titre_u_en` varchar(64) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre_short_en`;");
 
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch
         CHANGE `branch_name_ar` `branch_name_ar` varchar(256) COLLATE 'utf8mb3_unicode_ci' NOT NULL DEFAULT '' AFTER `branch_order`,
         CHANGE `branch_name_en` `branch_name_en` varchar(256) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `is_open`;");
+
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`afield` CHANGE `titre_en` `titre_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `titre_short_en` `titre_short_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `title_after_en` `title_after_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `unit_en` `unit_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `help_text_en` `help_text_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `question_text_en` `question_text_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `shortname` `shortname` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
+        CHANGE `shortname_en` `shortname_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`;");
 
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   gender_enum smallint NOT NULL DEFAULT 0  AFTER application_plan_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER gender_enum;");
