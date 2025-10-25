@@ -900,7 +900,7 @@ class ApplicationField extends AdmObject
           return ["$field_name reversed successfully", $applicationFieldObj];
      }
 
-     public static function reverseByCodes($object_code_arr)
+     public static function reverseByCodes($object_code_arr, $doReverse = true, $restriction="")
      {
           $table=$object_code_arr[0];
           $action=$object_code_arr[1];
