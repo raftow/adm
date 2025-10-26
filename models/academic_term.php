@@ -42,12 +42,12 @@ class AcademicTerm extends AdmObject
                 else return null;
         }
 
-        public static function getComingTermsIds($academic_level_id)
+        public static function getComingTermsIds($academic_level_id, $nbTerms=99)
         {
                 $dateApplyGreg = date("Y-m-d");
                 $objTerm = new AcademicTerm();
                 $objTerm->where("academic_level_mfk like '%,$academic_level_id,%' and '$dateApplyGreg' < application_start_date");
-                return $objTerm->loadListe();
+                return $objTerm->loadListe($nbTerms, "application_start_date asc");
         }
                  
 

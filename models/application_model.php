@@ -1333,15 +1333,49 @@
 
                         if($mode=="mode_applicationPlanList")
                         {
-                                unset($link);
-                                $link = array();
-                                $title = "إضافة خطة تقديم جديدة";
-                                $title_detailed = $title ."لـ : ". $displ;
-                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationPlan&currmod=adm&sel_application_model_id=$my_id";
-                                $link["TITLE"] = $title;
-                                $link["PUBLIC"] = true;
-                                $link["UGROUPS"] = array();
-                                $otherLinksArray[] = $link;
+                                $academic_level_id = $this->getVal("academic_level_id");
+                                $atArr = AcademicTerm::getComingTermsIds($academic_level_id, $nbTerms=1);
+                                $academic_term_id = $atArr[0];
+                                $apObjExists = null;
+                                if($academic_term_id) $apObjExists = ApplicationPlan::loadByMainIndex($my_id, $academic_term_id);
+                                if($academic_term_id and (!$apObjExists))
+                                {
+                                        unset($link);
+                                        $link = array();
+                                        $title = "إضافة خطة تقديم جديدة";
+                                        $title_detailed = $title ."لـ : ". $displ;
+                                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationPlan&currmod=adm&sel_application_model_id=$my_id&sel_academic_term_id=$academic_term_id";
+                                        $link["TITLE"] = $title;
+                                        $link["PUBLIC"] = true;
+                                        $link["UGROUPS"] = array();
+                                        $otherLinksArray[] = $link;
+                                }
+                                elseif($apObjExists)
+                                {
+                                        unset($link);
+                                        $link = array();
+                                        $title = "يوجد حاليا خطة جارية على الفصل القادم";
+                                        $title_detailed = $title ."لـ : ". $displ;
+                                        $link["URL"] = "#";
+                                        $link["TITLE"] = $title;
+                                        $link["PUBLIC"] = true;
+                                        $link["UGROUPS"] = array();
+                                        $otherLinksArray[] = $link;
+                                }
+                                else
+                                {
+                                        unset($link);
+                                        $link = array();
+                                        $title = "لا يوجد فصل جديد قادم ليتم انشاء خطة جديدة عليه";
+                                        $title_detailed = $title ."لـ : ". $displ;
+                                        $link["URL"] = "#";
+                                        $link["TITLE"] = $title;
+                                        $link["PUBLIC"] = true;
+                                        $link["UGROUPS"] = array();
+                                        $otherLinksArray[] = $link;
+                                }
+
+                                
                         }
 
                         if($mode=="mode_financialTransactionList")
