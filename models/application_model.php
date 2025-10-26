@@ -1364,11 +1364,13 @@
                                 }
                                 else
                                 {
+                                        $academic_level_show = $this->showAttribute("academic_level_id");
                                         unset($link);
                                         $link = array();
-                                        $title = "لا يوجد فصل جديد قادم ليتم انشاء خطة جديدة عليه";
+                                        $title = "لا يوجد فصل جديد قادم على نفس المرحلة الدراسية [$academic_level_show] ليتم انشاء خطة جديدة عليه";
                                         $title_detailed = $title ."لـ : ". $displ;
                                         $link["URL"] = "#";
+                                        $link["COLOR"] = "red";
                                         $link["TITLE"] = $title;
                                         $link["PUBLIC"] = true;
                                         $link["UGROUPS"] = array();

@@ -49,7 +49,7 @@ class AcademicTerm extends AdmObject
                 $objTerm->where("academic_level_mfk like '%,$academic_level_id,%' and '$dateApplyGreg' < application_start_date");
                 return $objTerm->loadListe($nbTerms, "application_start_date asc");
         }
-                 
+
 
         public function beforeMaj($id, $fields_updated)
         {
