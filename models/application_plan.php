@@ -487,7 +487,7 @@ class ApplicationPlan extends AdmObject
         if ($affected_row_count > 0) {
             $inf_arr[] = $this->getDisplay($lang) . " : " . $this->tm('عدد سجلات فروع التقديم التي تم توليدها : ', $lang) . $affected_row_count;
         } else {
-            $war_arr[] = "في نموذج القبول " . $this->getDisplay($lang) . " لا يوجد فروع قبول مفتوحة بطاقة استيعابية محددة على جنس الطلاب : $gender_enum_decoded";
+            $war_arr[] = "في نموذج القبول " . $this->getDisplay($lang) . " لا يوجد فروع قبول على النوع : $gender_enum_decoded مفتوحة بطاقة استيعابية محددة. تأكد من إدخال طاقة استيعابية صحيحة لكل فرع قبول. الطاقة الاستيعابية التي تساوي صفر أو الغير محددة تعني عدم فتح هذا الفرع";
         }
 
 
