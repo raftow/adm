@@ -310,7 +310,7 @@ class ApplicationPlan extends AdmObject
         else
         {
             $color = "orange wide";
-            $title_ar = "يوجد حاليا فرز مفتوح ".$currentSortingObj->getDisplay('ar')." لا يمكن تحديث فروع القبول";
+            $title_ar = "يوجد حاليا فرز مفتوح [".$currentSortingObj->getDisplay('ar')."] لا يمكن تحديث فروع القبول";
             $methodName = "nothing";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar,  "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
         }
