@@ -139,12 +139,14 @@
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '', 'UNIT' => 'مقعد',
                                                 'EDIT-UGROUPS' => '',
+                                                'DISABLE_DATA_TABLE' => true,
+                                                'RETRIEVE-POPUP-EDITOR' => ['branch_order','capacity',],
                                                 'CSS' => 'width_pct_25',),
 
                                         'capacity_track1' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => true,
+                                                'RETRIEVE' => false,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'DEFAULT' => 0,
