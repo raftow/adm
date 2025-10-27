@@ -295,7 +295,8 @@ class ApplicationPlan extends AdmObject
 
         }
 
-        if (!$this->currentSortingSession()) {
+        $currentSortingObj = $this->currentSortingSession();
+        if (!$currentSortingObj) {
             $color = "blue";
             $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج";
             $methodName = "addPossibleBranchs";
@@ -305,6 +306,13 @@ class ApplicationPlan extends AdmObject
             $title_ar = "تصفير جميع فروع القبول المفتوحة في النموذج";
             $methodName = "resetPossibleBranchs";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
+        }
+        else
+        {
+            $color = "orange wide";
+            $title_ar = "يوجد حاليا فرز مفتوح ".$currentSortingObj->getDisplay('ar')." لا يمكن تحديث فروع القبول";
+            $methodName = "nothing";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar,  "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
         }
 
         return $pbms;
@@ -846,9 +854,14 @@ class ApplicationPlan extends AdmObject
         return $obj->loadMany();
     }
 
+    /**
+     * 
+     * @return SortingSession
+     */
 
     public function currentSortingSession()
     {
-        return $this->getRelation("sortingSessionList")->resetWhere("started_ind='Y'")->orderBy("session_num asc")->getFirst();
+        list($obj, $sql) = $this->getRelation("sortingSessionList")->resetWhere("started_ind='Y'")->orderBy("session_num asc")->getFirst();
+        return $obj;
     }
 }
