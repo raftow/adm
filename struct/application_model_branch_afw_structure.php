@@ -86,7 +86,7 @@
                                                                 ),
 
                                                 'gender_enum' => array('IMPORTANT' => 'IN',  'STEP' => 1, 
-                                                        'SHOW' => true, 'EDIT' => true, 'READONLY' => true,
+                                                        'SHOW' => true, 'EDIT' => true, 'READONLY' => true, 'RETRIEVE' => true,  
                                                         'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  
                                                         'MANDATORY' => true, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

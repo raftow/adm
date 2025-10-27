@@ -4,6 +4,9 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER gender_enum;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   gender_enum smallint NOT NULL DEFAULT 0  AFTER application_plan_id;");
+    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."pag.`atable`
             CHANGE `titre_en` `titre_en` text COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre_u_s`,
             CHANGE `titre_short_en` `titre_short_en` varchar(128) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre_en`,
@@ -22,8 +25,6 @@ try
         CHANGE `shortname` `shortname` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`,
         CHANGE `shortname_en` `shortname_en` varchar(255) COLLATE 'utf8mb3_unicode_ci' NULL AFTER `titre`;");
 
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   gender_enum smallint NOT NULL DEFAULT 0  AFTER application_plan_id;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER gender_enum;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.academic_program_offering add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER sorting_group_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_branch add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER gender_enum;");
     AfwDatabase::db_query("CREATE UNIQUE INDEX uk_application_plan_branch on ".$server_db_prefix."adm.application_plan_branch(application_plan_id,gender_enum,training_period_enum,program_offering_id);");

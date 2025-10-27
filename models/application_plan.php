@@ -295,7 +295,8 @@ class ApplicationPlan extends AdmObject
 
         }
 
-        if (!$this->currentSortingSession()) {
+        $currentSortingObj = $this->currentSortingSession();
+        if (!$currentSortingObj) {
             $color = "blue";
             $title_ar = "اضافة جميع فروع القبول المفتوحة في النموذج";
             $methodName = "addPossibleBranchs";
@@ -305,6 +306,13 @@ class ApplicationPlan extends AdmObject
             $title_ar = "تصفير جميع فروع القبول المفتوحة في النموذج";
             $methodName = "resetPossibleBranchs";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
+        }
+        else
+        {
+            $color = "orange wide";
+            $title_ar = "يوجد حاليا فرز مفتوح [".$currentSortingObj->getDisplay('ar')."] لا يمكن تحديث فروع القبول";
+            $methodName = "nothing";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar,  "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
         }
 
         return $pbms;
@@ -446,7 +454,7 @@ class ApplicationPlan extends AdmObject
 
 
         $sql_insert = "insert into $db.application_plan_branch(created_by,  created_at, updated_by,updated_at, active, version, sci_id,
-                                academic_level_id,gender_enum,gender_enum,training_period_enum,term_id,application_plan_id,
+                                academic_level_id,gender_enum,training_period_enum,term_id,application_plan_id,
                                 program_id,training_unit_id,department_id,major_id,
                                 program_offering_id,application_model_branch_id,
                                 name_ar, name_en, branch_order,
@@ -479,7 +487,7 @@ class ApplicationPlan extends AdmObject
         if ($affected_row_count > 0) {
             $inf_arr[] = $this->getDisplay($lang) . " : " . $this->tm('عدد سجلات فروع التقديم التي تم توليدها : ', $lang) . $affected_row_count;
         } else {
-            $war_arr[] = "في نموذج القبول " . $this->getDisplay($lang) . " لا يوجد فروع قبول مفتوحة بطاقة استيعابية محددة على جنس الطلاب : $gender_enum_decoded";
+            $war_arr[] = "في نموذج القبول " . $this->getDisplay($lang) . " لا يوجد فروع قبول على النوع : $gender_enum_decoded مفتوحة بطاقة استيعابية محددة. تأكد من إدخال طاقة استيعابية صحيحة لكل فرع قبول. الطاقة الاستيعابية التي تساوي صفر أو الغير محددة تعني عدم فتح هذا الفرع";
         }
 
 
@@ -846,9 +854,14 @@ class ApplicationPlan extends AdmObject
         return $obj->loadMany();
     }
 
+    /**
+     * 
+     * @return SortingSession
+     */
 
     public function currentSortingSession()
     {
-        return $this->getRelation("sortingSessionList")->resetWhere("started_ind='Y'")->orderBy("session_num asc")->getFirst();
+        list($obj, $sql) = $this->getRelation("sortingSessionList")->resetWhere("started_ind='Y'")->orderBy("session_num asc")->getFirst();
+        return $obj;
     }
 }
