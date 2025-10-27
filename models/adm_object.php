@@ -1742,4 +1742,14 @@ class AdmObject extends AfwMomkenObject
     {
             return "18,19,20,27,28,29,33,34";
     }
+
+
+    public static function trainingPeriodContainOther($one_training_period_enum, $other_training_period_enum)
+    {
+        if(!$one_training_period_enum) return true;
+        if($one_training_period_enum==3) return true;
+        if($one_training_period_enum==$other_training_period_enum) return true;
+
+        return false;
+    }
 }

@@ -167,6 +167,13 @@ class AcademicProgramOffering extends AdmObject
                 return ["", "done"];
         }
 
+        public function allowTrainingPeriod($training_period_enum)
+        {
+                $my_training_period_enum = $this->getVal("training_period_enum");
+
+                return self::trainingPeriodContainOther($my_training_period_enum, $training_period_enum);
+        }
+
         public function afterMaj($id, $fields_updated)
         {
                 if ($fields_updated["sorting_group_id"]) {

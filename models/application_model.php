@@ -972,7 +972,7 @@
                                         $seats_capacity = $this->getVal("seats_capacity_$training_period_enum");
                                         // $appModel = ApplicationModel::loadByMainIndex($academic_level_id, $gender_enum, $training_period_enum);
 
-                                        if($progOffItem)
+                                        if($progOffItem and $progOffItem->allowTrainingPeriod($training_period_enum))
                                         {
                                                 $seats_capacity = 0;
                                                 $gender_enum = $progOffItem->getVal("gender_enum");
