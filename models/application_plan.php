@@ -454,7 +454,7 @@ class ApplicationPlan extends AdmObject
 
 
         $sql_insert = "insert into $db.application_plan_branch(created_by,  created_at, updated_by,updated_at, active, version, sci_id,
-                                academic_level_id,gender_enum,gender_enum,training_period_enum,term_id,application_plan_id,
+                                academic_level_id,gender_enum,training_period_enum,term_id,application_plan_id,
                                 program_id,training_unit_id,department_id,major_id,
                                 program_offering_id,application_model_branch_id,
                                 name_ar, name_en, branch_order,
