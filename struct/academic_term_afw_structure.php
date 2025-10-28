@@ -7,7 +7,7 @@
                         if ($obj instanceof AcademicTerm) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                $obj->DISPLAY_FIELD = "term_code";
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"term_name_ar", 'en'=>"term_name_en",];
                                 $obj->ORDER_BY_FIELDS = "term_code";
                                 $obj->UNIQUE_KEY = array('academic_year_id', 'term_code');
                                 // $obj->public_display = true;

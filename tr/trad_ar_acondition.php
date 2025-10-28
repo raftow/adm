@@ -31,6 +31,7 @@ class AconditionArTranslator{
 		$trad["acondition"]["aparameter_id"] = "القيمة المقارنة";
 		$trad["acondition"]["excuse_text_ar"] = "نص الاعتذار بالعربية";
 		$trad["acondition"]["general"] = "الشرط يطبق على";
+		$trad["acondition"]["general.tooltip"] = "انتيه قد يكون الشرط يطبق في المراحل الخاصة وهو شرط يعم جميع فروع التقديم";
 		$trad["acondition"]["general.YES"] = "المتقدم";
 		$trad["acondition"]["general.EUH"]  = "ملف الترشح";
 		$trad["acondition"]["general.NO"] = "الرغبة";

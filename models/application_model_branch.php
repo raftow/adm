@@ -213,7 +213,7 @@ class ApplicationModelBranch extends AdmObject
                 
                 if($split_sorting_by_enum==1)
                 {
-                        if ($attribute == "capacity_track1") return true;
+                        if ($attribute == "capacity_track1") return false; // was true but if no taqsim why true ?  capacity_track1 = seats_capacity
                         if ($attribute == "capacity_track2") return false;
                         if ($attribute == "capacity_track3") return false;
                         if ($attribute == "capacity_track4") return false;
