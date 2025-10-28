@@ -976,8 +976,8 @@
                                         if($progOffItem and $progOffItem->allowTrainingPeriod($training_period_enum))
                                         {
                                                 $seats_capacity = 0;
-                                                $gender_enum = $progOffItem->getVal("gender_enum");
-                                                $appModelBr = ApplicationModelBranch::loadByMainIndex($this->id, $progOffItem->id, $gender_enum, $training_period_enum, $seats_capacity, $create_obj_if_not_found=true);                                                
+                                                $prog_off_gender_enum = $progOffItem->getVal("gender_enum");
+                                                $appModelBr = ApplicationModelBranch::loadByMainIndex($this->id, $progOffItem->id, $prog_off_gender_enum, $training_period_enum, $seats_capacity, $create_obj_if_not_found=true);                                                
                                                 $appModelBr->set("major_id", $progOffItem->getVal("major_id"));
                                                 $appModelBr->set("academic_program_id", $progOffItem->getVal("academic_program_id"));  
                                                 $appModelBr->genereName($lang);
