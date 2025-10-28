@@ -43,12 +43,15 @@ class AcademicProgramOffering extends AdmObject
                 } else return null;
         }
 
-        public static function loadListeForModel($academic_level_id, $gender_enum)
+        public static function loadListeForModel($academic_level_id, $gender_enum, $training_period_enum)
         {
                 $obj = new AcademicProgramOffering();
                 $obj->select("academic_level_id", $academic_level_id);
                 if ($gender_enum <= 2) $obj->select("gender_enum", $gender_enum);
-
+                if($training_period_enum and ($training_period_enum!=3))
+                {
+                        $obj->where("training_period_enum in (0,3) or training_period_enum=$training_period_enum");
+                }
                 return $obj->loadMany();
         }
 

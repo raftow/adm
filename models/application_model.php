@@ -958,15 +958,16 @@
                         $academic_level_display = $this->decode("academic_level_id");
                         $gender_enum = $this->getVal("gender_enum");
                         $gender_enum_display = $this->decode("gender_enum");
-
+                        $training_period_enum_display = $this->decode("training_period_enum");
                         $this->hideAllApplicationModelBranchList();
                         
                         $trainingPeriodArr = self::splitTrainingPeriods($this->getVal("training_period_enum"));
                         // $trainingPeriodArrCount = count($trainingPeriodArr);
                         foreach($trainingPeriodArr as $training_period_enum)
                         {
-                                $progOffList = AcademicProgramOffering::loadListeForModel($academic_level_id, $gender_enum);
-                                $inf_arr[] = $this->tm("nb of Academic Program Offering for")." ($academic_level_display / $gender_enum_display) : ".count($progOffList);
+                                $training_period_title = self::name_of_training_period_enum($training_period_enum, $lang);
+                                $progOffList = AcademicProgramOffering::loadListeForModel($academic_level_id, $gender_enum, $training_period_enum);
+                                $inf_arr[] = $this->tm("nb of Academic Program Offering for")." ($academic_level_display / $gender_enum_display / $training_period_title) : ".count($progOffList);
                                 foreach($progOffList as $progOffItem)
                                 {
                                         $seats_capacity = $this->getVal("seats_capacity_$training_period_enum");
@@ -993,14 +994,10 @@
 
                                                 
                                         }
-                                        /*else 
+                                        else 
                                         {
-                                                $academic_level_lbl = $this->decode("academic_level_id");
-                                                $gender_lbl = $this->decode("gender_enum");
-                                
-                                                $training_period_title = self::name_of_training_period_enum($training_period_enum, $lang);
-                                                $war_arr[] = "$training_period_title : ".$this->tr("has no application model for this academic level and gender"). " $academic_level_lbl / $gender_lbl";
-                                        }*/
+                                                $war_arr[] = $progOffItem->getDisplay($lang)." لا تدعم فترة التدريب $training_period_title.";
+                                        }
                                 }
                                 
                         }
