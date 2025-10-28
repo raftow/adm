@@ -11,6 +11,6 @@
 
     $trad["department"]["majorDepartmentList"] = "التخصصات المتعلقة";
 	
-	$trad["degree"]["target_audience_en"] = "الجمهور المستهدف عربي";
+	$trad["degree"]["target_audience_ar"] = "الجمهور المستهدف عربي";
 
 	$trad["degree"]["target_audience_en"] = "الجمهور المستهدف انجليزي";
