@@ -46,7 +46,16 @@
                                                 'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
-                                                
+                                        'target_audience_ar' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => 200,  'MAXLENGTH' => 200,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),
+                                        'target_audience_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  
+                                                'SIZE' => 200,  'MAXLENGTH' => 200,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),        
 
                                         /*
                                         'academic_level_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
