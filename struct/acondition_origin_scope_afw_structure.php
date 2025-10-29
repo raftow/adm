@@ -139,7 +139,8 @@
                                                 'WHERE'=>'application_model_id = §application_model_id§
                                                         and ((§training_unit_id§ = 0) or (training_unit_id = §training_unit_id§))          
                                                         and ((§department_id§ = 0) or (department_id = §department_id§))          
-                                                        and ((§application_model_branch_id§ = 0) or (id = §application_model_branch_id§))', 
+                                                        and ((§application_model_branch_id§ = 0) or (id = §application_model_branch_id§))
+                                                        and ((§program_track_id§ = 0) or (program_offering_id in (select id from §DBPREFIX§adm.academic_program_offering where program_track_id = §program_track_id§)))', 
                                                 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 
                                                 'ICONS'=>false, 'DELETE-ICON'=>false,'VIEW-ICON'=>false,                                                
