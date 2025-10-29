@@ -17,6 +17,8 @@ class TuitionBaseArTranslator{
 	$trad["tuition_base"]["program_specific "] = "الرسوم الإضافية الخاصة بالبرنامج";
 	$trad["tuition_base"]["mandatory_fees"] = "الرسوم الإلزامية";
 	$trad["tuition_base"]["notes"] = "ملاحظات";
+	$trad["tuition_base"]["degree_id"] = "الشهادة";
+
         return $trad;
         }
 
