@@ -120,7 +120,7 @@
 			'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 
 				'QEDIT' => true, 'DEFAUT' => 'Y', 'SEARCH' => true,  'QSEARCH' => true, 
 				'TYPE' => 'YN', 'FORMAT' => 'icon',  'STEP' => 4,  
-				'READONLY' => true, 
+				'READONLY' => true, 'DISPLAY' => true,
 				'CSS' => 'width_pct_25',),
 
 			'usable_in_conditions' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'SEARCH' => true,  'QSEARCH' => true,  'RETRIEVE' => true,  'EDIT' => true,  'QEDIT' => false,  
