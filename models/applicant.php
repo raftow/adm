@@ -552,7 +552,7 @@ class Applicant extends AdmObject
                 $birth_gdate_is_in_steps_scope = (($no_step_scope or $birth_gdate_is_in_step) and ($no_step_scope or $step_in_scope));
 
 
-                if ($birth_gdate_is_in_steps_scope) {
+                if ($birth_gdate_show and $birth_gdate_is_in_steps_scope) {
                         $birth_gdate = $this->getVal('birth_gdate');
                         $birth_date = $this->getVal('birth_date');
 
