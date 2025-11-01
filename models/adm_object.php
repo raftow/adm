@@ -1411,11 +1411,11 @@ class AdmObject extends AfwMomkenObject
 
 
         $arr_list_of_phase["en"][1] = "Flat Per Term";
-        $arr_list_of_phase["ar"][1] = "لكل فصل";
+        $arr_list_of_phase["ar"][1] = "فصلي";
         $arr_list_of_phase["code"][1] = "TERM";
 
         $arr_list_of_phase["en"][2] = "Per Credit Hour";
-        $arr_list_of_phase["ar"][2] = "لكل ساعة معتمدة";
+        $arr_list_of_phase["ar"][2] = "ساعة معتمدة";
         $arr_list_of_phase["code"][2] = "HOUR";
 
 

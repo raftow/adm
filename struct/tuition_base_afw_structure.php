@@ -31,91 +31,96 @@
                                                 'TYPE' => 'PK',    'DISPLAY' => true,  'STEP' => 1,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
+                        'degree_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true,    'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'FK',  'ANSWER' => 'degree',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY'=>false,
+                                'CSS' => 'width_pct_50', ),
+                        'residency_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),	
 
-                                        'residency_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
-
-'semester_type' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
-
-
-'tuition_model' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
+                        'semester_type' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),	
 
 
-
-
-
-'amount' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'SIZE' => 32, 
-        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => false, 
-        'STEP' => 1,
-        'DISPLAY' => true,
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
+                        'tuition_model' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),	
 
 
 
-'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-        'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25', ),	
 
 
-'program_specific ' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'SIZE' => 32, 
-        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => false, 
-        'STEP' => 1,
-        'DISPLAY' => true,
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
+                        'amount' => array(
+                                'IMPORTANT' => 'IN',
+                                'SHOW' => true,
+                                'RETRIEVE' => false,
+                                'QEDIT' => true,
+                                'EDIT' => true,
+                                'SIZE' => 32, 
+                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => false, 
+                                'STEP' => 1,
+                                'DISPLAY' => true,
+                                'EDIT-UGROUPS' => '',
+                                'CSS' => 'width_pct_25',),
 
 
 
-'mandatory_fees' => array(
-        'IMPORTANT' => 'IN',
-        'SHOW' => true,
-        'RETRIEVE' => false,
-        'QEDIT' => true,
-        'EDIT' => true,
-        'SIZE' => 32, 
-        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => false, 
-        'STEP' => 1,
-        'DISPLAY' => true,
-        'EDIT-UGROUPS' => '',
-        'CSS' => 'width_pct_25',),
+                        'program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),	
+
+
+                        'program_specific ' => array(
+                                'IMPORTANT' => 'IN',
+                                'SHOW' => true,
+                                'RETRIEVE' => false,
+                                'QEDIT' => true,
+                                'EDIT' => true,
+                                'SIZE' => 32, 
+                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => false, 
+                                'STEP' => 1,
+                                'DISPLAY' => true,
+                                'EDIT-UGROUPS' => '',
+                                'CSS' => 'width_pct_25',),
 
 
 
-'notes' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
-        'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,   
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_100',),        
+                        'mandatory_fees' => array(
+                                'IMPORTANT' => 'IN',
+                                'SHOW' => true,
+                                'RETRIEVE' => false,
+                                'QEDIT' => true,
+                                'EDIT' => true,
+                                'SIZE' => 32, 
+                                'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 'MANDATORY' => false, 
+                                'STEP' => 1,
+                                'DISPLAY' => true,
+                                'EDIT-UGROUPS' => '',
+                                'CSS' => 'width_pct_25',),
+
+
+
+                        'notes' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AEREA', 'UTF8' => true,  
+                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,   
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_100',),        
 
 
 
