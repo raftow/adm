@@ -267,29 +267,7 @@ class AdmApplicantAfwStructure
 
                                                            
 
-                'gender_enum' => array(
-                        'FGROUP' => 'profile',
-                        'IMPORTANT' => 'IN',
-                        'SEARCH' => false,
-                        'SHOW' => true,
-                        'RETRIEVE' => true,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'QSEARCH' => false,
-                        'SHOW-ADMIN' => true,
-                        'EDIT-ADMIN' => true,
-                        'UTF8' => false,
-                        'TYPE' => 'ENUM',
-                        'ANSWER' => 'FUNCTION',
-                        'SIZE' => 40,
-                        'DEFAUT' => 0,
-                        'DISPLAY' => true,
-                        'STEP' => 2,
-                        'MANDATORY' => true,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
-                ),
+                
 
 
 
@@ -352,33 +330,7 @@ class AdmApplicantAfwStructure
 
 
 
-                'marital_status_enum' => array(
-                        'FGROUP' => 'profile',
-                        'IMPORTANT' => 'IN',
-                        'SEARCH' => false,
-                        'QSEARCH' => false,
-                        'SHOW' => true,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SHOW-ADMIN' => true,
-                        'EDIT-ADMIN' => true,
-                        'UTF8' => false,
-                        'TYPE' => 'ENUM',
-                        'ANSWER' => 'FUNCTION',
-                        'SIZE' => 40,
-                        'DEFAUT' => 0,
-                        'DISPLAY' => true,
-                        'STEP' => 2,
-                        'RELATION' => 'ManyToOne-OneToMany',
-                        'MANDATORY' => false,
-                        'READONLY' => false,
-                        'AUTOCOMPLETE' => false,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
-                ),
-
+                
 
 
 
@@ -584,6 +536,58 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
+
+                'gender_enum' => array(
+                        'FGROUP' => 'profile',
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'QSEARCH' => false,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => 'FUNCTION',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => true,
+                        'STEP' => 2,
+                        'MANDATORY' => true,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
+                
+                'marital_status_enum' => array(
+                        'FGROUP' => 'profile',
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => 'FUNCTION',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => true,
+                        'STEP' => 2,
+                        'RELATION' => 'ManyToOne-OneToMany',
+                        'MANDATORY' => false,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
+
 
 
                 'religion_enum' => array(
