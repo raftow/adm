@@ -213,22 +213,47 @@ class ApplicationPlan extends AdmObject
     {
 
         $pbms = array();
+        if(!$this->sureIs("valid"))
+        {
+            $color = "green";
+            $title_ar = "اعتماد الخطة";
+            $methodName = "validate";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
+        }
+        else
+        {
+            if($this->sureIs("publish"))
+            {
+                $color = "orange";
+                $title_ar = "إلغاء نشر الخطة";
+                $methodName = "unpublish";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
 
-        $color = "green";
-        $title_ar = "اعتماد الخطة";
-        $methodName = "validate";
-        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
+                $color = "blue";
+                $title_ar = "غلق الخطة";
+                $methodName = "close";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
 
-        $color = "orange";
-        $title_ar = "نشر الخطة";
-        $methodName = "publish";
-        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
+            }
+            else
+            {
+                $color = "green";
+                $title_ar = "إلغاء اعتماد الخطة";
+                $methodName = "unvalidate";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
 
-        $color = "blue";
-        $title_ar = "غلق الخطة";
-        $methodName = "close";
-        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
+                $color = "orange";
+                $title_ar = "نشر الخطة";
+                $methodName = "publish";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("valid"));
+            }
+            
+        }
 
+        
+        
+
+        
         if ($this->sureIs("active")) {
             $color = "red";
             $title_ar = "تعطيل الخطة";
