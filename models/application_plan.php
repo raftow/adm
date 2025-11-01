@@ -222,7 +222,7 @@ class ApplicationPlan extends AdmObject
         }
         else
         {
-            if($this->sureIs("publish"))
+            if($this->sureIs("published"))
             {
                 $color = "orange";
                 $title_ar = "إلغاء نشر الخطة";
