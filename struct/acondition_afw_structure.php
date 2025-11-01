@@ -236,7 +236,7 @@
 
 		'used_fields_mfk' => array('SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'READONLY' => true, 
-				'TYPE' => 'MFK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 'CATEGORY' => 'FORMULA', 
+				'TYPE' => 'TEXT',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 'CATEGORY' => 'FORMULA', 
 				'SIZE' => 40,  'DEFAUT' => 0, 
 				'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
