@@ -480,6 +480,7 @@ class ApplicationField extends AdmObject
           $titleOriginal = $this->getAttributeLabel("original");
           $field_name = $this->getVal("field_name");
           $field_type = $this->showAttribute("application_field_type_id", null, true, $lang);
+          $table_title = $this->showAttribute("application_table_id", null, true, $lang);
           $field_title = $this->getVal("field_title_$lang");
           $isReel = $this->sureIs("reel");
           $isActive = $this->sureIs("active");
@@ -496,7 +497,7 @@ class ApplicationField extends AdmObject
 
 
           $html = "<div class='field-desc'>";
-          $html .= "<h1 class='field-desc $active_class'>$field_title</h1>";
+          $html .= "<h1 class='field-desc $active_class'>$table_title &larr; $field_title</h1>";
           $html .= "<h2 class='field-desc $active_class'>$field_name</h2>";
           $html .= "<h3 class='field-desc $active_class'>$field_type</h3>";
           $html .= "<p class='field-desc $cssRA $active_class'>$titleR $titleA</p>";
