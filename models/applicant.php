@@ -320,6 +320,7 @@ class Applicant extends AdmObject
                 // if($field_name=="country_id") die("getFieldsManagerMatrix(applicant, $field_name) = ".var_export($matrix, true));
                 $col_struct = strtolower($col_struct);
                 $return = $matrix[$col_struct];
+                if ($col_struct == "obsolete") $return = (!$matrix["type"]);
                 if ($col_struct == "css") {
                         if (!$return) $return = 'width_pct_50';
                 }
