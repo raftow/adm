@@ -304,6 +304,16 @@
                                                                 'CSS' => 'width_pct_100',
                                                         ),                                                                  
 
+
+                                        'training_period_enum' => array('IMPORTANT' => 'IN',  
+                                                        'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                        'EDIT' => true, 'READONLY' => true, 'QEDIT' => false,  'QSEARCH' => true,  
+                                                        'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
+                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                        'CSS' => 'width_pct_100', ),                                                        
+
                                         'application_plan_branch_mfk' => array('STEP' => 3, 'SEARCH' => true,  'QSEARCH' => false,  
                                                 'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false,  

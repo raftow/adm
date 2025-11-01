@@ -32,6 +32,7 @@
 	$trad["application_plan_branch"]["allow_direct_adm"] = "تفعيل القبول المباشر";
 	$trad["application_plan_branch"]["application_model_branch_id"] = "فرع القبول";
 	$trad["application_plan_branch"]["branch_order"] = "ترتيب الفرع";
+	$trad["application_plan_branch"]["training_period_enum"] = "فترة التدريب";
 
 	$trad["application_plan_branch"]["sortingBranchList"] = "اعدادات الطاقة الاستعابية والفرز";
 	$trad["application_plan_branch"]["applicationDesireList"] = "عينة من الترشحات على هذا الفرع";

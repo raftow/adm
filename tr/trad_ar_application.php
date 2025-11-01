@@ -42,6 +42,7 @@ class ApplicationArTranslator{
 		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";
 		$trad["application"]["nb_desires"] = "عدد الرغبات";
 		$trad["application"]["applicationDesireList"] = "ترتيب الرغبات";
+		$trad["application"]["training_period_enum"] = "فترة التدريب";
 		$trad["application"]["application_plan_branch_mfk"] = "اختيار الرغبات";
 		
 		// $trad["application"]["satisfaction"] = "نسبة رضا العملاء";
