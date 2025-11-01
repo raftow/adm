@@ -1056,7 +1056,8 @@
                                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("sortingPathList"));                                                                
                         }
                         
-                        if(!$this->currentPlan())
+                        $currPlan = $this->currentPlan();
+                        if((!$currPlan) or (!$currPlan->sureIs("published")))
                         {
                                 $color = "green";
                                 $title_ar = "تحديث فروع القبول حسب البرامج المتاحة وباقي الاعدادات"; 
