@@ -238,7 +238,7 @@
 				'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'READONLY' => true, 
 				'TYPE' => 'MFK',  'ANSWER' => 'application_field',  'ANSMODULE' => 'adm', 'CATEGORY' => 'FORMULA', 
 				'SIZE' => 40,  'DEFAUT' => 0, 
-				'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 
+				'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_100', ),								
 		
