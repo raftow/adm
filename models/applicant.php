@@ -545,9 +545,9 @@ class Applicant extends AdmObject
                 $sp_errors = [];
                 $birth_gdate_step = $this->stepOfAttribute('birth_gdate');
                 $birth_gdate_is_in_step = $this->stepContainAttribute($step, 'birth_gdate');
-                $no_step_scope = (!$start_step and !$end_step);
-                $step_in_scope = (($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step));
-                $birth_gdate_is_in_steps_scope = ($birth_gdate_is_in_step and ($no_step_scope or $step_in_scope));
+                $no_step_scope = ($birth_gdate_step and (!$start_step and !$end_step));
+                $step_in_scope = ($birth_gdate_step and ($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step));
+                $birth_gdate_is_in_steps_scope = (($no_step_scope or $birth_gdate_is_in_step) and ($no_step_scope or $step_in_scope));
 
 
                 if ($birth_gdate_is_in_steps_scope) {
