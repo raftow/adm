@@ -39,6 +39,19 @@ class Acondition extends AdmObject{
                 else return null;
         }
         
+
+        public function calcUsed_fields_mfk($what="value")
+        {
+                $allFArr = $this->getAllFields();
+                $mfkArr = [];
+                $sep = ($what=="value") ? "," : "/";
+                foreach($allFArr as $field_row)
+                {
+                      $mfkArr[] = ($what=="value") ? $field_row["id"] : $field_row["name"];
+                }
+
+                return implode($sep, $mfkArr);
+        }
         public function getAllFields($amObj=null) 
         {
                 $return_arr = [];
