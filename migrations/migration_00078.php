@@ -4,6 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER major_category_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   training_period_enum smallint NOT NULL DEFAULT 0  AFTER gender_enum;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_plan_branch add   gender_enum smallint NOT NULL DEFAULT 0  AFTER application_plan_id;");
     

@@ -221,12 +221,18 @@ class Application extends AdmObject
                 {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
+                        $applicant_id = $applicationObj->getVal("applicant_id");
+                        $application_plan_id = $applicationObj->getVal("application_plan_id");
+                        $application_simulation_id = $applicationObj->getVal("application_simulation_id");
                 }
                 else
                 {
                         $step_num = null;
                         $applicationData = null;
                         $error_message = self::transMess("This application is not found", $lang);
+                        $applicant_id = 0;
+                        $application_plan_id = 0;
+                        $application_simulation_id = 0;
                 }
 
                 
@@ -234,9 +240,9 @@ class Application extends AdmObject
                 $data = [
                         "current_step" => $step_num,
                         "application" => $applicationData,
-                        "applicant_id" => $applicationObj->getVal("applicant_id"),
-                        "application_plan_id" => $applicationObj->getVal("application_plan_id"),
-                        "application_simulation_id" => $applicationObj->getVal("application_simulation_id"),
+                        "applicant_id" => $applicant_id,
+                        "application_plan_id" => $application_plan_id,
+                        "application_simulation_id" => $application_simulation_id,
                 ];
 
                 $status = $error_message ? "error" : "success";
