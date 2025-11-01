@@ -544,6 +544,7 @@ class Applicant extends AdmObject
         ) {
                 global $objme;
                 $sp_errors = [];
+                $birth_gdate_show = $this->showOfAttribute('birth_gdate');
                 $birth_gdate_step = $this->stepOfAttribute('birth_gdate');
                 $birth_gdate_is_in_step = $this->stepContainAttribute($step, 'birth_gdate');
                 $no_step_scope = ($birth_gdate_step and (!$start_step and !$end_step));
