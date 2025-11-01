@@ -63,6 +63,8 @@ class AconditionArTranslator{
 		// $trad["acondition"]["unique_apply.short"] = "يتم تطبيقه على كل فرع";
 		$trad["acondition"]["known_already.short"] = "معلومة مسبقا";
 		$trad["acondition"]["show_fe.short"] = "الاظهار";
+		$trad["acondition"]["used_fields_mfk"] = "الحقول المستعملة لحساب هذا الحقل";
+		
 		return $trad;
     }
 

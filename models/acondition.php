@@ -269,12 +269,16 @@ class Acondition extends AdmObject
                 
                 */
 
+                if (($attribute == "used_fields_mfk")) {
+                        return ($this->getVal("composed")!="W"); // manual comd
+                }
+
                 if (($attribute == "condition_1_id") or ($attribute == "operator_id") or ($attribute == "condition_2_id")) {
                         return $this->sureIs("composed");
                 }
 
                 if (($attribute == "afield_id") or ($attribute == "compare_id") or ($attribute == "aparameter_id")) {
-                        return (!$this->mayBe("composed"));
+                        return ($this->isNot("composed"));
                 }
 
                 return true;
