@@ -556,7 +556,8 @@ class Applicant extends AdmObject
 
                         if (!$birth_gdate and !$birth_date) {
                                 $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
-                                // $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = birth_gdate_is_in_step and (no_step_scope or step_in_scope) \n $birth_gdate_is_in_steps_scope = $birth_gdate_is_in_step and ($no_step_scope or $step_in_scope)</pre>";
+                                $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = ((no_step_scope or birth_gdate_is_in_step) and (no_step_scope or step_in_scope)) <br>\n 
+                                                         $birth_gdate_is_in_steps_scope = (($no_step_scope or $birth_gdate_is_in_step) and ($no_step_scope or $step_in_scope))</pre>";
                         }
                 }
 
