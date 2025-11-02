@@ -548,8 +548,20 @@ class Applicant extends AdmObject
                 {
                         return ($active_eval_arr["qiyas"] and $active_eval_fields[$attribute]); 
                 }
+
+
+                if ($attribute == "applicantApiRequestList")
+                {
+                        $api_runner_class = self::loadApiRunner();
+                        $arrAPIs = [];
+                        if(method_exists($api_runner_class,"applicant_apis"))
+                        {
+                                $arrAPIs = $api_runner_class::applicant_apis();
+                        }
                         
-                 
+
+                        return (count($arrAPIs)>0);                        
+                } 
 
 
                 return true;
