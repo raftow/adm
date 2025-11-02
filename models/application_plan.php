@@ -497,7 +497,9 @@ class ApplicationPlan extends AdmObject
                                 from $db.application_model_branch amb  
                                         left join $db.application_plan_branch apb on
                                                 apb.program_offering_id = amb.program_offering_id and
-                                                apb.application_plan_id = $this_id                                                        
+                                                apb.application_plan_id = $this_id and
+                                                apb.gender_enum = amb.gender_enum and
+                                                apb.training_period_enum = amb.training_period_enum
                                 where amb.application_model_id = $application_model_id
                                   and (amb.gender_enum = $gender_enum or $gender_enum > 2)
                                   and amb.active = 'Y'
