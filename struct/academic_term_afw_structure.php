@@ -219,14 +219,14 @@
 
                                         'sorting_start_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -239,14 +239,14 @@
 
                                         'sorting_end_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -262,14 +262,14 @@
 
                                         'admission_start_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -283,14 +283,14 @@
 
                                         'admission_end_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -304,14 +304,14 @@
 
                                         'direct_adm_start_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -325,14 +325,14 @@
 
                                         'direct_adm_end_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -346,14 +346,14 @@
 
                                         'seats_update_start_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -367,14 +367,14 @@
 
                                         'seats_update_end_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -388,14 +388,14 @@
 
                                         'migration_start_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -409,14 +409,14 @@
 
                                         'migration_end_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -429,14 +429,14 @@
 
                                             'Results_Announcement_date' => [
                                                 'IMPORTANT' => 'IN',
-                                                'SEARCH' => true,
-                                                'SHOW' => true,
+                                                'SEARCH' => false,
+                                                'SHOW' => false,
                                                 'RETRIEVE' => false,
-                                                'EDIT' => true,
-                                                'QEDIT' => true,
-                                                'SEARCH-ADMIN' => true,
-                                                'SHOW-ADMIN' => true,
-                                                'EDIT-ADMIN' => true,
+                                                'EDIT' => false,
+                                                'QEDIT' => false,
+                                                'SEARCH-ADMIN' => false,
+                                                'SHOW-ADMIN' => false,
+                                                'EDIT-ADMIN' => false,
                                                 'UTF8' => false,
                                                 'TYPE' => 'GDAT',
                                                 
@@ -447,15 +447,60 @@
                                                 'CSS' => 'width_pct_25',
                                             ],
 
-                                        'maqbool_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
+                                        
+
+
+                                        'last_date_upload_doc' => [
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'SEARCH-ADMIN' => true,
+                                                'SHOW-ADMIN' => true,
+                                                'EDIT-ADMIN' => true,
+                                                'UTF8' => false,
+                                                'TYPE' => 'GDAT',
+                                                'STEP' => 2,
+                                                'FGROUP' => 'miladi',
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'READONLY' => true,
+                                                'CSS' => 'width_pct_25',
+                                        ],
+
+
+
+
+                                        'last_date_tuitfee' => [
+                                                'IMPORTANT' => 'IN',
+                                                'SEARCH' => true,
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'EDIT' => true,
+                                                'QEDIT' => true,
+                                                'SEARCH-ADMIN' => true,
+                                                'SHOW-ADMIN' => true,
+                                                'EDIT-ADMIN' => true,
+                                                'UTF8' => false,
+                                                'TYPE' => 'GDAT',
+                                                'STEP' => 2,
+                                                'FGROUP' => 'miladi',
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'READONLY' => true,
+                                                'CSS' => 'width_pct_25',
+                                        ],
+
+
+                                        
+
+                                         'maqbool_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
                                             'EDIT' => true,  'QEDIT' => true,  'SIZE' => '8', 'MAXLENGTH' => '8', 'UTF8' => true,  
                                             'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'FGROUP' => 'miladi', 'MANDATORY' => false,  
                                             'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                            'CSS' => 'width_pct_25',),
-
-
-                                    
-                                            
+                                            'CSS' => 'width_pct_25',),   
 
 
                                     
@@ -484,71 +529,86 @@
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_admission_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_admission_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_admission_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_admission_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_direct_adm_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '8', 'MAXLENGTH' => '8', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'FGROUP' => 'hijri', 'MANDATORY' => false, 'READONLY' => true, 
+                                        'hijri_direct_adm_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  'SIZE' => '8', 'MAXLENGTH' => '8', 'UTF8' => true,  
+                                                'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 2, 'FGROUP' => 'hijri', 'MANDATORY' => false, 'READONLY' => true, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
                                                 
 
 
-                                        'hijri_direct_adm_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
+                                        'hijri_direct_adm_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
                                                                         'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_seats_update_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_seats_update_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_seats_update_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_seats_update_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_migration_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_migration_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
 
-                                        'hijri_migration_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_migration_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
-                                        'hijri_Results_Announcement_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_Results_Announcement_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
 
-                                        'hijri_sorting_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
-                                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
-                                                                        'CSS' => 'width_pct_25',),
-                            
-                            
-                                        'hijri_sorting_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true,  'QEDIT' => true,  'UTF8' => false,  
-                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                        'hijri_sorting_start_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2, 'FGROUP' => 'hijri',    'DISPLAY' => false, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
                                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
                                                                         'CSS' => 'width_pct_25',),
                             
+                            
+                                        'hijri_sorting_end_date' => array('IMPORTANT' => 'IN',  'SEARCH' => false,  'SHOW' => false,  'RETRIEVE' => false,  'EDIT' => false,  'QEDIT' => false,  'UTF8' => false,  
+                                                                        'TYPE' => 'DATE',  'STEP' => 2,  'FGROUP' => 'hijri',    'DISPLAY' => true, 'MANDATORY' => false, /* 'FORMAT' => 'CONVERT_NASRANI_2LINES',*/
+                                                                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true,
+                                                                        'CSS' => 'width_pct_25',),
+                                        'hijri_last_date_upload_doc' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+                                                'TYPE' => 'DATE',    'DISPLAY' => true,  'STEP' => 2,'FGROUP' => 'hijri',  'MANDATORY' => false, 'READONLY' => true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
+                                                
+
+
+                                        
+
+                                        'hijri_last_date_tuitfee' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+                                                'TYPE' => 'DATE',    'DISPLAY' => true,  'STEP' => 2, 'FGROUP' => 'hijri', 'MANDATORY' => false, 'READONLY' => true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
+
                 'academicPeriodList' => array('TYPE' => 'FK', 'ANSWER' => 'academic_period', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'academic_term_id', 
                                                 'STEP' => 3, 'PILLAR' => true, 

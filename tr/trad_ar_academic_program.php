@@ -43,6 +43,7 @@
 	$trad["academic_program"]["program_title_en"] = "عنوان البرنامج - انجليزي";
 	$trad["academic_program"]["program_duration_ar"] = "مدة البرنامج - عربي";
 	$trad["academic_program"]["program_duration_en"] = "مدة البرنامج - انجليزي";
+	$trad["academic_program"]["Study_plan"] = "الخطة الدراسية";
 
 
 	 

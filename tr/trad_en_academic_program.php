@@ -21,3 +21,4 @@
 	$trad["academic_program"]["gender_enum"] = "Gender";
 	$trad["academic_program"]["program_tuition_fees"] = "Tuition fees";
 	$trad["academic_program"]["maqbool_id"] = "Maqbool Integration Code";
+	$trad["academic_program"]["Study_plan"] = "Study plan";
