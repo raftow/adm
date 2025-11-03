@@ -513,6 +513,57 @@ class Applicant extends AdmObject
                         return ($this->getRelation("applicantEvaluationsNoFile")->count() > 0);
                 }
 
+                
+                
+                $file_dir_name = dirname(__FILE__);                
+                $main_company = AfwSession::currentCompany();
+                
+                $active_eval_fields = [];
+                $active_eval_arr = [];
+                $active_evals_file = "$file_dir_name/../../client-$main_company/extra/$main_company"."_active_evals.php";
+                if(file_exists($active_evals_file))
+                {
+                        $active_evals = require($active_evals_file);
+                        // die("from $file_dir_name/../extra/eval_settings.php eval_settings=".var_export($eval_settings,true));
+                        foreach($active_evals as $eval_code => $eval_settings)
+                        {
+                                $active_eval_arr[$eval_code] = true;
+                                foreach($eval_settings as $eval_type => $eval_setting_row)
+                                {
+                                        foreach($eval_setting_row as $categ => $eval_setting_case)
+                                        {
+                                                $eval_id = $eval_setting_case["id"];
+                                                $eval_attribute = $eval_code."_".$eval_type."_".$categ;
+                                                $eval_date_attribute = $eval_attribute . "_date";
+                                                $active_eval_fields[$eval_attribute]=true;
+                                                $active_eval_fields[$eval_date_attribute]=true;                                        
+                                        }
+                                }
+                        }
+                }
+                
+
+
+                if (AfwStringHelper::stringStartsWith($attribute, "qiyas_"))
+                {
+                        return ($active_eval_arr["qiyas"] and $active_eval_fields[$attribute]); 
+                }
+
+
+                if ($attribute == "applicantApiRequestList")
+                {
+                        $api_runner_class = self::loadApiRunner();
+                        $arrAPIs = [];
+                        if(method_exists($api_runner_class,"applicant_apis"))
+                        {
+                                $arrAPIs = $api_runner_class::applicant_apis();
+                        }
+                        
+
+                        return (count($arrAPIs)>0);                        
+                } 
+
+
                 return true;
         }
 
