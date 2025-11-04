@@ -31,7 +31,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_level',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'DEPENDENT_OFME' => array("academic_program_id", "qualification_id", "major_id"),
+                                                'DEPENDENT_OFME' => array("academic_program_id", "qualification_id"),/*, "major_id"*/
                                                 'CSS' => 'width_pct_50', ),
                                                 
                                         'academic_program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
@@ -40,7 +40,7 @@
                                                 'WHERE' => 'academic_level_id = §academic_level_id§',
                                                 'WHERE-SEARCH' => 'academic_level_id = §academic_level_id§',
                                                 'DEPENDENCIES' => ['academic_level_id'],
-                                                'DEPENDENT_OFME' => array("major_id"),
+                                                'DEPENDENT_OFME' => array(),/*"major_id"*/ 
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
@@ -48,8 +48,8 @@
                                         'major_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => false,  'EDIT-ADMIN' => false,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'WHERE' => 'id in (select major_id from §DBPREFIX§adm.academic_program where academic_level_id = §academic_level_id§ and (id = §academic_program_id§ or §academic_program_id§ = 0))',
-                                                'DEPENDENCIES' => ['academic_level_id','academic_program_id',],
+                                                //'WHERE' => 'id in (select major_id from §DBPREFIX§adm.academic_program where academic_level_id = §academic_level_id§ and (id = §academic_program_id§ or §academic_program_id§ = 0))',
+                                                //'DEPENDENCIES' => ['academic_level_id','academic_program_id',],
                                                 'DISPLAY' => false,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50', ),
