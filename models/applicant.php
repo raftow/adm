@@ -500,7 +500,7 @@ class Applicant extends AdmObject
 
         public function attributeIsApplicable($attribute)
         {
-                if ($attribute == "weighted_percentage") {
+                if (($attribute == "weighted_percentage") or ($attribute == "weighted_percentage_details")) {
                         return ($this->weighted_percentage($what = "applicable"));
                 }
 
