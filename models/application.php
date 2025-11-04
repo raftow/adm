@@ -1051,7 +1051,7 @@ class Application extends AdmObject
                 }
                 
 
-                $currentStepNum = $this->getVal("step_num");
+                $currentStepNum = $this->getVal("step_num") ? $this->getVal("step_num") : 0;
                 $nextStepNum = $currentStepNum + 1;
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
