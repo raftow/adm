@@ -39,7 +39,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'WHERE' => 'academic_level_id = §academic_level_id§',
                                                 'WHERE-SEARCH' => 'academic_level_id = §academic_level_id§',
-                                                'DEPENDENCIES' => ['academic_level_id',],
+                                                'DEPENDENCIES' => ['academic_level_id'],
                                                 'DEPENDENT_OFME' => array("major_id"),
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
