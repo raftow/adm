@@ -109,7 +109,14 @@
                                                 'DISPLAY-UGROUPS' => '',
                                                 'UNIT' => 'ساعة',
                                                 'CSS' => 'width_pct_50',),
-
+                                        
+                                        'admission_guide' => array('IMPORTANT' => 'IN',  'SHOW' => true,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
+                                                'TYPE' => 'FK', 'ANSWER' => 'workflow_file',  'ANSMODULE' => 'workflow', 
+                                                'WHERE' => 'doc_type_id = 13',
+                                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),
                                         /*        
                                         'degree_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => true,  

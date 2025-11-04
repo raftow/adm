@@ -74,6 +74,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["doc_type_mfk"] = "الوثائق المطلوبة";
 		
 		$trad["application_model"]["max_available_desire_enabled"] = "الحد الأقصى للرغبات";
+		$trad["application_model"]["admission_guide"] = "الدليل الارشادي";
 		
 
 		return $trad;

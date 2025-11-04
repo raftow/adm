@@ -41,6 +41,8 @@ class ApplicationModelEnTranslator
 
 		$trad["application_model"]["eval_type_mfk"] = "Required evaluation types";
 		$trad["application_model"]["max_available_desire_enabled"] = "max available desire enabled";
+		$trad["application_model"]["admission_guide"] = "Admission Guide";
+
 		return $trad;
 	}
 }	
