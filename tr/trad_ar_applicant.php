@@ -23,14 +23,14 @@ class ApplicantArTranslator{
 		$trad["applicant"]["applicationList"] = "طلبات التقديم";
 		$trad["applicant"]["applicantApiRequestList"] = "طلبات تحديث بيانات متقدم";
 
-		$trad["applicant"]["applicantEvaluationList"] = "اختبارات التحصيلي و القدرات";
+		$trad["applicant"]["applicantEvaluationList"] = "اختبارات المتقدم";
 		$trad["applicant"]["applicantQualificationList"] = "مؤهلات المتقدم";
 
-		$trad["applicant"]["applicantEvaluationsNoFile"] = "اختبارات التحصيلي و القدرات التي لا تزال تحتاج الربط مع الملف المرفق";
+		$trad["applicant"]["applicantEvaluationsNoFile"] = "اختبارات المتقدم التي لا تزال تحتاج الربط مع الملف المرفق";
 		$trad["applicant"]["applicantQualificationsNoFile"] = "مؤهلات المتقدم التي لا تزال تحتاج الربط مع الملف المرفق";
 		$trad["applicant"]["qualif"] = "المؤهلات العلمية";
 		$trad["applicant"]["appl"] = "بيانات التقديم";
-		$trad["applicant"]["evaluation"] = "اختبارات التحصيلي و القدرات";
+		$trad["applicant"]["evaluation"] = "اختبارات المتقدم";
 		
 
 		$trad["applicant"]["applicant.single"] = "متقدم";

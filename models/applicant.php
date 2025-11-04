@@ -500,6 +500,9 @@ class Applicant extends AdmObject
 
         public function attributeIsApplicable($attribute)
         {
+                if (($attribute == "weighted_percentage") or ($attribute == "weighted_percentage_details")) {
+                        return ($this->weighted_percentage($what = "applicable"));
+                }
 
                 if (($attribute == "mother_birth_date") or ($attribute == "mother_idn")) {
                         return ($this->getVal("idn_type_id") == 3);
@@ -1682,6 +1685,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                         if ($major_path_id === null) $major_path_id = $this->calcSecondary_major_path();
                         if (!$major_path_id) {
                                 if ($what == "details") return $this->tm("No major path defined", "ar");
+                                elseif ($what == "applicable") return false;
                                 else return -888;
                         }
 
@@ -1713,12 +1717,14 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                                                 coefAPct=$coefAPct% <!-- coefAPct for sub-context $coefAPctSubContext --><br>\n
                                                 coefBPct=$coefBPct% <!-- coefBPct for sub-context $coefBPctSubContext --><br>\n
                                                 coefCPct=$coefCPct% <!-- coefCPct for sub-context $coefCPctSubContext --><br>\n";
+                        elseif ($what == "applicable") return true;
                         else return $pct;
                 } catch (Exception $e) {
                         $err_message = "";
                         $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                         if ($devMode) $err_message = $e->getMessage() . "<br> trace is : <br>" . $e->getTraceAsString();
                         if ($what == "details") return $this->tm("error happened <!-- $err_message -->", "ar");
+                        elseif ($what == "applicable") return true;
                         else return -99;
                 }
         }

@@ -1051,7 +1051,7 @@ class Application extends AdmObject
                 }
                 
 
-                $currentStepNum = $this->getVal("step_num");
+                $currentStepNum = $this->getVal("step_num") ? $this->getVal("step_num") : 0;
                 $nextStepNum = $currentStepNum + 1;
                 $this->getApplicationModel();
                 if ($this->objApplicationModel) {
@@ -1204,7 +1204,7 @@ class Application extends AdmObject
                         }
                         
                         $desires_selection_stepObj = $this->objApplicationModel->calcDesires_selection_step_id("object");
-                        $desires_selection_stepNum = $desires_selection_stepObj->getVal("step_num");
+                        $desires_selection_stepNum = $desires_selection_stepObj ? $desires_selection_stepObj->getVal("step_num") : 0;
 
                         if($currentStepNum<$desires_selection_stepNum)
                         {
