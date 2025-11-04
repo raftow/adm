@@ -88,5 +88,7 @@
 	$trad["academic_term"]["Results_Announcement_date"] = "تاريخ اعلان النتائج";
 	$trad["academic_term"]["hijri_Results_Announcement_date"] = "تاريخ اعلان النتائج - هجري";
 	
-
-    
+	$trad["academic_term"]["last_date_upload_doc"] = "آخر موعد لرفع الوثائق";
+	$trad["academic_term"]["last_date_tuitfee"] = "آخر موعد لدفع الرسوم الدراسية والإدارية";
+    $trad["academic_term"]["hijri_last_date_upload_doc"] = "آخر موعد لرفع الوثائق - هجري";
+	$trad["academic_term"]["hijri_last_date_tuitfee"] = "آخر موعد لدفع الرسوم الدراسية والإدارية - هجري";

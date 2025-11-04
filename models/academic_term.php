@@ -70,6 +70,10 @@ class AcademicTerm extends AdmObject
                 $date_attributes[] = "Results_Announcement_date";
                 $date_attributes[] = "sorting_start_date";
                 $date_attributes[] = "sorting_end_date";
+                // added by medali
+                $date_attributes[] = "last_date_upload_doc";
+                $date_attributes[] = "last_date_tuitfee";
+
 
                 foreach ($date_attributes as $date_attribute) {
                         if ($this->getVal($date_attribute) and $fields_updated[$date_attribute]) {
@@ -116,16 +120,33 @@ class AcademicTerm extends AdmObject
                         $displ = $this->getDisplay($lang);
                     if($mode=="mode_academicPeriodList")
                         {
-                                
+                                // added by medali
+                                $objPeriod = new AcademicPeriod();
+                                $objPeriod->where(" active='Y' and academic_term_id = '$my_id' and application_end_date >= now()");
+                                //if no application period exists, create an application  period and validate the start application and end application date ,
+                                // and update the academic term otherwise, allow adding a new application period if only the sysdate >=application_period1.(application end date) and update the academic term
                                 unset($link);
-                                $link = array();
-                                $title = "إضافة فترة تقديم جديدة";
-                                $title_detailed = $title ."لـ : ". $displ;
-                                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicPeriod&currmod=adm&sel_academic_term_id=$my_id";
-                                $link["TITLE"] = $title;
-                                $link["PUBLIC"] = true;
-                                $link["UGROUPS"] = array();
-                                $otherLinksArray[] = $link;
+                                
+                                if($objPeriod->count()>0){
+                                        $link = array();
+                                        $title = "لا يمكن إضافة فترة قبل انتهاء الفترة السابقة";
+                                        $title_detailed = $title ."لـ : ". $displ;
+                                        $link["URL"] = "#";
+                                        $link["TITLE"] = $title;
+                                        $link["PUBLIC"] = true;
+                                        $link["UGROUPS"] = array();
+                                        $otherLinksArray[] = $link;
+                                }else{
+                                        $link = array();
+                                        $title = "إضافة فترة تقديم جديدة";
+                                        $title_detailed = $title ."لـ : ". $displ;
+                                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=AcademicPeriod&currmod=adm&sel_academic_term_id=$my_id";
+                                        $link["TITLE"] = $title;
+                                        $link["PUBLIC"] = true;
+                                        $link["UGROUPS"] = array();
+                                        $otherLinksArray[] = $link;
+                                }
+                               
                         
                                 
                         }

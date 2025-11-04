@@ -39,3 +39,10 @@
 	$trad["academic_term"]["academic_level_mfk"] = "Academic Levels";
 	$trad["academic_term"]["maqbool_id"] = "Maqbool Integration Code";
 	$trad["academic_term"]["current_active_term"] = "Current Active Term";
+
+
+	$trad["academic_term"]["last_date_upload_doc"] = "Last date for submitting documents";
+	$trad["academic_term"]["last_date_tuitfee"] = "Last date for paying tuition and administrative fees";
+	$trad["academic_term"]["hijri_last_date_upload_doc"] = "Last date for submitting documents - hijri";
+	$trad["academic_term"]["hijri_last_date_tuitfee"] = "Last date for paying tuition and administrative fees - hijri";
+    
