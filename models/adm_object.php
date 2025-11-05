@@ -49,7 +49,8 @@ class AdmObject extends AfwMomkenObject
 
         $return = self::$fields_manager_matrix[$table_name][$field_name];
 
-        // if(($field_name=="xxxxx") and (!$return)) throw new AfwBusinessException("no Fields Manager Matrix found for [$table_name.$field_name] : fields_manager_matrix=".var_export(self::$fields_manager_matrix, true));
+        // if(($field_name=="xxxxx") and ($main_company=="nauss") and (!$return)) throw new AfwBusinessException("no Fields Manager Matrix found for [$table_name.$field_name] : fields_manager_matrix=".var_export(self::$fields_manager_matrix, true));
+        if(($field_name=="birth_gdate") and ($main_company=="nauss")) die("dbg::AdmObject::getFieldsManagerMatrix($table_name,$field_name) return=".var_export($return,true));
 
         return $return;
     }
