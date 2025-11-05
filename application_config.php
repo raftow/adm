@@ -74,7 +74,7 @@ $config_arr = array(
 
         'adm-AfileClass' => "WorkflowFile",
 
-        'adm-file_types' => [7,20,6,28,18,27,29],
+        'adm-file_types' => [6,7,18,19,20,27,28,29,33,34],
 
 
         // SIS settings

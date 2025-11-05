@@ -1740,7 +1740,7 @@ class AdmObject extends AfwMomkenObject
 
     public function calcDoc_type_allowed_list($what = "value")
     {
-            return "18,19,20,27,28,29,33,34";
+            return "6,7,18,19,20,27,28,29,33,34";
     }
 
 
