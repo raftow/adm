@@ -86,7 +86,9 @@
 
 'application_start_time' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
         'EDIT' => true,  'QEDIT' => true,  'UTF8' => true,  
-        'TYPE' => 'TIME', 'FORMAT' => 'CLOCK', 'ANSWER_LIST' => '6/10/22',   'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+        'TYPE' => 'TIME', 'FORMAT' => 'CLOCK', 'ANSWER_LIST' => '6/10/22', 
+        "SEPARATOR" =>":",
+        'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),
         
@@ -113,7 +115,9 @@
 
 
 'application_end_time' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-        'TYPE' => 'TIME', 'FORMAT' => 'CLOCK', 'ANSWER_LIST' => '6/10/22','EDIT' => true,   'QEDIT' => true,   'UTF8' => true,  
+        'TYPE' => 'TIME', 'FORMAT' => 'CLOCK', 
+        "SEPARATOR" =>":",
+        'ANSWER_LIST' => '6/10/22','EDIT' => true,   'QEDIT' => true,   'UTF8' => true,  
          'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),
