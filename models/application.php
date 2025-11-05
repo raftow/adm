@@ -2401,7 +2401,6 @@ class Application extends AdmObject
         {
                 //die("rafik debugg 20250203");
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
-                /*NOT WORKING WELL to debugg
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) return $no;
 
@@ -2426,7 +2425,7 @@ class Application extends AdmObject
                 $applicationAvail = $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
                 // die("applicantAvail and applicationAvail => $applicantAvail and $applicationAvail");
 
-                return ($applicantAvail and $applicationAvail) ? $yes : $no;*/
+                return ($applicantAvail and $applicationAvail) ? $yes : $no;
 
                 return $yes;
         }
