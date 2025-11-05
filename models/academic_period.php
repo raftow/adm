@@ -36,10 +36,13 @@
                 // added by medali
                 public function afterMaj($id, $fields_updated){
                         $academicTermObj = $this->het("academic_term_id");
-                        $arr_field = array("hijri_application_start_date","hijri_application_end_date","last_date_upload_doc","last_date_tuitfee",
+                        $arr_field = array("hijri_application_start_date","hijri_application_end_date","application_start_date","application_end_date","last_date_upload_doc","last_date_tuitfee",
                         "hijri_last_date_upload_doc","hijri_last_date_tuitfee");
                         foreach($arr_field as $field){
-                                $academicTermObj->set($field,$fields_updated[$field]);
+                                if(isset($fields_updated[$field])){
+                                        $academicTermObj->set($field,$fields_updated[$field]);
+
+                                }
 
                         }
                         $academicTermObj->commit();	
