@@ -309,7 +309,7 @@
                                                         'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true, 'QEDIT' => false,  'QSEARCH' => true,  
                                                         'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'unique_training_period_enum', 'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_100', ),                                                        

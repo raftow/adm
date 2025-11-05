@@ -353,7 +353,13 @@ class AdmObject extends AfwMomkenObject
         return self::training_period()[$lang];
     }
 
-    public static function training_period()
+    public static function list_of_unique_training_period_enum()
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        return self::training_period(true)[$lang];
+    }
+
+    public static function training_period($unique=false)
     {
         $arr_list_of_training_period = array();
 
@@ -366,10 +372,14 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_training_period["ar"][2] = "مسائي";
         $arr_list_of_training_period["code"][2] = "Evening";
 
-        $arr_list_of_training_period["en"][3] = "Morning & Evening";
-        $arr_list_of_training_period["ar"][3] = "صباحي ومسائي";
-        $arr_list_of_training_period["code"][3] = "Both";
+        if(!$unique)
+        {
+            $arr_list_of_training_period["en"][3] = "Morning & Evening";
+            $arr_list_of_training_period["ar"][3] = "صباحي ومسائي";
+            $arr_list_of_training_period["code"][3] = "Both";
+        }
 
+        
 
         return $arr_list_of_training_period;
     }
