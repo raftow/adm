@@ -252,35 +252,45 @@ class Applicant extends AdmObject
                         }
                 }
                 $file_dir_name = dirname(__FILE__);
-                
-                $eval_settings = require("$file_dir_name/../extra/eval_settings.php");
-                // die("from $file_dir_name/../extra/eval_settings.php eval_settings=".var_export($eval_settings,true));
-                foreach($eval_settings as $eval_type => $eval_setting_row)
-                {
-                        foreach($eval_setting_row as $categ => $eval_setting_case)
-                        {
-                                $eval_id = $eval_setting_case["id"];
-                                $eval_attribute = "qiyas_".$eval_type."_".$categ;
-                                $eval_date_attribute = $eval_attribute . "_date"; 
 
-                                if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute]) 
-                                {
-                                        $eval_date = $this->getVal($eval_date_attribute);
-                                        if(!$eval_date) $eval_date = "2025-01-01";
-                                        $eval_result = $this->getVal($eval_attribute);
-                                        if($eval_date and $eval_result)
-                                        {
-                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, $eval_result, true, true);
-                                        }
-                                        
-                                }
-                                else
-                                {
-                                        // die("fields_updated = ".var_export($fields_updated,true));
-                                }
-                        }       
-                }
+                $file_dir_name = dirname(__FILE__);                
+                $main_company = AfwSession::currentCompany();
                 
+                $active_eval_fields = [];
+                $active_eval_arr = [];
+                $active_evals_file = "$file_dir_name/../../client-$main_company/extra/$main_company"."_active_evals.php";
+                if(file_exists($active_evals_file))
+                {
+                        $active_evals = require($active_evals_file);
+                        foreach($active_evals as $eval_code => $eval_settings)
+                        {
+                                $active_eval_arr[$eval_code] = true;
+                                foreach($eval_settings as $eval_type => $eval_setting_row)
+                                {
+                                        foreach($eval_setting_row as $categ => $eval_setting_case)
+                                        {
+                                                $eval_id = $eval_setting_case["id"];
+                                                $eval_attribute = $eval_code."_".$eval_type."_".$categ;
+                                                $eval_date_attribute = $eval_attribute . "_date";
+                                                if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute]) 
+                                                {
+                                                        $eval_date = $this->getVal($eval_date_attribute);
+                                                        if(!$eval_date) $eval_date = "2025-01-01";
+                                                        $eval_result = $this->getVal($eval_attribute);
+                                                        if($eval_date and $eval_result)
+                                                        {
+                                                                $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, $eval_result, true, true);
+                                                        }
+                                                        
+                                                }
+                                                else
+                                                {
+                                                        // die("fields_updated = ".var_export($fields_updated,true));
+                                                }
+                                        }
+                                }
+                        }
+                }
                 
 
                 return true;
@@ -527,7 +537,6 @@ class Applicant extends AdmObject
                 if(file_exists($active_evals_file))
                 {
                         $active_evals = require($active_evals_file);
-                        // die("from $file_dir_name/../extra/eval_settings.php eval_settings=".var_export($eval_settings,true));
                         foreach($active_evals as $eval_code => $eval_settings)
                         {
                                 $active_eval_arr[$eval_code] = true;
