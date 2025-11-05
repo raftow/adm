@@ -1442,6 +1442,9 @@ class Applicant extends AdmObject
                         $field_empty = ((!$field_value) or ($field_value === "W"));
                         $row_matrix['empty'] = $field_empty;
                         $row_matrix['error'] = AfwDataQualityHelper::getAttributeError($this, $field_name);
+                        $field_name_step = $this->stepOfAttribute($field_name);
+                        $field_name_step_title = $this->getAttributeLabel("step".$field_name_step, $lang);
+                        $row_matrix['admstep'] = $field_name_step.". ".$field_name_step_title;
                         $field_value_datetime = "";
                         $default_update_date_of_field_is_api_run_date = false; /* @todo should be in settings */
                         if($default_update_date_of_field_is_api_run_date)

@@ -2130,7 +2130,9 @@ class Application extends AdmObject
                                 $theyAreUpdated = false;
                         }
 
-
+                        $field_name_step = $object->stepOfAttribute($field_name);
+                        $field_name_step_title = $object->getAttributeLabel("step".$field_name_step, $lang);
+                        $row_matrix['admstep'] = $field_name_step.". ".$field_name_step_title;
 
                         $matrix[] = $row_matrix;
                 }
@@ -2192,7 +2194,7 @@ class Application extends AdmObject
                 $currentStepNum = $this->getVal("step_num");
                 $matrix = $this->fieldsMatrixForStep($currentStepNum, $lang);
 
-                $matrix_header = ['title' => 'الحقل', 'decode' => 'القيمة', 'datetime' => 'تاريخ التحديث', 'api' => 'الخدمة', 'status' => 'حالة التحديث',];
+                $matrix_header = ['title' => 'الحقل', 'decode' => 'القيمة', 'datetime' => 'تاريخ التحديث', 'api' => 'الخدمة', 'admstep' => 'لسان الادمن', 'status' => 'حالة التحديث',];
 
 
                 $return = AfwHtmlHelper::tableToHtml($matrix, $matrix_header);
