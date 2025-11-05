@@ -1422,6 +1422,29 @@ class AdmObject extends AfwMomkenObject
 
         return $arr_list_of_phase;
     }
+     public static function list_of_nominating_authority_source_enum()
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        return self::nominating_authority_source_enum()[$lang];
+    }
+
+    public static function nominating_authority_source_enum()
+    {
+        $arr_list_of_phase = array();
+
+
+        $arr_list_of_phase["en"][1] = "Internal";
+        $arr_list_of_phase["ar"][1] = "داخلي";
+        $arr_list_of_phase["code"][1] = "INT";
+
+        $arr_list_of_phase["en"][2] = "External";
+        $arr_list_of_phase["ar"][2] = "خارجي";
+        $arr_list_of_phase["code"][2] = "EXT";
+
+
+
+        return $arr_list_of_phase;
+    }
 
     public static function executeIndicator($object, $indicator, $normal_class, $arrObjectsRelated, $sens = "asc", $default_red_pct = 0, $default_orange_pct = 0)
     {
