@@ -307,9 +307,9 @@
 
                                         'training_period_enum' => array('IMPORTANT' => 'IN',  
                                                         'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                        'EDIT' => true, 'READONLY' => true, 'QEDIT' => false,  'QSEARCH' => true,  
+                                                        'EDIT' => true, 'QEDIT' => false,  'QSEARCH' => true,  
                                                         'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                        'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'unique_training_period_enum', 'SIZE' => 40,  'DEFAUT' => 0,    
                                                         'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true, 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                         'CSS' => 'width_pct_100', ),                                                        
@@ -322,6 +322,7 @@
                                                 'TYPE' => 'MFK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'READONLY' => false,  
                                                 'WHERE' => "application_plan_id = §application_plan_id§ 
                                                                 and gender_enum = §gender_enum§ 
+                                                                and training_period_enum = §training_period_enum§
                                                                 and min_weighted_percentage <= §weighted_pctg§ 
                                                                 and program_offering_id in (0§program_offering_mfk§0)",
                                                 'DNA' => true, 

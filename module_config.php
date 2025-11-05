@@ -41,7 +41,7 @@
                 // $PUBLIC_MODULE_ROLES[$MODULE] = ",42,44,56,85,";
                 
                 
-                $file_type_ids = "2,3,4,5,6,7,10,12,13,15";
+                $file_type_ids = "18,19,20,27,28,29,33,34";
                 
                 
                 $module_config_token = array();
