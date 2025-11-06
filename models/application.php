@@ -1802,7 +1802,7 @@ class Application extends AdmObject
                         return ($this->getVal("application_status_enum") == self::application_status_enum_by_code('complete'));
                 }
 
-                return false;
+                return null;
         }
 
         public function gotoNextStep($lang = "ar", $dataShouldBeUpdated=true, $simulate=true, $application_simulation_id=0, $logConditionExec=true, $audit_conditions_pass = [], $audit_conditions_fail = [])
@@ -2465,23 +2465,26 @@ class Application extends AdmObject
 
         public function calcProgram_offering_mfk($what = "value")
         {
+                $po_id_arr = [];
                 $applicantQualificationObj = $this->het("applicant_qualification_id");
+                if($applicantQualificationObj)
+                {
+                        $qualification_id = $applicantQualificationObj->getVal("qualification_id");
+                        $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
+                        $this->getApplicationModel();
+                        if ($this->objApplicationModel) {
+                                $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
 
-                $qualification_id = $applicantQualificationObj->getVal("qualification_id");
-                $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
-                $this->getApplicationModel();
-                if ($this->objApplicationModel) {
-                        $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
+                                $server_db_prefix = AfwSession::currentDBPrefix();
+
+                                $po_id_arr = AfwDatabase::db_recup_liste("select po.id from ".$server_db_prefix."adm.academic_program_offering po
+                                                        inner join ".$server_db_prefix."adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
+                                        where pq.qualification_id = $qualification_id
+                                        and pq.major_path_id = $major_path_id
+                                        and pq.academic_level_id = $academic_level_id", "id");
+                        }
                 }
-                else return ($what == "value") ? "," : [];
-
-                $server_db_prefix = AfwSession::currentDBPrefix();
-
-                $po_id_arr = AfwDatabase::db_recup_liste("select po.id from ".$server_db_prefix."adm.academic_program_offering po
-                                                inner join ".$server_db_prefix."adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
-                                where pq.qualification_id = $qualification_id
-                                  and pq.major_path_id = $major_path_id
-                                  and pq.academic_level_id = $academic_level_id", "id");
+                
                 
 
                 
@@ -2489,7 +2492,8 @@ class Application extends AdmObject
                 if(!$po_id_mfk) $po_id_mfk = ",";
                 else $po_id_mfk = ",$po_id_mfk,";
 
-                return $po_id_mfk;
+                if($what == "value") return $po_id_mfk;
+                else throw new AfwRuntimeException("calcProgram_offering_mfk($what) rafik is to be implemented ");
         }
 
         public function calcWeighted_percentage_details($what = "value")
