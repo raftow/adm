@@ -19,5 +19,5 @@ if(!$table) $table = "all";
 
 $options = AfwMainPage::getDefaultOptions($Main_Page, "adm", $table);
 // die("main-options for $Main_Page : ".var_export($options,true));
-die("rafik is upgrading librairies code=ADEF202511061552-02 ...");
+// die("rafik is upgrading librairies code=ADEF202511061552-02 ...");
 AfwMainPage::echoMainPage($MODULE, $Main_Page, $file_dir_name, $options);
