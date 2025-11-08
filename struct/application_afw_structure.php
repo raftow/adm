@@ -323,7 +323,7 @@
                                                 'WHERE' => "application_plan_id = §application_plan_id§ 
                                                                 and gender_enum = §gender_enum§ 
                                                                 and training_period_enum = §training_period_enum§
-                                                                and min_weighted_percentage <= §weighted_pctg§ 
+                                                                and (§consider_weighted_pctg§ != 'Y or min_weighted_percentage <= §weighted_pctg§) 
                                                                 and program_offering_id in (0§program_offering_mfk§0)",
                                                 'DNA' => true, 
                                                 'CSS' => 'width_pct_100', ),                                                                
@@ -364,6 +364,11 @@
                                                 'READONLY' => true,  
                                                 'CSS' => 'width_pct_100', ),                                                
 
+                                        'consider_weighted_pctg'  => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
+                                                'CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>'application_model_id.consider_weighted_pctg',
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),       
 
                                         'nb_desires' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 

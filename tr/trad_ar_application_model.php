@@ -24,6 +24,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["appModelApiList"] = "الانخراط في الخدمات الالكترونية";
 		$trad["application_model"]["application_field_mfk"] = "قائمة الحقول التي سيتم ترحيلها الى SIS";
 		$trad["application_model"]["financialTransactionList"] = "قائمة البنود المالية";
+		$trad["application_model"]["consider_weighted_pctg"] = "اعتبار النسبة الموزونة في اختيار الرغبات";
 		
 		
 		$trad["application_model"]["split_sorting_by_enum"] = "تقسيم مسارات الفرز حسب";

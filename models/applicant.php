@@ -4,6 +4,12 @@
 class Applicant extends AdmObject
 {
 
+        public function __construct()
+        {
+                parent::__construct("applicant", "id", "adm");
+                AdmApplicantAfwStructure::initInstance($this);
+        }
+
         public static $DATABASE        = "";
         public static $MODULE            = "adm";
         public static $TABLE            = "applicant";
@@ -30,11 +36,6 @@ class Applicant extends AdmObject
 
         public $update_date = [];
 
-        public function __construct()
-        {
-                parent::__construct("applicant", "id", "adm");
-                AdmApplicantAfwStructure::initInstance($this);
-        }
 
 
         public static function tryConvertIdnToID($value)
@@ -1458,7 +1459,7 @@ class Applicant extends AdmObject
                                 // For the moment we consider the field manally enetred and the 
                                 // update date time is the record last update datetime
                                 $field_value_datetime = $this->getVal("updated_at");
-                                $api = "ادخال يدوي";
+                                $api = "ادخال يدوي في بيانات المتقدم";
                         }
                         
                         if ($row_matrix['empty']) {

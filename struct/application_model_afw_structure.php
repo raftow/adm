@@ -191,8 +191,6 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',),
 
-
-
                                         'max_training_unit' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
@@ -233,7 +231,12 @@
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',), */
+                                        'consider_weighted_pctg'  => array('SHOW' => true,  'RETRIEVE' => false,  'EDIT' => true, 'QEDIT' => false, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25',),       
 
+                                        
 
                                         'tuituin_fees_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '60', 'MAXLENGTH' => '60', 'UTF8' => true,  
@@ -267,13 +270,13 @@
                                                 'WHERE' => 'doc_type_id = 13',
                                                 'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_25',),
+                                                'CSS' => 'width_pct_100',),
 
                                         'eval_type_mfk' => array('SHORTNAME' => 'types',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false, 'STEP' => 2, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'eval_type',  'ANSMODULE' => 'adm',  'READONLY' => false,  'DNA' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),
 
                                         'doc_type_allowed_list' => array(
                                                         'TYPE' => 'TEXT',  
@@ -289,7 +292,7 @@
                                                 'TYPE' => 'MFK',  'ANSWER' => 'doc_type',  'ANSMODULE' => 'ums',  
                                                 'WHERE' => "id in (§doc_type_allowed_list§)",
                                                 'READONLY' => false,  'DNA' => true, 
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_100', ),
 
                                         'pic_view' => array(
                                                         'TYPE' => 'TEXT',  
