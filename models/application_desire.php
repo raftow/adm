@@ -1096,6 +1096,7 @@ class ApplicationDesire extends AdmObject
 
         public function sortingCritereaNeedRefresh()
         {
+                if (!$this->getVal("track_num")) return true;
                 if(!$this->getVal("sorting_group_id")) return false;
                 $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
                 for ($i = 1; $i <= 3; $i++) {
@@ -1110,7 +1111,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
-                if (!$this->getVal("track_num")) return true;
+                
 
                 return false;
         }
@@ -1177,27 +1178,31 @@ class ApplicationDesire extends AdmObject
                 $applicationPlanObj = $this->getApplicationPlan();
                 $application_model_id = $applicationPlanObj->getVal("application_model_id");
                 $applicant_id = $this->getVal("applicant_id");
-                $sortingCriterea = SortingGroup::loadSortingCriterea($this->getVal("sorting_group_id"));
-                for ($i = 1; $i <= 3; $i++) {
-                        if ($sortingCriterea["c$i"]) {
-                                $field_name = $sortingCriterea["c$i"]["field_name"];
-                                // $field_sens = $sortingCriterea["c$i"]["field_sens"];
-                                $field_method = $sortingCriterea["c$i"]["field_method"];
+                $sorting_group_id = $this->getVal("sorting_group_id");
+                if($sorting_group_id)
+                {
+                        $sortingCriterea = SortingGroup::loadSortingCriterea($sorting_group_id);
+                        for ($i = 1; $i <= 3; $i++) {
+                                if ($sortingCriterea["c$i"]) {
+                                        $field_name = $sortingCriterea["c$i"]["field_name"];
+                                        // $field_sens = $sortingCriterea["c$i"]["field_sens"];
+                                        $field_method = $sortingCriterea["c$i"]["field_method"];
 
-                                $value = $this->$field_method($field_name);
-                                $this->set("sorting_value_$i", $value);
+                                        $value = $this->$field_method($field_name);
+                                        $this->set("sorting_value_$i", $value);
+                                }
                         }
-                }
 
-                for ($f = 1; $f <= 9; $f++) {
-                        if ($sortingCriterea["f$f"]) {
-                                $field_name = $sortingCriterea["f$f"]["field_name"];
-                                $field_method = $sortingCriterea["f$f"]["field_method"];                                
-                                $value = $this->$field_method($field_name);
-                                if (!$value) $value = 0; // throw new AfwRuntimeException("for applicant_id=$applicant_id reComputeSortingCriterea :: this->$field_method($field_name) return nothing");
-                                $this->set("formula_value_$f", $value);
-                        } else {
-                                if ($f <= 3) die("reComputeSortingCriterea :: sortingCriterea = " . var_export($sortingCriterea, true));
+                        for ($f = 1; $f <= 9; $f++) {
+                                if ($sortingCriterea["f$f"]) {
+                                        $field_name = $sortingCriterea["f$f"]["field_name"];
+                                        $field_method = $sortingCriterea["f$f"]["field_method"];                                
+                                        $value = $this->$field_method($field_name);
+                                        if (!$value) $value = 0; // throw new AfwRuntimeException("for applicant_id=$applicant_id reComputeSortingCriterea :: this->$field_method($field_name) return nothing");
+                                        $this->set("formula_value_$f", $value);
+                                } else {
+                                        if ($f <= 3) die("reComputeSortingCriterea :: sortingCriterea = " . var_export($sortingCriterea, true));
+                                }
                         }
                 }
 
