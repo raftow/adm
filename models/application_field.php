@@ -863,7 +863,7 @@ class ApplicationField extends AdmObject
           if(!$struct) return [false, "has no struct"];
           if($struct["NO-REVERSE"]) return [false, "is no-reverse"];
           if($struct["SHORTCUT"]) return [false, "is shortcut"]; 
-          if($struct["CATEGORY"]=='ITEMS') return [false, "is items category"];
+          // if($struct["CATEGORY"]=='ITEMS') return [false, "is items category"];
 
           return [true, ""];
      }
