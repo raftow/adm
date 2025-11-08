@@ -962,22 +962,34 @@ class ApplicationField extends AdmObject
           {
                $keepAsIs = false;
                list($action, $field_action) = explode("-", $action);               
+               $toberev = 0;
                foreach($afieldList as $afieldItem)
                {
                     $field_name = $afieldItem->getVal("field_name");
                     if((!$instanceObj->isFrameworkDesignedField($field_name)) and (($field_name==$field_action) or ("all"==$field_action)))
                     {
-                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
+                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);                         
                          if(self::reversable($struct))
                          {
+                              $toberev++;
                               list($mess, $objFld) = self::reverseAfield($afieldItem, $applicationTableId);
                               $applicationFieldList[] = $objFld;
                               $message .= "<br>".$mess;
                          }
+                         else
+                         {
+                              
+                              $message .= "<br>Warning : Field $field_name is not reversable !";
+                         }
                     }
+                    else
+                    {
+                         
+                         $message .= "<br>Warning : Field $field_name is not to be reversed ($field_action to be reversed) !";
+                    } 
                }
 
-               if($message) $message = "<br>Application-Field-Manger start reversing ... ".$message;
+               if($toberev>0) $message = "<br>Application-Field-Manger start reversing ... ".$message;
                else $message .= "<br>Warning : No field need to be reversed for table $table !";
 
           }
