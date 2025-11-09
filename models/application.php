@@ -2119,7 +2119,7 @@ class Application extends AdmObject
         public function attributeIsApplicable($attribute)
         {
 
-                if (/*($attribute == "program_id") or */($attribute == "applicant_qualification_id")) {
+                if (/*($attribute == "program_id") or ($attribute == "applicant_qualification_id")*/false) {
                         return $this->applicationAttributeIsApplicable($attribute);
                 }
 
