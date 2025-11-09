@@ -5,6 +5,7 @@ class NominationLetterArTranslator{
     {
         $trad = [];
 		$trad["nomination_letter"]["step1"] = "خطاب الترشيح";
+		$trad["nomination_letter"]["step2"] = "المرشحين";
 
 		$trad["nomination_letter"]["nominationletter.single"] = "خطاب ترشيح";
 		$trad["nomination_letter"]["nominationletter.new"] = "جديد";

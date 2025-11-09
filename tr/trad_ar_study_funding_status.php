@@ -12,6 +12,8 @@ class StudyFundingStatusArTranslator{
 		$trad["study_funding_status"]["desc_ar"] = "وصف  بالعربية";
 		$trad["study_funding_status"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["study_funding_status"]["desc_en"] = "وصف  بالانجليزية";
+		$trad["study_funding_status"]["desc_en"] = "مؤشر الدفع";
+		
         // steps
         return $trad;
     }

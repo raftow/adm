@@ -12,6 +12,8 @@ class StudyFundingStatusEnTranslator{
 		$trad["study_funding_status"]["desc_ar"] = "Arabic Study funding status description";
 		$trad["study_funding_status"]["name_en"] = "English Study funding status name";
 		$trad["study_funding_status"]["desc_en"] = "English Study funding status description";
+		$trad["study_funding_status"]["payment_ind"] = "Payment indicator";
+
         // steps
         return $trad;
     }
