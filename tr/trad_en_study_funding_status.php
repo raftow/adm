@@ -5,9 +5,9 @@ class StudyFundingStatusEnTranslator{
     {
         $trad = [];
 
-		$trad["study_funding_status"]["studyfundingstatus.single"] = "حالة";
+		$trad["study_funding_status"]["studyfundingstatus.single"] = "Study Funding Status";
 		$trad["study_funding_status"]["studyfundingstatus.new"] = "new";
-		$trad["study_funding_status"]["study_funding_status"] = "الدراسة";
+		$trad["study_funding_status"]["study_funding_status"] = "Study Funding Status";
 		$trad["study_funding_status"]["name_ar"] = "Arabic Study funding status name";
 		$trad["study_funding_status"]["desc_ar"] = "Arabic Study funding status description";
 		$trad["study_funding_status"]["name_en"] = "English Study funding status name";

@@ -18,8 +18,7 @@ class NominationLetterArTranslator{
 		$trad["nomination_letter"]["nominating_authority_id"] = "جهة الترشيح";
 		$trad["nomination_letter"]["nomination_letter_date"] = "تاريخ الخطاب";
 		$trad["nomination_letter"]["sponsor_cordinator_id"] = "منسق جهة الترشيح";
-		$trad["nomination_letter"]["sponsor_cordinator_id"] = "منسق جهة الترشيح";
-		$trad["nomination_letter"]["nomination_letter_file_id"] = "منسق جهة الترشيح";
+		$trad["nomination_letter"]["nomination_letter_file_id"] = "خطاب الترشيح";
 
         // steps
         return $trad;

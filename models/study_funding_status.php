@@ -40,10 +40,7 @@ class StudyFundingStatus extends AdmObject{
                 }
         
         
-        public function getDisplay($lang="ar")
-        {
-               
-        }
+       
         
         
         
