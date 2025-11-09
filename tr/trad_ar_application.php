@@ -27,7 +27,7 @@ class ApplicationArTranslator{
 		$trad["application"]["applicantSimulationList"] = "نتيجة المحاكاة";
 
 		$trad["application"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";
-		
+		$trad["application"]["consider_weighted_pctg"] = "اعتبار النسبة الموزونة في اختيار الرغبات";
 
 		$trad["application"]["applicationQualificationList"] = "المؤهلات المسموحة للتقديم";
 		

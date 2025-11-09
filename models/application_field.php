@@ -860,12 +860,12 @@ class ApplicationField extends AdmObject
 
      public static function reversable($struct)
      {
-          if(!$struct) return false;
-          if($struct["NO-REVERSE"]) return false;
-          if($struct["SHORTCUT"]) return false; // ex allow_add_qualification
-          if($struct["CATEGORY"]=='ITEMS') return false;
+          if(!$struct) return [false, "has no struct"];
+          if($struct["NO-REVERSE"]) return [false, "is no-reverse"];
+          if($struct["SHORTCUT"]) return [false, "is shortcut"]; 
+          // if($struct["CATEGORY"]=='ITEMS') return [false, "is items category"];
 
-          return true;
+          return [true, ""];
      }
 
      public static function reverseAfield($afieldItem, $application_table_id)
@@ -924,7 +924,12 @@ class ApplicationField extends AdmObject
           $classTBL = self::applicationTableClassOfId($applicationTableId);
           $instanceObj = new $classTBL();
           // $sql = "select * from $server_db_prefix"."pag.afield where";
-          $sql_where = "atable_id = $objATId and avail='Y' and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
+          $sql_where = "atable_id = $objATId and avail='Y' ";
+
+          if($restriction=="onlynew")
+          {
+               $sql_where .= "and field_name not in (select field_name from $server_db_prefix"."adm.application_field where application_table_id = $applicationTableId)";
+          }
 
           $afieldList = Afield::loadRecords($sql_where);
           $applicationFieldList = [];
@@ -946,11 +951,12 @@ class ApplicationField extends AdmObject
                     if(!$instanceObj->isFrameworkDesignedField($field_name))
                     {
                          $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
-                         if(self::reversable($struct))
+                         list($reversable, $reason) = self::reversable($struct);
+                         if($reversable)
                          {
                               $message .= "<br>".$afieldItem->getWideDisplay();
                          }
-                         else $message .= "<br>$field_name will be ignored because it is set as reversable";
+                         else $message .= "<br>$field_name will be ignored because it $reason";
                     }
                     else $message .= "<br>$field_name will be ignored because it is a framework designed field";
                     
@@ -962,22 +968,35 @@ class ApplicationField extends AdmObject
           {
                $keepAsIs = false;
                list($action, $field_action) = explode("-", $action);               
+               $toberev = 0;
                foreach($afieldList as $afieldItem)
                {
                     $field_name = $afieldItem->getVal("field_name");
                     if((!$instanceObj->isFrameworkDesignedField($field_name)) and (($field_name==$field_action) or ("all"==$field_action)))
                     {
-                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);
-                         if(self::reversable($struct))
+                         $struct = AfwStructureHelper::getStructureOf($instanceObj, $field_name);                         
+                         list($reversable, $reason) = self::reversable($struct);
+                         if($reversable)
                          {
+                              $toberev++;
                               list($mess, $objFld) = self::reverseAfield($afieldItem, $applicationTableId);
                               $applicationFieldList[] = $objFld;
                               $message .= "<br>".$mess;
                          }
+                         else
+                         {
+                              
+                              $message .= "<br>Warning : Field $field_name is not reversable, it $reason !";
+                         }
                     }
+                    else
+                    {
+                         
+                         $message .= "<br>Warning : Field $field_name is not to be reversed ($field_action to be reversed) !";
+                    } 
                }
 
-               if($message) $message = "<br>Application-Field-Manger start reversing ... ".$message;
+               if($toberev>0) $message = "<br>Application-Field-Manger start reversing ... ".$message;
                else $message .= "<br>Warning : No field need to be reversed for table $table !";
 
           }

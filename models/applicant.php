@@ -4,6 +4,12 @@
 class Applicant extends AdmObject
 {
 
+        public function __construct()
+        {
+                parent::__construct("applicant", "id", "adm");
+                AdmApplicantAfwStructure::initInstance($this);
+        }
+
         public static $DATABASE        = "";
         public static $MODULE            = "adm";
         public static $TABLE            = "applicant";
@@ -30,11 +36,6 @@ class Applicant extends AdmObject
 
         public $update_date = [];
 
-        public function __construct()
-        {
-                parent::__construct("applicant", "id", "adm");
-                AdmApplicantAfwStructure::initInstance($this);
-        }
 
 
         public static function tryConvertIdnToID($value)
@@ -1446,17 +1447,19 @@ class Applicant extends AdmObject
                         $field_name_step_title = $this->getAttributeLabel("step".$field_name_step, $lang);
                         $row_matrix['admstep'] = $field_name_step.". ".$field_name_step_title;
                         $field_value_datetime = "";
-                        $default_update_date_of_field_is_api_run_date = false; /* @todo should be in settings */
+                        $default_update_date_of_field_is_api_run_date = AfwSession::config("default_update_date_of_field_is_api_run_date", false); 
                         if($default_update_date_of_field_is_api_run_date)
                         {
                                 if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
                                 else $api = "no-applicationObj";        
                         }
-                        else
+                        
+                        if($field_value and (!$field_value_datetime))
                         {
-                                // @todo : in this case how to know the field update datetime
-                                $field_value_datetime = date("Y-m-d");
-                                $api = "الخدمات الالكترونية";
+                                // For the moment we consider the field manally enetred and the 
+                                // update date time is the record last update datetime
+                                $field_value_datetime = $this->getVal("updated_at");
+                                $api = "ادخال يدوي في بيانات المتقدم";
                         }
                         
                         if ($row_matrix['empty']) {

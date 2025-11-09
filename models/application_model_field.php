@@ -116,7 +116,15 @@ class ApplicationModelField extends AdmObject
                     $application_table_id = $afieldObj->getVal("application_table_id");
                     $application_table_code = self::code_of_application_table_id($application_table_id);
                     $application_field_type_enum = $afieldObj->getVal("application_field_type_id");
+                    if(!$application_field_type_enum)
+                    {
+                        throw new AfwRuntimeException("field type not defined for field : $field_name : ".$afieldObj->getDisplay($lang));
+                    }
                     $afield_type_code = self::field_type_code($application_field_type_enum);
+                    if(!$afield_type_code)
+                    {
+                        throw new AfwRuntimeException("field type code not defined for field type : $application_field_type_enum");
+                    }
                     $need_decode = self::need_decode($application_field_type_enum);
                     $field_title_ar = $afieldObj->getVal("field_title_ar");
                     $field_title_en = $afieldObj->getVal("field_title_en");

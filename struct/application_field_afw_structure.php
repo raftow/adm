@@ -59,7 +59,7 @@
 				/*'ANSWER' => 'application_field_type',  'ANSMODULE' => 'adm', */ 
 				'SIZE' => 40,  'DEFAUT' => 0,  'STYLE' => 'width:150px',  'SHORTNAME' => 'ftype',    'NO_KEEP_VAL' => true, 
 				'LOAD_ALL' => true,  'NO-COTE' => true,  'SEARCH' => true,  'SEARCH-BY-ONE' => true,  'QSEARCH' => true,  
-				'DISPLAY' => true,  'STEP' => 1, 'CSS' => 'width_pct_25', 
+				'DISPLAY' => true,  'STEP' => 1, 'CSS' => 'width_pct_25', 'MANDATORY' => true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'READONLY' => true, 
 				),
 
