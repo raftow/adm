@@ -2102,7 +2102,7 @@ class Application extends AdmObject
                                 if (!$this->objApplicationModel) return false;
                                 $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num")) == 1);
                         } else
-                        */
+                        
                         if ($attribute == "applicant_qualification_id") {
                                 $application_field_id = 110694;
                                 $this->getApplicationModel();
@@ -2110,7 +2110,7 @@ class Application extends AdmObject
                                 $this->attribIsApplic[$attribute] = ($this->objApplicationModel->getFieldInStep($application_field_id, $this->getVal("step_num")) == 1);
                         } else {
                                 throw new AfwRuntimeException("$attribute is not a knwon application attribute");
-                        }
+                        }*/
                 }
 
                 return $this->attribIsApplic[$attribute];
@@ -2119,7 +2119,7 @@ class Application extends AdmObject
         public function attributeIsApplicable($attribute)
         {
 
-                if (/*($attribute == "program_id") or */($attribute == "applicant_qualification_id")) {
+                if (/*($attribute == "program_id") or ($attribute == "applicant_qualification_id")*/false) {
                         return $this->applicationAttributeIsApplicable($attribute);
                 }
 
