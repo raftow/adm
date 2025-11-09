@@ -352,10 +352,12 @@
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
+                                        /*
                                         if($field_name=="applicationDesireList")
                                         {
                                                 die("scrField of $field_name is ".var_export($scrField,true));        
                                         }
+                                        */        
                                         $field_code = $field_name;
                                         if($scrField["reel"]) 
                                         {
