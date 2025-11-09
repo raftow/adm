@@ -15,7 +15,7 @@ class NominatingCandidatesEnTranslator{
 		$trad["nominating_candidates"]["identity_type_id"] = "Identity type";
 		$trad["nominating_candidates"]["academic_program_id"] = "Academic program";
 		$trad["nominating_candidates"]["email"] = "e-mail";
-		$trad["nominating_candidates"]["study_funding_status_id"] = "حالة";
+		$trad["nominating_candidates"]["study_funding_status_id"] = "status";
         // steps
         return $trad;
     }

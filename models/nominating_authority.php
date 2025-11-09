@@ -34,16 +34,13 @@ class NominatingAuthority extends AdmObject{
         
 
         public function getScenarioItemId($currstep)
-                {
-                    
-                    return 0;
-                }
-        
-        
-        public function getDisplay($lang="ar")
         {
-               
+            
+            return 0;
         }
+
+        
+        
         
         
         
