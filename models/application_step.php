@@ -352,6 +352,10 @@
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
+                                        if($field_name=="applicationDesireList")
+                                        {
+                                                die("scrField of $field_name is ".var_export($scrField,true));        
+                                        }
                                         $field_code = $field_name;
                                         if($scrField["reel"]) 
                                         {
@@ -433,7 +437,7 @@
                                                 $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name, $lang);                                                    
                                                 if($debugg==$field_code) 
                                                 {
-                                                        $stepFieldsArr[$scrIndex][$field_code."_".$suffix2."_sql"] = $theObj->debugg_sql_for_loadmany;    
+                                                        $stepFieldsArr[$scrIndex][$field_code."_".$suffix2."_sql"] = "theObj->$method2($field_name, $lang) => ".$theObj->debugg_sql_for_loadmany;    
                                                 }
                                         }
                                         else
