@@ -71,7 +71,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification',  'ANSMODULE' => 'adm',  
 
                                                 'WHERE' => "id in (select distinct q.id from §DBPREFIX§adm.academic_level l inner join §DBPREFIX§adm.qualification q on l.allowed_qualification_mfk like concat('%,', q.id,',%') where l.id = §academic_level_id§)", 
-                                                'DEPENDENT_OFME' => array("major_path_id", "qualification_major_id", "qual_source_mfk",),
+                                                'DEPENDENT_OFME' => array("major_path_id", "qualification_major_id",), // , "qual_source_mfk"
                                                 'DEPENDENCIES' => ['academic_level_id',],
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
