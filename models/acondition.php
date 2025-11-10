@@ -55,7 +55,9 @@ class Acondition extends AdmObject
         public function getAllFields($amObj = null, $what = "value")
         {
                 $return_arr = [];
-                if ($this->id == 1) {
+                $acond_id_of_sis_fields_available = AfwSession::config("sis_fields_available_cond_id", 52);
+                // for UOH = 1 not 52
+                if ($this->id == $acond_id_of_sis_fields_available) {
                         if ($amObj) {
                                 $takeDefault = false;
                                 $boolIndex = false;

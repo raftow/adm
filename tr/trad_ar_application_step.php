@@ -13,7 +13,7 @@
 	$trad["application_step"]["screen_model_id"] = "شاشة الادخال";
 	$trad["application_step"]["step_name_ar"] = "اسم المرحلة عربي";
 	$trad["application_step"]["step_name_en"] = "اسم المرحلة انجليزي";
-	$trad["application_step"]["show_field_mfk"] = "إظهار الحقول التالية";
+	$trad["application_step"]["show_field_mfk"] = "نحتاج ضروريا للحقول التالية";
 	$trad["application_step"]["api_endpoint_mfk"] = "معرف الخدمات الالكترونية";
 	$trad["application_step"]["step_code"] = "رمز المرحلة";
 	
