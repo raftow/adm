@@ -895,7 +895,7 @@ class AdmApplicantAfwStructure
                         'EDIT' => false,
                         'QEDIT' => false,
                         'SIZE' => '16',
-                        'MAXLENGTH' => '16',
+                        'MAXLENGTH' => '128',
                         'TYPE' => 'TEXT',
                         'DISPLAY' => false,
                         'STEP' => 9,
