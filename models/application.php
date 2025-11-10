@@ -1087,7 +1087,7 @@ class Application extends AdmObject
                                 'STEP' => $this->stepOfAttribute("applicationDesireList")
                         );
 
-                        if ($currentStepNum > 1) {
+                        if ($currentStepNum != 1) {
                                 $color = "red";
                                 $title_ar = $this->tm("reset Application", 'ar');
                                 $title_en = $this->tm("reset Application", 'en');
