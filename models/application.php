@@ -2274,7 +2274,7 @@ class Application extends AdmObject
                                 $po_id_arr = AfwDatabase::db_recup_liste("select po.id from " . $server_db_prefix . "adm.academic_program_offering po
                                                         inner join " . $server_db_prefix . "adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
                                         where pq.qualification_id = $qualification_id
-                                        and pq.major_path_id = $major_path_id
+                                        -- and pq.major_path_id = $major_path_id -- amjad 10/11/2025
                                         and pq.academic_level_id = $academic_level_id", "id");
                         }
                 }
