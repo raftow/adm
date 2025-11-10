@@ -42,7 +42,7 @@ class Acondition extends AdmObject
 
         public function calcUsed_fields_mfk($what = "value")
         {
-                $allFArr = $this->getAllFields($what);
+                $allFArr = $this->getAllFields(null, $what);
                 if($what == "object") return $allFArr;
                 $mfkArr = [];
                 $sep = ($what == "value") ? "," : "/";
