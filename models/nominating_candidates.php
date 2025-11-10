@@ -173,6 +173,16 @@ class NominatingCandidates extends AdmObject{
                return true;
             }    
 	}
+
+    public function beforeMaj($id, $fields_updated){
+        $objAppl = Applicant::loadByMainIndex($this->getVal("idn"), false);
+        //die($this->getVal("idn")."==>".$objAppl->id);
+
+        if($objAppl->id){
+            $this->set("applicant_id",$objAppl->id);
+        }
+        return true;	
+    }
              
 }
 

@@ -133,6 +133,12 @@
 				'CSS' => 'width_pct_50', ),
 
 
+        'applicant_id' => array('STEP' => 1,  'SHORTNAME' => 'applicant',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm', 'AUTOCOMPLETE'=>true,'AUTOCOMPLETE-SEARCH'=>true,
+				'RELATION' => 'OneToOne',  'READONLY' => false, 
+				'CSS' => 'width_pct_50', ),
 		
                 'created_by'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

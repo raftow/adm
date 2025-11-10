@@ -16,6 +16,8 @@ class NominatingCandidatesEnTranslator{
 		$trad["nominating_candidates"]["academic_program_id"] = "Academic program";
 		$trad["nominating_candidates"]["email"] = "e-mail";
 		$trad["nominating_candidates"]["study_funding_status_id"] = "status";
+		$trad["nominating_candidates"]["applicant_id"] = "Applicant";
+
         // steps
         return $trad;
     }
