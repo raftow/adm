@@ -371,7 +371,7 @@
                                                 'TYPE' => 'MFK',
                                                 'ANSWER' => 'application_field',
                                                 'ANSMODULE' => 'adm',
-                                                'WHERE' => "application_table_id = 1",
+                                                'WHERE' => "application_table_id in (1,2)",
                                                 'DISPLAY' => true,
                                                 'STEP' => 3,
                                                 'DISPLAY-UGROUPS' => '',
