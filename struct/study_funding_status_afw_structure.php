@@ -39,7 +39,7 @@
 		
 		'lookup_code' => array("TYPE" => "TEXT", "SHOW" => true, "RETRIEVE"=>true, "EDIT" => true, "SIZE" => 64, "QEDIT" => true, "SHORTNAME"=>"code"),
 
-		'name_ar' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+		'name_ar' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 128,  'MAXLENGTH' => 128,  'MIN-SIZE' => 5,  'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => false, 
@@ -51,7 +51,7 @@
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'name_en' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+		'name_en' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 128,  'MAXLENGTH' => 128,  'MIN-SIZE' => 5,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
 				'TYPE' => 'TEXT',  'READONLY' => false, 
@@ -63,18 +63,11 @@
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'validated_by' => array('SHORTNAME' => 'by',  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => false,  'QEDIT' => false,  
-				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',  'AUTOCOMPLETE' => true,  
-				'RELATION' => 'ManyToOne',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
-
-		'validated_at' => array('SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => false,  'QEDIT' => false,  
-				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
+		'payment_ind' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'YN',  'DEFAUT' => 'N',  'READONLY' => false, 
+				'CSS' => 'width_pct_25', ),
 
                 
                 'created_by'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),

@@ -71,7 +71,7 @@
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification',  'ANSMODULE' => 'adm',  
 
                                                 'WHERE' => "id in (select distinct q.id from §DBPREFIX§adm.academic_level l inner join §DBPREFIX§adm.qualification q on l.allowed_qualification_mfk like concat('%,', q.id,',%') where l.id = §academic_level_id§)", 
-                                                'DEPENDENT_OFME' => array("major_path_id", "qualification_major_id", "qual_source_mfk",),
+                                                'DEPENDENT_OFME' => array("major_path_id", "qualification_major_id",), // , "qual_source_mfk"
                                                 'DEPENDENCIES' => ['academic_level_id',],
                                                 'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
@@ -119,12 +119,18 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',),
                                         
-                                        'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  
+                                        'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                                 'CSS' => 'width_pct_50', ),
 
+                                        'bridging_fees_comment' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  
+                                                'SIZE' => 200,  'MAXLENGTH' => 200,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',   'READONLY' => false, 
+                                                'CSS' => 'width_pct_50', ),
+                                                
                                         'qual_source_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'qual_source',  'ANSMODULE' => 'adm',   

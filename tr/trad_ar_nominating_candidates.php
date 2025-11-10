@@ -12,7 +12,7 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["desc_ar"] = "وصف  بالعربية";
 		$trad["nominating_candidates"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["nominating_candidates"]["desc_en"] = "وصف  بالانجليزية";
-		$trad["nominating_candidates"]["identity_type_id"] = "نوع الالهوية";
+		$trad["nominating_candidates"]["identity_type_id"] = "نوع الهوية";
 		$trad["nominating_candidates"]["idn"] = "الهوية";
 		$trad["nominating_candidates"]["first_name_ar"] = "الاسم الأول عربي";
 		$trad["nominating_candidates"]["second_name_ar"] = "اسم الأب عربي";
@@ -25,7 +25,10 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["academic_program_id"] = "برنامج الدراسي";
 		$trad["nominating_candidates"]["email"] = "البريد الإلكتروني";
 		$trad["nominating_candidates"]["Mobile"] = "الجوال";
-		$trad["nominating_candidates"]["study_funding_status_id"] = "التمويل";
+		$trad["nominating_candidates"]["study_funding_status_id"] = "حالة التمويل";
+		$trad["nominating_candidates"]["nomination_letter_id"] = "خطاب الترشيح";
+		$trad["nominating_candidates"]["applicant_id"] = "المتقدم";
+
         // steps
         return $trad;
     }

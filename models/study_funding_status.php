@@ -41,9 +41,6 @@ class StudyFundingStatus extends AdmObject{
         
         
        
-        
-        
-        
 
         
         protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      

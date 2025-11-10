@@ -62,7 +62,17 @@ class NominationLetter extends AdmObject{
              $my_id = $this->getId();
              $displ = $this->getDisplay($lang);
              
-             
+             if($mode=="mode_nominationCandidateList")
+                {
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة مرشح";
+                        $title_detailed = $title ."لـ : ". $displ;
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=NominatingCandidates&currmod=adm&sel_nomination_letter_id=$my_id";
+                        $link["TITLE"] = $title;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;
+                }
              
              // check errors on all steps (by default no for optimization)
              // rafik don't know why this : \//  = false;

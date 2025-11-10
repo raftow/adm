@@ -156,7 +156,7 @@ try
         desc_ar text  DEFAULT NULL , 
         name_en varchar(128)  NOT NULL DEFAULT '' , 
         desc_en text  DEFAULT NULL , 
-
+        payment_ind char(1) DEFAULT NULL , 
         
         PRIMARY KEY (`id`)
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
@@ -194,8 +194,8 @@ try
         email varchar(32)  DEFAULT NULL , 
         Mobile varchar(25)  DEFAULT NULL , 
         study_funding_status_id int(11) DEFAULT NULL , 
-        
-
+        nomination_letter_id int(11) DEFAULT NULL ,
+        applicant_id int(11) DEFAULT NULL , 
         
         PRIMARY KEY (`id`)
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
