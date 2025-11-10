@@ -15,3 +15,5 @@
 
 	$trad["program_qualification"]["bridging_semester"] = "Bridging semester";
 	$trad["program_qualification"]["bridging_fees"] = "Bridging Fees";
+	$trad["program_qualification"]["bridging_fees_comment"] = "Bridging Fees";
+

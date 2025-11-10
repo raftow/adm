@@ -119,12 +119,18 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',),
                                         
-                                        'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  
+                                        'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                                 'CSS' => 'width_pct_50', ),
 
+                                        'bridging_fees_comment' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => true,  
+                                                'SIZE' => 200,  'MAXLENGTH' => 200,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'TEXT',   'READONLY' => false, 
+                                                'CSS' => 'width_pct_50', ),
+                                                
                                         'qual_source_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'qual_source',  'ANSMODULE' => 'adm',   

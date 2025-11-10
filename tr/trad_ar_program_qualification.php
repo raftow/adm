@@ -15,6 +15,8 @@
 
 	$trad["program_qualification"]["bridging_semester"] = "عدد فصول المقررات التكميلية";
 	$trad["program_qualification"]["bridging_fees"] = "رسوم المقررات التكميلية";
+	$trad["program_qualification"]["bridging_fees_comment"] = "رسوم المقررات التكميلية";
+
 
 	
 	

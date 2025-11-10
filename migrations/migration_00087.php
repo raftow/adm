@@ -195,7 +195,7 @@ try
         Mobile varchar(25)  DEFAULT NULL , 
         study_funding_status_id int(11) DEFAULT NULL , 
         nomination_letter_id int(11) DEFAULT NULL ,
-
+        applicant_id int(11) DEFAULT NULL , 
         
         PRIMARY KEY (`id`)
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
