@@ -264,7 +264,11 @@
                                                 'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
                                                 'CSS' => 'width_pct_100', ),
                 
-                                        
+                                        'supp_program_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => false,  'UTF8' => false, 'MANDATORY' => false,  
+                                                'TYPE' => 'MFK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 2,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_100',"WHERE"=>"academic_level_id=15"), // only complementary program
 
                                         'academicProgramOfferingList' => array('TYPE' => 'FK', 'ANSWER' => 'academic_program_offering', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'academic_program_id', 'STEP' => 3,

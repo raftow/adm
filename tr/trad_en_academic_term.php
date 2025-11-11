@@ -45,4 +45,5 @@
 	$trad["academic_term"]["last_date_tuitfee"] = "Last date for paying tuition and administrative fees";
 	$trad["academic_term"]["hijri_last_date_upload_doc"] = "Last date for submitting documents - hijri";
 	$trad["academic_term"]["hijri_last_date_tuitfee"] = "Last date for paying tuition and administrative fees - hijri";
+	$trad["academic_term"]["current_period_id"] = "Current Period";
     

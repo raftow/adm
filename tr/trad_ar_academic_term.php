@@ -92,3 +92,5 @@
 	$trad["academic_term"]["last_date_tuitfee"] = "آخر موعد لدفع الرسوم الدراسية والإدارية";
     $trad["academic_term"]["hijri_last_date_upload_doc"] = "آخر موعد لرفع الوثائق - هجري";
 	$trad["academic_term"]["hijri_last_date_tuitfee"] = "آخر موعد لدفع الرسوم الدراسية والإدارية - هجري";
+	$trad["academic_term"]["current_period_id"] = "الفترة الحالية";
+	

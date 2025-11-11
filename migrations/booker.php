@@ -92,6 +92,7 @@ $migrations = [
     '00086' => ['by'=>'medali','title'=>'add field to tuition_base and academic_term'],
     '00087' => ['by'=>'medali','title'=>'sprint 4 nominating module'],
     '00088' => ['by'=>'medali','title'=>'add bridging_fees_comment to program_qualification'],
+    '00089' => ['by'=>'medali','title'=>'current period + supp program'],
 
 ];
 
