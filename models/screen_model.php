@@ -9,6 +9,9 @@ class ScreenModel extends AdmObject
         public static $DB_STRUCTURE = null;
         // public static $copypast = true;
 
+
+        public static $idToCodeArr = [];
+
         public function __construct()
         {
                 parent::__construct("screen_model", "id", "adm");
@@ -17,18 +20,19 @@ class ScreenModel extends AdmObject
 
         public static function IdToCode($id)
         {
-            if($id==2) return	"qualif";
-            if($id==3) return	"profile";
-            if($id==4) return	"data_import";
-            if($id==5) return	"program";
-            if($id==6) return	"final";
-            if($id==7) return	"desire";
-            if($id==8) return	"sorting";
-            if($id==9) return	"track_exists";
-            if($id==10) return	"upload_document";
-
-
-            return "unknown";
+            if(!isset(self::$idToCodeArr[$id]))
+            {
+                $obj = ScreenModel::loadById($id);
+                if($obj)
+                {
+                    self::$idToCodeArr[$id] = $obj->getVal("screen_code");
+                }
+                else
+                {
+                    self::$idToCodeArr[$id] = "unknown";
+                }
+            }
+            return self::$idToCodeArr[$id];
         }
 
         public static function loadById($id)
