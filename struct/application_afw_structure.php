@@ -304,7 +304,7 @@
                                                                 'CSS' => 'width_pct_100',
                                                         ),                                                                  
 
-
+                                                        // reverse application_field.adm application.do-all
                                                         'program_qualification_mfk' => array(
                                                                 'STEP' => 98,
                                                                 'TYPE' => 'MFK',
