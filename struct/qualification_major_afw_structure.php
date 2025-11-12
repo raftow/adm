@@ -45,10 +45,10 @@
                                         'noor_code' => array(
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true, 'DISPLAY' => true, 
-                                                'RETRIEVE' => true,
+                                                'RETRIEVE' => false,
                                                 'QEDIT' => false,
                                                 'EDIT' => false,
-                                                'SEARCH' => true, 'QSEARCH' => true,
+                                                'SEARCH' => false, 'QSEARCH' => false,
                                                 'TYPE' => 'TEXT', 'MANDATORY' => false, 
                                                 'STEP' => 1,
                                                 'DISPLAY-UGROUPS' => '',
