@@ -7,3 +7,4 @@
 	$trad["qualification_major"]["qualification_major_name_ar"] = "Qualification Major name-Arabic";
 	$trad["qualification_major"]["qualification_major_name_en"] = "Qualification Major name-English";
 	$trad["qualification_major"]["noor_code"] = "NOOR code";
+	$trad["qualification_major"]["saudi_unified_code"] = "Saudi unified classification";

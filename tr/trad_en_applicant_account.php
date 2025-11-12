@@ -16,6 +16,8 @@ class ApplicantAccountEnTranslator{
 	$trad["applicant_account"]["payment_status_enum"] = "Payment Status";
 	$trad["applicant_account"]["activated_fee"] = "Activate payment for the applicant";
 	$trad["applicant_account"]["due_date"] = "due date";
+	$trad["applicant_account"]["academic_period_id"] = "Academic period";
+
         return $trad;
         }
 

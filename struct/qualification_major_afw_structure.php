@@ -55,7 +55,11 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25','DEFAUT' => '0',),
 
-
+                                        'saudi_unified_code' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                                        'EDIT' => true,  'QEDIT' => true, 'STEP' => 1, 
+                                                                        'SIZE' => 200,  'MAXLENGTH' => 200,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
+                                                                        'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
+                                                                        'CSS' => 'width_pct_50', ),
 
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  

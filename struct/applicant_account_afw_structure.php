@@ -106,7 +106,12 @@ class AdmApplicantAccountAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
-
+                'academic_period_id' => array('SHORTNAME' => 'period',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+				'TYPE' => 'FK',  'ANSWER' => 'academic_period',  'ANSMODULE' => 'adm',  
+				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
+				'CSS' => 'width_pct_50', ),
                 'activated_fee' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,

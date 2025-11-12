@@ -25,6 +25,8 @@ class AcademicPeriodArTranslator{
 	$trad["academic_period"]["hijri_last_date_upload_doc"] = "آخر موعد لرفع الوثائق - هجري";
 	$trad["academic_period"]["hijri_last_date_appfee"] = "آخر موعد لدفع رسوم التقديم - هجري";
 	$trad["academic_period"]["hijri_last_date_tuitfee"] = "آخر موعد لدفع الرسوم الدراسية والإدارية - هجري";
+	$trad["applicant_account"]["academic_period_id"] = "فترة التقديم";
+
         return $trad;
         }
 
