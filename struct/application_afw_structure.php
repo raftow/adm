@@ -338,7 +338,7 @@
                                                 'TYPE' => 'MFK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'READONLY' => false,  
                                                 'WHERE' => "application_plan_id = §application_plan_id§ 
                                                                 and gender_enum = §gender_enum§ 
-                                                                and training_period_enum = §training_period_enum§
+                                                                and (§training_period_enum§='0' or training_period_enum = §training_period_enum§)
                                                                 and (§consider_weighted_pctg§ != 'Y' or min_weighted_percentage <= §weighted_pctg§) 
                                                                 and program_offering_id in (0§program_offering_mfk§0)",
                                                 'DNA' => true, 
