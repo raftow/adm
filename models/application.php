@@ -2321,6 +2321,14 @@ class Application extends AdmObject
                 else $po_id_mfk = ",$po_id_mfk,";
 
                 if ($what == "value") return $po_id_mfk;
+                elseif ($what == "object") {
+                        $po_obj_arr = [];
+                        foreach ($po_id_arr as $po_id) {
+                                $po_obj = AcademicProgramOffering::loadById($po_id);
+                                if ($po_obj) $po_obj_arr[] = $po_obj;
+                        }
+                        return $po_obj_arr;
+                }
                 else throw new AfwRuntimeException("calcProgram_offering_mfk($what) rafik is to be implemented ");
         }
 
