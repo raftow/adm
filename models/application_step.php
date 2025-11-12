@@ -352,11 +352,11 @@
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
-                                        
+                                        /*
                                         if($field_name=="program_qualification_mfk")
                                         {
                                                 die("scrField of $field_name is ".var_export($scrField,true));        
-                                        }
+                                        }*/
                                         
                                         $field_code = $field_name;
                                         if($scrField["reel"]) 
@@ -371,6 +371,8 @@
 
                                         $suffix2 = "";
                                         $method2 = "";
+                                        $suffix4 = "";
+                                        $method4 = "";
                                         $to_submit = false;
 
                                         if($scrField["answer"]) 
