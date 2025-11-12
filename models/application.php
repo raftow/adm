@@ -2257,6 +2257,38 @@ class Application extends AdmObject
                 return $returnApplication;
         }
 
+        public function calcProgram_qualification_mfk($what = "value")
+        {
+                $pq_id_arr = [];
+                $applicantQualificationObj = $this->het("applicant_qualification_id");
+                if ($applicantQualificationObj) {
+                        $qualification_id = $applicantQualificationObj->getVal("qualification_id");
+                        // $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
+                        $qualification_major_id  = $applicantQualificationObj->getVal("qualification_major_id");
+                        $this->getApplicationModel();
+                        if ($this->objApplicationModel) {
+                                $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
+
+                                $server_db_prefix = AfwSession::currentDBPrefix();
+
+                                $pq_id_arr = AfwDatabase::db_recup_liste("select pq.id from " . $server_db_prefix . "adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
+                                        where pq.qualification_id = $qualification_id
+                                        and pq.qualification_major_id = $qualification_major_id
+                                        and pq.academic_level_id = $academic_level_id", "id");
+                        }
+                }
+
+
+
+
+                $pq_id_mfk = implode(",", $pq_id_arr);
+                if (!$pq_id_mfk) $pq_id_mfk = ",";
+                else $pq_id_mfk = ",$pq_id_mfk,";
+
+                if ($what == "value") return $pq_id_mfk;
+                else throw new AfwRuntimeException("calcProgram_qualification_mfk($what) is to be implemented");
+        }
+
 
         public function calcProgram_offering_mfk($what = "value")
         {

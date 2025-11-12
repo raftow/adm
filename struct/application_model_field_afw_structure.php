@@ -270,7 +270,7 @@ class AdmApplicationModelFieldAfwStructure
 				'EDIT' => true,  'QEDIT' => false,  'FORMAT' => 'icon',
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
                                 'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
-				'TYPE' => 'YN',  'DEFAUT' => 'Y',  'READONLY' => false, 
+				'TYPE' => 'YN',  'DEFAUT' => 'N',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
 

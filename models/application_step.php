@@ -384,6 +384,17 @@
                                                 // die("scrField=".var_export($scrField,true));
                                         }
 
+                                        $suffix3 = "";
+                                        $method3 = "";
+                                        if($scrField["show_object"]) 
+                                        {
+                                                if(($scrField["type"]=="list") or ($scrField["type"]=="mfk") or ($scrField["type"]=="fk"))
+                                                {
+                                                        $suffix3 = "details";
+                                                        $method3 = "showObjectAsJsonArray";
+                                                }
+                                        }
+
                                         $context = "";
                                         $error_message = "";
                                         
@@ -434,6 +445,8 @@
                                                 $stepFieldsArr[$scrIndex][$field_code."_tosubmit"] = true;
                                         }
 
+                                        $stepFieldsArr[$scrIndex][$field_code."_type"] = $scrField["type"];
+
                                         if($suffix2 and $method2 and $theObj and ($theObj->id>0))
                                         {
                                                 $stepFieldsArr[$scrIndex][$field_code."_".$suffix2] = $theObj->$method2($field_name, $lang);                                                    
@@ -442,9 +455,11 @@
                                                         $stepFieldsArr[$scrIndex][$field_code."_".$suffix2."_sql"] = "theObj->$method2($field_name, $lang) => ".$theObj->debugg_sql_for_loadmany;    
                                                 }
                                         }
-                                        else
+                                        
+
+                                        if($suffix3 and $method3 and $theObj and ($theObj->id>0))
                                         {
-                                                $stepFieldsArr[$scrIndex][$field_code."_type"] = $scrField["type"];
+                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix3] = $theObj->$method3($field_name, $lang);                                                                                                    
                                         }
 
 

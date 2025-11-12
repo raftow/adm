@@ -305,6 +305,22 @@
                                                         ),                                                                  
 
 
+                                                        'program_qualification_mfk' => array(
+                                                                'STEP' => 98,
+                                                                'TYPE' => 'MFK',
+                                                                'ANSWER' => 'program_qualification',  'ANSMODULE' => 'adm',
+                                                                'CATEGORY' => 'FORMULA',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'NO-REVERSE' => false,
+                                                                'NO-COTE' => true,
+                                                                "CAN-BE-SETTED" => false,
+                                                                'SIZE' => 255,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
+
+
                                         'training_period_enum' => array('IMPORTANT' => 'IN',  
                                                         'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                         'EDIT' => true, 'QEDIT' => false,  'QSEARCH' => true,  
