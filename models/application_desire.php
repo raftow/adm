@@ -1289,4 +1289,15 @@ class ApplicationDesire extends AdmObject
                 // die("calling getAttributeLabel($attribute, $lang, short=$short)");
                 return AfwLanguageHelper::getAttributeTranslation($this, $attribute, $lang, $short);
         }
+
+        public function dataIsCompleted()
+        {
+                list($is_ok, $dataErr) = $this->isOk(true, true);
+                if (!$is_ok) return [false, implode("<br>\n", $dataErr)];
+                else {
+                        $currentStepNum = $this->getVal("step_num");
+                        if($currentStepNum>=6) return [true, ""];
+                        return [false, "please continue in application process your are in step $currentStepNum/6"];
+                }
+        }
 }

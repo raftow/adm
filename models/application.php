@@ -1629,6 +1629,15 @@ class Application extends AdmObject
                         $nb_desires = $this->calcReal_nb_desires();
 
                         if ($nb_desires == 0) return [false, "select your desires"];
+                        $unique_desire = true;
+                        if($unique_desire and ($nb_desires == 1))
+                        {
+                                $applicationDesireList = $this->get("applicationDesireList");
+                                foreach($applicationDesireList as $applicationDesireItem)
+                                {
+                                       return $applicationDesireItem->dataIsCompleted(); 
+                                }
+                        }
 
                         return [true, ""];
                 }
