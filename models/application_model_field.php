@@ -135,10 +135,12 @@ class ApplicationModelField extends AdmObject
                     $show_object = $amfObj->mayBe("show_object");  	  
                     $show_object_details = $amfObj->sureIs("show_object");  	  
                     // if($answer) die("amfObj=".var_export($amfObj,true));
+                    /*
                     if($field_name=="program_qualification_mfk")
                     {
                         die("val=$show_object_val mayBe=$show_object , sureIs=$show_object_details, amfObj=".var_export($amfObj,true));
                     }
+                    */
     
                     $data["screen-$scr_id"]["fields"][$afieldObj->id] = ['field' => $field_name, 'additional'=>$additional, 'reel'=>$reel, 'type'=>$afield_type_code, 'need_decode'=>$need_decode, 'table'=>$application_table_code, 'title_ar'=>$field_title_ar, 'title_en'=>$field_title_en, 'show_object'=>$show_object, 'show_object_details'=>$show_object_details, 'answer'=>$answer];
                 }
