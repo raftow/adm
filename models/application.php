@@ -2265,6 +2265,7 @@ class Application extends AdmObject
                 if ($applicantQualificationObj) {
                         $qualification_id = $applicantQualificationObj->getVal("qualification_id");
                         $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
+                        $qualification_major_id  = $applicantQualificationObj->getVal("qualification_major_id");
                         $this->getApplicationModel();
                         if ($this->objApplicationModel) {
                                 $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
@@ -2274,7 +2275,8 @@ class Application extends AdmObject
                                 $po_id_arr = AfwDatabase::db_recup_liste("select po.id from " . $server_db_prefix . "adm.academic_program_offering po
                                                         inner join " . $server_db_prefix . "adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
                                         where pq.qualification_id = $qualification_id
-                                        -- and pq.major_path_id = $major_path_id -- amjad 10/11/2025
+                                        -- and pq.major_path_id = $major_path_id -- amjad 10/11/2025 in teams conference said to remove and replace with below line
+                                        and pq.qualification_major_id = $qualification_major_id
                                         and pq.academic_level_id = $academic_level_id", "id");
                         }
                 }
