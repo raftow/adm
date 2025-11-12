@@ -382,7 +382,7 @@
                                                 }
                                                 $to_submit = true;
 
-                                                if($scrField["show_object"]) 
+                                                if($scrField["show_object_details"]) 
                                                 {
                                                         if(($scrField["type"]=="list") or ($scrField["type"]=="mfk") or ($scrField["type"]=="fk"))
                                                         {
