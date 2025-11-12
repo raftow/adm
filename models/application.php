@@ -2286,6 +2286,14 @@ class Application extends AdmObject
                 else $pq_id_mfk = ",$pq_id_mfk,";
 
                 if ($what == "value") return $pq_id_mfk;
+                elseif ($what == "object") {
+                        $pq_obj_arr = [];
+                        foreach ($pq_id_arr as $pq_id) {
+                                $pq_obj = ProgramQualification::loadById($pq_id);
+                                if ($pq_obj) $pq_obj_arr[] = $pq_obj;
+                        }
+                        return $pq_obj_arr;
+                }
                 else throw new AfwRuntimeException("calcProgram_qualification_mfk($what) is to be implemented");
         }
 
