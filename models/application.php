@@ -2285,7 +2285,7 @@ class Application extends AdmObject
                 if (!$pq_id_mfk) $pq_id_mfk = ",";
                 else $pq_id_mfk = ",$pq_id_mfk,";
 
-                if ($what == "value") return $pq_id_mfk;
+                if (($what == "value") or ($what == "decodeme")) return $pq_id_mfk;
                 elseif ($what == "object") {
                         $pq_obj_arr = [];
                         foreach ($pq_id_arr as $pq_id) {
