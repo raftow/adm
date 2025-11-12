@@ -381,6 +381,15 @@
                                                         $method2 = "getAnswerTableJsonArray";
                                                 }
                                                 $to_submit = true;
+
+                                                if($scrField["show_object"]) 
+                                                {
+                                                        if(($scrField["type"]=="list") or ($scrField["type"]=="mfk") or ($scrField["type"]=="fk"))
+                                                        {
+                                                                $suffix4 = "answer_details";
+                                                                $method4 = "getAnswerTableJsonArrayWithDetails";
+                                                        }
+                                                }
                                                 // die("scrField=".var_export($scrField,true));
                                         }
 
@@ -460,6 +469,11 @@
                                         if($suffix3 and $method3 and $theObj and ($theObj->id>0))
                                         {
                                                 $stepFieldsArr[$scrIndex][$field_code."_".$suffix3] = $theObj->$method3($field_name, $lang);                                                                                                    
+                                        }
+
+                                        if($suffix4 and $method4 and $theObj and ($theObj->id>0))
+                                        {
+                                                $stepFieldsArr[$scrIndex][$field_code."_".$suffix4] = $theObj->$method4($field_name, $lang);                                                                                                    
                                         }
 
 
