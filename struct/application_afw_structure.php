@@ -297,7 +297,7 @@
                                                                 'SHOW' => true,
                                                                 'EDIT' => true,
                                                                 'READONLY' => true,
-                                                                'NO-REVERSE' => true,
+                                                                'NO-REVERSE' => false,
                                                                 'NO-COTE' => true,
                                                                 "CAN-BE-SETTED" => false,
                                                                 'SIZE' => 255,
