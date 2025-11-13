@@ -6,7 +6,7 @@
                 {
                         if ($obj instanceof QualMajorPath) 
                         {
-                                $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
+                                //$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 //$obj->DISPLAY_FIELD = "qual_major_path_name_ar";
                                 $obj->ORDER_BY_FIELDS = "qualification_id, qualification_major_id, major_path_id";
                                 $obj->UNIQUE_KEY = array('qualification_id', 'qualification_major_id','major_path_id');
@@ -16,6 +16,8 @@
                                 $obj->editByStep = false;
                                 $obj->editNbSteps = 0; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'QualMajorPath',"submit"=>true);
+
                         }
                 }
                 
