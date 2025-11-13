@@ -9,7 +9,7 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                  $obj->DISPLAY_FIELD = "service_item_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                //  $obj->UNIQUE_KEY = array('');
+                                  $obj->UNIQUE_KEY = array('service_category_id','service_item_name_ar');
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
