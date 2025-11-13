@@ -1597,6 +1597,7 @@ class Application extends AdmObject
                 $war_arr = [];
                 $tech_arr = [];
                 $result_arr = [];
+                $err_arr = [];
 
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) {
@@ -1616,6 +1617,36 @@ class Application extends AdmObject
                         $inf_arr[] = $this->tm("The move to first step", $lang) . " " . $this->tm("has been successfully done", $lang);
                         $result_arr["STEP_CODE"] = $firstStepCode;
                 }
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+        }
+
+        public function forceGotoStep($anApplicationStepObj, $comments, $lang = "ar")
+        {
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                $err_arr = [];
+                $result_arr = [];
+
+                $step_num = $anApplicationStepObj->getVal("step_num");
+                $application_step_id = $anApplicationStepObj->id;
+                $stepCode = $anApplicationStepObj->getVal("step_code");
+                if($step_num != $this->getVal("step_num"))
+                {
+                        $this->set("application_step_id", $application_step_id);                        
+                        $this->set("step_num", $step_num);
+                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                        $this->set("comments", $comments);
+                        $this->commit();
+                        $inf_arr[] = $comments;
+                        $result_arr["STEP_CODE"] = $stepCode;
+                }
+                else
+                {
+                        $war_arr[] = "step already = $step_num";
+                }
+
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
@@ -1751,28 +1782,43 @@ class Application extends AdmObject
                                                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                         $this->set("comments", $fail_message);
                                                 }
-                                        } else {
-                                                list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
-                                                if ($is_completed_app) {
-                                                        $result_arr["result"] = "success";
+                                        } 
+                                        else 
+                                        {
+                                                // here means the application is in last general step
+                                                // or passed it (one-synchrinized-desire mode)
+                                                if(!$this->isSynchronisedUniqueDesire())
+                                                {
+                                                        list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
+                                                        if ($is_completed_app) {
+                                                                $result_arr["result"] = "success";
 
-                                                        $result_arr["message"] = "";
+                                                                $result_arr["message"] = "";
 
 
-                                                        $last_step_num = $lastStepObj->getVal("step_num");
-                                                        $this->set("step_num", $last_step_num);
-                                                        $this->set("application_step_id", $lastStepObj->id);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                        $this->set("comments", $this->tm("application is complete", $lang));
-                                                } else {
-                                                        $result_arr["result"] = "fail";
-                                                        $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
-                                                        $last_step_num = $lastStepObj->getVal("step_num");
-                                                        $this->set("step_num", $last_step_num);
-                                                        $this->set("application_step_id", $lastStepObj->id);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $this->set("comments", $this->tm("please select the desires", $lang));
+                                                                $last_step_num = $lastStepObj->getVal("step_num");
+                                                                $this->set("step_num", $last_step_num);
+                                                                $this->set("application_step_id", $lastStepObj->id);
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                                                $this->set("comments", $this->tm("application is complete", $lang));
+                                                        } else {
+                                                                $result_arr["result"] = "fail";
+                                                                $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
+                                                                $last_step_num = $lastStepObj->getVal("step_num");
+                                                                $this->set("step_num", $last_step_num);
+                                                                $this->set("application_step_id", $lastStepObj->id);
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                                $this->set("comments", $this->tm("please select the desires", $lang));
+                                                        }
                                                 }
+                                                else
+                                                {
+                                                        $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
+                                                        if(!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
+                                                        return $uniqueDesireObj->gotoNextDesireStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                                }
+
+                                                
                                         }
                                 }
                         }
@@ -2637,5 +2683,20 @@ class Application extends AdmObject
 
                 // @todo : show result as html or other depending on $what parameter
 
+        }
+
+
+        /**
+         * @return ApplicationDesire
+         */
+        public function getSynchronisedUniqueDesire()
+        {
+                if(!$this->isSynchronisedUniqueDesire()) return null;
+                return $this->getApplicationDesireByNum(1);
+        }
+
+        public function isSynchronisedUniqueDesire()
+        {                
+                return ($this->getApplicationModel()->isSynchronisedUniqueDesire());
         }
 }

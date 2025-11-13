@@ -1602,6 +1602,11 @@ class ApplicationModel extends AdmObject
                 throw new AfwRuntimeException("ApplicationModel::notRetrieve($field_name, $col_struct) not implemented");
         }
 
+        public function isSynchronisedUniqueDesire()
+        {
+                return ($this->getVal("application_category_enum")==1);
+        }
+
         public static function code_of_application_category_enum($lkp_id = null)
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();

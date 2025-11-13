@@ -999,6 +999,11 @@ class ApplicationDesire extends AdmObject
         {
                 if ($fields_updated["application_step_id"]) {
                         $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                        if($this->isSynchronisedUniqueDesire())
+                        {
+                                $stepObj = $this->het("application_step_id");
+                                $this->getApplicationObject()->forceGotoStep($stepObj, "because isSynchronisedUniqueDesire");
+                        }
                         $sorting_application_step_id = $objApplicationModel->calcSorting_step_id();
                         
                         if ($this->getVal("application_step_id") == $sorting_application_step_id) {
@@ -1299,5 +1304,10 @@ class ApplicationDesire extends AdmObject
                         if($currentStepNum>=6) return [true, ""];
                         return [false, "please continue in application process your are in step $currentStepNum/6"];
                 }
+        }
+
+        public function isSynchronisedUniqueDesire()
+        {                
+                return ($this->getApplicationPlan()->getApplicationModel()->isSynchronisedUniqueDesire());
         }
 }
