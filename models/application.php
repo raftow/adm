@@ -1752,7 +1752,8 @@ class Application extends AdmObject
                                                         $this->set("comments", $fail_message);
                                                 }
                                         } else {
-                                                if ($this->dataIsCompleted()) {
+                                                list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
+                                                if ($is_completed_app) {
                                                         $result_arr["result"] = "success";
 
                                                         $result_arr["message"] = "";
@@ -1765,7 +1766,7 @@ class Application extends AdmObject
                                                         $this->set("comments", $this->tm("application is complete", $lang));
                                                 } else {
                                                         $result_arr["result"] = "fail";
-                                                        $result_arr["message"] = "attempt to goto next step when this is the last step, please select the desires";
+                                                        $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
                                                         $last_step_num = $lastStepObj->getVal("step_num");
                                                         $this->set("step_num", $last_step_num);
                                                         $this->set("application_step_id", $lastStepObj->id);
