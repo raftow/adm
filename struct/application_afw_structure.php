@@ -297,12 +297,28 @@
                                                                 'SHOW' => true,
                                                                 'EDIT' => true,
                                                                 'READONLY' => true,
-                                                                'NO-REVERSE' => true,
+                                                                'NO-REVERSE' => false,
                                                                 'NO-COTE' => true,
                                                                 "CAN-BE-SETTED" => false,
                                                                 'SIZE' => 255,
                                                                 'CSS' => 'width_pct_100',
                                                         ),                                                                  
+
+                                                        // reverse application_field.adm application.do-all
+                                                        'program_qualification_mfk' => array(
+                                                                'STEP' => 98,
+                                                                'TYPE' => 'MFK',
+                                                                'ANSWER' => 'program_qualification',  'ANSMODULE' => 'adm',
+                                                                'CATEGORY' => 'FORMULA',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'NO-REVERSE' => false,
+                                                                'NO-COTE' => true,
+                                                                "CAN-BE-SETTED" => false,
+                                                                'SIZE' => 255,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
 
 
                                         'training_period_enum' => array('IMPORTANT' => 'IN',  
@@ -322,7 +338,7 @@
                                                 'TYPE' => 'MFK',  'ANSWER' => 'application_plan_branch',  'ANSMODULE' => 'adm',  'READONLY' => false,  
                                                 'WHERE' => "application_plan_id = §application_plan_id§ 
                                                                 and gender_enum = §gender_enum§ 
-                                                                and training_period_enum = §training_period_enum§
+                                                                and (§training_period_enum§='0' or training_period_enum = §training_period_enum§)
                                                                 and (§consider_weighted_pctg§ != 'Y' or min_weighted_percentage <= §weighted_pctg§) 
                                                                 and program_offering_id in (0§program_offering_mfk§0)",
                                                 'DNA' => true, 

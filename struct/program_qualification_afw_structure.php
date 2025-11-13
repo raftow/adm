@@ -90,7 +90,7 @@
                                                 'CSS' => 'width_pct_50', ),	
 
 
-                                        'qualification_major_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'qualification_major_id' => array('IMPORTANT' => 'HIGH',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'qualification_major',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'WHERE' => 'id in (select qualification_major_id from §DBPREFIX§adm.qual_major_path where qualification_id = §qualification_id§ and major_path_id = §major_path_id§)',
@@ -102,13 +102,13 @@
                                                 'CSS' => 'width_pct_50', ),	
 
 
-                                        'bridging' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
+                                        'bridging' => array('IMPORTANT' =>'HIGH', 'RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),
 
                                         'bridging_semester' => array(
-                                                'IMPORTANT' => 'IN',
+                                                'IMPORTANT' => 'HIGH',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => false,
                                                 'QEDIT' => true,
@@ -119,13 +119,13 @@
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',),
                                         
-                                        'bridging_fees' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                        'bridging_fees' => array('IMPORTANT' => 'HIGH', 'STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => false,  'QEDIT' => false,  
                                                 'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
                                                 'CSS' => 'width_pct_50', ),
 
-                                        'bridging_fees_comment' => array('STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                        'bridging_fees_comment' => array('IMPORTANT' => 'HIGH', 'STEP' => 1,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  
                                                 'SIZE' => 200,  'MAXLENGTH' => 200,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'TEXT',   'READONLY' => false, 

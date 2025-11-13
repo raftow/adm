@@ -19,6 +19,13 @@ class ApplicationModelFieldArTranslator{
 		$trad["application_model_field"]["answer.tooltip"] = "كذلك اظهار قائمة الاختيارات على الواجهة";
 		$trad["application_model_field"]["answer"] = "قابل للتعديل";
 		$trad["application_model_field"]["is_mandatory"] = "إجباري";
+		$trad["application_model_field"]["show_object"] = "إظهار تفاصيل الكيان";
+		$trad["application_model_field"]["show_object.YES"] = "نعم كل التفاصيل";
+		$trad["application_model_field"]["show_object.NO"] = "لا";
+		$trad["application_model_field"]["show_object.EUH"] = "فقط البيانات دون قائمة الاختيار";
+		
+
+		
 
 	
 		

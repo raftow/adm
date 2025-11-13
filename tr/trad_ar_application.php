@@ -44,7 +44,7 @@ class ApplicationArTranslator{
 		$trad["application"]["applicationDesireList"] = "ترتيب الرغبات";
 		$trad["application"]["training_period_enum"] = "فترة التدريب";
 		$trad["application"]["application_plan_branch_mfk"] = "اختيار الرغبات";
-		
+		$trad["application"]["program_qualification_mfk"] = "المسارات المفتوحة للمتقدم";
 		// $trad["application"]["satisfaction"] = "نسبة رضا العملاء";
 		// $trad["application"]["tasks"] = "مهام بالانتظار";
 

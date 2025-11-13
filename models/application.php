@@ -1629,6 +1629,15 @@ class Application extends AdmObject
                         $nb_desires = $this->calcReal_nb_desires();
 
                         if ($nb_desires == 0) return [false, "select your desires"];
+                        $unique_desire = true;
+                        if($unique_desire and ($nb_desires == 1))
+                        {
+                                $applicationDesireList = $this->get("applicationDesireList");
+                                foreach($applicationDesireList as $applicationDesireItem)
+                                {
+                                       return $applicationDesireItem->dataIsCompleted(); 
+                                }
+                        }
 
                         return [true, ""];
                 }
@@ -2257,6 +2266,46 @@ class Application extends AdmObject
                 return $returnApplication;
         }
 
+        public function calcProgram_qualification_mfk($what = "value")
+        {
+                $pq_id_arr = [];
+                $applicantQualificationObj = $this->het("applicant_qualification_id");
+                if ($applicantQualificationObj) {
+                        $qualification_id = $applicantQualificationObj->getVal("qualification_id");
+                        // $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
+                        $qualification_major_id  = $applicantQualificationObj->getVal("qualification_major_id");
+                        $this->getApplicationModel();
+                        if ($this->objApplicationModel) {
+                                $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
+
+                                $server_db_prefix = AfwSession::currentDBPrefix();
+
+                                $pq_id_arr = AfwDatabase::db_recup_liste("select pq.id from " . $server_db_prefix . "adm.program_qualification pq
+                                        where pq.qualification_id = $qualification_id
+                                        and pq.qualification_major_id = $qualification_major_id
+                                        and pq.academic_level_id = $academic_level_id", "id");
+                        }
+                }
+
+
+
+
+                $pq_id_mfk = implode(",", $pq_id_arr);
+                if (!$pq_id_mfk) $pq_id_mfk = ",";
+                else $pq_id_mfk = ",$pq_id_mfk,";
+
+                if (($what == "value") or ($what == "decodeme")) return $pq_id_mfk;
+                elseif ($what == "object") {
+                        $pq_obj_arr = [];
+                        foreach ($pq_id_arr as $pq_id) {
+                                $pq_obj = ProgramQualification::loadById($pq_id);
+                                if ($pq_obj) $pq_obj_arr[] = $pq_obj;
+                        }
+                        return $pq_obj_arr;
+                }
+                else throw new AfwRuntimeException("calcProgram_qualification_mfk($what) is to be implemented");
+        }
+
 
         public function calcProgram_offering_mfk($what = "value")
         {
@@ -2265,6 +2314,7 @@ class Application extends AdmObject
                 if ($applicantQualificationObj) {
                         $qualification_id = $applicantQualificationObj->getVal("qualification_id");
                         $major_path_id  = $applicantQualificationObj->getVal("major_path_id");
+                        $qualification_major_id  = $applicantQualificationObj->getVal("qualification_major_id");
                         $this->getApplicationModel();
                         if ($this->objApplicationModel) {
                                 $academic_level_id = $this->objApplicationModel->getVal("academic_level_id");
@@ -2274,7 +2324,8 @@ class Application extends AdmObject
                                 $po_id_arr = AfwDatabase::db_recup_liste("select po.id from " . $server_db_prefix . "adm.academic_program_offering po
                                                         inner join " . $server_db_prefix . "adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
                                         where pq.qualification_id = $qualification_id
-                                        -- and pq.major_path_id = $major_path_id -- amjad 10/11/2025
+                                        -- and pq.major_path_id = $major_path_id -- amjad 10/11/2025 in teams conference said to remove and replace with below line
+                                        and pq.qualification_major_id = $qualification_major_id
                                         and pq.academic_level_id = $academic_level_id", "id");
                         }
                 }
@@ -2287,6 +2338,14 @@ class Application extends AdmObject
                 else $po_id_mfk = ",$po_id_mfk,";
 
                 if ($what == "value") return $po_id_mfk;
+                elseif ($what == "object") {
+                        $po_obj_arr = [];
+                        foreach ($po_id_arr as $po_id) {
+                                $po_obj = AcademicProgramOffering::loadById($po_id);
+                                if ($po_obj) $po_obj_arr[] = $po_obj;
+                        }
+                        return $po_obj_arr;
+                }
                 else throw new AfwRuntimeException("calcProgram_offering_mfk($what) rafik is to be implemented ");
         }
 
