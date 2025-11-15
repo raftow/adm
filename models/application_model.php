@@ -947,7 +947,8 @@ class ApplicationModel extends AdmObject
                 }
 
                 $currPlan = $this->currentPlan();
-                if ((!$currPlan) or (!$currPlan->sureIs("published"))) {
+                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                if ((!$currPlan) or (!$currPlan->sureIs("published")) or ($devMode)) {
                         $color = "green";
                         $title_ar = "تحديث فروع القبول حسب البرامج المتاحة وباقي الاعدادات";
                         $methodName = "genereApplicationModelBranchList";
