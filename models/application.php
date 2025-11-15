@@ -676,7 +676,7 @@ class Application extends AdmObject
                                         $appStepObj = $this->objApplicationModel->convertStepNumToObject($setted_step_num);
                                         $step_invalid_reason = "";
                                         if (!$appStepObj) $step_invalid_reason = "step $setted_step_num not found";
-                                        if (!$appStepObj->sureIs("general")) $step_invalid_reason = "step $setted_step_num is not general";
+                                        if ((!$this->objApplicationModel->isSynchronisedUniqueDesire()) and (!$appStepObj->sureIs("general"))) $step_invalid_reason = "step $setted_step_num is not general";
                                         if ($step_invalid_reason) {
                                                 throw new AfwRuntimeException("Error setting application step num to value $setted_step_num : $step_invalid_reason");
                                                 /*
