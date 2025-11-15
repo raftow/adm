@@ -298,8 +298,6 @@ class ApplicationDesire extends AdmObject
                 if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
                 if (!$application_plan_branch_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id is mandatory field");
 
-                if(!$desire_num) $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)") + 1;
-
                 $obj = new ApplicationDesire();
                 $obj->select("applicant_id", $applicant_id);
                 $obj->select("application_plan_id", $application_plan_id);
@@ -307,6 +305,7 @@ class ApplicationDesire extends AdmObject
                 $obj->select("application_plan_branch_id", $application_plan_branch_id);
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) {
+                                if(!$desire_num) $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)") + 1;
                                 $obj->set("desire_num", $desire_num);
                                 $obj->set("idn", $idn);
                                 $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
