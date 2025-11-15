@@ -1799,7 +1799,7 @@ class AdmObject extends AfwMomkenObject
          */
         foreach($scopeList as $scopeItem)
         {
-            if($scopeItem->scopeContain($this)) return true;
+            if($scopeItem->scopeCover($this)) return true;
         }
 
         return false;
