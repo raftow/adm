@@ -525,32 +525,36 @@
                                  * @var Acondition $acondItem 
                                  */
                                 $acondItem = $aModelCondItem->het("acondition_id");
-                                if($acondItem and $object->acceptScopeOf($acondItem))
+                                if($acondItem)
                                 {
-                                        $acondItemId = $acondItem->id;
-                                        $audit_pass = in_array($acondItemId, $audit_conditions_pass);
-                                        $audit_fail = true; //in_array($acondItemId, $audit_conditions_fail); has no sens, always we need to know reason of fail
-
-                                        $c++;
-                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec); 
-                                        if($exec_result) 
+                                        if($object->acceptScopeOf($acondItem))
                                         {
-                                                if($audit_pass) $inf_arr[] = "($c) ".$comments;
-                                                else $tech_arr[] = "($c) ".$comments;
-                                        } 
-                                        else 
-                                        {
-                                                // only first condition that fails
-                                                if(!$result_arr["status_comment"]) $result_arr["status_comment"] = $comments;
-                                                $success = $exec_result;
-                                                if($audit_fail) $war_arr[] = "($c) ".$comments;
-                                                else $tech_arr[] = "($c) ".$comments;
+                                                $acondItemId = $acondItem->id;
+                                                $audit_pass = in_array($acondItemId, $audit_conditions_pass);
+                                                $audit_fail = true; //in_array($acondItemId, $audit_conditions_fail); has no sens, always we need to know reason of fail
 
-                                                if($exec_result===false) break; // because if one condition fail so all fail no need to continue
-                                                if($exec_result===null) break; // because if we can not apply one condition we can not continue until resolve the pb (data update, etc..)
-                                                
+                                                $c++;
+                                                list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $object, $application_plan_id, $application_model_id, $simulate, $application_simulation_id, $logConditionExec); 
+                                                if($exec_result) 
+                                                {
+                                                        if($audit_pass) $inf_arr[] = "($c) ".$comments;
+                                                        else $tech_arr[] = "($c) ".$comments;
+                                                } 
+                                                else 
+                                                {
+                                                        // only first condition that fails
+                                                        if(!$result_arr["status_comment"]) $result_arr["status_comment"] = $comments;
+                                                        $success = $exec_result;
+                                                        if($audit_fail) $war_arr[] = "($c) ".$comments;
+                                                        else $tech_arr[] = "($c) ".$comments;
+
+                                                        if($exec_result===false) break; // because if one condition fail so all fail no need to continue
+                                                        if($exec_result===null) break; // because if we can not apply one condition we can not continue until resolve the pb (data update, etc..)
+                                                        
+                                                }
+                                                if($tech)  $tech_arr[] = $tech;
                                         }
-                                        if($tech)  $tech_arr[] = $tech;
+                                        
                                 }
                                 else
                                 {
@@ -570,55 +574,6 @@
                         
                         return ['success'=>$success, 'nb_conds'=>$c, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr,$result_arr)];
                 }
-                /* replaced by generic applyStepConditionsOn above
-                public function applyMyDesireConditionsOn($desireObject, $lang)
-                {
-                        $err_arr = [];
-                        $inf_arr = [];
-                        $war_arr = [];
-                        $tech_arr = [];
-
-                        $application_model_id = $desireObject->getVal("application_model_id");
-                        $application_plan_id = $desireObject->getVal("application_plan_id");
-                        $step_num = $desireObject->getVal("step_num");
-                        $acondList = ApplicationModelCondition::loadStepNumConditions($application_model_id, $step_num, false);
-                        /**
-                         *
-                         * @var ApplicationModelCondition $aModelCondItem
-                         * 
-                         *
-                        $success = true; // if one condition fail so all fail
-                        $c = 0;
-                        foreach($acondList as $aModelCondItem)
-                        {
-                                /**
-                                 * @var Acondition $acondItem 
-                                 *
-                                $acondItem = $aModelCondItem->het("acondition_id");
-                                if($acondItem)
-                                {
-                                        $c++;
-                                        list($exec_result, $comments, $tech) = $acondItem->applyOnObject($lang, $desireObject, $application_plan_id, $application_model_id, $simulate = false); 
-                                        if($exec_result) 
-                                        {
-                                                $inf_arr[] = "($c) ".$comments;
-                                        } 
-                                        else 
-                                        {
-                                                $success = false;
-                                                $war_arr[] = $comments;
-                                        }
-                                        if($tech)  $tech_arr[] = $tech;
-                                }
-                                else
-                                {
-                                        $err_arr[] = "model condition item has not valid condition : id=".$aModelCondItem->id;
-                                }
-                        }
-
-                        
-                        return ['success'=>$success, 'res'=> AfwFormatHelper::pbm_result($err_arr,$inf_arr,$war_arr,"<br>\n",$tech_arr)];
-                }*/
-
+                
         }
 ?>
