@@ -545,7 +545,7 @@ class ApplicationDesire extends AdmObject
                         $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                         $success = $applyResult['success'];
 
-                        list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
+                        list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
                         if ($success and (!$error_message)) {
                                 $result_arr["result"] = "pass";
                                 $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
@@ -581,6 +581,9 @@ class ApplicationDesire extends AdmObject
                                         $new_status = self::desire_status_enum_by_code('data-review');
                                 }
                                 $fail_message .= " " . $error_message;
+                                $result_arr["message"] = $res_arr["status_comment"];
+                                $result_arr["fail_message"] = $fail_message;
+                                        
                                 $this->set("desire_status_enum", $new_status);
                                 $this->set("comments", $fail_message);
                                 $this->commit();
