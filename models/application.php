@@ -1686,7 +1686,7 @@ class Application extends AdmObject
                 return null;
         }
 
-        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
+        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
 
@@ -2608,7 +2608,7 @@ class Application extends AdmObject
                 return ["", "reordered from $step_from to $step_to " . implode("<br>\n", $log_arr)];
         }
 
-        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
+        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $application_model_id = $this->getVal("application_model_id");
                 $application_plan_id = $this->getVal("application_plan_id");

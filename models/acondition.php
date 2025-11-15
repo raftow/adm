@@ -426,7 +426,7 @@ class Acondition extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
-        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $adminMode = false)
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $adminMode = false)
         {
                 if (!$simulate) $application_simulation_id =  2;
                 elseif (!$application_simulation_id) $application_simulation_id =  1;
