@@ -307,6 +307,11 @@
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $applicantObj = null;
                         $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
+                        if(!$application_plan_branch_id and $applicationObj->isSynchronisedUniqueDesire())
+                        {
+                               $adObj = $applicationObj->getSynchronisedUniqueDesire();
+                               if($adObj) $application_plan_branch_id = $adObj->getVal("application_plan_branch_id");
+                        }
                         if($applicationObj and $uncomplete)
                         {
                                 list($action_err, $action_info, $action_war) = $applicationObj->uncompleteApplication($lang);
