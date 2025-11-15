@@ -2,7 +2,7 @@
          <?php 
         class AdmApplicationDesireAfwStructure
         {
-        
+
                 public static function initInstance(&$obj)
                 {
                         if ($obj instanceof ApplicationDesire) 

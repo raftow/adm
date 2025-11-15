@@ -24,6 +24,7 @@ class Acondition extends AdmObject
 
 
 
+
         public function __construct()
         {
                 parent::__construct("acondition", "id", "adm");
@@ -166,6 +167,13 @@ class Acondition extends AdmObject
                         $obj->is_new = true;
                         return $obj;
                 } else return null;
+        }
+
+        public function getScopeList()
+        {
+             $ao = $this->het("acondition_origin_id");   
+             if($ao) return $ao->get("aconditionOriginScopeList");
+             else return [];
         }
 
         public static function list_of_operator_id()
@@ -781,7 +789,7 @@ class Acondition extends AdmObject
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
                 }
-
+                /*
                 if ($my_id and ($mode == "mode_aconditionOriginScopeList")) {
 
                         unset($link);
@@ -792,7 +800,8 @@ class Acondition extends AdmObject
                         $link["TITLE"] = $title;
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
-                }
+                }*/
+
 
                 return $otherLinksArray;
         }

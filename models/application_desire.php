@@ -1313,4 +1313,29 @@ class ApplicationDesire extends AdmObject
         {                
                 return ($this->getApplicationPlan()->getApplicationModel()->isSynchronisedUniqueDesire());
         }
+
+        public function calcApplication_model_id($what="value")
+        {
+                return $this->getVal("application_model_id");
+        }
+
+        public function calcTraining_unit_id($what="value")
+        {
+                return $this->getVal("training_unit_id");
+        }
+
+        public function calcDepartment_id($what="value")
+        {
+                $amb = $this->het("application_model_branch_id");
+                if($amb )return $amb->getVal("department_id");
+                return 0;
+        }
+
+        public function calcApplication_model_branch_id($what="value")
+        {
+                return $this->getVal("application_model_branch_id");
+        }
+
+        
+
 }

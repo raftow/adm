@@ -525,7 +525,7 @@
                                  * @var Acondition $acondItem 
                                  */
                                 $acondItem = $aModelCondItem->het("acondition_id");
-                                if($acondItem)
+                                if($acondItem and $object->acceptScopeOf($acondItem))
                                 {
                                         $acondItemId = $acondItem->id;
                                         $audit_pass = in_array($acondItemId, $audit_conditions_pass);

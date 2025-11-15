@@ -1,7 +1,6 @@
 <?php 
         class AdmApplicationAfwStructure
         {
-        
                 public static function initInstance(&$obj)
                 {
                         if ($obj instanceof Application) 

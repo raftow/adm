@@ -2704,4 +2704,31 @@ class Application extends AdmObject
         {                
                 return ($this->getApplicationModel()->isSynchronisedUniqueDesire());
         }
+
+        public function calcApplication_model_id($what="value")
+        {
+                return $this->getVal("application_model_id");
+        }
+
+        public function calcTraining_unit_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcDepartment_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcApplication_model_branch_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcProgram_track_id($what="value")
+        {
+                return 0;
+        }
+                
+
 }

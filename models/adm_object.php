@@ -1786,4 +1786,34 @@ class AdmObject extends AfwMomkenObject
 
         return false;
     }
+
+    /**
+     * @param Acondition $aconditionObj
+     */
+
+    public function acceptScopeOf($aconditionObj)
+    {
+        $scopeList = $aconditionObj->getScopeList();
+        /**
+         * @var AconditionOriginScope $scopeItem
+         */
+        foreach($scopeList as $scopeItem)
+        {
+            if($scopeItem->scopeContain($this)) return true;
+        }
+
+        return false;
+    }
+
+    public function isCoveredBy($application_model_id,$training_unit_id,$department_id,$application_model_branch_id,$program_track_id)
+    {
+        return (((!$application_model_id) or ($application_model_id == $this->calcApplication_model_id())) and
+                ((!$training_unit_id) or ($training_unit_id == $this->calcTraining_unit_id())) and
+                ((!$department_id) or ($department_id == $this->calcDepartment_id())) and
+                ((!$application_model_branch_id) or ($application_model_branch_id == $this->calcApplication_model_branch_id())) and
+                ((!$program_track_id) or ($program_track_id == $this->calcProgram_track_id()))
+            );        
+
+    }
+        
 }

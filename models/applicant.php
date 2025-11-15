@@ -2027,5 +2027,31 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 //if($afObj->getId()<=0) die("pfObj($type) = ".var_export($afObj,true));
                 return $afObj;
         }
+
+
+        public function calcApplication_model_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcTraining_unit_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcDepartment_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcApplication_model_branch_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcProgram_track_id($what="value")
+        {
+                return 0;
+        }
 }
 

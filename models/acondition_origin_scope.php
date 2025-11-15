@@ -110,4 +110,17 @@ class AconditionOriginScope extends AdmObject
         // @todo this temporary for demo of amjad
         return [true, 'for demo'];
     }
+
+
+    public function scopeCover($object)
+    {
+        $application_model_id = $this->getVal("application_model_id");
+        $training_unit_id = $this->getVal("training_unit_id"); 
+        $department_id = $this->getVal("department_id");
+        $application_model_branch_id = $this->getVal("application_model_branch_id"); 
+        $program_track_id = $this->getVal("program_track_id");
+
+        return ($object->isCoveredBy($application_model_id,$training_unit_id,$department_id,$application_model_branch_id,$program_track_id));
+
+    }
 }
