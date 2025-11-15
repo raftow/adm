@@ -829,13 +829,32 @@ class ApplicationDesire extends AdmObject
                 return $program_track_id;
         }
 
+        public function calcNeeded_doc_types_mfk($what = "value")
+        {
+                $objProgramTrack = $this->calcProgram_track_id("object");
+                if(!$objProgramTrack) 
+                {
+                        if($what == "value") return ",";
+                        elseif($what == "decodeme") return "";
+                        elseif($what == "object") return [];
+                }
+                else
+                {
+                        if($what == "value") return  $objProgramTrack->getVal("doc_type_mfk");
+                        elseif($what == "object") return $objProgramTrack->get("doc_type_mfk");
+                        elseif($what == "decodeme") return $objProgramTrack->decode("doc_type_mfk");
+                }
+
+                
+        }
+
         public function calcNeeded_docs_available($what = "value")
         {
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
-                $objProgramTrack = $this->calcProgram_track_id("object");
-                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 
-                $required_doc_type_arr = explode(",",trim($objProgramTrack->getVal("doc_type_mfk"),","));
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                $needed_doc_types_mfk = $this->calcNeeded_doc_types_mfk("value");
+                $required_doc_type_arr = explode(",",trim($needed_doc_types_mfk,","));
                 foreach($required_doc_type_arr as $required_doc_type_id)
                 {
                       if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;
