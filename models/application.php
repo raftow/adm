@@ -1748,41 +1748,45 @@ class Application extends AdmObject
                                                 $this->set("comments", $message_err);
 
                                                 $err_arr[] = $message_err;
-                                        } elseif ($currentStepObj->sureIs("general") and ($currentStepObj->id != $lastStepObj->id)) {
-                                                // to go to next step we should apply conditions of the current step
-                                                $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
-                                                // die("applyResult = ".var_export($applyResult,true));
-                                                $success = $applyResult['success'];
-                                                $nb_conds = $applyResult['nb_conds'];
+                                        } elseif ($currentStepObj->sureIs("general")) {
+                                                if(($currentStepObj->id != $lastStepObj->id) or ($this->isSynchronisedUniqueDesire()))
+                                                {
+                                                        // to go to next step we should apply conditions of the current step
+                                                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                                        // die("applyResult = ".var_export($applyResult,true));
+                                                        $success = $applyResult['success'];
+                                                        $nb_conds = $applyResult['nb_conds'];
 
-                                                list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
-                                                if ($success and (!$error_message)) {
-                                                        $result_arr["result"] = "pass";
-                                                        $result_arr["message"] = $success_message;
-                                                        $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
-                                                        $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
-                                                        $this->set("step_num", $nextStepNum);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
-                                                        $inf_arr[]  = $success_message;
-                                                        $this->set("comments", $nb_conds . " " . $this->tm("conditions successfully passed", $lang));
+                                                        list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
+                                                        if ($success and (!$error_message)) {
+                                                                $result_arr["result"] = "pass";
+                                                                $result_arr["message"] = $success_message;
+                                                                $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
+                                                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
+                                                                $this->set("step_num", $nextStepNum);
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                                                                $inf_arr[]  = $success_message;
+                                                                $this->set("comments", $nb_conds . " " . $this->tm("conditions successfully passed", $lang));
 
 
-                                                        if ($nextStepNum != $currentStepNum) {
-                                                                $this->requestAPIsOfStep($nextStepNum);
+                                                                if ($nextStepNum != $currentStepNum) {
+                                                                        $this->requestAPIsOfStep($nextStepNum);
+                                                                }
+                                                                $tech_arr[] = $tech;
+                                                        } else {
+                                                                if ((!$error_message) and ($success === false)) $result_arr["result"] = "fail";
+                                                                else $result_arr["result"] = "standby";
+                                                                $result_arr["message"] = $res_arr["status_comment"];
+                                                                if (!$fail_message) $fail_message = $error_message;
+                                                                $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
+                                                                $war_arr[]  = $fail_message;
+                                                                $tech_arr[] = $tech;
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                                $this->set("comments", $fail_message);
                                                         }
-                                                        $tech_arr[] = $tech;
-                                                } else {
-                                                        if ((!$error_message) and ($success === false)) $result_arr["result"] = "fail";
-                                                        else $result_arr["result"] = "standby";
-                                                        $result_arr["message"] = $res_arr["status_comment"];
-                                                        if (!$fail_message) $fail_message = $error_message;
-                                                        $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
-                                                        $war_arr[]  = $fail_message;
-                                                        $tech_arr[] = $tech;
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $this->set("comments", $fail_message);
                                                 }
+                                                
                                         } 
                                         else 
                                         {
