@@ -1137,13 +1137,14 @@ class Application extends AdmObject
                         }
 
 
-
-                        $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
-                        if ($asObj) {
-                                if ($asObj->sureIs("general")) {
+                        $lastStepObj = $this->objApplicationModel->getLastApplicationStep();
+                        $nextStepObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
+                        if ($nextStepObj and $lastStepObj) {
+                                $lastStepNum = $lastStepObj->getVal("step_num");
+                                if ($nextStepObj->sureIs("general") or ($this->isSynchronisedUniqueDesire() and ($lastStepNum == $currentStepNum))) {
                                         $color = "green";
-                                        $title_ar = $asObj->tm("go to next step", 'ar') . " '" . $asObj->getDisplay("ar") . "'";
-                                        $title_en = $asObj->tm("go to next step", 'en') . " '" . $asObj->getDisplay("en") . "'";
+                                        $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
+                                        $title_en = $nextStepObj->tm("go to next step", 'en') . " '" . $nextStepObj->getDisplay("en") . "'";
                                         $methodName = "gotoNextStep";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1156,8 +1157,8 @@ class Application extends AdmObject
                                         );
 
                                         $color = "blue";
-                                        $title_ar = $asObj->tm("Force updating data via electronic services", 'ar');
-                                        $title_en = $asObj->tm("Force updating data via electronic services", 'en');
+                                        $title_ar = $nextStepObj->tm("Force updating data via electronic services", 'ar');
+                                        $title_en = $nextStepObj->tm("Force updating data via electronic services", 'en');
                                         $methodName = "runNeededApis";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1170,8 +1171,8 @@ class Application extends AdmObject
                                         );
 
                                         $color = "gray";
-                                        $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
-                                        $title_en = $asObj->tm("Updating data via electronic services", 'en');
+                                        $title_ar = $nextStepObj->tm("Updating data via electronic services", 'ar');
+                                        $title_en = $nextStepObj->tm("Updating data via electronic services", 'en');
                                         $methodName = "runOnlyNeedUpdateApis";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1184,8 +1185,8 @@ class Application extends AdmObject
                                         );
                                 } else {
                                         $color = "blue";
-                                        $title_ar = $asObj->tm("Crowd desires", 'ar');
-                                        $title_en = $asObj->tm("Crowd desires", 'en');
+                                        $title_ar = $nextStepObj->tm("Crowd desires", 'ar');
+                                        $title_en = $nextStepObj->tm("Crowd desires", 'en');
                                         $methodName = "crowdDesires";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
