@@ -96,8 +96,7 @@ class QualMajorPath extends AdmObject
     {
         
         
-        //require_once __DIR__ . '/../../lib/vendor/autoload.php';
-        require_once 'var/www/lib/vendor/autoload.php';
+        require_once __DIR__ . '/../../lib/vendor/autoload.php';
         
         
         $mpdf = new \Mpdf\Mpdf([
