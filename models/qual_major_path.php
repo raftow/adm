@@ -97,7 +97,7 @@ class QualMajorPath extends AdmObject
         
         
         require_once __DIR__ . '/../../lib/vendor/autoload.php';
-        
+        die(__DIR__ . '/../../lib/vendor/autoload.php');
         
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
