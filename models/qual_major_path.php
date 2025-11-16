@@ -116,7 +116,8 @@ class QualMajorPath extends AdmObject
         $query = "select q.qualifcation_name_ar,q.qualifcation_name_en,
         qm.qualification_major_name_ar,qm.qualification_major_name_en,qm.saudi_unified_code,mp.major_path_name_ar,mp.major_path_name_en
         from $db.qualification q,$db.qualification_major qm,$db.qual_major_path qp,$db.major_path mp 
-        where q.id=qp.qualification_id and qp.qualification_major_id=qm.id and mp.id=qp.major_path_id";
+        where q.id=qp.qualification_id and qp.qualification_major_id=qm.id and mp.id=qp.major_path_id 
+        and q.active='Y' and qm.active='Y' and qp.active='Y' and mp.active='Y'";
         $result = AfwDatabase::db_recup_rows($query);
         
         $arr_pdf = array();
