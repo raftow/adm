@@ -266,7 +266,11 @@
                                                 'CSS' => 'width_pct_25', ),
 
 
-                                        
+                                        'application_fees_record' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+								'EDIT' => true,  'READONLY' => true, 
+								'TYPE' => 'FK',  'ANSWER' => 'applicant_account',  'ANSMODULE' => 'adm',  'STEP' => 99, 
+								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+								'CSS' => 'width_pct_25',),
 
                                         
                                         'application_fees_paid' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 

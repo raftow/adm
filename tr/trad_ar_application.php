@@ -29,6 +29,8 @@ class ApplicationArTranslator{
 		$trad["application"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";
 		$trad["application"]["consider_weighted_pctg"] = "اعتبار النسبة الموزونة في اختيار الرغبات";
 
+		$trad["application"]["application_fees_record"] = "سجل رسوم التقديم";
+
 		$trad["application"]["applicationQualificationList"] = "المؤهلات المسموحة للتقديم";
 		
 		$trad["application"]["applicant_qualification_id"] = "مؤهل التقديم";

@@ -2455,9 +2455,19 @@ class Application extends AdmObject
                 return $this->applicantObj->weighted_percentage($what, $program_track_id, $major_path_id, $applicantQualificationObj);
         }
 
-        private function calcFinancial_transaction_paid($what = "value", $fee_code = "F001")
+        public function calcApplication_fees_record($what = "value")
         {
-                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+                $aaObj = $this->getApplicantAccountObjectFor("F001");
+                return $aaObj->giveWhat($what);
+        }
+
+        /**
+         * getApplicantAccountObjectFor
+         * @return ApplicantAccount
+         */
+
+        public function getApplicantAccountObjectFor($fee_code)
+        {
                 $ftObj = FinancialTransaction::loadByMainIndex($fee_code);
                 if ((!$ftObj) or (!$ftObj->id)) throw new AfwRuntimeException("fee code $fee_code not defined");
                 $application_plan_id = $this->getVal("application_plan_id");
@@ -2468,7 +2478,14 @@ class Application extends AdmObject
                 if ((!$amftObj) or (!$amftObj->id)) throw new AfwRuntimeException("The fee code `$fee_code` is not defined in current application model [ID=$application_model_id]");
                 $application_model_financial_transaction_id = $amftObj->id;
                 $applicant_id = $this->getVal("applicant_id");
-                $aaObj = ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id);
+                return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id);
+                
+        }
+
+        private function calcFinancial_transaction_paid($what = "value", $fee_code = "F001")
+        {
+                $aaObj = $this->getApplicantAccountObjectFor($fee_code);
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
                 if (!$aaObj) return $no;
                 $ps = $aaObj->getVal("payment_status_enum");
                 // تم الدفع كليا / معفي من الدفع
