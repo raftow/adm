@@ -350,12 +350,21 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25',),
 
+                                                
+
+                                        'application_category_enum' => array('SHORTNAME' => 'sorting_by',  'SEARCH' => true,  
+                                                'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+                                                'EDIT' => true,  'QEDIT' => false, 'STEP' => 3, 'DEFAUT' => 3,
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'READONLY' => false,  'DNA' => true,  'MANDATORY' => true,  
+                                                'CSS' => 'width_pct_50', ),
+
                                         'split_sorting_by_enum' => array('SHORTNAME' => 'sorting_by',  'SEARCH' => true,  
                                                 'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => false, 'STEP' => 3, 'DEFAUT' => 1,
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'READONLY' => false,  'DNA' => true,  'MANDATORY' => true,  
-                                                'CSS' => 'width_pct_50', ),
+                                                'CSS' => 'width_pct_25', ),
 
                                         'application_field_mfk' => array(
                                                 'IMPORTANT' => 'IN',

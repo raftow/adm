@@ -47,7 +47,11 @@ class ApplicationModelField extends AdmObject
             
             if ($create_obj_if_not_found) 
             {
-                if($acondition_id) $obj->set("acondition_id", $acondition_id);
+                if($acondition_id and (!$obj->getVal("acondition_id"))) $obj->set("acondition_id", $acondition_id);
+                /* elseif($acondition_id and (!$obj->getVal("acondition2_id"))) $obj->set("acondition2_id", $acondition_id);
+                elseif($acondition_id and (!$obj->getVal("acondition3_id"))) $obj->set("acondition3_id", $acondition_id);
+                elseif($acondition_id and (!$obj->getVal("acondition4_id"))) $obj->set("acondition4_id", $acondition_id);
+                elseif($acondition_id and (!$obj->getVal("acondition5_id"))) $obj->set("acondition5_id", $acondition_id);*/
                 if($duration_expiry) $obj->set("duration_expiry", $duration_expiry);
                 
                 $obj->activate();

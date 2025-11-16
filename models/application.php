@@ -676,7 +676,7 @@ class Application extends AdmObject
                                         $appStepObj = $this->objApplicationModel->convertStepNumToObject($setted_step_num);
                                         $step_invalid_reason = "";
                                         if (!$appStepObj) $step_invalid_reason = "step $setted_step_num not found";
-                                        if (!$appStepObj->sureIs("general")) $step_invalid_reason = "step $setted_step_num is not general";
+                                        if ((!$this->objApplicationModel->isSynchronisedUniqueDesire()) and (!$appStepObj->sureIs("general"))) $step_invalid_reason = "step $setted_step_num is not general";
                                         if ($step_invalid_reason) {
                                                 throw new AfwRuntimeException("Error setting application step num to value $setted_step_num : $step_invalid_reason");
                                                 /*
@@ -1137,13 +1137,14 @@ class Application extends AdmObject
                         }
 
 
-
-                        $asObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
-                        if ($asObj) {
-                                if ($asObj->sureIs("general")) {
+                        $lastStepObj = $this->objApplicationModel->getLastApplicationStep();
+                        $nextStepObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
+                        if ($nextStepObj and $lastStepObj) {
+                                $lastStepNum = $lastStepObj->getVal("step_num");
+                                if ($nextStepObj->sureIs("general") or ($this->isSynchronisedUniqueDesire() and ($lastStepNum == $currentStepNum))) {
                                         $color = "green";
-                                        $title_ar = $asObj->tm("go to next step", 'ar') . " '" . $asObj->getDisplay("ar") . "'";
-                                        $title_en = $asObj->tm("go to next step", 'en') . " '" . $asObj->getDisplay("en") . "'";
+                                        $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
+                                        $title_en = $nextStepObj->tm("go to next step", 'en') . " '" . $nextStepObj->getDisplay("en") . "'";
                                         $methodName = "gotoNextStep";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1156,8 +1157,8 @@ class Application extends AdmObject
                                         );
 
                                         $color = "blue";
-                                        $title_ar = $asObj->tm("Force updating data via electronic services", 'ar');
-                                        $title_en = $asObj->tm("Force updating data via electronic services", 'en');
+                                        $title_ar = $nextStepObj->tm("Force updating data via electronic services", 'ar');
+                                        $title_en = $nextStepObj->tm("Force updating data via electronic services", 'en');
                                         $methodName = "runNeededApis";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1170,8 +1171,8 @@ class Application extends AdmObject
                                         );
 
                                         $color = "gray";
-                                        $title_ar = $asObj->tm("Updating data via electronic services", 'ar');
-                                        $title_en = $asObj->tm("Updating data via electronic services", 'en');
+                                        $title_ar = $nextStepObj->tm("Updating data via electronic services", 'ar');
+                                        $title_en = $nextStepObj->tm("Updating data via electronic services", 'en');
                                         $methodName = "runOnlyNeedUpdateApis";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1184,8 +1185,8 @@ class Application extends AdmObject
                                         );
                                 } else {
                                         $color = "blue";
-                                        $title_ar = $asObj->tm("Crowd desires", 'ar');
-                                        $title_en = $asObj->tm("Crowd desires", 'en');
+                                        $title_ar = $nextStepObj->tm("Crowd desires", 'ar');
+                                        $title_en = $nextStepObj->tm("Crowd desires", 'en');
                                         $methodName = "crowdDesires";
                                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                                 "METHOD" => $methodName,
@@ -1597,6 +1598,7 @@ class Application extends AdmObject
                 $war_arr = [];
                 $tech_arr = [];
                 $result_arr = [];
+                $err_arr = [];
 
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) {
@@ -1616,6 +1618,36 @@ class Application extends AdmObject
                         $inf_arr[] = $this->tm("The move to first step", $lang) . " " . $this->tm("has been successfully done", $lang);
                         $result_arr["STEP_CODE"] = $firstStepCode;
                 }
+
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+        }
+
+        public function forceGotoStep($anApplicationStepObj, $comments, $lang = "ar")
+        {
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                $err_arr = [];
+                $result_arr = [];
+
+                $step_num = $anApplicationStepObj->getVal("step_num");
+                $application_step_id = $anApplicationStepObj->id;
+                $stepCode = $anApplicationStepObj->getVal("step_code");
+                if($step_num != $this->getVal("step_num"))
+                {
+                        $this->set("application_step_id", $application_step_id);                        
+                        $this->set("step_num", $step_num);
+                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                        $this->set("comments", $comments);
+                        $this->commit();
+                        $inf_arr[] = $comments;
+                        $result_arr["STEP_CODE"] = $stepCode;
+                }
+                else
+                {
+                        $war_arr[] = "step already = $step_num";
+                }
+
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
@@ -1654,7 +1686,7 @@ class Application extends AdmObject
                 return null;
         }
 
-        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
+        public function gotoNextStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
 
@@ -1716,62 +1748,82 @@ class Application extends AdmObject
                                                 $this->set("comments", $message_err);
 
                                                 $err_arr[] = $message_err;
-                                        } elseif ($currentStepObj->sureIs("general") and ($currentStepObj->id != $lastStepObj->id)) {
-                                                // to go to next step we should apply conditions of the current step
-                                                $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
-                                                // die("applyResult = ".var_export($applyResult,true));
-                                                $success = $applyResult['success'];
-                                                $nb_conds = $applyResult['nb_conds'];
+                                        } elseif ($currentStepObj->sureIs("general")) {
+                                                if(($currentStepObj->id != $lastStepObj->id) or ($this->isSynchronisedUniqueDesire()))
+                                                {
+                                                        // to go to next step we should apply conditions of the current step
+                                                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                                        // die("applyResult = ".var_export($applyResult,true));
+                                                        $success = $applyResult['success'];
+                                                        $nb_conds = $applyResult['nb_conds'];
 
-                                                list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
-                                                if ($success and (!$error_message)) {
-                                                        $result_arr["result"] = "pass";
-                                                        $result_arr["message"] = $success_message;
-                                                        $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
-                                                        $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
-                                                        $this->set("step_num", $nextStepNum);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
-                                                        $inf_arr[]  = $success_message;
-                                                        $this->set("comments", $nb_conds . " " . $this->tm("conditions successfully passed", $lang));
+                                                        list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
+                                                        if ($success and (!$error_message)) {
+                                                                $result_arr["result"] = "pass";
+                                                                $result_arr["message"] = $success_message;
+                                                                $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
+                                                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
+                                                                $this->set("step_num", $nextStepNum);
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                                                                $inf_arr[]  = $success_message;
+                                                                $this->set("comments", $nb_conds . " " . $this->tm("conditions successfully passed", $lang));
 
 
-                                                        if ($nextStepNum != $currentStepNum) {
-                                                                $this->requestAPIsOfStep($nextStepNum);
+                                                                if ($nextStepNum != $currentStepNum) {
+                                                                        $this->requestAPIsOfStep($nextStepNum);
+                                                                }
+                                                                $tech_arr[] = $tech;
+                                                        } else {
+                                                                if ((!$error_message) and ($success === false)) $result_arr["result"] = "fail";
+                                                                else $result_arr["result"] = "standby";
+                                                                $result_arr["message"] = $res_arr["status_comment"];
+                                                                if (!$fail_message) $fail_message = $error_message;
+                                                                $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
+                                                                $war_arr[]  = $fail_message;
+                                                                $tech_arr[] = $tech;
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                                $this->set("comments", $fail_message);
                                                         }
-                                                        $tech_arr[] = $tech;
-                                                } else {
-                                                        if ((!$error_message) and ($success === false)) $result_arr["result"] = "fail";
-                                                        else $result_arr["result"] = "standby";
-                                                        $result_arr["message"] = $res_arr["status_comment"];
-                                                        if (!$fail_message) $fail_message = $error_message;
-                                                        $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
-                                                        $war_arr[]  = $fail_message;
-                                                        $tech_arr[] = $tech;
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $this->set("comments", $fail_message);
                                                 }
-                                        } else {
-                                                if ($this->dataIsCompleted()) {
-                                                        $result_arr["result"] = "success";
+                                                
+                                        } 
+                                        else 
+                                        {
+                                                // here means the application is in last general step
+                                                // or passed it (one-synchrinized-desire mode)
+                                                if(!$this->isSynchronisedUniqueDesire())
+                                                {
+                                                        list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
+                                                        if ($is_completed_app) {
+                                                                $result_arr["result"] = "success";
 
-                                                        $result_arr["message"] = "";
+                                                                $result_arr["message"] = "";
 
 
-                                                        $last_step_num = $lastStepObj->getVal("step_num");
-                                                        $this->set("step_num", $last_step_num);
-                                                        $this->set("application_step_id", $lastStepObj->id);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                        $this->set("comments", $this->tm("application is complete", $lang));
-                                                } else {
-                                                        $result_arr["result"] = "fail";
-                                                        $result_arr["message"] = "attempt to goto next step when this is the last step, please select the desires";
-                                                        $last_step_num = $lastStepObj->getVal("step_num");
-                                                        $this->set("step_num", $last_step_num);
-                                                        $this->set("application_step_id", $lastStepObj->id);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $this->set("comments", $this->tm("please select the desires", $lang));
+                                                                $last_step_num = $lastStepObj->getVal("step_num");
+                                                                $this->set("step_num", $last_step_num);
+                                                                $this->set("application_step_id", $lastStepObj->id);
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                                                $this->set("comments", $this->tm("application is complete", $lang));
+                                                        } else {
+                                                                $result_arr["result"] = "fail";
+                                                                $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
+                                                                $last_step_num = $lastStepObj->getVal("step_num");
+                                                                $this->set("step_num", $last_step_num);
+                                                                $this->set("application_step_id", $lastStepObj->id);
+                                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                                $this->set("comments", $this->tm("please select the desires", $lang));
+                                                        }
                                                 }
+                                                else
+                                                {
+                                                        $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
+                                                        if(!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
+                                                        return $uniqueDesireObj->gotoNextDesireStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                                }
+
+                                                
                                         }
                                 }
                         }
@@ -2560,7 +2612,7 @@ class Application extends AdmObject
                 return ["", "reordered from $step_from to $step_to " . implode("<br>\n", $log_arr)];
         }
 
-        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
+        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $application_model_id = $this->getVal("application_model_id");
                 $application_plan_id = $this->getVal("application_plan_id");
@@ -2637,4 +2689,46 @@ class Application extends AdmObject
                 // @todo : show result as html or other depending on $what parameter
 
         }
+
+
+        /**
+         * @return ApplicationDesire
+         */
+        public function getSynchronisedUniqueDesire()
+        {
+                if(!$this->isSynchronisedUniqueDesire()) return null;
+                return $this->getApplicationDesireByNum(1);
+        }
+
+        public function isSynchronisedUniqueDesire()
+        {                
+                return ($this->getApplicationModel()->isSynchronisedUniqueDesire());
+        }
+
+        public function calcApplication_model_id($what="value")
+        {
+                return $this->getVal("application_model_id");
+        }
+
+        public function calcTraining_unit_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcDepartment_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcApplication_model_branch_id($what="value")
+        {
+                return 0;
+        }
+
+        public function calcProgram_track_id($what="value")
+        {
+                return 0;
+        }
+                
+
 }

@@ -24,6 +24,7 @@ class Acondition extends AdmObject
 
 
 
+
         public function __construct()
         {
                 parent::__construct("acondition", "id", "adm");
@@ -166,6 +167,13 @@ class Acondition extends AdmObject
                         $obj->is_new = true;
                         return $obj;
                 } else return null;
+        }
+
+        public function getScopeList()
+        {
+             $ao = $this->het("acondition_origin_id");   
+             if($ao) return $ao->get("aconditionOriginScopeList");
+             else return [];
         }
 
         public static function list_of_operator_id()
@@ -426,7 +434,7 @@ class Acondition extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
 
-        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $adminMode = false)
+        public function applyOnObject($lang, $obj, $application_plan_id, $application_model_id, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $adminMode = false)
         {
                 if (!$simulate) $application_simulation_id =  2;
                 elseif (!$application_simulation_id) $application_simulation_id =  1;
@@ -781,7 +789,7 @@ class Acondition extends AdmObject
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
                 }
-
+                /*
                 if ($my_id and ($mode == "mode_aconditionOriginScopeList")) {
 
                         unset($link);
@@ -792,7 +800,8 @@ class Acondition extends AdmObject
                         $link["TITLE"] = $title;
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
-                }
+                }*/
+
 
                 return $otherLinksArray;
         }

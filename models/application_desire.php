@@ -298,8 +298,6 @@ class ApplicationDesire extends AdmObject
                 if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
                 if (!$application_plan_branch_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_branch_id is mandatory field");
 
-                if(!$desire_num) $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)") + 1;
-
                 $obj = new ApplicationDesire();
                 $obj->select("applicant_id", $applicant_id);
                 $obj->select("application_plan_id", $application_plan_id);
@@ -307,6 +305,7 @@ class ApplicationDesire extends AdmObject
                 $obj->select("application_plan_branch_id", $application_plan_branch_id);
                 if ($obj->load()) {
                         if ($create_obj_if_not_found) {
+                                if(!$desire_num) $desire_num = $applicationObj->getRelation("applicationDesireList")->func("max(desire_num)") + 1;
                                 $obj->set("desire_num", $desire_num);
                                 $obj->set("idn", $idn);
                                 $applicationPlanBranchObj = $obj->het("application_plan_branch_id");
@@ -499,7 +498,7 @@ class ApplicationDesire extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
-        public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
+        public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 // die("dbg devMode=$devMode");
@@ -545,7 +544,7 @@ class ApplicationDesire extends AdmObject
                         $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                         $success = $applyResult['success'];
 
-                        list($error_message, $success_message, $fail_message, $tech) = $applyResult['res'];
+                        list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
                         if ($success and (!$error_message)) {
                                 $result_arr["result"] = "pass";
                                 $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
@@ -581,6 +580,9 @@ class ApplicationDesire extends AdmObject
                                         $new_status = self::desire_status_enum_by_code('data-review');
                                 }
                                 $fail_message .= " " . $error_message;
+                                $result_arr["message"] = $res_arr["status_comment"];
+                                $result_arr["fail_message"] = $fail_message;
+                                        
                                 $this->set("desire_status_enum", $new_status);
                                 $this->set("comments", $fail_message);
                                 $this->commit();
@@ -827,13 +829,32 @@ class ApplicationDesire extends AdmObject
                 return $program_track_id;
         }
 
+        public function calcNeeded_doc_types_mfk($what = "value")
+        {
+                $objProgramTrack = $this->calcProgram_track_id("object");
+                if(!$objProgramTrack) 
+                {
+                        if($what == "value") return ",";
+                        elseif($what == "decodeme") return "";
+                        elseif($what == "object") return [];
+                }
+                else
+                {
+                        if($what == "value") return  $objProgramTrack->getVal("doc_type_mfk");
+                        elseif($what == "object") return $objProgramTrack->get("doc_type_mfk");
+                        elseif($what == "decodeme") return $objProgramTrack->decode("doc_type_mfk");
+                }
+
+                
+        }
+
         public function calcNeeded_docs_available($what = "value")
         {
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
-                $objProgramTrack = $this->calcProgram_track_id("object");
-                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
                 
-                $required_doc_type_arr = explode(",",trim($objProgramTrack->getVal("doc_type_mfk"),","));
+                if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
+                $needed_doc_types_mfk = $this->calcNeeded_doc_types_mfk("value");
+                $required_doc_type_arr = explode(",",trim($needed_doc_types_mfk,","));
                 foreach($required_doc_type_arr as $required_doc_type_id)
                 {
                       if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;
@@ -887,7 +908,7 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = true, $audit_conditions_pass = [], $audit_conditions_fail = [])
+        public function applyMyCurrentStepConditions($lang = "ar", $pbm = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 if (!$objApplicationModel) {
@@ -999,6 +1020,11 @@ class ApplicationDesire extends AdmObject
         {
                 if ($fields_updated["application_step_id"]) {
                         $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                        if($this->isSynchronisedUniqueDesire())
+                        {
+                                $stepObj = $this->het("application_step_id");
+                                $this->getApplicationObject()->forceGotoStep($stepObj, "because isSynchronisedUniqueDesire");
+                        }
                         $sorting_application_step_id = $objApplicationModel->calcSorting_step_id();
                         
                         if ($this->getVal("application_step_id") == $sorting_application_step_id) {
@@ -1300,4 +1326,34 @@ class ApplicationDesire extends AdmObject
                         return [false, "please continue in application process your are in step $currentStepNum/6"];
                 }
         }
+
+        public function isSynchronisedUniqueDesire()
+        {                
+                return ($this->getApplicationPlan()->getApplicationModel()->isSynchronisedUniqueDesire());
+        }
+
+        public function calcApplication_model_id($what="value")
+        {
+                return $this->getVal("application_model_id");
+        }
+
+        public function calcTraining_unit_id($what="value")
+        {
+                return $this->getVal("training_unit_id");
+        }
+
+        public function calcDepartment_id($what="value")
+        {
+                $amb = $this->het("application_model_branch_id");
+                if($amb )return $amb->getVal("department_id");
+                return 0;
+        }
+
+        public function calcApplication_model_branch_id($what="value")
+        {
+                return $this->getVal("application_model_branch_id");
+        }
+
+        
+
 }

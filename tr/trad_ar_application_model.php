@@ -28,6 +28,8 @@ class ApplicationModelArTranslator
 		
 		
 		$trad["application_model"]["split_sorting_by_enum"] = "تقسيم مسارات الفرز حسب";
+		$trad["application_model"]["application_category_enum"] = "نوعية التقديم";
+		
 		$trad["application_model"]["sorting_path"] = "مسار الفرز";
 
 		$trad["application_model"]["applicationmodel.single"] = "نموذج قبول";

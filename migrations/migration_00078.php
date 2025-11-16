@@ -4,6 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model add   application_category_enum smallint NOT NULL DEFAULT 1  AFTER print_admission_agreement;");    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model_field add   show_object char(1) DEFAULT NULL  AFTER is_mandatory;");    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.api_endpoint CHANGE `application_field_mfk` `application_field_mfk` text COLLATE 'utf8mb3_unicode_ci' NOT NULL AFTER `api_endpoint_mfk`;");    
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_model add   consider_weighted_pctg char(1) NOT NULL DEFAULT 'Y' AFTER max_training_unit;");    
