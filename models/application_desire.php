@@ -552,6 +552,10 @@ class ApplicationDesire extends AdmObject
                                 $this->set("step_num", $nextStepNum);
                                 $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
                                 $newStepObj = $this->getApplicationPlan()->getApplicationModel()->convertStepNumToObject($nextStepNum);
+                                if($newStepObj->getVal("step_num") != $nextStepNum)
+                                {
+                                        throw new AfwRuntimeException("nextStepNum=$nextStepNum newStepObj=".var_export($newStepObj,true));
+                                }
                                 $this->set("application_step_id", $newStepObj->id);
                                 $newStepCode = $newStepObj->getStepCode();
                                 // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
@@ -638,6 +642,7 @@ class ApplicationDesire extends AdmObject
                 } else {
                         $objStep = $this->het("application_step_id");
                         if ($objStep and ($objStep->getVal("step_num") != $this->getVal("step_num"))) {
+                                throw new AfwRuntimeException("nextStepNum=".$this->getVal("step_num")." newStepObj=".var_export($objStep,true));
                                 $this->set("step_num", $objStep->getVal("step_num"));
                                 $is_to_commit = true;
                         }
