@@ -1065,6 +1065,18 @@ class ApplicationDesire extends AdmObject
                 if($attribute=="step_num")
                 {
                         if($newvalue<$oldvalue) throw new AfwRuntimeException("before set attribute $attribute from '$oldvalue' to '$newvalue' rafik pb found الحمد لله");
+                        if(($newvalue==3) and ($this->getVal("application_step_id")==45))
+                        {
+                                throw new AfwRuntimeException("application_step_id==45 and before set attribute $attribute from '$oldvalue' to '$newvalue' rafik pb found الحمد لله");
+                        }
+                }
+                
+                if($attribute=="application_step_id")
+                {
+                        if(($newvalue==45) and ($this->getVal("step_num")==3))
+                        {
+                                throw new AfwRuntimeException("step_num is 3 and before set attribute $attribute from '$oldvalue' to '$newvalue' rafik pb found الحمد لله");
+                        }
                 }
                 
                 return true;
