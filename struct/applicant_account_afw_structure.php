@@ -112,6 +112,7 @@ class AdmApplicantAccountAfwStructure
 				'TYPE' => 'FK',  'ANSWER' => 'academic_period',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
+                /*                
                 'activated_fee' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,
@@ -126,7 +127,7 @@ class AdmApplicantAccountAfwStructure
                         'DISPLAY' => true,
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
-                ),
+                ),*/
                 'due_date' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,
