@@ -548,7 +548,6 @@ class ApplicationDesire extends AdmObject
                         if ($success and (!$error_message)) {
                                 $result_arr["result"] = "pass";
                                 $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
-                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
                                 $this->set("step_num", $nextStepNum);
                                 $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
                                 $newStepObj = $this->getApplicationPlan()->getApplicationModel()->convertStepNumToObject($nextStepNum);
@@ -556,8 +555,13 @@ class ApplicationDesire extends AdmObject
                                 {
                                         throw new AfwRuntimeException("nextStepNum=$nextStepNum newStepObj=".var_export($newStepObj,true));
                                 }
-                                $this->set("application_step_id", $newStepObj->id);
+                                $current_application_step_id = $this->getVal("application_step_id");
+                                $new_application_step_id = $newStepObj->id;
+                                $this->set("application_step_id", $new_application_step_id);
                                 $newStepCode = $newStepObj->getStepCode();
+                                $tech_arr[] = "newStepCode=$newStepCode nextStepNum=$nextStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                
+                                
                                 // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
                                 if ($newStepCode != "SRT") {
                                         $message_war = $this->tm("Waiting to apply conditions ...", $lang);
