@@ -1058,8 +1058,21 @@ class ApplicationDesire extends AdmObject
                 $this->select_visibilite_horizontale_default($dropdown, $selects);
         }
 
+        protected function beforeSetAttribute($attribute, $newvalue)
+        {
+                $oldvalue = $this->getVal($attribute);
+                
+                if($attribute=="step_num")
+                {
+                        if($newvalue<$oldvalue) throw new AfwRuntimeException("before set attribute $attribute from '$oldvalue' to '$newvalue' rafik pb found الحمد لله");
+                }
+                
+                return true;
+        }
+
         protected function afterSetAttribute($attribute)
         {
+                
                 /*
                 if(($attribute == "application_plan_branch_id") and ($this->getVal("application_plan_branch_id")==65))
                 {
@@ -1067,17 +1080,7 @@ class ApplicationDesire extends AdmObject
                 }*/
         }
 
-        protected function beforeSetAttribute($attribute, $newvalue)
-        {
-                $oldvalue = $this->getVal($attribute);
-
-                if (($attribute == "step_num") and ($oldvalue == 5) and ($newvalue == 4)) {
-                        throw new AfwRuntimeException("ApplicationDesire :: before set attribute $attribute from '$oldvalue' to '$newvalue'");
-                }
-
-                return true;
-        }
-
+        
 
         public function shouldBeCalculatedField($attribute){
                 if($attribute=="sorting_field_1_id") return true;
