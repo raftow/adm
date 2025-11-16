@@ -127,7 +127,7 @@ class AdmApplicantAccountAfwStructure
                         'DISPLAY' => true,
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
-                ),*/
+                ),
                 'due_date' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,
@@ -140,7 +140,7 @@ class AdmApplicantAccountAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
-                ),
+                ),*/
 
                 'total_amount' => array(
                         'IMPORTANT' => 'IN',
