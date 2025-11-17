@@ -569,7 +569,9 @@ class ApplicationDesire extends AdmObject
                                         $message_war = $this->tm("Waiting to apply sorting process ...", $lang);
                                 }
                                 $this->set("comments", $message_war . "<!-- new step : code=$newStepCode/num=$nextStepNum -->");
-                                $this->commit();
+                                echo "<br>this->fieldsHasChanged() = ".var_export($this->fieldsHasChanged(), true);
+                                $sql = $this->commit(false,true);
+                                die("<br>gotoNextDesireStep sql  is $sql");
                                 if ($nextStepNum != $currentStepNum) {
                                         $this->requestAPIsOfStep($nextStepNum);
                                 }
