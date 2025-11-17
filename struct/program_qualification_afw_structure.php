@@ -111,7 +111,7 @@
                                         'bridging_semester' => array(
                                                 'IMPORTANT' => 'HIGH',
                                                 'SHOW' => true,
-                                                'RETRIEVE' => false,
+                                                'RETRIEVE' => true,
                                                 'QEDIT' => true,
                                                 'EDIT' => true,
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
@@ -132,7 +132,7 @@
                                                 'TYPE' => 'TEXT',   'READONLY' => false, 
                                                 'CSS' => 'width_pct_50', ),
                                                 
-                                        'qual_source_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'qual_source_mfk' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'UTF8' => false, 'MANDATORY' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'qual_source',  'ANSMODULE' => 'adm',   
                                                 'WHERE' => 'qualification_id = §qualification_id§',
