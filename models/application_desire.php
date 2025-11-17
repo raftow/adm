@@ -1019,9 +1019,9 @@ class ApplicationDesire extends AdmObject
                                         $application_step_id = $appStepObj->id;
                                         $application_step_num = $appStepObj->getVal("step_num");
 
-                                        if($this->getVal("step_num") != $application_step_num)
+                                        if(($this->getVal("step_num")) and ($this->getVal("step_num") != $application_step_num))
                                         {
-                                              die("here mochkila");
+                                              die("here mochkila this->getVal(step_num)".$this->getVal("step_num")." != step_num($application_step_id)=$application_step_num");
                                         }
 
                                         $this->set("application_step_id", $application_step_id);
