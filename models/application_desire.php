@@ -1013,8 +1013,15 @@ class ApplicationDesire extends AdmObject
                                 }
 
                                 if ($appStepObj) {
+                                        
                                         $application_step_id = $appStepObj->id;
                                         $application_step_num = $appStepObj->getVal("step_num");
+
+                                        if($this->getVal("step_num") != $application_step_num)
+                                        {
+                                              die("here mochkila");
+                                        }
+
                                         $this->set("application_step_id", $application_step_id);
                                         $this->set("step_num", $application_step_num);
                                 }
