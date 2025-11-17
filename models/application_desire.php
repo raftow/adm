@@ -559,7 +559,8 @@ class ApplicationDesire extends AdmObject
                                 $new_application_step_id = $newStepObj->id;
                                 $this->set("application_step_id", $new_application_step_id);
                                 $newStepCode = $newStepObj->getStepCode();
-                                $tech_arr[] = "newStepCode=$newStepCode nextStepNum=$nextStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                $tech_info = "newStepCode=$newStepCode nextStepNum=$nextStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                $tech_arr[] = $tech_info;
                                 
                                 
                                 // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
@@ -569,7 +570,7 @@ class ApplicationDesire extends AdmObject
                                         $message_war = $this->tm("Waiting to apply sorting process ...", $lang);
                                 }
                                 $this->set("comments", $message_war . "<!-- new step : code=$newStepCode/num=$nextStepNum -->");
-                                echo "<br>this->fieldsHasChanged() = ".var_export($this->fieldsHasChanged(), true);
+                                echo "<br>this->fieldsHasChanged() = ".var_export($this->fieldsHasChanged(), true)." tech_info=$tech_info ";
                                 $sql = $this->commit(false,true);
                                 die("<br>gotoNextDesireStep sql  is $sql");
                                 if ($nextStepNum != $currentStepNum) {
