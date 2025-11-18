@@ -128,18 +128,18 @@ class QualMajorPath extends AdmObject
         }
         //die(var_dump($arr_pdf));
         $html_header = '<div style="background-color: rgb(46, 96, 102); padding: 10px 20px; font-family: Arial, sans-serif;">
-    <table style="width: 100%; border-collapse: collapse; border: none;">
-        <tr>
-            <td style="width: 150px; border: none;">
-                <img width="150" src="https://frontend.bmeholding.com/images/logo.svg" alt="brand logo" />
-            </td>
-            <td style="vertical-align: middle; font-size: 18px; font-weight: bold; color: white; border: none;">
-                قائمة تخصصات المؤهلات
-            </td>
-            <td style="text-align:left;vertical-align: middle; font-size: 14px; font-weight: bold; color: white; border: none;">'.date('Y/m/d').'</td>
-        </tr>
-    </table>
-</div>
+            <table style="width: 100%; border-collapse: collapse; border: none;">
+                <tr>
+                    <td style="width: 150px; border: none;">
+                        <img width="150" src="https://frontend.bmeholding.com/images/logo.svg" alt="brand logo" />
+                    </td>
+                    <td style="vertical-align: middle; font-size: 18px; font-weight: bold; color: white; border: none;">
+                        قائمة تخصصات المؤهلات
+                    </td>
+                    <td style="text-align:left;vertical-align: middle; font-size: 14px; font-weight: bold; color: white; border: none;">'.date('Y/m/d').'</td>
+                </tr>
+            </table>
+        </div>
 ';
         $mpdf->SetHTMLHeader($html_header);
 

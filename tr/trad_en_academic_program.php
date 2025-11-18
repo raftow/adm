@@ -23,3 +23,5 @@
 	$trad["academic_program"]["maqbool_id"] = "Maqbool Integration Code";
 	$trad["academic_program"]["Study_plan"] = "Study plan";
 	$trad["academic_program"]["supp_program_mfk"] = "Supplementary stage programmes";
+	$trad["academic_program"]["to_publish"] = "Publish for application";
+

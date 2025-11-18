@@ -170,7 +170,11 @@
                                                 'CSS' => 'width_pct_50',),            
 
                                                 
-
+                                        'to_publish' =>array('SHOW' => true,  'RETRIEVE' => true, 'QSEARCH' => true, 
+                                                'EDIT' => true, 'QEDIT' => false, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 1,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50'), 
 
 
                                                 
