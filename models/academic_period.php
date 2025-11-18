@@ -39,7 +39,7 @@
                         $arr_field = array("hijri_application_start_date","hijri_application_end_date","application_start_date","application_end_date","last_date_upload_doc","last_date_tuitfee",
                         "hijri_last_date_upload_doc","hijri_last_date_tuitfee");
                         //die(strtotime($this->getVal("application_end_date")).">".time());
-                        if(strtotime($this->getVal("application_end_date"))>time()){
+                        //if(strtotime($this->getVal("application_end_date"))>time()){
                                 foreach($arr_field as $field){
                                         if(isset($fields_updated[$field])){
                                                 $academicTermObj->set($field,$fields_updated[$field]);
@@ -50,7 +50,7 @@
                                 $academicTermObj->set("current_period_id", $this->id);
                                 //die($this->id." here");
                                 $academicTermObj->commit();	
-                        }
+                        //}
 
                 }
         }
