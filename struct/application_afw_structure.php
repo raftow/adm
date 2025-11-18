@@ -370,7 +370,7 @@
                                                 'CATEGORY' => 'ITEMS',
                                                 'ANSWER' => 'applicant_file',
                                                 'ANSMODULE' => 'adm',
-                                                'ITEM' => 'applicant_id',
+                                                'WHERE' => 'applicant_id=§applicant_id§',
                                                 'READONLY' => true,
                                                 'CAN-BE-SETTED' => true,
                                                 'CSS' => 'width_pct_100',
