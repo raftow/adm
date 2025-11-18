@@ -89,7 +89,7 @@
                                         'current_period_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'academic_period',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'READONLY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 
+                                                'READONLY' => true,  'STEP' => 2,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),  
     
