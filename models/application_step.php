@@ -1,5 +1,7 @@
 <?php
 
+use Complex\Autoloader;
+
         class ApplicationStep extends AdmObject{
 
                 public static $DATABASE		= ""; 
@@ -304,6 +306,7 @@
                 
                 public static function getStepData($applicant_id, $application_plan_id, $step_num, $lang, $debugg=0, $application_plan_branch_id=0, $application_simulation_id=2, $application_model_id = 0, $method="", $whereiam="", $uncomplete="", $deleteapp="") 
                 {
+                        AfwAutoLoader::addModule("workflow");
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $applicantObj = null;
                         $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
