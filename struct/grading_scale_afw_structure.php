@@ -7,7 +7,7 @@
                         if ($obj instanceof GradingScale) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                                 $obj->DISPLAY_FIELD = "grade_ar";
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"value_ar", 'en'=>"value_en", ];
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                                 $obj->UNIQUE_KEY = array('mark_min','mark_max');
                                 // $obj->public_display = true;
