@@ -114,6 +114,9 @@ class ApplicantQualification extends AdmObject
                                 $this->set("major_path_id", $objMajorPath->id);
                         }
                 }
+                if($fields_updated["gpa"] or $fields_updated["gpa_from"]){
+                        $this->set("grading_scale_id", $this->getGradingScale($fields_updated["gpa"], $fields_updated["gpa_from"]));
+                }
 
                 return true;
         }
@@ -260,5 +263,16 @@ class ApplicantQualification extends AdmObject
 
                 
                 
+        }
+
+        public static function getGradingScale($gpa, $gpa_from = 100)
+        {
+                $grade = ($gpa / $gpa_from) * 100;
+
+                $objGradingScale = new GradingScale();
+                $objGradingScale->where(" active='Y' and mark_min <= $grade and mark_max >= $grade");
+                
+
+                return $objGradingScale->id ?? 0;
         }
 }

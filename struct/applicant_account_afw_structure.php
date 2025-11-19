@@ -8,7 +8,7 @@ class AdmApplicantAccountAfwStructure
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                         $obj->DISPLAY_FIELD = "applicant_fintrans_name_ar";
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                        $obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id', 'application_model_financial_transaction_id','academic_period_id');
+                        $obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id', 'application_model_financial_transaction_id');/**,'academic_period_id' */
                         // $obj->public_display = true;
                         // $obj->IS_LOOKUP = true;
 
