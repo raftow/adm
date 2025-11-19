@@ -273,7 +273,7 @@ class ApplicantQualification extends AdmObject
 
                 $objGradingScale = new GradingScale();
                 $objGradingScale->where("active='Y' and  mark_min <= $grade and mark_max >= $grade"); // active='Y' and
-                die("here");
+                $objGradingScale->load();
                 if($objGradingScale->getVal("id"))
                         return $objGradingScale->getVal("id");
         }
