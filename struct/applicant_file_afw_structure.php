@@ -175,6 +175,7 @@ class AdmApplicantFileAfwStructure
                 
 
                 'doc_type_id' => array(
+                        'IMPORTANT' => 'HIGH',
                         'SHORTNAME' => 'type',
                         'SEARCH' => true,
                         'QSEARCH' => false,
