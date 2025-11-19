@@ -22,6 +22,8 @@ class ApplicantFileArTranslator{
 		$trad["applicant_file"]["approved.YES"] = "تم الاعتماد";
 		$trad["applicant_file"]["approved.NO"]  = "تم الرفض";
 		$trad["applicant_file"]["approved.EUH"] = "جاري العمل عليه";
+		$trad["applicant_file"]["download_light"] = "تحميل الملف";
+
         // steps
         return $trad;
     }
