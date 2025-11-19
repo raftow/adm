@@ -16,7 +16,7 @@
                                  
                                 
                                 
-                                 $obj->UNIQUE_KEY = array('identity_type_id', 'idn');
+                                 $obj->UNIQUE_KEY = array('nomination_letter_id','identity_type_id', 'idn');
                                 
                 $obj->showQeditErrors = true;
                 $obj->showRetrieveErrors = true;
