@@ -115,7 +115,8 @@ class ApplicantQualification extends AdmObject
                         }
                 }
                 if($fields_updated["gpa"] or $fields_updated["gpa_from"]){
-                        $gpa_from = ($fields_updated["gpa_from"]) : $fields_updated["gpa_from"] ? $this->getVal("gpa_from");
+                        if(($fields_updated["gpa_from"])) $gpa_from = $fields_updated["gpa_from"];
+                        else $gpa_from = $this->getVal("gpa_from");
                         $this->set("grading_scale_id", $this->getGradingScale($fields_updated["gpa"], $this->getVal("gpa_from")));
                 }
 
@@ -271,7 +272,7 @@ class ApplicantQualification extends AdmObject
                 $grade = ($gpa / $gpa_from) * 100;
 
                 $objGradingScale = new GradingScale();
-                $objGradingScale->where("  mark_min2 <= $grade and mark_max >= $grade"); // active='Y' and
+                $objGradingScale->where("active='Y' and  mark_min <= $grade and mark_max >= $grade"); // active='Y' and
                 
 
                 return $objGradingScale->getVal("id") ?? 0;
