@@ -30,6 +30,7 @@ class AdmApplicantFileAfwStructure
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
                 'applicant_id' => array(
+                        'IMPORTANT' => 'LOW',
                         'SHORTNAME' => 'applicant',
                         'SEARCH' => true,
                         'QSEARCH' => false,
