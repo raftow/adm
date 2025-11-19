@@ -143,7 +143,7 @@ class AdmApplicantAccountAfwStructure
                 ),*/
 
                 'total_amount' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => true,
