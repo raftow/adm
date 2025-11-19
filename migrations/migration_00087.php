@@ -201,7 +201,7 @@ try
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-        AfwDatabase::db_query("create unique index uk_nominating_candidates on ".$server_db_prefix."adm.nominating_candidates(identity_type_id,idn);");
+        AfwDatabase::db_query("create unique index uk_nominating_candidates on ".$server_db_prefix."adm.nominating_candidates(nomination_letter_id,identity_type_id,idn);");
 
 }
 catch(Exception $e)
