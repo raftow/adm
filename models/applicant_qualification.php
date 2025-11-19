@@ -271,9 +271,9 @@ class ApplicantQualification extends AdmObject
                 $grade = ($gpa / $gpa_from) * 100;
 
                 $objGradingScale = new GradingScale();
-                $objGradingScale->where("  mark_min <= $grade and mark_max >= $grade"); // active='Y' and
+                $objGradingScale->where("  mark_min2 <= $grade and mark_max >= $grade"); // active='Y' and
                 
 
-                return $objGradingScale->id ?? 0;
+                return $objGradingScale->getVal("id") ?? 0;
         }
 }
