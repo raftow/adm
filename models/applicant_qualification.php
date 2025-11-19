@@ -114,8 +114,8 @@ class ApplicantQualification extends AdmObject
                                 $this->set("major_path_id", $objMajorPath->id);
                         }
                 }
-                if($fields_updated["gpa"] or $fields_updated["gpa_from"]){
-                        $this->set("grading_scale_id", $this->getGradingScale($fields_updated["gpa"], $fields_updated["gpa_from"]));
+                if($fields_updated["gpa"] ){
+                        $this->set("grading_scale_id", $this->getGradingScale($fields_updated["gpa"], $this->getVal("gpa_from")));
                 }
 
                 return true;
