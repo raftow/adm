@@ -1818,7 +1818,7 @@ class Application extends AdmObject
                                         } 
                                         else 
                                         {
-                                                if(!$this->isSynchronisedUniqueDesire())
+                                                if($this->isSynchronisedUniqueDesire())
                                                 {
                                                         $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
                                                         if(!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
