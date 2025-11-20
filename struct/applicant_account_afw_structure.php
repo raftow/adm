@@ -81,7 +81,7 @@ class AdmApplicantAccountAfwStructure
 
 
                 'application_model_financial_transaction_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'JSON-EXPAND' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
