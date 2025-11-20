@@ -36,7 +36,6 @@ class AdmApplicantAccountAfwStructure
                 ),
 
                 'applicant_id' => array(
-                        'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -81,6 +80,7 @@ class AdmApplicantAccountAfwStructure
 
 
                 'application_model_financial_transaction_id' => array(
+                        'IMPORTANT' => 'HIGH',                        
                         'JSON-EXPAND' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
@@ -106,7 +106,9 @@ class AdmApplicantAccountAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
-                'academic_period_id' => array('SHORTNAME' => 'period',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                'academic_period_id' => array(
+                                'IMPORTANT' => 'HIGH',                        
+                                'SHORTNAME' => 'period',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'academic_period',  'ANSMODULE' => 'adm',  
@@ -161,7 +163,7 @@ class AdmApplicantAccountAfwStructure
 
 
                 'payment_status_enum' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'SHOW' => true,
                         'RETRIEVE' => true,
@@ -215,6 +217,7 @@ class AdmApplicantAccountAfwStructure
                 ),
 
                 'created_at' => array(
+                        'IMPORTANT' => 'HIGH',                        
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
                         'EDIT' => false,
