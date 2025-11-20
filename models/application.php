@@ -1764,7 +1764,11 @@ class Application extends AdmObject
                                                         if ($success and (!$error_message)) {
                                                                 $result_arr["result"] = "pass";
                                                                 $result_arr["message"] = $success_message;
-                                                                $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
+                                                                if($this->isSynchronisedUniqueDesire())
+                                                                {
+                                                                        $nextStepNum = $currentStepNum + 1;       
+                                                                }
+                                                                else $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
                                                                 $tech_arr[] = "this->objApplicationModel->getNextStepNumOf(currentStepNum=$currentStepNum, true) => nextStepNum=$nextStepNum ";
                                                                 $this->set("step_num", $nextStepNum);
                                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
