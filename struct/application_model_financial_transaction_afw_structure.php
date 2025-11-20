@@ -36,7 +36,6 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                 ),
 
                 'application_model_id' => array(
-                        'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -63,7 +62,8 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                 ),
 
                 'financial_transaction_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
+                        'JSON-EXPAND' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -93,7 +93,7 @@ class AdmApplicationModelFinancialTransactionAfwStructure
 
 
                 'amount' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => true,
@@ -111,6 +111,7 @@ class AdmApplicationModelFinancialTransactionAfwStructure
 
 
                 'process_enabled' => array(
+                        'IMPORTANT' => 'HIGH',
                         'RETRIEVE' => true,
                         'SHOW' => true,
                         'EDIT' => true,
@@ -126,6 +127,7 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                 ),
                 
                 'phase_enum' => array(
+                        'IMPORTANT' => 'HIGH',
                         'SHORTNAME' => 'phase',
                         'SEARCH' => true,
                         'QSEARCH' => true,

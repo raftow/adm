@@ -58,7 +58,7 @@ class AdmFinancialTransactionAfwStructure
 
 
                 'fee_description_ar' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -80,7 +80,7 @@ class AdmFinancialTransactionAfwStructure
 
 
                 'fee_description_en' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -102,7 +102,7 @@ class AdmFinancialTransactionAfwStructure
 
 
                 'sis_charge_code' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -124,7 +124,7 @@ class AdmFinancialTransactionAfwStructure
 
 
                 'sis_payment_code' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -144,7 +144,7 @@ class AdmFinancialTransactionAfwStructure
                 ),
 
                 'financial_element_unit_enum' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,

@@ -115,6 +115,19 @@ class ApplicationModel extends AdmObject
                 return ApplicationStep::loadFirstStep($this->id, "N");
         }
 
+        public function getLastDesireStep()
+        {
+                $workflowStep = ApplicationStep::loadWorkflowStep($this->id);
+                if($workflowStep) return $workflowStep;
+
+                $sortingStep = ApplicationStep::loadSortingStep($this->id);
+                if($sortingStep) return $sortingStep;
+
+                return null;
+        }
+
+        
+
         /**
          * 
          * @return ApplicationStep

@@ -535,73 +535,111 @@ class ApplicationDesire extends AdmObject
 
                                 return ["", "", $message_war];
                         }
-                        $currentStepId = $this->getVal("application_step_id");
+                        // $currentStepId = $this->getVal("application_step_id");
                         // die("before currentStepObj=$currentStepObj->id currentStepNum=$currentStepNum currentStepId=$currentStepId");
-                        if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationPlan->getApplicationModel()->getFirstStep();
-                        if (!$currentStepObj) return [$this->tm("No current step defined for this application model, you may need to reorder the steps to have step num=0 or step num = 1", $lang), ""];
-
-                        // to go to next step we should apply conditions of the current step
-                        $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
-                        $success = $applyResult['success'];
-
-                        list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
-                        if ($success and (!$error_message)) {
-                                $result_arr["result"] = "pass";
-                                $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
-                                $this->set("step_num", $nextStepNum);
-                                $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
-                                $newStepObj = $this->getApplicationPlan()->getApplicationModel()->convertStepNumToObject($nextStepNum);
-                                if($newStepObj->getVal("step_num") != $nextStepNum)
-                                {
-                                        throw new AfwRuntimeException("nextStepNum=$nextStepNum newStepObj=".var_export($newStepObj,true));
-                                }
-                                $current_application_step_id = $this->getVal("application_step_id");
-                                $new_application_step_id = $newStepObj->id;
-                                $this->set("application_step_id", $new_application_step_id);
-                                $newStepCode = $newStepObj->getStepCode();
-                                $tech_info = "newStepCode=$newStepCode nextStepNum=$nextStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
-                                $tech_arr[] = $tech_info;
-                                
-                                
-                                // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
-                                if ($newStepCode != "SRT") {
-                                        $message_war = $this->tm("Waiting to apply conditions ...", $lang);
-                                } elseif ($newStepCode == "SRT") {
-                                        $message_war = $this->tm("Waiting to apply sorting process ...", $lang);
-                                }
-                                $this->set("comments", $message_war . "<!-- new step : code=$newStepCode/num=$nextStepNum -->");
-                                // echo "<br>this->fieldsHasChanged() = ".var_export($this->fieldsHasChanged(true), true)." tech_info=$tech_info ";
-                                // $sql = $this->commit(false,true);
-                                // die("<br>gotoNextDesireStep sql  is $sql");
-                                $this->commit();
-                                if ($nextStepNum != $currentStepNum) {
-                                        $this->requestAPIsOfStep($nextStepNum);
-                                }
-                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
-                                $inf_arr[]  = $success_message;
-                                $tech_arr[] = $tech;
-                        } else {
-                                if ((!$error_message) and ($success === false)) 
-                                {
-                                        $result_arr["result"] = "fail";
-                                        $new_status = self::desire_status_enum_by_code('excluded');
-                                }
-                                else 
-                                {
-                                        $result_arr["result"] = "standby";
-                                        $new_status = self::desire_status_enum_by_code('data-review');
-                                }
-                                $fail_message .= " " . $error_message;
-                                $result_arr["message"] = $res_arr["status_comment"];
-                                $result_arr["fail_message"] = $fail_message;
-                                        
-                                $this->set("desire_status_enum", $new_status);
-                                $this->set("comments", $fail_message);
-                                $this->commit();
-                                $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
-                                $war_arr[]  = $fail_message;
-                                $tech_arr[] = $tech;
+                        // if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationPlan->getApplicationModel()->getFirstStep();
+                        $lastDesireStepObj = $this->objApplicationPlan->getApplicationModel()->getLastDesireStep();
+                        if (!$currentStepObj) return [$this->tm("FATAL ERROR : No current step defined for this desire", $lang), ""];
+                        elseif (!$lastDesireStepObj) 
+                        {
+                                return [$this->tm("FATAL ERROR : No last desire step defined for this application model", $lang), ""];                
                         }
+                        // currentStep is last desire step ?
+                        if($currentStepObj->id == $lastDesireStepObj->id)
+                        {
+                                // here means the application desire is in last general step                                                        
+                                list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
+                                if ($is_completed_app) {
+                                        $result_arr["result"] = "success";
+                                        $result_arr["message"] = $this->tm("application is complete and under admission process", $lang);
+                                        $last_step_num = $lastDesireStepObj->getVal("step_num");
+                                        $this->set("step_num", $last_step_num);
+                                        $this->set("application_step_id", $lastDesireStepObj->id);
+                                        $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
+                                        $this->set("comments", $result_arr["message"]);
+                                        $this->commit();
+                                        $obj = $this->getApplicationObject();
+                                        $obj->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                        $obj->set("comments", $this->tm("application is complete", $lang));
+                                        $obj->commit();
+                                } else {
+                                        $result_arr["result"] = "fail";
+                                        $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
+                                        $last_step_num = $lastDesireStepObj->getVal("step_num");
+                                        $this->set("step_num", $last_step_num);
+                                        $this->set("application_step_id", $lastDesireStepObj->id);
+                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                        $this->set("comments", $reson_non_completed);
+                                        $this->commit();
+                                }
+                        }
+                        else // not last desire step
+                        {
+                                // to go to next step we should apply conditions of the current step
+                                $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
+                                $success = $applyResult['success'];
+
+                                list($error_message, $success_message, $fail_message, $tech, $res_arr) = $applyResult['res'];
+                                if ($success and (!$error_message)) {
+                                        $result_arr["result"] = "pass";
+                                        $nextStepNum = $this->getApplicationPlan()->getApplicationModel()->getNextStepNumOf($currentStepNum, false);
+                                        $this->set("step_num", $nextStepNum);
+                                        $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
+                                        $newStepObj = $this->getApplicationPlan()->getApplicationModel()->convertStepNumToObject($nextStepNum);
+                                        if($newStepObj->getVal("step_num") != $nextStepNum)
+                                        {
+                                                throw new AfwRuntimeException("nextStepNum=$nextStepNum newStepObj=".var_export($newStepObj,true));
+                                        }
+                                        $current_application_step_id = $this->getVal("application_step_id");
+                                        $new_application_step_id = $newStepObj->id;
+                                        $this->set("application_step_id", $new_application_step_id);
+                                        $newStepCode = $newStepObj->getStepCode();
+                                        $tech_info = "newStepCode=$newStepCode nextStepNum=$nextStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                        $tech_arr[] = $tech_info;
+                                        
+                                        
+                                        // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
+                                        if ($newStepCode != "SRT") {
+                                                $message_war = $this->tm("Waiting to apply conditions ...", $lang);
+                                        } elseif ($newStepCode == "SRT") {
+                                                $message_war = $this->tm("Waiting to apply sorting process ...", $lang);
+                                        }
+                                        $this->set("comments", $message_war . "<!-- new step : code=$newStepCode/num=$nextStepNum -->");
+                                        // echo "<br>this->fieldsHasChanged() = ".var_export($this->fieldsHasChanged(true), true)." tech_info=$tech_info ";
+                                        // $sql = $this->commit(false,true);
+                                        // die("<br>gotoNextDesireStep sql  is $sql");
+                                        $this->commit();
+                                        if ($nextStepNum != $currentStepNum) {
+                                                $this->requestAPIsOfStep($nextStepNum);
+                                        }
+                                        $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                                        $inf_arr[]  = $success_message;
+                                        $tech_arr[] = $tech;
+                                } else {
+                                        if ((!$error_message) and ($success === false)) 
+                                        {
+                                                $result_arr["result"] = "fail";
+                                                $new_status = self::desire_status_enum_by_code('excluded');
+                                        }
+                                        else 
+                                        {
+                                                $result_arr["result"] = "standby";
+                                                $new_status = self::desire_status_enum_by_code('data-review');
+                                        }
+                                        $fail_message .= " " . $error_message;
+                                        $result_arr["message"] = $res_arr["status_comment"];
+                                        $result_arr["fail_message"] = $fail_message;
+                                                
+                                        $this->set("desire_status_enum", $new_status);
+                                        $this->set("comments", $fail_message);
+                                        $this->commit();
+                                        $war_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has failed for the following reason", $lang) . " : ";
+                                        $war_arr[]  = $fail_message;
+                                        $tech_arr[] = $tech;
+                                }
+                        }
+
+                        
                 } catch (Exception $e) {
                         // if($devMode) throw new AfwRuntimeException("Mode dev so see this : ". $e->getMessage() . " trace : " . $e->getTraceAsString());
                         $err_arr[] = $e->getMessage() . ($devMode ? $e->getTraceAsString() : "");
@@ -1356,9 +1394,7 @@ class ApplicationDesire extends AdmObject
                 list($is_ok, $dataErr) = $this->isOk(true, true);
                 if (!$is_ok) return [false, implode("<br>\n", $dataErr)];
                 else {
-                        $currentStepNum = $this->getVal("step_num");
-                        if($currentStepNum>=6) return [true, ""];
-                        return [false, "please continue in application process your are in step $currentStepNum/6"];
+                        return [true, ""];
                 }
         }
 

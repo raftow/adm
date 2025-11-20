@@ -1661,6 +1661,7 @@ class Application extends AdmObject
                         $nb_desires = $this->calcReal_nb_desires();
 
                         if ($nb_desires == 0) return [false, "select your desires"];
+                        /*
                         $unique_desire = true;
                         if($unique_desire and ($nb_desires == 1))
                         {
@@ -1669,7 +1670,7 @@ class Application extends AdmObject
                                 {
                                        return $applicationDesireItem->dataIsCompleted(); 
                                 }
-                        }
+                        }*/
 
                         return [true, ""];
                 }
@@ -1748,7 +1749,9 @@ class Application extends AdmObject
                                                 $this->set("comments", $message_err);
 
                                                 $err_arr[] = $message_err;
-                                        } elseif ($currentStepObj->sureIs("general")) {
+                                        } 
+                                        elseif ($currentStepObj->sureIs("general")) 
+                                        {
                                                 if(($currentStepObj->id != $lastStepObj->id) or ($this->isSynchronisedUniqueDesire()))
                                                 {
                                                         // to go to next step we should apply conditions of the current step
@@ -1761,8 +1764,12 @@ class Application extends AdmObject
                                                         if ($success and (!$error_message)) {
                                                                 $result_arr["result"] = "pass";
                                                                 $result_arr["message"] = $success_message;
-                                                                $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
-                                                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
+                                                                if($this->isSynchronisedUniqueDesire())
+                                                                {
+                                                                        $nextStepNum = $currentStepNum + 1;       
+                                                                }
+                                                                else $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
+                                                                $tech_arr[] = "this->objApplicationModel->getNextStepNumOf(currentStepNum=$currentStepNum, true) => nextStepNum=$nextStepNum ";
                                                                 $this->set("step_num", $nextStepNum);
                                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                                 $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
@@ -1786,26 +1793,21 @@ class Application extends AdmObject
                                                                 $this->set("comments", $fail_message);
                                                         }
                                                 }
-                                                
-                                        } 
-                                        else 
-                                        {
-                                                // here means the application is in last general step
-                                                // or passed it (one-synchrinized-desire mode)
-                                                if(!$this->isSynchronisedUniqueDesire())
+                                                elseif(!$this->isSynchronisedUniqueDesire())
                                                 {
+                                                        // here means the application is in last general step                                                        
                                                         list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
                                                         if ($is_completed_app) {
                                                                 $result_arr["result"] = "success";
 
-                                                                $result_arr["message"] = "";
+                                                                $result_arr["message"] = $this->tm("application is complete", $lang);
 
 
                                                                 $last_step_num = $lastStepObj->getVal("step_num");
                                                                 $this->set("step_num", $last_step_num);
                                                                 $this->set("application_step_id", $lastStepObj->id);
                                                                 $this->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                                $this->set("comments", $this->tm("application is complete", $lang));
+                                                                $this->set("comments", $result_arr["message"]);
                                                         } else {
                                                                 $result_arr["result"] = "fail";
                                                                 $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
@@ -1816,14 +1818,20 @@ class Application extends AdmObject
                                                                 $this->set("comments", $this->tm("please select the desires", $lang));
                                                         }
                                                 }
-                                                else
+                                                
+                                        } 
+                                        else 
+                                        {
+                                                if($this->isSynchronisedUniqueDesire())
                                                 {
                                                         $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
                                                         if(!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
                                                         return $uniqueDesireObj->gotoNextDesireStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                                                 }
-
-                                                
+                                                else
+                                                {
+                                                        throw new AfwRuntimeException("Application reached non-general step when the mode is not Synchronised-Unique-Desire : currentStep=".var_export($currentStepObj,true));
+                                                }
                                         }
                                 }
                         }

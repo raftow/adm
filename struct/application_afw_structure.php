@@ -19,7 +19,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 6; 
+                                $obj->editNbSteps = 7; 
                                 $obj->setContextAndPartitionCols($part_cols, $context_cols);
                                 $obj->setMultiplePK($multiple_key_cols,$obj->PK_MULTIPLE); 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
@@ -144,6 +144,24 @@
                                                                 'NO-REVERSE' => true,
                                                                 "CAN-BE-SETTED" => false,
                                                                 'SIZE' => 255,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
+
+                                                        'applicationAccountList' => array(
+                                                                'STEP' => 7,
+                                                                'TYPE' => 'FK',
+                                                                'CATEGORY' => 'ITEMS',
+                                                                'ANSWER' => 'applicant_account',                                                                
+                                                                'WHERE'=> "applicant_id = §applicant_id§ and application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§",
+                                                                'ANSMODULE' => 'adm',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'FORMAT' => 'retrieve',
+                                                                'ICONS' => true,
+                                                                'DELETE-ICON' => true,
+                                                                'BUTTONS' => true,
+                                                                
                                                                 'CSS' => 'width_pct_100',
                                                         ),
 

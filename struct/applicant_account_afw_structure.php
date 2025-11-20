@@ -36,7 +36,7 @@ class AdmApplicantAccountAfwStructure
                 ),
 
                 'applicant_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'NO-JSON' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -64,14 +64,16 @@ class AdmApplicantAccountAfwStructure
                 ),
 
 
-                'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                'application_plan_id' => array('NO-JSON' => true,
+                                                'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
 
-                'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 
+                'application_simulation_id' => array('NO-JSON' => true,
+                        'IMPORTANT' => 'IN',  'SEARCH' => true, 
                         'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                         'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
@@ -81,7 +83,9 @@ class AdmApplicantAccountAfwStructure
 
 
                 'application_model_financial_transaction_id' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',                        
+                        'JSON-EXPAND' => true,
+                        'NO-JSON-DECODE' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -106,7 +110,9 @@ class AdmApplicantAccountAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
-                'academic_period_id' => array('SHORTNAME' => 'period',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                'academic_period_id' => array(
+                                'IMPORTANT' => 'HIGH',                        
+                                'SHORTNAME' => 'period',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'academic_period',  'ANSMODULE' => 'adm',  
@@ -143,7 +149,7 @@ class AdmApplicantAccountAfwStructure
                 ),*/
 
                 'total_amount' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => true,
@@ -161,7 +167,7 @@ class AdmApplicantAccountAfwStructure
 
 
                 'payment_status_enum' => array(
-                        'IMPORTANT' => 'IN',
+                        'IMPORTANT' => 'HIGH',
                         'SEARCH' => true,
                         'SHOW' => true,
                         'RETRIEVE' => true,
@@ -176,7 +182,7 @@ class AdmApplicantAccountAfwStructure
                         'SIZE' => 40,
                         'DEFAUT' => 0,
                         'DISPLAY' => true,
-                        'STEP' => 2,
+                        'STEP' => 1,
                         'MANDATORY' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -215,6 +221,7 @@ class AdmApplicantAccountAfwStructure
                 ),
 
                 'created_at' => array(
+                        'IMPORTANT' => 'HIGH',                        
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
                         'EDIT' => false,

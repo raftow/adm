@@ -149,6 +149,8 @@
     $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
     $messages["please select the desires"] = "رجاء اختيار الرغبات";
     $messages["application is complete"] = "التقديم مكتمل";
+    $messages["application is complete and under admission process"] = "التقديم مكتمل والملف تحت إجراءات القبول";
+    
     $messages["congratulations! application is completed successfully"] = "تهانينا! تم إكمال التقديم بنجاح";
     $messages["Your application #[APP_NB] has been successfully submitted."] = "تم تسجيل طلبك عدد #[APP_NB] بنجاح على منصة القبول. ";
     $messages["Please check your account on the admission platform periodically to see any updates or notifications related to your application."] = "يُرجى منك متابعة حسابك بشكل دوري للاطلاع على أي تحديثات أو إشعارات تتعلق بطلبك";
