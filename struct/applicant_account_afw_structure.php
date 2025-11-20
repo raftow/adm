@@ -36,6 +36,7 @@ class AdmApplicantAccountAfwStructure
                 ),
 
                 'applicant_id' => array(
+                        'NO-JSON' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -63,14 +64,16 @@ class AdmApplicantAccountAfwStructure
                 ),
 
 
-                'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                'application_plan_id' => array('NO-JSON' => true,
+                                                'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
                                                 'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_25', ),
 
-                'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 
+                'application_simulation_id' => array('NO-JSON' => true,
+                        'IMPORTANT' => 'IN',  'SEARCH' => true, 
                         'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                         'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                         'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
@@ -82,6 +85,7 @@ class AdmApplicantAccountAfwStructure
                 'application_model_financial_transaction_id' => array(
                         'IMPORTANT' => 'HIGH',                        
                         'JSON-EXPAND' => true,
+                        'NO-JSON-DECODE' => true,
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
