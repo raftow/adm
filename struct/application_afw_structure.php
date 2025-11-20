@@ -19,7 +19,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 6; 
+                                $obj->editNbSteps = 7; 
                                 $obj->setContextAndPartitionCols($part_cols, $context_cols);
                                 $obj->setMultiplePK($multiple_key_cols,$obj->PK_MULTIPLE); 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
@@ -148,7 +148,7 @@
                                                         ),
 
                                                         'applicationAccountList' => array(
-                                                                'STEP' => 77,
+                                                                'STEP' => 7,
                                                                 'TYPE' => 'FK',
                                                                 'CATEGORY' => 'ITEMS',
                                                                 'ANSWER' => 'applicant_account',                                                                
