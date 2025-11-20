@@ -147,6 +147,20 @@
                                                                 'CSS' => 'width_pct_100',
                                                         ),
 
+                                                        'applicationAccountList' => array(
+                                                                'STEP' => 77,
+                                                                'TYPE' => 'FK',
+                                                                'CATEGORY' => 'ITEMS',
+                                                                'ANSWER' => 'applicant_account',                                                                
+                                                                'WHERE'=> "applicant_id = §applicant_id§ and application_plan_id = §application_plan_id§ and application_simulation_id = §application_simulation_id§",
+                                                                'ANSMODULE' => 'adm',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'CAN-BE-SETTED' => true,
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
+
 
                                                         'applicationQualificationList' => array(
                                                                 'STEP' => 99,
