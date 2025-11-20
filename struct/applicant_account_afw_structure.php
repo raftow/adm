@@ -182,7 +182,7 @@ class AdmApplicantAccountAfwStructure
                         'SIZE' => 40,
                         'DEFAUT' => 0,
                         'DISPLAY' => true,
-                        'STEP' => 2,
+                        'STEP' => 1,
                         'MANDATORY' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
