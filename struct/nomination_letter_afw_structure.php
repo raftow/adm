@@ -51,6 +51,7 @@
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'READONLY' => false,  'DNA' => true, 
+                                'DEPENDENCIES' => [],
                                 'DEPENDENT_OFME' => array("nominating_authority_id"), 
 				'CSS' => 'width_pct_50', ),
 
