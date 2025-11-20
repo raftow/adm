@@ -51,6 +51,7 @@
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'READONLY' => false,  'DNA' => true, 
+                                'DEPENDENT_OFME' => array("nominating_authority_id"), 
 				'CSS' => 'width_pct_50', ),
 
 		'nominating_authority_id' => array('SHORTNAME' => 'authority',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
@@ -58,7 +59,11 @@
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'nominating_authority',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
+				'CSS' => 'width_pct_50',
+                                'WHERE' => ' nominating_authority_source_enum = "§nominating_authority_source_enum§"',
+                                'DEPENDENCIES' => ['nominating_authority_source_enum'],
+                                'DEPENDENT_OFME' => array("sponsor_cordinator_id"), 
+                         ),
 
 		'nomination_letter_date' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
@@ -71,7 +76,10 @@
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'sponsor_cordinator',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
+				'CSS' => 'width_pct_50',
+                                'WHERE' => 'nominating_authority_id="§nominating_authority_id§"',
+                                'DEPENDENCIES' => ['nominating_authority_id'],
+                         ),
 
 		'nomination_letter_file_id' => array('STEP' => 1,  'SHORTNAME' => 'admfile',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
