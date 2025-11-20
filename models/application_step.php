@@ -88,6 +88,25 @@ use Complex\Autoloader;
                         return self::$SPECIAL_STEPS["DESIRES-SELECTION-STEP-$application_model_id"];
                 }
 
+                
+
+
+                public static function loadWorkflowStep($application_model_id)
+                {
+                        if(!self::$SPECIAL_STEPS["WORKFLOW-STEP-$application_model_id"]) 
+                        {
+                                $obj = new ApplicationStep();  
+                                $obj->select("application_model_id",$application_model_id);
+                                $obj->select("step_code","WKF");
+                                if($obj->load()) self::$SPECIAL_STEPS["WORKFLOW-STEP-$application_model_id"] = $obj; 
+                                else self::$SPECIAL_STEPS["WORKFLOW-STEP-$application_model_id"] = "NOT-FOUND"; 
+                        }
+                        
+                        if(self::$SPECIAL_STEPS["WORKFLOW-STEP-$application_model_id"] == "NOT-FOUND") return null;
+                        
+                        return self::$SPECIAL_STEPS["WORKFLOW-STEP-$application_model_id"];
+                }
+
                 public static function loadSortingStep($application_model_id)
                 {
                         if(!self::$SPECIAL_STEPS["SORTING-STEP-$application_model_id"]) 
