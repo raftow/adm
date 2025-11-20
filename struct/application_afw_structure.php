@@ -157,7 +157,11 @@
                                                                 'SHOW' => true,
                                                                 'EDIT' => true,
                                                                 'READONLY' => true,
-                                                                'CAN-BE-SETTED' => true,
+                                                                'FORMAT' => 'retrieve',
+                                                                'ICONS' => true,
+                                                                'DELETE-ICON' => true,
+                                                                'BUTTONS' => true,
+                                                                
                                                                 'CSS' => 'width_pct_100',
                                                         ),
 
