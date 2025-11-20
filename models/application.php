@@ -1765,7 +1765,7 @@ class Application extends AdmObject
                                                                 $result_arr["result"] = "pass";
                                                                 $result_arr["message"] = $success_message;
                                                                 $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
-                                                                $tech_arr[] = "nextStepNum=$nextStepNum currentStepNum=$currentStepNum";
+                                                                $tech_arr[] = "this->objApplicationModel->getNextStepNumOf(currentStepNum=$currentStepNum, true) => nextStepNum=$nextStepNum ";
                                                                 $this->set("step_num", $nextStepNum);
                                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                                 $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
