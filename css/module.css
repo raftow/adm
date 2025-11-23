@@ -4102,6 +4102,10 @@ td.end.calculated>div, td.end.calculated>label {
     font-weight: normal;
 }
 
+.icon-397:before {
+    content: "\f0c0";
+}
+
 
 .bficon-104610:before,
 .bficon-104615:before {
