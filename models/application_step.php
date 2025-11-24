@@ -1,6 +1,6 @@
 <?php
 
-use Complex\Autoloader;
+// use Complex\Autoloader;
 
         class ApplicationStep extends AdmObject{
 
@@ -70,7 +70,16 @@ use Complex\Autoloader;
                         return self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"];
                 }
 
-                
+                public function canPrevious()
+                {
+                        if($this->getVal("step_num")==1) return false;
+                        if($this->getVal("step_code")=="WKF") return false;
+                        $application_model_id = $this->getVal("application_model_id");
+                        $firstDesireStep = self::loadFirstStep($application_model_id, $general='N');
+                        if($firstDesireStep->id == $this->id) return false;
+                                
+                        return true;
+                }
 
                 public static function loadDesiresSelectionStep($application_model_id)
                 {

@@ -498,6 +498,81 @@ class ApplicationDesire extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
+
+        public function gotoPreviousDesireStep($lang = "ar", $simulate = true, $application_simulation_id = 0, $logConditionExec = false)
+        {
+                $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
+                // die("dbg devMode=$devMode");
+                $err_arr = [];
+                $inf_arr = [];
+                $war_arr = [];
+                $tech_arr = [];
+                $result_arr = [];
+                $result_arr["result"] = "standby";
+                // $nb_updated = 0;
+                // $nb_inserted = 0;
+                try {
+
+                        $this->getApplicationPlan();
+                        if (!$this->objApplicationPlan) return [$this->tm("Error happened, no application plan defined for this application", $lang), ""];
+
+                        /**
+                         * @var ApplicationStep $currentStepObj
+                         */
+                        $currentStepObj = $this->het("application_step_id");
+                        $currentStepCode = $currentStepObj->getStepCode();
+                        $currentStepNum = $this->getVal("step_num");
+
+                        $firstDesireStepObj = $this->objApplicationPlan->getApplicationModel()->getFirstDesireStep();
+                        if (!$currentStepObj) return [$this->tm("FATAL ERROR : No current step defined for this desire", $lang), ""];
+                        elseif (!$firstDesireStepObj) 
+                        {
+                                return [$this->tm("FATAL ERROR : No first desire step defined for this application model", $lang), ""];                
+                        }
+                        // currentStep is last desire step ?
+                        if($currentStepObj->id == $firstDesireStepObj->id)
+                        {
+                                
+                                        $result_arr["result"] = "fail";
+                                        $result_arr["message"] = "can not goto previous when you are in the first special step"; 
+                                        $first_step_num = $firstDesireStepObj->getVal("step_num");
+                                        
+                                
+                        }
+                        else // not first desire step
+                        {
+                                $result_arr["result"] = "ok";
+                                $previousStepNum = $currentStepNum -1;
+                                $this->set("step_num", $previousStepNum);
+                                $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
+                                $newStepObj = $this->getApplicationPlan()->getApplicationModel()->convertStepNumToObject($previousStepNum);
+                                if($newStepObj->getVal("step_num") != $previousStepNum)
+                                {
+                                        throw new AfwRuntimeException("previousStepNum=$previousStepNum newStepObj=".var_export($newStepObj,true));
+                                }
+                                $current_application_step_id = $this->getVal("application_step_id");
+                                $new_application_step_id = $newStepObj->id;
+                                $this->set("application_step_id", $new_application_step_id);
+                                $newStepCode = $newStepObj->getStepCode();
+                                $tech_info = "newStepCode=$newStepCode previousStepNum=$previousStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                $tech_arr[] = $tech_info;
+                                
+                                $this->set("comments", "<!-- $tech_info -->");
+                                $this->commit();
+                                $inf_arr[]  = $this->tm("The move back from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                        }
+
+                        
+                } catch (Exception $e) {
+                        // if($devMode) throw new AfwRuntimeException("Mode dev so see this : ". $e->getMessage() . " trace : " . $e->getTraceAsString());
+                        $err_arr[] = $e->getMessage() . ($devMode ? $e->getTraceAsString() : "");
+                } catch (Error $e) {
+                        if ($devMode) throw $e;
+                        $err_arr[] = $e->__toString();
+                }
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+        }
+
         public function gotoNextDesireStep($lang = "ar", $dataShouldBeUpdated = true, $simulate = true, $application_simulation_id = 0, $logConditionExec = false, $audit_conditions_pass = [], $audit_conditions_fail = [])
         {
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
