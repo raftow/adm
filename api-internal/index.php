@@ -62,6 +62,17 @@ $allowed_methods["next_step"] = ["class"=>'Application',
                               ];                                  
 
 
+$allowed_methods["previous_step"] = ["class"=>'Application',
+                               "method"=>'previousApplicationStep',
+                               "submit-method"=>'BOTH',
+                               "input"=>  [
+                                               "applicant_id" => ['type'=>'INT', 'required'=>true], 
+                                               "plan_id"      => ['type'=>'INT', 'required'=>true], 
+                                          ]
+                              ];                                  
+
+
+
 $allowed_methods["accept_offer"] = ["class"=>'Application',
                               "method"=>'acceptOffer',
                               "submit-method"=>'BOTH',
