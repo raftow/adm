@@ -214,12 +214,26 @@ class Application extends AdmObject
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if ($applicationObj) {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                        $stepObj = $applicationObj->het("application_step_id");
+                        if($stepObj)
+                        {
+                                $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
+                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
+                        }
+                        else
+                        {
+                                // should never happen
+                                $step_description_ar = "غير معروفة";
+                                $step_description_en = "unknown 1";
+                        }
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
                         $application_plan_id = $applicationObj->getVal("application_plan_id");
                         $application_simulation_id = $applicationObj->getVal("application_simulation_id");
                 } else {
                         $step_num = null;
+                        $step_description_ar = "غير معروفة";
+                        $step_description_en = "unknown 2";
                         $applicationData = null;
                         $error_message = self::transMess("This application is not found", $lang);
                         $applicant_id = 0;
@@ -231,6 +245,8 @@ class Application extends AdmObject
 
                 $data = [
                         "current_step" => $step_num,
+                        "current_step_description_ar" => $step_description_ar,
+                        "current_step_description_en" => $step_description_en,
                         "application" => $applicationData,
                         "applicant_id" => $applicant_id,
                         "application_plan_id" => $application_plan_id,
@@ -453,6 +469,18 @@ class Application extends AdmObject
                 $saved = [];
                 $received = [];
                 if ($applicationObj) {
+                        $stepObj = $applicationObj->het("application_step_id");
+                        if($stepObj)
+                        {
+                                $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
+                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
+                        }
+                        else
+                        {
+                                // should never happen
+                                $step_description_ar = "غير معروفة";
+                                $step_description_en = "unknown";
+                        }
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
 
                         if ($dataShouldBeUpdated) {
@@ -509,6 +537,8 @@ class Application extends AdmObject
                         "move_step_details" => $move_step_details,
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
+                        "current_step_description_ar" => $step_description_ar,
+                        "current_step_description_en" => $step_description_en,
                         "got" => $received,
                         "saved" => $saved,
                         "notes" => $notes,
@@ -1767,8 +1797,14 @@ class Application extends AdmObject
                                                                 if($this->isSynchronisedUniqueDesire())
                                                                 {
                                                                         $nextStepNum = $currentStepNum + 1;       
+                                                                        $nextStepCase = "++";
                                                                 }
-                                                                else $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
+                                                                else 
+                                                                {
+                                                                        $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
+                                                                        $nextStepCase = "objApplicationModel->getNextStepNumOf($currentStepNum, true)";
+                                                                }
+                                                                $result_arr["details"] = "from $currentStepNum to $nextStepNum ($nextStepCase)";
                                                                 $tech_arr[] = "this->objApplicationModel->getNextStepNumOf(currentStepNum=$currentStepNum, true) => nextStepNum=$nextStepNum ";
                                                                 $this->set("step_num", $nextStepNum);
                                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
