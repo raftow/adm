@@ -196,6 +196,7 @@ class NominatingCandidates extends AdmObject{
         }
         if($objAppl->id){
             $this->set("applicant_id",$objAppl->id);
+            $this->commit();
         }
         return true;	
     }
