@@ -182,12 +182,12 @@ class NominatingCandidates extends AdmObject{
             $objAppl->set("idn_type_id", $this->getVal("identity_type_id"));
             $objAppl->set("idn",$this->getVal("idn"));
             $objAppl->set("first_name_ar",$this->getVal("first_name_ar"));
-            $objAppl->set("second_name_ar",$this->getVal("second_name_ar"));
-            $objAppl->set("third_name_ar",$this->getVal("third_name_ar"));
+            $objAppl->set("father_name_ar",$this->getVal("second_name_ar"));
+            $objAppl->set("middle_name_ar",$this->getVal("third_name_ar"));
             $objAppl->set("last_name_ar",$this->getVal("last_name_ar"));
             $objAppl->set("first_name_en",$this->getVal("first_name_en"));
-            $objAppl->set("second_name_en",$this->getVal("second_name_en"));
-            $objAppl->set("third_name_en",$this->getVal("third_name_en"));
+            $objAppl->set("father_name_en",$this->getVal("second_name_en"));
+            $objAppl->set("middle_name_en",$this->getVal("third_name_en"));
             $objAppl->set("last_name_en",$this->getVal("last_name_en"));
             $objAppl->set("email",$this->getVal("email"));
             $objAppl->set("mobile",$this->getVal("mobile"));
