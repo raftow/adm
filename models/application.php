@@ -469,18 +469,7 @@ class Application extends AdmObject
                 $saved = [];
                 $received = [];
                 if ($applicationObj) {
-                        $stepObj = $applicationObj->het("application_step_id");
-                        if($stepObj)
-                        {
-                                $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
-                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
-                        }
-                        else
-                        {
-                                // should never happen
-                                $step_description_ar = "غير معروفة";
-                                $step_description_en = "unknown";
-                        }
+                        
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
 
                         if ($dataShouldBeUpdated) {
@@ -510,6 +499,18 @@ class Application extends AdmObject
                                 $move_step_details_2 = $result["details_2"];
                                 if (!$error_message) {
                                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                                        $stepObj = $applicationObj->het("application_step_id");
+                                        if($stepObj)
+                                        {
+                                                $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
+                                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
+                                        }
+                                        else
+                                        {
+                                                // should never happen
+                                                $step_description_ar = "غير معروفة";
+                                                $step_description_en = "unknown";
+                                        }
                                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "nextApplicationStep", $whereiam);
                                 } else {
                                         $applicationData = null;
