@@ -174,7 +174,7 @@ class NominatingCandidates extends AdmObject{
             }    
 	}
 
-    public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent=false){
+    public function afterMaj($id, $fields_updated){
         $create_if_not_exist = true;
         $objAppl = Applicant::loadByMainIndex($this->getVal("idn"), $create_if_not_exist);
         //die($this->getVal("idn")."==>".$objAppl->id);
