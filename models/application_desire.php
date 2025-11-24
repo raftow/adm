@@ -1189,7 +1189,7 @@ class ApplicationDesire extends AdmObject
         protected function beforeSetAttribute($attribute, $newvalue)
         {
                 $oldvalue = $this->getVal($attribute);
-                
+                /*
                 if($attribute=="step_num")
                 {
                         if($newvalue<$oldvalue) throw new AfwRuntimeException("before set attribute $attribute from '$oldvalue' to '$newvalue' rafik pb found الحمد لله");
@@ -1205,7 +1205,7 @@ class ApplicationDesire extends AdmObject
                         {
                                 throw new AfwRuntimeException("step_num is 3 and before set attribute $attribute from '$oldvalue' to '$newvalue' rafik pb found الحمد لله");
                         }
-                }
+                }*/
                 
                 return true;
         }
