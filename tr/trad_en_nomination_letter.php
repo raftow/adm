@@ -17,6 +17,8 @@ class NominationLetterEnTranslator{
 		$trad["nomination_letter"]["nomination_letter_date"] = "letter date";
 		$trad["nomination_letter"]["sponsor_cordinator_id"] = "Sponsor cordinator";
 		$trad["nomination_letter"]["nomination_letter_file_id"] = "Nomination Letter file";
+		$trad["nomination_letter"]["nominationCandidateList"] = "Candidates list";
+		$trad["nomination_letter"]["letter_code"] = "Letter Number";
 
         // steps
         return $trad;

@@ -174,16 +174,61 @@ class NominatingCandidates extends AdmObject{
             }    
 	}
 
-    public function beforeMaj($id, $fields_updated){
-        $objAppl = Applicant::loadByMainIndex($this->getVal("idn"), false);
+    public function afterMaj($id, $fields_updated){
+        $create_if_not_exist = true;
+        $objAppl = Applicant::loadByMainIndex($this->getVal("idn"), $create_if_not_exist);
         //die($this->getVal("idn")."==>".$objAppl->id);
+        if($objAppl->is_new){
+            $objAppl->set("idn_type_id", $this->getVal("identity_type_id"));
+            $objAppl->set("idn",$this->getVal("idn"));
+            $objAppl->set("first_name_ar",$this->getVal("first_name_ar"));
+            $objAppl->set("second_name_ar",$this->getVal("second_name_ar"));
+            $objAppl->set("third_name_ar",$this->getVal("third_name_ar"));
+            $objAppl->set("last_name_ar",$this->getVal("last_name_ar"));
+            $objAppl->set("first_name_en",$this->getVal("first_name_en"));
+            $objAppl->set("second_name_en",$this->getVal("second_name_en"));
+            $objAppl->set("third_name_en",$this->getVal("third_name_en"));
+            $objAppl->set("last_name_en",$this->getVal("last_name_en"));
+            $objAppl->set("email",$this->getVal("email"));
+            $objAppl->set("mobile",$this->getVal("mobile"));
+            $objAppl->commit();
 
+        }
         if($objAppl->id){
             $this->set("applicant_id",$objAppl->id);
         }
         return true;	
     }
-             
+     public function calcApplicantIdLink($what = "value")
+    {
+            $app_id = $this->getVal("applicant_id");
+            
+            if($app_id)
+            {
+                return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$app_id."'>حساب المتقدم</a><br>";
+            }else{
+                $params = "&idn_type=".$this->getVal("identity_type_id");
+                $params .= "&idn=".$this->getVal("idn");
+                $params .= "&first_name_ar=".$this->getVal("first_name_ar");
+                $params .= "&second_name_ar=".$this->getVal("second_name_ar");
+                $params .= "&third_name_ar=".$this->getVal("third_name_ar");
+                $params .= "&last_name_ar=".$this->getVal("last_name_ar");
+                $params .= "&first_name_en=".$this->getVal("first_name_en");
+                $params .= "&second_name_en=".$this->getVal("second_name_en");
+                $params .= "&third_name_en=".$this->getVal("third_name_en");
+                $params .= "&last_name_en=".$this->getVal("last_name_en");
+                $params .= "&email=".$this->getVal("email");
+                $params .= "&Mobile=".$this->getVal("Mobile");
+
+                return "<a class='btn btn-default btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm".$params."'>إنشاء حساب المتقدم</a><br>";
+                    
+                //return "بدون حساب".$app_id;
+            }
+    }
+    
+    public function calccandidateFullName($what = "value"){
+        return $this->getVal("first_name_ar")." ".$this->getVal("second_name_ar")." ".$this->getVal("third_name_ar")." ".$this->getVal("last_name_ar");
+    }
 }
 
 

@@ -9,7 +9,7 @@
                         if ($obj instanceof NominationLetter ) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"nomination_letter_date", 'en'=>"nomination_letter_date"];
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"letter_code", 'en'=>"letter_code"];
                                 
                                 // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                                 $obj->ORDER_BY_FIELDS = "";
@@ -17,7 +17,7 @@
                 				$obj->editNbSteps = 2;
                                 
                                 
-                                 $obj->UNIQUE_KEY = array('application_plan_id', 'nominating_authority_source_enum','nominating_authority_id','nomination_letter_date');
+                                 $obj->UNIQUE_KEY = array('application_plan_id','nominating_authority_id','letter_code');
                                 
 								$obj->showQeditErrors = true;
 								$obj->showRetrieveErrors = true;
@@ -40,30 +40,34 @@
 		
 		
 
-		'application_plan_id' => array('SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'application_plan_id' => array('SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 
-		'nominating_authority_source_enum' => array('SHORTNAME' => 'nominating',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => true,  
+		/*'nominating_authority_source_enum' => array('SHORTNAME' => 'nominating',  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => false,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'READONLY' => false,  'DNA' => true, 
                                 'DEPENDENCIES' => [],
                                 'WHERE' => '',
                                 'DEPENDENT_OFME' => array("nominating_authority_id"), 
-				'CSS' => 'width_pct_50', ),
-
-		'nominating_authority_id' => array('SHORTNAME' => 'authority',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'CSS' => 'width_pct_50', ),*/
+                'letter_code' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 20,  'MAXLENGTH' => 20,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'TYPE' => 'TEXT',  'READONLY' => false, 
+				'CSS' => 'width_pct_25', ),
+		'nominating_authority_id' => array('SHORTNAME' => 'authority',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'nominating_authority',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50',
-                                'WHERE' => ' nominating_authority_source_enum = "§nominating_authority_source_enum§"',
-                                'DEPENDENCIES' => ['nominating_authority_source_enum'],
+                                //'WHERE' => ' nominating_authority_source_enum = "§nominating_authority_source_enum§"',
+                                //'DEPENDENCIES' => ['nominating_authority_source_enum'],
                                 'DEPENDENT_OFME' => array("sponsor_cordinator_id"), 
                          ),
 
@@ -83,7 +87,7 @@
                                 'DEPENDENCIES' => ['nominating_authority_id'],
                          ),
 
-		'nomination_letter_file_id' => array('STEP' => 1,  'SHORTNAME' => 'admfile',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+		'nomination_letter_file_id' => array('STEP' => 1,  'SHORTNAME' => 'admfile',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 40,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'workflow_file',  'ANSMODULE' => 'workflow',  

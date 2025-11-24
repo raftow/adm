@@ -95,6 +95,7 @@ $migrations = [
     '00089' => ['by'=>'medali','title'=>'current period + supp program'],
     '00090' => ['by'=>'rafik','title'=>'prepare demo for NAUSS'],
     '00091' => ['by'=>'medali','title'=>'add to-publish to academic_program'],
+    '00092' => ['by'=>'medali','title'=>'add letter_code to nominating_letter'],
 
 ];
 
