@@ -174,23 +174,23 @@ class NominatingCandidates extends AdmObject{
             }    
 	}
 
-    public function afterMaj($id, $fields_updated){
+    public function afterInsert($id, $fields_updated){
         $create_if_not_exist = true;
         $objAppl = Applicant::loadByMainIndex($this->getVal("idn"), $create_if_not_exist);
         //die($this->getVal("idn")."==>".$objAppl->id);
         if($objAppl->is_new){
-            $objAppl->set("idn_type_id", $this->getVal("identity_type_id"));
-            $objAppl->set("idn",$this->getVal("idn"));
-            $objAppl->set("first_name_ar",$this->getVal("first_name_ar"));
-            $objAppl->set("father_name_ar",$this->getVal("second_name_ar"));
-            $objAppl->set("middle_name_ar",$this->getVal("third_name_ar"));
-            $objAppl->set("last_name_ar",$this->getVal("last_name_ar"));
-            $objAppl->set("first_name_en",$this->getVal("first_name_en"));
-            $objAppl->set("father_name_en",$this->getVal("second_name_en"));
-            $objAppl->set("middle_name_en",$this->getVal("third_name_en"));
-            $objAppl->set("last_name_en",$this->getVal("last_name_en"));
-            $objAppl->set("email",$this->getVal("email"));
-            $objAppl->set("mobile",$this->getVal("mobile"));
+            $objAppl->set("idn_type_id", $fields_updated["identity_type_id"]);
+            $objAppl->set("idn",$fields_updated["idn"]);
+            $objAppl->set("first_name_ar",$fields_updated["first_name_ar"]);
+            $objAppl->set("father_name_ar",$fields_updated["second_name_ar"]);
+            $objAppl->set("middle_name_ar",$fields_updated["third_name_ar"]);
+            $objAppl->set("last_name_ar",$fields_updated["last_name_ar"]);
+            $objAppl->set("first_name_en",$fields_updated["first_name_en"]);
+            $objAppl->set("father_name_en",$fields_updated["second_name_en"]);
+            $objAppl->set("middle_name_en",$fields_updated["third_name_en"]);
+            $objAppl->set("last_name_en",$fields_updated["last_name_en"]);
+            $objAppl->set("email",$fields_updated["email"]);
+            $objAppl->set("mobile",$fields_updated["mobile"]);
             $objAppl->commit();
 
         }
