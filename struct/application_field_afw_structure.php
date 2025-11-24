@@ -21,7 +21,7 @@
 							$obj->ENABLE_DISPLAY_MODE_IN_QEDIT = true;
 							$obj->OBJECT_CODE = "field_name";
 							//$obj->qedit_minibox = true;    
-                            // $obj->after_save_edit = array("class"=>'Road',"attribute"=>'road_id', "currmod"=>'btb',"currstep"=>9);
+                            $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ApplicationField',"submit"=>true);
                         }
                 }
 

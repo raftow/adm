@@ -380,7 +380,7 @@
                                                 'TYPE' => 'MFK',
                                                 'ANSWER' => 'application_field',
                                                 'ANSMODULE' => 'adm',
-                                                'WHERE' => "application_table_id in (1,3)",
+                                                'WHERE' => "application_table_id in (1,2,3)",
                                                 'DISPLAY' => true,
                                                 'STEP' => 3,
                                                 'DISPLAY-UGROUPS' => '',
