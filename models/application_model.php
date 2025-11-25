@@ -5,6 +5,7 @@ class ApplicationModel extends AdmObject
 
         private $applicationStepList = null;
         private $currentPlan = null;
+        private $stepMax=[];
 
         private static $arrSortingStepIdByModelId = [];
 
@@ -1159,9 +1160,10 @@ class ApplicationModel extends AdmObject
 
         public function getNextStepNumOf($step_num, $general)
         {
-                if (!$this->stepMax) $this->stepMax = $this->getStepMax($general);
+                $general_name = $general ? "general" : "special";
+                if (!$this->stepMax[$general_name]) $this->stepMax[$general_name] = $this->getStepMax($general);
                 $return = $step_num + 1;
-                if ($return > $this->stepMax) $return = $this->stepMax;
+                if ($return > $this->stepMax[$general_name]) $return = $this->stepMax[$general_name];
                 return $return;
         }
 

@@ -554,7 +554,8 @@ class ApplicationDesire extends AdmObject
                                 $new_application_step_id = $newStepObj->id;
                                 $this->set("application_step_id", $new_application_step_id);
                                 $newStepCode = $newStepObj->getStepCode();
-                                $tech_info = "newStepCode=$newStepCode previousStepNum=$previousStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                $tech_info = "from $currentStepNum (current_application_step_id=$current_application_step_id) to $previousStepNum (new_application_step_id = $new_application_step_id, newStepCode=$newStepCode)";
+                                $result_arr["details"] = $tech_info;
                                 $tech_arr[] = $tech_info;
                                 
                                 $this->set("comments", "<!-- $tech_info -->");
