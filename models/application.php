@@ -479,6 +479,7 @@ class Application extends AdmObject
                         list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
                         if ($ok) {
                                 list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoPreviousStep($lang, false, false, $application_simulation_id, false);
+                                $applicationObj->reloadMe();
 
                                 $move_step_status = $result["result"];
                                 $move_step_message = $result["message"];
@@ -584,7 +585,7 @@ class Application extends AdmObject
                         if ($ok) {
                                 // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
                                 list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, $application_simulation_id, false);
-
+                                $applicationObj->reloadMe();
 
 
                                 $move_step_status = $result["result"];
