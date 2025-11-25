@@ -534,7 +534,7 @@ class ApplicationDesire extends AdmObject
                         {
                                 
                                         $result_arr["result"] = "fail";
-                                        $result_arr["message"] = "can not goto previous when you are in the first special step"; 
+                                        $result_arr["message"] = $this->tm("can not goto previous step when you are in the first special step", $lang); 
                                         $first_step_num = $firstDesireStepObj->getVal("step_num");
                                         
                                 

@@ -5,9 +5,14 @@ class Application extends AdmObject
          * @var ApplicationModel $objApplicationModel
          */
         private $objApplicationModel = null;
+
+        /**
+         * @var ApplicationDesire $uniqueDesireObj
+         */
+        private $uniqueDesireObj;
         /**
          * @var Applicant $applicantObj
-         */
+         */        
         private $applicantObj = null;
         private $myApplicationDesireList = [];
 
@@ -2494,6 +2499,7 @@ class Application extends AdmObject
                 if (!$this->objApplicationModel) return $no;
 
                 $applicationFieldList = $this->objApplicationModel->get("application_field_mfk");
+                $desireFieldsArr = [];
                 $applicationFieldsArr = [];
                 $applicantFieldsArr = [];
                 foreach ($applicationFieldList as $applicationFieldItem) {
@@ -2501,7 +2507,8 @@ class Application extends AdmObject
                         $application_table_id = $applicationFieldItem->getVal("application_table_id");
                         if ($application_table_id == 3) $applicationFieldsArr[$field_name] = $applicationFieldItem;
                         elseif ($application_table_id == 1) $applicantFieldsArr[$field_name] = $applicationFieldItem;
-                        else throw new AfwRuntimeException("The field $field_name is not related neither Applicant nor Application entities so can not be in the SIS-fields");
+                        elseif ($application_table_id == 2) $desireFieldsArr[$field_name] = $applicationFieldItem;
+                        else throw new AfwRuntimeException("The field $field_name (application_table_id=$application_table_id) is not related neither Applicant nor Application entities so can not be in the SIS-fields");
                 }
                 if (count($applicantFieldsArr) > 0) {
                         if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
@@ -2514,7 +2521,15 @@ class Application extends AdmObject
                 $applicationAvail = $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
                 // die("applicantAvail and applicationAvail => $applicantAvail and $applicationAvail");
 
-                return ($applicantAvail and $applicationAvail) ? $yes : $no;
+
+                if (count($desireFieldsArr) > 0) {
+                        if (!$this->uniqueDesireObj) $this->uniqueDesireObj = $this->getSynchronisedUniqueDesire();
+                        if (!$this->uniqueDesireObj) $desireAvail = false;
+                        else $desireAvail = $this->uniqueDesireObj->getFieldsMatrix($desireFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = true);
+                } else {
+                        $desireAvail = true;
+                }
+                return ($applicantAvail and $applicationAvail and $desireAvail) ? $yes : $no;
 
                 return $yes;
         }
