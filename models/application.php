@@ -473,7 +473,7 @@ class Application extends AdmObject
 
                         list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
                         if ($ok) {
-                                list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoPreviousStep($lang, false, false, 2, false);
+                                list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoPreviousStep($lang, false, false, $application_simulation_id, false);
 
                                 $move_step_status = $result["result"];
                                 $move_step_message = $result["message"];
@@ -539,11 +539,11 @@ class Application extends AdmObject
 
         public static function nextApplicationStep($input_arr, $debugg = 0, $dataShouldBeUpdated = true, $forceRunApis = true)
         {
-                $application_simulation_id = $input_arr['simulation_id'];
                 $application_plan_id = $input_arr['plan_id'];
                 $applicant_id = $input_arr['applicant_id'];
                 $lang = $input_arr['lang'];
                 $whereiam = $input_arr['whereiam'];
+                $application_simulation_id = $input_arr['simulation_id'];
                 if (!$application_simulation_id) {
                         $application_simulation_id = self::currentApplicationSimulation();
                 }
@@ -578,7 +578,7 @@ class Application extends AdmObject
                         list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
                         if ($ok) {
                                 // list($status0, $error_message0, $applicationData0) = ApplicationPlan::getStepData($input_arr, $debugg);
-                                list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, 2, false);
+                                list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoNextStep($lang, $dataShouldBeUpdated, false, $application_simulation_id, false);
 
 
 
