@@ -566,11 +566,11 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_application_status_enum = array();
 
 
-        $arr_list_of_application_status_enum["en"][1] = "application pending";
-        $arr_list_of_application_status_enum["ar"][1] = "جاري التقديم";
+        $arr_list_of_application_status_enum["en"][1] = "Incomplete";
+        $arr_list_of_application_status_enum["ar"][1] = "تقديم غير مكتمل";
         $arr_list_of_application_status_enum["code"][1] = "pending";
 
-        $arr_list_of_application_status_enum["en"][2] = "application complete";
+        $arr_list_of_application_status_enum["en"][2] = "Complete";
         $arr_list_of_application_status_enum["ar"][2] = "تقديم مكتمل";
         $arr_list_of_application_status_enum["code"][2] = "complete";
 
@@ -586,8 +586,8 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_application_status_enum["ar"][5] = "مقبول";
         $arr_list_of_application_status_enum["code"][5] = "accepted";
 
-        $arr_list_of_application_status_enum["en"][6] = "excluded";
-        $arr_list_of_application_status_enum["ar"][6] = "مستبعد";
+        $arr_list_of_application_status_enum["en"][6] = "Rejected";
+        $arr_list_of_application_status_enum["ar"][6] = "مرفوض";
         $arr_list_of_application_status_enum["code"][6] = "excluded";
 
         return $arr_list_of_application_status_enum;
