@@ -51,7 +51,7 @@ if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
 if(!$lang) $lang = "ar";
 // $out_scr .= Page::showPage("adm", "main-page", $lang);
 
-
+$application_plan_id = 11;
 
 $out_scr .= "<div id='page-content-wrapper' class='qsearch_page'><div class='row row-filter-request'>";
 
@@ -67,7 +67,7 @@ if(true)
     $.ajax({
         url: \"/adm/api/getApplicantStats.php\",
         method: \"GET\",
-        data:{method:1,application_plan_id:8},
+        data:{method:1,application_plan_id:$application_plan_id},
         dataType: \"JSON\",
         success: function(data) {
             // Process the fetched data and create/update the chart
@@ -82,7 +82,7 @@ if(true)
     $.ajax({
       url: \"/adm/api/getApplicantStats.php\",
       method: \"GET\",
-      data:{method:4,application_plan_id:8},
+      data:{method:4,application_plan_id:$application_plan_id},
       dataType: \"JSON\",
       success: function(data) {
           createChartByPg(data,'rni3','bar','عدد المتقدمين');
@@ -95,7 +95,7 @@ if(true)
     $.ajax({
       url: \"/adm/api/getApplicantStats.php\",
       method: \"GET\",
-      data:{method:5,application_plan_id:8},
+      data:{method:5,application_plan_id:$application_plan_id},
       dataType: \"JSON\",
       success: function(data) {
           createChartByPg(data,'rni4','bar','عدد المتقدمين على أيام فترة التقديم');
@@ -152,7 +152,7 @@ if(true)
             $.ajax({
               url: \"/adm/api/getApplicantStats.php\",
               method: \"GET\",
-              data:{method:2,application_plan_id:8,gender:index},
+              data:{method:2,application_plan_id:$application_plan_id,gender:index},
               dataType: \"JSON\",
               success: function(data) {
                   createChartByPg(data,'rni','bar','عدد المتقدمين حسب البرنامج');
@@ -165,7 +165,7 @@ if(true)
             $.ajax({
               url: \"/adm/api/getApplicantStats.php\",
               method: \"GET\",
-              data:{method:3,application_plan_id:8,gender:index},
+              data:{method:3,application_plan_id:$application_plan_id,gender:index},
               dataType: \"JSON\",
               success: function(data) {
                   createChartByPg(data,'rni2','bar','عدد المقبولين حسب البرنامج');
