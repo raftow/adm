@@ -671,6 +671,7 @@ class ApplicationDesire extends AdmObject
                                         $this->set("application_step_id", $new_application_step_id);
                                         $newStepCode = $newStepObj->getStepCode();
                                         $tech_info = "newStepCode=$newStepCode nextStepNum=$nextStepNum new_application_step_id = $new_application_step_id (currentStepNum=$currentStepNum current_application_step_id=$current_application_step_id)";
+                                        $result_arr["details"] = $tech_info;
                                         $tech_arr[] = $tech_info;
                                         
                                         
