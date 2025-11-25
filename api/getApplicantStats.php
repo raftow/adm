@@ -57,8 +57,8 @@ $server_db_prefix = AfwSession::currentDBPrefix();
 
 if($method==1)//عدد المتقدمين حسب الجنس 
 {
-  $q = "select count(*) NB_APPLICANT,IF(gender_enum=1, 'طلاب', IF(gender_enum=2, 'طالبات', 'غير محدد')) category from ".$server_db_prefix."adm.application a inner join ".$server_db_prefix."adm.applicant ap on a.applicant_id=ap.id where a.application_plan_id = '".$application_plan_id."' group by category order by gender_enum";
-echo $q;
+  $q = "select count(*) NB_APPLICANT,IF(gender_enum=1, 'طلاب', IF(gender_enum=2, 'طالبات', 'غير محدد')) category from ".$server_db_prefix."adm.application a inner join ".$server_db_prefix."adm.applicant ap on a.applicant_id=ap.id where a.application_plan_id = '".$application_plan_id."' group by category order by 2";
+
 }elseif($method==2){ // عدد المتقدمين حسب البرنامج و الجنس
   $q = "select count(*) NB_APPLICANT, ac.program_name_ar category from ".$server_db_prefix."adm.applicant a 
         inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id 
