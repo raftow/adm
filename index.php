@@ -5,7 +5,7 @@ $objme = AfwSession::getUserConnected();
 //if(!$objme) $studentMe = AfwSession::getStudentConnected();
 $page_css_file = "content";
 
-$Main_Page = "home.php";
+$Main_Page = "reports.php";
 $MODULE = $My_Module = "adm";
 $options = [];
 $options["dashboard-stats"] = true;
