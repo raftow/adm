@@ -376,7 +376,7 @@
                                 }
                         }
                         $desireObj = null;
-                        if($applicationObj and $applicationObj->ApplicationIsCompleted())
+                        if($applicationObj and (!$applicationObj->isSynchronisedUniqueDesire()) and $applicationObj->applicationIsCompleted())
                         {
                                 $step_num = "end";
                         }
