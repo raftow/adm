@@ -533,11 +533,16 @@ class ApplicationDesire extends AdmObject
                         if($currentStepObj->id == $firstDesireStepObj->id)
                         {
                                 
-                                        $result_arr["result"] = "fail";
-                                        $result_arr["message"] = $this->tm("can not goto previous step when you are in the first special step", $lang); 
-                                        $first_step_num = $firstDesireStepObj->getVal("step_num");
+                                $result_arr["result"] = "fail";
+                                $result_arr["message"] = $this->tm("can not goto previous step when you are in the first special step", $lang); 
+                                // $first_step_num = $firstDesireStepObj->getVal("step_num");
                                         
                                 
+                        }
+                        elseif($currentStepCode=="WKF")
+                        {
+                                $result_arr["result"] = "fail";
+                                $result_arr["message"] = $this->tm("can not goto previous step when you entered the workflow step", $lang); 
                         }
                         else // not first desire step
                         {
