@@ -2276,8 +2276,7 @@ class Application extends AdmObject
                 list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true, false, $lang, $onlyMandatory);
                 if (count($applicationDesireFieldsArr) > 0) {
                         $applicationDesireFieldsArrKeys = array_keys($applicationDesireFieldsArr);
-                        AfwSession::pushWarning("some desire fields are required in general step $stepNum => " . implode(",", $applicationDesireFieldsArrKeys) . " => " . implode(",", $applicationDesireFieldsArr));
-                        // throw new AfwRuntimeException("some desire fields are required in general step $stepNum => ".implode(",",$applicationDesireFieldsArrKeys));
+                        if(!$this->isSynchronisedUniqueDesire()) AfwSession::pushWarning("some desire fields are required in general step $stepNum => " . implode(",", $applicationDesireFieldsArrKeys) . " => " . implode(",", $applicationDesireFieldsArr));
                 }
 
                 $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated, $technical_infos);
