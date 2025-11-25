@@ -486,7 +486,7 @@ class Application extends AdmObject
                                 $move_step_details = $result["details"];
                                 $move_step_details_2 = $result["details_2"];
                                 if (!$error_message) {
-                                        $step_num = $applicationObj->getVal("step_num");
+                                        $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
                                         $stepObj = $applicationObj->het("application_step_id");
                                         if($stepObj)
                                         {
@@ -501,7 +501,7 @@ class Application extends AdmObject
                                                 $step_description_ar = "غير معروفة";
                                                 $step_description_en = "unknown";
                                         }
-                                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "nextApplicationStep", $whereiam);
+                                        list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "previousApplicationStep", $whereiam);
                                 } else {
                                         $applicationData = null;
                                 }
@@ -593,7 +593,7 @@ class Application extends AdmObject
                                 $move_step_details = $result["details"];
                                 $move_step_details_2 = $result["details_2"];
                                 if (!$error_message) {
-                                        $step_num = $applicationObj->getVal("step_num");
+                                        $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
                                         $stepObj = $applicationObj->het("application_step_id");
                                         if($stepObj)
                                         {
