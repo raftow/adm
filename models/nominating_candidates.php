@@ -176,11 +176,14 @@ class NominatingCandidates extends AdmObject{
 
     public function afterMaj($id, $fields_updated){
         $create_if_not_exist = true;
-        $objAppl = Applicant::loadByMainIndex($this->getVal("idn"), $create_if_not_exist);
+        $idn = (isset($fields_updated["idn"])) ? $fields_updated["idn"] :$this->getVal("idn") ;
+        $idn_type = (isset($fields_updated["identity_type_id"])) ? $fields_updated["identity_type_id"] :$this->getVal("identity_type_id") ;
+//die("idn type $idn_type");
+        $objAppl = Applicant::loadByMainIndex($idn, $create_if_not_exist);
         //die($this->getVal("idn")."==>".$objAppl->id);
         if($objAppl->is_new){
-            $objAppl->set("idn_type_id", $fields_updated["identity_type_id"]);
-            $objAppl->set("idn",$fields_updated["idn"]);
+            $objAppl->set("idn_type_id", $idn_type);
+            $objAppl->set("idn",$idn);
             $objAppl->set("first_name_ar",$fields_updated["first_name_ar"]);
             $objAppl->set("father_name_ar",$fields_updated["second_name_ar"]);
             $objAppl->set("middle_name_ar",$fields_updated["third_name_ar"]);
@@ -206,6 +209,16 @@ class NominatingCandidates extends AdmObject{
             
             if($app_id)
             {
+                //$appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
+                $letterObj = $this->het("nomination_letter_id");
+                $application_plan_id = $letterObj->getVal("application_plan_id");
+                $appObj = new Application();
+                $appObj->where("applicant_id = '$app_id' and application_plan_id= '$application_plan_id'");
+                if($appObj->load()){
+                    if($appObj->application_status_enum==2) $msg = "طلب التقديم -مكتمل";
+                    else $msg = "طلب التقديم -غير مكتمل";
+                    return "<a class='btn btn-success btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$app_id."'>$msg</a><br>";
+                } 
                 return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$app_id."'>حساب المتقدم</a><br>";
             }else{
                 $params = "&idn_type=".$this->getVal("identity_type_id");
@@ -230,6 +243,24 @@ class NominatingCandidates extends AdmObject{
     public function calccandidateFullName($what = "value"){
         return $this->getVal("first_name_ar")." ".$this->getVal("second_name_ar")." ".$this->getVal("third_name_ar")." ".$this->getVal("last_name_ar");
     }
+
+
+    /*public function addApplicantAccount($applicant_id,$application_model_id,$application_plan_id, $application_simulation_id){
+        $applicationFinancialTransaction = new ApplicationModelFinancialTransaction();
+        $applicationFinancialTransaction->where("application_model_id = $application_model_id and active ='Y' and process_enabled ='Y' and phase_enum=1");
+            
+        $appFinTransObject_list = $applicationFinancialTransaction->loadMany();
+        foreach ($appFinTransObject_list as $row) {
+            $applicantAccount = ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $row->getval("id"), true);
+            
+                
+            //$applicantAccount->set("academic_period_id", $current_period_id);
+            $applicantAccount->set("total_amount",$row->getVal("amount"));
+            $applicantAccount->set("payment_status_enum", 4); // معفي من الدفع
+            
+            $applicantAccount->commit();
+        }
+    }*/
 }
 
 

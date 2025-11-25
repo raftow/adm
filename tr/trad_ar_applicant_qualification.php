@@ -29,7 +29,7 @@ class ApplicantQualificationArTranslator{
 		$trad["applicant_qualification"]["educational_zone_id"] = "المنطقة التعليمية";
 		
 		$trad["applicant_qualification"]["country_id"] = "الدولة";
-		$trad["applicant_qualification"]["grading_scale_id"] = "تصنيف الدرجة";
+		$trad["applicant_qualification"]["grading_scale_id"] = "التقدير";
 
 		
         return $trad;
