@@ -2536,6 +2536,7 @@ class Application extends AdmObject
 
         public function calcSis_fields_not_available($what = "value", $lang = "")
         {
+                if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) return "No Application Model Object";
 
