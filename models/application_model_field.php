@@ -99,10 +99,14 @@ class ApplicationModelField extends AdmObject
                 if($afieldObj)
                 {
                     $scr_id = $amfObj->getVal("screen_model_id");
+                    $field_name = $afieldObj->getVal("field_name");
                     if(!$data["current-screen"]["code"])
                     {
                         $data["current-screen"]["id"] = $scr_id;
                         $data["current-screen"]["code"] = ScreenModel::IdToCode($scr_id);
+                        $data["current-screen"]["step_num"] = $amfObj->getVal("step_num");
+                        $data["current-screen"]["from_field"] = $field_name;
+                        
                     }
                     
                     /*
@@ -116,7 +120,7 @@ class ApplicationModelField extends AdmObject
                     }
                         */
     
-                    $field_name = $afieldObj->getVal("field_name");
+                    
                     $application_table_id = $afieldObj->getVal("application_table_id");
                     $application_table_code = self::code_of_application_table_id($application_table_id);
                     $application_field_type_enum = $afieldObj->getVal("application_field_type_id");
