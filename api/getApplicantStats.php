@@ -69,7 +69,7 @@ if($method==1)//عدد المتقدمين حسب الجنس
         inner join ".$server_db_prefix."adm.application_plan_branch ab on ad.application_plan_branch_id = ab.id
         inner join ".$server_db_prefix."adm.academic_program ac on ab.program_id = ac.id
         where  a.gender_enum=$gender and ap.application_plan_id='".$application_plan_id."' group by category;";
-print $q;
+//print $q;
 }elseif($method==3){ // عدد المقبولين حسب البرنامج و الجنس
   $q = "select count(*) NB_APPLICANT, ac.program_name_ar category from ".$server_db_prefix."adm.applicant a 
         inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id 
