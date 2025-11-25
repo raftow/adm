@@ -189,6 +189,13 @@ class NominationLetter extends AdmObject{
                return true;
             }    
 	}
+
+    public function shouldBeCalculatedField($attribute)
+    {
+        if ($attribute == "download_light") return true;
+        
+        return false;
+    }
              
 }
 
