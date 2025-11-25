@@ -2542,26 +2542,33 @@ class Application extends AdmObject
                 $applicationFieldList = $this->objApplicationModel->get("application_field_mfk");
                 $applicationFieldsArr = [];
                 $applicantFieldsArr = [];
+                $desireFieldsArr = [];
                 foreach ($applicationFieldList as $applicationFieldItem) {
                         $field_name = $applicationFieldItem->getVal("field_name");
                         $application_table_id = $applicationFieldItem->getVal("application_table_id");
                         if ($application_table_id == 3) $applicationFieldsArr[$field_name] = $applicationFieldItem;
                         elseif ($application_table_id == 1) $applicantFieldsArr[$field_name] = $applicationFieldItem;
+                        elseif ($application_table_id == 2) $desireFieldsArr[$field_name] = $applicationFieldItem;
                         else throw new AfwRuntimeException("The field $field_name is not related neither Applicant nor Application entities so can not be in the SIS-fields");
                 }
 
-                $returnApplication = $this->getFieldsMatrix($applicationFieldsArr, $lang = "ar", $onlyIfTheyAreUpdated = "list-fields-not-available");
+                $returnFields[] = $this->getFieldsMatrix($applicationFieldsArr, $lang, $onlyIfTheyAreUpdated = "list-fields-not-available");
                 if (count($applicantFieldsArr) > 0) {
                         if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
-                        if (!$this->applicantObj) $returnApplicant = "applicantObj not correct";
-                        else $returnApplicant = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang = "ar", $this, $onlyIfTheyAreUpdated = "list-fields-not-available");
+                        if (!$this->applicantObj) $returnFields[] = "applicantObj not correct";
+                        else $returnFields[] = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated = "list-fields-not-available");
                 } else {
-                        $returnApplicant = "";
+                        $returnFields[] = "";
                 }
 
-                if ($returnApplicant) $returnApplication .= "," . $returnApplicant;
+                if (count($desireFieldsArr) > 0) {
+                        if (!$this->uniqueDesireObj) $this->uniqueDesireObj = $this->getSynchronisedUniqueDesire();
+                        if (!$this->uniqueDesireObj) $returnFields[] = "no-unique-desire-found";
+                        else $returnFields[] = $this->uniqueDesireObj->getFieldsMatrix($desireFieldsArr, $lang, $onlyIfTheyAreUpdated = "list-fields-not-available");
+                } else {
+                }
 
-                return $returnApplication;
+                return implode(",", $returnFields);
         }
 
         public function calcProgram_qualification_mfk($what = "value")
