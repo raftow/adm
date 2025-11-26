@@ -24,7 +24,7 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["last_name_en"] = "الاسم الأخير انجليزي";
 		$trad["nominating_candidates"]["academic_program_id"] = "برنامج الدراسي";
 		$trad["nominating_candidates"]["email"] = "البريد الإلكتروني";
-		$trad["nominating_candidates"]["Mobile"] = "الجوال";
+		$trad["nominating_candidates"]["mobile"] = "الجوال";
 		$trad["nominating_candidates"]["study_funding_status_id"] = "حالة التمويل";
 		$trad["nominating_candidates"]["nomination_letter_id"] = "خطاب الترشيح";
 		$trad["nominating_candidates"]["applicant_id"] = "المتقدم";
