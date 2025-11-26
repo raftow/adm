@@ -55,12 +55,7 @@
                                 'WHERE' => '',
                                 'DEPENDENT_OFME' => array("nominating_authority_id"), 
 				'CSS' => 'width_pct_50', ),*/
-                'letter_code' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 20,  'MAXLENGTH' => 20,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
-				'TYPE' => 'TEXT',  'READONLY' => false, 
-				'CSS' => 'width_pct_25', ),
-		'nominating_authority_id' => array('SHORTNAME' => 'authority',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                'nominating_authority_id' => array('SHORTNAME' => 'authority',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'nominating_authority',  'ANSMODULE' => 'adm',  
@@ -70,7 +65,12 @@
                                 //'DEPENDENCIES' => ['nominating_authority_source_enum'],
                                 'DEPENDENT_OFME' => array("sponsor_cordinator_id"), 
                          ),
-
+                'letter_code' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+				'EDIT' => true,  'QEDIT' => true,  
+				'SIZE' => 20,  'MAXLENGTH' => 20,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'TYPE' => 'TEXT',  'READONLY' => false, 
+				'CSS' => 'width_pct_25', ),
+		
 		'nomination_letter_date' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 10,  'MAXLENGTH' => 10,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  

@@ -194,6 +194,8 @@ class NominatingCandidates extends AdmObject{
             $objAppl->set("last_name_en",$fields_updated["last_name_en"]);
             $objAppl->set("email",$fields_updated["email"]);
             $objAppl->set("mobile",$fields_updated["mobile"]);
+            $objAppl->set("gender_enum",$fields_updated["gender_enum"]);
+            
             $objAppl->commit();
 
         }
@@ -231,6 +233,8 @@ class NominatingCandidates extends AdmObject{
                 $params .= "&second_name_en=".$this->getVal("second_name_en");
                 $params .= "&third_name_en=".$this->getVal("third_name_en");
                 $params .= "&last_name_en=".$this->getVal("last_name_en");
+                $params .= "&gender_enum=".$this->getVal("gender_enum");
+                
                 $params .= "&email=".$this->getVal("email");
                 $params .= "&Mobile=".$this->getVal("Mobile");
 
