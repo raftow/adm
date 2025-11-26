@@ -53,6 +53,16 @@ if(!$lang) $lang = "ar";
 
 $application_plan_id = 11;
 
+$out_scr .= "<ul class=\"nav nav-tabs p-2\">
+      <li class=\"nav-item\">
+        <a class=\"nav-link\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports.php\">تقارير المتقدمين</a>
+      </li>
+      <li class=\"nav-item\">
+        <a class=\"nav-link active\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports_candidate.php\">تقارير المرشحين</a>
+      </li>
+      
+    </ul>";
+
 $out_scr .= "<div id='page-content-wrapper' class=\"container-fluid h-100\">";//<div id='page-content-wrapper' class='qsearch_page'>
 
 // customer number increasing (cni)

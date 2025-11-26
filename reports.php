@@ -52,7 +52,15 @@ if(!$lang) $lang = "ar";
 // $out_scr .= Page::showPage("adm", "main-page", $lang);
 
 $application_plan_id = 11;
-
+$out_scr .= "<ul class=\"nav nav-tabs\">
+      <li class=\"nav-item\">
+        <a class=\"nav-link active\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports.php\">تقارير المتقدمين</a>
+      </li>
+      <li class=\"nav-item\">
+        <a class=\"nav-link\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports_candidate.php\">تقارير المرشحين</a>
+      </li>
+      
+    </ul>";
 $out_scr .= "<div id='page-content-wrapper' class='qsearch_page'><div class='row row-filter-request'>";
 
 // customer number increasing (cni)
