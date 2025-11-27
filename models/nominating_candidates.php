@@ -146,9 +146,32 @@ class NominatingCandidates extends AdmObject{
             
             if($id)
             {   
-               if($id_replace==0)
+               
+                $app_id = $this->getVal("applicant_id");
+                if($app_id){
+                
+                    $obj = new Application();
+                    $obj->where("applicant_id = '$app_id' and active='Y' ");
+                    $nbRecords = $obj->count();
+                    if($nbRecords>0)
+                    {
+                        $this->deleteNotAllowedReason = "Some related application(s) exists";
+                        return false;
+                    }else{
+                        //Delete applicant 
+                        $this->het("applicant_id")->delete();
+                        // delete qualification
+                        $qualification = new ApplicantQualification();
+                        $qualification->deleteWhere("applicant_id = '$app_id'");
+                        // delete Evaluation 
+                        $AppEvaluation = new ApplicantEvaluation();
+                        $AppEvaluation->deleteWhere("applicant_id = '$app_id'");
+                    }
+                }
+                if($id_replace==0)
                {
-                   // FK part of me - not deletable 
+                  
+                    // FK part of me - not deletable 
 
                         
                    // FK part of me - deletable 

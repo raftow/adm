@@ -66,13 +66,13 @@
 
 		'second_name_ar' => array('SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
 		'third_name_ar' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
@@ -84,25 +84,25 @@
 
 		'first_name_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_25', ),
 
 		'second_name_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
 		'third_name_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_25', ),
 
 		'last_name_en' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
+				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_25', ),
 		'gender_enum' => array(
@@ -132,7 +132,7 @@
 				'TYPE' => 'TEXT', "CATEGORY"=>"FORMULA",   'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=>true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),
+				'CSS' => 'width_pct_25','HIDE_IF_NEW' => true ),
 		'academic_program_id' => array('SHORTNAME' => 'program',  'SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
@@ -171,7 +171,7 @@
 				'TYPE' => 'TEXT', "CATEGORY"=>"FORMULA", 'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=>true,
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_25', ),
+				'CSS' => 'width_pct_25','HIDE_IF_NEW' => true ),
 
                 'created_by'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' =>99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

@@ -235,8 +235,8 @@ class AdmApplicantFileAfwStructure
                 'afile_ext' => array('TYPE' => 'TEXT', 'CATEGORY' => 'SHORTCUT', 'SHORTCUT'=>"workflow_file_id.afile_ext","CAN-BE-SETTED"=>false,"NO-COTE"=>true,),                
 
                 'approved'           => array('STEP' => 1, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'QSEARCH' => true,
-                                                'RETRIEVE' => true, 'EDIT' => true, 
-                                                'QEDIT' => false, "DEFAULT" => 'W', 'TYPE' => 'YN', ),
+                                                'RETRIEVE' => true, 'EDIT' => true, 'QEDIT' => true,
+                                                'QEDIT' => false, "DEFAULT" => 'W', 'TYPE' => 'YN','FORMAT' => 'icon', ),
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),
