@@ -366,6 +366,37 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 		),
 
+		/*
+		'country_id' => array(
+                        'FGROUP' => 'idn-infos',
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'RETRIEVE' => true,
+                        
+                        'SHOW' => true,                        
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'country',
+                        'ANSMODULE' => 'ums',
+                        'SIZE' => 40,
+                        'DEFAUT' => 183,
+                        'READONLY-AFTER-INSERT' => true,
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'ManyToOne',
+                        'MANDATORY' => true,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),*/
+
 		'study_funding_status_id' => array(
 			'SHORTNAME' => 'funding_status',
 			'SEARCH' => true,
