@@ -198,73 +198,76 @@ class NominatingCandidates extends AdmObject{
 	}
 
     public function afterMaj($id, $fields_updated){
-        $create_if_not_exist = true;
-        $idn = (isset($fields_updated["idn"])) ? $fields_updated["idn"] :$this->getVal("idn") ;
-        $idn_type = (isset($fields_updated["identity_type_id"])) ? $fields_updated["identity_type_id"] :$this->getVal("identity_type_id") ;
-//die("idn type $idn_type");
-        $objAppl = Applicant::loadByMainIndex($idn, $create_if_not_exist);
-        //die($this->getVal("idn")."==>".$objAppl->id);
-        if($objAppl->is_new){
-            $objAppl->set("idn_type_id", $idn_type);
-            $objAppl->set("idn",$idn);
-            $objAppl->set("first_name_ar",$fields_updated["first_name_ar"]);
-            $objAppl->set("father_name_ar",$fields_updated["second_name_ar"]);
-            $objAppl->set("middle_name_ar",$fields_updated["third_name_ar"]);
-            $objAppl->set("last_name_ar",$fields_updated["last_name_ar"]);
-            $objAppl->set("first_name_en",$fields_updated["first_name_en"]);
-            $objAppl->set("father_name_en",$fields_updated["second_name_en"]);
-            $objAppl->set("middle_name_en",$fields_updated["third_name_en"]);
-            $objAppl->set("last_name_en",$fields_updated["last_name_en"]);
-            $objAppl->set("email",$fields_updated["email"]);
-            $objAppl->set("mobile",$fields_updated["mobile"]);
-            $objAppl->set("gender_enum",$fields_updated["gender_enum"]);
-            
-            $objAppl->commit();
-
-        }
-        if($objAppl->id){
-            $this->set("applicant_id",$objAppl->id);
-            $this->commit();
-        }
+        $this->createOrRepareMyApplicationObjects();
         return true;	
     }
-     public function calcApplicantIdLink($what = "value")
-    {
-            $applicant_id = $this->getVal("applicant_id");
-            $lang = AfwLanguageHelper::getGlobalLanguage();
-            if($applicant_id)
-            {
-                //$appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
-                $letterObj = $this->het("nomination_letter_id");
-                $application_plan_id = $letterObj->getVal("application_plan_id");
-                $appObj = new Application();
-                $appObj->where("applicant_id = '$applicant_id' and application_plan_id= '$application_plan_id'");
-                if($appObj->load()){
-                    $application_id = $appObj->id;
-                    $status_decoded = $appObj->decode("application_status_enum",'',false,$lang);                    
-                    return "<a class='btn btn-success btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&id=".$application_id."'>$status_decoded</a><br>";
-                } 
-                return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$applicant_id."'>حساب المتقدم</a><br>";
-            }
-            else
-            {
-                $params = "&sel_idn_type_id=".$this->getVal("identity_type_id");
-                $params .= "&sel_idn=".$this->getVal("idn");
-                $params .= "&sel_first_name_ar=".$this->getVal("first_name_ar");
-                $params .= "&sel_father_name_ar=".$this->getVal("second_name_ar");
-                $params .= "&sel_middle_name_ar=".$this->getVal("third_name_ar");
-                $params .= "&sel_last_name_ar=".$this->getVal("last_name_ar");
-                $params .= "&sel_first_name_en=".$this->getVal("first_name_en");
-                $params .= "&sel_father_name_en=".$this->getVal("second_name_en");
-                $params .= "&sel_middle_name_en=".$this->getVal("third_name_en");
-                $params .= "&sel_last_name_en=".$this->getVal("last_name_en");
-                $params .= "&sel_gender_enum=".$this->getVal("gender_enum");
-                
-                $params .= "&sel_email=".$this->getVal("email");
-                $params .= "&sel_mobile=".$this->getVal("Mobile");
 
-                return "<a class='btn btn-default btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm".$params."'>إنشاء حساب المتقدم</a><br>";
+    public function createOrRepareMyApplicationObjects()
+    {
+        $applicantObj = Applicant::loadByMainIndex($this->getVal("idn"), true);
+        $applicantObj->set("idn_type_id", $this->getVal("identity_type_id"));        
+        $applicantObj->set("first_name_ar", $this->getVal("first_name_ar"));
+        $applicantObj->set("father_name_ar", $this->getVal("second_name_ar"));
+        $applicantObj->set("middle_name_ar", $this->getVal("third_name_ar"));
+        $applicantObj->set("last_name_ar", $this->getVal("last_name_ar"));
+        $applicantObj->set("first_name_en", $this->getVal("first_name_en"));
+        $applicantObj->set("father_name_en", $this->getVal("second_name_en"));
+        $applicantObj->set("middle_name_en", $this->getVal("third_name_en"));
+        $applicantObj->set("last_name_en", $this->getVal("last_name_en"));
+        $applicantObj->set("gender_enum", $this->getVal("gender_enum"));
+        $applicantObj->set("email", $this->getVal("email"));
+        $applicantObj->set("mobile", $this->getVal("Mobile"));
+        $applicantObj->commit();
+
+        $this->set("applicant_id",$applicantObj->id);
+        $this->commit();
+            
+        $applicationObj = $this->prepareMyApplication($applicantObj);
+
+        return [$applicantObj, $applicationObj];
+    }
+
+    public function prepareMyApplication($applicantObj=null)
+    {
+        if(!$applicantObj) $applicantObj = $this->het("applicant_id");
+        $letterObj = $this->het("nomination_letter_id");
+
+        if($letterObj and $applicantObj)
+        {
+            $application_simulation_id = self::currentApplicationSimulation();
+            $application_plan_id = $letterObj->getVal("application_plan_id");
+            $applicationPlanObj = $letterObj->het("application_plan_id");
+            if($applicationPlanObj)
+            {
+                $applicationObj = Application::loadByMainIndex($applicantObj->id, $application_plan_id, $application_simulation_id, $this->getVal("idn"), true);
             }
+            
+        }
+
+        return $applicationObj;
+    }
+
+    public function calcApplicantIdLink($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+            $applicant_id = $this->getVal("applicant_id");
+            $applicantObj = $this->het("applicant_id");
+            if(!$applicantObj)
+            {
+                list($applicantObj, $applicationObj) = $this->createOrRepareMyApplicationObjects();
+                $applicant_id = $applicantObj->id;
+                if(!$applicantObj or !$applicant_id) throw new AfwRuntimeException("failed to create applicant profile record");                
+            }
+            else $applicationObj = $this->prepareMyApplication($applicantObj);
+
+
+            if($applicationObj->load())
+            {
+                $application_id = $applicationObj->id;
+                $status_decoded = $applicationObj->decode("application_status_enum",'',false,$lang);                    
+                return "<a class='btn btn-success btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&id=".$application_id."'>$status_decoded</a><br>";
+            } 
+            return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$applicant_id."'>حساب المتقدم</a><br>";
     }
     
     public function calccandidateFullName($what = "value"){
