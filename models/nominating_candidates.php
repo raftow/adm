@@ -248,20 +248,20 @@ class NominatingCandidates extends AdmObject{
             }
             else
             {
-                $params = "&idn_type=".$this->getVal("identity_type_id");
-                $params .= "&idn=".$this->getVal("idn");
-                $params .= "&first_name_ar=".$this->getVal("first_name_ar");
-                $params .= "&second_name_ar=".$this->getVal("second_name_ar");
-                $params .= "&third_name_ar=".$this->getVal("third_name_ar");
-                $params .= "&last_name_ar=".$this->getVal("last_name_ar");
-                $params .= "&first_name_en=".$this->getVal("first_name_en");
-                $params .= "&second_name_en=".$this->getVal("second_name_en");
-                $params .= "&third_name_en=".$this->getVal("third_name_en");
-                $params .= "&last_name_en=".$this->getVal("last_name_en");
-                $params .= "&gender_enum=".$this->getVal("gender_enum");
+                $params = "&sel_idn_type_id=".$this->getVal("identity_type_id");
+                $params .= "&sel_idn=".$this->getVal("idn");
+                $params .= "&sel_first_name_ar=".$this->getVal("first_name_ar");
+                $params .= "&sel_second_name_ar=".$this->getVal("second_name_ar");
+                $params .= "&sel_third_name_ar=".$this->getVal("third_name_ar");
+                $params .= "&sel_last_name_ar=".$this->getVal("last_name_ar");
+                $params .= "&sel_first_name_en=".$this->getVal("first_name_en");
+                $params .= "&sel_second_name_en=".$this->getVal("second_name_en");
+                $params .= "&sel_third_name_en=".$this->getVal("third_name_en");
+                $params .= "&sel_last_name_en=".$this->getVal("last_name_en");
+                $params .= "&sel_gender_enum=".$this->getVal("gender_enum");
                 
-                $params .= "&email=".$this->getVal("email");
-                $params .= "&Mobile=".$this->getVal("Mobile");
+                $params .= "&sel_email=".$this->getVal("email");
+                $params .= "&sel_mobile=".$this->getVal("Mobile");
 
                 return "<a class='btn btn-default btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm".$params."'>إنشاء حساب المتقدم</a><br>";
             }
