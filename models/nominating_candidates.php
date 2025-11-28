@@ -251,12 +251,12 @@ class NominatingCandidates extends AdmObject{
                 $params = "&sel_idn_type_id=".$this->getVal("identity_type_id");
                 $params .= "&sel_idn=".$this->getVal("idn");
                 $params .= "&sel_first_name_ar=".$this->getVal("first_name_ar");
-                $params .= "&sel_second_name_ar=".$this->getVal("second_name_ar");
-                $params .= "&sel_third_name_ar=".$this->getVal("third_name_ar");
+                $params .= "&sel_father_name_ar=".$this->getVal("second_name_ar");
+                $params .= "&sel_middle_name_ar=".$this->getVal("third_name_ar");
                 $params .= "&sel_last_name_ar=".$this->getVal("last_name_ar");
                 $params .= "&sel_first_name_en=".$this->getVal("first_name_en");
-                $params .= "&sel_second_name_en=".$this->getVal("second_name_en");
-                $params .= "&sel_third_name_en=".$this->getVal("third_name_en");
+                $params .= "&sel_father_name_en=".$this->getVal("second_name_en");
+                $params .= "&sel_middle_name_en=".$this->getVal("third_name_en");
                 $params .= "&sel_last_name_en=".$this->getVal("last_name_en");
                 $params .= "&sel_gender_enum=".$this->getVal("gender_enum");
                 
