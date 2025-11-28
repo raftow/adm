@@ -230,22 +230,24 @@ class NominatingCandidates extends AdmObject{
     }
      public function calcApplicantIdLink($what = "value")
     {
-            $app_id = $this->getVal("applicant_id");
-            
-            if($app_id)
+            $applicant_id = $this->getVal("applicant_id");
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            if($applicant_id)
             {
                 //$appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
                 $letterObj = $this->het("nomination_letter_id");
                 $application_plan_id = $letterObj->getVal("application_plan_id");
                 $appObj = new Application();
-                $appObj->where("applicant_id = '$app_id' and application_plan_id= '$application_plan_id'");
+                $appObj->where("applicant_id = '$applicant_id' and application_plan_id= '$application_plan_id'");
                 if($appObj->load()){
-                    if($appObj->application_status_enum==2) $msg = "طلب التقديم -مكتمل";
-                    else $msg = "طلب التقديم -غير مكتمل";
-                    return "<a class='btn btn-success btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$app_id."'>$msg</a><br>";
+                    $application_id = $appObj->id;
+                    $status_decoded = $appObj->decode("application_status_enum",'',false,$lang);                    
+                    return "<a class='btn btn-success btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&id=".$application_id."'>$status_decoded</a><br>";
                 } 
-                return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$app_id."'>حساب المتقدم</a><br>";
-            }else{
+                return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$applicant_id."'>حساب المتقدم</a><br>";
+            }
+            else
+            {
                 $params = "&idn_type=".$this->getVal("identity_type_id");
                 $params .= "&idn=".$this->getVal("idn");
                 $params .= "&first_name_ar=".$this->getVal("first_name_ar");
@@ -262,8 +264,6 @@ class NominatingCandidates extends AdmObject{
                 $params .= "&Mobile=".$this->getVal("Mobile");
 
                 return "<a class='btn btn-default btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm".$params."'>إنشاء حساب المتقدم</a><br>";
-                    
-                //return "بدون حساب".$app_id;
             }
     }
     
@@ -272,7 +272,8 @@ class NominatingCandidates extends AdmObject{
     }
 
 
-    /*public function addApplicantAccount($applicant_id,$application_model_id,$application_plan_id, $application_simulation_id){
+    public function addApplicantAccount($applicant_id,$application_model_id,$application_plan_id, $application_simulation_id)
+    {
         $applicationFinancialTransaction = new ApplicationModelFinancialTransaction();
         $applicationFinancialTransaction->where("application_model_id = $application_model_id and active ='Y' and process_enabled ='Y' and phase_enum=1");
             
@@ -287,7 +288,7 @@ class NominatingCandidates extends AdmObject{
             
             $applicantAccount->commit();
         }
-    }*/
+    }
 }
 
 

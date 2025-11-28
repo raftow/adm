@@ -486,7 +486,9 @@ class Application extends AdmObject
                                 $move_step_details = $result["details"];
                                 $move_step_details_2 = $result["details_2"];
                                 if (!$error_message) {
+                                        // re-inject step_num in input_arr (for get Step Data later) after have done the previous step action
                                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                                        
                                         $stepObj = $applicationObj->het("application_step_id");
                                         if($stepObj)
                                         {
@@ -593,6 +595,7 @@ class Application extends AdmObject
                                 $move_step_details = $result["details"];
                                 $move_step_details_2 = $result["details_2"];
                                 if (!$error_message) {
+                                        // re-inject step_num in input_arr (for get Step Data later) after have done the next step action
                                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
                                         $stepObj = $applicationObj->het("application_step_id");
                                         if($stepObj)

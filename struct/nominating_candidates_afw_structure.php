@@ -166,10 +166,11 @@
 				'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm', 'AUTOCOMPLETE'=>true,'AUTOCOMPLETE-SEARCH'=>true,
 				'RELATION' => 'OneToOne',  'READONLY' => false, 
 				'CSS' => 'width_pct_25', ),
+
 		'applicantIdLink' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-				'TYPE' => 'TEXT', "CATEGORY"=>"FORMULA", 'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-				'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=>true,
+				'TYPE' => 'TEXT', "CATEGORY"=>"FORMULA", 'SIZE' => 40,  'DEFAUT' => 0,    
+				'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'READONLY'=>true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 				'CSS' => 'width_pct_25','HIDE_IF_NEW' => true ),
 
