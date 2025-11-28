@@ -257,7 +257,7 @@ class ApplicationSimulation extends AdmObject
                     if ($registerApplicantIdn) {
                         $offlineDesiresRows[$registerApplicantIdn] = $rowProspectDesire;
                         // will run register apis and this should contain the offline data api
-                        $objAppl = Applicant::loadByMainIndex($registerApplicantIdn, true);
+                        $objAppl = Applicant::loadByMainIndex(183,1,$registerApplicantIdn, true);
                         $cntDone++;
                         // sleep(1);
                         $register_of = $this->tm("register of", $lang);
@@ -289,7 +289,7 @@ class ApplicationSimulation extends AdmObject
                 foreach ($registerApplicants as $registerApplicantIdn) {
                     if ($registerApplicantIdn) {
                         // will run register apis and this should contain the offline data api
-                        $objAppl = Applicant::loadByMainIndex($registerApplicantIdn, true);
+                        $objAppl = Applicant::loadByMainIndex(183,1,$registerApplicantIdn, true);
                         $cntDone++;
                         // sleep(1);
                         $register_of = $this->tm("register of", $lang);

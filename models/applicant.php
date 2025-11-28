@@ -99,8 +99,10 @@ class Applicant extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($idn, $create_obj_if_not_found = false, $idn_type_id=0)
+        public static function loadByMainIndex($country_id, $idn_type_id, $idn, $create_obj_if_not_found = false)
         {
+                if (!$country_id) throw new AfwRuntimeException("loadByMainIndex : country_id is mandatory field");
+                if (!$idn_type_id) throw new AfwRuntimeException("loadByMainIndex : idn_type_id is mandatory field");
                 if (!$idn) throw new AfwRuntimeException("loadByMainIndex : idn is mandatory field");
 
 
@@ -113,6 +115,7 @@ class Applicant extends AdmObject
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("idn", $idn);
                         $obj->set("idn_type_id", $idn_type_id);
+                        $obj->set("country_id", $country_id);
                         //$obj->set("xxid", $idn);
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
@@ -218,16 +221,16 @@ class Applicant extends AdmObject
                         if (($idn_type_id == 1) or ($idn_type_id == 2)) {
                                 
                                 
-                                if (!is_numeric($idn)) throw new AfwBusinessException("The identity type is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC", "adm"); // 
+                                if (!is_numeric($idn)) throw new AfwRuntimeException("The identity type is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC", "adm"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
-                                if ($type != $idn_type_id) throw new AfwBusinessException("The identity type is incorrect",$lang,"","","index.php","IDN $idn is not of type $idn_type_id but of type $type", "adm"); // 
-                                if (!$idn_correct) throw new AfwBusinessException("The identity number is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"); //  
+                                if ($type != $idn_type_id) throw new AfwRuntimeException("The identity type is incorrect",$lang,"","","index.php","IDN $idn is not of type $idn_type_id but of type $type", "adm"); // 
+                                if (!$idn_correct) throw new AfwRuntimeException("The identity number is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"); //  
                                 $this->set("id", $idn);
                         } else {
                                 $country_id = $this->getVal("country_id");
-                                if (!$country_id) throw new  AfwBusinessException("The country/nationalty is required",$lang,"","","index.php","For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm");
+                                if (!$country_id) throw new  AfwRuntimeException("The country/nationalty is required",$lang,"","","index.php","For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm");
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
-                                if (!$id) throw new  AfwBusinessException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
+                                if (!$id) throw new  AfwRuntimeException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
                                 $this->set("id", $id);
                         }
 
@@ -237,7 +240,7 @@ class Applicant extends AdmObject
                         $first_register = true;
                         // throw new AfwRuntimeException("For IDN=$idn beforeMaj($id, fields_updated=".var_export($fields_updated,true).") after set id=".var_export($id,true));
                 } elseif (($idn_type_id == 1) or ($idn_type_id == 2) or ($idn_type_id == 3)) {
-                        if ($id != $idn) throw new AfwBusinessException("beforeMaj Contact admin please because IDN=$idn != id=$id when idn_type_id == $idn_type_id");
+                        if ($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id when idn_type_id == $idn_type_id");
                 }
 
                 

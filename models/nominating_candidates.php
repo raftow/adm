@@ -206,9 +206,10 @@ class NominatingCandidates extends AdmObject{
     {
         if($this->getVal("idn") and $this->getVal("identity_type_id"))        
         {
-            $applicantObj = Applicant::loadByMainIndex($this->getVal("idn"), true, $this->getVal("identity_type_id"));
             $country_id = 183;
-            $applicantObj->set("country_id", $country_id);
+            $identity_type_id = $this->getVal("identity_type_id");
+            $idn = $this->getVal("idn");
+            $applicantObj = Applicant::loadByMainIndex($country_id, $identity_type_id, $idn, true);
             $applicantObj->set("idn_type_id", $this->getVal("identity_type_id"));        
             $applicantObj->set("first_name_ar", $this->getVal("first_name_ar"));
             $applicantObj->set("father_name_ar", $this->getVal("second_name_ar"));
