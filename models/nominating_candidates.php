@@ -204,27 +204,33 @@ class NominatingCandidates extends AdmObject{
 
     public function createOrRepareMyApplicationObjects()
     {
-        $applicantObj = Applicant::loadByMainIndex($this->getVal("idn"), true);
-        $applicantObj->set("idn_type_id", $this->getVal("identity_type_id"));        
-        $applicantObj->set("first_name_ar", $this->getVal("first_name_ar"));
-        $applicantObj->set("father_name_ar", $this->getVal("second_name_ar"));
-        $applicantObj->set("middle_name_ar", $this->getVal("third_name_ar"));
-        $applicantObj->set("last_name_ar", $this->getVal("last_name_ar"));
-        $applicantObj->set("first_name_en", $this->getVal("first_name_en"));
-        $applicantObj->set("father_name_en", $this->getVal("second_name_en"));
-        $applicantObj->set("middle_name_en", $this->getVal("third_name_en"));
-        $applicantObj->set("last_name_en", $this->getVal("last_name_en"));
-        $applicantObj->set("gender_enum", $this->getVal("gender_enum"));
-        $applicantObj->set("email", $this->getVal("email"));
-        $applicantObj->set("mobile", $this->getVal("Mobile"));
-        $applicantObj->commit();
+        if($this->getVal("idn") and $this->getVal("identity_type_id"))        
+        {
+            $applicantObj = Applicant::loadByMainIndex($this->getVal("idn"), true);
+            $applicantObj->set("idn_type_id", $this->getVal("identity_type_id"));        
+            $applicantObj->set("first_name_ar", $this->getVal("first_name_ar"));
+            $applicantObj->set("father_name_ar", $this->getVal("second_name_ar"));
+            $applicantObj->set("middle_name_ar", $this->getVal("third_name_ar"));
+            $applicantObj->set("last_name_ar", $this->getVal("last_name_ar"));
+            $applicantObj->set("first_name_en", $this->getVal("first_name_en"));
+            $applicantObj->set("father_name_en", $this->getVal("second_name_en"));
+            $applicantObj->set("middle_name_en", $this->getVal("third_name_en"));
+            $applicantObj->set("last_name_en", $this->getVal("last_name_en"));
+            $applicantObj->set("gender_enum", $this->getVal("gender_enum"));
+            $applicantObj->set("email", $this->getVal("email"));
+            $applicantObj->set("mobile", $this->getVal("Mobile"));
+            $applicantObj->commit();
 
-        $this->set("applicant_id",$applicantObj->id);
-        $this->commit();
-            
-        $applicationObj = $this->prepareMyApplication($applicantObj);
+            $this->set("applicant_id",$applicantObj->id);
+            $this->commit();
+                
+            $applicationObj = $this->prepareMyApplication($applicantObj);
 
-        return [$applicantObj, $applicationObj];
+            return [$applicantObj, $applicationObj];
+        }
+
+        return [];
+        
     }
 
     public function prepareMyApplication($applicantObj=null)
@@ -267,6 +273,11 @@ class NominatingCandidates extends AdmObject{
                 $status_decoded = $applicationObj->decode("application_status_enum",'',false,$lang);                    
                 return "<a class='btn btn-success btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm&id=".$application_id."'>$status_decoded</a><br>";
             } 
+
+            if(!$this->getVal("idn") or !$this->getVal("identity_type_id"))        
+            {
+                return "<p class='error'>No IDN type</p>";
+            }
             return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$applicant_id."'>حساب المتقدم</a><br>";
     }
     

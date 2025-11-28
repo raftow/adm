@@ -202,7 +202,7 @@ class Applicant extends AdmObject
                 if(!$idn_type_id) list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
                 if ((!$idn) or (!$idn_type_id)) // should never happen but ...
                 {
-                        throw new  AfwBusinessException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
+                        throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
                 }
 
                 if (($idn_type_id == 4) and (!trim($this->getVal("passeport_num")))) {
