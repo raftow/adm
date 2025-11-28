@@ -2722,7 +2722,7 @@ class Application extends AdmObject
         public function calcApplication_fees_record($what = "value")
         {
                 $aaObj = $this->getApplicantAccountObjectFor("F001");
-                return $aaObj->giveWhat($what);
+                return AfwLoadHelper::giveWhat($aaObj, $what);
         }
 
         /**
