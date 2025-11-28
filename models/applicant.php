@@ -99,7 +99,7 @@ class Applicant extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($idn, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($idn, $create_obj_if_not_found = false, $idn_type_id=0)
         {
                 if (!$idn) throw new AfwRuntimeException("loadByMainIndex : idn is mandatory field");
 
@@ -112,6 +112,7 @@ class Applicant extends AdmObject
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("idn", $idn);
+                        $obj->set("idn_type_id", $idn_type_id);
                         //$obj->set("xxid", $idn);
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
