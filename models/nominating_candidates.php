@@ -261,7 +261,7 @@ class NominatingCandidates extends AdmObject{
             else $applicationObj = $this->prepareMyApplication($applicantObj);
 
 
-            if($applicationObj->load())
+            if($applicationObj)
             {
                 $application_id = $applicationObj->id;
                 $status_decoded = $applicationObj->decode("application_status_enum",'',false,$lang);                    
