@@ -389,7 +389,7 @@
                                                 'CATEGORY' => 'ITEMS',
                                                 'ANSWER' => 'applicant_file',
                                                 'ANSMODULE' => 'adm',
-                                                'WHERE' => 'applicant_id=§applicant_id§',
+                                                'WHERE' => 'applicant_id=§applicant_id§ and workflow_file_id > 0',
                                                 'READONLY' => true,
                                                 'CAN-BE-SETTED' => true,
                                                 'CSS' => 'width_pct_100',
