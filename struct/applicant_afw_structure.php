@@ -1549,6 +1549,7 @@ class AdmApplicantAfwStructure
                         'ANSWER' => 'applicant_file',
                         'ANSMODULE' => 'adm',
                         'ITEM' => 'applicant_id',
+                        'WHERE' => 'workflow_file_id > 0',
                         'READONLY' => true,
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
