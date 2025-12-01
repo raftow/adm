@@ -206,7 +206,9 @@ class NominatingCandidates extends AdmObject{
     {
         if($this->getVal("idn") and $this->getVal("identity_type_id"))        
         {
+            $candidate_country_id = $this->het("nomination_letter_id")->het("nominating_authority_id")->getVal("country_id");
             $country_id = 183;
+            if($candidate_country_id) $country_id = $candidate_country_id;
             $identity_type_id = $this->getVal("identity_type_id");
             $idn = $this->getVal("idn");
             $applicantObj = Applicant::loadByMainIndex($country_id, $identity_type_id, $idn, true);
@@ -224,6 +226,7 @@ class NominatingCandidates extends AdmObject{
             $applicantObj->set("mobile", $this->getVal("Mobile"));
             $applicantObj->commit();
 
+            $this->set("country_id",$candidate_country_id);
             $this->set("applicant_id",$applicantObj->id);
             $this->commit();
                 

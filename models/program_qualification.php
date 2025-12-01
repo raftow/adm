@@ -129,7 +129,7 @@ class ProgramQualification extends AdmObject
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'orientation' => 'P',
-                'default_font' => 'dejavusans', // يدعم العربية
+                'default_font' => 'xbriyaz',//'dejavusans', // يدعم العربية
                 'margin_top' => 15, // Margin for the main body content
                 'margin_bottom' => 25,
                 'margin_header' => 5, // Margin for the header content
@@ -154,7 +154,7 @@ class ProgramQualification extends AdmObject
                 $arr_pdf[$row["academic_level_name_ar"]][$row["program_name_ar"]][$row["qualifcation_name_ar"]][$row["major_category_name_ar"]][] = array($row["qualification_major_name_ar"],$row["bridging"],$row["bridging_semester"]);
                 }
                 //die(var_dump($arr_pdf));
-                $html_header = '<div style="background-color: rgb(46, 96, 102); padding: 10px 20px; font-family: Arial, sans-serif;">
+                $html_header = '<div style="background-color: rgb(46, 96, 102); padding: 10px 20px; font-family: xbriyaz,Arial, sans-serif;">
                 <table style="width: 100%; border-collapse: collapse; border: none;">
                         <tr>
                         <td style="width: 150px; border: none;">
@@ -174,7 +174,7 @@ class ProgramQualification extends AdmObject
                 <html dir="rtl" lang="ar">
 
                 <style>
-                        body { font-family: "dejavusans"; }
+                        body { font-family: "xbriyaz"; }
                         h1 { text-align: center; color: #2b2b2b; }
                         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
                         th, td { border: 1px solid #444; padding: 8px; text-align: center; }
@@ -205,7 +205,7 @@ class ProgramQualification extends AdmObject
                 ';
 
 
-                $list .= '<ul class="qualifications-list">';
+                $list .= '<ul class="qualifications-list" style="font-family: xbriyaz !important;">';
 
                 foreach($arr_pdf as $qualification => $majors) {
                         $list .= '<li>';
@@ -278,7 +278,13 @@ class ProgramQualification extends AdmObject
                 $mpdf->SetMargins(15, 50,15);
                 //$mpdf->SetHeaderMargin(10);
                 //$mpdf->SetFooterMargin(10);
-
+//echo $html;
+$fonts = $mpdf->fontdata;
+/*
+echo "<pre>";
+print_r(array_keys($fonts));
+echo "</pre>";
+die();*/
                 // توليد PDF
                 $mpdf->WriteHTML($html);
                 $mpdf->Output('sales-report.pdf', 'I'); // 'I' = عرض في المتصفح
