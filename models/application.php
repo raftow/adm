@@ -219,16 +219,21 @@ class Application extends AdmObject
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if ($applicationObj) {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                        /**
+                         * @var ApplicationStep $stepObj
+                         */
                         $stepObj = $applicationObj->het("application_step_id");
                         if($stepObj)
                         {
                                 $can_previous = $stepObj->canPrevious();
+                                $can_next = $stepObj->canNext();
                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
                                 $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
                         }
                         else
                         {
                                 $can_previous = null;
+                                $can_next = null;
                                 // should never happen
                                 $step_description_ar = "غير معروفة";
                                 $step_description_en = "unknown 1";
@@ -253,6 +258,7 @@ class Application extends AdmObject
                 $data = [
                         "current_step" => $step_num,
                         "can_previous" => $can_previous,
+                        "can_next" => $can_next,
                         "current_step_description_ar" => $step_description_ar,
                         "current_step_description_en" => $step_description_en,
                         "application" => $applicationData,
@@ -498,12 +504,14 @@ class Application extends AdmObject
                                         if($stepObj)
                                         {
                                                 $can_previous = $stepObj->canPrevious();
+                                                $can_next = $stepObj->canNext();
                                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
                                                 $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
                                         }
                                         else
                                         {
                                                 $can_previous = null;
+                                                $can_next = null;
                                                 // should never happen
                                                 $step_description_ar = "غير معروفة";
                                                 $step_description_en = "unknown";
@@ -537,6 +545,7 @@ class Application extends AdmObject
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "can_previous" => $can_previous,
+                        "can_next" => $can_next,
                         "current_step_description_ar" => $step_description_ar,
                         "current_step_description_en" => $step_description_en,
                         "got" => $received,
@@ -606,6 +615,7 @@ class Application extends AdmObject
                                         if($stepObj)
                                         {
                                                 $can_previous = $stepObj->canPrevious();
+                                                $can_next = $stepObj->canNext();
                                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
                                                 $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
                                         }
@@ -613,6 +623,7 @@ class Application extends AdmObject
                                         {
                                                 // should never happen
                                                 $can_previous = null;
+                                                $can_next = null;
                                                 $step_description_ar = "غير معروفة";
                                                 $step_description_en = "unknown";
                                         }
@@ -644,6 +655,7 @@ class Application extends AdmObject
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "can_previous" => $can_previous,
+                        "can_next" => $can_next,
                         "current_step_description_ar" => $step_description_ar,
                         "current_step_description_en" => $step_description_en,
                         "got" => $received,

@@ -54,6 +54,29 @@
                         return null;
                 }
 
+
+                /**
+                 * @param ApplicationModel $applicationModel
+                 */
+
+                public static function loadLastStep($applicationModel)
+                {
+                        $application_model_id = $applicationModel->id;
+                        $general = $applicationModel->isSynchronisedUniqueDesire() ? 'N' : 'Y';
+                        if(!self::$SPECIAL_STEPS["LAST-STEP-FOR-AM-$application_model_id-G-$general"]) 
+                        {
+                                $obj = new ApplicationStep();  
+                                $obj->select("application_model_id",$application_model_id);
+                                $obj->select("general",$general);
+                                if($obj->load('','',"step_num desc")) self::$SPECIAL_STEPS["LAST-STEP-FOR-AM-$application_model_id-G-$general"] = $obj; 
+                                else self::$SPECIAL_STEPS["LAST-STEP-FOR-AM-$application_model_id-G-$general"] = "NOT-FOUND"; 
+                        }
+                        
+                        if(self::$SPECIAL_STEPS["LAST-STEP-FOR-AM-$application_model_id-G-$general"] == "NOT-FOUND") return null;
+                        
+                        return self::$SPECIAL_STEPS["LAST-STEP-FOR-AM-$application_model_id-G-$general"];
+                }
+
                 public static function loadFirstStep($application_model_id, $general='Y')
                 {
                         if(!self::$SPECIAL_STEPS["FIRST-STEP-FOR-AM-$application_model_id-G-$general"]) 
@@ -74,9 +97,19 @@
                 {
                         if($this->getVal("step_num")==1) return false;
                         if($this->getVal("step_code")=="WKF") return false;
-                        $application_model_id = $this->getVal("application_model_id");
-                        $firstDesireStep = self::loadFirstStep($application_model_id, $general='N');
+                        $applicationModel = $this->het("application_model_id");
+                        $firstDesireStep = self::loadFirstStep($applicationModel->id, $general='N');
                         if($firstDesireStep->id == $this->id) return false;
+                                
+                        return true;
+                }
+
+                public function canNext()
+                {
+                        if($this->getVal("step_code")=="WKF") return false;
+                        $applicationModel = $this->het("application_model_id");
+                        $lastStep = self::loadLastStep($applicationModel);
+                        if($lastStep->id == $this->id) return false;
                                 
                         return true;
                 }
