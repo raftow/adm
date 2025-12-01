@@ -55,6 +55,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 
@@ -79,6 +80,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'idn' => array(
@@ -98,6 +100,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'first_name_ar' => array(
@@ -117,6 +120,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'second_name_ar' => array(
@@ -137,6 +141,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'third_name_ar' => array(
@@ -157,6 +162,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'last_name_ar' => array(
@@ -176,6 +182,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'first_name_en' => array(
@@ -195,6 +202,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'second_name_en' => array(
@@ -215,6 +223,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'third_name_en' => array(
@@ -235,6 +244,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'last_name_en' => array(
@@ -254,6 +264,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 		'gender_enum' => array(
 			'IMPORTANT' => 'IN',
@@ -326,6 +337,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
+			'STEP' => 1,
 		),
 
 		'email' => array(
@@ -346,6 +358,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 		'mobile' => array(
@@ -364,38 +377,39 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
-		/*
+		
 		'country_id' => array(
-                        'FGROUP' => 'idn-infos',
-                        'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'RETRIEVE' => true,
+                        //'FGROUP' => 'idn-infos',
+                        //'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'RETRIEVE' => false,
+                        'SHOW-ADMIN' => false,
+						'EDIT-ADMIN' => false,
+                        'SHOW' => false,                        
+                        'EDIT' => false,
+                        'QEDIT' => false,
                         
-                        'SHOW' => true,                        
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SHOW-ADMIN' => true,
-                        'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'country',
                         'ANSMODULE' => 'ums',
                         'SIZE' => 40,
-                        'DEFAUT' => 183,
-                        'READONLY-AFTER-INSERT' => true,
-                        'DISPLAY' => true,
+                        //'DEFAUT' => 183,
+                        //'READONLY-AFTER-INSERT' => true,
+                        'DISPLAY' => false,
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',
-                        'MANDATORY' => true,
-                        'READONLY' => false,
+                        'MANDATORY' => false,
+                        'READONLY' => true,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
-                ),*/
+                ),
 
 		'study_funding_status_id' => array(
 			'SHORTNAME' => 'funding_status',
@@ -418,6 +432,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
+			'STEP' => 1,
 		),
 
 

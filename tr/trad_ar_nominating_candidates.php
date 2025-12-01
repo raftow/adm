@@ -31,6 +31,8 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["candidateFullName"] = "اسم المرشح";
 		$trad["nominating_candidates"]["applicantIdLink"] = "المتقدم";
 		$trad["nominating_candidates"]["gender_enum"] = "الجنس";
+		$trad["nominating_candidates"]["country_id"] = "الدولة";
+		
 		
 		
 
