@@ -476,10 +476,15 @@ class Application extends AdmObject
                 if ($applicationObj) {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
 
-                        list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
+                        // no save for previous button, logic choosen by Amjad 01-dec-2025
+                        // list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
+                        $ok = true;
+                        $not_ok_reason = "";
                         if ($ok) {
+                                
                                 list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoPreviousStep($lang, false, false, $application_simulation_id, false);
                                 $applicationObj->reloadMe();
+                                
 
                                 $move_step_status = $result["result"];
                                 $move_step_message = $result["message"];
