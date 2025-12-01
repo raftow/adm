@@ -476,7 +476,7 @@ class Application extends AdmObject
                 if ($applicationObj) {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
 
-                        // no save for previous button, logic choosen by Amjad 01-dec-2025
+                        // no save for previous button, logic choosen by Amjad 01-dec-2025 whatsapp at 18:32 BME Apply front end group
                         // list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
                         $ok = true;
                         $not_ok_reason = "";
