@@ -14,7 +14,7 @@ class AdmApplicantAccountAfwStructure
 
                         $obj->editByStep = false;
                         $obj->editNbSteps = 1;
-                        // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                        $obj->after_save_edit = array("class"=>'Application',"formulaAttribute"=>'application_id', "currmod"=>'adm',"currstep"=>7);
                 } else {
                         ApplicantAccountArTranslator::initData();
                         ApplicantAccountEnTranslator::initData();
@@ -80,6 +80,15 @@ class AdmApplicantAccountAfwStructure
                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                         'CSS' => 'width_pct_25', ), 
+
+                        'application_id' => array('NO-JSON' => true,
+                                'CATEGORY' => 'FORMULA',  'SEARCH' => true, 
+                                'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
+                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                'TYPE' => 'FK',  'ANSWER' => 'application',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 1,    
+                                'DISPLAY' => true,  'STEP' => 99,  'RELATION' => 'OneToMany', 'MANDATORY' => true, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ), 
 
 
                 'application_model_financial_transaction_id' => array(
