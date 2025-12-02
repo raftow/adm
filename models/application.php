@@ -223,6 +223,22 @@ class Application extends AdmObject
                          * @var ApplicationStep $stepObj
                          */
                         $stepObj = $applicationObj->het("application_step_id");
+                        if(!$stepObj)
+                        {
+                                $case_no_step_correct = "application_step_id not correct";
+                                $applicationModelObj = $applicationObj->getApplicationModel();
+                                if($applicationModelObj)
+                                {
+                                        $stepObj = $applicationModelObj->convertStepNumToObject($step_num);
+                                        if($stepObj)
+                                        {
+                                                $applicationObj->set("application_step_id", $stepObj->id);    
+                                                $applicationObj->commit();
+                                        }
+                                        else $case_no_step_correct = "application model doesn't contain step num $step_num";
+                                }                                
+                                else $case_no_step_correct = "application model not correct";
+                        }
                         if($stepObj)
                         {
                                 $can_previous = $stepObj->canPrevious();
@@ -235,8 +251,8 @@ class Application extends AdmObject
                                 $can_previous = null;
                                 $can_next = null;
                                 // should never happen
-                                $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = ".$applicationObj->getVal("application_step_id")." غير معروف";
-                                $step_description_en = "unknown step id ".$applicationObj->getVal("application_step_id")." for step num = $step_num";
+                                $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = ".$applicationObj->getVal("application_step_id")." غير معروف ".$case_no_step_correct;
+                                $step_description_en = "unknown step id ".$applicationObj->getVal("application_step_id")." for step num = $step_num ".$case_no_step_correct;
                         }
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
