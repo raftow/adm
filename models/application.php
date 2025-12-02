@@ -235,8 +235,8 @@ class Application extends AdmObject
                                 $can_previous = null;
                                 $can_next = null;
                                 // should never happen
-                                $step_description_ar = "غير معروفة";
-                                $step_description_en = "unknown 1";
+                                $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = ".$applicationObj->getVal("application_step_id")." غير معروف";
+                                $step_description_en = "unknown step id ".$applicationObj->getVal("application_step_id")." for step num = $step_num";
                         }
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
