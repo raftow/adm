@@ -287,7 +287,7 @@ class NominatingCandidates extends AdmObject{
             return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$applicant_id."'>حساب المتقدم</a><br>";
     }
 
-    public function calcApplicantIdLink($what = "value")
+    public function calcApplicantLink($what = "value")
     {
         /**
          * @var Applicant $applicantObj
