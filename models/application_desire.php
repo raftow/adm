@@ -626,10 +626,11 @@ class ApplicationDesire extends AdmObject
                                 return [$this->tm("FATAL ERROR : No last desire step defined for this application model", $lang), ""];                
                         }
                         
-                        
+                        $applyingCurrentStepConditions = false;
                         // currentStep is not last desire step 
                         if($currentStepObj->id != $lastDesireStepObj->id)
                         {
+                                $applyingCurrentStepConditions = true;
                                 // to go to next step we should apply conditions of the current step
                                 $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                                 $success = $applyResult['success'];
@@ -714,15 +715,10 @@ class ApplicationDesire extends AdmObject
                                         $obj->set("application_status_enum", self::application_status_enum_by_code('complete'));
                                         $obj->set("comments", $this->tm("application is complete", $lang));
                                         $obj->commit();
-                                } else {
+                                } elseif($applyingCurrentStepConditions) {
                                         $result_arr["result"] = "fail";
-                                        $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
-                                        $last_step_num = $lastDesireStepObj->getVal("step_num");
-                                        $this->set("step_num", $last_step_num);
-                                        $this->set("application_step_id", $lastDesireStepObj->id);
-                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                        $this->set("comments", $reson_non_completed);
-                                        $this->commit();
+                                        $result_arr["message"] = "attempt to goto next step when this is the last step, please select the desires";
+                                        
                                 }
                         }
                         
