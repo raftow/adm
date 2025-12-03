@@ -310,11 +310,11 @@ class NominatingCandidates extends AdmObject{
                 if($nbQuals==0)
                 {
                     $label_btn = $applicantObj->translate("qualif", $lang);                    
-                    return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=6&id=".$applicant_id."'>$label_btn</a><br>";
+                    return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=3&id=".$applicant_id."'>$label_btn</a><br>";
                 }
                 else
                 {
-                    $label_btn = $applicantObj->translate("step7", $lang);                    
+                    $label_btn = $applicantObj->translate("step6", $lang);                    
                     return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=6&id=".$applicant_id."'>$label_btn</a><br>";
                 }
                 
