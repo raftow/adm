@@ -259,7 +259,7 @@ class NominatingCandidates extends AdmObject{
         return $applicationObj;
     }
 
-    public function calcMyApplicationIdLink($what = "value")
+    public function calcMyApplicationLink($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
             $applicant_id = $this->getVal("applicant_id");
