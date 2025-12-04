@@ -41,11 +41,12 @@ if($currmod) AfwAutoLoader::addMainModule($currmod);
 if($modp and ($modp != $currmod)) AfwAutoLoader::addModule($modp);
 
 $application_plan_id = $_GET['application_plan_id'] ? $_GET['application_plan_id'] : 11;
-
+$application_model_id = $_GET['application_model_id'] ? $_GET['application_model_id'] : 14;
 $server_db_prefix = AfwSession::currentDBPrefix();
 
-
-$q = "select count(*) NB_APPLICANT, ac.program_name_ar category,st.step_name_ar from ".$server_db_prefix."adm.applicant a 
+$q0 = "select id,step_name_ar,step_name_en from ".$server_db_prefix."adm.application_step where  application_model_id='".$application_model_id."' order by step_num;";
+$steps_list = AfwDatabase::db_recup_rows($q0);
+$q = "select count(*) NB_APPLICANT, ac.program_name_ar category,ap.application_step_id stepid from ".$server_db_prefix."adm.applicant a 
         inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id 
         inner join ".$server_db_prefix."adm.application_desire ad on ad.application_plan_id=ap.application_plan_id 
         and ad.application_simulation_id=ap.application_simulation_id
@@ -53,11 +54,10 @@ $q = "select count(*) NB_APPLICANT, ac.program_name_ar category,st.step_name_ar 
         and ad.applicant_id=ap.applicant_id
         inner join ".$server_db_prefix."adm.application_plan_branch ab on ad.application_plan_branch_id = ab.id
         inner join ".$server_db_prefix."adm.academic_program ac on ab.program_id = ac.id
-        inner join ".$server_db_prefix."adm.application_step st 
-        on ap.application_step_id=st.id 
-        where  /*st.show_in_FrondEnd='Y' and*/ ap.application_plan_id='".$application_plan_id."' group by category,st.step_name_ar; ";
+        
+        where   ap.application_plan_id='".$application_plan_id."' group by category,stepid; ";/*st.show_in_FrondEnd='Y'*/
 
-
+//inner join ".$server_db_prefix."adm.application_step st  on ap.application_step_id=st.id 
   $a_json = AfwDatabase::db_recup_rows($q);
 //die(var_dump($a_json));
 if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -82,7 +82,7 @@ $out_scr .= "<div id='page-content-wrapper' class=\"container-fluid h-100\">";//
 
 // customer number increasing (cni)
 
-$out_scr .= "<br><br><br><h2 class='m-2'>حالة التقديمات حسب الخطوات والبرامج</h2><br>";
+$out_scr .= "<br><br><br><h2 class='m-2'>احصائية التقديم حسب البرامج والمراحل</h2><br>";
 
 $out_scr .= "</div>";
 // Generations
@@ -93,7 +93,7 @@ $out_scr .= "</div>";
  $categories = array();
  $matrix = array();
  foreach($a_json as $row){
-     $step = $row['step_name_ar'];
+     $step = $row['stepid'];
      $cat  = $row['category'];
      $nb   = intval($row['NB_APPLICANT']);
      if(!in_array($step, $steps)) $steps[] = $step;
@@ -111,8 +111,8 @@ $out_scr .= "</div>";
   $out_scr .= "<div class='table-responsive p-2' style='margin-right:0;margin-left:auto;'><table class='table table-bordered table-striped' style='width:100%;margin:0;'>";
  // header
  $out_scr .= "<thead><tr ><th style='text-align:center;'>الفئة</th>";
- foreach($steps as $step){
-     $out_scr .= "<th style='text-align:center;'>".htmlspecialchars($step)."</th>";
+ foreach($steps_list as $step){
+     $out_scr .= "<th style='text-align:center;'>".htmlspecialchars($step["step_name_ar"])."</th>";
  }
  $out_scr .= "<th style='text-align:center;'>المجموع</th></tr></thead><tbody>";
 
@@ -122,8 +122,8 @@ $out_scr .= "</div>";
  foreach($categories as $cat){
      $out_scr .= "<tr><td>".htmlspecialchars($cat)."</td>";
      $rowTotal = 0;
-     foreach($steps as $i => $step){
-         $val = isset($matrix[$cat][$step]) ? $matrix[$cat][$step] : 0;
+     foreach($steps_list as $i => $step){
+         $val = isset($matrix[$cat][$step["id"]]) ? $matrix[$cat][$step["id"]] : 0;
          $rowTotal += $val;
          $stepTotals[$i] += $val;
          $out_scr .= "<td>".$val."</td>";
