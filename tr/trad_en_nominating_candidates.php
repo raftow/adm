@@ -19,6 +19,8 @@ class NominatingCandidatesEnTranslator{
 		$trad["nominating_candidates"]["applicant_id"] = "Applicant";
 		$trad["nominating_candidates"]["candidateFullName"] = "Full name";
 		$trad["nominating_candidates"]["applicantIdLink"] = "Applicant";
+		$trad["nominating_candidates"]["myApplicationLink"] = "my application";
+		
 		$trad["nominating_candidates"]["gender_enum"] = "Gender";
 
 

@@ -219,19 +219,40 @@ class Application extends AdmObject
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 if ($applicationObj) {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
+                        /**
+                         * @var ApplicationStep $stepObj
+                         */
                         $stepObj = $applicationObj->het("application_step_id");
+                        if(!$stepObj)
+                        {
+                                $case_no_step_correct = "application_step_id not correct";
+                                $applicationModelObj = $applicationObj->getApplicationModel();
+                                if($applicationModelObj)
+                                {
+                                        $stepObj = $applicationModelObj->convertStepNumToObject($step_num);
+                                        if($stepObj)
+                                        {
+                                                $applicationObj->set("application_step_id", $stepObj->id);    
+                                                $applicationObj->commit();
+                                        }
+                                        else $case_no_step_correct = "application model doesn't contain step num $step_num";
+                                }                                
+                                else $case_no_step_correct = "application model not correct";
+                        }
                         if($stepObj)
                         {
                                 $can_previous = $stepObj->canPrevious();
+                                $can_next = $stepObj->canNext();
                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
                                 $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
                         }
                         else
                         {
                                 $can_previous = null;
+                                $can_next = null;
                                 // should never happen
-                                $step_description_ar = "غير معروفة";
-                                $step_description_en = "unknown 1";
+                                $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = ".$applicationObj->getVal("application_step_id")." غير معروف ".$case_no_step_correct;
+                                $step_description_en = "unknown step id ".$applicationObj->getVal("application_step_id")." for step num = $step_num ".$case_no_step_correct;
                         }
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
@@ -253,6 +274,7 @@ class Application extends AdmObject
                 $data = [
                         "current_step" => $step_num,
                         "can_previous" => $can_previous,
+                        "can_next" => $can_next,
                         "current_step_description_ar" => $step_description_ar,
                         "current_step_description_en" => $step_description_en,
                         "application" => $applicationData,
@@ -476,10 +498,15 @@ class Application extends AdmObject
                 if ($applicationObj) {
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
 
-                        list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
+                        // no save for previous button, logic choosen by Amjad 01-dec-2025 whatsapp at 18:32 BME Apply front end group
+                        // list($received, $saved, $notes, $ok, $not_ok_reason) = $applicationObj->saveNeededAttributes($input_arr);
+                        $ok = true;
+                        $not_ok_reason = "";
                         if ($ok) {
+                                
                                 list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoPreviousStep($lang, false, false, $application_simulation_id, false);
                                 $applicationObj->reloadMe();
+                                
 
                                 $move_step_status = $result["result"];
                                 $move_step_message = $result["message"];
@@ -493,12 +520,14 @@ class Application extends AdmObject
                                         if($stepObj)
                                         {
                                                 $can_previous = $stepObj->canPrevious();
+                                                $can_next = $stepObj->canNext();
                                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
                                                 $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
                                         }
                                         else
                                         {
                                                 $can_previous = null;
+                                                $can_next = null;
                                                 // should never happen
                                                 $step_description_ar = "غير معروفة";
                                                 $step_description_en = "unknown";
@@ -532,6 +561,7 @@ class Application extends AdmObject
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "can_previous" => $can_previous,
+                        "can_next" => $can_next,
                         "current_step_description_ar" => $step_description_ar,
                         "current_step_description_en" => $step_description_en,
                         "got" => $received,
@@ -601,6 +631,7 @@ class Application extends AdmObject
                                         if($stepObj)
                                         {
                                                 $can_previous = $stepObj->canPrevious();
+                                                $can_next = $stepObj->canNext();
                                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
                                                 $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
                                         }
@@ -608,6 +639,7 @@ class Application extends AdmObject
                                         {
                                                 // should never happen
                                                 $can_previous = null;
+                                                $can_next = null;
                                                 $step_description_ar = "غير معروفة";
                                                 $step_description_en = "unknown";
                                         }
@@ -639,6 +671,7 @@ class Application extends AdmObject
                         "move_step_details_2" => $move_step_details_2,
                         "current_step" => $step_num,
                         "can_previous" => $can_previous,
+                        "can_next" => $can_next,
                         "current_step_description_ar" => $step_description_ar,
                         "current_step_description_en" => $step_description_en,
                         "got" => $received,

@@ -625,37 +625,12 @@ class ApplicationDesire extends AdmObject
                         {
                                 return [$this->tm("FATAL ERROR : No last desire step defined for this application model", $lang), ""];                
                         }
-                        // currentStep is last desire step ?
-                        if($currentStepObj->id == $lastDesireStepObj->id)
+                        
+                        $applyingCurrentStepConditions = false;
+                        // currentStep is not last desire step 
+                        if($currentStepObj->id != $lastDesireStepObj->id)
                         {
-                                // here means the application desire is in last general step                                                        
-                                list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
-                                if ($is_completed_app) {
-                                        $result_arr["result"] = "success";
-                                        $result_arr["message"] = $this->tm("application is complete and under admission process", $lang);
-                                        $last_step_num = $lastDesireStepObj->getVal("step_num");
-                                        $this->set("step_num", $last_step_num);
-                                        $this->set("application_step_id", $lastDesireStepObj->id);
-                                        $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
-                                        $this->set("comments", $result_arr["message"]);
-                                        $this->commit();
-                                        $obj = $this->getApplicationObject();
-                                        $obj->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                        $obj->set("comments", $this->tm("application is complete", $lang));
-                                        $obj->commit();
-                                } else {
-                                        $result_arr["result"] = "fail";
-                                        $result_arr["message"] = $reson_non_completed; // "attempt to goto next step when this is the last step, please select the desires";
-                                        $last_step_num = $lastDesireStepObj->getVal("step_num");
-                                        $this->set("step_num", $last_step_num);
-                                        $this->set("application_step_id", $lastDesireStepObj->id);
-                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                        $this->set("comments", $reson_non_completed);
-                                        $this->commit();
-                                }
-                        }
-                        else // not last desire step
-                        {
+                                $applyingCurrentStepConditions = true;
                                 // to go to next step we should apply conditions of the current step
                                 $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                                 $success = $applyResult['success'];
@@ -697,6 +672,8 @@ class ApplicationDesire extends AdmObject
                                         $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
                                         $inf_arr[]  = $success_message;
                                         $tech_arr[] = $tech;
+
+                                        $currentStepObj = $newStepObj;
                                 } else {
                                         if ((!$error_message) and ($success === false)) 
                                         {
@@ -720,6 +697,31 @@ class ApplicationDesire extends AdmObject
                                         $tech_arr[] = $tech;
                                 }
                         }
+                        
+                        if($currentStepObj->id == $lastDesireStepObj->id)
+                        {
+                                // here means the application desire is in last general step                                                        
+                                list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
+                                if ($is_completed_app) {
+                                        $result_arr["result"] = "success";
+                                        $result_arr["message"] = $this->tm("application is complete and under admission process", $lang);
+                                        $last_step_num = $lastDesireStepObj->getVal("step_num");
+                                        $this->set("step_num", $last_step_num);
+                                        $this->set("application_step_id", $lastDesireStepObj->id);
+                                        $this->set("desire_status_enum", self::desire_status_enum_by_code('candidate'));
+                                        $this->set("comments", $result_arr["message"]);
+                                        $this->commit();
+                                        $obj = $this->getApplicationObject();
+                                        $obj->set("application_status_enum", self::application_status_enum_by_code('complete'));
+                                        $obj->set("comments", $this->tm("application is complete", $lang));
+                                        $obj->commit();
+                                } elseif($applyingCurrentStepConditions) {
+                                        $result_arr["result"] = "fail";
+                                        $result_arr["message"] = "attempt to goto next step when this is the last step, please select the desires";
+                                        
+                                }
+                        }
+                        
 
                         
                 } catch (Exception $e) {

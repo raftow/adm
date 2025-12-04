@@ -206,12 +206,12 @@ class NominatingCandidates extends AdmObject{
     {
         if($this->getVal("idn") and $this->getVal("identity_type_id"))        
         {
-            $candidate_country_id = $this->het("nomination_letter_id")->het("nominating_authority_id")->getVal("country_id");
-            $country_id = 183;
-            if($candidate_country_id) $country_id = $candidate_country_id;
+            $candidate_country_id = $this->getVal("country_id"); // het("nomination_letter_id")->het("nominating_authority_id")->getVal("country_id");
+            if(!$candidate_country_id) $candidate_country_id = $this->het("nomination_letter_id")->het("nominating_authority_id")->getVal("country_id");
+            if(!$candidate_country_id) $candidate_country_id = 183;
             $identity_type_id = $this->getVal("identity_type_id");
             $idn = $this->getVal("idn");
-            $applicantObj = Applicant::loadByMainIndex($country_id, $identity_type_id, $idn, true);
+            $applicantObj = Applicant::loadByMainIndex($candidate_country_id, $identity_type_id, $idn, true);
             $applicantObj->set("idn_type_id", $this->getVal("identity_type_id"));        
             $applicantObj->set("first_name_ar", $this->getVal("first_name_ar"));
             $applicantObj->set("father_name_ar", $this->getVal("second_name_ar"));
@@ -259,7 +259,7 @@ class NominatingCandidates extends AdmObject{
         return $applicationObj;
     }
 
-    public function calcApplicantIdLink($what = "value")
+    public function calcMyApplicationLink($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
             $applicant_id = $this->getVal("applicant_id");
@@ -286,6 +286,44 @@ class NominatingCandidates extends AdmObject{
             }
             return "<a class='btn btn-danger btn-sm' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&id=".$applicant_id."'>حساب المتقدم</a><br>";
     }
+
+    public function calcApplicantLink($what = "value")
+    {
+        
+            $lang = AfwLanguageHelper::getGlobalLanguage();
+            $applicant_id = $this->getVal("applicant_id");
+            $applicantObj = $this->het("applicant_id");
+            if(!$applicantObj)
+            {
+                list($applicantObj, ) = $this->createOrRepareMyApplicationObjects();
+                $applicant_id = $applicantObj->id;
+                if(!$applicantObj or !$applicant_id) throw new AfwRuntimeException("failed to create applicant profile record");                
+            }
+            
+            /**
+            * @var Applicant $applicantObj
+            */
+
+            if($applicantObj)
+            {
+                $nbQuals = $applicantObj->getRelation("applicantQualificationList")->count();
+                if($nbQuals==0)
+                {
+                    $label_btn = $applicantObj->translate("qualif", $lang);                    
+                    return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=3&id=".$applicant_id."'>$label_btn</a><br>";
+                }
+                else
+                {
+                    $label_btn = $applicantObj->translate("step6", $lang);                    
+                    return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=6&id=".$applicant_id."'>$label_btn</a><br>";
+                }
+                
+            } 
+
+            return "---";
+    }
+
+    
     
     public function calccandidateFullName($what = "value"){
         return $this->getVal("first_name_ar")." ".$this->getVal("second_name_ar")." ".$this->getVal("third_name_ar")." ".$this->getVal("last_name_ar");
