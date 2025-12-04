@@ -59,7 +59,9 @@ $out_scr .= "<ul class=\"nav nav-tabs\">
       <li class=\"nav-item\">
         <a class=\"nav-link\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports_candidate.php\">تقارير المرشحين</a>
       </li>
-      
+      <li class=\"nav-item\">
+        <a class=\"nav-link\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports_applicant.php\">حالة التقديمات</a>
+      </li>
     </ul>";
 $out_scr .= "<div id='page-content-wrapper' class='qsearch_page'><div class='row row-filter-request'>";
 
