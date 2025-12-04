@@ -44,7 +44,7 @@ $application_plan_id = $_GET['application_plan_id'] ? $_GET['application_plan_id
 $application_model_id = $_GET['application_model_id'] ? $_GET['application_model_id'] : 14;
 $server_db_prefix = AfwSession::currentDBPrefix();
 
-$q0 = "select id,step_name_ar,step_name_en from ".$server_db_prefix."adm.application_step where  application_model_id='".$application_model_id."' order by step_num;";
+$q0 = "select id,step_name_ar,step_name_en from ".$server_db_prefix."adm.application_step where  application_model_id='".$application_model_id."' and id in (45,46,49) order by step_num;";
 $steps_list = AfwDatabase::db_recup_rows($q0);
 $q = "select count(*) NB_APPLICANT, ac.program_name_ar category,ap.application_step_id stepid from ".$server_db_prefix."adm.applicant a 
         inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id 
