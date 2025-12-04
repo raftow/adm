@@ -55,7 +55,7 @@ $q = "select count(*) NB_APPLICANT, ac.program_name_ar category,st.step_name_ar 
         inner join ".$server_db_prefix."adm.academic_program ac on ab.program_id = ac.id
         inner join ".$server_db_prefix."adm.application_step st 
         on ap.application_step_id=st.id 
-        where  st.show_in_FrondEnd='Y' and ap.application_plan_id='".$application_plan_id."' group by category,st.step_name_ar; ";
+        where  /*st.show_in_FrondEnd='Y' and*/ ap.application_plan_id='".$application_plan_id."' group by category,st.step_name_ar; ";
 
 
   $a_json = AfwDatabase::db_recup_rows($q);
