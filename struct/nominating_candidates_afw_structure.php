@@ -57,11 +57,12 @@ class AdmNominatingCandidatesAfwStructure
 			'RELATION' => 'unkn',
 			'READONLY' => false,
 			'DNA' => true,
-			'CSS' => 'width_pct_25',
+			'CSS' => 'width_pct_50',
 			'STEP' => 1,
 		),
 
 				'application_plan_id' => array(
+						'STEP' => 2,
                         'SHORTNAME' => 'plan',
                         'SEARCH' => true,
                         'QSEARCH' => true,
@@ -79,13 +80,14 @@ class AdmNominatingCandidatesAfwStructure
                         'ANSWER' => 'application_plan',
                         'ANSMODULE' => 'adm',
                         'RELATION' => 'unkn',
-                        'READONLY' => false,
+                        'READONLY' => true,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
 
                 'application_simulation_id' => array(
                         'IMPORTANT' => 'IN',
+						'STEP' => 2,
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -100,14 +102,13 @@ class AdmNominatingCandidatesAfwStructure
                         'ANSMODULE' => 'adm',
                         'SIZE' => 40,
                         'DEFAUT' => 1,
-                        'DISPLAY' => true,
-                        'STEP' => 1,
+                        'DISPLAY' => true,                        
                         'RELATION' => 'OneToMany',
                         'MANDATORY' => true,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'NO-REVERSE' => true,
+                        'READONLY' => true,
                         'CSS' => 'width_pct_50',
                 ),
 
@@ -488,7 +489,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 
-		'track_overpass' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+		'track_overpass' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'N',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2, 'READONLY'=>true,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_50',),

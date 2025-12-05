@@ -5,6 +5,9 @@ class NominatingCandidatesArTranslator{
     {
         $trad = [];
 
+		$trad["nominating_candidates"]["step1"] = "بيانات المترشح";
+		$trad["nominating_candidates"]["step2"] = "معلومات متقدمة";
+
 		$trad["nominating_candidates"]["nominatingcandidates.single"] = "مرشح";
 		$trad["nominating_candidates"]["nominatingcandidates.new"] = "جديد(ة)";
 		$trad["nominating_candidates"]["nominating_candidates"] = "المرشحين";
@@ -27,6 +30,7 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["mobile"] = "الجوال";
 		$trad["nominating_candidates"]["study_funding_status_id"] = "حالة التمويل";
 		$trad["nominating_candidates"]["nomination_letter_id"] = "خطاب الترشيح";
+		$trad["nominating_candidates"]["application_plan_id"] = "خطة التقديم";
 		$trad["nominating_candidates"]["application_simulation_id"] = "نوع التقديم";
 		$trad["nominating_candidates"]["applicant_id"] = "المتقدم";
 		$trad["nominating_candidates"]["candidateFullName"] = "اسم المرشح";
@@ -36,8 +40,8 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["country_id"] = "الجنسية";
 		$trad["nominating_candidates"]["track_overpass_user_id"] = "الموظف الذي قام بعملية التجاوز للمسار";
 		$trad["nominating_candidates"]["track_overpass_user_id.short"] = "موظف التجاوز";
-		$trad["nominating_candidates"]["track_overpass"] = "تجاوز المسار للبرنامج الذي اسند عليه المترشح";
-		$trad["nominating_candidates"]["track_overpass.short"] = "تجاوز المسار";
+		$trad["nominating_candidates"]["track_overpass"] = "تم تجاوز المسار للبرنامج الذي اسند عليه المترشح؟";
+		$trad["nominating_candidates"]["track_overpass.short"] = "تجاوز المسار؟";
 		
 		
 		
