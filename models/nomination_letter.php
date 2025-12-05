@@ -51,6 +51,20 @@ class NominationLetter extends AdmObject{
 
 
 */
+        public function afterMaj($id, $fields_updated)
+        {
+            if($fields_updated["application_plan_id"] or $fields_updated["application_simulation_id"])
+            {
+                $nominationCandidateList = $this->het("nominationCandidateList");
+                foreach($nominationCandidateList as $nominationCandidateItem)
+                {
+                    $nominationCandidateItem->set("application_plan_id", $this->getVal("application_plan_id"));
+                    $nominationCandidateItem->set("application_simulation_id", $this->getVal("application_simulation_id"));
+                    $nominationCandidateItem->commit();
+                }                
+            }
+        }
+
         
         protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
         {
