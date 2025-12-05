@@ -19,7 +19,8 @@ class NominatingCandidates extends AdmObject{
 		parent::__construct("nominating_candidates","id","adm");
             AdmNominatingCandidatesAfwStructure::initInstance($this);    
 	    }
-        
+
+
         public static function loadById($id)
         {
            $obj = new NominatingCandidates();
@@ -33,13 +34,20 @@ class NominatingCandidates extends AdmObject{
         
         
 
-        public function getScenarioItemId($currstep)
-                {
-                    
-                    return 0;
-                }
-        
-        
+        public static function loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id)
+        {
+                if (!$applicant_id) throw new AfwRuntimeException("loadByApplicationInfos : applicant_id is mandatory field");
+                if (!$application_plan_id) throw new AfwRuntimeException("loadByApplicationInfos : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByApplicationInfos : application_simulation_id is mandatory field");
+
+                $obj = new NominatingCandidates();
+                $obj->select("applicant_id", $applicant_id);
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_simulation_id", $application_simulation_id);
+                if ($obj->load()) {
+                        return $obj;
+                } else return null;
+        }        
         
         
         
@@ -70,10 +78,9 @@ class NominatingCandidates extends AdmObject{
             $pbms = array();
             
             $color = "green";
-            $title_ar = "xxxxxxxxxxxxxxxxxxxx"; 
-            $methodName = "mmmmmmmmmmmmmmmmmmmmmmm";
-            //$pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("xxyy"));
-            
+            $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
+            $methodName = "overpassProgram";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("track_overpass"));
             
             
             return $pbms;
@@ -128,7 +135,27 @@ class NominatingCandidates extends AdmObject{
                     // ($attribute=="validated_by") or ($attribute=="validated_at") or 
                     ($attribute=="version"));  
         }*/
-        
+
+        public function beforeMaj($id, $fields_updated)
+        {
+            if($fields_updated["nomination_letter_id"])
+            {
+                $nLetter = $this->het("nomination_letter_id");
+                if($nLetter)
+                {
+                    $this->set("application_plan_id", $nLetter->getVal("application_plan_id"));
+                    $this->set("application_simulation_id", $nLetter->getVal("application_simulation_id"));
+                }
+                else
+                {
+                    $this->setForce("application_plan_id", 0);
+                    $this->setForce("application_simulation_id", 0);
+                }
+            }
+            
+
+            return true;
+        }
         
         public function beforeDelete($id,$id_replace) 
         {
@@ -330,18 +357,29 @@ class NominatingCandidates extends AdmObject{
     }
 
 
-    public function addApplicantAccount($applicant_id,$application_model_id,$application_plan_id, $application_simulation_id)
+    public function addMyApplicantAccounts()
     {
+        $applicant_id = $this->getVal("applicant_id");
+        
+        $applicationPlanObj = $this->het("application_plan_id");
+        if(!$applicationPlanObj) return -1;
+        $application_plan_id = $applicationPlanObj->id;
+        if(!$application_plan_id) return -2;
+        $application_model_id = $applicationPlanObj->getVal("application_model_id");        
+        if(!$application_model_id) return -3;
+        $application_simulation_id = $this->getVal("application_simulation_id");
+        if(!$application_simulation_id) return -4;
+
         $applicationFinancialTransaction = new ApplicationModelFinancialTransaction();
         $applicationFinancialTransaction->where("application_model_id = $application_model_id and active ='Y' and process_enabled ='Y' and phase_enum=1");
             
-        $appFinTransObject_list = $applicationFinancialTransaction->loadMany();
-        foreach ($appFinTransObject_list as $row) {
-            $applicantAccount = ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $row->getval("id"), true);
+        $appFinTransObjectList = $applicationFinancialTransaction->loadMany();
+        foreach ($appFinTransObjectList as $appFinTransObject) {
+            $applicantAccount = ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, true);
             
                 
             //$applicantAccount->set("academic_period_id", $current_period_id);
-            $applicantAccount->set("total_amount",$row->getVal("amount"));
+            $applicantAccount->set("total_amount", $appFinTransObject->getVal("amount"));
             $applicantAccount->set("payment_status_enum", 4); // معفي من الدفع
             
             $applicantAccount->commit();

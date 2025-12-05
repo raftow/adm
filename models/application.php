@@ -2058,7 +2058,7 @@ class Application extends AdmObject
                                                                 $this->set("comments", $fail_message);
                                                         }
                                                 }
-                                                elseif(!$this->isSynchronisedUniqueDesire())
+                                                else
                                                 {
                                                         // here means the application is in last general step                                                        
                                                         list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
@@ -2649,12 +2649,35 @@ class Application extends AdmObject
         }
 
 
+        public function getMyExternalCandidateInfos()
+        {
+                $applicant_id = $this->getVal("applicant_id"); 
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
+                $track_overpass_program_id = 0;
+                if($ncObj) 
+                {
+                        if($ncObj->sureIs("track_overpass") and ($ncObj->getVal("track_overpass_user_id")>0))
+                        {
+                                $track_overpass_program_id = $ncObj->getVal("academic_program_id");
+                        } 
+                        return [1, $track_overpass_program_id];
+                }
+                        
+
+                return [0,0];
+        }
+
+
         public function calcProgram_offering_mfk($what = "value")
         {
                 // student_is_external_candidate by default = 0
                 // but waiting amjad to give me sql condition to be 1
                 // whatsapp vocal (2025-11-18 13:27:00)
-                $student_is_external_candidate = 0;
+                list($student_is_external_candidate, $student_external_candidate_program_id) = $this->getMyExternalCandidateInfos();
+
+
 
                 $po_id_arr = [];
                 $applicantQualificationObj = $this->het("applicant_qualification_id");
@@ -2668,14 +2691,14 @@ class Application extends AdmObject
 
                                 $server_db_prefix = AfwSession::currentDBPrefix();
 
-                                $po_id_arr = AfwDatabase::db_recup_liste("select po.id from " . $server_db_prefix . "adm.academic_program_offering po
+                                $po_id_arr = AfwDatabase::db_recup_liste("select distinct po.id from " . $server_db_prefix . "adm.academic_program_offering po
                                                         inner join " . $server_db_prefix . "adm.program_qualification pq on pq.academic_program_id = po.academic_program_id 
                                                         inner join " . $server_db_prefix . "adm.academic_program pr on pr.id = po.academic_program_id 
-                                        where pq.qualification_id = $qualification_id
+                                        where (pq.qualification_id = $qualification_id or po.academic_program_id = $student_external_candidate_program_id)
                                         and (pr.to_publish = 'Y' or $student_is_external_candidate = 1)
                                         -- and pq.major_path_id = $major_path_id -- amjad 10/11/2025 in teams conference said to remove and replace with below line
-                                        and pq.qualification_major_id = $qualification_major_id
-                                        and pq.academic_level_id = $academic_level_id", "id");
+                                        and (pq.qualification_major_id = $qualification_major_id or po.academic_program_id = $student_external_candidate_program_id)
+                                        and (pq.academic_level_id = $academic_level_id or po.academic_program_id = $student_external_candidate_program_id)", "id");
                         }
                 }
 

@@ -911,44 +911,46 @@ class Applicant extends AdmObject
                 $pbms = array();
 
 
+                if(false)
+                {
+                        $color = "orange";
+                        $title_en = "Verify enrollment at another university";
+                        $title_ar = $this->tm($title_en, 'ar');                
+                        $methodName = "verifyEnrollment";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                        $color = "grey";
+                        $title_en = "Verify enrollment at UOH university";
+                        $title_ar = $this->tm($title_en, 'ar');                
+                        $methodName = "verifyEnrollmentUOH";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
 
-                $color = "orange";
-                $title_en = "Verify enrollment at another university";
-                $title_ar = $this->tm($title_en, 'ar');                
-                $methodName = "verifyEnrollment";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                        "LABEL_AR" => $title_ar, 
-                                        "LABEL_EN" => $title_en, 
-                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
-                $color = "grey";
-                $title_en = "Verify enrollment at UOH university";
-                $title_ar = $this->tm($title_en, 'ar');                
-                $methodName = "verifyEnrollmentUOH";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                        "LABEL_AR" => $title_ar, 
-                                        "LABEL_EN" => $title_en, 
-                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                        //@todo
+                        // checkOtherUniversityAcceptance
+                        $color = "blue";
+                        $title_en = "Force updating data via electronic services";
+                        $title_ar = $this->tm($title_en, 'ar');                
+                        $methodName = "runNeededApis";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
 
-                //@todo
-                // checkOtherUniversityAcceptance
-                $color = "blue";
-                $title_en = "Force updating data via electronic services";
-                $title_ar = $this->tm($title_en, 'ar');                
-                $methodName = "runNeededApis";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                        "LABEL_AR" => $title_ar, 
-                                        "LABEL_EN" => $title_en, 
-                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
-
-                $color = "green";
-                $title_ar = $this->tm("Updating data via electronic services", 'ar');
-                $title_en = $this->tm("Updating data via electronic services", 'en');
-                $methodName = "runOnlyNeedUpdateApis";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                        "LABEL_AR" => $title_ar, 
-                                        "LABEL_EN" => $title_en, 
-                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
-
+                        $color = "green";
+                        $title_ar = $this->tm("Updating data via electronic services", 'ar');
+                        $title_en = $this->tm("Updating data via electronic services", 'en');
+                        $methodName = "runOnlyNeedUpdateApis";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                }
+                
 
                 $color = "red";
                 $title_en = "Reset Applicant";

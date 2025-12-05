@@ -20,6 +20,9 @@ class AdmNominatingCandidatesAfwStructure
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
+
+			$obj->editByStep = true;
+            $obj->editNbSteps = 2; 
 			// $obj->after_save_edit = array("class"=>'NominatingCandidates',"attribute"=>'xxxx_id', "currmod"=>'adm',"currstep"=>2);
 			$obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'NominatingCandidates', "submit" => true);
 		} else {
@@ -57,6 +60,57 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 			'STEP' => 1,
 		),
+
+				'application_plan_id' => array(
+                        'SHORTNAME' => 'plan',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_plan',
+                        'ANSMODULE' => 'adm',
+                        'RELATION' => 'unkn',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+                'application_simulation_id' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_simulation',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 1,
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'OneToMany',
+                        'MANDATORY' => true,
+                        'READONLY' => true,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'NO-REVERSE' => true,
+                        'CSS' => 'width_pct_50',
+                ),
 
 
 		'identity_type_id' => array(
@@ -316,6 +370,7 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 			'HIDE_IF_NEW' => true
 		),
+		
 		'academic_program_id' => array(
 			'SHORTNAME' => 'program',
 			'SEARCH' => true,
@@ -339,6 +394,7 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_50',
 			'STEP' => 1,
 		),
+
 
 		'email' => array(
 			'SEARCH' => false,
@@ -433,8 +489,37 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 
-		'applicant_id' => array(
+		'track_overpass' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
+                                                'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 2, 'READONLY'=>true,  
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_50',),
+
+		'track_overpass_user_id' => array(
+			'SHORTNAME' => 'program',
+			'SEARCH' => true,
+			'QSEARCH' => false,
+			'SHOW' => true,
+			'AUDIT' => false,
+			'RETRIEVE' => true,
+			'EDIT' => true,
+			'QEDIT' => false,
+			'SIZE' => 32,
+			'MAXLENGTH' => 32,
+			'MIN-SIZE' => 1,
+			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+			'UTF8' => false,
+			'TYPE' => 'FK',
+			'ANSWER' => 'auser',
+			'ANSMODULE' => 'ums',
+			'RELATION' => 'ManyToOne',
+			'READONLY' => true,
+			'DNA' => true,
+			'CSS' => 'width_pct_50',
 			'STEP' => 1,
+		),
+
+		'applicant_id' => array(
+			'STEP' => 2,
 			'SHORTNAME' => 'applicant',
 			'SEARCH' => true,
 			'QSEARCH' => true,
@@ -474,7 +559,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 1,
+			'STEP' => 2,
 			'MANDATORY' => false,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
@@ -499,7 +584,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 1,
+			'STEP' => 2,
 			'MANDATORY' => false,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
