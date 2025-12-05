@@ -27,6 +27,7 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["mobile"] = "الجوال";
 		$trad["nominating_candidates"]["study_funding_status_id"] = "حالة التمويل";
 		$trad["nominating_candidates"]["nomination_letter_id"] = "خطاب الترشيح";
+		$trad["nominating_candidates"]["application_simulation_id"] = "نوع التقديم";
 		$trad["nominating_candidates"]["applicant_id"] = "المتقدم";
 		$trad["nominating_candidates"]["candidateFullName"] = "اسم المرشح";
 		$trad["nominating_candidates"]["myApplicationLink"] = "ملف التقديم";

@@ -104,7 +104,6 @@ class AdmNominatingCandidatesAfwStructure
                         'STEP' => 1,
                         'RELATION' => 'OneToMany',
                         'MANDATORY' => true,
-                        'READONLY' => true,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
