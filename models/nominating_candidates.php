@@ -76,24 +76,27 @@ class NominatingCandidates extends AdmObject{
         {
             
             $pbms = array();
-            
-            $color = "green";
-            $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
-            $methodName = "overpassProgram";
+            if($this->isNot("track_overpass"))
+            {
+                $color = "green";
+                $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
+                $methodName = "overpassProgram";
 
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = [
-                "METHOD"=>$methodName,
-                "COLOR"=>$color, 
-                "LABEL_AR"=>$title_ar, 
-                "ADMIN-ONLY"=>true, 
-                "BF-ID"=>"", 
-                'STEP' =>$this->stepOfAttribute("track_overpass"),
-                'CONFIRMATION_NEEDED'=>true,
-                'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
-                                                                'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
-                'CONFIRMATION_WARNING' =>array('ar' => "هذه العملية غير قابلة للتراجع", 
-                                                        'en' => "This process is irreversible."),
-            ];
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                    "METHOD"=>$methodName,
+                    "COLOR"=>$color, 
+                    "LABEL_AR"=>$title_ar, 
+                    "ADMIN-ONLY"=>true, 
+                    "BF-ID"=>"", 
+                    'STEP' =>$this->stepOfAttribute("track_overpass"),
+                    'CONFIRMATION_NEEDED'=>true,
+                    'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                    'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                    'CONFIRMATION_WARNING' =>array('ar' => "هذه العملية غير قابلة للتراجع", 
+                                                            'en' => "This process is irreversible."),
+                ];
+            }
+            
             
             
             return $pbms;
