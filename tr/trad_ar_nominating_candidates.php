@@ -33,6 +33,10 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["applicantLink"] = "استكمال البيانات";
 		$trad["nominating_candidates"]["gender_enum"] = "الجنس";
 		$trad["nominating_candidates"]["country_id"] = "الجنسية";
+		$trad["nominating_candidates"]["track_overpass_user_id"] = "الموظف الذي قام بعملية التجاوز للمسار";
+		$trad["nominating_candidates"]["track_overpass_user_id.short"] = "موظف التجاوز";
+		$trad["nominating_candidates"]["track_overpass"] = "تجاوز المسار للبرنامج الذي اسند عليه المترشح";
+		$trad["nominating_candidates"]["track_overpass.short"] = "تجاوز المسار";
 		
 		
 		

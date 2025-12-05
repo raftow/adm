@@ -99,5 +99,7 @@ $migrations = [
     '00093' => ['by'=>'medali','title'=>'add gender_enum'],
     '00094' => ['by'=>'medali','title'=>'add nominating_candidates.country_id'],
 
+    
+
 ];
 

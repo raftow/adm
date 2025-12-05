@@ -80,11 +80,47 @@ class NominatingCandidates extends AdmObject{
             $color = "green";
             $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
             $methodName = "overpassProgram";
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("track_overpass"));
+
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                "METHOD"=>$methodName,
+                "COLOR"=>$color, 
+                "LABEL_AR"=>$title_ar, 
+                "ADMIN-ONLY"=>true, 
+                "BF-ID"=>"", 
+                'STEP' =>$this->stepOfAttribute("track_overpass"),
+                'CONFIRMATION_NEEDED'=>true,
+                'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                'CONFIRMATION_WARNING' =>array('ar' => "هذه العملية غير قابلة للتراجع", 
+                                                        'en' => "This process is irreversible."),
+            ];
             
             
             return $pbms;
         }
+
+
+        public function overpassProgram($lang='ar')
+        {
+            $objme = AfwSession::getUserConnected();
+
+            if($objme and $objme->isAdmin())
+            {
+                $this->set("track_overpass_user_id", $objme->id);
+                $this->set("track_overpass", "Y");
+
+                $this->commit();
+
+                return ["", "done"];
+            }
+            else
+            {
+                return ["not allowed", ""];
+            }
+
+            
+        }
+        
         
         public function fld_CREATION_USER_ID()
         {
@@ -98,7 +134,7 @@ class NominatingCandidates extends AdmObject{
 
         public function fld_UPDATE_USER_ID()
         {
-        	return "updated_by";
+        	    return "updated_by";
         }
 
         public function fld_UPDATE_DATE()
