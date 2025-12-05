@@ -5067,3 +5067,7 @@ h2.field-desc.obsolete,
 h3.field-desc.obsolete {
     color: red;
 }
+
+.grid td a.btn.btn-success, .grid td a.btn.btn-success:visited {
+    color: white !important;
+}
