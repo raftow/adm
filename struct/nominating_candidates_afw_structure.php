@@ -510,7 +510,7 @@ class AdmNominatingCandidatesAfwStructure
 			'QSEARCH' => false,
 			'SHOW' => true,
 			'AUDIT' => false,
-			'RETRIEVE' => true,
+			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => false,
 			'SIZE' => 32,
@@ -546,6 +546,7 @@ class AdmNominatingCandidatesAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'MANDATORY' => false,
+						'READONLY' => true,
                         'CSS' => 'width_pct_25',
         		],
 
@@ -571,7 +572,7 @@ class AdmNominatingCandidatesAfwStructure
 			'QSEARCH' => false,
 			'SHOW' => true,
 			'AUDIT' => false,
-			'RETRIEVE' => true,
+			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => false,
 			'SIZE' => 32,
@@ -607,6 +608,7 @@ class AdmNominatingCandidatesAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'MANDATORY' => false,
+						'READONLY' => true,
                         'CSS' => 'width_pct_25',
         		],		
 

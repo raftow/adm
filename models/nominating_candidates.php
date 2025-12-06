@@ -80,7 +80,7 @@ class NominatingCandidates extends AdmObject{
             {
                 $color = "green";
                 $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
-                $methodName = "overpassProgram";
+                $methodName = "overpassTrackCondition";
 
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = [
                     "METHOD"=>$methodName,
@@ -92,7 +92,29 @@ class NominatingCandidates extends AdmObject{
                     'CONFIRMATION_NEEDED'=>true,
                     'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
                                                                     'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
-                    'CONFIRMATION_WARNING' =>array('ar' => "هذه العملية غير قابلة للتراجع", 
+                    'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
+                                                            'en' => "This process is irreversible."),
+                ];
+            }
+
+
+            if(!$this->sureIs("rating_overpass"))
+            {
+                $color = "green";
+                $title_ar = "تجاوز شرط التقدير لهذا المترشح"; 
+                $methodName = "overpassRatingCondition";
+
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                    "METHOD"=>$methodName,
+                    "COLOR"=>$color, 
+                    "LABEL_AR"=>$title_ar, 
+                    "ADMIN-ONLY"=>true, 
+                    "BF-ID"=>"", 
+                    'STEP' =>$this->stepOfAttribute("rating_overpass"),
+                    'CONFIRMATION_NEEDED'=>true,
+                    'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                    'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                    'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
                                                             'en' => "This process is irreversible."),
                 ];
             }
@@ -103,7 +125,7 @@ class NominatingCandidates extends AdmObject{
         }
 
 
-        public function overpassProgram($lang='ar')
+        public function overpassTrackCondition($lang='ar')
         {
             $objme = AfwSession::getUserConnected();
 
@@ -111,6 +133,7 @@ class NominatingCandidates extends AdmObject{
             {
                 $this->set("track_overpass_user_id", $objme->id);
                 $this->set("track_overpass", "Y");
+                $this->set("track_overpass_gdate", date("Y-m-d H:i:s"));
 
                 $this->commit();
 
@@ -123,58 +146,35 @@ class NominatingCandidates extends AdmObject{
 
             
         }
+
+
+        public function overpassRatingCondition($lang='ar')
+        {
+            $objme = AfwSession::getUserConnected();
+
+            if($objme and $objme->isAdmin())
+            {
+                $this->set("rating_overpass_user_id", $objme->id);
+                $this->set("rating_overpass", "Y");
+                $this->set("rating_overpass_gdate", date("Y-m-d H:i:s"));
+
+                $this->commit();
+
+                return ["", "done"];
+            }
+            else
+            {
+                return ["not allowed", ""];
+            }
+
+            
+        }
+
+
         
         
-        public function fld_CREATION_USER_ID()
-        {
-                return "created_by";
-        }
-
-        public function fld_CREATION_DATE()
-        {
-                return "created_at";
-        }
-
-        public function fld_UPDATE_USER_ID()
-        {
-        	    return "updated_by";
-        }
-
-        public function fld_UPDATE_DATE()
-        {
-        	return "updated_at";
-        }
         
-        public function fld_VALIDATION_USER_ID()
-        {
-        	return "validated_by";
-        }
-
-        public function fld_VALIDATION_DATE()
-        {
-                return "validated_at";
-        }
         
-        public function fld_VERSION()
-        {
-        	return "version";
-        }
-
-        public function fld_ACTIVE()
-        {
-        	return  "active";
-        }
-        
-        /*
-        public function isTechField($attribute) {
-            return (($attribute=="created_by") or 
-                    ($attribute=="created_at") or 
-                    ($attribute=="updated_by") or 
-                    ($attribute=="updated_at") or 
-                    // ($attribute=="validated_by") or ($attribute=="validated_at") or 
-                    ($attribute=="version"));  
-        }*/
-
         public function beforeMaj($id, $fields_updated)
         {
             if($fields_updated["nomination_letter_id"])
