@@ -637,6 +637,31 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 		),
 
+		'applicantLink' => array(
+			'IMPORTANT' => 'IN',
+			'SEARCH' => false,
+			'QSEARCH' => false,
+			'SHOW' => true,
+			'RETRIEVE' => true,
+			'EDIT' => true,
+			'QEDIT' => false,
+			'SHOW-ADMIN' => true,
+			'EDIT-ADMIN' => true,
+			'UTF8' => false,
+			'TYPE' => 'TEXT',
+			"CATEGORY" => "FORMULA",
+			'SIZE' => 40,
+			'DEFAUT' => 0,
+			'DISPLAY' => true,
+			'STEP' => 2,
+			'MANDATORY' => false,
+			'READONLY' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'CSS' => 'width_pct_25',
+			'HIDE_IF_NEW' => true
+		),
+
 		'myApplicationLink' => array(
 			'IMPORTANT' => 'IN',
 			'SEARCH' => false,
@@ -662,30 +687,7 @@ class AdmNominatingCandidatesAfwStructure
 			'HIDE_IF_NEW' => true
 		),
 
-		'applicantLink' => array(
-			'IMPORTANT' => 'IN',
-			'SEARCH' => false,
-			'QSEARCH' => false,
-			'SHOW' => true,
-			'RETRIEVE' => true,
-			'EDIT' => true,
-			'QEDIT' => false,
-			'SHOW-ADMIN' => true,
-			'EDIT-ADMIN' => true,
-			'UTF8' => false,
-			'TYPE' => 'TEXT',
-			"CATEGORY" => "FORMULA",
-			'SIZE' => 40,
-			'DEFAUT' => 0,
-			'DISPLAY' => true,
-			'STEP' => 2,
-			'MANDATORY' => false,
-			'READONLY' => true,
-			'DISPLAY-UGROUPS' => '',
-			'EDIT-UGROUPS' => '',
-			'CSS' => 'width_pct_25',
-			'HIDE_IF_NEW' => true
-		),
+		
 
 		'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
 		'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

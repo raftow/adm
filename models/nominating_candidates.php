@@ -329,6 +329,7 @@ class NominatingCandidates extends AdmObject{
 
     public function calcMyApplicationLink($what = "value")
     {
+        
         $lang = AfwLanguageHelper::getGlobalLanguage();
             $applicant_id = $this->getVal("applicant_id");
             $applicantObj = $this->het("applicant_id");
@@ -340,7 +341,9 @@ class NominatingCandidates extends AdmObject{
             }
             else $applicationObj = $this->prepareMyApplication($applicantObj);
 
-
+            $nbQuals = $applicantObj->getRelation("applicantQualificationList")->count();
+            if($nbQuals==0) return "الرجاء استكمال المؤهلات العلمية أولا";
+        
             if($applicationObj)
             {
                 $application_id = $applicationObj->id;
