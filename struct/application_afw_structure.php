@@ -129,7 +129,7 @@
                                                         'SIZE' => 40,  'DEFAUT' => 0, 'NO-REVERSE' => true,   
                                                         'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => true, 'READONLY'=>false,                                                 
                                                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                        'CSS' => 'width_pct_50', ),
+                                                        'CSS' => 'width_pct_100', ),
 
                                                         'qualification_mfk' => array(
                                                                 'STEP' => 99,
@@ -229,10 +229,10 @@
                                         ),         
                                                
 
-                                        'application_status_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                        'application_status_enum' => array('FGROUP'=> 'application_step_id', 'IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>true,    
-                                                'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => true, 'DEFAULT' => 1,
+                                                'DISPLAY' => true,  'STEP' => 'all', 'MANDATORY' => true, 'DEFAULT' => 1,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
                                                 'CSS' => 'width_pct_25', ),
 
@@ -457,14 +457,14 @@
                                                                         
 
 
-                                        'application_step_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                        'application_step_id' => array('FGROUP'=> 'application_step_id', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 2,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY' => true,  'STEP' => 'all',  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
                                                 'CSS' => 'width_pct_75',), 
 
-                                        'step_num' => array(
+                                        'step_num' => array('FGROUP'=> 'application_step_id',
                                                 'IMPORTANT' => 'IN',
                                                 'SHOW' => true,
                                                 'RETRIEVE' => false,
@@ -473,7 +473,7 @@
                                                 'TYPE' => 'INT', 'MANDATORY' => false, 
                                                 'DEFAULT'=>'1', 'READONLY'=>true,
                                                 'NO-REVERSE' => true,
-                                                'STEP' => 2,
+                                                'STEP' => 'all',
                                                 'DISPLAY-UGROUPS' => '',
                                                 'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_25',),
