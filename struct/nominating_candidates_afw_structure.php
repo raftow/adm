@@ -56,8 +56,55 @@ class AdmNominatingCandidatesAfwStructure
 			'ANSMODULE' => 'adm',
 			'RELATION' => 'OneToMany',
 			'READONLY' => true,
+			'MANDATORY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
+			'STEP' => 1,
+		),
+
+		'identity_type_id' => array(
+			'SHORTNAME' => 'type',
+			'SEARCH' => true,
+			'QSEARCH' => false,
+			'SHOW' => true,
+			'AUDIT' => false,
+			'RETRIEVE' => true,
+			'EDIT' => true,
+			'QEDIT' => true,
+			'SIZE' => 32,
+			'MAXLENGTH' => 32,
+			'MIN-SIZE' => 1,
+			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+			'UTF8' => false,
+			'TYPE' => 'FK',
+			'ANSWER' => 'identity_type',
+			'ANSMODULE' => 'adm',
+			'RELATION' => 'unkn',
+			'READONLY' => false,
+			'MANDATORY' => true,
+			'DNA' => true,
+			'CSS' => 'width_pct_25',
+			'STEP' => 1,
+		),
+
+		'idn' => array(
+			'SEARCH' => true,
+			'QSEARCH' => false,
+			'SHOW' => true,
+			'AUDIT' => false,
+			'RETRIEVE' => true,
+			'EDIT' => true,
+			'QEDIT' => true,
+			'SIZE' => 40,
+			'MAXLENGTH' => 40,
+			'MIN-SIZE' => 1,
+			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+			'UTF8' => true,
+			'TYPE' => 'TEXT',
+			'READONLY' => false,
+			'MANDATORY' => true,
+			'DNA' => true,
+			'CSS' => 'width_pct_25',
 			'STEP' => 1,
 		),
 
@@ -81,6 +128,7 @@ class AdmNominatingCandidatesAfwStructure
 			'ANSMODULE' => 'adm',
 			'RELATION' => 'ManyToOne',
 			'READONLY' => true,
+			'MANDATORY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
 		),
@@ -113,49 +161,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 
-		'identity_type_id' => array(
-			'SHORTNAME' => 'type',
-			'SEARCH' => true,
-			'QSEARCH' => false,
-			'SHOW' => true,
-			'AUDIT' => false,
-			'RETRIEVE' => true,
-			'EDIT' => true,
-			'QEDIT' => true,
-			'SIZE' => 32,
-			'MAXLENGTH' => 32,
-			'MIN-SIZE' => 1,
-			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-			'UTF8' => false,
-			'TYPE' => 'FK',
-			'ANSWER' => 'identity_type',
-			'ANSMODULE' => 'adm',
-			'RELATION' => 'unkn',
-			'READONLY' => false,
-			'DNA' => true,
-			'CSS' => 'width_pct_25',
-			'STEP' => 1,
-		),
-
-		'idn' => array(
-			'SEARCH' => true,
-			'QSEARCH' => false,
-			'SHOW' => true,
-			'AUDIT' => false,
-			'RETRIEVE' => true,
-			'EDIT' => true,
-			'QEDIT' => true,
-			'SIZE' => 40,
-			'MAXLENGTH' => 40,
-			'MIN-SIZE' => 1,
-			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-			'UTF8' => true,
-			'TYPE' => 'TEXT',
-			'READONLY' => false,
-			'DNA' => true,
-			'CSS' => 'width_pct_25',
-			'STEP' => 1,
-		),
+		
 
 		'first_name_ar' => array(
 			'SEARCH' => true,
@@ -174,7 +180,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'second_name_ar' => array(
@@ -195,7 +201,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'third_name_ar' => array(
@@ -216,7 +222,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'last_name_ar' => array(
@@ -236,7 +242,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'first_name_en' => array(
@@ -256,7 +262,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'second_name_en' => array(
@@ -277,7 +283,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'third_name_en' => array(
@@ -298,7 +304,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'last_name_en' => array(
@@ -318,7 +324,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 		'gender_enum' => array(
 			'IMPORTANT' => 'IN',
@@ -336,7 +342,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 1,
+			'STEP' => 2,
 			'MANDATORY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
@@ -359,7 +365,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 1,
+			'STEP' => 3,
 			'RELATION' => 'ManyToOne-OneToMany',
 			'MANDATORY' => false,
 			'READONLY' => true,
@@ -392,7 +398,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
-			'STEP' => 1,
+			'STEP' => 3,
 		),
 
 
@@ -414,7 +420,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 		'mobile' => array(
@@ -433,7 +439,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 2,
 		),
 
 
@@ -455,7 +461,7 @@ class AdmNominatingCandidatesAfwStructure
 			//'DEFAUT' => 183,
 			//'READONLY-AFTER-INSERT' => true,
 			'DISPLAY' => true,
-			'STEP' => 1,
+			'STEP' => 2,
 			'RELATION' => 'ManyToOne',
 			'MANDATORY' => true,
 			'AUTOCOMPLETE' => false,
@@ -485,7 +491,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
-			'STEP' => 1,
+			'STEP' => 3,
 		),
 
 
@@ -497,7 +503,7 @@ class AdmNominatingCandidatesAfwStructure
 			'DEFAUT' => 'N',
 			'TYPE' => 'YN',
 			'FORMAT' => 'icon',
-			'STEP' => 2,
+			'STEP' => 3,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
@@ -525,7 +531,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
-			'STEP' => 2,
+			'STEP' => 3,
 		),
 
 		'track_overpass_gdate' => [
@@ -542,7 +548,7 @@ class AdmNominatingCandidatesAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'GDATE',
                         'FORMAT' => 'DATE',
-                        'STEP' => 2,
+                        'STEP' => 3,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'MANDATORY' => false,
@@ -559,7 +565,7 @@ class AdmNominatingCandidatesAfwStructure
 			'DEFAUT' => 'N',
 			'TYPE' => 'YN',
 			'FORMAT' => 'icon',
-			'STEP' => 2,
+			'STEP' => 3,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
@@ -587,7 +593,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
-			'STEP' => 2,
+			'STEP' => 3,
 		),
 
 		'rating_overpass_gdate' => [
@@ -613,7 +619,7 @@ class AdmNominatingCandidatesAfwStructure
         		],		
 
 		'applicant_id' => array(
-			'STEP' => 2,
+			'STEP' => 3,
 			'SHORTNAME' => 'applicant',
 			'SEARCH' => true,
 			'QSEARCH' => true,
@@ -653,7 +659,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 2,
+			'STEP' => 3,
 			'MANDATORY' => false,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
@@ -678,7 +684,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 2,
+			'STEP' => 3,
 			'MANDATORY' => false,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
