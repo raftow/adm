@@ -394,7 +394,7 @@ class NominatingCandidates extends AdmObject{
                 else
                 {
                         
-                        return "<p class='error'>---</p>";
+                        return "<p class='ok'>---</p>";
                 }
                 
             } 
