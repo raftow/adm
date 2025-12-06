@@ -76,7 +76,7 @@ class NominatingCandidates extends AdmObject{
         {
             
             $pbms = array();
-            if($this->isNot("track_overpass"))
+            if(!$this->sureIs("track_overpass"))
             {
                 $color = "green";
                 $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
@@ -298,6 +298,8 @@ class NominatingCandidates extends AdmObject{
                 
             $applicationObj = $this->prepareMyApplication($applicantObj);
 
+            $this->addMyApplicantAccounts();
+
             return [$applicantObj, $applicationObj];
         }
 
@@ -419,8 +421,7 @@ class NominatingCandidates extends AdmObject{
                 
             //$applicantAccount->set("academic_period_id", $current_period_id);
             $applicantAccount->set("total_amount", $appFinTransObject->getVal("amount"));
-            $applicantAccount->set("payment_status_enum", 4); // معفي من الدفع
-            
+            $applicantAccount->set("payment_status_enum", 4); // معفي من الدفع            
             $applicantAccount->commit();
         }
     }
