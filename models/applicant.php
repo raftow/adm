@@ -1451,7 +1451,17 @@ class Applicant extends AdmObject
                         $row_matrix['error'] = AfwDataQualityHelper::getAttributeError($this, $field_name);
                         $field_name_step = $this->stepOfAttribute($field_name);
                         $field_name_step_title = $this->getAttributeLabel("step".$field_name_step, $lang);
-                        $row_matrix['admstep'] = $field_name_step.". ".$field_name_step_title;
+                        
+                        if($this instanceof Applicant)
+                        {
+                                $applicant_id = $this->id;
+                        }
+                        else
+                        {
+                                $applicant_id = $this->getVal("appicant_id");
+                        }
+                        $row_matrix['admstep'] = "<a target='_admstep' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&id=$applicant_id&currmod=adm&currstep=$field_name_step'>".$field_name_step . "-" . $field_name_step_title."</a>";
+                        
                         $field_value_datetime = "";
                         $default_update_date_of_field_is_api_run_date = AfwSession::config("default_update_date_of_field_is_api_run_date", false); 
                         if($default_update_date_of_field_is_api_run_date)
