@@ -1792,8 +1792,8 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 $MB = $this->tm("Mega Bytes", $lang);
                 list($can, $message_upload_blocked_reason) = $this->canUploadFiles();
                 if ($can) {
-                        $option_ask_missed_file = false; //should be setted by institution forthe moment false as asked by amjad whatsapp 6/128/2025
-                        if($option_ask_missed_file)
+                        $option_ask_missed_file_wizard = false; //should be setted by institution for the moment false as asked by amjad whatsapp 6/128/2025
+                        if($option_ask_missed_file_wizard)
                         {
                                 list($doc_type_id, $doc_attach_id, $doc_attach_name) = $this->getMissedDocument($lang);
                         }
