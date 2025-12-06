@@ -33,6 +33,37 @@
                 
                 
                 public static $DB_STRUCTURE = array(
+
+
+                                        'application_step_id' => array('FGROUP'=> 'application_step_id', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'FK',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 'all',  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
+                                                'CSS' => 'width_pct_50',), 
+
+                                        'step_num' => array('FGROUP'=> 'application_step_id',
+                                                'IMPORTANT' => 'IN',
+                                                'SHOW' => true,
+                                                'RETRIEVE' => false,
+                                                'QEDIT' => true,
+                                                'EDIT' => true,
+                                                'TYPE' => 'INT', 'MANDATORY' => false, 
+                                                'DEFAULT'=>'1', 'READONLY'=>true,
+                                                'NO-REVERSE' => true,
+                                                'STEP' => 'all',
+                                                'DISPLAY-UGROUPS' => '',
+                                                'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),
+
+
+                                        'application_status_enum' => array('FGROUP'=> 'application_step_id', 'IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>true,    
+                                                'DISPLAY' => true,  'STEP' => 'all', 'MANDATORY' => true, 'DEFAULT' => 1,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
+                                                'CSS' => 'width_pct_25', ),
+
                                         'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'SHOW' => true,  'RETRIEVE' => true,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
@@ -229,12 +260,7 @@
                                         ),         
                                                
 
-                                        'application_status_enum' => array('FGROUP'=> 'application_step_id', 'IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'READONLY'=>true,    
-                                                'DISPLAY' => true,  'STEP' => 'all', 'MANDATORY' => true, 'DEFAULT' => 1,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
-                                                'CSS' => 'width_pct_25', ),
+                                        
 
                                         'comments' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true,  'SIZE' => '128', 'MAXLENGTH' => '128', 'UTF8' => true,  
@@ -457,27 +483,7 @@
                                                                         
 
 
-                                        'application_step_id' => array('FGROUP'=> 'application_step_id', 'IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-                                                'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'application_step',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => true,  'STEP' => 'all',  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => false,
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
-                                                'CSS' => 'width_pct_75',), 
-
-                                        'step_num' => array('FGROUP'=> 'application_step_id',
-                                                'IMPORTANT' => 'IN',
-                                                'SHOW' => true,
-                                                'RETRIEVE' => false,
-                                                'QEDIT' => true,
-                                                'EDIT' => true,
-                                                'TYPE' => 'INT', 'MANDATORY' => false, 
-                                                'DEFAULT'=>'1', 'READONLY'=>true,
-                                                'NO-REVERSE' => true,
-                                                'STEP' => 'all',
-                                                'DISPLAY-UGROUPS' => '',
-                                                'EDIT-UGROUPS' => '',
-                                                'CSS' => 'width_pct_25',),
-
+                                        
                                         'current_fields_matrix' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
 								'TYPE' => 'TEXT',  'SIZE' => 'AREA', 'FORMAT' => 'HTML', 'STEP' => 8,
