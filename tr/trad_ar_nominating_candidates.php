@@ -5,8 +5,9 @@ class NominatingCandidatesArTranslator{
     {
         $trad = [];
 
-		$trad["nominating_candidates"]["step1"] = "بيانات المترشح";
-		$trad["nominating_candidates"]["step2"] = "معلومات متقدمة";
+		$trad["nominating_candidates"]["step1"] = "تعريف المترشح";
+		$trad["nominating_candidates"]["step2"] = "البيانات الشخصية";
+		$trad["nominating_candidates"]["step3"] = "معلومات متقدمة";
 
 		$trad["nominating_candidates"]["nominatingcandidates.single"] = "مرشح";
 		$trad["nominating_candidates"]["nominatingcandidates.new"] = "جديد(ة)";
