@@ -416,13 +416,10 @@ class NominatingCandidates extends AdmObject{
             
         $appFinTransObjectList = $applicationFinancialTransaction->loadMany();
         foreach ($appFinTransObjectList as $appFinTransObject) {
-            $applicantAccount = ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, true);
-            
-                
-            //$applicantAccount->set("academic_period_id", $current_period_id);
-            $applicantAccount->set("total_amount", $appFinTransObject->getVal("amount"));
-            $applicantAccount->set("payment_status_enum", 4); // معفي من الدفع            
-            $applicantAccount->commit();
+
+            $total_amount = $appFinTransObject->getVal("amount");
+            $payment_status_enum = 4; // معفي من الدفع            
+            ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, $total_amount, $payment_status_enum, true);
         }
     }
 }

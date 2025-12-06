@@ -23,7 +23,7 @@ class ApplicantAccount extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id, $total_amount=null, $payment_status_enum=null, $create_obj_if_not_found = false)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
@@ -38,13 +38,22 @@ class ApplicantAccount extends AdmObject
                 $obj->select("application_model_financial_transaction_id", $application_model_financial_transaction_id);
 
                 if ($obj->load()) {
-                        if ($create_obj_if_not_found) $obj->activate();
+                        if ($create_obj_if_not_found) 
+                        {
+                                if($total_amount) $obj->set("total_amount", $total_amount);
+                                if($payment_status_enum) $obj->set("payment_status_enum", $payment_status_enum); 
+            
+
+                                $obj->activate();
+                        }
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("application_plan_id", $application_plan_id);
                         $obj->set("application_simulation_id", $application_simulation_id);
                         $obj->set("application_model_financial_transaction_id", $application_model_financial_transaction_id);
+                        if($total_amount) $obj->set("total_amount", $total_amount);
+                        if($payment_status_enum) $obj->set("payment_status_enum", $payment_status_enum); 
 
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
