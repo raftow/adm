@@ -366,10 +366,11 @@ class NominatingCandidates extends AdmObject{
             $applicantObj = $this->het("applicant_id");
             if(!$applicantObj)
             {
-                list($applicantObj, ) = $this->createOrRepareMyApplicationObjects();
+                list($applicantObj, $applicationObj) = $this->createOrRepareMyApplicationObjects();
                 $applicant_id = $applicantObj->id;
                 if(!$applicantObj or !$applicant_id) throw new AfwRuntimeException("failed to create applicant profile record");                
             }
+            else $applicationObj = $this->prepareMyApplication($applicantObj);
             
             /**
             * @var Applicant $applicantObj
@@ -378,20 +379,27 @@ class NominatingCandidates extends AdmObject{
             if($applicantObj)
             {
                 $nbQuals = $applicantObj->getRelation("applicantQualificationList")->count();
+                $application_status_enum = $applicationObj->getVal("application_status_enum");
+                $application_status_code = self::application_status_code($application_status_enum);
                 if($nbQuals==0)
                 {
                     $label_btn = $applicantObj->translate("qualif", $lang);                    
                     return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=3&id=".$applicant_id."'>$label_btn</a><br>";
                 }
-                else
+                elseif($application_status_code != "complete")
                 {
                     $label_btn = $applicantObj->translate("step6", $lang);                    
                     return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=6&id=".$applicant_id."'>$label_btn</a><br>";
                 }
+                else
+                {
+                        
+                        return "<p class='error'>---</p>";
+                }
                 
             } 
 
-            return "---";
+            return "<p class='error' hint='no applicant object found'>!!!</p>";
     }
 
     
