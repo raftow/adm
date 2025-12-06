@@ -445,7 +445,7 @@
 
                                         'needed_docs_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'YN',  'STEP' => 99, 'READONLY'=>true,
+								'TYPE' => 'YN',  'STEP' => 8, 'READONLY'=>true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
@@ -486,7 +486,7 @@
 
 
                                         'mandatory_fields_matrix' => array(
-                                                'STEP' => 99,
+                                                'STEP' => 8,
                                                 'TYPE' => 'TEXT',
                                                 'CATEGORY' => 'FORMULA',
                                                 'SHOW' => true,

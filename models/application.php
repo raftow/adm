@@ -2274,9 +2274,18 @@ class Application extends AdmObject
                                 $theyAreUpdated = false;
                         }
 
+                        if($object instanceof Applicant)
+                        {
+                                $applicant_id = $object->id;
+                        }
+                        else
+                        {
+                                $applicant_id = $object->getVal("appicant_id");
+                        }
+
                         $field_name_step = $object->stepOfAttribute($field_name);
                         $field_name_step_title = $object->getAttributeLabel("step" . $field_name_step, $lang);
-                        $row_matrix['admstep'] = $field_name_step . ". " . $field_name_step_title;
+                        $row_matrix['admstep'] = "<a target='_admstep' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&id=$applicant_id&currmod=adm&currstep=$field_name_step'>".$field_name_step . "-" . $field_name_step_title."</a>";
 
                         $matrix[] = $row_matrix;
                 }
@@ -2337,7 +2346,7 @@ class Application extends AdmObject
                 $currentStepNum = $this->getVal("step_num");
                 $matrix = $this->fieldsMatrixForStep($currentStepNum, $lang);
 
-                $matrix_header = ['title' => 'الحقل', 'decode' => 'القيمة', 'datetime' => 'تاريخ التحديث', 'api' => 'الخدمة', 'admstep' => 'لسان الادمن', 'status' => 'حالة التحديث',];
+                $matrix_header = ['title' => 'الحقل', 'decode' => 'القيمة', 'datetime' => 'تاريخ التحديث', 'api' => 'الخدمة', 'admstep' => 'الشاشة', 'status' => 'حالة التحديث',];
 
 
                 $return = AfwHtmlHelper::tableToHtml($matrix, $matrix_header);
