@@ -55,7 +55,7 @@ class AdmNominatingCandidatesAfwStructure
 			'ANSWER' => 'nomination_letter',
 			'ANSMODULE' => 'adm',
 			'RELATION' => 'OneToMany',
-			'READONLY' => false,
+			'READONLY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
 			'STEP' => 1,
