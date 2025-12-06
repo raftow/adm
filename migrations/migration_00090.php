@@ -5,6 +5,11 @@ $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
 
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   rating_overpass_gdate datetime DEFAULT NULL  AFTER track_overpass_user_id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   rating_overpass char(1) DEFAULT NULL  AFTER study_funding_status_id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   rating_overpass_user_id int(11) DEFAULT NULL  AFTER track_overpass;");
+
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   track_overpass_gdate datetime DEFAULT NULL  AFTER track_overpass_user_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nomination_letter add   application_simulation_id int(11) NOT NULL DEFAULT 1  AFTER application_plan_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   application_plan_id int(11) DEFAULT NULL  AFTER nomination_letter_id;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   application_simulation_id int(11) NOT NULL DEFAULT 1  AFTER application_plan_id;");

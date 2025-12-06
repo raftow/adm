@@ -38,10 +38,18 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["applicantLink"] = "استكمال البيانات";
 		$trad["nominating_candidates"]["gender_enum"] = "الجنس";
 		$trad["nominating_candidates"]["country_id"] = "الجنسية";
-		$trad["nominating_candidates"]["track_overpass_user_id"] = "الموظف الذي قام بعملية التجاوز للمسار";
+		$trad["nominating_candidates"]["track_overpass_user_id"] = "الموظف الذي قام بفسح التجاوز للمسار";
 		$trad["nominating_candidates"]["track_overpass_user_id.short"] = "موظف التجاوز";
-		$trad["nominating_candidates"]["track_overpass"] = "تم تجاوز المسار للبرنامج الذي اسند عليه المترشح؟";
+		$trad["nominating_candidates"]["track_overpass"] = "تم فسح تجاوز المسار للبرنامج الذي اسند عليه المترشح؟";
 		$trad["nominating_candidates"]["track_overpass.short"] = "تجاوز المسار؟";
+		$trad["nominating_candidates"]["track_overpass_gdate"] = "تاريخ فسح التجاوز للمسار";
+
+		$trad["nominating_candidates"]["rating_overpass_user_id"] = "الموظف الذي قام بفسح التجاوز لشرط التقدير";
+		$trad["nominating_candidates"]["rating_overpass_user_id.short"] = "موظف التجاوز";
+		$trad["nominating_candidates"]["rating_overpass"] = "تم فسح تجاوز شرط التقدير لهذا المترشح؟";
+		$trad["nominating_candidates"]["rating_overpass.short"] = "تجاوز التقدير؟";
+		$trad["nominating_candidates"]["rating_overpass_gdate"] = "تاريخ فسح التجاوز لشرط التقدير";
+		
 		
 		
 		
