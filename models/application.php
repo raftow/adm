@@ -1303,10 +1303,14 @@ class Application extends AdmObject
 
 
                         $lastStepObj = $this->objApplicationModel->getLastApplicationStep();
+                        if(!$lastStepObj) $text_help_ns = "لا يوجد مرحلة أخيرة للنموذج ";
                         $nextStepObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
-                        if ($nextStepObj and $lastStepObj) {
+                        if(!$nextStepObj) $text_help_ns = "لا يوجد مرحلة قادمة لللمرحلة $nextStepNum ";
+                        if ($nextStepObj and $lastStepObj) 
+                        {
                                 $lastStepNum = $lastStepObj->getVal("step_num");
-                                if ($nextStepObj->sureIs("general") or ($this->isSynchronisedUniqueDesire() and ($lastStepNum == $currentStepNum))) {
+                                if ($nextStepObj->sureIs("general") or ($this->isSynchronisedUniqueDesire() and ($lastStepNum == $currentStepNum))) 
+                                {
                                         $color = "green";
                                         $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
                                         $title_en = $nextStepObj->tm("go to next step", 'en') . " '" . $nextStepObj->getDisplay("en") . "'";
@@ -1364,6 +1368,39 @@ class Application extends AdmObject
                                         );
                                 }
                         }
+                        else
+                        {
+                                $color = "gray";
+                                $title_ar = $text_help_ns;
+                                $title_en = $text_help_ns;
+                                $methodName = "xxxx";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        "METHOD" => $methodName,
+                                        "COLOR" => $color,
+                                        "LABEL_AR" => $title_ar,
+                                        "LABEL_EN" => $title_en,
+                                        "ADMIN-ONLY" => true,
+                                        "BF-ID" => "",
+                                        'STEP' => 'all'
+                                );
+                        }
+                }
+                else
+                {
+                        $text_help_ns = "No application model";
+                        $color = "gray";
+                        $title_ar = $text_help_ns;
+                        $title_en = $text_help_ns;
+                        $methodName = "zzzz";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "ADMIN-ONLY" => true,
+                                "BF-ID" => "",
+                                'STEP' => 'all'
+                        );
                 }
 
 
