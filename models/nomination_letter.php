@@ -39,7 +39,18 @@ class NominationLetter extends AdmObject{
             return 0;
         }
         
-        
+        public function getDisplay($lang="ar")
+        {
+                $data = array();
+                $link = array();
+
+                list($data[0],$link[0]) = $this->displayAttribute("nominating_authority_id",false, $lang);
+                list($data[1],$link[1]) = $this->displayAttribute("application_plan_id",false, $lang);
+                list($data[2],$link[2]) = $this->displayAttribute("letter_code",false, $lang);
+
+                
+                return implode(" - ",$data);
+        }
        
         
         

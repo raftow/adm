@@ -8,7 +8,7 @@ class AdmNominationLetterAfwStructure
         {
                 if ($obj instanceof NominationLetter) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD = ['application_plan_id', 'nominating_authority_id' , 'letter_code'];
+                        $obj->DISPLAY_FIELD = ['nominating_authority_id' , 'application_plan_id', 'letter_code'];
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
