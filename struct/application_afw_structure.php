@@ -19,7 +19,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 7; 
+                                $obj->editNbSteps = 8; 
                                 $obj->setContextAndPartitionCols($part_cols, $context_cols);
                                 $obj->setMultiplePK($multiple_key_cols,$obj->PK_MULTIPLE); 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
@@ -300,13 +300,13 @@
 
                                         'sis_fields_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 2, 
+								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 8, 
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
                                         'sis_fields_not_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'TEXT',  'STEP' => 2, 'READONLY'=>true, 'NO-REVERSE' => true,
+								'TYPE' => 'TEXT',  'STEP' => 8, 'READONLY'=>true, 'NO-REVERSE' => true,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_75',),   
 
@@ -480,7 +480,7 @@
 
                                         'current_fields_matrix' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
-								'TYPE' => 'TEXT',  'SIZE' => 'AREA', 'FORMAT' => 'HTML', 'STEP' => 2,
+								'TYPE' => 'TEXT',  'SIZE' => 'AREA', 'FORMAT' => 'HTML', 'STEP' => 8,
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 'NO-REVERSE' => true,
 								'CSS' => 'width_pct_100',),	
 
