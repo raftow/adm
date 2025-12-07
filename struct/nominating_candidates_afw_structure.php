@@ -922,7 +922,7 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 		),
 
-		/*
+		
 		'applicantLink' => array(
 			'IMPORTANT' => 'IN',
 			'SEARCH' => false,
@@ -972,7 +972,7 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 			'HIDE_IF_NEW' => true
 		),
-		*/
+		
 
 		
 
