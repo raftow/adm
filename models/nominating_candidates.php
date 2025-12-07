@@ -379,7 +379,7 @@ class NominatingCandidates extends AdmObject{
                 $applicant_id = $applicantObj->id;
                 if(!$applicantObj or !$applicant_id) throw new AfwRuntimeException("failed to create applicant profile record");                
             }
-            else $applicationObj = $this->$this->getMyApplication();
+            else $applicationObj = $this->getMyApplication();
             
             /**
             * @var Applicant $applicantObj
