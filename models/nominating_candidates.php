@@ -204,6 +204,54 @@ class NominatingCandidates extends AdmObject{
                                 $this->set("major_path_id", $objMajorPath->id);
                         }
             }
+
+
+            if (
+                $fields_updated["grading_scale_id"] or 
+                $fields_updated["qual_country_id"] or 
+                $fields_updated["date"] or 
+                $fields_updated["gpa_from"] or 
+                $fields_updated["gpa"] or 
+                $fields_updated["qualification_major_id"] or 
+                $fields_updated["major_path_id"] or 
+                $fields_updated["major_category_id"] or 
+                $fields_updated["qualification_id"]
+               ) 
+            {
+                $appQualObjId = 0;
+                $source_name = "nominating-candidate-".$this->id;
+                $applicant_id = $this->getVal("applicant_id");
+                
+                if( $applicant_id and
+                    $this->getVal("grading_scale_id") and
+                    $this->getVal("qual_country_id") and 
+                    $this->getVal("date") and 
+                    $this->getVal("gpa_from") and 
+                    $this->getVal("gpa") and 
+                    $this->getVal("qualification_major_id") and 
+                    $this->getVal("major_path_id") and 
+                    $this->getVal("major_category_id") and 
+                    $this->getVal("qualification_id"))
+                {
+                        $appQualObj = ApplicantQualification::loadByMainIndex($applicant_id, $this->getVal("qualification_id"), $this->getVal("major_category_id"), true);
+                        $appQualObjId = $appQualObj->id;
+                        $appQualObj->set("source_name", $source_name);
+                        $appQualObj->set("grading_scale_id", $this->getVal("grading_scale_id"));
+                        $appQualObj->set("country_id", $this->getVal("qual_country_id"));
+                        $appQualObj->set("date", $this->getVal("date"));
+                        $appQualObj->set("gpa_from", $this->getVal("gpa_from"));
+                        $appQualObj->set("gpa", $this->getVal("gpa"));
+                        $appQualObj->set("qualification_major_id", $this->getVal("qualification_major_id"));
+                        $appQualObj->set("major_path_id", $this->getVal("major_path_id"));
+                        $appQualObj->set("grading_scale_id", $this->getVal("grading_scale_id"));
+                        $appQualObj->commit();
+                }
+
+                ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId'");
+
+            }
+
+                  	 
             
 
             return true;

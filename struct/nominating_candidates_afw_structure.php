@@ -397,6 +397,7 @@ class AdmNominatingCandidatesAfwStructure
                         'CSS' => 'width_pct_25',
                 ),*/
 
+			 
                 // dependecy bring only ctegories that exists in major_path for this qualification_id   
                 // done by medali     
                 'major_category_id' => array(
@@ -475,7 +476,7 @@ class AdmNominatingCandidatesAfwStructure
                         'DISPLAY' => true,
                         'STEP' => 3,
                         'RELATION' => 'ManyToOne',
-                        'MANDATORY' => false,
+                        'MANDATORY' => true,
                         'READONLY' => false,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
@@ -511,7 +512,7 @@ class AdmNominatingCandidatesAfwStructure
                         'QEDIT' => true,
                         'EDIT' => true,
                         'TYPE' => 'INT',
-                        'MANDATORY' => false,
+                        'MANDATORY' => true,
                         'STEP' => 3,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
@@ -613,7 +614,7 @@ class AdmNominatingCandidatesAfwStructure
                         'DISPLAY' => true,
                         'STEP' => 3,
                         'RELATION' => 'ManyToOne',
-                        'MANDATORY' => false,
+                        'MANDATORY' => true,
                         'READONLY' => false,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
