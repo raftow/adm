@@ -63,9 +63,8 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["gpa_from"] = "من";
 		$trad["nominating_candidates"]["date"] = "تاريخ  المؤهل";
 		$trad["nominating_candidates"]["qualification_major_desc"] = "وصف تخصص المؤهل";
-		$trad["nominating_candidates"]["adm_file_id"] = "المرفق";
-		$trad["nominating_candidates"]["source_name"] = "مصدر المؤهل - نص";
-		$trad["nominating_candidates"]["country_id"] = "الدولة";
+		$trad["nominating_candidates"]["adm_file_id"] = "المرفق";		
+		$trad["nominating_candidates"]["qual_country_id"] = "الدولة مصدر المؤهل";
 		$trad["nominating_candidates"]["grading_scale_id"] = "التقدير";
 		
 		

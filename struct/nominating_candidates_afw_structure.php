@@ -568,7 +568,7 @@ class AdmNominatingCandidatesAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'country_id' => array(
+                'qual_country_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,

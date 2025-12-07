@@ -4,6 +4,9 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   qual_country_id int(11) NOT NULL DEFAULT 0  AFTER adm_file_id;");
+    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   grading_scale_id int(11) DEFAULT NULL  AFTER country_id;");
+
 
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   qualification_id int(11) NOT NULL DEFAULT 0  AFTER gender_enum;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   major_category_id int(11) NOT NULL DEFAULT 0  AFTER qualification_id;");
@@ -13,9 +16,7 @@ try
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   gpa_from smallint DEFAULT NULL  AFTER gpa;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   date datetime NOT NULL DEFAULT '19800101'  AFTER gpa_from;");
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   adm_file_id int(11) DEFAULT NULL  AFTER date;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   country_id int(11) NOT NULL DEFAULT 0  AFTER adm_file_id;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   grading_scale_id int(11) DEFAULT NULL  AFTER country_id;");
-
+    
 
 
     AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   rating_overpass_gdate datetime DEFAULT NULL  AFTER track_overpass_user_id;");
