@@ -16,7 +16,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 9; 
+                                $obj->editNbSteps = 10; 
                                 $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ApplicationModel',"submit"=>true);
                         }
                         else 
@@ -462,6 +462,12 @@
 
                                         'financialTransactionList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_financial_transaction', 'ANSMODULE' => 'adm', 'QEDIT' => true, 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 9,
+                                                // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
+                                                'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => true, 'READONLY' => false, 
+                                                'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),
+                                        
+                                        'engagementList' => array('TYPE' => 'FK', 'ANSWER' => 'application_model_engagement', 'ANSMODULE' => 'adm', 'QEDIT' => true, 
+                                                'CATEGORY' => 'ITEMS', 'ITEM' => 'application_model_id', 'STEP' => 10,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
                                                 'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => true, 'READONLY' => false, 
                                                 'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, 'NO-LABEL'=>false),

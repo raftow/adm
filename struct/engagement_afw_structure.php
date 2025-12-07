@@ -9,13 +9,15 @@
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
                                 $obj->DISPLAY_FIELD = "engagement_name_ar";
                                 // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                                 $obj->UNIQUE_KEY = array('engagement_name_ar');
+                                 $obj->UNIQUE_KEY = array('engagement_type_id','engagement_name_ar');
                                  $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = false;
                                 //$obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+			        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'Engagement', "submit" => true);
+                                
+                                
                         }
                 }
                 
