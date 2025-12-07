@@ -29,14 +29,14 @@ try
             
             PRIMARY KEY (`id`)
             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-        
+        /*
             AfwDatabase::db_query("create unique index uk_engagement_type on ".$server_db_prefix."adm.engagement_type(engagement_type);");
         
             AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`engagement_type` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `engagement_type`, `engagement_type_name_ar`, `engagement_type_name_en`) VALUES
             (1, 1, '2025-12-07 10:44:06', 1, '2025-12-07 10:44:08', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, NULL, 'PL', 'تعهّد بصحة البيانات', 'Pledge of data accuracy'),
             (2, 1, '2025-12-07 10:45:19', 1, '2025-12-07 10:45:21', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, NULL, 'AC', 'عقد اتفاقية قبول', ' admission agreement contract'),
             (3, 1, '2025-12-07 10:46:57', 1, '2025-12-07 10:46:59', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, NULL, 'MC', 'شرط يدوي', 'Manual requirement');");
-
+*/
 
             AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`engagement` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,7 +57,7 @@ try
                 
             engagement_type_id int(11) NOT NULL DEFAULT 0 , 
             engagement_name_ar text  NOT NULL , 
-            engagement_name_en text  NOT NULL DEFAULT '' , 
+            engagement_name_en text   DEFAULT NULL , 
             academic_level_mfk varchar(255) NOT NULL DEFAULT ',' , 
 
             
