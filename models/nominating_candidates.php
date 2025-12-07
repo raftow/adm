@@ -194,6 +194,16 @@ class NominatingCandidates extends AdmObject{
                     $this->setForce("application_simulation_id", 0);
                 }
             }
+
+
+            if ($fields_updated["qualification_id"] or $fields_updated["major_category_id"]) {
+
+                        $objMajorPath = MajorPath::loadByMainIndex($this->getVal("qualification_id"), $this->getVal("major_category_id"));
+
+                        if ($objMajorPath) {
+                                $this->set("major_path_id", $objMajorPath->id);
+                        }
+            }
             
 
             return true;
@@ -442,6 +452,8 @@ class NominatingCandidates extends AdmObject{
             ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, $total_amount, $payment_status_enum, true);
         }
     }
+
+
 }
 
 

@@ -921,12 +921,13 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 		),
 
+		/*
 		'applicantLink' => array(
 			'IMPORTANT' => 'IN',
 			'SEARCH' => false,
 			'QSEARCH' => false,
 			'SHOW' => true,
-			'RETRIEVE' => true,
+			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => false,
 			'SHOW-ADMIN' => true,
@@ -951,7 +952,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SEARCH' => false,
 			'QSEARCH' => false,
 			'SHOW' => true,
-			'RETRIEVE' => true,
+			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => false,
 			'SHOW-ADMIN' => true,
@@ -970,6 +971,7 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 			'HIDE_IF_NEW' => true
 		),
+		*/
 
 		
 
