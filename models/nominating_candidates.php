@@ -212,30 +212,37 @@ class NominatingCandidates extends AdmObject{
             
             if($id)
             {   
-               
-                $app_id = $this->getVal("applicant_id");
-                if($app_id){
+                $application_plan_id = $this->getVal("application_plan_id");
+                $applicant_id = $this->getVal("applicant_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                
+                if($application_plan_id and $applicant_id and $application_simulation_id){
                 
                     $obj = new Application();
-                    $obj->where("applicant_id = '$app_id' and active='Y' ");
+                    $obj->where("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id' and active='Y' and application_status_enum = ".self::application_status_enum_by_code('complete'));
                     $nbRecords = $obj->count();
                     if($nbRecords>0)
                     {
-                        $this->deleteNotAllowedReason = "Some related application(s) exists";
+                        $this->deleteNotAllowedReason = "Some related completed application exists";
                         return false;
-                    }else{
-                        //Delete applicant 
-                        $this->het("applicant_id")->delete();
-                        // delete qualification
-                        $qualification = new ApplicantQualification();
-                        $qualification->deleteWhere("applicant_id = '$app_id'");
-                        // delete Evaluation 
-                        $AppEvaluation = new ApplicantEvaluation();
-                        $AppEvaluation->deleteWhere("applicant_id = '$app_id'");
+                    }
+                    else
+                    {
+                        
+                        // delete application
+                        $application = new Application();
+                        $application->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
+
+                        // delete desire
+                        $desire = new ApplicationDesire();
+                        $desire->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
+
+
                     }
                 }
+
                 if($id_replace==0)
-               {
+                {
                   
                     // FK part of me - not deletable 
 
