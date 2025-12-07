@@ -64,7 +64,7 @@ try
             PRIMARY KEY (`id`)
             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
             
-            AfwDatabase::db_query("create unique index uk_engagement on ".$server_db_prefix."adm.engagement(engagement_type_id,engagement_name_ar);");
+            //AfwDatabase::db_query("create unique index uk_engagement on ".$server_db_prefix."adm.engagement(engagement_type_id,engagement_name_ar);");
 
             AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`engagement` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `engagement_type_id`, `engagement_name_ar`, `engagement_name_en`, `academic_level_mfk`) VALUES
             (1, 1, '2025-12-07 10:52:20', 1, '2025-12-07 10:52:23', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, 1, 'أقرّ بأن جميع البيانات والمعلومات والوثائق التي قدّمتها في طلب الالتحاق ببرامج الدراسات العليا صحيحة وكاملة، وخالية من أي تحريف أو إخفاء لحقائق جوهرية، وأتحمّل كامل المسؤولية عن ذلك.', 'I acknowledge that all data, information, and documents submitted in my application for admission to graduate programs are true, complete, and free from any misrepresentation or concealment of material facts, and I bear full responsibility for this.', ',11,12,13,14,'),
