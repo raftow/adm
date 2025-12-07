@@ -23,8 +23,8 @@ class AdmNominatingCandidatesAfwStructure
 
 			$obj->editByStep = true;
 			$obj->editNbSteps = 3;
-			// $obj->after_save_edit = array("class"=>'NominatingCandidates',"attribute"=>'xxxx_id', "currmod"=>'adm',"currstep"=>2);
-			$obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'NominatingCandidates', "submit" => true);
+			$obj->after_save_edit = array("class"=>'NominationLetter',"attribute"=>'nomination_letter_id', "currmod"=>'adm', "currstep"=>2);
+			// $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'NominatingCandidates', "submit" => true);
 		} else {
 			NominatingCandidatesArTranslator::initData();
 			NominatingCandidatesEnTranslator::initData();

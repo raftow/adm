@@ -306,7 +306,7 @@ class NominatingCandidates extends AdmObject{
             $this->set("applicant_id",$applicantObj->id);
             $this->commit();
                 
-            $applicationObj = $this->prepareMyApplication($applicantObj);
+            $applicationObj = $this->getMyApplication($applicantObj);
 
             $this->addMyApplicantAccounts();
 
