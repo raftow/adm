@@ -8,16 +8,19 @@ $file_dir_name = dirname(__FILE__);
 class NominatingCandidates extends AdmObject{
 
         public static $MY_ATABLE_ID=13999; 
-  
+
         public static $DATABASE		= "nauss_adm";
         public static $MODULE		        = "adm";        
         public static $TABLE			= "nominating_candidates";
 
 	    public static $DB_STRUCTURE = null;
+
+
+        private $applicationObj = null;
 	
 	    public function __construct(){
-		parent::__construct("nominating_candidates","id","adm");
-            AdmNominatingCandidatesAfwStructure::initInstance($this);    
+            parent::__construct("nominating_candidates","id","adm");
+                AdmNominatingCandidatesAfwStructure::initInstance($this);    
 	    }
 
 
@@ -314,24 +317,23 @@ class NominatingCandidates extends AdmObject{
         
     }
 
-    public function prepareMyApplication($applicantObj=null)
+    public function getMyApplication()
     {
-        if(!$applicantObj) $applicantObj = $this->het("applicant_id");
-        $letterObj = $this->het("nomination_letter_id");
-
-        if($letterObj and $applicantObj)
+        if(!$this->applicationObj)
         {
-            $application_simulation_id = self::currentApplicationSimulation();
-            $application_plan_id = $letterObj->getVal("application_plan_id");
-            $applicationPlanObj = $letterObj->het("application_plan_id");
-            if($applicationPlanObj)
-            {
-                $applicationObj = Application::loadByMainIndex($applicantObj->id, $application_plan_id, $application_simulation_id, $this->getVal("idn"), true);
-            }
-            
-        }
+            $applicant_id = $this->getVal("applicant_id");
+            $application_simulation_id = $this->getVal("application_simulation_id");
+            $application_plan_id = $this->getVal("application_plan_id");
 
-        return $applicationObj;
+            if($applicant_id and $application_plan_id and $application_simulation_id)
+            {
+                $this->applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $this->getVal("idn"), true);
+            }
+        }
+        
+        
+
+        return $this->applicationObj;
     }
 
     public function calcMyApplicationLink($what = "value")
@@ -346,7 +348,7 @@ class NominatingCandidates extends AdmObject{
                 $applicant_id = $applicantObj->id;
                 if(!$applicantObj or !$applicant_id) throw new AfwRuntimeException("failed to create applicant profile record");                
             }
-            else $applicationObj = $this->prepareMyApplication($applicantObj);
+            else $applicationObj = $this->getMyApplication();
 
             $nbQuals = $applicantObj->getRelation("applicantQualificationList")->count();
             if($nbQuals==0) return "الرجاء استكمال المؤهلات العلمية أولا";
@@ -377,7 +379,7 @@ class NominatingCandidates extends AdmObject{
                 $applicant_id = $applicantObj->id;
                 if(!$applicantObj or !$applicant_id) throw new AfwRuntimeException("failed to create applicant profile record");                
             }
-            else $applicationObj = $this->prepareMyApplication($applicantObj);
+            else $applicationObj = $this->$this->getMyApplication();
             
             /**
             * @var Applicant $applicantObj
