@@ -388,7 +388,7 @@ class NominatingCandidates extends AdmObject{
             if($applicantObj)
             {
                 $nbQuals = $applicantObj->getRelation("applicantQualificationList")->count();
-                $application_status_enum = $applicationObj->getVal("application_status_enum");
+                $application_status_enum = $applicationObj ? $applicationObj->getVal("application_status_enum") : 1;
                 $application_status_code = self::application_status_code($application_status_enum);
                 if($nbQuals==0)
                 {
