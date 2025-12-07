@@ -1289,7 +1289,18 @@ class ApplicationModel extends AdmObject
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
                 }
-
+                
+                if ($mode == "mode_engagementList") {
+                        unset($link);
+                        $link = array();
+                        $title = "إضافة تعهد جديد";
+                        $title_detailed = $title . "لـ : " . $displ;
+                        $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationModelEngagement&currmod=adm&sel_application_model_id=$my_id";
+                        $link["TITLE"] = $title;
+                        $link["PUBLIC"] = true;
+                        $link["UGROUPS"] = array();
+                        $otherLinksArray[] = $link;
+                }
                 /*
                         if($mode=="mode_appModelApiList")
                         {

@@ -12,6 +12,7 @@ class ApplicationModelArTranslator
 		$trad["application_model"]["step7"] = "الشاشات والخدمات";
 		$trad["application_model"]["step8"] = "خطط التقديم";
 		$trad["application_model"]["step9"] = "البنود المالية";
+		$trad["application_model"]["step10"] = "التعهدات والإقرارات";
 		
 		$trad["application_model"]["sortingPathList"] = "قائمة إعدادات مسارات الفرز";
 		$trad["application_model"]["aconditionOriginList"] = "مصادر الشروط";
@@ -78,6 +79,8 @@ class ApplicationModelArTranslator
 		
 		$trad["application_model"]["max_available_desire_enabled"] = "الحد الأقصى للرغبات";
 		$trad["application_model"]["admission_guide"] = "الدليل الارشادي";
+		
+		$trad["application_model"]["engagementList"] = "التعهدات والإقرارات";
 		
 
 		return $trad;
