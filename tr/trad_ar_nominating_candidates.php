@@ -7,7 +7,10 @@ class NominatingCandidatesArTranslator{
 
 		$trad["nominating_candidates"]["step1"] = "تعريف المترشح";
 		$trad["nominating_candidates"]["step2"] = "البيانات الشخصية";
-		$trad["nominating_candidates"]["step3"] = "معلومات متقدمة";
+		$trad["nominating_candidates"]["step3"] = "المؤهل العلمي";
+		$trad["nominating_candidates"]["step4"] = "رفع الوثائق";
+		$trad["nominating_candidates"]["step5"] = "طلب التقديم";
+		$trad["nominating_candidates"]["step6"] = "معلومات متقدمة";
 
 		$trad["nominating_candidates"]["nominatingcandidates.single"] = "مرشح";
 		$trad["nominating_candidates"]["nominatingcandidates.new"] = "جديد(ة)";
@@ -50,6 +53,20 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["rating_overpass"] = "تم فسح تجاوز شرط التقدير لهذا المترشح؟";
 		$trad["nominating_candidates"]["rating_overpass.short"] = "تجاوز التقدير؟";
 		$trad["nominating_candidates"]["rating_overpass_gdate"] = "تاريخ فسح التجاوز لشرط التقدير";
+
+
+		$trad["nominating_candidates"]["qualification_id"] = "المؤهل";
+		$trad["nominating_candidates"]["major_category_id"] = "فئة التخصص";
+		$trad["nominating_candidates"]["major_path_id"] = "مجموعة التأهيل";
+		$trad["nominating_candidates"]["qualification_major_id"] = "تخصص المؤهل";
+		$trad["nominating_candidates"]["gpa"] = "المعدل";
+		$trad["nominating_candidates"]["gpa_from"] = "من";
+		$trad["nominating_candidates"]["date"] = "تاريخ  المؤهل";
+		$trad["nominating_candidates"]["qualification_major_desc"] = "وصف تخصص المؤهل";
+		$trad["nominating_candidates"]["adm_file_id"] = "المرفق";
+		$trad["nominating_candidates"]["source_name"] = "مصدر المؤهل - نص";
+		$trad["nominating_candidates"]["country_id"] = "الدولة";
+		$trad["nominating_candidates"]["grading_scale_id"] = "التقدير";
 		
 		
 		
