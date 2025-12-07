@@ -413,7 +413,7 @@ class NominatingCandidates extends AdmObject{
 
     
     
-    public function calccandidateFullName($what = "value"){
+    public function calcCandidateFullName($what = "value"){
         return $this->getVal("first_name_ar")." ".$this->getVal("second_name_ar")." ".$this->getVal("third_name_ar")." ".$this->getVal("last_name_ar");
     }
 
