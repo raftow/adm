@@ -472,6 +472,20 @@ class NominatingCandidates extends AdmObject{
     }
 
 
+    public function calcApplyConditionsDiv($what = "value")
+    {
+        // $applicantObj = $this->het("applicant_id");  and $applicantObj
+        $applicationObj = $this->getMyApplication();        
+        if($applicationObj)
+        {
+            $html = $applicationObj->calcApplyConditionsDiv($what);
+        }
+        else $html = "No application found, please contact administartor";
+
+        return $html;
+    }
+
+
     public function calcDragDropDiv($what = "value")
     {
         $applicantObj = $this->het("applicant_id");

@@ -3111,6 +3111,43 @@ class Application extends AdmObject
         {
                 return 0;
         }
+
+
+        public function calcApplyConditionsDiv($what = "value")
+        {
+                $lang = AfwSession::getSessionVar("current_lang");
+                if (!$lang) $lang = "ar";
+                $objme = AfwSession::getUserConnected();
+                $this_id = $this->getId();
+
+                $file_dir_name = dirname(__FILE__);
+
+
+                $html = "<div id='applyc' class=\"fgroup in-group-default_fg cssgroup_none\">";
+                
+                $attributes_arr = ["application_step_id"=>50, "step_num"=>25, "application_status_enum"=>25,];
+                
+
+                foreach($attributes_arr as $attribute => $attrib_width)
+                {
+                        $attribute_value = $this->decode($attribute, '', false, $lang);
+                        $attribute_label = $this->getAttributeLabel($attribute, $lang);
+                        $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_$attrib_width \">
+                                <label for=\"$attribute\" class=\"hzm_label hzm_label_$attribute\">$attribute_label : 
+                                </label>
+
+                                <div id=\"$attribute\" class=\"hzm_data hzm_data_$attribute form-control inputreadonly \" >    
+                                $attribute_value
+                                </div>
+                        </div>";
+                }
+                
+                $html .= "<div> <!-- applyc -->";
+
+
+                return $html;
+
+        }
                 
 
 }
