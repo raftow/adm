@@ -3133,16 +3133,16 @@ class Application extends AdmObject
                         $attribute_value = $this->decode($attribute, '', false, $lang);
                         $attribute_label = $this->getAttributeLabel($attribute, $lang);
                         $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_$attrib_width \">
-                                <label for=\"$attribute\" class=\"hzm_label hzm_label_$attribute\">$attribute_label : 
-                                </label>
+                                        <label for=\"$attribute\" class=\"hzm_label hzm_label_$attribute\">$attribute_label : 
+                                        </label>
 
-                                <div id=\"$attribute\" class=\"hzm_data hzm_data_$attribute form-control inputreadonly \" >    
-                                $attribute_value
-                                </div>
-                        </div>";
+                                        <div id=\"$attribute\" class=\"hzm_data hzm_data_$attribute form-control inputreadonly \" >    
+                                        $attribute_value
+                                        </div>
+                                </div>";
                 }
                 
-                $html .= "<div> <!-- applyc -->";
+                $html .= "</div> <!-- applyc -->";
 
 
                 return $html;
