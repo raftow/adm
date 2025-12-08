@@ -5071,3 +5071,9 @@ h3.field-desc.obsolete {
 .grid td a.btn.btn-success, .grid td a.btn.btn-success:visited {
     color: white !important;
 }
+
+
+.body_nav_hzm>p>input.fa.wizardbtn.application {
+    max-width: 150px !important;
+    min-width: 150px !important;
+}
