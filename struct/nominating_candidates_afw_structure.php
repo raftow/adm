@@ -3,6 +3,10 @@
 
 class AdmNominatingCandidatesAfwStructure
 {
+	public static function pageCode($uri_items)
+	{
+			return "edit_nominating_candidates.js";
+	}
 	// token separator = §
 	public static function initInstance(&$obj)
 	{
@@ -538,6 +542,7 @@ class AdmNominatingCandidatesAfwStructure
                         'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
+						'DEFAULT' => '2025-12-01',
                         'STEP' => 3,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
