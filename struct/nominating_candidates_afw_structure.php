@@ -626,6 +626,54 @@ class AdmNominatingCandidatesAfwStructure
 
 /****************************************/
 
+				'dragDropDiv' => array(
+                        'STEP' => 4,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'INPUT_WIDE' => true
+                ),
+
+                'applicantFileList' => array(
+                        'STEP' => 4,
+                        'SHOW' => true,
+                        'FORMAT' => 'retrieve',
+                        'ICONS' => true,
+                        'DELETE-ICON' => true,
+                        'BUTTONS' => true,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'CATEGORY' => 'ITEMS',
+                        'ANSWER' => 'applicant_file',
+                        'ANSMODULE' => 'adm',
+                        'ITEM' => 'applicant_id',
+                        'WHERE' => 'workflow_file_id > 0',
+                        'READONLY' => true,
+                        'CAN-BE-SETTED' => true,
+                        'CSS' => 'width_pct_100',
+                ),
+
+
+
+
+/******************************************/
+
 
 		'candidateFullName' => array(
 			'IMPORTANT' => 'IN',

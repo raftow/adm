@@ -247,7 +247,7 @@ class NominatingCandidates extends AdmObject{
                         $appQualObj->commit();
                 }
 
-                ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId'");
+                ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId' and imported != 'Y'");
 
             }
 
@@ -374,6 +374,7 @@ class NominatingCandidates extends AdmObject{
         return [];
         
     }
+    
 
     public function getMyApplication()
     {
@@ -469,6 +470,18 @@ class NominatingCandidates extends AdmObject{
             return "<p class='error' hint='no applicant object found'>!!!</p>";
     }
 
+
+    public function calcDragDropDiv($what = "value")
+    {
+        $applicantObj = $this->het("applicant_id");
+        $html = "";
+        if($applicantObj)
+        {
+            $html = $applicantObj->calcDragDropDiv($what);
+        }
+
+        return $html;
+    }
     
     
     public function calcCandidateFullName($what = "value"){
