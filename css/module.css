@@ -5073,7 +5073,7 @@ h3.field-desc.obsolete {
 }
 
 
-.body_nav_hzm>p>input.fa.wizardbtn.application {
+.body_nav_hzm_centered>p>input.fa.wizardbtn.application {
     max-width: 150px !important;
     min-width: 150px !important;
 }
