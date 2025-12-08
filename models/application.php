@@ -3161,6 +3161,8 @@ class Application extends AdmObject
 
                 $data = $this->myCurrentStepData($lang, 1);
 
+                $data_export = "<pre class='php'>".var_export($data, true)."</pre>";
+
                 $current_step_description = $data["current_step_description_$lang"];
                 
 
@@ -3171,6 +3173,7 @@ class Application extends AdmObject
                 <span class='message_icon pi info_circle' data-pc-section='icon'></span>
                 <div class='help_text' >$current_step_description</div>
         </div>
+        $data_export
 </div>";
                 $html .= "</div>";
 
