@@ -3164,6 +3164,22 @@ class Application extends AdmObject
                 $data_export = "<pre class='php'>".var_export($data, true)."</pre>";
 
                 $current_step_description = $data["current_step_description_$lang"];
+
+                $can_previous = $data['can_previous'];
+                $can_next = $data['can_next'];
+
+                $application_attributes = $data['application']['attributes'];
+                $current_screen_id  = $application_attributes['current-screen']['id'];
+
+                $current_screen_data = $application_attributes["screen-$current_screen_id"];
+
+                $current_screen_fields = $current_screen_data['step_fields'];
+
+                $current_screen_fields_export = "<pre class='ok php'>".var_export($current_screen_fields, true)."</pre>";
+
+                $disabled_previous = $can_previous ? "" : "disabled";
+                $disabled_next = $can_next ? "" : "disabled";
+                
                 
 
                 $html .= "<div class='current_step'>";
@@ -3172,19 +3188,20 @@ class Application extends AdmObject
         <div class='help_message_content'>
                 <span class='message_icon pi info_circle' data-pc-section='icon'></span>
                 <div class='help_text' >$current_step_description</div>
-        </div>
-        
-</div>";
+        </div>        
+</div>9";
                 $html .= "</div>";
 
                 $html .= "
 <div class='form_buttons'>
         <div class='body_nav_hzm_centered'>
             <p>
-                <input type='button' name='goto_previous' id='goto_previous' class='fa previous blightbtn wizardbtn application fright' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
-                <input type='button' name='goto_next' id='goto_next' class='fa next greenbtn wizardbtn application fleft' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>
+                <input type='button' name='goto_previous' id='goto_previous' class='fa previous blightbtn wizardbtn application fright $disabled_previous' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
+                <input type='button' name='goto_next' id='goto_next' class='fa next greenbtn wizardbtn application fleft $disabled_next' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>
             </p>
         </div>  
+
+        $current_screen_fields_export
         $data_export        
 </div>";
                 

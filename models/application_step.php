@@ -418,6 +418,7 @@
                         {
                                 $scrFields = $scrData["fields"];
                                 unset($stepFieldsArr[$scrIndex]["fields"]);
+                                $step_fields = [];
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
@@ -515,6 +516,11 @@
                                                 $field_code = ApplicationField::fieldNameToCode($field_name, $atb_id);
                                                 // $stepFieldsArr[$scrIndex]["code-of-$field_code"] = $field_name;                                                        
                                         } 
+
+                                        $field_label = $theObj ? $theObj->getAttributeLabel($field_name,$lang) : $field_name;
+
+                                        $step_fields[] = ['code'=>$field_code,'name'=>$field_name,'label'=>$field_label,];
+
                                         if(($debugg==="all") or ($debugg===$field_code)) $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
                                         if((!$theObj) or (!$theObj->id)) $my_field_value = $error_message;
                                         else $my_field_value = $theObj->$method($field_name);        
@@ -558,6 +564,8 @@
                                 }
 
                         }
+
+                        $stepFieldsArr[$scrIndex]['step_fields'] = $step_fields;
 
                         $stepFieldsArr["action-result"]=[
                                                                 "action-status"=>$action_status,
