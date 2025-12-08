@@ -462,7 +462,8 @@ class NominatingCandidates extends AdmObject{
                 else
                 {
                         
-                        return "<p class='ok'>---</p>";
+                    $label_btn = $applicantObj->translate("show", $lang, true);                    
+                    return "<a class='btn btn-success btn-orange' style='min-width: 130px;font-size: 12px !important;' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm&currstep=1&id=".$applicant_id."'>$label_btn</a><br>";
                 }
                 
             } 
