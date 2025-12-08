@@ -673,7 +673,20 @@ class AdmNominatingCandidatesAfwStructure
                         'CSS' => 'width_pct_100',
                 ),
 
+/******************************************/
 
+'applyConditionsDiv' => array(
+                        'STEP' => 5,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'INPUT_WIDE' => true
+                ),
 
 
 /******************************************/
