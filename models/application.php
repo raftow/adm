@@ -3159,7 +3159,7 @@ class Application extends AdmObject
                                 </div>";
                 }
 
-                $data = $this->myCurrentStepData($lang, 1);
+                list($status, $error_message, $data) = $this->myCurrentStepData($lang, 1);
 
                 $data_export = "<pre class='php'>".var_export($data, true)."</pre>";
 
