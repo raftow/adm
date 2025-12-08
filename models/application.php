@@ -3173,7 +3173,7 @@ class Application extends AdmObject
                 <span class='message_icon pi info_circle' data-pc-section='icon'></span>
                 <div class='help_text' >$current_step_description</div>
         </div>
-        $data_export
+        
 </div>";
                 $html .= "</div>";
 
@@ -3184,7 +3184,8 @@ class Application extends AdmObject
                 <input type='button' name='goto_previous' id='goto_previous' class='fa previous blightbtn wizardbtn application fright' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
                 <input type='button' name='goto_next' id='goto_next' class='fa next greenbtn wizardbtn application fleft' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>
             </p>
-        </div>          
+        </div>  
+        $data_export        
 </div>";
                 
                 $html .= "</div> <!-- applyc -->";
