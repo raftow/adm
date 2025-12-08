@@ -3189,7 +3189,23 @@ class Application extends AdmObject
                 <span class='message_icon pi info_circle' data-pc-section='icon'></span>
                 <div class='help_text' >$current_step_description</div>
         </div>        
-</div>9";
+</div>";
+                foreach($current_screen_fields as $current_screen_field)
+                {
+                        $attribute = $current_screen_field['name'];
+                        $attribute_value = $current_screen_field['decode'];
+                        $attribute_label = $current_screen_field['label'];
+                        $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_50 \">
+                                        <label for=\"$attribute\" class=\"hzm_label hzm_label_$attribute\">$attribute_label : 
+                                        </label>
+
+                                        <div id=\"$attribute\" class=\"hzm_data hzm_data_$attribute form-control inputreadonly \" >    
+                                        $attribute_value
+                                        </div>
+                                </div>";
+                }
+
+
                 $html .= "</div>";
 
                 $html .= "

@@ -518,8 +518,14 @@
                                         } 
 
                                         $field_label = $theObj ? $theObj->getAttributeLabel($field_name,$lang) : $field_name;
-
-                                        $step_fields[] = ['code'=>$field_code,'name'=>$field_name,'label'=>$field_label,];
+                                        $field_decode = $theObj ? $theObj->decode($field_name, '', false, $lang) : '';
+                                        $step_fields[] = [
+                                                'code'=>$field_code,
+                                                'name'=>$field_name,
+                                                'label'=>$field_label,
+                                                'decode'=>$field_decode,
+                                                
+                                                        ];
 
                                         if(($debugg==="all") or ($debugg===$field_code)) $stepFieldsArr[$scrIndex]["props-of-$field_code"] = $scrField; 
                                         if((!$theObj) or (!$theObj->id)) $my_field_value = $error_message;
