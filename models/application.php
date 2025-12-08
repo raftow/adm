@@ -3146,7 +3146,7 @@ class Application extends AdmObject
 
                 $html .= "
 <div class='form_buttons'>
-        <div class='body_nav_hzm'>
+        <div class='body_nav_hzm_centered'>
             <p>
                 <input type='button' name='goto_previous' id='goto_previous' class='fa previous blightbtn wizardbtn application fright' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
                 <input type='button' name='goto_next' id='goto_next' class='fa next greenbtn wizardbtn application fleft' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>

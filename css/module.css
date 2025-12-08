@@ -5077,3 +5077,22 @@ h3.field-desc.obsolete {
     max-width: 150px !important;
     min-width: 150px !important;
 }
+
+input#goto_previous {
+    background-color: #2e6066 !important;
+    color: white !important;
+}
+
+input#goto_next {
+    background-color: #af9058 !important;
+    color: white !important;
+}
+
+.body_nav_hzm_centered {
+    display: block;
+    min-height: fit-content;
+    float: right;
+    margin-right: 35%;
+    width: 30%;
+    z-index: 9999999;
+}
