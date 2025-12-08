@@ -205,6 +205,18 @@ class Application extends AdmObject
         }
 
 
+        public function myCurrentStepData($lang='ar', $debugg = 0)
+        {
+                $input_arr = [];
+                $input_arr['plan_id'] = $this->getVal("application_plan_id");
+                $input_arr['applicant_id'] = $this->getVal("applicant_id");
+                $input_arr['lang'] = $lang;
+                $input_arr['whereiam'] = "";
+                $input_arr['simulation_id'] = $this->getVal("application_simulation_id");
+
+                return self::currentStepData($input_arr, $debugg);
+        }
+
         public static function currentStepData($input_arr, $debugg = 0)
         {
                 $application_plan_id = $input_arr['plan_id'];
@@ -3120,6 +3132,11 @@ class Application extends AdmObject
                 $objme = AfwSession::getUserConnected();
                 $this_id = $this->getId();
 
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $step_num = $this->getVal("step_num");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+
                 $file_dir_name = dirname(__FILE__);
 
 
@@ -3142,7 +3159,20 @@ class Application extends AdmObject
                                 </div>";
                 }
 
-                $html .= "<div class='current_step'>[-----]</div>";
+                $data = $this->myCurrentStepData($lang, 1);
+
+                $current_step_description = $data["current_step_description_$lang"];
+                
+
+                $html .= "<div class='current_step'>";
+                $html .= "
+<div class='help_message_info'>                
+        <div class='help_message_content'>
+                <span class='message_icon pi info_circle' data-pc-section='icon'></span>
+                <div class='help_text' >$current_step_description</div>
+        </div>
+</div>";
+                $html .= "</div>";
 
                 $html .= "
 <div class='form_buttons'>

@@ -841,7 +841,7 @@ class AdmNominatingCandidatesAfwStructure
 
 		'track_overpass' => array(
 			'SHOW' => true,
-			'RETRIEVE' => true,
+			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => true,
 			'DEFAUT' => 'N',
@@ -903,7 +903,7 @@ class AdmNominatingCandidatesAfwStructure
 
 		'rating_overpass' => array(
 			'SHOW' => true,
-			'RETRIEVE' => true,
+			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => true,
 			'DEFAUT' => 'N',
