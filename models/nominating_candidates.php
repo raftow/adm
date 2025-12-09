@@ -74,11 +74,76 @@ class NominatingCandidates extends AdmObject{
              
              return $otherLinksArray;
         }
+
+
+        public function gotoNextStep($lang='ar')
+        {
+            $this->getMyApplication();
+            if($this->applicationObj)
+            {
+                return $this->applicationObj->gotoNextStep($lang);
+            }
+
+            return ['no application obj', ''];
+        }
+
+        public function gotoPreviousStep($lang='ar')
+        {
+            $this->getMyApplication();
+            if($this->applicationObj)
+            {
+                return $this->applicationObj->gotoPreviousStep($lang);
+            }
+
+            return ['no application obj', ''];
+        }
         
         protected function getPublicMethods()
         {
             
             $pbms = array();
+            $this->getMyApplication();
+            if($this->applicationObj)
+            {
+
+                $currentStepNum = $this->applicationObj->getVal("step_num") ? $this->applicationObj->getVal("step_num") : 0;
+                $nextStepNum = $currentStepNum + 1;
+                $nextStepObj = ApplicationStep::loadByMainIndex($this->applicationObj->objApplicationModel->id, $nextStepNum);
+
+                $previousStepNum = ($currentStepNum>1) ? $currentStepNum-1 : 1;
+                $previousStepObj = ApplicationStep::loadByMainIndex($this->applicationObj->objApplicationModel->id, $previousStepNum);
+                
+                $color = "green";
+                $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
+                $title_en = $nextStepObj->tm("go to next step", 'en') . " '" . $nextStepObj->getDisplay("en") . "'";
+                $methodName = "gotoNextStep";
+                $pbms['xabc4578'] = array(
+                        "METHOD" => $methodName,
+                        "COLOR" => $color,
+                        "LABEL_AR" => $title_ar,
+                        "LABEL_EN" => $title_en,
+                        "ADMIN-ONLY" => true,
+                        "BF-ID" => "",
+                );
+
+                $color = "blue";
+                $title_ar = $previousStepObj->tm("go to previous step", 'ar') . " '" . $previousStepObj->getDisplay("ar") . "'";
+                $title_en = $previousStepObj->tm("go to previous step", 'en') . " '" . $previousStepObj->getDisplay("en") . "'";
+                $methodName = "gotoPreviousStep";
+                $pbms['zsde1239'] = array(
+                        "METHOD" => $methodName,
+                        "COLOR" => $color,
+                        "LABEL_AR" => $title_ar,
+                        "LABEL_EN" => $title_en,
+                        "ADMIN-ONLY" => true,
+                        "BF-ID" => "",
+                );
+
+
+
+            }
+
+
             if(!$this->sureIs("track_overpass"))
             {
                 $color = "green";
