@@ -1990,14 +1990,14 @@ class Application extends AdmObject
                                 if ($dataShouldBeUpdated and !$dataReady) {
                                         $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "list-fields-not-available", false, true);
                                         $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "reason-fields-not-available", false, true);
-
-                                        $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang)." ".$fieldsNotAvail." ".$reasonNotAvail;
+                                        $message_comments = $this->tm("We can not apply conditions because the data is not updated", $lang);
+                                        $message_war = $message_comments." ".$fieldsNotAvail." ".$reasonNotAvail;
                                         $war_arr[] = $message_war;
                                         $result_arr["message"] = $message_war;
                                         $result_arr["details"] = $fieldsNotAvail;
                                         $result_arr["details_2"] = $reasonNotAvail;
                                         $this->set("application_status_enum", self::application_status_enum_by_code('data-review'));
-                                        $this->set("comments", $message_war);
+                                        $this->set("comments", $message_comments);
                                 } else {
                                         /**
                                          * @var ApplicationStep $lastStepObj

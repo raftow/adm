@@ -607,11 +607,12 @@ class ApplicationDesire extends AdmObject
                         if ($dataShouldBeUpdated and !$dataReady) {
                                 $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "list-fields-not-available", false, true);
                                 $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "reason-fields-not-available", false, true);
-                                $message_war = $this->tm("We can not apply conditions because the data is not updated", $lang)." ".$fieldsNotAvail." ".$reasonNotAvail;
+                                $message_comments = $this->tm("We can not apply conditions because the data is not updated", $lang);
+                                $message_war = $message_comments." ".$fieldsNotAvail." ".$reasonNotAvail;
                                 // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
                                 if ($currentStepCode != "SRT") {
                                         $this->set("desire_status_enum", self::desire_status_enum_by_code('data-review'));
-                                        $this->set("comments", $message_war);
+                                        $this->set("comments", $message_comments);
                                         $this->commit();
                                 }
 
