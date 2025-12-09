@@ -3108,7 +3108,7 @@ class Application extends AdmObject
                 </div>
                 <span class='text-$text_css'> $step_name</span>
         </div>
-        <span class='step-separator'>←</span>";
+        <span class='step-separator'>&#8630;</span>";
                 }
 
                 $html .= "</div>";
