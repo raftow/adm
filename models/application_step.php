@@ -518,7 +518,7 @@
                                         } 
 
                                         $field_label = $theObj ? $theObj->getAttributeLabel($field_name,$lang) : $field_name;
-                                        $field_decode = $theObj ? $theObj->decode($field_name, '', false, $lang) : '';
+                                        $field_decode = $theObj ? $theObj->showAttribute($field_name, null, true, $lang) : '';
                                         $step_fields[] = [
                                                 'code'=>$field_code,
                                                 'name'=>$field_name,

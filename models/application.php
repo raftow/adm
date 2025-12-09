@@ -1309,7 +1309,7 @@ class Application extends AdmObject
                                         $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
                                         $title_en = $nextStepObj->tm("go to next step", 'en') . " '" . $nextStepObj->getDisplay("en") . "'";
                                         $methodName = "gotoNextStep";
-                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        $pbms['xabc4578'] = array(
                                                 "METHOD" => $methodName,
                                                 "COLOR" => $color,
                                                 "LABEL_AR" => $title_ar,
@@ -3206,8 +3206,8 @@ class Application extends AdmObject
 <div class='form_buttons'>
         <div class='body_nav_hzm_centered'>
             <p>
-                <input type='submit' name='submit-xabc4578' id='submit-xabc4578' class='fa previous blightbtn wizardbtn application fright $disabled_previous' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
-                <input type='submit' name='submit-zsde1239' id='submit-zsde1239' class='fa next greenbtn wizardbtn application fleft $disabled_next' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>
+                <input type='submit' name='submit-zsde1239' id='submit-xabc4578' class='fa previous blightbtn wizardbtn application fright $disabled_previous' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
+                <input type='submit' name='submit-xabc4578' id='submit-zsde1239' class='fa next greenbtn wizardbtn application fleft $disabled_next' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>
             </p>
         </div>  
 
