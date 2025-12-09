@@ -5096,3 +5096,38 @@ input#goto_next {
     width: 30%;
     z-index: 9999999;
 }
+
+
+.item-done {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
+
+.item-current {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+    --tw-bg-opacity: 1;
+    background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+    --tw-border-opacity: 1;
+    border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
+    border-width: 2px;
+}
+
+.item-next {
+    --tw-border-opacity: 1;
+    border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+    border-width: 2px;
+}
+
+.current_step {
+    float: right;
+    width: 100%;
+    min-height: 350px;
+    border: 1px solid #e0dfdf;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+}
