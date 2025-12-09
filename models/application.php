@@ -12,7 +12,7 @@ class Application extends AdmObject
         private $uniqueDesireObj;
         /**
          * @var Applicant $applicantObj
-         */        
+         */
         private $applicantObj = null;
         private $myApplicationDesireList = [];
 
@@ -205,7 +205,7 @@ class Application extends AdmObject
         }
 
 
-        public function myCurrentStepData($lang='ar', $debugg = 0)
+        public function myCurrentStepData($lang = 'ar', $debugg = 0)
         {
                 $input_arr = [];
                 $input_arr['plan_id'] = $this->getVal("application_plan_id");
@@ -235,36 +235,28 @@ class Application extends AdmObject
                          * @var ApplicationStep $stepObj
                          */
                         $stepObj = $applicationObj->het("application_step_id");
-                        if(!$stepObj)
-                        {
+                        if (!$stepObj) {
                                 $case_no_step_correct = "application_step_id not correct";
                                 $applicationModelObj = $applicationObj->getApplicationModel();
-                                if($applicationModelObj)
-                                {
+                                if ($applicationModelObj) {
                                         $stepObj = $applicationModelObj->convertStepNumToObject($step_num);
-                                        if($stepObj)
-                                        {
-                                                $applicationObj->set("application_step_id", $stepObj->id);    
+                                        if ($stepObj) {
+                                                $applicationObj->set("application_step_id", $stepObj->id);
                                                 $applicationObj->commit();
-                                        }
-                                        else $case_no_step_correct = "application model doesn't contain step num $step_num";
-                                }                                
-                                else $case_no_step_correct = "application model not correct";
+                                        } else $case_no_step_correct = "application model doesn't contain step num $step_num";
+                                } else $case_no_step_correct = "application model not correct";
                         }
-                        if($stepObj)
-                        {
+                        if ($stepObj) {
                                 $can_previous = $stepObj->canPrevious();
                                 $can_next = $stepObj->canNext();
                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
-                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
-                        }
-                        else
-                        {
+                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");
+                        } else {
                                 $can_previous = null;
                                 $can_next = null;
                                 // should never happen
-                                $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = ".$applicationObj->getVal("application_step_id")." غير معروف ".$case_no_step_correct;
-                                $step_description_en = "unknown step id ".$applicationObj->getVal("application_step_id")." for step num = $step_num ".$case_no_step_correct;
+                                $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = " . $applicationObj->getVal("application_step_id") . " غير معروف " . $case_no_step_correct;
+                                $step_description_en = "unknown step id " . $applicationObj->getVal("application_step_id") . " for step num = $step_num " . $case_no_step_correct;
                         }
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
@@ -515,10 +507,10 @@ class Application extends AdmObject
                         $ok = true;
                         $not_ok_reason = "";
                         if ($ok) {
-                                
+
                                 list($error_message, $inf, $war, $tech, $result) = $applicationObj->gotoPreviousStep($lang, false, false, $application_simulation_id, false);
                                 $applicationObj->reloadMe();
-                                
+
 
                                 $move_step_status = $result["result"];
                                 $move_step_message = $result["message"];
@@ -527,17 +519,14 @@ class Application extends AdmObject
                                 if (!$error_message) {
                                         // re-inject step_num in input_arr (for get Step Data later) after have done the previous step action
                                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
-                                        
+
                                         $stepObj = $applicationObj->het("application_step_id");
-                                        if($stepObj)
-                                        {
+                                        if ($stepObj) {
                                                 $can_previous = $stepObj->canPrevious();
                                                 $can_next = $stepObj->canNext();
                                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
-                                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
-                                        }
-                                        else
-                                        {
+                                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");
+                                        } else {
                                                 $can_previous = null;
                                                 $can_next = null;
                                                 // should never happen
@@ -555,8 +544,7 @@ class Application extends AdmObject
                                 $move_step_details_2 = "";
                                 $applicationData = null;
                         }
-                }
-                else {
+                } else {
                         $move_step_message = null;
                         $move_step_status = null;
                         $step_num = null;
@@ -584,7 +572,6 @@ class Application extends AdmObject
 
                 $status = $error_message ? "error" : "success";
                 return [$status, $error_message, $data];
-
         }
 
         public static function nextApplicationStep($input_arr, $debugg = 0, $dataShouldBeUpdated = true, $forceRunApis = true)
@@ -608,7 +595,7 @@ class Application extends AdmObject
                 $saved = [];
                 $received = [];
                 if ($applicationObj) {
-                        
+
                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
 
                         if ($dataShouldBeUpdated) {
@@ -640,15 +627,12 @@ class Application extends AdmObject
                                         // re-inject step_num in input_arr (for get Step Data later) after have done the next step action
                                         $step_num = $input_arr['step_num'] = $applicationObj->getVal("step_num");
                                         $stepObj = $applicationObj->het("application_step_id");
-                                        if($stepObj)
-                                        {
+                                        if ($stepObj) {
                                                 $can_previous = $stepObj->canPrevious();
                                                 $can_next = $stepObj->canNext();
                                                 $step_description_ar = $stepObj->getVal("FrontEnd_instructions_ar");
-                                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");                        
-                                        }
-                                        else
-                                        {
+                                                $step_description_en = $stepObj->getVal("FrontEnd_instructions_en");
+                                        } else {
                                                 // should never happen
                                                 $can_previous = null;
                                                 $can_next = null;
@@ -1315,14 +1299,12 @@ class Application extends AdmObject
 
 
                         $lastStepObj = $this->objApplicationModel->getLastApplicationStep();
-                        if(!$lastStepObj) $text_help_ns = "لا يوجد مرحلة أخيرة للنموذج ";
+                        if (!$lastStepObj) $text_help_ns = "لا يوجد مرحلة أخيرة للنموذج ";
                         $nextStepObj = ApplicationStep::loadByMainIndex($this->objApplicationModel->id, $nextStepNum);
-                        if(!$nextStepObj) $text_help_ns = "لا يوجد مرحلة قادمة لللمرحلة $nextStepNum ";
-                        if ($nextStepObj and $lastStepObj) 
-                        {
+                        if (!$nextStepObj) $text_help_ns = "لا يوجد مرحلة قادمة لللمرحلة $nextStepNum ";
+                        if ($nextStepObj and $lastStepObj) {
                                 $lastStepNum = $lastStepObj->getVal("step_num");
-                                if ($nextStepObj->sureIs("general") or ($this->isSynchronisedUniqueDesire() and ($lastStepNum == $currentStepNum))) 
-                                {
+                                if ($nextStepObj->sureIs("general") or ($this->isSynchronisedUniqueDesire() and ($lastStepNum == $currentStepNum))) {
                                         $color = "green";
                                         $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
                                         $title_en = $nextStepObj->tm("go to next step", 'en') . " '" . $nextStepObj->getDisplay("en") . "'";
@@ -1378,9 +1360,7 @@ class Application extends AdmObject
                                                 'STEP' => $this->stepOfAttribute("nb_desires")
                                         );
                                 }
-                        }
-                        else
-                        {
+                        } else {
                                 $color = "gray";
                                 $title_ar = $text_help_ns;
                                 $title_en = $text_help_ns;
@@ -1395,9 +1375,7 @@ class Application extends AdmObject
                                         'STEP' => 'all'
                                 );
                         }
-                }
-                else
-                {
+                } else {
                         $text_help_ns = "No application model";
                         $color = "gray";
                         $title_ar = $text_help_ns;
@@ -1846,18 +1824,15 @@ class Application extends AdmObject
                 $step_num = $anApplicationStepObj->getVal("step_num");
                 $application_step_id = $anApplicationStepObj->id;
                 $stepCode = $anApplicationStepObj->getVal("step_code");
-                if($step_num != $this->getVal("step_num"))
-                {
-                        $this->set("application_step_id", $application_step_id);                        
+                if ($step_num != $this->getVal("step_num")) {
+                        $this->set("application_step_id", $application_step_id);
                         $this->set("step_num", $step_num);
                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                         $this->set("comments", $comments);
                         $this->commit();
                         $inf_arr[] = $comments;
                         $result_arr["STEP_CODE"] = $stepCode;
-                }
-                else
-                {
+                } else {
                         $war_arr[] = "step already = $step_num";
                 }
 
@@ -1931,7 +1906,7 @@ class Application extends AdmObject
                                  * @var ApplicationStep $firstStepObj
                                  */
                                 $firstStepObj = $this->objApplicationModel->getFirstApplicationStep();
-                                
+
                                 if (!$currentStepObj or !$currentStepObj->id) $currentStepObj = $this->objApplicationModel->getFirstStep();
                                 if (!$currentStepObj) {
                                         $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
@@ -1949,37 +1924,28 @@ class Application extends AdmObject
                                         $this->set("comments", $message_err);
 
                                         $err_arr[] = $message_err;
-                                } 
-                                elseif ($currentStepObj->sureIs("general")) 
-                                {
-                                        if($currentStepObj->id != $firstStepObj->id)
-                                        {
-                                                        $result_arr["result"] = "ok";
-                                                        $result_arr["message"] = "";
-                                                        $previousStepNum = $currentStepNum - 1;       
-                                                        $previousStepCase = "--";
-                                                        $result_arr["details"] = "from $currentStepNum to $previousStepNum ($previousStepCase)";
-                                                        
-                                                        $this->set("step_num", $previousStepNum);
-                                                        $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
-                                                        $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
-                                                        $this->set("comments", $this->tm("go back to previous step allowed", $lang));
+                                } elseif ($currentStepObj->sureIs("general")) {
+                                        if ($currentStepObj->id != $firstStepObj->id) {
+                                                $result_arr["result"] = "ok";
+                                                $result_arr["message"] = "";
+                                                $previousStepNum = $currentStepNum - 1;
+                                                $previousStepCase = "--";
+                                                $result_arr["details"] = "from $currentStepNum to $previousStepNum ($previousStepCase)";
+
+                                                $this->set("step_num", $previousStepNum);
+                                                $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
+                                                $inf_arr[]  = $this->tm("The move from step", $lang) . " : " . $currentStepObj->getDisplay($lang) . " " . $this->tm("has been successfully done", $lang);
+                                                $this->set("comments", $this->tm("go back to previous step allowed", $lang));
                                         }
-                                } 
-                                else 
-                                {
-                                        if($this->isSynchronisedUniqueDesire())
-                                        {
+                                } else {
+                                        if ($this->isSynchronisedUniqueDesire()) {
                                                 $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
-                                                if(!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
+                                                if (!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
                                                 return $uniqueDesireObj->gotoPreviousDesireStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
-                                        }
-                                        else
-                                        {
-                                                throw new AfwRuntimeException("Application reached non-general step when the mode is not Synchronised-Unique-Desire : currentStep=".var_export($currentStepObj,true));
+                                        } else {
+                                                throw new AfwRuntimeException("Application reached non-general step when the mode is not Synchronised-Unique-Desire : currentStep=" . var_export($currentStepObj, true));
                                         }
                                 }
-                                
                         }
                 } catch (Exception $e) {
                         if ($devMode) throw $e;
@@ -2056,11 +2022,8 @@ class Application extends AdmObject
                                                 $this->set("comments", $message_err);
 
                                                 $err_arr[] = $message_err;
-                                        } 
-                                        elseif ($currentStepObj->sureIs("general")) 
-                                        {
-                                                if(($currentStepObj->id != $lastStepObj->id) or ($this->isSynchronisedUniqueDesire()))
-                                                {
+                                        } elseif ($currentStepObj->sureIs("general")) {
+                                                if (($currentStepObj->id != $lastStepObj->id) or ($this->isSynchronisedUniqueDesire())) {
                                                         // to go to next step we should apply conditions of the current step
                                                         $applyResult = $this->applyMyCurrentStepConditions($lang, false, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
                                                         // die("applyResult = ".var_export($applyResult,true));
@@ -2071,13 +2034,10 @@ class Application extends AdmObject
                                                         if ($success and (!$error_message)) {
                                                                 $result_arr["result"] = "pass";
                                                                 $result_arr["message"] = $success_message;
-                                                                if($this->isSynchronisedUniqueDesire())
-                                                                {
-                                                                        $nextStepNum = $currentStepNum + 1;       
+                                                                if ($this->isSynchronisedUniqueDesire()) {
+                                                                        $nextStepNum = $currentStepNum + 1;
                                                                         $nextStepCase = "++";
-                                                                }
-                                                                else 
-                                                                {
+                                                                } else {
                                                                         $nextStepNum = $this->objApplicationModel->getNextStepNumOf($currentStepNum, true);
                                                                         $nextStepCase = "objApplicationModel->getNextStepNumOf($currentStepNum, true)";
                                                                 }
@@ -2105,9 +2065,7 @@ class Application extends AdmObject
                                                                 $this->set("application_status_enum", self::application_status_enum_by_code('pending'));
                                                                 $this->set("comments", $fail_message);
                                                         }
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                         // here means the application is in last general step                                                        
                                                         list($is_completed_app, $reson_non_completed) = $this->dataIsCompleted();
                                                         if ($is_completed_app) {
@@ -2131,19 +2089,13 @@ class Application extends AdmObject
                                                                 $this->set("comments", $this->tm("please select the desires", $lang));
                                                         }
                                                 }
-                                                
-                                        } 
-                                        else 
-                                        {
-                                                if($this->isSynchronisedUniqueDesire())
-                                                {
+                                        } else {
+                                                if ($this->isSynchronisedUniqueDesire()) {
                                                         $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
-                                                        if(!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
+                                                        if (!$uniqueDesireObj) throw new AfwRuntimeException("No desire when in mode unique desire");
                                                         return $uniqueDesireObj->gotoNextDesireStep($lang, $dataShouldBeUpdated, $simulate, $application_simulation_id, $logConditionExec, $audit_conditions_pass, $audit_conditions_fail);
-                                                }
-                                                else
-                                                {
-                                                        throw new AfwRuntimeException("Application reached non-general step when the mode is not Synchronised-Unique-Desire : currentStep=".var_export($currentStepObj,true));
+                                                } else {
+                                                        throw new AfwRuntimeException("Application reached non-general step when the mode is not Synchronised-Unique-Desire : currentStep=" . var_export($currentStepObj, true));
                                                 }
                                         }
                                 }
@@ -2322,18 +2274,15 @@ class Application extends AdmObject
                                 $theyAreUpdated = false;
                         }
 
-                        if($object instanceof Applicant)
-                        {
+                        if ($object instanceof Applicant) {
                                 $applicant_id = $object->id;
-                        }
-                        else
-                        {
+                        } else {
                                 $applicant_id = $object->getVal("appicant_id");
                         }
 
                         $field_name_step = $object->stepOfAttribute($field_name);
                         $field_name_step_title = $object->getAttributeLabel("step" . $field_name_step, $lang);
-                        $row_matrix['admstep'] = "<a target='_admstep' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&id=$applicant_id&currmod=adm&currstep=$field_name_step'>".$field_name_step . "-" . $field_name_step_title."</a>";
+                        $row_matrix['admstep'] = "<a target='_admstep' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&id=$applicant_id&currmod=adm&currstep=$field_name_step'>" . $field_name_step . "-" . $field_name_step_title . "</a>";
 
                         $matrix[] = $row_matrix;
                 }
@@ -2370,7 +2319,7 @@ class Application extends AdmObject
                 list($applicantFieldsArr, $applicationFieldsArr, $applicationDesireFieldsArr) = $this->objApplicationModel->getAppModelFieldsOfStep($stepNum, true, false, $lang, $onlyMandatory);
                 if (count($applicationDesireFieldsArr) > 0) {
                         $applicationDesireFieldsArrKeys = array_keys($applicationDesireFieldsArr);
-                        if(!$this->isSynchronisedUniqueDesire()) AfwSession::pushWarning("some desire fields are required in general step $stepNum => " . implode(",", $applicationDesireFieldsArrKeys) . " => " . implode(",", $applicationDesireFieldsArr));
+                        if (!$this->isSynchronisedUniqueDesire()) AfwSession::pushWarning("some desire fields are required in general step $stepNum => " . implode(",", $applicationDesireFieldsArrKeys) . " => " . implode(",", $applicationDesireFieldsArr));
                 }
 
                 $fieldsMatrix_1 = $this->applicantObj->getFieldsMatrix($applicantFieldsArr, $lang, $this, $onlyIfTheyAreUpdated, $technical_infos);
@@ -2629,7 +2578,7 @@ class Application extends AdmObject
 
         public function calcSis_fields_not_available($what = "value", $lang = "")
         {
-                if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
+                if (!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
                 $this->getApplicationModel();
                 if (!$this->objApplicationModel) return "No Application Model Object";
 
@@ -2701,29 +2650,26 @@ class Application extends AdmObject
                                 if ($pq_obj) $pq_obj_arr[] = $pq_obj;
                         }
                         return $pq_obj_arr;
-                }
-                else throw new AfwRuntimeException("calcProgram_qualification_mfk($what) is to be implemented");
+                } else throw new AfwRuntimeException("calcProgram_qualification_mfk($what) is to be implemented");
         }
 
 
         public function getMyExternalCandidateInfos()
         {
-                $applicant_id = $this->getVal("applicant_id"); 
+                $applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
                 $track_overpass_program_id = 0;
-                if($ncObj) 
-                {
-                        if($ncObj->sureIs("track_overpass") and ($ncObj->getVal("track_overpass_user_id")>0))
-                        {
+                if ($ncObj) {
+                        if ($ncObj->sureIs("track_overpass") and ($ncObj->getVal("track_overpass_user_id") > 0)) {
                                 $track_overpass_program_id = $ncObj->getVal("academic_program_id");
-                        } 
+                        }
                         return [1, $track_overpass_program_id];
                 }
-                        
 
-                return [0,0];
+
+                return [0, 0];
         }
 
 
@@ -2774,8 +2720,7 @@ class Application extends AdmObject
                                 if ($po_obj) $po_obj_arr[] = $po_obj;
                         }
                         return $po_obj_arr;
-                }
-                else throw new AfwRuntimeException("calcProgram_offering_mfk($what) rafik is to be implemented ");
+                } else throw new AfwRuntimeException("calcProgram_offering_mfk($what) rafik is to be implemented ");
         }
 
         public function calcWeighted_percentage_details($what = "value")
@@ -2856,7 +2801,6 @@ class Application extends AdmObject
                 $application_model_financial_transaction_id = $amftObj->id;
                 $applicant_id = $this->getVal("applicant_id");
                 return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id);
-                
         }
 
         private function calcFinancial_transaction_paid($what = "value", $fee_code = "F001")
@@ -3090,38 +3034,87 @@ class Application extends AdmObject
          */
         public function getSynchronisedUniqueDesire()
         {
-                if(!$this->isSynchronisedUniqueDesire()) return null;
+                if (!$this->isSynchronisedUniqueDesire()) return null;
                 return $this->getApplicationDesireByNum(1);
         }
 
         public function isSynchronisedUniqueDesire()
-        {                
+        {
                 return ($this->getApplicationModel()->isSynchronisedUniqueDesire());
         }
 
-        public function calcApplication_model_id($what="value")
+        public function calcApplication_model_id($what = "value")
         {
                 return $this->getVal("application_model_id");
         }
 
-        public function calcTraining_unit_id($what="value")
+        public function calcTraining_unit_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcDepartment_id($what="value")
+        public function calcDepartment_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcApplication_model_branch_id($what="value")
+        public function calcApplication_model_branch_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcProgram_track_id($what="value")
+        public function calcProgram_track_id($what = "value")
         {
                 return 0;
+        }
+
+
+        public function calcMyStepper()
+        {
+                $lang = AfwSession::getSessionVar("current_lang");
+                $appModel = $this->getApplicationModel();
+
+                if (!$appModel) return "NO-APP-MODEL";
+
+                $applicationStepList = $appModel->get("applicationStepList");
+
+                $html = "<div class='flex items-center justify-center gap-4 mb-5 text-sm'>";
+
+                $curr_step_num = $this->getVal("step_num");
+
+                foreach ($applicationStepList as $applicationStepItem) 
+                {
+                        $step_name = $applicationStepItem->getShortDisplay($lang);
+                        $ap_step_num = $applicationStepItem->getVal("step_num");
+                        if ($curr_step_num > $ap_step_num) {
+                                $step_symbol = "✓";
+                                $step_status = "done";
+                                $text_css = "gray-700";
+                        } elseif ($curr_step_num == $ap_step_num) {
+                                $step_symbol = "~";
+                                $step_status = "current";
+                                $text_css = "blue-600";
+                        } else {
+                                $step_symbol = "o";
+                                $step_status = "next";
+                                $text_css = "gray-400";
+                        }
+
+
+                        $html .= "
+        <div class='flex items-center gap-2'>
+                <div class='w-4 h-4 flex items-center justify-center rounded-full item-$step_status'>
+                    <span class='text-xs font-bold'>$step_symbol</span>
+                </div>
+                <span class='text-$text_css'> $step_name</span>
+        </div>
+        <span class='text-gray-300'>-</span>";
+                }
+
+                $html .= "</div>";
+
+
+                return $html;
         }
 
 
@@ -3141,12 +3134,13 @@ class Application extends AdmObject
 
 
                 $html = "<div id='applyc' class=\"fgroup in-group-default_fg cssgroup_none\">";
-                
-                $attributes_arr = ["application_step_id"=>50, "step_num"=>25, "application_status_enum"=>25,];
-                
 
-                foreach($attributes_arr as $attribute => $attrib_width)
-                {
+
+                $attributes_arr = ["application_step_id" => 50, "step_num" => 25, "application_status_enum" => 25,];
+
+                $html .= $this->calcMyStepper();
+
+                foreach ($attributes_arr as $attribute => $attrib_width) {
                         $attribute_value = $this->decode($attribute, '', false, $lang);
                         $attribute_label = $this->getAttributeLabel($attribute, $lang);
                         $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_$attrib_width \">
@@ -3161,7 +3155,7 @@ class Application extends AdmObject
 
                 list($status, $error_message, $data) = $this->myCurrentStepData($lang, 1);
 
-                $data_export = "<pre class='php'>".var_export($data, true)."</pre>";
+                $data_export = "<pre class='php'>" . var_export($data, true) . "</pre>";
 
                 $current_step_description = $data["current_step_description_$lang"];
 
@@ -3175,23 +3169,22 @@ class Application extends AdmObject
 
                 $current_screen_fields = $current_screen_data['step_fields'];
 
-                $current_screen_fields_export = "<pre class='ok php'>".var_export($current_screen_fields, true)."</pre>";
+                $current_screen_fields_export = "<pre class='ok php'>" . var_export($current_screen_fields, true) . "</pre>";
 
                 $disabled_previous = $can_previous ? "" : "disabled";
                 $disabled_next = $can_next ? "" : "disabled";
-                
-                
+
+
 
                 $html .= "<div class='current_step'>";
                 $html .= "
-<div class='help_message_info'>                
+<div class='help_message_info'>
         <div class='help_message_content'>
                 <span class='message_icon pi info_circle' data-pc-section='icon'></span>
                 <div class='help_text' >$current_step_description</div>
-        </div>        
+        </div>
 </div>";
-                foreach($current_screen_fields as $current_screen_field)
-                {
+                foreach ($current_screen_fields as $current_screen_field) {
                         $attribute = $current_screen_field['name'];
                         $attribute_value = $current_screen_field['decode'];
                         $attribute_label = $current_screen_field['label'];
@@ -3220,13 +3213,10 @@ class Application extends AdmObject
         $current_screen_fields_export
         $data_export        
 </div>";
-                
+
                 $html .= "</div> <!-- applyc -->";
 
 
                 return $html;
-
         }
-                
-
 }
