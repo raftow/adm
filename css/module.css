@@ -5165,6 +5165,10 @@ input#goto_next {
 span.step-separator {
     font-size: 35px;
     font-weight: bold !important;
-    color: silver !important;
+    color: silver;
+}
+
+span.step-separator.done {
+    color: balck;
 }
 
