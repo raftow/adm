@@ -192,7 +192,7 @@ try
         last_name_en varchar(48)  NOT NULL DEFAULT '' , 
         academic_program_id int(11) DEFAULT NULL , 
         email varchar(32)  DEFAULT NULL , 
-        Mobile varchar(25)  DEFAULT NULL , 
+        mobile varchar(25)  DEFAULT NULL , 
         study_funding_status_id int(11) DEFAULT NULL , 
         nomination_letter_id int(11) DEFAULT NULL ,
         applicant_id int(11) DEFAULT NULL , 

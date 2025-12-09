@@ -1991,7 +1991,7 @@ class Application extends AdmObject
                                         $fieldsNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "list-fields-not-available", false, true);
                                         $reasonNotAvail = $this->fieldsMatrixForStep($currentStepNum, $lang, "reason-fields-not-available", false, true);
                                         $message_comments = $this->tm("We can not apply conditions because the data is not updated", $lang);
-                                        $message_war = $message_comments." ".$fieldsNotAvail." ".$reasonNotAvail;
+                                        $message_war = $message_comments." ".$fieldsNotAvail; // ." ".$reasonNotAvail;
                                         $war_arr[] = $message_war;
                                         $result_arr["message"] = $message_war;
                                         $result_arr["details"] = $fieldsNotAvail;

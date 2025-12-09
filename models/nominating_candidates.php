@@ -424,7 +424,7 @@ class NominatingCandidates extends AdmObject{
             $applicantObj->set("last_name_en", $this->getVal("last_name_en"));
             $applicantObj->set("gender_enum", $this->getVal("gender_enum"));
             $applicantObj->set("email", $this->getVal("email"));
-            $applicantObj->set("mobile", $this->getVal("Mobile"));
+            $applicantObj->set("mobile", $this->getVal("mobile"));
             $applicantObj->commit();
 
             $this->set("country_id",$candidate_country_id);
