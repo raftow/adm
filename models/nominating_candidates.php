@@ -15,7 +15,9 @@ class NominatingCandidates extends AdmObject{
 
 	    public static $DB_STRUCTURE = null;
 
-
+        /**
+         * @var Application $applicationObj
+         */
         private $applicationObj = null;
 	
 	    public function __construct(){
@@ -108,10 +110,10 @@ class NominatingCandidates extends AdmObject{
 
                 $currentStepNum = $this->applicationObj->getVal("step_num") ? $this->applicationObj->getVal("step_num") : 0;
                 $nextStepNum = $currentStepNum + 1;
-                $nextStepObj = ApplicationStep::loadByMainIndex($this->applicationObj->objApplicationModel->id, $nextStepNum);
+                $nextStepObj = ApplicationStep::loadByMainIndex($this->applicationObj->getApplicationModel()->id, $nextStepNum);
 
                 $previousStepNum = ($currentStepNum>1) ? $currentStepNum-1 : 1;
-                $previousStepObj = ApplicationStep::loadByMainIndex($this->applicationObj->objApplicationModel->id, $previousStepNum);
+                $previousStepObj = ApplicationStep::loadByMainIndex($this->applicationObj->getApplicationModel()->id, $previousStepNum);
                 
                 $color = "green";
                 $title_ar = $nextStepObj->tm("go to next step", 'ar') . " '" . $nextStepObj->getDisplay("ar") . "'";
