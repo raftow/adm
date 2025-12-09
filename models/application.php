@@ -3102,13 +3102,13 @@ class Application extends AdmObject
 
 
                         $html .= "
-        <div class='flex items-center gap-2'>
+        <div class='flex items-center gap-2 step-square'>
                 <div class='w-4 h-4 flex items-center justify-center rounded-full item-$step_status'>
                     <span class='text-xs font-bold'>$step_symbol</span>
                 </div>
                 <span class='text-$text_css'> $step_name</span>
         </div>
-        <span class='text-gray-300'>-</span>";
+        <span class='step-separator'>←</span>";
                 }
 
                 $html .= "</div>";

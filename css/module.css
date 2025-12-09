@@ -5117,6 +5117,10 @@ input#goto_next {
 }
 
 .item-next {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+    --tw-bg-opacity: 1;
+    background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
     --tw-border-opacity: 1;
     border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
     border-width: 2px;
