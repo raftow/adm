@@ -3136,10 +3136,11 @@ class Application extends AdmObject
                 $html = "<div id='applyc' class=\"fgroup in-group-default_fg cssgroup_none\">";
 
 
-                $attributes_arr = ["application_step_id" => 50, "step_num" => 25, "application_status_enum" => 25,];
+                
 
                 $html .= $this->calcMyStepper();
-
+                /*
+                $attributes_arr = ["application_step_id" => 50, "step_num" => 25, "application_status_enum" => 25,];
                 foreach ($attributes_arr as $attribute => $attrib_width) {
                         $attribute_value = $this->decode($attribute, '', false, $lang);
                         $attribute_label = $this->getAttributeLabel($attribute, $lang);
@@ -3151,7 +3152,7 @@ class Application extends AdmObject
                                         $attribute_value
                                         </div>
                                 </div>";
-                }
+                }*/
 
                 list($status, $error_message, $data) = $this->myCurrentStepData($lang, 1);
 
