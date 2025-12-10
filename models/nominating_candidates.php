@@ -294,12 +294,9 @@ class NominatingCandidates extends AdmObject{
 
             if ($fields_updated["academic_program_id"])
             {
-                if($this->applicationObj) 
-                {
-                        $fields_updated["application_plan_branch_mfk"] = $this->getVal("application_plan_branch_mfk");
-                        if(!$fields_updated["application_plan_branch_mfk"]) $fields_updated["application_plan_branch_mfk"] = "@wasEmpty";
-                        $this->set("application_plan_branch_mfk", ",");                            
-                }
+                $fields_updated["application_plan_branch_mfk"] = $this->getVal("application_plan_branch_mfk");
+                if(!$fields_updated["application_plan_branch_mfk"]) $fields_updated["application_plan_branch_mfk"] = "@wasEmpty";
+                $this->set("application_plan_branch_mfk", ",");                            
             }
             
             if ($fields_updated["application_plan_branch_mfk"])
@@ -308,6 +305,7 @@ class NominatingCandidates extends AdmObject{
                 {
                     $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
                     $this->applicationObj->set("comments", "NomCand::beforeMaj has updated branchMfk to : ".$this->getVal("application_plan_branch_mfk"));
+                    $this->applicationObj->commit();
                 }
                 else die("NomCand::beforeMaj => applicationObj not found");
             }
@@ -318,6 +316,7 @@ class NominatingCandidates extends AdmObject{
                 if($this->applicationObj) 
                 {
                     $this->applicationObj->set("training_period_enum", $this->getVal("training_period_enum"));                            
+                    $this->applicationObj->commit();
                 }
             }
             
@@ -368,13 +367,16 @@ class NominatingCandidates extends AdmObject{
                         if($this->applicationObj) 
                         {
                             $this->applicationObj->set("applicant_qualification_id", $appQualObjId);                            
+                            $this->applicationObj->commit();
                         }
+
                 }
 
+                /*
                 if($this->applicationObj)  //  and $this->applicationObj->isChanged()
                 {                    
-                    $this->applicationObj->commit();
-                }
+                    
+                }*/
                 else die("NomCand::beforeMaj => applicationObj need to commit but object not found");
 
                 ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId' and imported != 'Y'");
