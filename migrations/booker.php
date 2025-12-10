@@ -99,6 +99,7 @@ $migrations = [
     '00093' => ['by'=>'medali','title'=>'add gender_enum'],
     '00094' => ['by'=>'medali','title'=>'add nominating_candidates.country_id'],
     '00095' => ['by'=>'medali','title'=>'create engagement module tables'],
+    '00096' => ['by'=>'medali','title'=>'add field to academic_program'],
 
     
 

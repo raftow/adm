@@ -273,7 +273,11 @@
                                                 'TYPE' => 'MFK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',    'DISPLAY' => true,  'STEP' => 2,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',"WHERE"=>"academic_level_id=15"), // only complementary program
-
+                                        'interview_ind' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  
+                                                'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+                                                'TYPE' => 'YN',  'CHECKBOX' => true,  'READONLY' => false,  'DNA' => true, 
+                                                'CSS' => 'width_pct_50', ),
                                         'academicProgramOfferingList' => array('TYPE' => 'FK', 'ANSWER' => 'academic_program_offering', 'ANSMODULE' => 'adm', 
                                                 'CATEGORY' => 'ITEMS', 'ITEM' => 'academic_program_id', 'STEP' => 3,
                                                 // 'WHERE'=>'xxx = §xxx§', 'HIDE_COLS' => array(),
