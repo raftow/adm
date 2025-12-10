@@ -296,13 +296,9 @@ class NominatingCandidates extends AdmObject{
             {
                 if($this->applicationObj) 
                 {
-                    if(trim($this->applicationObj->getVal("application_plan_branch_mfk"),","))
-                    {
-                        $fields_updated["application_plan_branch_mfk"] = $this->applicationObj->getVal("application_plan_branch_mfk");
-                        // if(!$fields_updated["application_plan_branch_mfk"]) $fields_updated["application_plan_branch_mfk"] = "@wasEmpty";
+                        $fields_updated["application_plan_branch_mfk"] = $this->getVal("application_plan_branch_mfk");
+                        if(!$fields_updated["application_plan_branch_mfk"]) $fields_updated["application_plan_branch_mfk"] = "@wasEmpty";
                         $this->set("application_plan_branch_mfk", ",");                            
-                    }
-                    
                 }
             }
             
@@ -379,6 +375,7 @@ class NominatingCandidates extends AdmObject{
                 {                    
                     $this->applicationObj->commit();
                 }
+                else die("NomCand::beforeMaj => applicationObj need to commit but object not found");
 
                 ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId' and imported != 'Y'");
 
