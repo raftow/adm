@@ -19,7 +19,24 @@ class NominatingCandidates extends AdmObject{
          * @var Application $applicationObj
          */
         private $applicationObj = null;
-	
+	    public static $STATS_CONFIG = array(
+            "st001" => array(
+                "PARAMS" => ["sid"],
+                "STATS_DATA_FROM" => ['class'=>'NominatingCandidates', 'method'=>'statsData'], // 
+                //"URL_SETTINGS" => "main.php?Main_Page=afw_mode_edit.php&cl=CrmOrgunit&id=80&currmod=crm&currstep=5",
+                "FOOTER_TITLES" => true,
+                "SHOW_PIE" => "FOOTER",
+                "PIE_MODE" => "FILTER",
+                "FILTER" => "",/**question=all */
+                //"CHART_URL" => "chart.php?m=crm&stc=st001&cl=NominatingCandidates&survey_id=1&case=1&f=question",
+
+                "FORMULA_COLS" => array(
+                    //0 => array("SHOW-NAME"=>"perf", "METHOD"=>"getPerf"),
+                ),
+
+
+            ),
+        );
 	    public function __construct(){
             parent::__construct("nominating_candidates","id","adm");
                 AdmNominatingCandidatesAfwStructure::initInstance($this);    
@@ -594,6 +611,47 @@ class NominatingCandidates extends AdmObject{
             $payment_status_enum = 4; // معفي من الدفع            
             ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, $total_amount, $payment_status_enum, true);
         }
+    }
+
+    public static function statsData($paramsArr=[])
+    {
+        $lang= AfwLanguageHelper::getGlobalLanguage();
+        $application_plan_id = $paramsArr["application_plan_id"];
+        if(!$survey_id) $survey_id = 11;
+
+        
+        $sql_arr = [];
+        $stat_trad = [];
+        // $stat_trad["question"] = AfwLanguageHelper::translateStatsColumn("question", "Survey", null, $lang);
+        $stat_trad["question_title"] = AfwLanguageHelper::translateStatsColumn("question_title", "Survey", null, $lang);
+        $stat_trad["verysatisfied"] = AfwLanguageHelper::translateStatsColumn("verysatisfied", "Survey", null, $lang);
+        $stat_trad["satisfied"] = AfwLanguageHelper::translateStatsColumn("satisfied", "Survey", null, $lang);
+        $stat_trad["indifferent"] = AfwLanguageHelper::translateStatsColumn("indifferent", "Survey", null, $lang);
+        $stat_trad["unsatisfied"] = AfwLanguageHelper::translateStatsColumn("unsatisfied", "Survey", null, $lang);
+        $stat_trad["veryunsatisfied"] = AfwLanguageHelper::translateStatsColumn("veryunsatisfied", "Survey", null, $lang);
+        $stat_trad["noresponse"] = AfwLanguageHelper::translateStatsColumn("noresponse", "Survey", null, $lang);
+        // $stat_trad["all_count"] = AfwLanguageHelper::translateStatsColumn("all_count", "Survey", null, $lang);
+
+        $q = "select SUM(nc.id) candid_id
+        --,IF(na.nominating_authority_source_enum=1, 'داخلي', IF(na.nominating_authority_source_enum=2, 'خارجي', 'غير محدد')) source
+        ,ac.program_name_ar
+        --,na.nominating_authority_name_ar,sf.name_ar
+        from ".$server_db_prefix."adm.application a 
+        inner join ".$server_db_prefix."adm.applicant ap on a.applicant_id=ap.id 
+        inner join ".$server_db_prefix."adm.nominating_candidates nc on ap.id=nc.applicant_id
+        inner join ".$server_db_prefix."adm.nomination_letter nl on nc.nomination_letter_id = nl.id
+        inner join ".$server_db_prefix."adm.nominating_authority na on nl.nominating_authority_id=na.id
+        inner join ".$server_db_prefix."adm.study_funding_status sf on nc.study_funding_status_id = sf.id
+        inner join ".$server_db_prefix."adm.academic_program ac on nc.academic_program_id = ac.id
+        where a.application_plan_id = '".$application_plan_id."' group by ac.program_name_ar";
+
+        
+        
+
+
+        return [AfwDatabase::db_recup_rows($sql), $stat_trad, $question_title_arr];
+
+        
     }
 
 

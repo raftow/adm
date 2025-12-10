@@ -25,3 +25,4 @@
 	$trad["academic_program"]["supp_program_mfk"] = "Supplementary stage programmes";
 	$trad["academic_program"]["to_publish"] = "Publish for application";
 
+	$trad["academic_program"]["interview_ind"] = "Includes a personal interview";
