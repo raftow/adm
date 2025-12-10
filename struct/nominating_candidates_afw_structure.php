@@ -17,7 +17,7 @@ class AdmNominatingCandidatesAfwStructure
 			// $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
 			$obj->ORDER_BY_FIELDS = "";
 
-
+			$obj->OwnedBy = array('module' => "adm", 'afw' => "NominationLetter"); 
 
 			$obj->UNIQUE_KEY = array('nomination_letter_id', 'identity_type_id', 'idn');
 

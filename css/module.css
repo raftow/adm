@@ -5134,6 +5134,7 @@ input#goto_next {
     margin-top: 5px;
     margin-bottom: 10px;
     padding: 15px;
+    font-size: 15px;
 }
 
 .step-square {
@@ -5187,3 +5188,8 @@ div#applicantFileList {
     min-height: fit-content;
 }
 
+.current_step.step7>.help_message_info {
+    font-size: 40px;
+    line-height: 44px;
+    padding: 50px;
+}
