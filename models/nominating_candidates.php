@@ -264,6 +264,8 @@ class NominatingCandidates extends AdmObject{
         
         public function beforeMaj($id, $fields_updated)
         {
+            $this->getMyApplication();
+
             if($fields_updated["nomination_letter_id"])
             {
                 $nLetter = $this->het("nomination_letter_id");
@@ -288,6 +290,26 @@ class NominatingCandidates extends AdmObject{
                                 $this->set("major_path_id", $objMajorPath->id);
                         }
             }
+
+
+            
+            if ($fields_updated["application_plan_branch_mfk"])
+            {
+                if($this->applicationObj) 
+                {
+                    $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
+                }
+            }
+
+
+            if ($fields_updated["training_period_enum"])
+            {
+                if($this->applicationObj) 
+                {
+                    $this->applicationObj->set("training_period_enum", $this->getVal("training_period_enum"));                            
+                }
+            }
+            
 
 
             if (
@@ -330,13 +352,17 @@ class NominatingCandidates extends AdmObject{
                         $appQualObj->set("grading_scale_id", $this->getVal("grading_scale_id"));
                         $appQualObj->commit();
 
-                        $this->getMyApplication();
+                        
 
                         if($this->applicationObj) 
                         {
                             $this->applicationObj->set("applicant_qualification_id", $appQualObjId);
-                            $this->applicationObj->commit();
                         }
+                }
+
+                if($this->applicationObj and $this->applicationObj->isChanged()) 
+                {
+                    $this->applicationObj->commit();
                 }
 
                 ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId' and imported != 'Y'");
@@ -649,6 +675,7 @@ class NominatingCandidates extends AdmObject{
         }
     }
 
+    /*
     public static function statsData($paramsArr=[])
     {
         $lang= AfwLanguageHelper::getGlobalLanguage();
@@ -689,6 +716,7 @@ class NominatingCandidates extends AdmObject{
 
         
     }
+    */
 
 
 }
