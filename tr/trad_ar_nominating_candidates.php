@@ -7,10 +7,11 @@ class NominatingCandidatesArTranslator{
 
 		$trad["nominating_candidates"]["step1"] = "تعريف المترشح";
 		$trad["nominating_candidates"]["step2"] = "البيانات الشخصية";
-		$trad["nominating_candidates"]["step3"] = "المؤهل العلمي";
-		$trad["nominating_candidates"]["step4"] = "رفع الوثائق";
-		$trad["nominating_candidates"]["step5"] = "تطبيق الشروط";
-		$trad["nominating_candidates"]["step6"] = "معلومات متقدمة";
+		$trad["nominating_candidates"]["step3"] = "المؤهل والبرنامج";
+		$trad["nominating_candidates"]["step4"] = "فرع القبول";
+		$trad["nominating_candidates"]["step5"] = "رفع الوثائق";
+		$trad["nominating_candidates"]["step6"] = "تطبيق الشروط";
+		$trad["nominating_candidates"]["step7"] = "معلومات متقدمة";
 
 		$trad["nominating_candidates"]["nominatingcandidates.single"] = "مرشح";
 		$trad["nominating_candidates"]["nominatingcandidates.new"] = "جديد(ة)";

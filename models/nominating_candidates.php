@@ -312,6 +312,14 @@ class NominatingCandidates extends AdmObject{
                         $appQualObj->set("major_path_id", $this->getVal("major_path_id"));
                         $appQualObj->set("grading_scale_id", $this->getVal("grading_scale_id"));
                         $appQualObj->commit();
+
+                        $this->getMyApplication();
+
+                        if($this->applicationObj) 
+                        {
+                            $this->applicationObj->set("applicant_qualification_id", $appQualObjId);
+                            $this->applicationObj->commit();
+                        }
                 }
 
                 ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId' and imported != 'Y'");
@@ -568,6 +576,34 @@ class NominatingCandidates extends AdmObject{
     
     public function calcCandidateFullName($what = "value"){
         return $this->getVal("first_name_ar")." ".$this->getVal("second_name_ar")." ".$this->getVal("third_name_ar")." ".$this->getVal("last_name_ar");
+    }
+
+
+    public function calcProgram_offering_mfk($what = "value")
+    {
+        $applicationObj = $this->getMyApplication();        
+        if($applicationObj)
+        {
+            return $applicationObj->calcProgram_offering_mfk($what);
+        }
+        else return ",";
+    }
+
+
+    public function calcTrackOverpassDiv($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        if($this->sureIs("track_overpass"))
+        {
+            $rack_overpass_user_name = $this->decode("track_overpass_user_id", '', false, $lang);
+            $rack_overpass_when = $this->decode("track_overpass_gdate", '', false, $lang);
+            $message = $this->tm("Track has been overpassed by", $lang) . " : $rack_overpass_user_name ".$this->translateOperator('at',$lang)." ".$rack_overpass_when;
+            return "<div class='warning info alert'>$message</div>";
+        }
+        else
+        {
+            return "";
+        }
     }
 
 
