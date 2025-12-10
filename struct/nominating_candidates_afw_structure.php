@@ -716,6 +716,7 @@ class AdmNominatingCandidatesAfwStructure
 			'RELATION' => 'unkn',
 			'READONLY' => false,
 			'DNA' => true,
+			'MANDATORY' => true, 
 			'CSS' => 'width_pct_50',
 			'STEP' => 3,
 		),
@@ -727,7 +728,7 @@ class AdmNominatingCandidatesAfwStructure
 				'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION', 'FUNCTION_COL_NAME' => 'unique_training_period_enum', 'SIZE' => 40,  'DEFAUT' => 0,    
 				'DISPLAY' => true,  'STEP' => 3, 'MANDATORY' => true, 
 				'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-				'CSS' => 'width_pct_100', ),  
+				'CSS' => 'width_pct_25', ),  
 
 		'study_funding_status_id' => array(
 			'SHORTNAME' => 'funding_status',

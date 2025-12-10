@@ -55,6 +55,9 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["rating_overpass.short"] = "تجاوز التقدير؟";
 		$trad["nominating_candidates"]["rating_overpass_gdate"] = "تاريخ فسح التجاوز لشرط التقدير";
 
+		$trad["nominating_candidates"]["training_period_enum"] = "فترة التدريب";
+		$trad["nominating_candidates"]["application_plan_branch_mfk"] = "اختيار الرغبات";
+
 		$trad["nominating_candidates"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		$trad["nominating_candidates"]["qualification_id"] = "المؤهل";
 		$trad["nominating_candidates"]["major_category_id"] = "فئة التخصص";
