@@ -311,8 +311,9 @@ class NominatingCandidates extends AdmObject{
                 if($this->applicationObj) 
                 {
                     $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
-                    $this->applicationObj->set("comments", "NomCand has updated branchMfk to : ".$this->getVal("application_plan_branch_mfk"));
+                    $this->applicationObj->set("comments", "NomCand::beforeMaj has updated branchMfk to : ".$this->getVal("application_plan_branch_mfk"));
                 }
+                else die("NomCand::beforeMaj => applicationObj not found");
             }
 
 
