@@ -26,7 +26,7 @@ class AdmNominatingCandidatesAfwStructure
 			$obj->general_check_errors = true;
 
 			$obj->editByStep = true;
-			$obj->editNbSteps = 6;
+			$obj->editNbSteps = 7;
 			$obj->after_save_edit = array("class"=>'NominationLetter',"attribute"=>'nomination_letter_id', "currmod"=>'adm', "currstep"=>2);
 			// $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'NominatingCandidates', "submit" => true);
 		} else {
