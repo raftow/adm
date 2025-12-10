@@ -5145,19 +5145,19 @@ input#goto_next {
     border-radius: 40%;
 }
 
-.step-square.current {
+.step-square.current-step {
     border-color: #81a5f5;
 }
 
-.step-square.done {
+.step-square.done-step {
     border-color: #000000;
 }
 
-.step-square.next {
+.step-square.next-step {
     border-color: #dedddd;
 }
 
-.next span {
+.next-step>span {
     color: #c5c5c5;
 }
 

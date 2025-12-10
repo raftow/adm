@@ -3102,7 +3102,7 @@ class Application extends AdmObject
 
 
                         $html .= "
-        <div class='flex items-center gap-2 step-square $step_status'>
+        <div class='flex items-center gap-2 step-square $step_status-step'>
                 <div class='w-4 h-4 flex items-center justify-center rounded-full item-$step_status'>
                     <span class='text-xs font-bold'>$step_symbol</span>
                 </div>
