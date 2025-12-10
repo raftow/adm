@@ -3201,6 +3201,12 @@ class Application extends AdmObject
 
 
                 $html .= "</div>";
+                if($what != "debugg")
+                {
+                        $current_screen_fields_export = "";
+                        $data_export = "";
+                }
+                
 
                 $html .= "
 <div class='form_buttons'>
@@ -3211,10 +3217,8 @@ class Application extends AdmObject
             </p>
         </div>  
 
-        <!-- current_screen_fields_export
-             $current_screen_fields_export -->
-        <!--    data_export 
-                $data_export  -->       
+             $current_screen_fields_export
+                $data_export
 </div>";
 
                 $html .= "</div> <!-- applyc -->";
