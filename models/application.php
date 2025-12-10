@@ -3201,7 +3201,7 @@ class Application extends AdmObject
 
 
                 $html .= "</div>";
-                if($what != "debugg")
+                if(!AfwSession::hasOption("GENERAL_CHECK_ERRORS"))
                 {
                         $current_screen_fields_export = "";
                         $data_export = "";
@@ -3216,12 +3216,12 @@ class Application extends AdmObject
                 <input type='submit' name='submit-xabc4578' id='submit-zsde1239' class='fa next greenbtn wizardbtn application fleft $disabled_next' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;' $disabled_next>
             </p>
         </div>  
-
-             $current_screen_fields_export
-                $data_export
 </div>";
 
-                $html .= "</div> <!-- applyc -->";
+                $html .= "</div> <!-- applyc --> 
+                                $current_screen_fields_export
+                                $data_export
+                        ";
 
 
                 return $html;
