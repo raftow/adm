@@ -300,7 +300,7 @@ class NominatingCandidates extends AdmObject{
                     {
                         $fields_updated["application_plan_branch_mfk"] = $this->applicationObj->getVal("application_plan_branch_mfk");
                         // if(!$fields_updated["application_plan_branch_mfk"]) $fields_updated["application_plan_branch_mfk"] = "@wasEmpty";
-                        $this->applicationObj->set("application_plan_branch_mfk", "");                            
+                        $this->applicationObj->set("application_plan_branch_mfk", ",");                            
                     }
                     
                 }
