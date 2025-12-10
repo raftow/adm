@@ -496,7 +496,7 @@
                                         }
                                         elseif($scrField["table"]=="adesire")
                                         {
-                                                if(!$application_plan_branch_id) throw new AfwRuntimeException("application_plan_branch_id should be provided to get Data of a desire");
+                                                if(!$application_plan_branch_id) throw new AfwRuntimeException("Retrieving data for field $field_name : application_plan_branch_id should be provided to get Data of a desire");
                                                 if(!$desireObj) $desireObj = ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id);                                                
                                                 if(!$desireObj) $error_message = self::transMess("This desire is not found", $lang);
                                                 $context = "field $field_name ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
