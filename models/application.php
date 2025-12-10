@@ -3206,13 +3206,15 @@ class Application extends AdmObject
 <div class='form_buttons'>
         <div class='body_nav_hzm_centered'>
             <p>
-                <input type='submit' name='submit-zsde1239' id='submit-xabc4578' class='fa previous blightbtn wizardbtn application fright $disabled_previous' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;'>
-                <input type='submit' name='submit-xabc4578' id='submit-zsde1239' class='fa next greenbtn wizardbtn application fleft $disabled_next' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;'>
+                <input type='submit' name='submit-zsde1239' id='submit-xabc4578' class='fa previous blightbtn wizardbtn application fright $disabled_previous' value='&nbsp;&lt; المرحلة السابقة&nbsp;' style='margin-right: 5px;' $disabled_previous>
+                <input type='submit' name='submit-xabc4578' id='submit-zsde1239' class='fa next greenbtn wizardbtn application fleft $disabled_next' value='&nbsp;المرحلة التالية &gt;&nbsp;' style='margin-right: 5px;' $disabled_next>
             </p>
         </div>  
 
-        $current_screen_fields_export
-        $data_export        
+        <!-- current_screen_fields_export
+             $current_screen_fields_export -->
+        <!--    data_export 
+                $data_export  -->       
 </div>";
 
                 $html .= "</div> <!-- applyc -->";

@@ -5169,6 +5169,11 @@ span.step-separator {
 }
 
 span.step-separator.done {
-    color: balck;
+    color: black;
 }
 
+input.wizardbtn.application.disabled {
+    background-color: #f3f3f3 !important;
+    color: #acabab !important;
+    border: 1px solid #e4dddd !important;
+}
