@@ -311,6 +311,7 @@ class NominatingCandidates extends AdmObject{
                 if($this->applicationObj) 
                 {
                     $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
+                    $this->applicationObj->set("comments", "NomCand has updated branchMfk to : ".$this->getVal("application_plan_branch_mfk"));
                 }
             }
 
@@ -369,12 +370,12 @@ class NominatingCandidates extends AdmObject{
 
                         if($this->applicationObj) 
                         {
-                            $this->applicationObj->set("applicant_qualification_id", $appQualObjId);
+                            $this->applicationObj->set("applicant_qualification_id", $appQualObjId);                            
                         }
                 }
 
                 if($this->applicationObj)  //  and $this->applicationObj->isChanged()
-                {
+                {                    
                     $this->applicationObj->commit();
                 }
 
