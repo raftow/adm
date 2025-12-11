@@ -349,7 +349,7 @@ AfwDatabase::db_query("create unique index uk_language on ".$server_db_prefix."a
 
 
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_language_proficiency;");
-*/
+
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_language_proficiency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
@@ -514,7 +514,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
 
 AfwDatabase::db_query("create unique index uk_applicant_scientific_research on ".$server_db_prefix."adm.applicant_scientific_research(applicant_id,title,publication_venue);");
 
-
+*/
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_cv_score;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_cv_score` (
@@ -539,7 +539,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
    application_id int(11) NOT NULL , 
    review_date datetime NOT NULL DEFAULT '19800101' , 
    rubric_score float NOT NULL DEFAULT 0.0 , 
-   comments text  NOT NULL DEFAULT '' , 
+   comments text   DEFAULT NULL , 
   
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
