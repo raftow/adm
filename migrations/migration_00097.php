@@ -4,7 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
-   /*        
+          
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.cv_rubric;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_rubric` (
@@ -547,7 +547,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
 
 
 AfwDatabase::db_query("create unique index uk_applicant_cv_score on ".$server_db_prefix."adm.applicant_cv_score(applicant_id,cv_rubric_id,application_id);");
-*/
+
 AfwDatabase::db_query("DROP TABLE IF EXISTS nauss_adm.cv_rubric_guide;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS nauss_adm.`cv_rubric_guide` (
