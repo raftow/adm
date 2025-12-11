@@ -100,6 +100,7 @@ $migrations = [
     '00094' => ['by'=>'medali','title'=>'add nominating_candidates.country_id'],
     '00095' => ['by'=>'medali','title'=>'create engagement module tables'],
     '00096' => ['by'=>'medali','title'=>'add field to academic_program'],
+    '00097' => ['by'=>'medali','title'=>'cv module'],
 
     
 
