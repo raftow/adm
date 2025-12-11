@@ -4,7 +4,7 @@ if(!class_exists("AfwSession")) die("Denied access");
 $server_db_prefix = AfwSession::currentDBPrefix();
 try
 {
-           
+   /*        
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.cv_rubric;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_rubric` (
@@ -349,7 +349,7 @@ AfwDatabase::db_query("create unique index uk_language on ".$server_db_prefix."a
 
 
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_language_proficiency;");
-
+*/
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_language_proficiency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
@@ -377,7 +377,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-AfwDatabase::db_query("create unique index uk_applicant_language_proficiency on ".$server_db_prefix."adm.applicant_language_proficiency(applicant_id,language);");
+AfwDatabase::db_query("create unique index uk_applicant_language_proficiency on ".$server_db_prefix."adm.applicant_language_proficiency(applicant_id,language_id);");
 
 
 
