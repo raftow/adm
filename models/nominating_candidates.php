@@ -654,6 +654,7 @@ class NominatingCandidates extends AdmObject{
         {
             $rack_overpass_user_name = $this->decode("track_overpass_user_id", '', false, $lang);
             $rack_overpass_when = $this->decode("track_overpass_gdate", '', false, $lang);
+            if(!$rack_overpass_when) $rack_overpass_when = "غير معروف";
             $message = $this->tm("Track has been overpassed by", $lang) . " : $rack_overpass_user_name ".$this->translateOperator('at',$lang)." ".$rack_overpass_when;
             return "<div class='warning info alert'>$message</div>";
         }
