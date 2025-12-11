@@ -689,6 +689,12 @@ class NominatingCandidates extends AdmObject{
         }
     }
 
+    public function stepsAreOrdered()
+    {
+        if($this->isEmpty()) return true;
+        return 2;
+    }
+
     /*
     public static function statsData($paramsArr=[])
     {
