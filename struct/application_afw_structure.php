@@ -112,7 +112,9 @@
                                                 'CSS' => 'width_pct_50'
                                         ),
 
-
+                                                'academic_level_id' => array('CATEGORY' => 'SHORTCUT', 'SHORTCUT' => 'application_model_id.academic_level_id',
+                                                        'TYPE' => 'FK',  'ANSWER' => 'academic_level',  'ANSMODULE' => 'adm', 'NO-COTE' => true,   
+                                                        'STEP' => 99, ),	
 
                                         'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
                                                 'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
@@ -194,6 +196,21 @@
                                                                 'DELETE-ICON' => true,
                                                                 'BUTTONS' => true,
                                                                 
+                                                                'CSS' => 'width_pct_100',
+                                                        ),
+
+
+                                                        'engagementList' => array(
+                                                                'STEP' => 99,
+                                                                'TYPE' => 'FK',
+                                                                'CATEGORY' => 'ITEMS',
+                                                                'ANSWER' => 'engagement',
+                                                                'WHERE'=> "engagement_type_id=1 and academic_level_mfk like '%,§academic_level_id§,%'",
+                                                                'ANSMODULE' => 'adm',
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'READONLY' => true,
+                                                                'CAN-BE-SETTED' => true,
                                                                 'CSS' => 'width_pct_100',
                                                         ),
 
