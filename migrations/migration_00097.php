@@ -514,7 +514,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
 
 AfwDatabase::db_query("create unique index uk_applicant_scientific_research on ".$server_db_prefix."adm.applicant_scientific_research(applicant_id,title,publication_venue);");
 
-*/
+
 AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.applicant_cv_score;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_cv_score` (
@@ -547,7 +547,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
 
 
 AfwDatabase::db_query("create unique index uk_applicant_cv_score on ".$server_db_prefix."adm.applicant_cv_score(applicant_id,cv_rubric_id,application_id);");
-
+*/
 AfwDatabase::db_query("DROP TABLE IF EXISTS nauss_adm.cv_rubric_guide;");
 
 AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS nauss_adm.`cv_rubric_guide` (
@@ -569,7 +569,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS nauss_adm.`cv_rubric_guide` (
     
    cv_rubric_id int(11) NOT NULL , 
    rubric_score float NOT NULL , 
-   rubric_desc text  NOT NULL DEFAULT '' , 
+   rubric_desc text  DEFAULT NULL , 
 
   
   PRIMARY KEY (`id`)
@@ -599,8 +599,8 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS nauss_adm.`scientific_institut
   
 
    lookup_code varchar(16)  DEFAULT NULL , 
-   name_ar varchar(128)  NOT NULL DEFAULT '' , 
-   name_en varchar(128)  NOT NULL DEFAULT '' , 
+   name_ar varchar(128)   DEFAULT '' , 
+   name_en varchar(128)  DEFAULT '' , 
    desc_ar text  DEFAULT NULL , 
    desc_en text  DEFAULT NULL , 
 
