@@ -2534,7 +2534,20 @@ class Application extends AdmObject
                 return $this->nb_desires;
         }
 
-        public function calcSis_fields_available($what = "value", $lang = "")
+        
+
+        public function calcQualificationRatingOverpass($what = "value", $lang="ar")
+        {
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
+                $ncObj = $this->calcNominatingCandidate("object");
+
+                if($ncObj and $ncObj->sureIs("rating_overpass")) return $yes;
+
+                return $no;
+                
+        }
+
+        public function calcSis_fields_available($what = "value", $lang = "ar")
         {
                 //die("rafik debugg 20250203");
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
@@ -2655,12 +2668,20 @@ class Application extends AdmObject
         }
 
 
-        public function getMyExternalCandidateInfos()
+        public function calcNominatingCandidate($what = "value")
         {
                 $applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
+
+                return AfwLoadHelper::giveWhat($ncObj, $what);
+        }
+
+
+        public function getMyExternalCandidateInfos()
+        {
+                $ncObj = $this->calcNominatingCandidate("object");
                 $track_overpass_program_id = 0;
                 if ($ncObj) {
                         if ($ncObj->sureIs("track_overpass") and ($ncObj->getVal("track_overpass_user_id") > 0)) {

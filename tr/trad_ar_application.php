@@ -29,6 +29,8 @@ class ApplicationArTranslator{
 		$trad["application"]["applicantSimulationList"] = "نتيجة المحاكاة";
 		$trad["application"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		$trad["application"]["engagementList"] = "قائمة التعهدات";
+		$trad["application"]["qualificationRatingOverpass"] = "لديه إعفاء من شرط تقدير المؤهل";
+		
 		
 		
 

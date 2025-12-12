@@ -54,6 +54,38 @@ class NominatingCandidates extends AdmObject{
            else return null;
         }
         
+        public static function loadByMainIndex($nomination_letter_id, $identity_type_id, $idn,$create_obj_if_not_found=false)
+        {
+           if(!$nomination_letter_id) throw new AfwRuntimeException("loadByMainIndex : nomination_letter_id is mandatory field");
+           if(!$identity_type_id) throw new AfwRuntimeException("loadByMainIndex : identity_type_id is mandatory field");
+           if(!$idn) throw new AfwRuntimeException("loadByMainIndex : idn is mandatory field");
+
+
+           $obj = new NominatingCandidates();
+           $obj->select("nomination_letter_id",$nomination_letter_id);
+           $obj->select("identity_type_id",$identity_type_id);
+           $obj->select("idn",$idn);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("nomination_letter_id",$nomination_letter_id);
+                $obj->set("identity_type_id",$identity_type_id);
+                $obj->set("idn",$idn);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
+
         
 
         public static function loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id)

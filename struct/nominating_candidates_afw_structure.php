@@ -807,6 +807,9 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 		),
 
+
+		
+
 		'track_overpass_user_id' => array(
 			'FGROUP' => 'track_overpass.short',
 			'SHORTNAME' => 'program',
