@@ -110,7 +110,7 @@ class ApplicationPlan extends AdmObject
         $lang = $input_arr['lang'];
         $uncomplete = $input_arr['uncomplete'];
         $deleteapp = $input_arr['deleteapp'];
-        $application_simulation_id = $input_arr['application_simulation_id'];
+        $application_simulation_id = $input_arr['simulation_id'];
         if(!$application_simulation_id)
         {
                 $application_simulation_id = self::currentApplicationSimulation();

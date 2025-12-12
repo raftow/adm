@@ -213,7 +213,7 @@ class Application extends AdmObject
                 $input_arr['lang'] = $lang;
                 $input_arr['whereiam'] = "";
                 $input_arr['simulation_id'] = $this->getVal("application_simulation_id");
-
+                // die("myCurrentStepData input_arr = ".var_export($input_arr, true));
                 return self::currentStepData($input_arr, $debugg);
         }
 
@@ -258,6 +258,7 @@ class Application extends AdmObject
                                 $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = " . $applicationObj->getVal("application_step_id") . " غير معروف " . $case_no_step_correct;
                                 $step_description_en = "unknown step id " . $applicationObj->getVal("application_step_id") . " for step num = $step_num " . $case_no_step_correct;
                         }
+                        // die("currentStepData input_arr = ".var_export($input_arr, true));
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
                         $application_plan_id = $applicationObj->getVal("application_plan_id");
