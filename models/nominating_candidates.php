@@ -647,6 +647,8 @@ class NominatingCandidates extends AdmObject{
     }
 
 
+    
+
     public function calcTrackOverpassDiv($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -656,6 +658,23 @@ class NominatingCandidates extends AdmObject{
             $rack_overpass_when = $this->decode("track_overpass_gdate", '', false, $lang);
             if(!$rack_overpass_when) $rack_overpass_when = "غير معروف";
             $message = $this->tm("Track has been overpassed by", $lang) . " : $rack_overpass_user_name ".$this->translateOperator('at',$lang)." ".$rack_overpass_when;
+            return "<div class='warning info alert'>$message</div>";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public function calcRatingOverpassDiv($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        if($this->sureIs("rating_overpass"))
+        {
+            $rating_overpass_user_name = $this->decode("rating_overpass_user_id", '', false, $lang);
+            $rating_overpass_when = $this->decode("rating_overpass_gdate", '', false, $lang);
+            if(!$rating_overpass_when) $rating_overpass_when = "غير معروف";
+            $message = $this->tm("Rating has been overpassed by", $lang) . " : $rating_overpass_user_name ".$this->translateOperator('at',$lang)." ".$rating_overpass_when;
             return "<div class='warning info alert'>$message</div>";
         }
         else
