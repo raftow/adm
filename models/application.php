@@ -86,6 +86,22 @@ class Application extends AdmObject
                 return ApplicationDesire::countSortedDesires($applicant_id, $application_plan_id, $application_simulation_id);
         }
 
+
+        public function calcDragDropDiv($what = "value")
+        {
+                $return = "";
+                $applicationModelObj = $this->getApplicationModel();                
+                if ($applicationModelObj) {
+                        $this->getApplicant();
+                        if ($this->applicantObj) 
+                        { 
+                                $return = $this->applicantObj->calcDragDropDiv($what = "value", $applicationModelObj->getVal("doc_type_mfk"));      
+                        }
+                }        
+
+                return $return;
+        }
+
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what = "value")
         {
                 global $MODE_BATCH_LOURD;

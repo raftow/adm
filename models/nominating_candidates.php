@@ -654,11 +654,11 @@ class NominatingCandidates extends AdmObject{
 
     public function calcDragDropDiv($what = "value")
     {
-        $applicantObj = $this->het("applicant_id");
         $html = "";
-        if($applicantObj)
+        $applicationObj = $this->getMyApplication();        
+        if($applicationObj)
         {
-            $html = $applicantObj->calcDragDropDiv($what);
+            $html = $applicationObj->calcDragDropDiv($what);
         }
 
         return $html;

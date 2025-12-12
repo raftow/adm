@@ -1761,11 +1761,19 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 }
         }
 
-        public function calcDragDropDiv($what = "value")
+        public function calcDragDropDiv($what = "value", $doc_type_mfk=null)
         {
                 $lang = AfwSession::getSessionVar("current_lang");
                 if (!$lang) $lang = "ar";
-                $adm_file_types = AfwSession::config("adm_file_types", "0");
+                if(!$doc_type_mfk)
+                {
+                        $adm_file_types = AfwSession::config("adm_file_types", "0");
+                }
+                else
+                {
+                        $adm_file_types = trim($doc_type_mfk, ",");
+                }
+                
                 $allowed_upload_size = AfwSession::config("allowed_upload_size", "0");
                 $objme = AfwSession::getUserConnected();
 
