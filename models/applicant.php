@@ -1836,6 +1836,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                                 $col = "doc_type_id";
                                 $col_structure = $obj->getMyDbStructure('structure', $col);
                                 $col_structure["NO-FGROUP"] = true;
+                                $col_structure["WHERE"] = "id in ($adm_file_types)";
                                 $openedInGroupDiv = false;
                                 list($htmlDiv, $openedInGroupDiv, $fgroup) = AfwEditMotor::attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
                                 $whendone = "hide";
