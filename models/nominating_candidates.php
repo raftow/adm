@@ -142,6 +142,7 @@ class NominatingCandidates extends AdmObject{
                         "LABEL_AR" => $title_ar,
                         "LABEL_EN" => $title_en,
                         "ADMIN-ONLY" => true,
+                        "HIDE" => true,
                         "BF-ID" => "",
                 );
 
@@ -155,6 +156,7 @@ class NominatingCandidates extends AdmObject{
                         "LABEL_AR" => $title_ar,
                         "LABEL_EN" => $title_en,
                         "ADMIN-ONLY" => true,
+                        "HIDE" => true,
                         "BF-ID" => "",
                 );
 
