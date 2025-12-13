@@ -778,8 +778,47 @@ class NominatingCandidates extends AdmObject{
     public function stepsAreOrdered()
     {
         if($this->isEmpty()) return true;
-        return 2;
+        return 5;
     }
+
+
+    protected function getSpecificDataErrors(
+                $lang = 'ar',
+                $show_val = true,
+                $step = 'all',
+                $erroned_attribute = null,
+                $stop_on_first_error = false,
+                $start_step = null,
+                $end_step = null
+        ) 
+    {
+                global $objme;
+                $sp_errors = [];
+                $birth_gdate_show = $this->showOfAttribute('birth_gdate');
+                $birth_gdate_step = $this->stepOfAttribute('birth_gdate');
+                $birth_gdate_is_in_step = $this->stepContainAttribute($step, 'birth_gdate');
+                $no_step_scope = ((!$start_step and !$end_step));
+                $step_in_scope = ($birth_gdate_step and ($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step));
+                $birth_gdate_is_in_steps_scope = ($birth_gdate_is_in_step and ($no_step_scope or $step_in_scope));
+
+
+                if ($birth_gdate_show and $birth_gdate_is_in_steps_scope) {
+                        $birth_gdate = $this->getVal('birth_gdate');
+                        $birth_date = $this->getVal('birth_date');
+
+                        if (!$birth_gdate and !$birth_date) {
+                                $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+                                $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = ((no_step_scope or birth_gdate_is_in_step) and (no_step_scope or step_in_scope)) \n<br> step=$step \n<br> 
+                                                birth_gdate_show=$birth_gdate_show <br>\n
+                                                birth_gdate_step=$birth_gdate_step <br>\n
+                                                birth_gdate_is_in_step=this->stepContainAttribute($step, 'birth_gdate')=$birth_gdate_is_in_step <br>\n
+                                                step_in_scope=($birth_gdate_step and ($birth_gdate_step >= $start_step) and ($birth_gdate_step <= $end_step)) <br>\n
+                                                birth_gdate_is_in_steps_scope=$birth_gdate_is_in_steps_scope = ($birth_gdate_is_in_step and ($no_step_scope or $step_in_scope))</pre>";
+                        }
+                }
+
+                return $sp_errors;
+        }
 
     /*
     public static function statsData($paramsArr=[])
