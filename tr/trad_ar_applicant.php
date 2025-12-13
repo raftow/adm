@@ -56,7 +56,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["password"] = "كلمة المرور";
 		$trad["applicant"]["email"] = "البريد الالكتروني الشخصي";
 		$trad["applicant"]["mobile"] = "الجوال الشخصي";
-		$trad["applicant"]["signup _acknoldgment"] = "تعهد بصحة البيانات";
+		
 		$trad["applicant"]["first_name_ar"] = "الاسم الأول";
 		$trad["applicant"]["father_name_ar"] = "اسم الأب";
 		$trad["applicant"]["middle_name_ar"] = "اسم الجد";
@@ -72,7 +72,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["place_of_birth"] = "مكان الميلاد";
 		$trad["applicant"]["marital_status_enum"] = "الحالة الاجتماعية";
 		
-		$trad["applicant"]["signup_acknowldgment"] = "تعهد بصحة البيانات";
+		$trad["applicant"]["signup_acknowldgment"] = "تعهد بصحة البياناتتم ال";
 		$trad["applicant"]["signup_acknowldgment.EUH"] = "ليس بعد";
 		/* $trad["applicant"]["signup_acknoldgment"] = "إقرار الاشتراك";
 		$trad["applicant"]["signup_acknoldgment.EUH"] = "ليس بعد";*/
