@@ -6,7 +6,7 @@ class AdmApplicationModelFinancialTransactionAfwStructure
         {
                 if ($obj instanceof ApplicationModelFinancialTransaction) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                        // $obj->DISPLAY_FIELD = "id";
+                        $obj->DISPLAY_FIELD = "financial_transaction_id";
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                         $obj->UNIQUE_KEY = array('application_model_id', 'financial_transaction_id');
                         // $obj->public_display = true;
