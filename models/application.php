@@ -3229,6 +3229,11 @@ class Application extends AdmObject
                         $width_pct = "50";
                         $attribute = $current_screen_field['name'];
                         if(strtolower($attribute) != $attribute) $width_pct = "100";                        
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_record")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_html")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_desc")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_descr")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_description")) $width_pct = "100";
                         elseif(AfwStringHelper::stringEndsWith($attribute,"List")) $width_pct = "100";
                         $attribute_value = $current_screen_field['decode'];
                         $attribute_label = $current_screen_field['label'];
