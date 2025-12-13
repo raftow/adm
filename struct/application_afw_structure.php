@@ -330,7 +330,7 @@
 
 
                                         'application_fees_record' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
-								'EDIT' => true,  'READONLY' => true, 
+								'EDIT' => true,  'READONLY' => true, 'FORMAT' => 'retrieve',
 								'TYPE' => 'FK',  'ANSWER' => 'applicant_account',  'ANSMODULE' => 'adm',  'STEP' => 99, 
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
