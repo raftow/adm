@@ -362,7 +362,7 @@ class NominatingCandidates extends AdmObject{
                 $this->set("application_plan_branch_mfk", ",");                            
             }
             
-            if ($fields_updated["application_plan_branch_mfk"])
+            if ($fields_updated["application_plan_branch_mfk"] and $this->getVal("application_plan_branch_mfk"))
             {
                 if($this->applicationObj) 
                 {
@@ -370,7 +370,7 @@ class NominatingCandidates extends AdmObject{
                     $this->applicationObj->set("comments", "NomCand::beforeMaj has updated branchMfk to : ".$this->getVal("application_plan_branch_mfk"));
                     $this->applicationObj->commit();
                 }
-                else die("NomCand::beforeMaj => applicationObj not found");
+                // else die("NomCand::beforeMaj => applicationObj not found");
             }
 
 
@@ -426,7 +426,6 @@ class NominatingCandidates extends AdmObject{
                         $appQualObj->commit();
 
                         
-
                         if($this->applicationObj) 
                         {
                             $this->applicationObj->set("applicant_qualification_id", $appQualObjId);                            
@@ -582,6 +581,12 @@ class NominatingCandidates extends AdmObject{
             if($applicant_id and $application_plan_id and $application_simulation_id)
             {
                 $this->applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $this->getVal("idn"), true);
+                if($this->getVal("application_plan_branch_mfk")) $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
+                if($this->getVal("training_period_enum")) $this->applicationObj->set("training_period_enum", $this->getVal("training_period_enum"));  
+                $this->applicationObj->set("comments", "NomCand :: first creation of applicatio");                
+                $this->applicationObj->commit();
+
+                    
             }
         }
         
