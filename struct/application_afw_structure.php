@@ -329,7 +329,7 @@
                                                 'CSS' => 'width_pct_25', ),
 
 
-                                        'application_fees_record' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
+                                        'application_fees_record' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 'DISPLAY' => true, 'FORMAT' => 'minibox',
 								'EDIT' => true,  'READONLY' => true, 'FORMAT' => 'retrieve',
 								'TYPE' => 'FK',  'ANSWER' => 'applicant_account',  'ANSMODULE' => 'adm',  'STEP' => 99, 
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
