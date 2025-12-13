@@ -3226,10 +3226,13 @@ class Application extends AdmObject
         </div>
 </div>";
                 foreach ($current_screen_fields as $current_screen_field) {
+                        $width_pct = "50";
+                        
                         $attribute = $current_screen_field['name'];
+                        if(AfwStringHelper::stringEndsWith($attribute,"List")) $width_pct = "100";
                         $attribute_value = $current_screen_field['decode'];
                         $attribute_label = $current_screen_field['label'];
-                        $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_50 \">
+                        $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_$width_pct \">
                                         <label for=\"$attribute\" class=\"hzm_label hzm_label_$attribute\">$attribute_label : 
                                         </label>
 
