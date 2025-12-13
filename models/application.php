@@ -3227,9 +3227,9 @@ class Application extends AdmObject
 </div>";
                 foreach ($current_screen_fields as $current_screen_field) {
                         $width_pct = "50";
-                        
                         $attribute = $current_screen_field['name'];
-                        if(AfwStringHelper::stringEndsWith($attribute,"List")) $width_pct = "100";
+                        if(strtolower($attribute) != $attribute) $width_pct = "100";                        
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"List")) $width_pct = "100";
                         $attribute_value = $current_screen_field['decode'];
                         $attribute_label = $current_screen_field['label'];
                         $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_$width_pct \">
