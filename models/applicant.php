@@ -2055,9 +2055,11 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 $afObj->select("applicant_id", $this->getId());
                 $afObj->select("doc_type_id", $type);
                 $afObj->select("active", "Y");
-                $afObj->load();
+                if($afObj->load()) return $afObj;
+                unset($afObj);
+                return null;
                 //if($afObj->getId()<=0) die("pfObj($type) = ".var_export($afObj,true));
-                return $afObj;
+                
         }
 
 
