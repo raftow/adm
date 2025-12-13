@@ -203,7 +203,7 @@ class NominatingCandidates extends AdmObject{
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
                                                 "LABEL_AR" => $title_ar, 
                                                 "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');        
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEP' => 6);        
 
 
                 }
@@ -585,8 +585,6 @@ class NominatingCandidates extends AdmObject{
                 if($this->getVal("training_period_enum")) $this->applicationObj->set("training_period_enum", $this->getVal("training_period_enum"));  
                 $this->applicationObj->set("comments", "NomCand :: first creation of applicatio");                
                 $this->applicationObj->commit();
-
-                    
             }
         }
         
