@@ -193,51 +193,65 @@ class NominatingCandidates extends AdmObject{
                 );
 
 
-
-            }
-
-
-            if(!$this->sureIs("track_overpass"))
-            {
-                $color = "green";
-                $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
-                $methodName = "overpassTrackCondition";
-
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = [
-                    "METHOD"=>$methodName,
-                    "COLOR"=>$color, 
-                    "LABEL_AR"=>$title_ar, 
-                    "ADMIN-ONLY"=>true, 
-                    "BF-ID"=>"", 
-                    'STEP' =>$this->stepOfAttribute("trackOverpassDiv"),
-                    'CONFIRMATION_NEEDED'=>true,
-                    'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
-                                                                    'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
-                    'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
-                                                            'en' => "This process is irreversible."),
-                ];
-            }
+                if(!$this->applicationObj->sureIs("signup_acknowldgment"))
+                {
+                        $color = "blue";
+                        $title_en = "Signup Acknowldgment";
+                        $title_ar = $this->tm($title_en, 'ar');
+                        
+                        $methodName = "signupAcknowldgment";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');        
 
 
-            if(!$this->sureIs("rating_overpass"))
-            {
-                $color = "green";
-                $title_ar = "تجاوز شرط التقدير لهذا المترشح"; 
-                $methodName = "overpassRatingCondition";
+                }
+                
 
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = [
-                    "METHOD"=>$methodName,
-                    "COLOR"=>$color, 
-                    "LABEL_AR"=>$title_ar, 
-                    "ADMIN-ONLY"=>true, 
-                    "BF-ID"=>"", 
-                    'STEP' =>$this->stepOfAttribute("ratingOverpassDiv"),
-                    'CONFIRMATION_NEEDED'=>true,
-                    'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
-                                                                    'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
-                    'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
-                                                            'en' => "This process is irreversible."),
-                ];
+
+                if(!$this->sureIs("track_overpass"))
+                {
+                    $color = "green";
+                    $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
+                    $methodName = "overpassTrackCondition";
+
+                    $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                        "METHOD"=>$methodName,
+                        "COLOR"=>$color, 
+                        "LABEL_AR"=>$title_ar, 
+                        "ADMIN-ONLY"=>true, 
+                        "BF-ID"=>"", 
+                        'STEP' =>$this->stepOfAttribute("trackOverpassDiv"),
+                        'CONFIRMATION_NEEDED'=>true,
+                        'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                        'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                        'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
+                                                                'en' => "This process is irreversible."),
+                    ];
+                }
+
+
+                if(!$this->sureIs("rating_overpass"))
+                {
+                    $color = "green";
+                    $title_ar = "تجاوز شرط التقدير لهذا المترشح"; 
+                    $methodName = "overpassRatingCondition";
+
+                    $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                        "METHOD"=>$methodName,
+                        "COLOR"=>$color, 
+                        "LABEL_AR"=>$title_ar, 
+                        "ADMIN-ONLY"=>true, 
+                        "BF-ID"=>"", 
+                        'STEP' =>$this->stepOfAttribute("ratingOverpassDiv"),
+                        'CONFIRMATION_NEEDED'=>true,
+                        'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                        'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                        'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
+                                                                'en' => "This process is irreversible."),
+                    ];
+                }
             }
             
             
@@ -267,6 +281,21 @@ class NominatingCandidates extends AdmObject{
 
             
         }
+
+
+        public function signupAcknowldgment($lang="ar")
+        {
+                $this->getMyApplication();
+                if($this->applicationObj)
+                {
+                    return $this->applicationObj->signupAcknowldgment($lang);
+                }
+                return ["no-application", ""];    
+        }
+
+
+
+
 
 
         public function overpassRatingCondition($lang='ar')

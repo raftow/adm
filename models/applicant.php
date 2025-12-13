@@ -950,20 +950,47 @@ class Applicant extends AdmObject
                                                 "LABEL_EN" => $title_en, 
                                                 "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
                 }
+
+
+                
+                
+                
+
+                if(!$this->sureIs("signup_acknowldgment"))
+                {
+                        $color = "blue";
+                        $title_en = "Signup Acknowldgment";
+                        $title_ar = $this->tm($title_en, 'ar');
+                        
+                        $methodName = "signupAcknowldgment";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');        
+
+
+                }
                 
 
                 $color = "red";
                 $title_en = "Reset Applicant";
                 $title_ar = $this->tm($title_en, 'ar');
-                
                 $methodName = "resetApplicant";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                        "LABEL_AR" => $title_ar, 
-                                        "LABEL_EN" => $title_en, 
-                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');                                        
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');                                        
 
 
                 return $pbms;
+        }
+
+
+        public function signupAcknowldgment($lang="ar")
+        {
+                $this->set("signup_acknowldgment", "Y");
+                $this->commit();
+                return ["", "done"];
         }
 
 
