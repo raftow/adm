@@ -782,6 +782,19 @@ class NominatingCandidates extends AdmObject{
     }
 
 
+    public function attributeIsApplicable($attribute)
+    {
+        for($step=5; $step<=$this->editNbSteps;$step++)
+        {
+            if ($this->stepContainAttribute($step, $attribute)) {
+                return $this->isOk(true);
+            }
+        }
+        
+
+        return true;
+    }    
+
     protected function getSpecificDataErrors(
                 $lang = 'ar',
                 $show_val = true,
@@ -803,7 +816,7 @@ class NominatingCandidates extends AdmObject{
                 }
 
                 return $sp_errors;
-        }
+    }
 
     /*
     public static function statsData($paramsArr=[])
