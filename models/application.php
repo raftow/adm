@@ -3217,7 +3217,7 @@ class Application extends AdmObject
 
 
 
-                $html .= "<div class='current_step $step_num'>";
+                $html .= "<div class='current_step step$step_num'>";
                 $html .= "
 <div class='help_message_info'>
         <div class='help_message_content'>
