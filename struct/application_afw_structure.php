@@ -211,6 +211,7 @@
                                                                 'EDIT' => true,
                                                                 'READONLY' => true,
                                                                 'CAN-BE-SETTED' => true,
+                                                                'FORMAT' => 'retrieve',
                                                                 'CSS' => 'width_pct_100',
                                                         ),
 

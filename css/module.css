@@ -5193,3 +5193,7 @@ div#applicantFileList {
     line-height: 44px;
     padding: 50px;
 }
+
+div#engagementList {
+    min-height: 450px !important;
+}
