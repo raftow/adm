@@ -997,8 +997,14 @@ class ApplicationDesire extends AdmObject
                 $required_doc_type_arr = explode(",",trim($needed_doc_types_mfk,","));
                 foreach($required_doc_type_arr as $required_doc_type_id)
                 {
-                      if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;
-                      echo "DT-$required_doc_type_id available <br>\n";
+                        $afileObj = $this->applicantObj->getAttachedFileWithType($required_doc_type_id);  
+                        if(!$afileObj) 
+                        {
+                                echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br>\n";
+                                echo "!!!! DT-$required_doc_type_id not available !!!! <br>\n";
+                                return $no;
+                        }
+                        echo "DT-$required_doc_type_id available : $afileObj->id <br>\n";
                 }
                 echo "************************************************************************* <br>\n";
                 return $yes;                 
