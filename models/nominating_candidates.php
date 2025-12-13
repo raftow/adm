@@ -796,9 +796,10 @@ class NominatingCandidates extends AdmObject{
                 $sp_errors = [];
                 $branch_count = explode(",",trim($this->getVal('application_plan_branch_mfk'),","));
                 
-
-                if ($branch_count>0) {
-                        $sp_errors['application_plan_branch_mfk'] = $this->translateMessage('only one application branch is allowed', $lang);
+                if ($this->stepContainAttribute($step, "application_plan_branch_mfk")) {
+                    if ($branch_count>1) {
+                            $sp_errors['application_plan_branch_mfk'] = $this->translateMessage('only one application branch is allowed', $lang);
+                    }
                 }
 
                 return $sp_errors;
