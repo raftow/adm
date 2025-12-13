@@ -257,7 +257,7 @@
                                                 'EDIT' => true,  'QEDIT' => false, 'STEP' => 2, 
                                                 'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
                                                 'TYPE' => 'MFK',  'ANSWER' => 'doc_type',  'ANSMODULE' => 'ums',  
-                                                'READONLY' => false,  'DNA' => true, 
+                                                'READONLY' => false,  'DNA' => true, 'MFK-SHOW-SEPARATOR'=> '/',
                                                 'CSS' => 'width_pct_100', ),
 
                                         'needed_docs_available' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
