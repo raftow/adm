@@ -786,7 +786,7 @@ class NominatingCandidates extends AdmObject{
     {
         $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));
         $ok = ($branch_count == 1);
-        if ($this->stepOfAttribute($attribute)>=5) {
+        if ($this->stepOfAttribute($attribute)>=6) {
                 return $ok;
         }
         
