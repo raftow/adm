@@ -72,7 +72,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["place_of_birth"] = "مكان الميلاد";
 		$trad["applicant"]["marital_status_enum"] = "الحالة الاجتماعية";
 		
-		$trad["applicant"]["signup_acknowldgment"] = "تم التعهد بصحة البيانات";
+		$trad["applicant"]["signup_acknowldgment"] = "تم التعهد بصحة بيانات التسجيل";
 		$trad["applicant"]["signup_acknowldgment.EUH"] = "ليس بعد";
 		/* $trad["applicant"]["signup_acknoldgment"] = "إقرار الاشتراك";
 		$trad["applicant"]["signup_acknoldgment.EUH"] = "ليس بعد";*/
