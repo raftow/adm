@@ -625,7 +625,7 @@ class Applicant extends AdmObject
                         $birth_date = $this->getVal('birth_date');
 
                         if (!$birth_gdate and !$birth_date) {
-                                $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined');
+                                $sp_errors['birth_gdate'] = $this->translateMessage('birth date gregorian or hijri should be defined', $lang);
                                 $sp_errors['birth_gdate'] .= "<pre dir='ltr'> dbg : birth_gdate_is_in_steps_scope = ((no_step_scope or birth_gdate_is_in_step) and (no_step_scope or step_in_scope)) \n<br> step=$step \n<br> 
                                                 birth_gdate_show=$birth_gdate_show <br>\n
                                                 birth_gdate_step=$birth_gdate_step <br>\n
@@ -950,20 +950,47 @@ class Applicant extends AdmObject
                                                 "LABEL_EN" => $title_en, 
                                                 "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
                 }
+
+
+                
+                
+                
+
+                if(!$this->sureIs("signup_acknowldgment"))
+                {
+                        $color = "blue";
+                        $title_en = "Signup Acknowldgment";
+                        $title_ar = $this->tm($title_en, 'ar');
+                        
+                        $methodName = "signupAcknowldgment";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');        
+
+
+                }
                 
 
                 $color = "red";
                 $title_en = "Reset Applicant";
                 $title_ar = $this->tm($title_en, 'ar');
-                
                 $methodName = "resetApplicant";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                        "LABEL_AR" => $title_ar, 
-                                        "LABEL_EN" => $title_en, 
-                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');                                        
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');                                        
 
 
                 return $pbms;
+        }
+
+
+        public function signupAcknowldgment($lang="ar")
+        {
+                $this->set("signup_acknowldgment", "Y");
+                $this->commit();
+                return ["", "done"];
         }
 
 
@@ -1761,11 +1788,19 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 }
         }
 
-        public function calcDragDropDiv($what = "value")
+        public function calcDragDropDiv($what = "value", $doc_type_mfk=null)
         {
                 $lang = AfwSession::getSessionVar("current_lang");
                 if (!$lang) $lang = "ar";
-                $adm_file_types = AfwSession::config("adm_file_types", "0");
+                if(!$doc_type_mfk)
+                {
+                        $adm_file_types = AfwSession::config("adm_file_types", "0");
+                }
+                else
+                {
+                        $adm_file_types = trim($doc_type_mfk, ",");
+                }
+                
                 $allowed_upload_size = AfwSession::config("allowed_upload_size", "0");
                 $objme = AfwSession::getUserConnected();
 
@@ -1828,6 +1863,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                                 $col = "doc_type_id";
                                 $col_structure = $obj->getMyDbStructure('structure', $col);
                                 $col_structure["NO-FGROUP"] = true;
+                                $col_structure["WHERE"] = "id in ($adm_file_types)";
                                 $openedInGroupDiv = false;
                                 list($htmlDiv, $openedInGroupDiv, $fgroup) = AfwEditMotor::attributeEditDiv($obj, $col, $col_structure, "", $lang, $openedInGroupDiv);
                                 $whendone = "hide";
@@ -2046,9 +2082,11 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 $afObj->select("applicant_id", $this->getId());
                 $afObj->select("doc_type_id", $type);
                 $afObj->select("active", "Y");
-                $afObj->load();
+                if($afObj->load()) return $afObj;
+                unset($afObj);
+                return null;
                 //if($afObj->getId()<=0) die("pfObj($type) = ".var_export($afObj,true));
-                return $afObj;
+                
         }
 
 

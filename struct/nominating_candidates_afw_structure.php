@@ -115,7 +115,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 		'application_plan_id' => array(
-			'STEP' => 2,
+			'STEP' => 7,
 			'SHORTNAME' => 'plan',
 			'SEARCH' => true,
 			'QSEARCH' => true,
@@ -141,7 +141,7 @@ class AdmNominatingCandidatesAfwStructure
 
 		'application_simulation_id' => array(
 			'IMPORTANT' => 'IN',
-			'STEP' => 2,
+			'STEP' => 7,
 			'SEARCH' => true,
 			'QSEARCH' => false,
 			'SHOW' => true,
@@ -373,6 +373,7 @@ class AdmNominatingCandidatesAfwStructure
 			'UTF8' => false,
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
+			'MANDATORY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
 			'STEP' => 2,
@@ -393,6 +394,7 @@ class AdmNominatingCandidatesAfwStructure
 			'UTF8' => true,
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
+			'MANDATORY' => true,
 			'CSS' => 'width_pct_25',
 			'STEP' => 2,
 		),
@@ -807,6 +809,9 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 		),
 
+
+		
+
 		'track_overpass_user_id' => array(
 			'FGROUP' => 'track_overpass.short',
 			'SHORTNAME' => 'program',
@@ -938,7 +943,7 @@ class AdmNominatingCandidatesAfwStructure
 			'IMPORTANT' => 'IN',
 			'SEARCH' => false,
 			'QSEARCH' => false,
-			'SHOW' => true,
+			'SHOW' => false,
 			'RETRIEVE' => true,
 			'EDIT' => false,
 			'QEDIT' => false,
@@ -951,7 +956,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 7,
+			'STEP' => 2,
 			'RELATION' => 'ManyToOne-OneToMany',
 			'MANDATORY' => false,
 			'READONLY' => true,
@@ -976,7 +981,7 @@ class AdmNominatingCandidatesAfwStructure
 			'DEFAUT' => 'N',
 			'TYPE' => 'YN',
 			'FORMAT' => 'icon',
-			'STEP' => 7,
+			'STEP' => 99,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
@@ -1004,7 +1009,7 @@ class AdmNominatingCandidatesAfwStructure
 			'READONLY' => true,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
-			'STEP' => 7,
+			'STEP' => 99,
 		),
 
 		'rating_overpass_gdate' => [
@@ -1021,13 +1026,28 @@ class AdmNominatingCandidatesAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'GDATE',
                         'FORMAT' => 'DATE',
-                        'STEP' => 2,
+                        'STEP' => 99,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'MANDATORY' => false,
 						'READONLY' => true,
                         'CSS' => 'width_pct_25',
-        		],		
+        		],	
+				
+				
+				'ratingOverpassDiv' => array(
+                        'STEP' => 6,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'INPUT_WIDE' => true,
+						'CSS' => 'width_pct_100',
+                ),
 
 		'applicant_id' => array(
 			'STEP' => 7,

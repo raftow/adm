@@ -988,6 +988,8 @@ class ApplicationDesire extends AdmObject
 
         public function calcNeeded_docs_available($what = "value")
         {
+                // echo "************************************************************************* <br>\n";
+                // echo "DTS available <br>\n";
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
                 
                 if (!$this->applicantObj) $this->applicantObj = $this->het("applicant_id");
@@ -995,8 +997,16 @@ class ApplicationDesire extends AdmObject
                 $required_doc_type_arr = explode(",",trim($needed_doc_types_mfk,","));
                 foreach($required_doc_type_arr as $required_doc_type_id)
                 {
-                      if(!$this->applicantObj->getAttachedFileWithType($required_doc_type_id)) return $no;
+                        $afileObj = $this->applicantObj->getAttachedFileWithType($required_doc_type_id);  
+                        if(!$afileObj) 
+                        {
+                                // echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br>\n";
+                                // echo "!!!! DT-$required_doc_type_id not available !!!! <br>\n";
+                                return $no;
+                        }
+                        // echo "DT-$required_doc_type_id available : $afileObj->id <br>\n";
                 }
+                // echo "************************************************************************* <br>\n";
                 return $yes;                 
         }
 

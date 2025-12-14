@@ -425,7 +425,7 @@
                                         /*
                                         if($field_name=="program_qualification_mfk")
                                         {
-                                                die("scrField of $field_name is ".var_export($scrField,true));        
+                                                die("scrFields[$afield_id] with name=$field_name is ".var_export($scrField,true));        
                                         }*/
                                         
                                         $field_code = $field_name;
@@ -498,15 +498,19 @@
                                         {
                                                 if($applicationObj and $applicationObj->isSynchronisedUniqueDesire())
                                                 {
+                                                        $desire_case = "load with getSynchronisedUniqueDesire from : ".$applicationObj->id;
                                                         if(!$desireObj) $desireObj = $applicationObj->getSynchronisedUniqueDesire();
                                                 }
                                                 else
                                                 {
                                                         if(!$application_plan_branch_id) throw new AfwRuntimeException("Working for populating screen $scrIndex Retrieving data for field $field_name : application_plan_branch_id should be provided to get Data of a desire");
                                                         if(!$desireObj) $desireObj = ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id);                                                
-                                                
+                                                        $desire_case = "load with ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
                                                 }
-                                                
+                                                if(!$desireObj) 
+                                                {
+                                                        throw new AfwRuntimeException("desire_case=$desire_case failed for scrFields[$afield_id] with name=$field_name is ".var_export($scrField,true));
+                                                }
                                                 if(!$desireObj) $error_message = self::transMess("This desire is not found", $lang);
                                                 $context = "field $field_name ApplicationDesire::loadByBigIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_plan_branch_id)";
                                                 $theObj =& $desireObj;                                                                                                

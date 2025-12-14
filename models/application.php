@@ -86,6 +86,22 @@ class Application extends AdmObject
                 return ApplicationDesire::countSortedDesires($applicant_id, $application_plan_id, $application_simulation_id);
         }
 
+
+        public function calcDragDropDiv($what = "value")
+        {
+                $return = "";
+                $applicationModelObj = $this->getApplicationModel();                
+                if ($applicationModelObj) {
+                        $this->getApplicant();
+                        if ($this->applicantObj) 
+                        { 
+                                $return = $this->applicantObj->calcDragDropDiv($what = "value", $applicationModelObj->getVal("doc_type_mfk"));      
+                        }
+                }        
+
+                return $return;
+        }
+
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what = "value")
         {
                 global $MODE_BATCH_LOURD;
@@ -213,7 +229,7 @@ class Application extends AdmObject
                 $input_arr['lang'] = $lang;
                 $input_arr['whereiam'] = "";
                 $input_arr['simulation_id'] = $this->getVal("application_simulation_id");
-
+                // die("myCurrentStepData input_arr = ".var_export($input_arr, true));
                 return self::currentStepData($input_arr, $debugg);
         }
 
@@ -258,6 +274,7 @@ class Application extends AdmObject
                                 $step_description_ar = "المعرف التسلسلي للمرحلة رقم $step_num وهو = " . $applicationObj->getVal("application_step_id") . " غير معروف " . $case_no_step_correct;
                                 $step_description_en = "unknown step id " . $applicationObj->getVal("application_step_id") . " for step num = $step_num " . $case_no_step_correct;
                         }
+                        // die("currentStepData input_arr = ".var_export($input_arr, true));
                         list($status0, $error_message, $applicationData) = ApplicationPlan::getStepData($input_arr, $debugg, "currentStepData", $whereiam);
                         $applicant_id = $applicationObj->getVal("applicant_id");
                         $application_plan_id = $applicationObj->getVal("application_plan_id");
@@ -2533,7 +2550,20 @@ class Application extends AdmObject
                 return $this->nb_desires;
         }
 
-        public function calcSis_fields_available($what = "value", $lang = "")
+        
+
+        public function calcQualificationRatingOverpass($what = "value", $lang="ar")
+        {
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
+                $ncObj = $this->calcNominatingCandidate("object");
+
+                if($ncObj and $ncObj->sureIs("rating_overpass")) return $yes;
+
+                return $no;
+                
+        }
+
+        public function calcSis_fields_available($what = "value", $lang = "ar")
         {
                 //die("rafik debugg 20250203");
                 list($yes, $no) = AfwLanguageHelper::translateYesNo($what, $lang);
@@ -2654,12 +2684,20 @@ class Application extends AdmObject
         }
 
 
-        public function getMyExternalCandidateInfos()
+        public function calcNominatingCandidate($what = "value")
         {
                 $applicant_id = $this->getVal("applicant_id");
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
+
+                return AfwLoadHelper::giveWhat($ncObj, $what);
+        }
+
+
+        public function getMyExternalCandidateInfos()
+        {
+                $ncObj = $this->calcNominatingCandidate("object");
                 $track_overpass_program_id = 0;
                 if ($ncObj) {
                         if ($ncObj->sureIs("track_overpass") and ($ncObj->getVal("track_overpass_user_id") > 0)) {
@@ -2964,24 +3002,26 @@ class Application extends AdmObject
 
 
 
-        public function shouldBeCalculatedField($attribute)
-        {
-                if ($attribute == "gender_enum") return true;
-                if ($attribute == "allow_add_qualification") return true;
-                if ($attribute == "consider_weighted_pctg") return true;
-                if ($attribute == "qualification_mfk") return true;
-                if ($attribute == "weighted_percentage") return true;
-                if ($attribute == "weighted_percentage_details") return true;
-                if ($attribute == "assignedDesire") return true;
-                if ($attribute == "application_fees_paid") return true;
-                if ($attribute == "sis_fields_available") return true;
-                if ($attribute == "sis_fields_not_available") return true;
-                if ($attribute == "program_offering_mfk") return true;
-                if ($attribute == "nb_desires") return true;
-                if ($attribute == "needed_docs_available") return true;
-                if ($attribute == "tafrigh_available") return true;
-                if ($attribute == "current_fields_matrix") return true;
-                if ($attribute == "mandatory_fields_matrix") return true;
+        public function shouldBeCalculatedField($attribute){
+                if($attribute=="gender_enum") return true;
+                if($attribute=="academic_level_id") return true;
+                if($attribute=="allow_add_qualification") return true;
+                if($attribute=="consider_weighted_pctg") return true;
+                if($attribute=="qualification_mfk") return true;
+                if($attribute=="weighted_percentage") return true;
+                if($attribute=="weighted_percentage_details") return true;
+                if($attribute=="assignedDesire") return true;
+                if($attribute=="application_fees_record") return true;
+                if($attribute=="application_fees_paid") return true;
+                if($attribute=="sis_fields_available") return true;
+                if($attribute=="sis_fields_not_available") return true;
+                if($attribute=="program_offering_mfk") return true;
+                if($attribute=="program_qualification_mfk") return true;
+                if($attribute=="nb_desires") return true;
+                if($attribute=="needed_docs_available") return true;
+                if($attribute=="tafrigh_available") return true;
+                if($attribute=="current_fields_matrix") return true;
+                if($attribute=="mandatory_fields_matrix") return true;
                 return false;
         }
 
@@ -3177,7 +3217,7 @@ class Application extends AdmObject
 
 
 
-                $html .= "<div class='current_step $step_num'>";
+                $html .= "<div class='current_step step$step_num'>";
                 $html .= "
 <div class='help_message_info'>
         <div class='help_message_content'>
@@ -3186,10 +3226,18 @@ class Application extends AdmObject
         </div>
 </div>";
                 foreach ($current_screen_fields as $current_screen_field) {
+                        $width_pct = "50";
                         $attribute = $current_screen_field['name'];
+                        if(strtolower($attribute) != $attribute) $width_pct = "100";                        
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_record")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_html")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_desc")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_descr")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"_description")) $width_pct = "100";
+                        elseif(AfwStringHelper::stringEndsWith($attribute,"List")) $width_pct = "100";
                         $attribute_value = $current_screen_field['decode'];
                         $attribute_label = $current_screen_field['label'];
-                        $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_50 \">
+                        $html .= "<div id=\"fg-$attribute\" class=\"attrib-$attribute form-group width_pct_$width_pct \">
                                         <label for=\"$attribute\" class=\"hzm_label hzm_label_$attribute\">$attribute_label : 
                                         </label>
 

@@ -54,6 +54,38 @@ class NominatingCandidates extends AdmObject{
            else return null;
         }
         
+        public static function loadByMainIndex($nomination_letter_id, $identity_type_id, $idn,$create_obj_if_not_found=false)
+        {
+           if(!$nomination_letter_id) throw new AfwRuntimeException("loadByMainIndex : nomination_letter_id is mandatory field");
+           if(!$identity_type_id) throw new AfwRuntimeException("loadByMainIndex : identity_type_id is mandatory field");
+           if(!$idn) throw new AfwRuntimeException("loadByMainIndex : idn is mandatory field");
+
+
+           $obj = new NominatingCandidates();
+           $obj->select("nomination_letter_id",$nomination_letter_id);
+           $obj->select("identity_type_id",$identity_type_id);
+           $obj->select("idn",$idn);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("nomination_letter_id",$nomination_letter_id);
+                $obj->set("identity_type_id",$identity_type_id);
+                $obj->set("idn",$idn);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
+
         
 
         public static function loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id)
@@ -142,6 +174,7 @@ class NominatingCandidates extends AdmObject{
                         "LABEL_AR" => $title_ar,
                         "LABEL_EN" => $title_en,
                         "ADMIN-ONLY" => true,
+                        "HIDE" => true,
                         "BF-ID" => "",
                 );
 
@@ -155,55 +188,70 @@ class NominatingCandidates extends AdmObject{
                         "LABEL_AR" => $title_ar,
                         "LABEL_EN" => $title_en,
                         "ADMIN-ONLY" => true,
+                        "HIDE" => true,
                         "BF-ID" => "",
                 );
 
 
-
-            }
-
-
-            if(!$this->sureIs("track_overpass"))
-            {
-                $color = "green";
-                $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
-                $methodName = "overpassTrackCondition";
-
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = [
-                    "METHOD"=>$methodName,
-                    "COLOR"=>$color, 
-                    "LABEL_AR"=>$title_ar, 
-                    "ADMIN-ONLY"=>true, 
-                    "BF-ID"=>"", 
-                    'STEP' =>$this->stepOfAttribute("track_overpass"),
-                    'CONFIRMATION_NEEDED'=>true,
-                    'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
-                                                                    'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
-                    'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
-                                                            'en' => "This process is irreversible."),
-                ];
-            }
+                if(!$this->applicationObj->sureIs("signup_acknowldgment"))
+                {
+                        $color = "blue";
+                        $title_en = "Signup Acknowldgment";
+                        $title_ar = $this->tm($title_en, 'ar');
+                        
+                        $methodName = "signupAcknowldgment";
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                "LABEL_AR" => $title_ar, 
+                                                "LABEL_EN" => $title_en, 
+                                                "PUBLIC" => true, "BF-ID" => "", 'STEP' => 6);        
 
 
-            if(!$this->sureIs("rating_overpass"))
-            {
-                $color = "green";
-                $title_ar = "تجاوز شرط التقدير لهذا المترشح"; 
-                $methodName = "overpassRatingCondition";
+                }
+                
 
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = [
-                    "METHOD"=>$methodName,
-                    "COLOR"=>$color, 
-                    "LABEL_AR"=>$title_ar, 
-                    "ADMIN-ONLY"=>true, 
-                    "BF-ID"=>"", 
-                    'STEP' =>$this->stepOfAttribute("rating_overpass"),
-                    'CONFIRMATION_NEEDED'=>true,
-                    'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
-                                                                    'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
-                    'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
-                                                            'en' => "This process is irreversible."),
-                ];
+
+                if(!$this->sureIs("track_overpass"))
+                {
+                    $color = "green";
+                    $title_ar = "تجاوز المسار للبرنامج الذي اسند عليه المترشح"; 
+                    $methodName = "overpassTrackCondition";
+
+                    $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                        "METHOD"=>$methodName,
+                        "COLOR"=>$color, 
+                        "LABEL_AR"=>$title_ar, 
+                        "ADMIN-ONLY"=>true, 
+                        "BF-ID"=>"", 
+                        'STEP' =>$this->stepOfAttribute("trackOverpassDiv"),
+                        'CONFIRMATION_NEEDED'=>true,
+                        'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                        'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                        'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
+                                                                'en' => "This process is irreversible."),
+                    ];
+                }
+
+
+                if(!$this->sureIs("rating_overpass"))
+                {
+                    $color = "green";
+                    $title_ar = "تجاوز شرط التقدير لهذا المترشح"; 
+                    $methodName = "overpassRatingCondition";
+
+                    $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                        "METHOD"=>$methodName,
+                        "COLOR"=>$color, 
+                        "LABEL_AR"=>$title_ar, 
+                        "ADMIN-ONLY"=>true, 
+                        "BF-ID"=>"", 
+                        'STEP' =>$this->stepOfAttribute("ratingOverpassDiv"),
+                        'CONFIRMATION_NEEDED'=>true,
+                        'CONFIRMATION_QUESTION' =>array('ar' => "هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر", 
+                                                                        'en' => "Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring."),
+                        'CONFIRMATION_WARNING' =>array('ar' => "هذا الاجراء غير قابل للتراجع", 
+                                                                'en' => "This process is irreversible."),
+                    ];
+                }
             }
             
             
@@ -233,6 +281,21 @@ class NominatingCandidates extends AdmObject{
 
             
         }
+
+
+        public function signupAcknowldgment($lang="ar")
+        {
+                $applicantObj = $this->het("applicant_id");
+                if($applicantObj)
+                {
+                    return $applicantObj->signupAcknowldgment($lang);
+                }
+                return ["no-application", ""];    
+        }
+
+
+
+
 
 
         public function overpassRatingCondition($lang='ar')
@@ -299,7 +362,7 @@ class NominatingCandidates extends AdmObject{
                 $this->set("application_plan_branch_mfk", ",");                            
             }
             
-            if ($fields_updated["application_plan_branch_mfk"])
+            if ($fields_updated["application_plan_branch_mfk"] and $this->getVal("application_plan_branch_mfk"))
             {
                 if($this->applicationObj) 
                 {
@@ -307,7 +370,7 @@ class NominatingCandidates extends AdmObject{
                     $this->applicationObj->set("comments", "NomCand::beforeMaj has updated branchMfk to : ".$this->getVal("application_plan_branch_mfk"));
                     $this->applicationObj->commit();
                 }
-                else die("NomCand::beforeMaj => applicationObj not found");
+                // else die("NomCand::beforeMaj => applicationObj not found");
             }
 
 
@@ -363,7 +426,6 @@ class NominatingCandidates extends AdmObject{
                         $appQualObj->commit();
 
                         
-
                         if($this->applicationObj) 
                         {
                             $this->applicationObj->set("applicant_qualification_id", $appQualObjId);                            
@@ -519,6 +581,10 @@ class NominatingCandidates extends AdmObject{
             if($applicant_id and $application_plan_id and $application_simulation_id)
             {
                 $this->applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $this->getVal("idn"), true);
+                if($this->getVal("application_plan_branch_mfk")) $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
+                if($this->getVal("training_period_enum")) $this->applicationObj->set("training_period_enum", $this->getVal("training_period_enum"));  
+                $this->applicationObj->set("comments", "NomCand :: first creation of applicatio");                
+                $this->applicationObj->commit();
             }
         }
         
@@ -620,11 +686,11 @@ class NominatingCandidates extends AdmObject{
 
     public function calcDragDropDiv($what = "value")
     {
-        $applicantObj = $this->het("applicant_id");
         $html = "";
-        if($applicantObj)
+        $applicationObj = $this->getMyApplication();        
+        if($applicationObj)
         {
-            $html = $applicantObj->calcDragDropDiv($what);
+            $html = $applicationObj->calcDragDropDiv($what);
         }
 
         return $html;
@@ -647,6 +713,8 @@ class NominatingCandidates extends AdmObject{
     }
 
 
+    
+
     public function calcTrackOverpassDiv($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -656,6 +724,23 @@ class NominatingCandidates extends AdmObject{
             $rack_overpass_when = $this->decode("track_overpass_gdate", '', false, $lang);
             if(!$rack_overpass_when) $rack_overpass_when = "غير معروف";
             $message = $this->tm("Track has been overpassed by", $lang) . " : $rack_overpass_user_name ".$this->translateOperator('at',$lang)." ".$rack_overpass_when;
+            return "<div class='warning info alert'>$message</div>";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public function calcRatingOverpassDiv($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        if($this->sureIs("rating_overpass"))
+        {
+            $rating_overpass_user_name = $this->decode("rating_overpass_user_id", '', false, $lang);
+            $rating_overpass_when = $this->decode("rating_overpass_gdate", '', false, $lang);
+            if(!$rating_overpass_when) $rating_overpass_when = "غير معروف";
+            $message = $this->tm("Rating has been overpassed by", $lang) . " : $rating_overpass_user_name ".$this->translateOperator('at',$lang)." ".$rating_overpass_when;
             return "<div class='warning info alert'>$message</div>";
         }
         else
@@ -688,6 +773,48 @@ class NominatingCandidates extends AdmObject{
             $payment_status_enum = 4; // معفي من الدفع            
             ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, $total_amount, $payment_status_enum, true);
         }
+    }
+
+    public function stepsAreOrdered()
+    {
+        if($this->isEmpty()) return true;
+        return 5;
+    }
+
+
+    public function attributeIsApplicable($attribute)
+    {
+        $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));
+        $ok = ($branch_count == 1);
+        if ($this->stepOfAttribute($attribute)>=6) {
+                return $ok;
+        }
+        
+
+        return true;
+    }    
+
+    protected function getSpecificDataErrors(
+                $lang = 'ar',
+                $show_val = true,
+                $step = 'all',
+                $erroned_attribute = null,
+                $stop_on_first_error = false,
+                $start_step = null,
+                $end_step = null
+        ) 
+    {
+                global $objme;
+                $sp_errors = [];
+                $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));
+                
+                if ($this->stepContainAttribute($step, "application_plan_branch_mfk")) {
+                    if ($branch_count>1) {
+                            $sp_errors['application_plan_branch_mfk'] = $this->translateMessage('only one application branch is allowed', $lang);
+                    }
+                }
+
+                return $sp_errors;
     }
 
     /*

@@ -5193,3 +5193,15 @@ div#applicantFileList {
     line-height: 44px;
     padding: 50px;
 }
+
+div#engagementList {
+    min-height: 450px !important;
+}
+
+div#fg-application_fees_record {
+    min-height: 460px;
+}
+
+div#application_fees_record {
+    min-height: 450px;
+}

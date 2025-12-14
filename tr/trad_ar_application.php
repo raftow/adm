@@ -28,6 +28,10 @@ class ApplicationArTranslator{
 		$trad["application"]["current_fields_matrix"] = "حالة تحديث البيانات";
 		$trad["application"]["applicantSimulationList"] = "نتيجة المحاكاة";
 		$trad["application"]["applicantFileList"] = "قائمة مرفقات المتقدم";
+		$trad["application"]["engagementList"] = "قائمة التعهدات";
+		$trad["application"]["qualificationRatingOverpass"] = "لديه إعفاء من شرط تقدير المؤهل";
+		
+		
 		
 
 		$trad["application"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";

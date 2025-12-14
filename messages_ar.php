@@ -144,6 +144,8 @@
     $messages["This applicant is not found"] = "هذا المتقدم غير مسجل";
     $messages["This application is not found"] = "لم يسبق لهذا المتقدم التقديم";
     $messages["This desire is not found"] = "هذه الرغبة لا توجد أو تم حذفها";
+    $messages["Signup Acknowldgment"] = "التعهد بصحة البيانات";
+    $messages["only one application branch is allowed"] = "يسمح فقط باختيار فرع قبول واحد فقط";
 
     $messages["Back to first step"] = "الرجوع إلى خطوة البداية";
     $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
@@ -208,5 +210,7 @@
     $messages["The upgrade sorting will be executed and you can't rollback"] = "سيتم تنفيذ فرز الترقية ولا يمكنك التراجع بعد ذلك";
     $messages["can not goto previous step when you are in the first special step"] = "لا يمكن الانتقال إلى الخطوة السابقة عندما تكون في الخطوة الخاصة الأولى";
     $messages["Track has been overpassed by"] = " الشرط وجود مسار مفتوح تم تجاوزه بواسطة";
+    $messages["Rating has been overpassed by"] = " الشرط تقدير المؤهل تم تجاوزه بواسطة";
+     
     // $messages[""] = "";
 ?>
