@@ -241,4 +241,22 @@ class ApplicationModelField extends AdmObject
                return true;
             }    
 	}
+
+
+    public function attributeIsApplicable($attribute)
+    {
+            /*
+            global $objme;
+            
+            
+            */
+
+            if (($attribute == "answer")) {
+                $afObj = $this->het("application_field_id");
+                if(!$afObj) return false;
+                if($afObj->getVal("application_table_id")==1) return false;
+            }
+
+            return true;
+    }
 }

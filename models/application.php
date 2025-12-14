@@ -1127,6 +1127,13 @@ class Application extends AdmObject
                 // @todo implementation
         }
 
+        public function signupAcknowldgment($lang="ar")
+        {
+                $this->set("signup_acknowldgment", "Y");
+                $this->commit();
+                return ["", "done"];
+        }
+
         protected function getPublicMethods()
         {
 
@@ -1152,7 +1159,22 @@ class Application extends AdmObject
                 $currentStepNum = $this->getVal("step_num") ? $this->getVal("step_num") : 0;
                 $nextStepNum = $currentStepNum + 1;
                 $this->getApplicationModel();
-                if ($this->objApplicationModel) {
+                if ($this->objApplicationModel) 
+                {
+                        if(!$this->sureIs("signup_acknowldgment"))
+                        {
+                                $color = "blue";
+                                $title_en = "Signup Acknowldgment";
+                                $title_ar = $this->tm($title_en, 'ar');
+                                
+                                $methodName = "signupAcknowldgment";
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
+                                                        "LABEL_AR" => $title_ar, 
+                                                        "LABEL_EN" => $title_en, 
+                                                        "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');        
+
+
+                        }
 
 
                         $initialAcceptanceDesire = $this->loadInitialAcceptanceDesire();

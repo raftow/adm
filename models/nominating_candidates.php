@@ -285,10 +285,11 @@ class NominatingCandidates extends AdmObject{
 
         public function signupAcknowldgment($lang="ar")
         {
-                $applicantObj = $this->het("applicant_id");
-                if($applicantObj)
+                // $applicantObj = $this->het("applicant_id");
+                $this->getMyApplication();
+                if($this->applicationObj) 
                 {
-                    return $applicantObj->signupAcknowldgment($lang);
+                    return $this->applicationObj->signupAcknowldgment($lang);
                 }
                 return ["no-application", ""];    
         }
