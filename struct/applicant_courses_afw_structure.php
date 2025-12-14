@@ -9,14 +9,14 @@
                         if ($obj instanceof ApplicantCourses ) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"name_ar", 'en'=>"name_en"];
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"course_title", 'en'=>"course_title"];
                                 
                                 // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                                 $obj->ORDER_BY_FIELDS = "";
                                  
                                 
                                 
-                                 $obj->UNIQUE_KEY = array('applicant_id', 'course_title_ar');
+                                 $obj->UNIQUE_KEY = array('applicant_id', 'course_title');
                                 
                 $obj->showQeditErrors = true;
                 $obj->showRetrieveErrors = true;
