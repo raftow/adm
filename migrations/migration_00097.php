@@ -30,6 +30,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_r
    module_name varchar(100)  NOT NULL DEFAULT '' , 
   screen_code varchar(48)  NOT NULL DEFAULT '' , 
    rubric_helper_message text  NOT NULL DEFAULT '' , 
+   rubric_order smallint NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 

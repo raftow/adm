@@ -22,6 +22,7 @@ class CvRubricArTranslator{
 		$trad["cv_rubric"]["module_name"] = "الوحدة";
 		$trad["cv_rubric"]["screen_code"] = "الشاشة";
 		$trad["cv_rubric"]["rubric_helper_message"] = "رسالة مساعدة";
+		$trad["cv_rubric"]["rubric_order"] = "ترتيب القسم";
         // steps
         return $trad;
     }
