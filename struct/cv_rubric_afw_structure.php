@@ -68,13 +68,13 @@
 				
 				'screen_code' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => true,  
+				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 				
 				'rubric_helper_message' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 'AREA',   'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
+				'SIZE' => 'AREA',   'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 
