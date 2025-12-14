@@ -30,7 +30,8 @@ class ApplicationArTranslator{
 		$trad["application"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		$trad["application"]["engagementList"] = "قائمة التعهدات";
 		$trad["application"]["qualificationRatingOverpass"] = "لديه إعفاء من شرط تقدير المؤهل";
-		
+		$trad["application"]["signup_acknowldgment"] = "تم التعهد بصحة البيانات";
+		$trad["application"]["signup_acknowldgment.EUH"] = "ليس بعد";
 		
 		
 

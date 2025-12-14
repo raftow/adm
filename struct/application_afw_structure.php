@@ -507,7 +507,20 @@
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
                                                                         
-
+                                        'signup_acknowldgment' => array(
+                                                                'RETRIEVE' => false,
+                                                                'SHOW' => true,
+                                                                'EDIT' => true,
+                                                                'DEFAUT' => 'W',
+                                                                'TYPE' => 'YN',
+                                                                'DISPLAY' => true,
+                                                                'STEP' => 99,
+                                                                'MANDATORY' => false,
+                                                                'READONLY' => true,
+                                                                'DISPLAY-UGROUPS' => '',
+                                                                'EDIT-UGROUPS' => '',
+                                                                'CSS' => 'width_pct_25',
+                                                        ),
 
                                         
                                         'current_fields_matrix' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
