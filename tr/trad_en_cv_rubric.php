@@ -19,6 +19,8 @@ class CvRubricEnTranslator{
 		$trad["cv_rubric"]["rubric_score"] = "score";
 		$trad["cv_rubric"]["rubric_score_pct"] = "percentage";
 		$trad["cv_rubric"]["module_name"] = "module";
+		$trad["cv_rubric"]["screen_code"] = "screen code";
+		$trad["cv_rubric"]["rubric_helper_message"] = "rubric helper message";
         // steps
         return $trad;
     }

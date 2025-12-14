@@ -28,7 +28,8 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_r
    weight float NOT NULL DEFAULT 0.0 , 
    percentage float NOT NULL DEFAULT 0.0 , 
    module_name varchar(48)  NOT NULL DEFAULT '' , 
-  
+  screen_code varchar(48)  NOT NULL DEFAULT '' , 
+   rubric_helper_message text  NOT NULL DEFAULT '' , 
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
