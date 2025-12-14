@@ -23,11 +23,11 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_r
   `display_groups_mfk` varchar(255) DEFAULT NULL,
   `sci_id` int(11) DEFAULT NULL,
   
-   cv_rubric_ar varchar(32)  NOT NULL , 
-   cv_rubric_en varchar(32)  NOT NULL DEFAULT '' , 
+   cv_rubric_ar varchar(100)  NOT NULL , 
+   cv_rubric_en varchar(100)  NOT NULL DEFAULT '' , 
    weight float NOT NULL DEFAULT 0.0 , 
    percentage float NOT NULL DEFAULT 0.0 , 
-   module_name varchar(48)  NOT NULL DEFAULT '' , 
+   module_name varchar(100)  NOT NULL DEFAULT '' , 
   screen_code varchar(48)  NOT NULL DEFAULT '' , 
    rubric_helper_message text  NOT NULL DEFAULT '' , 
   PRIMARY KEY (`id`)
