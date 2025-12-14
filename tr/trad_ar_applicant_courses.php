@@ -13,10 +13,8 @@ class ApplicantCoursesArTranslator{
 		$trad["applicant_courses"]["desc_ar"] = "وصف  بالعربية";
 		$trad["applicant_courses"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["applicant_courses"]["applicant_id"] = "المتقدم";
-		$trad["applicant_courses"]["course_title_ar"] = "اسم الدورة عربي";
-		$trad["applicant_courses"]["course_title_en"] = "اسم الدورة انجليزي";
-		$trad["applicant_courses"]["course_provider_ar"] = "الجهة المقدمة عربي";
-		$trad["applicant_courses"]["course_provider_en"] = "الجهة المقدمة انجليزي";
+		$trad["applicant_courses"]["course_title"] = "اسم الدورة";
+		$trad["applicant_courses"]["course_provider"] = "الجهة المقدمة";
 		$trad["applicant_courses"]["course_date"] = "تاريخ الدورة";
 		$trad["applicant_courses"]["course_duration"] = "مدة الدورة";
 		$trad["applicant_courses"]["certificate_ind"] = "هل لديك شهادة";

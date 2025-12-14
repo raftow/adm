@@ -129,10 +129,8 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
   
     
    applicant_id bigint(20) NOT NULL , 
-   course_title_ar varchar(64)  NOT NULL , 
-   course_title_en varchar(64)  NOT NULL DEFAULT '' , 
-   course_provider_ar varchar(32)  NOT NULL DEFAULT '' , 
-   course_provider_en varchar(32)  NOT NULL DEFAULT '' , 
+   course_title varchar(64)  NOT NULL , 
+   course_provider varchar(32)  NOT NULL DEFAULT '' , 
    course_date datetime NOT NULL DEFAULT '19800101' , 
    course_duration float NOT NULL DEFAULT 0.0 , 
    certificate_ind char(1) NOT NULL DEFAULT 'W' , 
