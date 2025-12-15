@@ -5203,5 +5203,7 @@ div#fg-application_fees_record {
 }
 
 div#application_fees_record {
-    min-height: 450px;
+    min-height: 200px;
+    border: 1px solid silver !important;
+    width: auto;
 }

@@ -30,7 +30,7 @@ class ApplicationArTranslator{
 		$trad["application"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		$trad["application"]["engagementList"] = "قائمة التعهدات";
 		$trad["application"]["qualificationRatingOverpass"] = "لديه إعفاء من شرط تقدير المؤهل";
-		$trad["application"]["signup_acknowldgment"] = "تم التعهد بصحة البيانات";
+		$trad["application"]["signup_acknowldgment"] = "تم الالتزام ببنود التعهدات بصحة البيانات";
 		$trad["application"]["signup_acknowldgment.EUH"] = "ليس بعد";
 		
 		
@@ -47,7 +47,7 @@ class ApplicationArTranslator{
 		$trad["application"]["comments"] = "ملاحظات"; 
 		$trad["application"]["qualification_id"] = "المؤهل";
 		$trad["application"]["major_category_id"] = "فئة التخصص";
-		$trad["application"]["application_fees_paid"] = "رسوم التقديم مدفوعة";
+		$trad["application"]["application_fees_paid"] = "رسوم التقديم مسددة";
 
 		$trad["application"]["program_id"] = "البرنامج";
 		$trad["application"]["sis_fields_available"] = "حقول sis متوفرة";
