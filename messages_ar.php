@@ -149,6 +149,8 @@
 
 
     $messages["Assigned academic program"] = "البرنامج الأكاديمي الذي تم اسناده له";
+    $messages["If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles)"] 
+        = "إذا لم يظهر هذا البرنامج المسند في القائمة أدناه، فقد تحتاج إلى إجراء تجاوز شرط المسار (باستخدام الزر الموجود أسفل هذه الشاشة إذا كانت لديك الصلاحيات المطلوبة).";
     $messages["Back to first step"] = "الرجوع إلى خطوة البداية";
     $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
     $messages["please select the desires"] = "رجاء اختيار الرغبات";
