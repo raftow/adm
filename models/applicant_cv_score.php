@@ -34,10 +34,9 @@ class ApplicantCvScore extends AFWObject{
         
 
         public function getScenarioItemId($currstep)
-                {
-                    
-                    return 0;
-                }
+        {
+            return 0;
+        }
         
         
         public function getDisplay($lang="ar")
@@ -45,9 +44,6 @@ class ApplicantCvScore extends AFWObject{
                
         }
         
-        
-        
-
         
         protected function getOtherLinksArray($mode,$genereLog=false,$step="all")      
         {
