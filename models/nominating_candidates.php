@@ -715,7 +715,19 @@ class NominatingCandidates extends AdmObject{
     }
 
 
-    
+    public function assignedProgramDiv($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        if($this->getVal("academic_program_id")>0)
+        {
+            $message = $this->tm("Assigned academic program", $lang) . " : " . $this->decode("academic_program_id", '', false, $lang);
+            return "<div class='warning info alert'>$message</div>";
+        }
+        else
+        {
+            return "";
+        }
+    }
 
     public function calcTrackOverpassDiv($what = "value")
     {

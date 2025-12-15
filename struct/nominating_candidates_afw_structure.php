@@ -776,7 +776,19 @@ class AdmNominatingCandidatesAfwStructure
 
 
 
-                                        
+        'assignedProgramDiv' => array(
+                        'STEP' => 4,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'INPUT_WIDE' => true,
+						'CSS' => 'width_pct_100',
+                ),                      
 
 		'application_plan_branch_mfk' => array('STEP' => 4, 'SEARCH' => true,  'QSEARCH' => false,  
 				'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  

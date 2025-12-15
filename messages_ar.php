@@ -147,6 +147,8 @@
     $messages["Signup Acknowldgment"] = "التعهد بصحة البيانات";
     $messages["only one application branch is allowed"] = "يسمح فقط باختيار فرع قبول واحد فقط";
 
+
+    $messages["Assigned academic program"] = "البرنامج الأكاديمي الذي تم اسناده له";
     $messages["Back to first step"] = "الرجوع إلى خطوة البداية";
     $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
     $messages["please select the desires"] = "رجاء اختيار الرغبات";
