@@ -584,6 +584,7 @@ class NominatingCandidates extends AdmObject{
                 $this->applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $this->getVal("idn"), true);
                 if($this->getVal("application_plan_branch_mfk")) $this->applicationObj->set("application_plan_branch_mfk", $this->getVal("application_plan_branch_mfk"));                            
                 if($this->getVal("training_period_enum")) $this->applicationObj->set("training_period_enum", $this->getVal("training_period_enum"));  
+                $this->applicationObj->set("signup_acknowldgment", "Y");  
                 $this->applicationObj->set("comments", "NomCand :: first creation of applicatio");                
                 $this->applicationObj->commit();
             }
