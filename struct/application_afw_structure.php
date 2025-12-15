@@ -212,6 +212,7 @@
                                                                 'ICONS' => false,
                                                                 'READONLY' => true,
                                                                 'CAN-BE-SETTED' => false,
+                                                                'DO-NOT-RETRIEVE-COLS' => ['active','engagement_type_id'],
                                                                 'FORMAT' => 'retrieve',
                                                                 'CSS' => 'width_pct_100',
                                                         ),
