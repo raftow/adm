@@ -715,7 +715,7 @@ class NominatingCandidates extends AdmObject{
     }
 
 
-    public function assignedProgramDiv($what = "value")
+    public function calcAssignedProgramDiv($what = "value")
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
         if($this->getVal("academic_program_id")>0)
