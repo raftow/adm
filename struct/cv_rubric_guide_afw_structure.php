@@ -8,14 +8,14 @@ class AdmCvRubricGuideAfwStructure
         {
                 if ($obj instanceof CvRubricGuide) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => "name_ar", 'en' => "name_en"];
+                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => ["cv_rubric_item_id","rubric_score"], 'en' => ["cv_rubric_item_id","rubric_score"]];
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
 
 
 
-                        $obj->UNIQUE_KEY = array('cv_rubric_id', 'rubric_score');
+                        $obj->UNIQUE_KEY = array('cv_rubric_item_id', 'rubric_score');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
@@ -35,13 +35,13 @@ class AdmCvRubricGuideAfwStructure
 
 
 
-                'cv_rubric_id' => array(
+                'cv_rubric_item_id' => array(
                         'SHORTNAME' => 'rubric',
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => 32,
@@ -51,20 +51,38 @@ class AdmCvRubricGuideAfwStructure
                         'MANDATORY' => true,
                         'UTF8' => false,
                         'TYPE' => 'FK',
-                        'ANSWER' => 'cv_rubric',
+                        'ANSWER' => 'cv_rubric_item',
                         'ANSMODULE' => 'adm',
                         'RELATION' => 'unkn',
                         'READONLY' => false,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
+                'rubric_desc' => array(
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 'AREA',
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_100',
+                ),
                 'rubric_score' => array(
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE' => false,
+                        'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => false,
                         'SIZE' => 32,
@@ -80,25 +98,7 @@ class AdmCvRubricGuideAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'rubric_desc' => array(
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
-                        'SHOW' => true,
-                        'AUDIT' => false,
-                        'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => false,
-                        'SIZE' => 'AREA',
-                        'MAXLENGTH' => 32,
-                        'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                        'MANDATORY' => true,
-                        'UTF8' => true,
-                        'TYPE' => 'TEXT',
-                        'READONLY' => false,
-                        'DNA' => true,
-                        'CSS' => 'width_pct_100',
-                ),
+                
 
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),

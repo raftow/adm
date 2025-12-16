@@ -12,7 +12,7 @@ class CvRubricGuideArTranslator{
 		$trad["cv_rubric_guide"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["cv_rubric_guide"]["desc_ar"] = "وصف  بالعربية";
 		$trad["cv_rubric_guide"]["desc_en"] = "وصف  بالانجليزية";
-		$trad["cv_rubric_guide"]["cv_rubric_id"] = "قسم سيرة ذاتية";
+		$trad["cv_rubric_guide"]["cv_rubric_item_id"] = "قسم سيرة ذاتية";
 		$trad["cv_rubric_guide"]["rubric_score"] = "نتيجة التقييم";
 		$trad["cv_rubric_guide"]["rubric_desc"] = "وصف التقييم";
         // steps
