@@ -721,7 +721,7 @@ class NominatingCandidates extends AdmObject{
         if($this->getVal("academic_program_id")>0)
         {
             $message = $this->tm("Assigned academic program", $lang) . " : " . $this->decode("academic_program_id", '', false, $lang);
-            $help_message = $this->tm("If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles)", $lang);
+            $help_message = $this->tm("If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles) or the academic program itself is not offered for this gender and scolar period", $lang);
             $help = "<div class='help'>$help_message</div>"; 
             return "<div class='info alert'>$message $help</div>";
         }
