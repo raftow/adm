@@ -226,6 +226,20 @@ class ApplicationCvScore extends AFWObject{
             
             $this->set("review_date_RECLT", date("Y-m-d H:i:s"));
         }
+        // update total score
+        $cvRubricObj = new CvRubric();
+        $cvRubricObj->where("active='Y'");
+        $objList = $cvRubricObj->loadMany();
+
+        foreach ($objList as $objItem) {
+            $rubricItemObj = $objItem->het("cv_rubric_item_id");
+            $weight = $objItem->getVal("weight");
+
+            $rubricItemCode = $rubricItemObj->getVal("lookup_code");
+            $total += floatval($this->getVal("score_".$rubricItemCode)) * floatval($weight)/100;
+                // $objItem->genereApplicationModelBranchList($lang);                                
+        }
+        $this->set("total_score",  $total);
         $this->commit();
     }
              

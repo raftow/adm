@@ -78,6 +78,7 @@ $trad["application_cv_score"]["RECLTGuideList"] = "دليل تقييم التو�
 		$trad["application_cv_score"]["score_RECLT"] = "التقييم"; // التوصيات العلمية
 		$trad["application_cv_score"]["review_date_RECLT"] = "تاريخ التقييم";
 		$trad["application_cv_score"]["review_comments_RECLT"] = "تعليقات التقييم";
+		$trad["application_cv_score"]["total_score"] = "الإجمالي";
         // steps
         return $trad;
     }

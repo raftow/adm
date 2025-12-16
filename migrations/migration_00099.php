@@ -29,6 +29,7 @@ try
    applicant_id bigint(20) NOT NULL , 
    application_plan_id int(11) NOT NULL , 
    application_simulation_id int(11) NOT NULL , 
+   total_score float DEFAULT NULL ,
    score_QUAL float  DEFAULT NULL , 
    review_date_QUAL datetime DEFAULT NULL , 
    review_comments_QUAL varchar(200)  DEFAULT NULL , 
