@@ -6,7 +6,7 @@ class ApplicationCvScoreArTranslator{
         $trad = [];
 		$trad["application_cv_score"]["step1"] = "التعريف";
 		$trad["application_cv_score"]["step2"] = "المؤهلات الأكاديمية";
-		$trad["application_cv_score"]["step3"] = "المؤهلات المهنية";
+		$trad["application_cv_score"]["step3"] = "الخبرات المهنية";
 		$trad["application_cv_score"]["step4"] = "الدورات وورش العمل";
 		$trad["application_cv_score"]["step5"] = "العضوية في المؤسسات والجمعيات العلمية";
 		$trad["application_cv_score"]["step6"] = "الأنشطة التطوعية وخدمة المجتمع";
@@ -17,7 +17,7 @@ class ApplicationCvScoreArTranslator{
 		$trad["application_cv_score"]["step11"] = "التوصيات العلمية";
 		
 		$trad["application_cv_score"]["QUALList"] = "قائمة المؤهلات الأكاديمية";
-		$trad["application_cv_score"]["PEXPList"] = "قائمة المؤهلات المهنية";
+		$trad["application_cv_score"]["PEXPList"] = "قائمة الخبرات المهنية";
 		$trad["application_cv_score"]["CRWQList"] = "قائمة الدورات وورش العمل";
 		$trad["application_cv_score"]["SCINTList"] = "قائمة العضوية في المؤسسات والجمعيات العلمية";
 		$trad["application_cv_score"]["VOLACList"] = "قائمة النشاطات التطوعية وخدمة المجتمع";
@@ -28,7 +28,7 @@ class ApplicationCvScoreArTranslator{
 		$trad["application_cv_score"]["RECLTList"] = "قائمة التوصيات العلمية";
 
 $trad["application_cv_score"]["QUALGuideList"] = "دليل تقييم المؤهلات الأكاديمية";
-$trad["application_cv_score"]["PEXPGuideList"] = "دليل تقييم المؤهلات المهنية";
+$trad["application_cv_score"]["PEXPGuideList"] = "دليل تقييم الخبرات المهنية";
 $trad["application_cv_score"]["CRWQGuideList"] = "دليل تقييم الدورات وورش العمل";
 $trad["application_cv_score"]["SCINTGuideList"] = "دليل تقييم العضوية في المؤسسات والجمعيات العلمية";
 $trad["application_cv_score"]["VOLACGuideList"] = "دليل تقييم النشاطات التطوعية وخدمة المجتمع";
