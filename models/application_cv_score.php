@@ -176,6 +176,58 @@ class ApplicationCvScore extends AFWObject{
                return true;
             }    
 	}
+
+    public function afterMaj($id, $fields_updated)
+    {
+        	
+        if ($fields_updated["score_QUAL"]) {
+            
+            $this->set("review_date_QUAL", date("Y-m-d H:i:s"));
+            
+        }
+        if ($fields_updated["score_PEXP"]) {
+            
+            $this->set("review_date_PEXP", date("Y-m-d H:i:s"));    
+        }
+        if ($fields_updated["score_CRWQ"]) {
+            
+            $this->set("review_date_CRWQ", date("Y-m-d H:i:s"));
+            
+        }
+        if ($fields_updated["score_SCINT"]) {
+            
+            $this->set("review_date_SCINT", date("Y-m-d H:i:s"));
+            
+        }
+        if ($fields_updated["score_VOLAC"]) {
+            
+            $this->set("review_date_VOLAC", date("Y-m-d H:i:s"));
+            
+        }
+        if ($fields_updated["score_AWAP"]) {
+            
+            $this->set("review_date_AWAP", date("Y-m-d H:i:s"));
+        }
+        if ($fields_updated["score_SCRSC"]) {
+            
+            $this->set("review_date_SCRSC", date("Y-m-d H:i:s"));
+            
+        }
+        if ($fields_updated["score_LANGP"]) {
+            
+            $this->set("review_date_LANGP", date("Y-m-d H:i:s"));
+        }
+        if ($fields_updated["score_SCCONF"]) {
+            
+            $this->set("review_date_SCCONF", date("Y-m-d H:i:s"));
+            
+        }
+        if ($fields_updated["score_RECLT"]) {
+            
+            $this->set("review_date_RECLT", date("Y-m-d H:i:s"));
+        }
+        $this->commit();
+    }
              
 }
 

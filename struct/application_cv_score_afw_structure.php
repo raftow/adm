@@ -383,7 +383,7 @@
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		'VOLAGGuideList' => array(
+		'VOLACGuideList' => array(
 				'STEP' => 6,
 				'SHOW' => true,
 				'FORMAT' => 'retrieve',
