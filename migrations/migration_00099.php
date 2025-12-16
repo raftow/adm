@@ -86,7 +86,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_r
     
    cv_rubric_item_id int(11) NOT NULL , 
    rubric_score float NOT NULL , 
-   rubric_desc text  NOT NULL DEFAULT '' , 
+   rubric_desc text   DEFAULT NULL , 
 
   
   PRIMARY KEY (`id`)
