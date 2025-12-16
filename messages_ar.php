@@ -148,9 +148,9 @@
     $messages["only one application branch is allowed"] = "يسمح فقط باختيار فرع قبول واحد فقط";
 
 
-    $messages["Assigned academic program"] = "البرنامج الأكاديمي الذي تم اسناده له";
-    $messages["If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles)"] 
-        = "إذا لم يظهر هذا البرنامج المسند في القائمة أدناه، فقد تحتاج إلى إجراء تجاوز شرط المسار (باستخدام الزر الموجود أسفل هذه الشاشة إذا كانت لديك الصلاحيات المطلوبة).";
+    $messages["Assigned academic program"] = "البرنامج الأكاديمي المرشح عليه";
+    $messages["If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles) or the academic program itself is not offered for this gender and scolar period"] 
+        = "إذا لم يظهر هذا البرنامج المرشح عليه في القائمة أدناه، فقد تحتاج إلى إجراء تجاوز شرط المسار (باستخدام الزر الموجود أسفل هذه الشاشة إذا كانت لديك الصلاحيات المطلوبة) أو أن البرنامج الأكاديمي نفسه غير متاح لهذا الجنس وهذه الفترة الدراسية.";
     $messages["Back to first step"] = "الرجوع إلى خطوة البداية";
     $messages["Force goto desires selection step"] = "تجاهل الشروط وإلى اختيار الرغبات";
     $messages["please select the desires"] = "رجاء اختيار الرغبات";
