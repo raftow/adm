@@ -101,6 +101,7 @@ $migrations = [
     '00095' => ['by'=>'medali','title'=>'create engagement module tables'],
     '00096' => ['by'=>'medali','title'=>'add field to academic_program'],
     '00097' => ['by'=>'medali','title'=>'cv module'],
+    '00098' => ['by'=>'medali','title'=>'cv module updates'],
 
     
 

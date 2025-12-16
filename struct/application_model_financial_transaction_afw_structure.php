@@ -101,7 +101,7 @@ class AdmApplicationModelFinancialTransactionAfwStructure
                         'SIZE' => 32,
                         'TYPE' => 'FLOAT',
                         'FORMAT' => '*.2',
-                        'MANDATORY' => true,
+                        'MANDATORY' => false,
                         'STEP' => 1,
                         'DISPLAY' => true,
                         'EDIT-UGROUPS' => '',

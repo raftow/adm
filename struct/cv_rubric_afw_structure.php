@@ -14,7 +14,7 @@ class AdmCvRubricAfwStructure
                         $obj->ORDER_BY_FIELDS = "";
 
 
-                        $obj->UNIQUE_KEY = array('cv_rubric_ar');
+                        $obj->UNIQUE_KEY = array('cv_rubric_item_id');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
@@ -32,8 +32,34 @@ class AdmCvRubricAfwStructure
         array(
                 'id' => array('SHOW' => true, 'RETRIEVE' => true, 'EDIT' => false, 'TYPE' => 'PK'),
 
-
-                'cv_rubric_ar' => array(
+                'cv_rubric_item_id' => array(
+                        'IMPORTANT' => 'HIGH',
+                        'JSON-EXPAND' => true,
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'cv_rubric_item',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'ManyToOne',
+                        'MANDATORY' => true,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
+                /*'cv_rubric_ar' => array(
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
@@ -72,7 +98,7 @@ class AdmCvRubricAfwStructure
                         'READONLY' => false,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
-                ),
+                ),*/
 
                 'weight' => array(
                         'SEARCH' => true,
@@ -115,7 +141,7 @@ class AdmCvRubricAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                'module_name' => array(
+                /*'module_name' => array(
                         'SEARCH' => true,
                         'QSEARCH' => false,
                         'SHOW' => true,
@@ -172,7 +198,7 @@ class AdmCvRubricAfwStructure
                         'READONLY' => false,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
-                ),
+                ),*/
                 'rubric_order' => array(
                         'SEARCH' => true,
                         'QSEARCH' => false,
