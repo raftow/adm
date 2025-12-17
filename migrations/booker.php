@@ -103,7 +103,7 @@ $migrations = [
     '00097' => ['by'=>'medali','title'=>'cv module'],
     '00098' => ['by'=>'medali','title'=>'cv module updates'],
     '00099' => ['by'=>'medali','title'=>'cv module updates 2'],
-    
+    '00100' => ['by'=>'medali','title'=>'cv module updates 3'],
 
 ];
 
