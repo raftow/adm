@@ -15,6 +15,8 @@ class CvRubricGuideEnTranslator{
 		$trad["cv_rubric_guide"]["cv_rubric_id"] = "cv rubric";
 		$trad["cv_rubric_guide"]["rubric_score"] = "ruric score";
 		$trad["cv_rubric_guide"]["rubric_desc"] = "ruric description";
+		$trad["cv_rubric_guide"]["score_explanation"] = "Score Interpretation";
+
         // steps
         return $trad;
     }

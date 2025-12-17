@@ -124,9 +124,9 @@
 		), 
 		'score_QUAL' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
+				'SIZE' => 32,  'MAXLENGTH' => 32,   'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>2,'CONSTRAINTS' => ['i-between;1,99'],  ),
+				'CSS' => 'width_pct_50','STEP' =>2,'CONSTRAINTS' => ['i-between;0,100'],  ),
 
 		'review_date_QUAL' => array('SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -199,7 +199,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>3 ),
+				'CSS' => 'width_pct_50','STEP' =>3,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_PEXP' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -273,7 +273,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>4 ),
+				'CSS' => 'width_pct_50','STEP' =>4,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_CRWQ' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -346,7 +346,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>5 ),
+				'CSS' => 'width_pct_50','STEP' =>5,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_SCINT' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -426,7 +426,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2', 'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>6 ),
+				'CSS' => 'width_pct_50','STEP' =>6,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_comments_VOLAC' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => true,  'QEDIT' => false,  
@@ -492,7 +492,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2', 'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>7 ),
+				'CSS' => 'width_pct_50','STEP' =>7,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_AWAP' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -563,7 +563,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2', 'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>8 ),
+				'CSS' => 'width_pct_50','STEP' =>8,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_SCRSC' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -634,7 +634,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2', 'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>9 ),
+				'CSS' => 'width_pct_50','STEP' =>9,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_LANGP' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -705,7 +705,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2', 'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>10 ),
+				'CSS' => 'width_pct_50','STEP' =>10,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_SCCONF' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  
@@ -777,7 +777,7 @@
 				'EDIT' => true,  'QEDIT' => false,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => false,  'UTF8' => false,  
 				'TYPE' => 'FLOAT', 'FORMAT'=>'*.2', 'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50','STEP' =>11 ),
+				'CSS' => 'width_pct_50','STEP' =>11,'CONSTRAINTS' => ['i-between;0,100'] ),
 
 		'review_date_RECLT' => array('SEARCH' => true,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
 				'EDIT' => false,  'QEDIT' => false,  

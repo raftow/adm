@@ -15,6 +15,7 @@ class CvRubricGuideArTranslator{
 		$trad["cv_rubric_guide"]["cv_rubric_item_id"] = "قسم سيرة ذاتية";
 		$trad["cv_rubric_guide"]["rubric_score"] = "نتيجة التقييم";
 		$trad["cv_rubric_guide"]["rubric_desc"] = "وصف التقييم";
+		$trad["cv_rubric_guide"]["score_explanation"] = "تفسير الدرجة";
         // steps
         return $trad;
     }
