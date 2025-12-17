@@ -96,6 +96,7 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_r
 
 AfwDatabase::db_query("create unique index uk_cv_rubric_guide on ".$server_db_prefix."adm.cv_rubric_guide(cv_rubric_item_id,rubric_score);");
 AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.cv_rubric_guide add   score_explanation varchar(200)  DEFAULT NULL  AFTER rubric_score;");
+AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_scientific_conference change   event_topic event_topic text  DEFAULT  NULL  AFTER conference_role_id;");
 }
 catch(Exception $e)
 {
