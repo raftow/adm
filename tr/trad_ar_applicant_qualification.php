@@ -30,6 +30,7 @@ class ApplicantQualificationArTranslator{
 		
 		$trad["applicant_qualification"]["country_id"] = "الدولة";
 		$trad["applicant_qualification"]["grading_scale_id"] = "التقدير";
+		$trad["applicant_qualification"]["study_type_id"] = "نوع الدراسة";
 
 		
         return $trad;
