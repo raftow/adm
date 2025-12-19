@@ -377,7 +377,7 @@ class NominatingCandidates extends AdmObject{
 
             if($fields_updated["identity_type_id"] or $fields_updated["country_id"]) 
             {
-                die("here your case rafik : identity_type_id = ".$this->getVal("identity_type_id")." fields_updated=".var_export($fields_updated, true));
+                // die("here your case rafik : identity_type_id = ".$this->getVal("identity_type_id")." fields_updated=".var_export($fields_updated, true));
                 if($this->getVal("identity_type_id")==1)
                 { 
                         $this->set("country_id", 183);                                
