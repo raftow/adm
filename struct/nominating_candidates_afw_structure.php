@@ -348,7 +348,7 @@ class AdmNominatingCandidatesAfwStructure
 			'TYPE' => 'ENUM',
 			'ANSWER' => 'FUNCTION',
 			'SIZE' => 40,
-			'DEFAUT' => 0,
+			'DEFAULT' => 1,
 			'DISPLAY' => true,
 			'STEP' => 2,
 			'MANDATORY' => true,
