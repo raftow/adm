@@ -666,7 +666,7 @@ class AdmNominatingCandidatesAfwStructure
                         'RELATION' => 'ManyToOne',
                         'MANDATORY' => true,
                         'READONLY' => false,
-                        'AUTOCOMPLETE' => false,
+                        'AUTOCOMPLETE' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
