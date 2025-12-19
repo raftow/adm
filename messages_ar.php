@@ -146,6 +146,7 @@
     $messages["This desire is not found"] = "هذه الرغبة لا توجد أو تم حذفها";
     $messages["Signup Acknowldgment"] = "التعهد بصحة البيانات";
     $messages["warning : only one application branch is allowed"] = "تنبيه : يسمح فقط باختيار فرع قبول واحد فقط";
+    $messages["You can not change desires after the application is complete"] = "لا يمكنك تغيير رغباتك بعد اكتمال الطلب";
 
 
     $messages["Assigned academic program"] = "البرنامج الأكاديمي المرشح عليه";
