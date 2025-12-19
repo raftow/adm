@@ -324,6 +324,18 @@ class NominatingCandidates extends AdmObject{
 
         protected function attributeCanBeEditedBy($attribute, $user, $desc)
         {
+            $stp = $this->stepOfAttribute($attribute);
+            if((is_numeric($stp)) and ($stp>=4))
+            {
+                $this->getMyApplication();                
+                if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
+                {
+                    return [false, 'When the application is completed we can not edit these fields']; 
+                }
+            } 
+        
+        
+            
             // return type is : array($can, $reason)
             if(($attribute=="country_id") and ($this->getVal("identity_type_id")==1) and ($this->getVal("country_id")==183))
             {
