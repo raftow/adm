@@ -217,6 +217,8 @@
     $messages["can not goto previous step when you are in the first special step"] = "لا يمكن الانتقال إلى الخطوة السابقة عندما تكون في الخطوة الخاصة الأولى";
     $messages["Track has been overpassed by"] = " الشرط وجود مسار مفتوح تم تجاوزه بواسطة";
     $messages["Rating has been overpassed by"] = " الشرط تقدير المؤهل تم تجاوزه بواسطة";
+
+    $messages["Some related completed application exists"] = "يوجد بعض طلبات التقديم المكتملة ذات الصلة";
      
     // $messages[""] = "";
 ?>
