@@ -145,7 +145,7 @@
     $messages["This application is not found"] = "لم يسبق لهذا المتقدم التقديم";
     $messages["This desire is not found"] = "هذه الرغبة لا توجد أو تم حذفها";
     $messages["Signup Acknowldgment"] = "التعهد بصحة البيانات";
-    $messages["only one application branch is allowed"] = "يسمح فقط باختيار فرع قبول واحد فقط";
+    $messages["warning : only one application branch is allowed"] = "تنبيه : يسمح فقط باختيار فرع قبول واحد فقط";
 
 
     $messages["Assigned academic program"] = "البرنامج الأكاديمي المرشح عليه";

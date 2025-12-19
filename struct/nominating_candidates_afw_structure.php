@@ -776,6 +776,20 @@ class AdmNominatingCandidatesAfwStructure
 
 
 
+		'desiresLimitWarningDiv' => array(
+                        'STEP' => 'all',
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'READONLY' => true,
+                        "CAN-BE-SETTED" => false,
+                        'SIZE' => 255,
+                        "NO-LABEL" => true,
+                        'INPUT_WIDE' => true,
+						'CSS' => 'width_pct_100',
+                ), 
+
         'assignedProgramDiv' => array(
                         'STEP' => 4,
                         'TYPE' => 'TEXT',
