@@ -325,6 +325,7 @@ class NominatingCandidates extends AdmObject{
         protected function attributeCanBeEditedBy($attribute, $user, $desc)
         {
             $stp = $this->stepOfAttribute($attribute);
+            if($attribute=="qualification_id") die("dbg rafk stepOfAttribute($attribute) = $stp");
             if((is_numeric($stp)) and ($stp>=2))
             {
                 $this->getMyApplication();                
@@ -778,11 +779,11 @@ class NominatingCandidates extends AdmObject{
             $this->getMyApplication();                
             if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
             {            
-                $help_message = $this->tm("If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles) or the academic program itself is not offered for this gender and scolar period", $lang);
+                $help_message = $this->tm("You can not change desires after the application is complete", $lang);
             }
             else
             {
-                $help_message = $this->tm("You can not change desires after the application is complete", $lang);
+                $help_message = $this->tm("If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles) or the academic program itself is not offered for this gender and scolar period", $lang);
             }    
 
             $help = "<div class='help'>$help_message</div>"; 
