@@ -325,7 +325,7 @@ class NominatingCandidates extends AdmObject{
         protected function attributeCanBeEditedBy($attribute, $user, $desc)
         {
             // return type is : array($can, $reason)
-            if(($attribute=="country_id") and ($this->getVal("idn_type_id")==1) and ($this->getVal("country_id")==183))
+            if(($attribute=="country_id") and ($this->getVal("identity_type_id")==1) and ($this->getVal("country_id")==183))
             {
                 return [false, 'When the identity type is Citizen IDN Then the nationality should be Saudi'];    
             }    
@@ -335,18 +335,9 @@ class NominatingCandidates extends AdmObject{
 
         protected function afterSetAttribute($attribute)
         {
-                /*if($attribute=="idn") // and (!$this->getVal("idn_type_id"))) 
+                if($attribute=="identity_type_id")
                 {
-                        list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($this->getVal("idn"));
-                        if($idn_correct)
-                        { 
-                                $this->set("idn_type_id", $idn_type_id);                                
-                        }  
-                }*/
-
-                if($attribute=="idn_type_id") // and (!$this->getVal("idn_type_id"))) 
-                {
-                        if($this->getVal("idn_type_id")==1)
+                        if($this->getVal("identity_type_id")==1)
                         { 
                                 $this->set("country_id", 183);                                
                         }  
@@ -384,10 +375,10 @@ class NominatingCandidates extends AdmObject{
                 }
             }
 
-            if($fields_updated["idn_type_id"] or $fields_updated["country_id"]) 
+            if($fields_updated["identity_type_id"] or $fields_updated["country_id"]) 
             {
-                die("here your case rafik : idn_type_id = ".$this->getVal("idn_type_id")." fields_updated=".var_export($fields_updated, true));
-                if($this->getVal("idn_type_id")==1)
+                die("here your case rafik : identity_type_id = ".$this->getVal("identity_type_id")." fields_updated=".var_export($fields_updated, true));
+                if($this->getVal("identity_type_id")==1)
                 { 
                         $this->set("country_id", 183);                                
                 }  
