@@ -421,7 +421,7 @@ class AdmNominatingCandidatesAfwStructure
 			'STEP' => 2,
 			'RELATION' => 'ManyToOne',
 			'MANDATORY' => true,
-			'AUTOCOMPLETE' => false,
+			'AUTOCOMPLETE' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'CSS' => 'width_pct_25',
