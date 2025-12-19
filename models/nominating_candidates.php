@@ -785,7 +785,10 @@ class NominatingCandidates extends AdmObject{
 
     public function calcDesiresLimitWarningDiv($what = "value")
     {
-        $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));                        
+        $mfk = trim($this->getVal('application_plan_branch_mfk'),",");
+        if($mfk) $branch_count = count(explode(",",$mfk));                       
+        else $branch_count = 0;
+
         if ($branch_count != 1) 
         {            
             $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -899,7 +902,10 @@ class NominatingCandidates extends AdmObject{
     {
         $stp = $this->stepOfAttribute($attribute);
         if(!$stp or (!is_numeric($stp))) return true; 
-        $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));
+        $mfk = trim($this->getVal('application_plan_branch_mfk'),",");
+        if($mfk) $branch_count = count(explode(",",$mfk));                       
+        else $branch_count = 0;
+
         $ok = ($branch_count == 1);
         if ($stp>=6) {
                 return $ok;
@@ -921,7 +927,9 @@ class NominatingCandidates extends AdmObject{
     {
                 global $objme;
                 $sp_errors = [];
-                $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));
+                $mfk = trim($this->getVal('application_plan_branch_mfk'),",");
+                if($mfk) $branch_count = count(explode(",",$mfk));                       
+                else $branch_count = 0;
                 
                 if ($this->stepContainAttribute($step, "application_plan_branch_mfk")) {
                     if ($branch_count>1) {
