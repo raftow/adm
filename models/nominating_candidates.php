@@ -515,33 +515,36 @@ class NominatingCandidates extends AdmObject{
             
             if($id)
             {   
+                $this->deleteNotAllowedReason = null;
                 $application_plan_id = $this->getVal("application_plan_id");
                 $applicant_id = $this->getVal("applicant_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 
-                if($application_plan_id and $applicant_id and $application_simulation_id){
-                
-                    $obj = new Application();
-                    $obj->where("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id' and active='Y' and application_status_enum = ".self::application_status_enum_by_code('complete'));
-                    $nbRecords = $obj->count();
-                    if($nbRecords>0)
-                    {
-                        $this->deleteNotAllowedReason = "Some related completed application exists";
-                        return false;
-                    }
-                    else
-                    {
+                if($application_plan_id and $applicant_id and $application_simulation_id)
+                {
+                    $objme = AfwSession::getUserConnected();
+                    if(!$objme) $this->deleteNotAllowedReason = "Please authenticate before";
                         
-                        // delete application
-                        $application = new Application();
-                        $application->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
+                    if(!$objme->isRootUser())
+                    {
+                        $obj = new Application();
+                        $obj->where("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id' and active='Y' and application_status_enum = ".self::application_status_enum_by_code('complete'));
+                        $nbRecords = $obj->count();
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Some related completed application exists";                            
+                        }
+                    }    
+                    
+                    if($this->deleteNotAllowedReason) return false;
+                    
+                    // delete application
+                    $application = new Application();
+                    $application->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
 
-                        // delete desire
-                        $desire = new ApplicationDesire();
-                        $desire->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
-
-
-                    }
+                    // delete desire
+                    $desire = new ApplicationDesire();
+                    $desire->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
                 }
 
                 if($id_replace==0)
