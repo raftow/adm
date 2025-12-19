@@ -325,13 +325,18 @@ class NominatingCandidates extends AdmObject{
         protected function attributeCanBeEditedBy($attribute, $user, $desc)
         {
             $stp = $this->stepOfAttribute($attribute);
-            if($attribute=="qualification_id") die("dbg rafk stepOfAttribute($attribute) = $stp");
+            // if($attribute=="qualification_id") die("dbg rafk stepOfAttribute($attribute) = $stp");
             if((is_numeric($stp)) and ($stp>=2))
             {
                 $this->getMyApplication();                
-                if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
+                $applicationIsCompleted = ($this->applicationObj and $this->applicationObj->applicationIsCompleted());
+                if($applicationIsCompleted) 
                 {
                     return [false, 'When the application is completed we can not edit these fields']; 
+                }
+                else 
+                {
+                    if($attribute=="qualification_id") die('Application Is Not Completed : applicationObj='.var_export($this->applicationObj, true));
                 }
             } 
         
