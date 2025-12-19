@@ -211,4 +211,16 @@ class AcademicProgram extends AdmObject
                         }
                 }
         }
+
+        public function synchronizeWithWorkflow($module_id, $lang = "ar")
+        {
+                $wsObj = WorkflowScope::loadByMainIndex($module_id, $this->getVal("program_code"), true);       
+                $wsObj->set("workflow_module_id", $module_id);
+                $wsObj->set("lookup_code", $this->getVal("program_code"));
+                $wsObj->set("scope_name_ar", $this->getVal("program_name_ar"));
+                $wsObj->set("scope_name_en", $this->getVal("program_name_en"));
+                $wsObj->set("scope_description_ar", $this->getVal("program_name_ar"));
+                $wsObj->set("scope_description_en", $this->getVal("program_name_en"));
+                $wsObj->commit();
+        }
 }

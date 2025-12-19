@@ -960,6 +960,12 @@ class ApplicationModel extends AdmObject
                         $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("sortingPathList"));
                 }
 
+                $color = "blue";
+                $title_ar = "مزامنة البرامج مع وحدة سير العمل";
+                $methodName = "synchronizeProgramsWithWorkflow";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_model_name_ar"));
+
+
                 $currPlan = $this->currentPlan();
                 $devMode = AfwSession::config("MODE_DEVELOPMENT", false);
                 if ((!$currPlan) or (!$currPlan->sureIs("published")) or ($devMode)) {
@@ -1673,5 +1679,21 @@ class ApplicationModel extends AdmObject
 
 
                 return $arr_list_of_application_category;
+        }
+
+
+        public function synchronizeProgramsWithWorkflow($lang='ar')
+        {
+                $applicationModelBranchList = $this->get("applicationModelBranchList");
+                foreach($applicationModelBranchList as $ambObj)
+                {
+                        $programObj = $ambObj->het("academic_program_id");
+                        if($programObj and $programObj->id)
+                        {
+                                $programObj->synchronizeWithWorkflow(1, $lang);
+                        }
+                }
+
+                return ['', 'done'];
         }
 }

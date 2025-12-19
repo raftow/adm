@@ -1065,16 +1065,6 @@ div.modal-dialog {
 
 /**** end for all Momken Framework      *******/
 
-
-h2.school_question {
-    font-family: title !important;
-    font-size: 21px;
-    text-align: center;
-    color: #767816;
-    text-shadow: #dbef96 1px 1px;
-}
-   
-
 @media (max-width: 1100px)
 {
     .panel-heading {
@@ -1387,92 +1377,6 @@ span.prog-name.prog-archive {
     margin-bottom: 15px !important;
 }
 
-.front_bloc.hzm_school_bloc.ticket {
-    border: 1px solid #81acc97d;
-    padding-bottom: 25px;
-    min-width: 46%;
-    width: 79%;
-    border-radius: 0px;
-    margin-right: 10%;
-    margin-left: 10%;
-    box-shadow: 6px 6px 9px #91c5dfa1;
-    background-color: #4194b3de;
-    padding: 10px;
-    margin-top: 20px;
-    float: right;
-}
-
-@media screen and (max-width: 1400px) {
-    .front_bloc.hzm_school_bloc.ticket {
-        min-width: 94% !important;
-        width: 94% !important;
-        margin-right: 3% !important;
-        margin-left: 3% !important;
-    }
-
-    .my_school_ticket{
-        padding:5px !important;
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    .front_bloc.hzm_school_bloc.ticket {
-        min-width: 96% !important;
-        width: 96% !important;
-        margin-right: 2% !important;
-        margin-left: 2% !important;
-    }
-
-    .my_school_ticket{
-        padding:4px !important;
-    }
-
-    .my_school_ticket.width_pct_75 {
-        width: 99% !important;
-    }
-
-    .my_school_ticket.orange.student-capacity.width_pct_75 {
-        width: 49% !important;
-        min-width: 120px;
-    }
-
-    .my_school_ticket.width_pct_50 {
-        width: 99% !important;
-    }
-
-    .my_school_ticket.width_pct_25 {
-        width: 49% !important;
-    }
-
-    .my_school_ticket.width_pct_12 {
-        width: 24% !important;
-    }
-
-    .my_school_ticket.width_pct_10 {
-        width: 19% !important;
-    }
-}
-
-
-@media screen and (max-width: 800px) {
-    .front_bloc.hzm_school_bloc.ticket {
-        min-width: 98% !important;
-        width: 98% !important;
-        margin-right: 1% !important;
-        margin-left: 1% !important;
-                
-    }
-
-    .my_school_ticket{
-        padding:3px !important;
-    }
-
-    .my_school_ticket.timbre4.top{
-        min-height: 60px !important;
-        max-height: 60px;
-    }
-
-}
 
 @media screen and (max-width: 600px) {
 
@@ -1506,18 +1410,6 @@ span.prog-name.prog-archive {
 
 
 
-    .front_bloc.hzm_school_bloc.ticket {
-                min-width: 100%  !important;
-                width: 100%  !important;
-                margin-right: 0 !important;
-                margin-left: 0 !important;
-                
-    }
-
-    .my_school_ticket{
-        padding:2px;
-    }
-    
     .notevaluated_display {
         padding: 2px 6px 6px 6px;
         width: 40px;
@@ -1583,52 +1475,10 @@ span.prog-name.prog-archive {
         max-width: 35px !important;
     }
 
-    .my_school_ticket.timbre4.top{
-        min-height: 60px !important;
-        max-height: 60px;
-    }
 
     
 }
 
-
-
-
-@supports (-ms-ime-align: auto) {
-    .front_bloc.hzm_school_bloc.ticket {
-        border: 1px solid #1cafaa;
-        background-color: #fff;
-    }
-
-    .mb_long_title.my_request {
-        border-bottom: 1px solid #037f7b;
-        background-color: #edfcfc;
-    }
-}
-
-
-.mb_med_title.my_ticket {
-        font-size: 22px;
-        width: 99.9%;
-        min-height: 60px;
-        height: -webkit-fill-available;
-        margin-right: 0 !important;
-        margin-left: 0 !important;
-        text-align: right;
-        margin-top: 0px;
-        /* border: 1px solid #cfd4db;*/
-        float: right;
-}
-
-.mb_med_title.my_ticket>div.school_calendar {
-        margin-right: 0;
-}
-
-.fleft.mb_med_title.my_ticket {
-        float: left;
-        margin-right: 0 !important;
-        margin-left: 0 !important;
-}
 
 .status_comments {
     padding: 15px;
@@ -1644,77 +1494,6 @@ span.prog-name.prog-archive {
     color: #bf6110;
 }
 
-.school_status {
-    display: block;
-    font-size: 15px;
-    font-weight: normal;
-    color: white;
-    padding: 4px 5px 8px;
-    border-radius: 12px 0;
-    margin-right: 5px;
-    margin-left: 5px;
-    min-width: 48px !important;
-    max-width: 200px; /*rafik : make word wrap ??*/
-    text-align: center;
-    width: 100%;
-    float: left;
-}
-
-
-.school_status.status_100 {
-        background-color: #3eb3c7;
-}
-
-.school_status.status_101 {
-    background-color: #2b8d9e;
-}
-
-.school_status.status_102 {
-    background-color: #2b8d9e;
-}
-
-
-.school_status.status_200 {
-    background-color: rgb(145 155 10 / 22%);
-    color: #6a742d;
-}
-
-.school_status.status_201 {
-    background-color: rgb(145 155 10 / 22%);
-    color: #6a742d;
-}
-
-.school_status.status_202 {
-    background-color: rgb(145 155 10 / 22%);
-    color: #6a742d;
-}
-
-
-
-
-.school_status.status_300 {
-        background-color: #8e8282;
-}
-
-
-.school_status.status_301 {
-    background-color:#c38f8f;
-}
-
-.school_status.status_302 {
-        background-color: #3599c5;
-}
-
-.school_status.status_303 {
-        background-color: #7ab37d;
-}
-
-
-.front_bloc.hzm_school_bloc.ticket.status_300 {
-    background-color: #dedcdc6e;
-    border: 2px solid #2a2724db;
-}
-
 
 
 .status_6>.mb_long_title.my_request {
@@ -1724,68 +1503,6 @@ span.prog-name.prog-archive {
     color: white;
 }
 
-.my_school_ticket_data {
-        width: 100%;
-        float: right;
-        margin: 0 !important;
-}
-
-.my_school_ticket.width_pct_100 {
-    width: 100%;
-}
-
-.my_school_ticket {
-    font-size: 15px;
-    padding: 10px;
-    font-weight: normal;
-    float: right;
-}
-
-.school_ticket_num {
-    display: inline;
-    padding: 2px 5px;
-    background-color: #0ec90e;
-    font-size: 12px;
-    font-weight: normal;
-    /*font-family: cursive;*/
-    color: white;
-}
-
-.school_ticket_num.bggray {
-    background-color: gray;
-    font-weight: normal;
-}
-
-.row.school_data {
-    border: solid #cfd4db;
-    border-width: 0px 0px 0px 0px;
-    min-height: 38px;
-    line-height: 16px;
-}
-
-.row.school_data.survey {
-    width: 33%;
-    float: right;
-    margin-left: 0.16% !important;
-    margin-right: 0.16% !important;
-    margin-top: 2px;
-    padding: 1px 2px;
-    background-color: #deddddc7;
-}
-
-.row.school_data>span {
-    padding: 8px;
-}
-
-
-div.school_data.survey>label {
-    margin: 0;
-    background-color: #444343;
-    color: white;
-    font-weight: normal !important;
-    font-size: 14px !important;
-    white-space: break-spaces;
-}
 
 .hzm_data_prop.survey.easy_fastW {
     background-color: orange;
@@ -1857,13 +1574,6 @@ div.school_data.survey>label {
     width: 100%;
 }
 
-.row.school_data.school_response {
-    padding-top: 8px;
-    border-top: 1px solid silver;
-    margin-top: 0px;
-    padding-bottom: 10px;
-}
-
 .hzm_data_prop.hzm_comment {
     width: 100%;
 }
@@ -1875,79 +1585,6 @@ div.school_data.survey>label {
     font-size: 13px;
 }
 
-@media screen and (max-width: 850px) {
-        div.school_data>label {
-                width: 99% !important;
-        }
-}
-
-
-div.school_data>label {
-    padding: 6px 8px 1px 6px;
-    width: 100%;
-    color: black;
-    font-weight: bold;
-    /* white-space: nowrap; rafik : cause pb for mobile version see picture bugs/adm-001.png*/ 
-    min-height: 26px !important;
-    margin-bottom: 0px;
-}
-
-div.school_calendar {
-        font-size: 18px;
-        background-color: #ffffff;
-        padding: 0;
-        color: #131313;
-        width: auto !important;
-        /* max-width: max-content; */
-        margin-left: 0;
-        margin-right: 0;
-        line-height: 22px;
-}
-
-.school_calendar>span.school_time {
-        font-size: 14px !important;
-        color: #e56711;
-        font-weight: normal !important;
-}
-
-.school_calendar>span.request_date {
-        font-size: 16px !important;
-        color: #00a2e8;
-        font-weight: normal;
-        padding-right: 4px;
-}
-
-.my_ticket>.row.school_data {
-        border: none !important;
-}
-
-.front_bloc.school_data_props {
-        width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-bottom: 20px;
-        float: right;
-        background-color: #ffffffa1;
-}
-
-.my_school_dates {
-        background-color: white;
-        width: 96%;
-        margin-left: 2%;
-        margin-right: 2%;
-        margin-top: 20px;
-        height: max-content;
-        float: right;
-}
-
-.school_small_calendar.calendar_left {
-        margin-top: 4px;
-        margin-bottom: 8px;
-        margin-right: 45px;
-        margin-left: 45px;
-        background-color: #fcfcd2;
-        padding: 5px;
-}
 
 label {
     padding-right: 20px;
@@ -1958,10 +1595,6 @@ label {
     color: #023145;
 }
 
-div.row.odd.school_data.school_response.type1 > div.hzm_small_calendar > label {
-    display: revert;
-    background-color: #b0f75f7d;
-}
 
 .hzm_small_calendar > label {
     display: revert;
@@ -2020,24 +1653,6 @@ input.btnbtsp.btn-primary.btncheck {
     font-weight: normal;
 }
 
-
-.width_pct_50 {
-    /* should not be defined hee width: 49%; !important and especialy !important because small screen should become 100% */
-    float: right;
-    margin-right: 0.5%;
-    min-width: 120px;
-}
-
-.my_school_ticket.status {
-    padding-top: 6px;
-}
-
-.my_school_ticket.title {
-    width: 100% !important;
-    border-bottom: 1px #104466 solid;
-    background-color: #104466;
-    color: white;
-}
 
 .mb_long_title.my_request {
     float: right;
@@ -2114,10 +1729,6 @@ input.btnbtsp.btn-primary.btncheck {
 
 }
 
-.row.school_data.school_btns {
-    display: block;
-}
-
 .hzm_data_prop {
     padding: 7px;
     color: black;
@@ -2164,22 +1775,6 @@ span.hzm_time.hzm_small_time {
     background-color: #feda9e;
 }
 
-.row.odd.school_data.school_response {
-    background-color: #fcffe9;
-}
-
-.row.odd.school_data.school_response.type1 {
-    background-color: #d8ffd8;
-    border-color: green;
-  }
-
-.row.school_data.title_school {
-    font-size: 120%;
-    margin-top: 10px;
-    padding: 0;
-    min-height: 0;
-    background-color: #eaf4a959;
-}
 /*
 this is wrong as way to center the ticket_div because 880 is not the width it is the max width
 @media screen and (min-width: 890px) {
@@ -2350,11 +1945,6 @@ a.btnbtsp.btn_link:hover {
     border: 1px solid #deebcc;
 }
 
-.cms_bg.school_new_request {
-    min-height: min-content;
-    padding-bottom: 0px;
-}
-
 @media print, screen and (max-width: 999px)
 {
     li.wizardv1_li {
@@ -2474,11 +2064,6 @@ input.respbtn {
     float: right;
     padding-bottom: 40px;
     
-}
-
-.cms_bg.school_new_request {
-    min-height: min-content;
-    padding-bottom: 0px;
 }
 
 .cms_bg_pic.contact {
@@ -2629,35 +2214,6 @@ ul.hzm_front_menu_bar.hzm_front_menu_bar.nav.navbar-nav>li>a.navbar-brand:hover 
     white-space: break-spaces;
     font-weight: normal;
     font-size: 16px;
-}
-
-.school_label {
-    font-size: 80%;
-    color: #19753c;
-    width: auto !important;
-    display: inline;
-    width: auto !important;
-    float: right;
-    padding: 1px 10px;
-    margin-top: 6px;
-}
-
-.school_datetime {
-    font-size: 84%;
-    font-family: digi;
-    font-style: italic;
-    color: #304560;
-    background-color: #e2e2a49e !important;
-    border-radius: 15px 0 0 15px;
-    min-width: 164px;
-}
-
-.school_author {
-    font-size: 80%;
-    color: #374451;
-    background-color: #c3e2a1b5 !important;
-    border-radius: 0 15px 15px 0;
-    min-width: 399px;
 }
 
 .form-control[readonly] {
@@ -2945,10 +2501,6 @@ div.content_form>form>.in-group-invester_data {
     margin-right: 2%;
 }
 
-.filebox.editcard.adm.schoolychannel {
-    width: 60%;
-}
-
 span.channel_title {
     font-weight: normal;
     font-size: 95%;
@@ -3130,16 +2682,6 @@ div.filebox.editcard>div.panel-heading {
     font-weight: bold;
 }
 
-.school_front_form > .form-group {
-    min-height: 0;
-}
-
-.school_front_form > .form-group > p {
-    padding-right: 5px;
-    margin: 0 !important;
-    padding-top: 0;
-}
-
 .in-group-responseList.cssgroup_pct_100 {
     min-height: 0px !important;
 }
@@ -3163,34 +2705,6 @@ p.for_file {
 input#save_form.wizardbtn {
     margin-top: 13px;
     margin-right: 0 !important;
-}
-
-input#save_school_form.wizardbtn {
-    margin-top: 0 !important;
-    margin-right: 0 !important;
-    padding: 15px;
-}
-
-div.request_response>div>label {
-    font-size: 75%;
-}
-
-div.request_response>div.row.school_data.title_school {
-    background-color: transparent;
-}
-
-div.request_response>.row.odd.school_data.school_response {
-    background-color: #f5fdff;
-}
-
-div.request_response>.row.odd.school_data.school_response, div.request_response>.row.school_data.school_response {
-    border-top: 1px solid #54a0ab;
-    margin-top: 8px;
-}
-
-div.request_response>div>div.hzm_small_calendar>label {
-    font-weight: normal !important;
-    color: #047e7a;
 }
 
 
@@ -3315,15 +2829,6 @@ form#form_register>div.form-group.width_pct_100.data_group {
     min-height: 40px !important;
 }
 
-pre.school_instructions>ol {
-    padding-right: 32px;
-    margin-top: -50px;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-pre.school_instructions>ol>li {
-    word-break: break-word;
-}
 
 
 ol>li::marker {
@@ -3333,10 +2838,6 @@ ol>li::marker {
     font-size: 18px;
 }
 
-pre.school_instructions>div {
-    font-weight: bold;
-    padding-right: 32px;
-}
 
 .form-control:focus {
     border-color: #e9d466 !important;
@@ -3348,31 +2849,6 @@ pre.school_instructions>div {
 .modal-content.modal-summary {
     height: min-content;
     display: flex;
-}
-
-.school_container {
-    margin-top: 10px;
-    float: right;
-    width: 100%;
-}
-
-.school_date {
-    margin-top: 5px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #858f34;
-}
-
-div.my_school_ticket.title>h3 {
-    width: auto;
-    display: block;
-    color: #c5e6fd;
-    text-align: center;
-    font-size: 20px;
-}
-
-.row.school_data.label_data_mixed {
-    padding-top: 8px;
 }
 
 
@@ -3458,16 +2934,6 @@ div#fg-status_date {
     height: 100px;
     min-height: 100px;
     overflow: visible;
-}
-
-div.hzm_school_class_container {
-    width: 99%;
-    margin-left: 1%;
-    margin-bottom: 10px;
-    float: right;
-    border: 1px solid #6797bf7a;
-    /* min-height: 1400px; */
-    margin-top: 17px;
 }
 
 .hzm_label.greentitle.collapsed i {
@@ -3586,119 +3052,6 @@ span.aya.technical.len {
     display: none;
 }
 
-.my_school_title {
-    width: 70%;
-    text-align: center;
-}
-
-.my_school_ticket {
-    border-radius: 8px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.my_school_ticket.sy {
-    width: 20%;
-}
-
-.my_school_ticket.sc {
-    width: 10%;
-}
-
-.my_school_ticket.sc>div {
-    background-color: #187fd3;
-}
-
-.my_school_ticket.transp {
-    background-color: transparent;
-    color : white;
-}
-
-.my_school_ticket.blue {
-    background-color: #0e6cc9;
-    color: white;
-}
-
-.my_school_ticket.cade {
-    background-color: #0b8d8b;
-    color: white;
-}
-
-.my_school_ticket.vert {
-    background-color: #0ec90e;
-    color : white;
-}
-
-.my_school_ticket.orange {
-    background-color: #ef8e2e;
-    color : white;
-}
-
-.my_school_ticket.rouge {
-    background-color: #FF3E3F;
-    color : white;
-}
-
-.my_school_ticket.gray {
-    background-color: #0c4266;
-    color : white;
-}
-
-.my_school_ticket.disabled {
-    background-color: #435866;
-    color : white;
-} 
-
-.my_school_ticket.timbre {
-    min-height: 120px;
-    margin-top: 9px;
-}
-
-.my_school_ticket.timbre2 {
-    margin-top:4px;
-    min-height: 56px;
-}
-
-.my_school_ticket.timbre2.top {
-    margin-top:0px;
-    min-height: 60px;
-}
-
-.my_school_ticket.timbre3 {
-    margin-top: 3px;
-    min-height: 37px;
-    padding: 3px 8px;
-}
-
-.my_school_ticket.timbre3.top {
-    margin-top: 0px;
-    min-height: 40px;
-}
-
-.my_school_ticket.timbre4 {
-    margin-top:4px;
-    min-height: 26px;
-    padding: 3px !important;
-    max-height: 60px;
-}
-
-.my_school_ticket.timbre4.top {
-    margin-top:0px;
-    min-height: 30px;
-}
-
-.my_school_ticket.timbre8 {
-    margin-top:3px;
-    min-height: 12px;
-    line-height: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.my_school_ticket.timbre8.top {
-    margin-top:0px;
-    min-height: 15px;
-}
 
 .nopad{
     padding: 0px !important;
@@ -3708,14 +3061,6 @@ span.aya.technical.len {
     padding: 2px !important;
 }
 
-.my_school_ticket.students, .my_school_ticket.sclass {
-    padding: 17px !important;
-    background-color: #093450;
-}
-
-.my_school_ticket.sclass {
-    margin-top: 10px;
-}
 
 .big_label{
     font-size: 26px;
@@ -3811,15 +3156,6 @@ span.aya.technical.len {
     padding-top: 0px !important;
 }
 
-.my_school_ticket.leftpad {
-    margin-left: 2.5px;
-    float: left !important;
-}
-
-.my_school_ticket.topspace {
-    padding-top: 8px !important;
-}
-
 a.adm.title {
     color: white;
 }
@@ -3840,49 +3176,6 @@ a.adm.error.title.icon>img {
 a.adm.error.title.icon {
     border: 1px solid;
     padding: 10px;
-}
-
-a.schoolclass.title.error {
-    white-space: nowrap;
-    padding: 4px 16px;
-}
-
-a.schoolclass.title.ok {
-    white-space: nowrap;
-    padding: 4px 16px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(0 135 246);
-    vertical-align: middle;
-    border-radius: 9px 9px 0 0;
-    line-height: 27px;
-}
-
-.my_school_ticket.width_pct_10 {
-    min-width: 36px;
-}
-
-.my_school_ticket.width_pct_12 {
-    min-width: 45px;
-}
-
-.my_school_ticket.width_pct_25 {
-    min-width: 90px;
-}
-
-.my_school_ticket.width_pct_50 {
-    min-width: 180px;
-}
-
-.my_school_ticket.width_pct_75 {
-    min-width: 270px;
-}
-
-a.schoolclass.prof.title {
-    margin-left: 8px !important;
-}
-
-a.schoolclass.prof.title.ok {
-    background-color: #0ec90e;
 }
 
 div.hzm_data.inputreadonly.form-control.hzm_data_session_status_id.hzm_value_session_status_id_3 {
@@ -3970,9 +3263,6 @@ td.col-qe-birth_date_en {
     width: 120px;
 }
 
-.my_school_ticket.Absence.rouge {
-    background-color: #b5125f;
-}
 
 .hzm_data.hzm_data_panel {
     min-height: 800px;
