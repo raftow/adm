@@ -325,7 +325,7 @@ class NominatingCandidates extends AdmObject{
         protected function attributeCanBeEditedBy($attribute, $user, $desc)
         {
             $stp = $this->stepOfAttribute($attribute);
-            if((is_numeric($stp)) and ($stp>=4))
+            if((is_numeric($stp)) and ($stp>=2))
             {
                 $this->getMyApplication();                
                 if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
