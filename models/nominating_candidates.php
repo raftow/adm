@@ -808,14 +808,15 @@ class NominatingCandidates extends AdmObject{
             $this->getMyApplication();                
             if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
             {            
-                $help_message = $this->tm("You can not change desires after the application is complete", $lang);
+                $help_message = "";
             }
             else
             {
                 $help_message = $this->tm("If this assigned program doesn't appear in the list below, you may need to do the overpass of the track condition (using the button here below this screen if you have the needed roles) or the academic program itself is not offered for this gender and scolar period", $lang);
             }    
 
-            $help = "<div class='help'>$help_message</div>"; 
+            if($help_message) $help = "<div class='help'>$help_message</div>"; 
+            else $help = "";
             return "<div class='info alert'>$message $help</div>";
         }
         else
