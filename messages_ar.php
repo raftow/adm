@@ -219,6 +219,7 @@
     $messages["Rating has been overpassed by"] = " الشرط تقدير المؤهل تم تجاوزه بواسطة";
 
     $messages["Some related completed application exists"] = "يوجد بعض طلبات التقديم المكتملة ذات الصلة";
+    $messages["قيم غير صالحة للحقول: [gpa from] و[gpa]"] = "قيم غير صالحة للحقول: [gpa from] و[gpa]";
      
     // $messages[""] = "";
 ?>

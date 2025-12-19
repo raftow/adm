@@ -927,13 +927,22 @@ class NominatingCandidates extends AdmObject{
     {
                 global $objme;
                 $sp_errors = [];
-                $mfk = trim($this->getVal('application_plan_branch_mfk'),",");
-                if($mfk) $branch_count = count(explode(",",$mfk));                       
-                else $branch_count = 0;
+                
                 
                 if ($this->stepContainAttribute($step, "application_plan_branch_mfk")) {
+                    $mfk = trim($this->getVal('application_plan_branch_mfk'),",");
+                    if($mfk) $branch_count = count(explode(",",$mfk));                       
+                    else $branch_count = 0;
                     if ($branch_count>1) {
                             $sp_errors['application_plan_branch_mfk'] = $this->translateMessage('warning : only one application branch is allowed', $lang);
+                    }
+                }
+
+                if ($this->stepContainAttribute($step, "gpa_from")) {
+                    $gpa = $this->getVal('gpa');
+                    $gpa_from = $this->getVal('gpa_from');
+                    if ($gpa_from<$gpa) {
+                            $sp_errors['gpa'] = $this->translateMessage('Bad values for fields : [gpa from] and [gpa]', $lang);
                     }
                 }
 
