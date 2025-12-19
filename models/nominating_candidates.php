@@ -384,7 +384,7 @@ class NominatingCandidates extends AdmObject{
                 }
             }
 
-            if($fields_updated["idn_type_id"]) 
+            if($fields_updated["idn_type_id"] or $fields_updated["country_id"]) 
             {
                 if($this->getVal("idn_type_id")==1)
                 { 
