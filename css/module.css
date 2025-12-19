@@ -4497,3 +4497,8 @@ div#application_fees_record {
     border: 1px solid silver !important;
     width: auto;
 }
+
+div#fg-applicationWarningDiv {
+    height: min-content !important;
+    min-height: min-content;
+}

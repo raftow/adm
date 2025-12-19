@@ -786,7 +786,7 @@ class NominatingCandidates extends AdmObject{
     public function calcDesiresLimitWarningDiv($what = "value")
     {
         $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));                        
-        if ($branch_count>1) 
+        if ($branch_count != 1) 
         {            
             $lang = AfwLanguageHelper::getGlobalLanguage();
             $message_war = $this->translateMessage('warning : only one application branch is allowed', $lang);
