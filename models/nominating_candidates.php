@@ -775,8 +775,9 @@ class NominatingCandidates extends AdmObject{
         }
         else
         {
-            list($isOk, $help_message) = $this->isOk(true,true,$lang);
+            list($isOk, $help_message_arr) = $this->isOk(true,true,$lang);
             if($isOk) $help_message = "";
+            else $help_message = implode("<br>\n", $help_message_arr);
             
         }  
 
