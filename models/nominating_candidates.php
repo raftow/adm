@@ -336,7 +336,7 @@ class NominatingCandidates extends AdmObject{
                 }
                 else 
                 {
-                    if($attribute=="qualification_id") die('Application Is Not Completed : applicationObj='.var_export($this->applicationObj, true));
+                    // if($attribute=="qualification_id") die('Application Is Not Completed : applicationObj='.var_export($this->applicationObj, true));
                 }
             } 
         
