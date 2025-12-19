@@ -383,6 +383,16 @@ class NominatingCandidates extends AdmObject{
                 }
             }
 
+            if ($fields_updated["gpa_from"] or $fields_updated["gpa"]) 
+            {
+                    $gpa = $this->getVal('gpa');
+                    $gpa_from = $this->getVal('gpa_from');
+                    if ((!$gpa_from) or (!$gpa) or ($gpa_from<$gpa) or ($gpa_from<0) or ($gpa<0)) 
+                    {
+                        $this->set("gpa_from", 0);
+                        $this->set("gpa", 0);
+                    }
+            }
 
             if ($fields_updated["qualification_id"] or $fields_updated["major_category_id"]) 
             {
@@ -479,15 +489,8 @@ class NominatingCandidates extends AdmObject{
                             $this->applicationObj->set("applicant_qualification_id", $appQualObjId);                            
                             $this->applicationObj->commit();
                         }
-
                 }
 
-                /*
-                if($this->applicationObj)  //  and $this->applicationObj->isChanged()
-                {                    
-                    
-                }*/
-                else die("NomCand::beforeMaj => applicationObj need to commit but object not found");
 
                 ApplicantQualification::deleteWhere("applicant_id = $applicant_id and source_name = '$source_name' and id != '$appQualObjId' and imported != 'Y'");
 
@@ -946,7 +949,8 @@ class NominatingCandidates extends AdmObject{
                 if ($this->stepContainAttribute($step, "gpa_from")) {
                     $gpa = $this->getVal('gpa');
                     $gpa_from = $this->getVal('gpa_from');
-                    if ($gpa_from<$gpa) {
+                    if ((!$gpa_from) or (!$gpa) or ($gpa_from<$gpa) or ($gpa_from<0) or ($gpa<0)) 
+                    {
                             $sp_errors['gpa'] = $this->translateMessage('Bad values for fields : [gpa from] and [gpa]', $lang);
                     }
                 }

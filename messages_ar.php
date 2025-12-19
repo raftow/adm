@@ -220,6 +220,7 @@
 
     $messages["Some related completed application exists"] = "يوجد بعض طلبات التقديم المكتملة ذات الصلة";
     $messages["Bad values for fields : [gpa from] and [gpa]"] = "قيم غير صالحة للحقول: [المعدل من] و [المعدل]";
+    $messages["تبويب المؤهل"] = "Qualification tab";
      
     // $messages[""] = "";
 ?>
