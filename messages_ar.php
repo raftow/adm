@@ -147,6 +147,7 @@
     $messages["Signup Acknowldgment"] = "التعهد بصحة البيانات";
     $messages["warning : only one application branch is allowed"] = "تنبيه : يسمح فقط باختيار فرع قبول واحد فقط";
     $messages["You can not change desires after the application is complete"] = "لا يمكنك تغيير رغباتك بعد اكتمال الطلب";
+    $messages["You can not edit your application after it is complete"] = "لا يمكنك تعديل طلبك بعد اكتماله";
 
 
     $messages["Assigned academic program"] = "البرنامج الأكاديمي المرشح عليه";

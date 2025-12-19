@@ -765,12 +765,25 @@ class NominatingCandidates extends AdmObject{
     public function calcDesiresLimitWarningDiv($what = "value")
     {
         $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));                
-        if ($branch_count>1) {
-            $lang = AfwLanguageHelper::getGlobalLanguage();
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        if ($branch_count>1) {            
             $message_war = $this->translateMessage('warning : only one application branch is allowed', $lang);
             $message_war_div = "<div class='help warning'>$message_war</div>";
         }
-        else $message_war_div = "";
+        else 
+        {
+            $this->getMyApplication();                
+            if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
+            {            
+                $help_message = $this->tm("You can not edit your application after it is complete", $lang);
+                $message_war_div = "<div class='help warning'>$help_message</div>";
+            }
+            else
+            {
+                $message_war_div = "";
+            }  
+        }
+            
 
         return $message_war_div;
     }
