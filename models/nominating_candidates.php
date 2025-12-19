@@ -771,13 +771,17 @@ class NominatingCandidates extends AdmObject{
         $this->getMyApplication();                
         if($this->applicationObj and $this->applicationObj->applicationIsCompleted()) 
         {            
-            $help_message = $this->tm("You can not edit your application after it is complete", $lang);
-            $message_war_div = "<div class='help warning'>$help_message</div>";
+            $help_message = $this->tm("You can not edit your application after it is complete", $lang);            
         }
         else
         {
-            $message_war_div = "";
+            list($isOk, $help_message) = $this->isOk(true,true,$lang);
+            if($isOk) $help_message = "";
+            
         }  
+
+        $message_war_div = "";
+        if($help_message) $message_war_div = "<div class='help warning'>$help_message</div>";
             
 
         return $message_war_div;
