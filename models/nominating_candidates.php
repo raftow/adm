@@ -837,9 +837,11 @@ class NominatingCandidates extends AdmObject{
 
     public function attributeIsApplicable($attribute)
     {
+        $stp = $this->stepOfAttribute($attribute);
+        if(!$stp or (!is_numeric($stp))) return true; 
         $branch_count = count(explode(",",trim($this->getVal('application_plan_branch_mfk'),",")));
         $ok = ($branch_count == 1);
-        if ($this->stepOfAttribute($attribute)>=6) {
+        if ($stp>=6) {
                 return $ok;
         }
         
