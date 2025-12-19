@@ -777,7 +777,7 @@ class AdmNominatingCandidatesAfwStructure
 
 
 		'desiresLimitWarningDiv' => array(
-                        'STEP' => 'all',
+                        'STEPS' => 'all',
                         'TYPE' => 'TEXT',
                         'CATEGORY' => 'FORMULA',
                         'SHOW' => true,
