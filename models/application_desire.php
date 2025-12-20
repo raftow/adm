@@ -748,14 +748,22 @@ class ApplicationDesire extends AdmObject
                 $this->getApplicationPlan();
                 if (!$this->objApplicationPlan) return [$this->tm("Fatal Error, Missed application plan for this application", $lang), ""];
 
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                $desire_num = $this->getVal("desire_num");
+                
                 $wModelObj = $this->objApplicationPlan->getWorkflowModel();
                 $wApplicantObj = WorkflowApplicant::loadByMainIndex($this->getVal("idn"), true);
                 $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
-
                 // put in the correct position (stage, status)
-                $wRequestObj->set("workflow_stage_id", $initial_workflow_stage_id);
-                $wRequestObj->set("workflow_status_id", $initial_workflow_status_id);
-                $wRequestObj->set("external_request_code", "S$application_simulation_id"."D$desire_num");
+                if($wRequestObj->is_new)
+                {
+                        $wRequestObj->set("workflow_stage_id", $wModelObj->getVal("initial_workflow_stage_id"));
+                        $wRequestObj->set("workflow_status_id", $wModelObj->getVal("initial_workflow_status_id"));
+                        $wRequestObj->set("external_request_code", "S$application_simulation_id"."D$desire_num");
+                        $wRequestObj->set("request_type_code", "desire");
+                        $wRequestObj->commit();
+                }
+                
         }
         public function getDisplay($lang = 'ar')
         {
