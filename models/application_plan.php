@@ -8,6 +8,7 @@ class ApplicationPlan extends AdmObject
     public static $DB_STRUCTURE = null;
     private static $arrApplicationPlan = [];
     private static $arrApplicationModelIdByPlanId = [];
+    private static $arrWorkflowModelIdByPlanId = [];
     
     // public static $copypast = true;
 
@@ -31,11 +32,44 @@ class ApplicationPlan extends AdmObject
         return $this->objApplicationModel;
     }
 
+    public function getWorkflowModel($createIfNotExists=false, $updateIfExists=false)
+    {
+        $wModelCode = "adm-".$this->getVal("application_model_id");
+        $wModelObj = WorkflowModel::loadByMainIndex($wModelCode, $createIfNotExists);
+        if($wModelObj and ($wModelObj->is_new or $updateIfExists))
+        {
+            $wModelObj->set('workflow_model_name_ar' , $this->getVal('application_model_name_ar'));
+            $wModelObj->set('workflow_model_name_en' , $this->getVal('application_model_name_en'));
+            $wModelObj->set('workflow_model_desc_ar' , $this->getVal('application_model_name_ar'));
+            $wModelObj->set('workflow_model_desc_en' , $this->getVal('application_model_name_en'));
+            $wModelObj->commit();
+        }
 
+        return $wModelObj;
+    }
+
+    public static function getWorkflowModelId($aplan_id, $objAppPlan=null)
+    {                
+        if (!self::$arrWorkflowModelIdByPlanId[$aplan_id]) {
+            if(!$objAppPlan) $objAppPlan = ApplicationPlan::loadById($aplan_id);
+            if ($objAppPlan) 
+            {
+                $wModelObj = $objAppPlan->getWorkflowModel();
+                self::$arrWorkflowModelIdByPlanId[$aplan_id] = $wModelObj->id;
+            } 
+            else self::$arrWorkflowModelIdByPlanId[$aplan_id] = "NOT-FOUND";
+        }
+        if (self::$arrWorkflowModelIdByPlanId[$aplan_id] == "NOT-FOUND") return 0;
+
+        return self::$arrWorkflowModelIdByPlanId[$aplan_id];
+    }
+
+
+    
     
 
     public static function getApplicationModelId($aplan_id)
-    {
+    {                
         if (!self::$arrApplicationModelIdByPlanId[$aplan_id]) {
             $objAppPlan = new ApplicationPlan();
             if ($objAppPlan->load($aplan_id)) {

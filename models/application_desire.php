@@ -718,6 +718,11 @@ class ApplicationDesire extends AdmObject
                                         $obj->set("application_status_enum", self::application_status_enum_by_code('complete'));
                                         $obj->set("comments", $this->tm("application is complete", $lang));
                                         $obj->commit();
+                                        $step_code = $lastDesireStepObj->getVal("step_code");
+                                        if($step_code == "WKF")
+                                        {
+                                                $this->exportApplicationToWorkflow();
+                                        }
                                 } elseif($applyingCurrentStepConditions) {
                                         $result_arr["result"] = "fail";
                                         $result_arr["message"] = "attempt to goto next step when this is the last step, please select the desires";
@@ -737,6 +742,21 @@ class ApplicationDesire extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
+        public function exportApplicationToWorkflow()
+        {
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                $this->getApplicationPlan();
+                if (!$this->objApplicationPlan) return [$this->tm("Fatal Error, Missed application plan for this application", $lang), ""];
+
+                $wModelObj = $this->objApplicationPlan->getWorkflowModel();
+                $wApplicantObj = WorkflowApplicant::loadByMainIndex($this->getVal("idn"), true);
+                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
+
+                // put in the correct position (stage, status)
+                $wRequestObj->set("workflow_stage_id", $initial_workflow_stage_id);
+                $wRequestObj->set("workflow_status_id", $initial_workflow_status_id);
+                $wRequestObj->set("external_request_code", "S$application_simulation_id"."D$desire_num");
+        }
         public function getDisplay($lang = 'ar')
         {
                 return $this->getDefaultDisplay($lang);
