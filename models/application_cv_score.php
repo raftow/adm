@@ -39,6 +39,37 @@ class ApplicationCvScore extends AFWObject{
                     return 0;
                 }
         
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id,$create_obj_if_not_found=false)
+        {
+           if(!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
+           if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+           if(!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
+
+
+           $obj = new ApplicationCvScore();
+           $obj->select("applicant_id",$applicant_id);
+           $obj->select("application_plan_id",$application_plan_id);
+           $obj->select("application_simulation_id",$application_simulation_id);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("applicant_id",$applicant_id);
+                $obj->set("application_plan_id",$application_plan_id);
+                $obj->set("application_simulation_id",$application_simulation_id);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
         
         public function getDisplay($lang="ar")
         {
