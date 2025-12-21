@@ -105,5 +105,6 @@ $migrations = [
     '00099' => ['by'=>'medali','title'=>'cv module updates 2'],
     '00100' => ['by'=>'medali','title'=>'cv module updates 3'],
     '00101' => ['by'=>'medali','title'=>'study type'],
+    '00102' => ['by'=>'medali','title'=>'cv module updates 4'],
 ];
 

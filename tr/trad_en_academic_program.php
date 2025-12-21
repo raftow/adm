@@ -26,3 +26,4 @@
 	$trad["academic_program"]["to_publish"] = "Publish for application";
 
 	$trad["academic_program"]["interview_ind"] = "Includes a personal interview";
+	$trad["academic_program"]["cv_ind"] = "Curriculum Vitae required?";

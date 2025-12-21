@@ -46,6 +46,7 @@
 	$trad["academic_program"]["Study_plan"] = "الخطة الدراسية";
 	$trad["academic_program"]["to_publish"] = "النشر للتقديم على البوابة";
 	$trad["academic_program"]["interview_ind"] = "يتضمن مقابلة شخصية";
+	$trad["academic_program"]["cv_ind"] = "يتطلب سيرة ذاتية؟";
 	 
 	
 

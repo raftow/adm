@@ -6,8 +6,7 @@ try
 {
           
 
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.lor_type;");
-
+    
     AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.study_type;");
 
     AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`study_type` (
