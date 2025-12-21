@@ -27,6 +27,11 @@ class ApplicationDesireArTranslator{
 		$trad["application_desire"]["comments"] = "ملاحظات";    
 		$trad["application_desire"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";
 		$trad["application_desire"]["needed_doc_types_mfk"] = "الوثائق المطلوبة";
+
+		$trad["application_desire"]["application_cv_ready"] = "جاهزية السيرة الذاتية";
+		$trad["application_desire"]["application_cv_ready.YES"] = "مطلوبة وجاهزة";
+		$trad["application_desire"]["application_cv_ready.NO"] = "مطلوبة وغير جاهزة";
+		$trad["application_desire"]["application_cv_ready.EUH"] = "غير مطلوبة أصلا";
 		
 
 		$trad["application_desire"]["sorting_field_1_id"] = "معيار الفرز 1";    

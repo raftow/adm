@@ -27,6 +27,8 @@ class ApplicationEnTranslator{
 		$trad["application"]["qualification_id"] = "qualification id";
 		$trad["application"]["major_category_id"] = "major cathegory id";
 		$trad["application"]["sis_fields_available"] = "SIS fields available";
+
+
 		// $trad["application"]["tasks"] = "waiting tasks";
 		// $trad["application"]["satisfaction"] = "Applicants satisfaction percentage";
 		$trad["application"]["applicationDesireList"] = "Desires";

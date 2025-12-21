@@ -345,6 +345,9 @@
 								'CSS' => 'width_pct_25',),
 
 
+                                                                                                      
+
+
                                         'qualificationRatingOverpass' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
 								'TYPE' => 'YN',  'FORMAT' => 'icon',  'STEP' => 99, 

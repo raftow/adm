@@ -21,6 +21,11 @@ class ApplicationDesireEnTranslator{
 		$trad["application_desire"]["qualification_id"] = "qualification id";
 		$trad["application_desire"]["major_category_id"] = "major cathegory id";
 
+		$trad["application_desire"]["application_cv_ready"] = "CV ready ?";
+		$trad["application_desire"]["application_cv_ready.YES"] = "Requested & Ready";
+		$trad["application_desire"]["application_cv_ready.NO"] = "Requested & Not Ready";
+		$trad["application_desire"]["application_cv_ready.EUH"] = "Not Requested";
+
 		$trad["application_desire"]["applicationConditionExecList"] = "Conditions Applied";
 
 		$trad["application_desire"]["step1"] = "Desire definition";

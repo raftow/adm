@@ -1550,6 +1550,33 @@ class ApplicationDesire extends AdmObject
                 return $this->getVal("application_model_branch_id");
         }
 
+
+        public function cvIsReady()
+        {
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                return ApplicationCvScore::loadByMainIndex($applicant_id, $application_plan_id,$application_simulation_id);
+        }
+
+
+        public function calcApplication_cv_ready($what = "value")
+        {
+                list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);                
+                $branchObj = $this->het("application_plan_branch_id");
+                if (!$branchObj) return null;
+                $programObj = $branchObj->het("program_id");
+                if (!$programObj) return null;
+                if($programObj->sureIs("cv_ind"))
+                {
+                        $cvScoreObj = $this->cvIsReady();
+                        if($cvScoreObj) return $yes;
+                        else return $no;
+                }  
+                else return $notRequested;                
+        }
+
+        
         
 
 }

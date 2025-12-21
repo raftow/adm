@@ -2878,6 +2878,9 @@ class Application extends AdmObject
                 return $this->calcFinancial_transaction_paid($what, "F001");
         }
 
+
+
+
         public function getApplicationDesireByNum($desire_num)
         {
                 $applicant_id = $this->getVal("applicant_id");

@@ -2088,14 +2088,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 //if($afObj->getId()<=0) die("pfObj($type) = ".var_export($afObj,true));
                 
         }
-        /**by medali */
-        public function CV_is_Complete($application_plan_id,$application_simulation_id){
-                $applicant_id = $this->id;
-                $cvObj = ApplicationCvScore::loadByMainIndex($applicant_id,$application_plan_id,$application_simulation_id);
-                
-                if($cvObj) return true;
-                return false;     
-        }
+        
        
         public function calcApplication_model_id($what="value")
         {

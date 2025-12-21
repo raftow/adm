@@ -32,6 +32,7 @@ class ApplicationArTranslator{
 		$trad["application"]["qualificationRatingOverpass"] = "لديه إعفاء من شرط تقدير المؤهل";
 		$trad["application"]["signup_acknowldgment"] = "تم الالتزام ببنود التعهدات بصحة البيانات";
 		$trad["application"]["signup_acknowldgment.EUH"] = "ليس بعد";
+
 		
 		
 
