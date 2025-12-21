@@ -2089,7 +2089,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 
         }
         /**by medali */
-        public function hasCv($application_plan_id,$application_simulation_id){
+        public function CV_is_Complete($application_plan_id,$application_simulation_id){
                 $applicant_id = $this->id;
                 $cvObj = ApplicationCvScore::loadByMainIndex($applicant_id,$application_plan_id,$application_simulation_id);
                 
