@@ -963,7 +963,7 @@ class ApplicationModel extends AdmObject
                 $color = "blue";
                 $title_ar = "مزامنة البرامج مع وحدة سير العمل";
                 $methodName = "synchronizeProgramsWithWorkflow";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("application_model_name_ar"));
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "PUBLIC" => true, "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationModelBranchList"));
 
 
                 $currPlan = $this->currentPlan();
