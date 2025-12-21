@@ -559,6 +559,7 @@ class ApplicationModel extends AdmObject
 
                 $apiVirtualManualEntry = ApiEndpoint::loadByMainIndex("ManualEntry");
                 $apiVirtualSRT = ApiEndpoint::loadByMainIndex("SRT");
+                $apiVirtualCalculatedFields = ApiEndpoint::loadByMainIndex("CalculatedFields");
 
                 $this_disp = $this->getDisplay($lang);
 
@@ -668,7 +669,7 @@ class ApplicationModel extends AdmObject
 
                         foreach ($api_endpoints_arr as $api_ep_id) {
                                 if ($api_ep_id > 0) {
-                                        if (($api_ep_id != $apiVirtualManualEntry->id) and ($api_ep_id != $apiVirtualSRT->id)) {
+                                        if (($api_ep_id != $apiVirtualManualEntry->id) and ($api_ep_id != $apiVirtualSRT->id) and ($api_ep_id != $apiVirtualCalculatedFields->id)) {
                                                 $application_field_id = $applicationModelFieldItem->getVal("application_field_id");
                                                 $new_step_num = $applicationModelFieldItem->getVal("step_num");
                                                 if (!$new_step_num) $new_step_num = 1;
