@@ -124,8 +124,8 @@ if(true)
                 datasets: [{
                     label: 'My Dataset',
                     data: chartData.values, 
-                    backgroundColor: ['grey', 'Blue','red'],//'rgba(67, 21, 205, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: ['green', 'blue','red'],//'rgba(67, 21, 205, 0.2)',
+                    borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1
                 }]
             },
