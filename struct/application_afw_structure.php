@@ -205,7 +205,7 @@
                                                                 'TYPE' => 'FK',
                                                                 'CATEGORY' => 'ITEMS',
                                                                 'ANSWER' => 'engagement',
-                                                                'WHERE'=> "engagement_type_id=1 and academic_level_mfk like '%,§academic_level_id§,%'",
+                                                                'WHERE'=> "engagement_type_id=1 and academic_level_mfk like '%,§academic_level_id§,%' and id in (select engagement_id from application_model_engagement where application_model_id = §application_model_id§ and engagement_type_id = 1 and (degree_id=§unique_degree_id§ or degree_id='0' or '0'=§unique_degree_id§ ))",
                                                                 'ANSMODULE' => 'adm',
                                                                 'SHOW' => true,
                                                                 'EDIT' => true,
@@ -234,7 +234,19 @@
 
 
                                                         
-
+                                        'unique_degree_id' => array(
+                                                'STEP' => 99,
+                                                'TYPE' => 'FK', 
+                                                'ANSWER' => 'degree',
+                                                'ANSMODULE' => 'adm',
+                                                'CATEGORY' => 'FORMULA',
+                                                'SHOW' => true,
+                                                'EDIT' => true,
+                                                'READONLY' => true,
+                                                "CAN-BE-SETTED" => false,
+                                                'SIZE' => 255,
+                                                'CSS' => 'width_pct_25',
+                                        ),
                                                                                               
                                                 
                                        'weighted_percentage' => array(

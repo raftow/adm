@@ -2657,7 +2657,7 @@ class Application extends AdmObject
                 }
 
                 if (count($desireFieldsArr) > 0) {
-                        if (!$this->uniqueDesireObj) $this->uniqueDesireObj = $this->getSynchronisedUniqueDesire();
+                        if (!$this->uniqueDesireObj) $this->getSynchronisedUniqueDesire();
                         if (!$this->uniqueDesireObj) $returnFields[] = "no-unique-desire-found";
                         else $returnFields[] = $this->uniqueDesireObj->getFieldsMatrix($desireFieldsArr, $lang, $onlyIfTheyAreUpdated = "list-fields-not-available");
                 } else {
@@ -3094,13 +3094,33 @@ class Application extends AdmObject
         }
 
 
+        public function calcUnique_degree_id($what="value")
+        {
+                $this->getSynchronisedUniqueDesire();
+                if(!$this->uniqueDesireObj) return 0;
+
+                $branchObj = $this->uniqueDesireObj->het("application_plan_branch_id");
+                if(!$branchObj) return 0;
+
+                $programObj = $branchObj->het("program_id");
+                if(!$programObj) return 0;
+
+                /**
+                 * @var AcademicProgram $programObj
+                 */
+                return $programObj->hetWhat("degree_id", $what);
+        }
+
+        
+
         /**
          * @return ApplicationDesire
          */
         public function getSynchronisedUniqueDesire()
         {
                 if (!$this->isSynchronisedUniqueDesire()) return null;
-                return $this->getApplicationDesireByNum(1);
+                if(!$this->uniqueDesireObj) $this->uniqueDesireObj = $this->getApplicationDesireByNum(1);
+                return $this->uniqueDesireObj;
         }
 
         public function isSynchronisedUniqueDesire()
