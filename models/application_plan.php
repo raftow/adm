@@ -1,4 +1,7 @@
 <?php
+
+use Complex\Autoloader;
+
 class ApplicationPlan extends AdmObject
 {
 
@@ -34,6 +37,7 @@ class ApplicationPlan extends AdmObject
 
     public function getWorkflowModel($createIfNotExists=false, $updateIfExists=false)
     {
+        
         $wModelCode = "adm-".$this->getVal("application_model_id");
         $wModelObj = WorkflowModel::loadByMainIndex($wModelCode, $createIfNotExists);
         if($wModelObj and ($wModelObj->is_new or $updateIfExists))

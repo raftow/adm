@@ -750,7 +750,7 @@ class ApplicationDesire extends AdmObject
 
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $desire_num = $this->getVal("desire_num");
-                
+                AfwAutoloader::addModule("workflow");
                 $wModelObj = $this->objApplicationPlan->getWorkflowModel();
                 $wApplicantObj = WorkflowApplicant::loadByMainIndex($this->getVal("idn"), true);
                 $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
