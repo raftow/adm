@@ -35,6 +35,12 @@ class ApplicationPlan extends AdmObject
         return $this->objApplicationModel;
     }
 
+    public function linkWithWorkflow($lang="ar")
+    {
+        $wModelObj = $this->getWorkflowModel($createIfNotExists=true, $updateIfExists=true);
+        //WorkflowSession
+    }
+
     public function getWorkflowModel($createIfNotExists=false, $updateIfExists=false)
     {
         
