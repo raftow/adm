@@ -1,8 +1,8 @@
 <?php
-// because this migration is only for TVTC
+// because this migration is only for TTC
 $server_db_prefix = AfwSession::currentDBPrefix();
 
-if($server_db_prefix=="tvtc_")
+if($server_db_prefix=="ttc_")
 {
     $default_db = $server_db_prefix."adm";
 
