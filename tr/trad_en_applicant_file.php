@@ -17,6 +17,8 @@ class ApplicantFileEnTranslator{
 		$trad["applicant_file"]["doc_type_id"] = "The document type";
 		$trad["applicant_file"]["document_type_id"] = "document type (admission portal)";
 		$trad["applicant_file"]["download_light"] = "Download";
+		$trad["applicant_file"]["reupload_enum"] = "Re-upload file ?";
+
 
 
         // steps

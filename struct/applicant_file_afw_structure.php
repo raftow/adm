@@ -237,6 +237,12 @@ class AdmApplicantFileAfwStructure
                 'approved'           => array('STEP' => 1, 'IMPORTANT' => 'HIGH', 'HIDE_IF_NEW' => true, 'SHOW' => true, 'QSEARCH' => true,
                                                 'RETRIEVE' => true, 'EDIT' => true, 'QEDIT' => true,
                                                 "DEFAULT" => 'W', 'TYPE' => 'YN','FORMAT' => 'icon','READONLY' => false,  ),
+                'reupload_enum' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                                'EDIT' => true,  'QEDIT' => true,  'QSEARCH' => true,  'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+                                                'TYPE' => 'ENUM',  'ANSWER' => 'FUNCTION',  'SIZE' => 40,  'DEFAULT' => 0,    
+                                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),
                 'created_at'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'DATETIME', 'FGROUP' => 'tech_fields'),

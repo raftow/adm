@@ -213,6 +213,30 @@ class ApplicantFile extends AFWObject
             $wfObj->commit();
         }
     }
+
+    public static function list_of_reupload_enum()
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        return self::reupload_enum()[$lang];
+    }
+
+    public static function reupload_enum()
+    {
+        $arr_list_of_reupload = array();
+
+
+        $arr_list_of_reupload["en"][0] = "Not required";
+        $arr_list_of_reupload["ar"][0] = "غير مطلوب";
+
+        $arr_list_of_reupload["en"][1] = "ُRequired";
+        $arr_list_of_reupload["ar"][1] = "مطلوب";
+
+        $arr_list_of_reupload["en"][2] = "Executed";
+        $arr_list_of_reupload["ar"][2] = "تم التنفيذ";
+
+
+        return $arr_list_of_reupload;
+    }
 }
 
 
