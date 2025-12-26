@@ -35,7 +35,7 @@ class ApplicationPlan extends AdmObject
         return $this->objApplicationModel;
     }
 
-    public function linkWithWorkflow($lang="ar", $application_simulation_id=null)
+    public function linkWithWorkflow($lang="ar", $application_simulation_id=null, $reset = true)
     {
         $nbRequestsInserted = 0;
         $nbRequestsUpdated = 0;
@@ -66,7 +66,7 @@ class ApplicationPlan extends AdmObject
              * @var ApplicationDesire $appDesireItem
              */
 
-            list($wReqObj, $message, $action) = $appDesireItem->exportApplicationToWorkflow($wModelObj, $wSessionObj);
+            list($wReqObj, $message, $action) = $appDesireItem->exportApplicationToWorkflow($wModelObj, $wSessionObj, true, $reset);
 
             if($action == "ignored") $nbRequestsIgnored++;
             if($action == "inserted") $nbRequestsInserted++;
