@@ -124,6 +124,29 @@ class Applicant extends AdmObject
                 } else return null;
         }
 
+        public function getWorkflowApplicant($create_obj_if_not_found = false, $update_if_found = false)
+        {
+                $wAppObj = WorkflowApplicant::loadByMainIndex($this->getVal("country_id"), $this->getVal("idn_type_id"), $this->getVal("idn"), $create_obj_if_not_found);
+                if($wAppObj->is_new or $update_if_found)
+                {
+                        $wAppObj->set("mobile", $this->getVal("mobile"));
+                        $wAppObj->set("email", $this->getVal("email"));
+                        $wAppObj->set("gender_enum", $this->getVal("gender_enum"));
+                        $wAppObj->set("first_name_ar", $this->getVal("first_name_ar"));
+                        $wAppObj->set("father_name_ar", $this->getVal("father_name_ar"));
+                        $wAppObj->set("middle_name_ar", $this->getVal("middle_name_ar"));
+                        $wAppObj->set("last_name_ar", $this->getVal("last_name_ar"));
+                        $wAppObj->set("first_name_en", $this->getVal("first_name_en"));
+                        $wAppObj->set("father_name_en", $this->getVal("father_name_en"));
+                        $wAppObj->set("middle_name_en", $this->getVal("middle_name_en"));
+                        $wAppObj->set("last_name_en", $this->getVal("last_name_en"));
+                        $wAppObj->commit();
+                }
+                   
+   
+                return $wAppObj;
+        }
+
         public function getMissedDocument($lang)
         {
                 $aqObj = ApplicantQualification::getMyQualificationNeedingFileAttachment($this->id);

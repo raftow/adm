@@ -777,8 +777,8 @@ class ApplicationDesire extends AdmObject
                 if(!$wSessionObj) $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
                 $wScopeObj = $this->het("workflow_scope_id");
                 if(!$wScopeObj) return [null, $this->tm("Fatal Error, Can not find or create the workflow scope", $lang), $action];
-
-                $wApplicantObj = WorkflowApplicant::loadByMainIndex($this->getVal("idn"), true);
+                $applicantObj = $this->getApplicationObject();
+                $wApplicantObj = $applicantObj->getWorkflowApplicant(true, $update_if_exists); 
                 $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
                 if(!$wRequestObj) return [null, $this->tm("Failed to create workflow request", $lang), $action];
                 
