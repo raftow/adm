@@ -185,6 +185,26 @@ class ApplicationDesire extends AdmObject
                 return $obj->loadMany();
         }
 
+        public static function loadAllWorkflowDesires($application_model_id, $application_plan_id, $application_simulation_id)
+        {
+                if (!$application_model_id) throw new AfwRuntimeException("loadByMainIndex : application_model_id is mandatory field");
+                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$application_simulation_id) throw new AfwRuntimeException("loadByMainIndex : application_simulation_id is mandatory field");
+
+                $wStep = ApplicationStep::loadWorkflowStep($application_model_id);
+                if(!$wStep) return ["No workflow step for this model ID=$application_model_id", ""];
+
+                $obj = new ApplicationDesire();
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("application_model_id", $application_model_id);
+                $obj->select("application_simulation_id", $application_simulation_id);
+                $obj->select("application_step_id", $wStep->id);
+
+                return $obj->loadMany();
+        }
+
+
+
         public static function countSortedDesires($applicant_id, $application_plan_id, $application_simulation_id)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
@@ -742,16 +762,18 @@ class ApplicationDesire extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
-        public function exportApplicationToWorkflow()
+        public function exportApplicationToWorkflow($wModelObj=null, $wSessionObj=null)
         {
+                AfwAutoloader::addModule("workflow");
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $this->getApplicationPlan();
                 if (!$this->objApplicationPlan) return [$this->tm("Fatal Error, Missed application plan for this application", $lang), ""];
 
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $desire_num = $this->getVal("desire_num");
-                AfwAutoloader::addModule("workflow");
-                $wModelObj = $this->objApplicationPlan->getWorkflowModel();
+                
+                if(!$wModelObj) $wModelObj = $this->objApplicationPlan->getWorkflowModel();
+                if(!$wSessionObj) $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
                 $wApplicantObj = WorkflowApplicant::loadByMainIndex($this->getVal("idn"), true);
                 $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
                 // put in the correct position (stage, status)

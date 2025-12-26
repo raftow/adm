@@ -604,7 +604,7 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_desire_status_enum = array();
 
 
-        $arr_list_of_desire_status_enum["en"][1] = "candidate";
+        $arr_list_of_desire_status_enum["en"][1] = "Application complete";
         $arr_list_of_desire_status_enum["ar"][1] = "تقديم مكتمل";
         $arr_list_of_desire_status_enum["code"][1] = "candidate";
 

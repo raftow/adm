@@ -35,10 +35,56 @@ class ApplicationPlan extends AdmObject
         return $this->objApplicationModel;
     }
 
-    public function linkWithWorkflow($lang="ar")
+    public function linkWithWorkflow($lang="ar", $application_simulation_id=null)
     {
-        $wModelObj = $this->getWorkflowModel($createIfNotExists=true, $updateIfExists=true);
-        //WorkflowSession
+        $application_model_id = $this->getVal("application_model_id");
+        if(!$application_simulation_id)
+        {
+                $application_simulation_id = self::currentApplicationSimulation();
+        }
+        $application_plan_id = $this->id;
+        $createIfNotExists=true;
+        $updateIfExists=true;
+        $wModelObj = $this->getWorkflowModel($createIfNotExists, $updateIfExists);
+        if(!$wModelObj) return ["can't create the workflow model", ""];
+        $wSessionObj = $this->getWorkflowSession($wModelObj->id, $createIfNotExists, $updateIfExists);
+        if(!$wSessionObj) return ["can't create the workflow session", ""];
+
+        $appDesireList = ApplicationDesire::loadAllWorkflowDesires($application_model_id, $application_plan_id, $application_simulation_id);
+        foreach($appDesireList as $appDesireItem)
+        {
+            /**
+             * @var ApplicationDesire $appDesireItem
+             */
+
+            $appDesireItem->exportApplicationToWorkflow($wModelObj, $wSessionObj);
+        }
+
+    }
+
+    
+
+    public function getWorkflowSession($workflow_model_id=0, $createIfNotExists=false, $updateIfExists=false)
+    {
+        $application_plan_id = $this->id;
+        if(!$workflow_model_id) 
+        {
+            $wModelObj = $this->getWorkflowModel($createIfNotExists=true, $updateIfExists=true);
+            $workflow_model_id = $wModelObj->id;
+        }
+
+        $name_ar = $this->getVal('application_model_name_ar') ." - ". $this->decode("term_id",'',false,"ar");
+        $name_en = $this->getVal('application_model_name_ar') ." - ". $this->decode("term_id",'',false,"en");
+
+        $external_code = "PLAN-".$application_plan_id;
+        $wSessionObj = WorkflowSession::loadByMainIndex($workflow_model_id, $external_code, true);
+        $wSessionObj->set('workflow_session_name_ar' , $name_ar);
+        $wSessionObj->set('workflow_session_name_en' , $name_en);
+        $wSessionObj->set('workflow_session_desc_ar' , $name_ar);
+        $wSessionObj->set('workflow_session_desc_en' , $name_en);
+        $wSessionObj->commit();
+
+        return $wSessionObj;
     }
 
     public function getWorkflowModel($createIfNotExists=false, $updateIfExists=false)
@@ -48,10 +94,12 @@ class ApplicationPlan extends AdmObject
         $wModelObj = WorkflowModel::loadByMainIndex($wModelCode, $createIfNotExists);
         if($wModelObj and ($wModelObj->is_new or $updateIfExists))
         {
-            $wModelObj->set('workflow_model_name_ar' , $this->getVal('application_model_name_ar'));
-            $wModelObj->set('workflow_model_name_en' , $this->getVal('application_model_name_en'));
-            $wModelObj->set('workflow_model_desc_ar' , $this->getVal('application_model_name_ar'));
-            $wModelObj->set('workflow_model_desc_en' , $this->getVal('application_model_name_en'));
+            $name_ar = $this->getVal('application_model_name_ar');
+            $name_en = $this->getVal('application_model_name_ar');
+            $wModelObj->set('workflow_model_name_ar' , $name_ar);
+            $wModelObj->set('workflow_model_name_en' , $name_en);
+            $wModelObj->set('workflow_model_desc_ar' , $name_ar);
+            $wModelObj->set('workflow_model_desc_en' , $name_en);
             $wModelObj->commit();
         }
 
