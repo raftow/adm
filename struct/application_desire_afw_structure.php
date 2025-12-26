@@ -266,6 +266,13 @@
 								'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
 								'CSS' => 'width_pct_25',),
 
+                                        'workflow_scope_id' => array('CATEGORY' => 'FORMULA',
+                                                'TYPE' => 'FK',  'ANSWER' => 'workflow_scope',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
+                                                'STEP' => 99,  'RELATION' => 'ManyToOne',
+                                                'MANDATORY' => false, 'READONLY'=>true,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                                'CSS' => 'width_pct_25', ),	                                                                
+
                                         'application_cv_ready' => array('CATEGORY' => 'FORMULA',  'SHOW' => true, 
 								'EDIT' => true,  'READONLY' => true, 
 								'TYPE' => 'YN',  'STEP' => 99, 

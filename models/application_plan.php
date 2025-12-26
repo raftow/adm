@@ -37,6 +37,14 @@ class ApplicationPlan extends AdmObject
 
     public function linkWithWorkflow($lang="ar", $application_simulation_id=null)
     {
+        $nbRequestsInserted = 0;
+        $nbRequestsUpdated = 0;
+        $nbRequestsIgnored = 0;
+        $nbRequestsExists = 0;
+        $nbRequests = 0;
+        $infos_arr = [];
+        $warnings_arr = [];
+        $errors_arr = [];
         $application_model_id = $this->getVal("application_model_id");
         if(!$application_simulation_id)
         {
@@ -53,13 +61,29 @@ class ApplicationPlan extends AdmObject
         $appDesireList = ApplicationDesire::loadAllWorkflowDesires($application_model_id, $application_plan_id, $application_simulation_id);
         foreach($appDesireList as $appDesireItem)
         {
+            $nbRequests++;
             /**
              * @var ApplicationDesire $appDesireItem
              */
 
-            $appDesireItem->exportApplicationToWorkflow($wModelObj, $wSessionObj);
+            list($wReqObj, $message, $action) = $appDesireItem->exportApplicationToWorkflow($wModelObj, $wSessionObj);
+
+            if($action == "ignored") $nbRequestsIgnored++;
+            if($action == "inserted") $nbRequestsInserted++;
+            if($action == "updated") $nbRequestsUpdated++;
+            if($action == "already-exists") $nbRequestsExists++;
+            if($message) $errors_arr[] = $message;
         }
 
+        $infos_arr[] = $this->tm("Done") ." : $nbRequests ".$this->tm("request(s)");                   
+        if($nbRequestsInserted) $infos_arr[] = $this->tm("Ignored")." : $nbRequestsIgnored";
+        if($nbRequestsInserted) $infos_arr[] = $this->tm("Inserted")." : $nbRequestsInserted";
+        if($nbRequestsInserted) $infos_arr[] = $this->tm("Updated")." : $nbRequestsUpdated";
+        if($nbRequestsInserted) $infos_arr[] = $this->tm("Already exists")." : $nbRequestsExists";
+
+        // $warnings_arr = [];
+
+        return AfwFormatHelper::pbm_result($errors_arr, $infos_arr, $warnings_arr);
     }
 
     
@@ -430,6 +454,22 @@ class ApplicationPlan extends AdmObject
             $title_ar = "يوجد حاليا فرز مفتوح [".$currentSortingObj->getDisplay('ar')."] لا يمكن تحديث فروع القبول";
             $methodName = "nothing";
             $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar,  "BF-ID" => "", 'STEP' => $this->stepOfAttribute("applicationPlanBranchList"));
+        }
+
+
+        if(true)
+        {
+            
+            $color = "green";
+            $title_ar = "تحديث الربط مع منصة 'تدفق'";
+            $title_en = "Update link with workflow system";
+            $methodName = "linkWithWorkflow";
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = 
+                            array("METHOD" => $methodName, "COLOR" => $color, 
+                                    "LABEL_AR" => $title_ar, 
+                                    "LABEL_EN" => $title_en, 
+                                    "ADMIN-ONLY" => true, "BF-ID" => "", 
+                                    'STEP' => 'all');
         }
 
         return $pbms;

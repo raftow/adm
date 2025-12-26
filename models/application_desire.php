@@ -762,29 +762,46 @@ class ApplicationDesire extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
-        public function exportApplicationToWorkflow($wModelObj=null, $wSessionObj=null)
+        public function exportApplicationToWorkflow($wModelObj=null, $wSessionObj=null, $update_if_exists=false, $reset=false)
         {
+                $action = "ignored";
                 AfwAutoloader::addModule("workflow");
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $this->getApplicationPlan();
-                if (!$this->objApplicationPlan) return [$this->tm("Fatal Error, Missed application plan for this application", $lang), ""];
+                if (!$this->objApplicationPlan) return [null, $this->tm("Fatal Error, Missed application plan for this application", $lang), $action];
 
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $desire_num = $this->getVal("desire_num");
                 
                 if(!$wModelObj) $wModelObj = $this->objApplicationPlan->getWorkflowModel();
                 if(!$wSessionObj) $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
+                $wScopeObj = $this->het("workflow_scope_id");
+                if(!$wScopeObj) return [null, $this->tm("Fatal Error, Can not find or create the workflow scope", $lang), $action];
+
                 $wApplicantObj = WorkflowApplicant::loadByMainIndex($this->getVal("idn"), true);
                 $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
+                if(!$wRequestObj) return [null, $this->tm("Failed to create workflow request", $lang), $action];
+                
+                
                 // put in the correct position (stage, status)
-                if($wRequestObj->is_new)
-                {
-                        $wRequestObj->set("workflow_stage_id", $wModelObj->getVal("initial_workflow_stage_id"));
-                        $wRequestObj->set("workflow_status_id", $wModelObj->getVal("initial_workflow_status_id"));
-                        $wRequestObj->set("external_request_code", "S$application_simulation_id"."D$desire_num");
-                        $wRequestObj->set("request_type_code", "desire");
+                if($wRequestObj->is_new or $update_if_exists)
+                {                        
+                        if(!$wRequestObj->getVal("workflow_session_id") or $reset) $wRequestObj->set("workflow_session_id", $wSessionObj->id);
+                        if(!$wRequestObj->getVal("workflow_scope_id") or $reset) $wRequestObj->set("workflow_scope_id", $wScopeObj->id);
+                        
+                        if(!$wRequestObj->getVal("workflow_stage_id") or $reset) $wRequestObj->set("workflow_stage_id", $wModelObj->getVal("initial_workflow_stage_id"));
+                        if(!$wRequestObj->getVal("workflow_status_id") or $reset) $wRequestObj->set("workflow_status_id", $wModelObj->getVal("initial_workflow_status_id"));
+                        if(!$wRequestObj->getVal("external_request_code") or $reset) $wRequestObj->set("external_request_code", "S$application_simulation_id"."D$desire_num");
+                        if(!$wRequestObj->getVal("request_type_code") or $reset) $wRequestObj->set("request_type_code", "desire");
                         $wRequestObj->commit();
+                        if($wRequestObj->is_new) $action = "inserted"; else $action = "updated";
                 }
+                else
+                {
+                        $action = "already-exists";
+                }
+
+                return [$wRequestObj, "", $action];
                 
         }
         public function getDisplay($lang = 'ar')
@@ -1579,6 +1596,21 @@ class ApplicationDesire extends AdmObject
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 return ApplicationCvScore::loadByMainIndex($applicant_id, $application_plan_id,$application_simulation_id);
+        }
+
+
+        public function calcWorkflow_scope_id($what = "value")
+        {
+                list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);                
+                $branchObj = $this->het("application_plan_branch_id");
+                if (!$branchObj) return AfwLoadHelper::giveWhat(null, $what);
+                /**
+                 * @var AcademicProgram $programObj
+                 */
+                $programObj = $branchObj->het("program_id");
+                if (!$programObj) return AfwLoadHelper::giveWhat(null, $what);
+                $wScopeObj = $programObj->synchronizeWithWorkflow();
+                return AfwLoadHelper::giveWhat($wScopeObj, $what);
         }
 
 

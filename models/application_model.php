@@ -1691,7 +1691,7 @@ class ApplicationModel extends AdmObject
                         $programObj = $ambObj->het("academic_program_id");
                         if($programObj and $programObj->id)
                         {
-                                $programObj->synchronizeWithWorkflow(1, $lang);
+                                $programObj->synchronizeWithWorkflow();
                         }
                 }
 
