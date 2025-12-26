@@ -76,12 +76,11 @@ class ApplicationPlan extends AdmObject
         }
 
         $infos_arr[] = $this->tm("Done") ." : $nbRequests ".$this->tm("request(s)");                   
-        if($nbRequestsInserted) $infos_arr[] = $this->tm("Ignored")." : $nbRequestsIgnored";
-        if($nbRequestsInserted) $infos_arr[] = $this->tm("Inserted")." : $nbRequestsInserted";
-        if($nbRequestsInserted) $infos_arr[] = $this->tm("Updated")." : $nbRequestsUpdated";
-        if($nbRequestsInserted) $infos_arr[] = $this->tm("Already exists")." : $nbRequestsExists";
+        $infos_arr[] = $this->tm("Inserted")." : $nbRequestsInserted";
+        $infos_arr[] = $this->tm("Already exists")." : $nbRequestsExists";
+        $infos_arr[] = $this->tm("Updated")." : $nbRequestsUpdated";
 
-        // $warnings_arr = [];
+        if($nbRequestsIgnored) $warnings_arr[] = $this->tm("Ignored")." : $nbRequestsIgnored";
 
         return AfwFormatHelper::pbm_result($errors_arr, $infos_arr, $warnings_arr);
     }
