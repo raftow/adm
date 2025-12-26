@@ -53,6 +53,32 @@ class ApplicationPlan extends AdmObject
         $application_plan_id = $this->id;
         $createIfNotExists=true;
         $updateIfExists=true;
+
+        $instObj = Institution::getSingleton();
+        if(!$instObj) return ["can't find the institution", ""];
+        $institution_name_ar = $instObj->getVal("institution_name_ar");
+        $institution_name_en = $instObj->getVal("institution_name_en");
+        // create all orgunits
+        $domain_id = 25;
+
+        // create institution orgunit
+        $orgunitObj = Orgunit::findOrgunit(OrgunitType::$ORGUNIT_TYPE_COMPANY, 0, $instObj->getVal("institution_code"), 
+                        $institution_name_ar, $institution_name_ar, 
+                        $institution_name_en, $institution_name_en, 
+                        $domain_id,true,true,"hrm");
+
+        $instWorkflowOrgunitObj = WorkflowOrgunit::loadByMainIndex($orgunitObj->id,true);
+        // admission - department
+        $admission_department_name_ar = $this->tm("Registration and Admissions Department", "ar");
+        $admission_department_name_en = $this->tm("Registration and Admissions Department", "en");
+
+        $departmentObj = Orgunit::findOrgunit(OrgunitType::$ORGUNIT_TYPE_DEPARTMENT, $orgunitObj->id, "adm-".$instObj->getVal("institution_code"), 
+                        $admission_department_name_ar, $admission_department_name_ar, 
+                        $admission_department_name_en, $admission_department_name_en, 
+                        $domain_id,true,true,"hrm");
+
+        $departmentWorkflowOrgunitObj = WorkflowOrgunit::loadByMainIndex($departmentObj->id,true);
+
         $wModelObj = $this->getWorkflowModel($createIfNotExists, $updateIfExists);
         if(!$wModelObj) return ["can't create the workflow model", ""];
         $wSessionObj = $this->getWorkflowSession($wModelObj->id, $createIfNotExists, $updateIfExists);

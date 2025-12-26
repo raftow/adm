@@ -121,7 +121,7 @@ class AdmOrgunit extends AdmObject{
                list($data[0],$link[0]) = $this->displayAttribute("orgunit_id",false, $lang);
 
                
-               return "إدارة التسجيل والقبول بـ".implode(" - ",$data);
+               return $this->tm("Registration and Admissions Department", $lang)." - ".implode(" - ",$data);
         }
         
         
