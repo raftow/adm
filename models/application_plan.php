@@ -469,7 +469,7 @@ class ApplicationPlan extends AdmObject
                                     "LABEL_AR" => $title_ar, 
                                     "LABEL_EN" => $title_en, 
                                     "ADMIN-ONLY" => true, "BF-ID" => "", 
-                                    'STEP' => 'all');
+                                    'STEP' => 3);
         }
 
         return $pbms;
