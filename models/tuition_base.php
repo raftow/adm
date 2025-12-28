@@ -34,10 +34,13 @@
                         return false;
                 }
 
-                public function getTuitionBaseForApplicant($application_desire_id){
-                        $applicationDesireObj =  ApplicationDesire::loadById($application_desire_id);
-                        $applicationPlanBranch = $applicationDesireObj->het("application_plan_branch_id");
-                        $program_id = $applicationPlanBranch->getVal("program_id");
+                public function getTuitionBaseForApplicant($program_id,$application_desire_id=false,){
+                        if($application_desire_id!==false){
+                                $applicationDesireObj =  ApplicationDesire::loadById($application_desire_id);
+                                $applicationPlanBranch = $applicationDesireObj->het("application_plan_branch_id");
+                                $program_id = $applicationPlanBranch->getVal("program_id");
+                        
+                        }
                         if($program_id){
                                 $this->where("active='Y' and program_id = '$program_id'");
                                 if($this->load()){
@@ -47,14 +50,17 @@
                                         return $res;
 
                                 }else{
-                                        $academicProgramObj = $applicationPlanBranch->het("program_id");
-                                        $degree_id = $academicProgramObj->getVal("degree_id");
-                                        $this->where("active='Y' and degree_id = '$degree_id'");
-                                        if($this->load()){
-                                                $res["total_ammount"] = $this->getVal("amount") + $this->getVal("mandatory_fees");
-                                                $res["curr_ar"] = $this->getVal("currency_ar");
-                                                $res["curr_en"] = $this->getVal("currency_en");
-                                                return $res;
+                                        //$academicProgramObj = $applicationPlanBranch->het("program_id");
+                                        $academicProgramObj = new AcademicProgram();
+                                        if ($academicProgramObj->load($program_id)) {
+                                                $degree_id = $academicProgramObj->getVal("degree_id");
+                                                $this->where("active='Y' and degree_id = '$degree_id'");
+                                                if($this->load()){
+                                                        $res["total_ammount"] = $this->getVal("amount") + $this->getVal("mandatory_fees");
+                                                        $res["curr_ar"] = $this->getVal("currency_ar");
+                                                        $res["curr_en"] = $this->getVal("currency_en");
+                                                        return $res;
+                                                }
                                         }
                                         return false;
                                         
