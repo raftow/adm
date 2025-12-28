@@ -31,6 +31,8 @@ class Applicant extends AdmObject
         private $secondary_program_track = null; // do not removed it is used with $$xxx way
         private $aptitude_Score = null;
         private $achievement_Score = null;
+        private $aptitude_university = null;
+        
         private $objSQ = null;
         private $applicantQualificationList = null;
 
@@ -1657,6 +1659,24 @@ class Applicant extends AdmObject
                 }
                 return $this->aptitude_Score;
         }
+
+        public function calcAptitude_university($what = "value")
+        {
+                if($this->aptitude_university===null)
+                {
+                       $this->aptitude_university = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "7");    
+                       if(!$this->aptitude_university) $this->aptitude_university = 0;
+                }
+                return $this->aptitude_university;
+        }
+
+        public function calcHas_aptitude_university($what = "value")
+        {
+               list($yes, $no) = AfwLanguageHelper::translateYesNo($what); 
+               return ($this->calcAptitude_university()>0) ?  $yes : $no;
+        }
+
+        
 
         public function calcAchievement_score($what = "value")
         {
