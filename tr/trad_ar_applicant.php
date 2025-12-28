@@ -139,6 +139,8 @@ class ApplicantArTranslator{
 		
 		$trad["applicant"]["achievement_score"] = "درجة التحصيلي";
 		$trad["applicant"]["aptitude_score"] = "درجة القدرات العامة";
+		$trad["applicant"]["has_aptitude_university"] = "لديه اختبار القدرات العامة للجامعيين";
+		
 		$trad["applicant"]["secondary_cumulative_pct"] = "درجة الثانوية التراكمية";
 		
 		$trad["applicant"]["profile_populated"] = "تم تحديث الحساب";
