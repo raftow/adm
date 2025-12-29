@@ -807,7 +807,7 @@ class ApplicationDesire extends AdmObject
                         $orgunit_id = 12416;
                         $wRequestObj->set('orgunit_id', $orgunit_id);
                         $wRequestObj->commit();
-                        $wRequestObj->assignBestAvailableEmployee($lang);
+                        list($err, $info, $war) = $wRequestObj->assignBestAvailableEmployee($lang);
                         if ($wRequestObj->is_new)
                                 $action = 'inserted';
                         else
@@ -816,7 +816,7 @@ class ApplicationDesire extends AdmObject
                         $action = 'already-exists';
                 }
 
-                return [$wRequestObj, '', $action];
+                return [$wRequestObj, '', $action, $war];
         }
 
         public function getDisplay($lang = 'ar')
