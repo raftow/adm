@@ -107,5 +107,6 @@ $migrations = [
     '00101' => ['by'=>'medali','title'=>'study type'],
     '00102' => ['by'=>'medali','title'=>'cv module updates 4'],
     '00103' => ['by'=>'medali','title'=>'add reupload field'],
+    '00104' => ['by'=>'medali','title'=>'add action type']
 ];
 

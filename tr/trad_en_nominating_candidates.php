@@ -22,7 +22,7 @@ class NominatingCandidatesEnTranslator{
 		$trad["nominating_candidates"]["myApplicationLink"] = "my application";
 		
 		$trad["nominating_candidates"]["gender_enum"] = "Gender";
-
+		$trad["nominating_candidates"]["action_type_id"] = "Action Type";
 
         // steps
         return $trad;
