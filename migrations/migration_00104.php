@@ -59,7 +59,7 @@ try
     applicant_id bigint(20) NOT NULL , 
     application_plan_id int(11) NOT NULL , 
     application_simulation_id int(11) NOT NULL , 
-    expiry_date varchar(8) NOT NULL , 
+    expiry_date date , 
 
     
     PRIMARY KEY (`id`)
