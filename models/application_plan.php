@@ -99,7 +99,7 @@ class ApplicationPlan extends AdmObject
             if ($message)
                 $errors_arr[] = $message;
             if ($log)
-                $warnings_arr[] = $log;
+                $warnings_arr[] = var_export($log, true);
         }
 
         $infos_arr[] = $this->tm('Done') . " : $nbRequests " . $this->tm('request(s)');
