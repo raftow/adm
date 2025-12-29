@@ -776,7 +776,7 @@ class ApplicationDesire extends AdmObject
 
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $desire_num = $this->getVal("desire_num");
-                
+                $applicationPlanId = $this->objApplicationPlan->id;
                 if(!$wModelObj) $wModelObj = $this->objApplicationPlan->getWorkflowModel();
                 if(!$wSessionObj) $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
                 $wScopeObj = $this->het("workflow_scope_id");
@@ -784,7 +784,8 @@ class ApplicationDesire extends AdmObject
                 $applicationObj = $this->getApplicationObject();
                 $applicantObj = $applicationObj->getApplicant();
                 $wApplicantObj = $applicantObj->getWorkflowApplicant(true, $update_if_exists); 
-                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id, true);
+                $wApplicantObjId = $wApplicantObj->id;
+                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id, true);
                 if(!$wRequestObj) return [null, $this->tm("Failed to create workflow request", $lang), $action];
                 
                 
@@ -796,7 +797,7 @@ class ApplicationDesire extends AdmObject
                         
                         if(!$wRequestObj->getVal("workflow_stage_id") or $reset or $wRequestObj->is_new) $wRequestObj->set("workflow_stage_id", $wModelObj->getVal("initial_workflow_stage_id"));
                         if(!$wRequestObj->getVal("workflow_status_id") or $reset or $wRequestObj->is_new) $wRequestObj->set("workflow_status_id", $wModelObj->getVal("initial_workflow_status_id"));
-                        if(!$wRequestObj->getVal("external_request_code") or $reset or $wRequestObj->is_new) $wRequestObj->set("external_request_code", "S$application_simulation_id"."D$desire_num");
+                        if(!$wRequestObj->getVal("external_request_code") or $reset or $wRequestObj->is_new) $wRequestObj->set("external_request_code", "A$wApplicantObjId"."P$applicationPlanId"."S$application_simulation_id"."D$desire_num");
                         if(!$wRequestObj->getVal("request_type_code") or $reset or $wRequestObj->is_new) $wRequestObj->set("request_type_code", "desire");
                         $wRequestObj->commit();
                         if($wRequestObj->is_new) $action = "inserted"; else $action = "updated";
