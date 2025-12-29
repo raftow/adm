@@ -760,6 +760,11 @@ class ApplicationDesire extends AdmObject
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
         }
 
+        /**
+         * @method exportApplicationToWorkflow
+         * @return Array
+         * return [Workflow Request Object, Error Message, Action done, Log about best emloyee assign algorithm]
+         */
         public function exportApplicationToWorkflow($wModelObj = null, $wSessionObj = null, $update_if_exists = false, $reset = false)
         {
                 $action = 'ignored';
