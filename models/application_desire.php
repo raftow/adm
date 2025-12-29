@@ -807,6 +807,7 @@ class ApplicationDesire extends AdmObject
                         $orgunit_id = 12416;
                         $wRequestObj->set('orgunit_id', $orgunit_id);
                         $wRequestObj->commit();
+                        $wRequestObj->assignBestAvailableEmployee($lang);
                         if ($wRequestObj->is_new)
                                 $action = 'inserted';
                         else
