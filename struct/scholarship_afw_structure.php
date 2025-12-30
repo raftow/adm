@@ -14,7 +14,7 @@
                                 // $obj->IS_LOOKUP = true;
 
                                 $obj->editByStep = true;
-                                $obj->editNbSteps = 1; 
+                                $obj->editNbSteps = 2; 
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                                 $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'Scholarship',"submit"=>true);
                         }
@@ -129,8 +129,8 @@
         'CSS' => 'width_pct_25', ),	
 
 
-'publish' => array('RETRIEVE' => true, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-        'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
+'publish' => array('RETRIEVE' => false, 'SHOW' => false, 'EDIT' => false,  'DEFAUT' => 'Y',  
+        'TYPE' => 'YN',    'DISPLAY' => false,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),
 
@@ -138,14 +138,14 @@
 
 'application_start_date' => [
         'IMPORTANT' => 'IN',
-        'SEARCH' => true,
-        'SHOW' => true,
-        'RETRIEVE' => true,
-        'EDIT' => true,
-        'QEDIT' => true,
-        'SEARCH-ADMIN' => true,
-        'SHOW-ADMIN' => true,
-        'EDIT-ADMIN' => true,
+        'SEARCH' => false,
+        'SHOW' => false,
+        'RETRIEVE' => false,
+        'EDIT' => false,
+        'QEDIT' => false,
+        'SEARCH-ADMIN' => false,
+        'SHOW-ADMIN' => false,
+        'EDIT-ADMIN' => false,
         'UTF8' => false,
         'TYPE' => 'GDAT',
         'STEP' => 1,
@@ -158,14 +158,14 @@
 
 'application_end_date' => [
         'IMPORTANT' => 'IN',
-        'SEARCH' => true,
-        'SHOW' => true,
-        'RETRIEVE' => true,
-        'EDIT' => true,
-        'QEDIT' => true,
-        'SEARCH-ADMIN' => true,
-        'SHOW-ADMIN' => true,
-        'EDIT-ADMIN' => true,
+        'SEARCH' => false,
+        'SHOW' => false,
+        'RETRIEVE' => false,
+        'EDIT' => false,
+        'QEDIT' => false,
+        'SEARCH-ADMIN' => false,
+        'SHOW-ADMIN' => false,
+        'EDIT-ADMIN' => false,
         'UTF8' => false,
         'TYPE' => 'GDAT',
         'STEP' => 1,
@@ -176,10 +176,10 @@
     ],
 
 
-'academic_year_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+'academic_year_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
+        'EDIT' => true,  'QEDIT' => false, 'SHOW-ADMIN' => false,  'EDIT-ADMIN' => false,  'UTF8' => false,  
         'TYPE' => 'FK',  'ANSWER' => 'academic_year',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+        'DISPLAY' => false,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25', ),	
 
@@ -199,6 +199,11 @@
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25', ),	
 
+'ApplicantScholarshipList' => array('TYPE' => 'FK', 'ANSWER' => 'applicant_scholarship', 'ANSMODULE' => 'adm', 
+                                                        'CATEGORY' => 'ITEMS', 'ITEM' => 'scholarship_id', 'STEP' => 2,
+                                                        // WHERE=>'xxx = §xxx§', HIDE_COLS => array(),
+                                                        'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 'QEDIT' => false, 
+                                                        'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, "NO-LABEL"=>false, ),
 
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  

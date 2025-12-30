@@ -5,6 +5,8 @@ class ScholarshipArTranslator{
     {
         $trad = [];
 	$trad["scholarship"]["step1"] = "التعريف";
+	$trad["scholarship"]["step2"] = "المستفيدين";
+
 
 	$trad["scholarship"]["scholarship.single"] = "منحة";
 	$trad["scholarship"]["scholarship.new"] = "جديد ة";
@@ -24,6 +26,8 @@ class ScholarshipArTranslator{
 	$trad["scholarship"]["academic_year_id"] = "العام الأكاديمي";
 	$trad["scholarship"]["academic_term_id"] = "الفصل الدراسي";
 	$trad["scholarship"]["academic_program_id"] = "البرنامج";
+	$trad["scholarship"]["ApplicantScholarshipList"] = "قائمة المتقدمين المستفيدين";
+	
         return $trad;
         }
 
