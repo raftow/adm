@@ -59,7 +59,7 @@ class AdmApplicantScholarshipAfwStructure
 			'RELATION' => 'OneToOne',
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
-                        'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
+                        //'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
                 ),
 
 
