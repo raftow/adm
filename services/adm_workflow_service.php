@@ -1,5 +1,5 @@
 <?php
-class WorkflowService
+class AdmWorkflowService
 {
     public static function loadOriginalObject($wApplicantObj, $wSessionObj, $wModelObj, $wRequestObj)
     {
