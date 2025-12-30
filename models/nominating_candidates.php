@@ -648,6 +648,13 @@ class NominatingCandidates extends AdmObject{
         return $this->applicationObj;
     }
 
+    public function calcCandidateInfo($what = "value")
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $return = $this->tm("Candidate", $lang);
+        $paymentType = $this->decode("Candidate", $lang);
+    }
+
     public function calcMyApplicationLink($what = "value")
     {
         

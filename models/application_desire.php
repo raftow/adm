@@ -1647,4 +1647,18 @@ class ApplicationDesire extends AdmObject
                 } else
                         return $notRequested;
         }
+
+
+        public function calcCandidateInfo($what = "value")
+        {
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                $applicant_id = $this->getVal('applicant_id');
+                $application_plan_id = $this->getVal('application_plan_id');
+                $application_simulation_id = $this->getVal('application_simulation_id');
+
+                $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
+                if(!$ncObj) return $this->tm("Not a candidate", $lang);
+
+                return $ncObj->calcCandidateInfo($what);
+        }
 }
