@@ -15,7 +15,7 @@ class AdmApplicantScholarshipAfwStructure
                         $obj->editByStep = true;
                         $obj->editNbSteps = 1;
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
-                        $obj->after_save_edit = array("mode" => "qedit", "attribute" => 'scholarship_id', "currmod" => 'adm', "class" => 'Scholarship', "currstep" => 2, "submit" => true);
+                        $obj->after_save_edit = array("attribute" => 'scholarship_id', "currmod" => 'adm', "class" => 'Scholarship', "currstep" => 2, "submit" => true);
                 } else {
                         ApplicantScholarshipArTranslator::initData();
                         ApplicantScholarshipEnTranslator::initData();
