@@ -43,7 +43,7 @@ class AdmApplicantScholarshipAfwStructure
 			'QSEARCH' => true,
 			'SHOW' => true,
 			'AUDIT' => false,
-			'RETRIEVE' => false,
+			'RETRIEVE' => true,
 			'EDIT' => false,
 			'QEDIT' => false,
 			'SIZE' => 40,
@@ -94,7 +94,7 @@ class AdmApplicantScholarshipAfwStructure
                 'applicant_scholarship_status_id' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,
-                        'RETRIEVE' => false,
+                        'RETRIEVE' => true,
                         'QEDIT' => true,
                         'EDIT' => true,
 
@@ -116,7 +116,7 @@ class AdmApplicantScholarshipAfwStructure
                         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                         'CSS' => 'width_pct_25',
-                        'WHERE' => 'id in (select id from §DBPREFIX§adm.application_plan p where  p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
+                        //'WHERE' => 'id in (select id from §DBPREFIX§adm.application_plan p where  p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
                                          ),
 
                 'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 
