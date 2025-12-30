@@ -15,7 +15,7 @@ class AdmWorkflowService
         $external_request_code = str_replace('S', 'X', $external_request_code);
         $external_request_code = str_replace('D', 'X', $external_request_code);
 
-        list($wApplicantObjId, $applicationPlanId, $application_simulation_id, $desire_num) = explode('X', $external_request_code);
+        list($wApplicantObjId, $applicationPlanId, $application_simulation_id, $desire_num) = explode('X', trim($external_request_code, 'X'));
 
         $objDesire = ApplicationDesire::loadByMainIndex($applicant_id, $applicationPlanId, $application_simulation_id, $desire_num);
         $keyLookup = "applicant_id=$applicant_id, PlanId=$applicationPlanId, simulation_id=$application_simulation_id, desire_num=$desire_num";
