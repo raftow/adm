@@ -17,6 +17,8 @@ class AdmWorkflowService
 
         list($wApplicantObjId, $applicationPlanId, $application_simulation_id, $desire_num) = explode('X', $external_request_code);
 
-        return ApplicationDesire::loadByMainIndex($applicant_id, $applicationPlanId, $application_simulation_id, $desire_num);
+        $objDesire = ApplicationDesire::loadByMainIndex($applicant_id, $applicationPlanId, $application_simulation_id, $desire_num);
+        $keyLookup = "applicant_id=$applicant_id, PlanId=$applicationPlanId, simulation_id=$application_simulation_id, desire_num=$desire_num";
+        return [$objDesire, $keyLookup];
     }
 }
