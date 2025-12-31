@@ -202,7 +202,7 @@
 'ApplicantScholarshipList' => array('TYPE' => 'FK', 'ANSWER' => 'applicant_scholarship', 'ANSMODULE' => 'adm', 
                                                         'CATEGORY' => 'ITEMS', 'ITEM' => 'scholarship_id', 'STEP' => 2,
                                                         // WHERE=>'xxx = §xxx§', HIDE_COLS => array(),
-                                                        'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => false, 'READONLY' => true, 'QEDIT' => false, 
+                                                        'SHOW' => true, 'FORMAT'=>'retrieve', 'EDIT' => true, 'READONLY' => false, 'QEDIT' => true, 
                                                         'ICONS'=>true, 'DELETE-ICON'=>true, 'BUTTONS'=>true, "NO-LABEL"=>false, ),
 
 

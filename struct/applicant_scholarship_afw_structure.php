@@ -12,8 +12,8 @@ class AdmApplicantScholarshipAfwStructure
                         // $obj->public_display = true;
                         // $obj->IS_LOOKUP = true;
 
-                        $obj->editByStep = true;
-                        $obj->editNbSteps = 1;
+                        $obj->editByStep = false;
+                       // $obj->editNbSteps = 1;
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                        // $obj->after_save_edit = array("attribute" => 'scholarship_id', "currmod" => 'adm', "class" => 'Scholarship', "currstep" => 2, "submit" => true);
                 } else {
