@@ -1685,6 +1685,10 @@ class ApplicationDesire extends AdmObject
                 if ($step == 7)
                         return $this->showInterviewDiv($lang);
 
+                // step8 => المفاضلة والقبول';
+                if ($step == 8)
+                        return $this->showSortingDiv($lang);
+
                 return $this->tm('Unknown workflow step' . $step, $lang);
         }
 
