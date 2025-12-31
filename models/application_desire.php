@@ -1648,8 +1648,7 @@ class ApplicationDesire extends AdmObject
                         return $notRequested;
         }
 
-
-        public function calcCandidateInfo($what = "value")
+        public function calcCandidateInfo($what = 'value')
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 $applicant_id = $this->getVal('applicant_id');
@@ -1657,8 +1656,60 @@ class ApplicationDesire extends AdmObject
                 $application_simulation_id = $this->getVal('application_simulation_id');
 
                 $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
-                if(!$ncObj) return $this->tm("Not a candidate", $lang);
+                if (!$ncObj)
+                        return $this->tm('Not a candidate', $lang);
 
                 return $ncObj->calcCandidateInfo($what);
+        }
+
+        public function calcDivForWorkflowStep($step, $what = 'value')
+        {
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                // step3 =>  'المؤهلات';
+                if ($step == 3)
+                        return $this->showQualificationsDiv($lang);
+
+                // step4 =>  'الاختبارات';
+                if ($step == 4)
+                        return $this->showEvaluationsDiv($lang);
+
+                // step5 =>  'مراجعة الوثائق';
+                if ($step == 5)
+                        return $this->showFilesDiv($lang);
+
+                // step6 =>  'مراجعة اللجنة';
+                if ($step == 6)
+                        return $this->showCommiteeDiv($lang);
+
+                // step7 =>  'المقابلة الشخصية';
+                if ($step == 7)
+                        return $this->showInterviewDiv($lang);
+
+                return $this->tm('Unknown workflow step' . $step, $lang);
+        }
+
+        public function showQualificationsDiv($lang)
+        {
+                return $this->tm('@@ working on ...', $lang);
+        }
+
+        public function showEvaluationsDiv($lang)
+        {
+                return $this->tm('@@ working on ...', $lang);
+        }
+
+        public function showFilesDiv($lang)
+        {
+                return $this->tm('@@ working on ...', $lang);
+        }
+
+        public function showCommiteeDiv($lang)
+        {
+                return $this->tm('@@ working on ...', $lang);
+        }
+
+        public function showInterviewDiv($lang)
+        {
+                return $this->tm('@@ working on ...', $lang);
         }
 }
