@@ -1716,4 +1716,9 @@ class ApplicationDesire extends AdmObject
         {
                 return $this->tm('@@ working on ...', $lang);
         }
+
+        public function showSortingDiv($lang)
+        {
+                return $this->tm('@@ working on ...', $lang);
+        }
 }
