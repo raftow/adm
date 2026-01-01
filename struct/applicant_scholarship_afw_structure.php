@@ -213,7 +213,56 @@ class AdmApplicantScholarshipAfwStructure
                 ),
 
 
-                'remarks' => array(
+                
+                'grant_committee_interview_score' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE-AR' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => '250',
+                        'MAXLENGTH' => '250',
+                        'UTF8' => true,
+                        'TYPE' => 'INT',
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'MANDATORY' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
+                'grant_committee_letter' => array(
+                        'FGROUP' => '',
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'workflow_file',
+                        'ANSMODULE' => 'workflow',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'ManyToOne-OneToMany',
+                        'MANDATORY' => false,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
+
+'remarks' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,
@@ -232,10 +281,6 @@ class AdmApplicantScholarshipAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
-
-
-
                 'active' => array(
                         'SHOW' => true,
                         'RETRIEVE' => true,

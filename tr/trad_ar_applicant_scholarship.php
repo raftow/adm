@@ -17,6 +17,9 @@ class ApplicantScholarshipArTranslator{
 	$trad["applicant_scholarship"]["academic_year_id"] = "السنة الأكاديمية";
 	$trad["applicant_scholarship"]["academic_program_id"] = "البرنامج";
 	$trad["applicant_scholarship"]["remarks"] = "ملاحظات";
+	$trad["applicant_scholarship"]["grant_committee_interview_score"] = "نتيجة مقابلة لجنة المنح";
+	$trad["applicant_scholarship"]["grant_committee_letter"] = "خطاب لجنة المنح";
+
         return $trad;
         }
 
