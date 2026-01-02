@@ -5012,7 +5012,7 @@ $role_info = array(
                 array(
                   'id' => '105059',
                   'code' => 'f2-a-nominating_authority_category/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'فئات جهات الترشيح',
                   'menu_name_en' => 'Nominating authority categories',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominatingAuthorityCategory&currmod=adm',
@@ -5045,7 +5045,7 @@ $role_info = array(
                 array(
                   'id' => '105052',
                   'code' => 'f2-a-nominating_authority/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'جهات ترشيح',
                   'menu_name_en' => 'Nomination Autority',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominatingAuthority&currmod=adm',
@@ -5059,7 +5059,7 @@ $role_info = array(
                 array(
                   'id' => '105047',
                   'code' => 'f2-a-nominating_authority/edit',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'إنشاء جهة ترشيح',
                   'menu_name_en' => 'create Nomination Authority',
                   'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=NominatingAuthority&currmod=adm',
@@ -5070,7 +5070,7 @@ $role_info = array(
                 array(
                   'id' => '105048',
                   'code' => 'f2-a-nominating_authority/qedit',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'إدارة جهات ترشيح',
                   'menu_name_en' => 'Nomination Autority administration',
                   'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=NominatingAuthority&currmod=adm&ids=all&newo=3',
@@ -5081,7 +5081,7 @@ $role_info = array(
                 array(
                   'id' => '105049',
                   'code' => 'f2-a-nominating_authority/delete',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'مسح جهة ترشيح',
                   'menu_name_en' => 'delete Nomination Authority',
                   'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=NominatingAuthority&currmod=adm',
@@ -5092,7 +5092,7 @@ $role_info = array(
                 array(
                   'id' => '105050',
                   'code' => 'f2-a-nominating_authority/display',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'عرض تفاصيل جهة ترشيح',
                   'menu_name_en' => 'display details of Nomination Authority',
                   'page' => 'main.php?Main_Page=afw_mode_display.php&cl=NominatingAuthority&currmod=adm',
@@ -5103,7 +5103,7 @@ $role_info = array(
                 array(
                   'id' => '105051',
                   'code' => 'f2-a-nominating_authority/search',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'البحث في جهات ترشيح',
                   'menu_name_en' => 'Nomination Autority search',
                   'page' => 'main.php?Main_Page=afw_mode_search.php&cl=NominatingAuthority&currmod=adm',
@@ -5114,7 +5114,7 @@ $role_info = array(
                 array(
                   'id' => '105052',
                   'code' => 'f2-a-nominating_authority/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'جهات ترشيح',
                   'menu_name_en' => 'Nomination Autority',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominatingAuthority&currmod=adm',
@@ -5191,7 +5191,7 @@ $role_info = array(
                 array(
                   'id' => '105061',
                   'code' => 'f2-a-nominating_candidates/edit',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'إنشاء مرشح',
                   'menu_name_en' => 'create Nominating candidates',
                   'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=NominatingCandidates&currmod=adm',
@@ -5224,7 +5224,7 @@ $role_info = array(
                 array(
                   'id' => '105064',
                   'code' => 'f2-a-nominating_candidates/display',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'عرض تفاصيل مرشح',
                   'menu_name_en' => 'display details of Nominating candidates',
                   'page' => 'main.php?Main_Page=afw_mode_display.php&cl=NominatingCandidates&currmod=adm',
@@ -5235,7 +5235,7 @@ $role_info = array(
                 array(
                   'id' => '105065',
                   'code' => 'f2-a-nominating_candidates/search',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'البحث في المرشحين',
                   'menu_name_en' => 'Nominating candidates search',
                   'page' => 'main.php?Main_Page=afw_mode_search.php&cl=NominatingCandidates&currmod=adm',
@@ -5246,7 +5246,7 @@ $role_info = array(
                 array(
                   'id' => '105066',
                   'code' => 'f2-a-nominating_candidates/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'المرشحين',
                   'menu_name_en' => 'Nominating candidates',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominatingCandidates&currmod=adm',
@@ -5257,7 +5257,7 @@ $role_info = array(
                 array(
                   'id' => '105068',
                   'code' => 'f2-a-nomination_letter/edit',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'إنشاء خطاب ترشيح',
                   'menu_name_en' => 'create Nomination letter',
                   'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=NominationLetter&currmod=adm',
@@ -5290,7 +5290,7 @@ $role_info = array(
                 array(
                   'id' => '105071',
                   'code' => 'f2-a-nomination_letter/display',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'عرض تفاصيل خطاب ترشيح',
                   'menu_name_en' => 'display details of Nomination letter',
                   'page' => 'main.php?Main_Page=afw_mode_display.php&cl=NominationLetter&currmod=adm',
@@ -5301,7 +5301,7 @@ $role_info = array(
                 array(
                   'id' => '105072',
                   'code' => 'f2-a-nomination_letter/search',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'البحث في خطابات الترشيح',
                   'menu_name_en' => 'Nomination letters search',
                   'page' => 'main.php?Main_Page=afw_mode_search.php&cl=NominationLetter&currmod=adm',
@@ -5312,7 +5312,7 @@ $role_info = array(
                 array(
                   'id' => '105073',
                   'code' => 'f2-a-nomination_letter/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'خطابات الترشيح',
                   'menu_name_en' => 'Nomination letters',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominationLetter&currmod=adm',
