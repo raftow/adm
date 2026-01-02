@@ -5034,7 +5034,7 @@ $role_info = array(
                 array(
                   'id' => '105073',
                   'code' => 'f2-a-nomination_letter/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'خطابات الترشيح',
                   'menu_name_en' => 'Nomination letters',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominationLetter&currmod=adm',
