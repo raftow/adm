@@ -5158,7 +5158,7 @@ $role_info = array(
                 array(
                   'id' => '105057',
                   'code' => 'f2-a-nominating_authority_category/display',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'عرض تفاصيل',
                   'menu_name_en' => 'display details of Nominating authority category',
                   'page' => 'main.php?Main_Page=afw_mode_display.php&cl=NominatingAuthorityCategory&currmod=adm',
@@ -5169,7 +5169,7 @@ $role_info = array(
                 array(
                   'id' => '105058',
                   'code' => 'f2-a-nominating_authority_category/search',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'البحث في فئات جهات الترشيح',
                   'menu_name_en' => 'Nominating authority categories search',
                   'page' => 'main.php?Main_Page=afw_mode_search.php&cl=NominatingAuthorityCategory&currmod=adm',
@@ -5180,7 +5180,7 @@ $role_info = array(
                 array(
                   'id' => '105059',
                   'code' => 'f2-a-nominating_authority_category/qsearch',
-                  'level' => '1',
+                  'level' => '999',
                   'menu_name_ar' => 'فئات جهات الترشيح',
                   'menu_name_en' => 'Nominating authority categories',
                   'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=NominatingAuthorityCategory&currmod=adm',
