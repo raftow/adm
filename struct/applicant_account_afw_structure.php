@@ -200,8 +200,20 @@ class AdmApplicantAccountAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
+                'payment_deadline' => array(
+                        'IMPORTANT' => 'IN',
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'TYPE' => 'GDAT',
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
+  
 
                 'active' => array(
                         'SHOW' => true,

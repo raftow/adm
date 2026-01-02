@@ -18,6 +18,8 @@ class ApplicantAccountArTranslator
 		$trad["applicant_account"]["activated_fee"] = "تفعيل الدفع للمتقدم";
 		$trad["applicant_account"]["due_date"] = "تاريخ الاستحقاق";
 		$trad["applicant_account"]["academic_period_id"] = "فترة التقديم";
+		$trad["applicant_account"]["payment_deadline"] = "آخر تاريخ للدفع";
+		
 		return $trad;
 		if(false) return ApplicantAccountEnTranslator::initData();
 	}
