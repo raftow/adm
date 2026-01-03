@@ -1694,17 +1694,17 @@ class ApplicationDesire extends AdmObject
 
         public function showQualificationsDiv($lang)
         {
-                return $this->tm('@@ working on ...', $lang);
+                return $this->getApplicationObject()->showAttribute('applicationQualificationList', null, true, $lang);
         }
 
         public function showEvaluationsDiv($lang)
         {
-                return $this->tm('@@ working on ...', $lang);
+                return $this->getApplicationObject()->getApplicant()->showAttribute('applicantEvaluationList', null, true, $lang);
         }
 
         public function showFilesDiv($lang)
         {
-                return $this->tm('@@ working on ...', $lang);
+                return $this->getApplicationObject()->showAttribute('applicantFileList', null, true, $lang);
         }
 
         public function showCommiteeDiv($lang)
