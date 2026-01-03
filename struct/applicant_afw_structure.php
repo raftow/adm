@@ -1,15 +1,14 @@
 <?php
 class AdmApplicantAfwStructure
 {
-
         public static function initInstance(&$obj)
         {
                 if ($obj instanceof Applicant) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 3;
-                        $obj->DISPLAY_FIELD_BY_LANG = array('ar'=> ['first_name_ar', 'father_name_ar', 'last_name_ar'],
-                                                            'en'=> ['first_name_en', 'father_name_en', 'last_name_en']);
+                        $obj->DISPLAY_FIELD_BY_LANG = array('ar' => ['first_name_ar', 'father_name_ar', 'last_name_ar'],
+                                'en' => ['first_name_en', 'father_name_en', 'last_name_en']);
                         // $obj->AUTOCOMPLETE_FIELD = 'idn';
-                        $obj->FORMULA_DISPLAY_FIELD  = "concat(IF(ISNULL(first_name_ar), '', first_name_ar) , ' ' , IF(ISNULL(father_name_ar), '', father_name_ar) , ' ' , IF(ISNULL(last_name_ar), '', last_name_ar))";
+                        $obj->FORMULA_DISPLAY_FIELD = "concat(IF(ISNULL(first_name_ar), '', first_name_ar) , ' ' , IF(ISNULL(father_name_ar), '', father_name_ar) , ' ' , IF(ISNULL(last_name_ar), '', last_name_ar))";
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                         $obj->UNIQUE_KEY = array('country_id', 'idn_type_id', 'idn');
                         // $obj->public_display = true;
@@ -18,14 +17,13 @@ class AdmApplicantAfwStructure
                         $obj->editByStep = true;
                         $obj->editNbSteps = 11;
                         // $obj->STEP_OPTIONS = [2=> ['TEMPLATE'=>'accordion'], /* 3=> ['TEMPLATE'=>'accordion'],*/];
-                        
+
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                 } else {
                         ApplicantArTranslator::initData();
                         ApplicantEnTranslator::initData();
                 }
         }
-
 
         public static $DB_STRUCTURE = array(
                 'id' => array(
@@ -35,16 +33,12 @@ class AdmApplicantAfwStructure
                         'EDIT' => false,
                         'TYPE' => 'PK',
                         'DISPLAY' => true,
-                        'QSEARCH' => true,  'TEXT-SEARCHABLE-SEPARATED'=>true,
+                        'QSEARCH' => true, 'TEXT-SEARCHABLE-SEPARATED' => true,
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25'
                 ),
-
-
-                
-
                 'idn_type_id' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
@@ -64,15 +58,13 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25'
                 ),
-
                 'country_id' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
                         'SEARCH' => '::fields_manager',
                         'QSEARCH' => '::fields_manager',
                         'RETRIEVE' => '::fields_manager',
-                        
-                        'SHOW' => true,                        
+                        'SHOW' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SHOW-ADMIN' => true,
@@ -94,8 +86,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
                 'idn' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
@@ -103,11 +93,11 @@ class AdmApplicantAfwStructure
                         'QSEARCH' => true,
                         'SHOW' => true,
                         'RETRIEVE' => true,
-                        // we dont know thw country id of applicant in qsearch mode to be able 
+                        // we dont know thw country id of applicant in qsearch mode to be able
                         // to convert IDN to ID except if it SAUDI IDN
-                        "CLAUSE-WHERE-COL" => 'id',
-                        "CLAUSE-WHERE-COL-VALUE-CONVERT-CLASS" => 'Applicant',
-                        "CLAUSE-WHERE-COL-VALUE-CONVERT-METHOD" => 'tryConvertIdnToID',
+                        'CLAUSE-WHERE-COL' => 'id',
+                        'CLAUSE-WHERE-COL-VALUE-CONVERT-CLASS' => 'Applicant',
+                        'CLAUSE-WHERE-COL-VALUE-CONVERT-METHOD' => 'tryConvertIdnToID',
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '32',
@@ -123,9 +113,6 @@ class AdmApplicantAfwStructure
                         'FORMAT' => '::idnFormat',
                         'CSS' => 'width_pct_25'
                 ),
-
-
-
                 'id_issue_place' => array(
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
@@ -146,9 +133,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
-
-
-
                 'id_issue_date' => [
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
@@ -158,8 +142,8 @@ class AdmApplicantAfwStructure
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SEARCH-ADMIN' => true,
-                        //'SHOW-ADMIN' => true,
-                        //'EDIT-ADMIN' => true,
+                        // 'SHOW-ADMIN' => true,
+                        // 'EDIT-ADMIN' => true,
                         'UTF8' => false,
                         'TYPE' => 'GDAT',
                         'FORMAT' => 'DATE',
@@ -167,11 +151,8 @@ class AdmApplicantAfwStructure
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-
                         'CSS' => 'width_pct_50',
                 ],
-
-
                 'id_expiry_date' => [
                         'FGROUP' => 'idn-infos',
                         'IMPORTANT' => 'IN',
@@ -190,15 +171,12 @@ class AdmApplicantAfwStructure
                         'STEP' => 1,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-
                         'CSS' => 'width_pct_50',
                 ],
-
                 'mobile' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
                         'FORMAT' => 'SA-MOBILE',
-
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -214,18 +192,13 @@ class AdmApplicantAfwStructure
                         'TEXT-SEARCHABLE-SEPARATED' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        
                 ),
-
-
                 'email' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
                         'FORMAT' => 'EMAIL',
-
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -241,12 +214,10 @@ class AdmApplicantAfwStructure
                         'TEXT-SEARCHABLE-SEPARATED' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
-                        
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
-
                 'profile_populated' => array(
                         'FGROUP' => 'profile',
                         'STEP' => '::fields_manager',
@@ -258,31 +229,21 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-                        'UTF8' => false,    
-                        'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  
-                        'TYPE' => 'YN', 'CHAR_TEMPLATE' => "ALPHABETIC,SPACE", 
-                        'READONLY' => true, 'DNA' => true, 
-                        /*'DISABLE-READONLY-ADMIN'=>true, */
-                        ),
-
-                                                           
-
-                
-
-
-
-                
-
-
-
-
-                /* 'mother_saudi_ind' => array('FGROUP'=>'idn-infos', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',  
-                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                        'UTF8' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'TYPE' => 'YN',
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'READONLY' => true,
+                        'DNA' => true,
+                        /* 'DISABLE-READONLY-ADMIN'=>true, */
+                ),
+                /* 'mother_saudi_ind' => array('FGROUP'=>'idn-infos', 'RETRIEVE' => false, 'SHOW' => true, 'EDIT' => true,  'DEFAUT' => 'N',
+                                                'TYPE' => 'YN',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 'QSEARCH' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
                                                 'READONLY' => false,
                                                 'CSS' => 'width_pct_25',),*/
-
-
                 'mother_idn' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -304,9 +265,6 @@ class AdmApplicantAfwStructure
                         'DISABLED' => '::disableOrReadonlyForInput',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'mother_birth_date' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -327,13 +285,6 @@ class AdmApplicantAfwStructure
                         'DISABLED' => '::disableOrReadonlyForInput',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
-                
-
-
-
                 'profile_approved' => array(
                         'FGROUP' => 'profile',
                         'RETRIEVE' => false,
@@ -350,10 +301,6 @@ class AdmApplicantAfwStructure
                         'READONLY' => true,
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
-
                 'first_name_ar' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -374,9 +321,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'father_name_ar' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -397,9 +341,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'middle_name_ar' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -420,9 +361,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'last_name_ar' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -443,10 +381,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
-
                 'first_name_en' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -467,9 +401,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'father_name_en' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -490,9 +421,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'middle_name_en' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -513,9 +441,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'last_name_en' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -536,7 +461,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'gender_enum' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -560,7 +484,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                
                 'marital_status_enum' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -587,9 +510,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'religion_enum' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -607,17 +527,12 @@ class AdmApplicantAfwStructure
                         'SIZE' => 40,
                         'DEFAUT' => 0,
                         'DISPLAY' => true,
-                        
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        
                 ),
-
-
                 'birth_date' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
-
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -627,20 +542,14 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'TYPE' => 'DATE',
                         'DISPLAY' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        
                 ),
-
-
-
                 'birth_gdate' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
-                        
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -650,7 +559,6 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'UTF8' => true,
                         'TYPE' => 'GDATE',
                         'FORMAT' => 'DATE',
@@ -659,11 +567,9 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'place_of_birth' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
-                        
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -673,16 +579,14 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'SIZE' => '32',
                         'MAXLENGTH' => '32',
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
                         'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',                        
+                        'EDIT-UGROUPS' => '',
                 ),
-
                 'passeport_num' => array(
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -693,7 +597,9 @@ class AdmApplicantAfwStructure
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '32',
-                        'FORMAT' => ['STRING-LENGTH'=>true,],
+                        'FORMAT' => [
+                                'STRING-LENGTH' => true,
+                        ],
                         'MAXLENGTH' => '32',
                         'MIN-SIZE' => '5',
                         'UTF8' => true,
@@ -705,9 +611,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'passeport_expiry_gdate' => [
                         'FGROUP' => 'profile',
                         'IMPORTANT' => 'IN',
@@ -729,14 +632,9 @@ class AdmApplicantAfwStructure
                         'MANDATORY' => false,
                         'CSS' => 'width_pct_25',
                 ],
-
-                
-
-
                 'address_type_enum' => array(
                         'FGROUP' => 'address-infos',
                         'IMPORTANT' => 'IN',
-                        
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -746,7 +644,6 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'UTF8' => false,
                         'TYPE' => 'ENUM',
                         'ANSWER' => 'FUNCTION',
@@ -755,10 +652,7 @@ class AdmApplicantAfwStructure
                         'DISPLAY' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        
                 ),
-
-
                 'address' => array(
                         'FGROUP' => 'address-infos',
                         'IMPORTANT' => 'IN',
@@ -771,25 +665,17 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'SIZE' => '200',
                         'MAXLENGTH' => '200',
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
                         'DISPLAY' => true,
                         'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',                        
+                        'EDIT-UGROUPS' => '',
                 ),
-
-
-
-
-
-
                 'city_id' => array(
                         'FGROUP' => 'address-infos',
                         'IMPORTANT' => 'IN',
-                        
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -799,7 +685,6 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'city',
@@ -813,12 +698,9 @@ class AdmApplicantAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                 ),
-
-
                 'postal_code' => array(
                         'FGROUP' => 'address-infos',
                         'IMPORTANT' => 'IN',
-                        
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -828,7 +710,6 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-
                         'SIZE' => '10',
                         'MAXLENGTH' => '10',
                         'UTF8' => true,
@@ -838,12 +719,9 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
                 'country_code' => array(
                         'FGROUP' => 'address-infos',
                         'IMPORTANT' => 'IN',
-
                         'STEP' => '::fields_manager',
                         'MANDATORY' => '::fields_manager',
                         'SEARCH' => '::fields_manager',
@@ -853,7 +731,6 @@ class AdmApplicantAfwStructure
                         'EDIT' => '::fields_manager',
                         'QEDIT' => '::fields_manager',
                         'CSS' => '::fields_manager',
-                        
                         'SIZE' => '10',
                         'MAXLENGTH' => '10',
                         'UTF8' => true,
@@ -861,9 +738,7 @@ class AdmApplicantAfwStructure
                         'DISPLAY' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        
                 ),
-
                 'username' => array(
                         'FGROUP' => 'account-infos',
                         'IMPORTANT' => 'IN',
@@ -884,7 +759,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'password' => array(
                         'FGROUP' => 'account-infos',
                         'IMPORTANT' => 'IN',
@@ -904,7 +778,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'signup_acknowldgment' => array(
                         'FGROUP' => 'account-infos',
                         'RETRIEVE' => false,
@@ -920,9 +793,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'has_iban' => array(
                         'FGROUP' => 'bank',
                         'RETRIEVE' => false,
@@ -935,12 +805,9 @@ class AdmApplicantAfwStructure
                         'MANDATORY' => true,
                         'QSEARCH' => false,
                         'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '', /*'CHECKBOX'=>true,*/
+                        'EDIT-UGROUPS' => '',  /* 'CHECKBOX'=>true, */
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'iban' => array(
                         'FGROUP' => 'bank',
                         'IMPORTANT' => 'IN',
@@ -961,9 +828,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
-
                 'bank_account_pledge' => array(
                         'FGROUP' => 'bank',
                         'RETRIEVE' => false,
@@ -976,14 +840,11 @@ class AdmApplicantAfwStructure
                         'MANDATORY' => true,
                         'QSEARCH' => false,
                         'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '', /*'CHECKBOX'=>true,*/
+                        'EDIT-UGROUPS' => '',  /* 'CHECKBOX'=>true, */
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'job_status_enum' => array(
-                        'FGROUP' => 'job_status', // emp_status
+                        'FGROUP' => 'job_status',  // emp_status
                         'DEFAULT' => 2,
                         'SHOW' => true,
                         'RETRIEVE' => false,
@@ -997,9 +858,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'employer_approval' => array(
                         'FGROUP' => 'job_status',
                         'RETRIEVE' => false,
@@ -1016,9 +874,6 @@ class AdmApplicantAfwStructure
                         'DISABLED' => true,
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'employer_enum' => array(
                         'FGROUP' => 'job_status',
                         'IMPORTANT' => 'IN',
@@ -1043,8 +898,6 @@ class AdmApplicantAfwStructure
                         'DISABLED' => true,
                         'CSS' => 'width_pct_25',
                 ),
-
-
                 'employer_approval_afile_id' => array(
                         'FGROUP' => 'job_status',
                         'IMPORTANT' => 'IN',
@@ -1075,8 +928,6 @@ class AdmApplicantAfwStructure
                         'DISABLED' => true,
                         'CSS' => 'width_pct_25',
                 ),
-
-
                 'guardian_name' => array(
                         'FGROUP' => 'guardian',
                         'IMPORTANT' => 'IN',
@@ -1097,9 +948,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'guardian_phone' => array(
                         'FGROUP' => 'guardian',
                         'IMPORTANT' => 'IN',
@@ -1120,7 +968,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'relationship_enum' => array(
                         'FGROUP' => 'guardian',
                         'IMPORTANT' => 'IN',
@@ -1144,9 +991,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'guardian_idn' => array(
                         'FGROUP' => 'guardian',
                         'IMPORTANT' => 'IN',
@@ -1167,9 +1011,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'guardian_id_date' => [
                         'FGROUP' => 'guardian',
                         'IMPORTANT' => 'IN',
@@ -1188,11 +1029,8 @@ class AdmApplicantAfwStructure
                         'STEP' => 10,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-
                         'CSS' => 'width_pct_25',
                 ],
-
-
                 'guardian_id_place' => array(
                         'FGROUP' => 'guardian',
                         'IMPORTANT' => 'IN',
@@ -1213,92 +1051,112 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-                'preferred_program_track_id' => array('FGROUP' => 'favorite', 'STEP' => 11,  
-                                                'IMPORTANT' => 'IN',  'SEARCH' => false,  'QSEARCH' => false,
-                                                'SHOW' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => false,  'QEDIT' => false,
-                                                'SHOW-ADMIN' => false,  'EDIT-ADMIN' => false,  'UTF8' => false,  
-                                                'TYPE' => 'FK',  'ANSWER' => 'program_track',  'ANSMODULE' => 'adm',  
-                                                'SIZE' => 40,  'DEFAUT' => 0,    
-                                                'DISPLAY' => false,  'RELATION' => 'ManyToOne', 'MANDATORY' => false, 
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50', ),
-
-
-                'application_model_id' => array('FGROUP' => 'favorite', 'STEP' => 11, 
-                                        'SHORTNAME' => 'model', 
-                                        'SEARCH' => false,
-                                        'QSEARCH' => false,
-                                        'SHOW' => false,
-                                        'AUDIT' => false,
-                                        'RETRIEVE' => false,
-                                        'EDIT' => false,
-                                        'QEDIT' => false,
-                                        'SIZE' => 32,
-                                        'MAXLENGTH' => 32,
-                                        'MIN-SIZE' => 1,
-                                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-                                        'UTF8' => false,
-                                        'TYPE' => 'FK',
-                                        'ANSWER' => 'application_model',
-                                        'ANSMODULE' => 'adm',
-                                        'RELATION' => 'ManyToOne',
-                                        'DEPENDENT_OFME' => ['application_model_branch_mfk',],
-                                        'READONLY' => false,
-                                        'DNA' => true,
-                                        'CSS' => 'width_pct_50',
-                                ),
-                                
-                'application_model_branch_mfk' => array('FGROUP' => 'favorite', 'STEP' => 11,
-			'SHORTNAME' => 'model_branchs',
-			'SEARCH' => false,
-			'QSEARCH' => false,
-			'SHOW' => false,
-			'AUDIT' => false,
-			'RETRIEVE' => false,
-			'EDIT' => false,
-			'QEDIT' => false,
-			'SIZE' => 32,
-			'MAXLENGTH' => 32,
-			'MIN-SIZE' => 1,
-			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-			'UTF8' => false,
-			'TYPE' => 'MFK',
-			'ANSWER' => 'application_model_branch',
-			'ANSMODULE' => 'adm',
+                'preferred_program_track_id' => array(
+                        'FGROUP' => 'favorite',
+                        'STEP' => 11,
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SHOW-ADMIN' => false,
+                        'EDIT-ADMIN' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'program_track',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => false,
+                        'RELATION' => 'ManyToOne',
+                        'MANDATORY' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
+                'application_model_id' => array(
+                        'FGROUP' => 'favorite',
+                        'STEP' => 11,
+                        'SHORTNAME' => 'model',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_model',
+                        'ANSMODULE' => 'adm',
+                        'RELATION' => 'ManyToOne',
+                        'DEPENDENT_OFME' => [
+                                'application_model_branch_mfk',
+                        ],
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'application_model_branch_mfk' => array(
+                        'FGROUP' => 'favorite',
+                        'STEP' => 11,
+                        'SHORTNAME' => 'model_branchs',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'MFK',
+                        'ANSWER' => 'application_model_branch',
+                        'ANSMODULE' => 'adm',
                         'WHERE' => 'application_model_id = §application_model_id§',
-                        'DEPENDENCIES' => ['application_model_id',],
-			'READONLY' => false,
-			'DNA' => true,
-			'CSS' => 'width_pct_100',
-		),   
-
-                'applicant_group_id' => array('FGROUP' => 'favorite', 'STEP' => 11,
-			'SHORTNAME' => 'group',
-			'SEARCH' => false,
-			'QSEARCH' => false,
-			'SHOW' => false,
-			'AUDIT' => false,
-			'RETRIEVE' => false,
-			'EDIT' => false,
-			'QEDIT' => false,
-			'SIZE' => 32,
-			'MAXLENGTH' => 32,
-			'MIN-SIZE' => 1,
-			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-			'UTF8' => false,
-			'TYPE' => 'FK',
-			'ANSWER' => 'applicant_group',
-			'ANSMODULE' => 'adm',
-			'WHERE' => 'id != 2',
-			'READONLY' => false,
-			'DNA' => true,
-			'CSS' => 'width_pct_50',
-		),
-
-                'log' => array('STEP' => 11, 'FGROUP' => 'favorite',
+                        'DEPENDENCIES' => [
+                                'application_model_id',
+                        ],
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_100',
+                ),
+                'applicant_group_id' => array(
+                        'FGROUP' => 'favorite',
+                        'STEP' => 11,
+                        'SHORTNAME' => 'group',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'applicant_group',
+                        'ANSMODULE' => 'adm',
+                        'WHERE' => 'id != 2',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'log' => array(
+                        'STEP' => 11,
+                        'FGROUP' => 'favorite',
                         'SHOW' => false,
                         'RETRIEVE' => false,
                         'EDIT' => false,
@@ -1310,90 +1168,250 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-                'disability_ind' => array('STEP' => 10, 'FGROUP' => 'disability', 'SEARCH' => true,  'QSEARCH' => false,  
-                                'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => false,  'QEDIT' => false,   'FORMAT' => 'icon', 
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE", 'UTF8' => false,  
-				'TYPE' => 'YN',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_100', ),
-
-                'disability_mfk' => array('STEP' => 10, 'FGROUP' => 'disability', 'SHORTNAME' => 'disabilitys',  
-                                'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => false,  'QEDIT' => false,
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'MFK',  'ANSWER' => "disability",  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_100', ),
-
-                'qiyas_achievement_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
-				'CSS' => 'width_pct_50', ),
-
-		'qiyas_achievement_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
-				'CSS' => 'width_pct_50', ),
-
-                'qiyas_achievement_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
-				'CSS' => 'width_pct_50', ),
-
-		'qiyas_achievement_th_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
-				'CSS' => 'width_pct_50', ),
-
-		'qiyas_aptitude_sc' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
-				'CSS' => 'width_pct_50', ),
-
-		'qiyas_aptitude_sc_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
-				'CSS' => 'width_pct_50', ),
-
-                                'aptitude_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                        'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
-                                        'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
-                                        'CSS' => 'width_pct_50', ),
-
-                                'has_aptitude_university' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                        'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
-                                        'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'YN', 'FORMAT' => 'ICON',  'READONLY' => true, 
-                                        'CSS' => 'width_pct_50', ),        
-
-		'qiyas_aptitude_th' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => true, 
-				'CSS' => 'width_pct_50', ),
-
-		'qiyas_aptitude_th_date' => array('STEP' => 3,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-				'EDIT' => true,  'QEDIT' => true,  
-				'SIZE' => 9999,  'MAXLENGTH' => 10,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'GDAT',  'READONLY' => true, 'FORMAT' => 'DATE',
-				'CSS' => 'width_pct_50', ),
-
-		
-                                
-                                'achievement_score' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                        'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
-                                        'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
-                                        'CSS' => 'width_pct_50', ),
-                
-
+                'disability_ind' => array(
+                        'STEP' => 10,
+                        'FGROUP' => 'disability',
+                        'SEARCH' => true,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'FORMAT' => 'icon',
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'YN',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_100',
+                ),
+                'disability_mfk' => array(
+                        'STEP' => 10,
+                        'FGROUP' => 'disability',
+                        'SHORTNAME' => 'disabilitys',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'MFK',
+                        'ANSWER' => 'disability',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_100',
+                ),
+                'qiyas_achievement_sc' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_achievement_sc_date' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 10,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'GDAT',
+                        'READONLY' => true,
+                        'FORMAT' => 'DATE',
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_achievement_th' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_achievement_th_date' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 10,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'GDAT',
+                        'READONLY' => true,
+                        'FORMAT' => 'DATE',
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_aptitude_sc' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_aptitude_sc_date' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 10,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'GDAT',
+                        'READONLY' => true,
+                        'FORMAT' => 'DATE',
+                        'CSS' => 'width_pct_50',
+                ),
+                'aptitude_score' => array(
+                        'STEP' => 99,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'CATEGORY' => 'FORMULA',
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
+                'has_aptitude_university' => array(
+                        'STEP' => 99,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'CATEGORY' => 'FORMULA',
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'YN',
+                        'FORMAT' => 'ICON',
+                        'READONLY' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_aptitude_th' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+                'qiyas_aptitude_th_date' => array(
+                        'STEP' => 3,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 10,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'GDAT',
+                        'READONLY' => true,
+                        'FORMAT' => 'DATE',
+                        'CSS' => 'width_pct_50',
+                ),
+                'achievement_score' => array(
+                        'STEP' => 99,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'CATEGORY' => 'FORMULA',
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
                 'applicantApiRequestList' => array(
                         'STEP' => 3,
                         'FGROUP' => 'apis',
@@ -1409,7 +1427,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -1421,20 +1439,19 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
                 'weighted_percentage' => array(
                         'FGROUP' => 'weighted_percentage',
                         'STEP' => 3,
-                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2', 
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
                         'CATEGORY' => 'FORMULA',
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
-                        "CAN-BE-SETTED" => false,
+                        'CAN-BE-SETTED' => false,
                         'SIZE' => 255,
                         'CSS' => 'width_pct_25',
                 ),
-
                 'weighted_percentage_details' => array(
                         'FGROUP' => 'weighted_percentage',
                         'STEP' => 3,
@@ -1443,11 +1460,10 @@ class AdmApplicantAfwStructure
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
-                        "CAN-BE-SETTED" => false,
+                        'CAN-BE-SETTED' => false,
                         'SIZE' => 255,
                         'CSS' => 'width_pct_75',
                 ),
-
                 'applicantQualificationList' => array(
                         'STEP' => 3,
                         'FGROUP' => 'qualif',
@@ -1465,7 +1481,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -1477,16 +1493,25 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
-                
-                                'secondary_cumulative_pct' => array('STEP' => 99,  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
-                                        'CATEGORY' => 'FORMULA', 'EDIT' => true,  'QEDIT' => true,  
-                                        'SIZE' => 9999,  'MAXLENGTH' => 32,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-                                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',  'READONLY' => false, 
-                                        'CSS' => 'width_pct_50', ),
-                
-                
-                                
+                'secondary_cumulative_pct' => array(
+                        'STEP' => 99,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'CATEGORY' => 'FORMULA',
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'UTF8' => false,
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_50',
+                ),
                 'applicantEvaluationList' => array(
                         'STEP' => 3,
                         'FGROUP' => 'evaluation',
@@ -1504,7 +1529,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -1516,8 +1541,6 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
-
                 'dragDropDiv' => array(
                         'STEP' => 6,
                         'TYPE' => 'TEXT',
@@ -1525,12 +1548,11 @@ class AdmApplicantAfwStructure
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
-                        "CAN-BE-SETTED" => false,
+                        'CAN-BE-SETTED' => false,
                         'SIZE' => 255,
-                        "NO-LABEL" => true,
+                        'NO-LABEL' => true,
                         'INPUT_WIDE' => true
                 ),
-
                 'applicantFileList' => array(
                         'STEP' => 6,
                         'SHOW' => true,
@@ -1547,7 +1569,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -1559,9 +1581,12 @@ class AdmApplicantAfwStructure
                         'READONLY' => true,
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
+                        'DISABLE_DATA_TABLE' => true,
+                        'RETRIEVE-POPUP-EDITOR' => [
+                                'reupload_enum',
+                                'approved',
+                        ],
                 ),
-
-
                 'applicantQualificationsNoFile' => array(
                         'STEP' => 8,
                         'FGROUP' => 'qualif',
@@ -1579,7 +1604,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -1592,7 +1617,6 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
                 'applicantEvaluationsNoFile' => array(
                         'STEP' => 8,
                         'FGROUP' => 'evaluation',
@@ -1610,7 +1634,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -1623,7 +1647,6 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
                 'attribute_1' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1647,8 +1670,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_2' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1672,8 +1693,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_3' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1697,8 +1716,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_4' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1722,8 +1739,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_7' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1770,8 +1785,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_6' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1795,7 +1808,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
                 'attribute_7' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1819,10 +1831,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
-
-
                 'attribute_8' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1846,8 +1854,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_9' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1871,8 +1877,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_10' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1896,8 +1900,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_11' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1921,8 +1923,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_12' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1946,8 +1946,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_13' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1971,8 +1969,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_14' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -1996,8 +1992,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_15' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2021,8 +2015,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_16' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2046,8 +2038,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_17' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2071,8 +2061,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_18' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2096,8 +2084,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_19' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2121,8 +2107,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_20' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2146,7 +2130,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
                 'attribute_21' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2170,8 +2153,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-                
-
                 'attribute_22' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2195,8 +2176,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_23' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2220,8 +2199,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_24' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2245,8 +2222,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_25' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2270,7 +2245,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
                 'attribute_26' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2294,8 +2268,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-                
-
                 'attribute_27' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2319,8 +2291,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_28' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2344,8 +2314,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_29' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2369,8 +2337,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_30' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2394,8 +2360,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_31' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2419,8 +2383,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_32' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2444,8 +2406,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_33' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2469,8 +2429,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_34' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2494,8 +2452,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_35' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2519,8 +2475,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_36' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2544,8 +2498,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-
                 'attribute_37' => array(
                         'FGROUP' => '::additional',
                         'OBSOLETE' => '::additional',
@@ -2569,8 +2521,6 @@ class AdmApplicantAfwStructure
                         'CATEGORY' => '::additional',
                         'FORMULA' => '::additional',
                 ),
-
-                
                 'applicationList' => array(
                         'STEP' => 5,
                         'FGROUP' => 'appl',
@@ -2588,7 +2538,7 @@ class AdmApplicantAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
@@ -2600,8 +2550,6 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
-
                 'active' => array(
                         'SHOW' => true,
                         'RETRIEVE' => true,
@@ -2615,7 +2563,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'created_by' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -2630,20 +2577,19 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'created_at' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
                         'EDIT' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'GDAT', 'FORMAT' => 'DATETIME',
+                        'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATETIME',
                         'DISPLAY' => '',
                         'STEP' => 99,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'updated_by' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -2658,19 +2604,18 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'updated_at' => array(
                         'SHOW-ADMIN' => true,
-                        'RETRIEVE' => false,                        
+                        'RETRIEVE' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'GDAT', 'FORMAT' => 'DATETIME',
+                        'TYPE' => 'GDAT',
+                        'FORMAT' => 'DATETIME',
                         'DISPLAY' => '',
                         'STEP' => 99,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'validated_by' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -2685,7 +2630,6 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'validated_at' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -2698,11 +2642,7 @@ class AdmApplicantAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
-
-                'version'                  => array(
+                'version' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -2711,8 +2651,7 @@ class AdmApplicantAfwStructure
                         'TYPE' => 'INT',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'update_groups_mfk'             => array(
+                'update_groups_mfk' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -2723,8 +2662,7 @@ class AdmApplicantAfwStructure
                         'TYPE' => 'MFK',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'delete_groups_mfk'             => array(
+                'delete_groups_mfk' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -2735,8 +2673,7 @@ class AdmApplicantAfwStructure
                         'TYPE' => 'MFK',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'display_groups_mfk'            => array(
+                'display_groups_mfk' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -2747,18 +2684,16 @@ class AdmApplicantAfwStructure
                         'TYPE' => 'MFK',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'sci_id'                        => array(
+                'sci_id' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'INT', /*stepnum-not-the-object*/
+                        'TYPE' => 'INT',  /* stepnum-not-the-object */
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'tech_notes'                         => array(
+                'tech_notes' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'TYPE' => 'TEXT',
@@ -2770,7 +2705,5 @@ class AdmApplicantAfwStructure
                         'NO-ERROR-CHECK' => true,
                         'FGROUP' => 'tech_fields'
                 ),
-
-
         );
 }
