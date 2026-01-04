@@ -1702,8 +1702,8 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_reupload['en'][1] = 'ُRequired';
         $arr_list_of_reupload['ar'][1] = 'مطلوب';
 
-        $arr_list_of_reupload['en'][2] = 'Executed';
-        $arr_list_of_reupload['ar'][2] = 'تم التنفيذ';
+        $arr_list_of_reupload['en'][2] = 'Done';  // 'Executed';
+        $arr_list_of_reupload['ar'][2] = 'تمت';  // 'تم التنفيذ';
 
         return $arr_list_of_reupload;
     }

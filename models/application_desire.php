@@ -1662,52 +1662,56 @@ class ApplicationDesire extends AdmObject
                 return $ncObj->calcCandidateInfo($what);
         }
 
-        public function calcDivForWorkflowStep($step, $what = 'value')
+        public function calcDivForWorkflowStep($step, $what, $workflowRequestObject)
         {
+                list($reached, $message) = $workflowRequestObject->weReachedStep($step);
+                if (!$reached) {
+                        return $message;
+                }
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 // step3 =>  'المؤهلات';
                 if ($step == 3)
-                        return $this->showQualificationsDiv($lang);
+                        return $this->showQualificationsDiv($lang, $workflowRequestObject);
 
                 // step4 =>  'الاختبارات';
                 if ($step == 4)
-                        return $this->showEvaluationsDiv($lang);
+                        return $this->showEvaluationsDiv($lang, $workflowRequestObject);
 
                 // step5 =>  'مراجعة الوثائق';
                 if ($step == 5)
-                        return $this->showFilesDiv($lang);
+                        return $this->showFilesDiv($lang, $workflowRequestObject);
 
                 // step6 =>  'مراجعة اللجنة';
                 if ($step == 6)
-                        return $this->showCommiteeDiv($lang);
+                        return $this->showCommiteeDiv($lang, $workflowRequestObject);
 
                 // step7 =>  'المقابلة الشخصية';
                 if ($step == 7)
-                        return $this->showInterviewDiv($lang);
+                        return $this->showInterviewDiv($lang, $workflowRequestObject);
 
                 // step8 => المفاضلة والقبول';
                 if ($step == 8)
-                        return $this->showSortingDiv($lang);
+                        return $this->showSortingDiv($lang, $workflowRequestObject);
 
                 return $this->tm('Unknown workflow step' . $step, $lang);
         }
 
-        public function showQualificationsDiv($lang)
+        public function showQualificationsDiv($lang, $workflowRequestObject)
         {
                 return $this->getApplicationObject()->showAttribute('applicationQualificationList', null, true, $lang);
         }
 
-        public function showEvaluationsDiv($lang)
+        public function showEvaluationsDiv($lang, $workflowRequestObject)
         {
                 return $this->getApplicationObject()->getApplicant()->showAttribute('applicantEvaluationList', null, true, $lang);
         }
 
-        public function showFilesDiv($lang)
+        public function showFilesDiv($lang, $workflowRequestObject)
         {
                 return $this->getApplicationObject()->showAttribute('applicantFileList', null, true, $lang);
         }
 
-        public function showCommiteeDiv($lang)
+        public function showCommiteeDiv($lang, $workflowRequestObject)
         {
                 return $this->tm('@@ working on ...', $lang);
         }
