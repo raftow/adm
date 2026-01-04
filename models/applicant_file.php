@@ -230,7 +230,7 @@ class ApplicantFile extends AFWObject
         if ($col == 'approved') {
             $switcher_authorized = true;
             $switcher_title = $this->tm('Are you sure ?', $lang);
-            $switcher_text = $this->tm('This will show or hide the appearance of this condition in gate frontend', $lang);
+            $switcher_text = $this->tm('This will approve or disapprove the document for this applicant', $lang);
         }
 
         return [$switcher_authorized, $switcher_title, $switcher_text];

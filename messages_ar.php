@@ -220,6 +220,7 @@ $messages['Registration and Admissions Department'] = 'إدارة التسجيل
 
 $messages['Candidate'] = 'مترشح';
 $messages['Not a candidate'] = 'غير مترشح';
+$messages['This will approve or disapprove the document for this applicant'] = 'سيؤدي هذا إلى الموافقة أو الرفض على المستند لهذا المتقدم';
 
 // $messages[""] = "";
 ?>
