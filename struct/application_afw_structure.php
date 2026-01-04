@@ -366,6 +366,7 @@ class AdmApplicationAfwStructure
                         'SHOW' => true,
                         'EDIT' => true,
                         'READONLY' => true,
+                        'FORMAT' => 'retrieve',
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
