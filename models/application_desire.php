@@ -1007,7 +1007,29 @@ class ApplicationDesire extends AdmObject
                 if ($id) {
                         if ($id_replace == 0) {
                                 // FK part of me - not deletable
-
+                                $this->getApplicationPlan();
+                                if ($this->objApplicationPlan)
+                                {
+                                        $wModelObj = $this->objApplicationPlan->getWorkflowModel();
+                                        if($wModelObj)
+                                        {
+                                                $applicationObj = $this->getApplicationObject();
+                                                $applicantObj = $applicationObj->getApplicant();
+                                                $wApplicantObj = $applicantObj->getWorkflowApplicant();
+                                                if($wApplicantObj)
+                                                {
+                                                        $wApplicantObjId = $wApplicantObj->id;
+                                                        $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
+                                                        if($wRequestObj)
+                                                        {
+                                                                $this->deleteNotAllowedReason = "The applicant has a workflow request linked to this desire and can't be deleted";
+                                                                return false;
+                                                        }
+                                                }
+                                                
+                                        }
+                                }
+                                
                                 // FK part of me - deletable
 
                                 // FK not part of me - replaceable
