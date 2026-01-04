@@ -140,6 +140,18 @@ class ApplicantFile extends AdmObject
         return (($attribute == 'created_by') or ($attribute == 'created_at') or ($attribute == 'updated_by') or ($attribute == 'updated_at') or ($attribute == 'validated_by') or ($attribute == 'validated_at') or ($attribute == 'version'));
     }
 
+    public function beforeMaj($id, $fields_updated)
+    {
+        if($fields_updated['approved']) {
+            if($this->sureIs('approved')){
+                $this->set('reupload_enum', 0);
+            }
+        }
+        return true;
+    }      
+
+    
+
     public function beforeDelete($id, $id_replace)
     {
         $server_db_prefix = AfwSession::config('db_prefix', 'pmu_');
@@ -191,6 +203,8 @@ class ApplicantFile extends AdmObject
             $wfObj->set('doc_type_id', $this->v('doc_type_id'));
             $wfObj->commit();
         }
+
+        
     }
 
     public function switcherConfig($col, $auser = null)
