@@ -708,7 +708,6 @@ class AdmApplicationAfwStructure
                         'CSS' => 'width_pct_100',
                         'RETRIEVE-POPUP-EDITOR' => [
                                 'reupload_enum',
-                                'approved',
                         ],
                 ),
                 'applicationDesireList' => array(
