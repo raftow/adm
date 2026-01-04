@@ -4,7 +4,7 @@ $file_dir_name = dirname(__FILE__);
 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class ApplicantFile extends AFWObject
+class ApplicantFile extends AdmObject
 {
     public static $MY_ATABLE_ID = 13947;
 
@@ -191,28 +191,6 @@ class ApplicantFile extends AFWObject
             $wfObj->set('doc_type_id', $this->v('doc_type_id'));
             $wfObj->commit();
         }
-    }
-
-    public static function list_of_reupload_enum()
-    {
-        $lang = AfwLanguageHelper::getGlobalLanguage();
-        return self::reupload_enum()[$lang];
-    }
-
-    public static function reupload_enum()
-    {
-        $arr_list_of_reupload = array();
-
-        $arr_list_of_reupload['en'][0] = 'Not required';
-        $arr_list_of_reupload['ar'][0] = 'غير مطلوب';
-
-        $arr_list_of_reupload['en'][1] = 'ُRequired';
-        $arr_list_of_reupload['ar'][1] = 'مطلوب';
-
-        $arr_list_of_reupload['en'][2] = 'Executed';
-        $arr_list_of_reupload['ar'][2] = 'تم التنفيذ';
-
-        return $arr_list_of_reupload;
     }
 
     public function switcherConfig($col, $auser = null)
