@@ -1582,10 +1582,6 @@ class AdmApplicantAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                         'DISABLE_DATA_TABLE' => true,
-                        'RETRIEVE-POPUP-EDITOR' => [
-                                'reupload_enum',
-                                'approved',
-                        ],
                 ),
                 'applicantQualificationsNoFile' => array(
                         'STEP' => 8,
