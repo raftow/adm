@@ -1664,9 +1664,11 @@ class ApplicationDesire extends AdmObject
 
         public function calcDivForWorkflowStep($step, $what, $workflowRequestObject)
         {
-                list($reached, $message) = $workflowRequestObject->weReachedStep($step);
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                // list($reached, $message) =
+                $reached = $workflowRequestObject->weReachedStep($step);
                 if (!$reached) {
-                        return $message;
+                        return $this->tm('You have not reached this step yet', $lang);
                 }
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 // step3 =>  'المؤهلات';
