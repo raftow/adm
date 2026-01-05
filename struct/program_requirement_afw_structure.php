@@ -103,7 +103,7 @@ class AdmProgramRequirementAfwStructure
                                 'QSEARCH' => false,
                                 'SHOW' => true,
                                 'AUDIT' => false,
-                                'RETRIEVE' => false,
+                                'RETRIEVE' => true,
                                 'EDIT' => true,
                                 'QEDIT' => false,
                                 'SIZE' => 32,
