@@ -12,7 +12,7 @@ class AdmProgramRequirementAfwStructure
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = '';
 
-                        // $obj->UNIQUE_KEY = array('XXX', 'YYY');
+                        $obj->UNIQUE_KEY = array('academic_program_id', 'application_category_enum', 'application_class_enum');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
@@ -41,7 +41,8 @@ class AdmProgramRequirementAfwStructure
                                 'MAXLENGTH' => 32,
                                 'MIN-SIZE' => 1,
                                 'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
-                                'MANDATORY' => true,
+                                'MANDATORY' => false,
+                                'EMPTY_IS_ALL' => true,
                                 'UTF8' => false,
                                 'TYPE' => 'FK',
                                 'ANSWER' => 'academic_program',
