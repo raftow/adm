@@ -395,7 +395,7 @@ class AdmNominatingCandidatesAfwStructure
 			'UTF8' => false,
 			'TYPE' => 'TEXT',
 			'READONLY' => false,
-			'MANDATORY' => true,
+			'MANDATORY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_25',
 			'STEP' => 2,
