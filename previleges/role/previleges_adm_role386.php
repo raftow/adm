@@ -1,14 +1,14 @@
 <?php
 
-	$role_info[386] = array (
+$role_info[386] = array(
   'code' => 'goal-applicant',
-  'name' => 
-  array (
+  'name' =>
+  array(
     'ar' => 'ادارة المتقدمين',
     'en' => 'arole.386',
   ),
-  'menu' => 
-  array (
+  'menu' =>
+  array(
     'need_admin' => false,
     'id' => '386',
     'menu_name_' => 'ادارة المتقدمين',
@@ -18,10 +18,10 @@
     'css' => 'info',
     'icon' => ' icon-386',
     'showme' => true,
-    'items' => 
-    array (
-      104744 => 
-      array (
+    'items' =>
+    array(
+      104744 =>
+      array(
         'id' => '104744',
         'code' => 'f2-a-applicant/qsearch',
         'level' => '999',
@@ -31,30 +31,30 @@
         'css' => 'bf',
         'icon' => 'bficon-104744 bfc-',
       ),
-      105278 => 
-      array (
+      105278 =>
+      array(
         'id' => '105278',
         'code' => 'f2-a-applicant_qualification/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مؤهلات المتقدمين',
         'menu_name_en' => 'Applicant qualifications',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantQualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105278 bfc-',
       ),
-      104839 => 
-      array (
+      104839 =>
+      array(
         'id' => '104839',
         'code' => 'f2-a-application/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'طلبات التقديم',
         'menu_name_en' => 'Applications',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Application&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104839 bfc-',
       ),
-      105272 => 
-      array (
+      105272 =>
+      array(
         'id' => '105272',
         'code' => 'f2-a-applicant_evaluation/qsearch',
         'level' => '1',
@@ -64,8 +64,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105272 bfc-',
       ),
-      105084 => 
-      array (
+      105084 =>
+      array(
         'id' => '105084',
         'code' => 'f2-a-application_desire/qsearch',
         'level' => '1',
@@ -75,8 +75,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105084 bfc-',
       ),
-      104947 => 
-      array (
+      104947 =>
+      array(
         'id' => '104947',
         'code' => 'f2-a-applicant_file/qsearch',
         'level' => '999',
@@ -86,8 +86,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104947 bfc-',
       ),
-      105266 => 
-      array (
+      105266 =>
+      array(
         'id' => '105266',
         'code' => 'f2-a-applicant_account/qsearch',
         'level' => '1',
@@ -97,8 +97,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105266 bfc-',
       ),
-      105284 => 
-      array (
+      105284 =>
+      array(
         'id' => '105284',
         'code' => 'f2-a-applicant_scholarship/qsearch',
         'level' => '1',
@@ -109,10 +109,11 @@
         'icon' => 'bficon-105284 bfc-',
       ),
     ),
-    'otherbfs' => 
-    array (
-      104739 => 
-      array (
+    /**************************** */
+    'otherbfs' =>
+    array(
+      104739 =>
+      array(
         'id' => '104739',
         'code' => 'f2-a-applicant/edit',
         'level' => '999',
@@ -122,8 +123,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104739 bfc-',
       ),
-      104741 => 
-      array (
+      104741 =>
+      array(
         'id' => '104741',
         'code' => 'f2-a-applicant/delete',
         'level' => '999',
@@ -133,8 +134,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104741 bfc-',
       ),
-      104742 => 
-      array (
+      104742 =>
+      array(
         'id' => '104742',
         'code' => 'f2-a-applicant/display',
         'level' => '999',
@@ -144,8 +145,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104742 bfc-',
       ),
-      104743 => 
-      array (
+      104743 =>
+      array(
         'id' => '104743',
         'code' => 'f2-a-applicant/search',
         'level' => '999',
@@ -155,8 +156,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104743 bfc-',
       ),
-      104744 => 
-      array (
+      104744 =>
+      array(
         'id' => '104744',
         'code' => 'f2-a-applicant/qsearch',
         'level' => '999',
@@ -166,8 +167,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104744 bfc-',
       ),
-      104834 => 
-      array (
+      104834 =>
+      array(
         'id' => '104834',
         'code' => 'f2-a-application/edit',
         'level' => '1',
@@ -177,8 +178,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104834 bfc-',
       ),
-      104836 => 
-      array (
+      104836 =>
+      array(
         'id' => '104836',
         'code' => 'f2-a-application/delete',
         'level' => '1',
@@ -188,8 +189,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104836 bfc-',
       ),
-      104837 => 
-      array (
+      104837 =>
+      array(
         'id' => '104837',
         'code' => 'f2-a-application/display',
         'level' => '1',
@@ -199,8 +200,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104837 bfc-',
       ),
-      104838 => 
-      array (
+      104838 =>
+      array(
         'id' => '104838',
         'code' => 'f2-a-application/search',
         'level' => '1',
@@ -210,8 +211,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104838 bfc-',
       ),
-      104839 => 
-      array (
+      104839 =>
+      array(
         'id' => '104839',
         'code' => 'f2-a-application/qsearch',
         'level' => '1',
@@ -221,8 +222,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104839 bfc-',
       ),
-      104942 => 
-      array (
+      104942 =>
+      array(
         'id' => '104942',
         'code' => 'f2-a-applicant_file/edit',
         'level' => '999',
@@ -232,8 +233,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104942 bfc-',
       ),
-      104944 => 
-      array (
+      104944 =>
+      array(
         'id' => '104944',
         'code' => 'f2-a-applicant_file/delete',
         'level' => '999',
@@ -243,8 +244,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104944 bfc-',
       ),
-      104945 => 
-      array (
+      104945 =>
+      array(
         'id' => '104945',
         'code' => 'f2-a-applicant_file/display',
         'level' => '999',
@@ -254,8 +255,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104945 bfc-',
       ),
-      104946 => 
-      array (
+      104946 =>
+      array(
         'id' => '104946',
         'code' => 'f2-a-applicant_file/search',
         'level' => '999',
@@ -265,8 +266,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104946 bfc-',
       ),
-      104947 => 
-      array (
+      104947 =>
+      array(
         'id' => '104947',
         'code' => 'f2-a-applicant_file/qsearch',
         'level' => '999',
@@ -276,8 +277,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104947 bfc-',
       ),
-      105082 => 
-      array (
+      105082 =>
+      array(
         'id' => '105082',
         'code' => 'f2-a-application_desire/display',
         'level' => '1',
@@ -287,8 +288,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105082 bfc-',
       ),
-      105083 => 
-      array (
+      105083 =>
+      array(
         'id' => '105083',
         'code' => 'f2-a-application_desire/search',
         'level' => '1',
@@ -298,8 +299,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105083 bfc-',
       ),
-      105084 => 
-      array (
+      105084 =>
+      array(
         'id' => '105084',
         'code' => 'f2-a-application_desire/qsearch',
         'level' => '1',
@@ -309,8 +310,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105084 bfc-',
       ),
-      105085 => 
-      array (
+      105085 =>
+      array(
         'id' => '105085',
         'code' => 'f2-a-application_desire/edit',
         'level' => '1',
@@ -320,8 +321,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105085 bfc-',
       ),
-      105088 => 
-      array (
+      105088 =>
+      array(
         'id' => '105088',
         'code' => 'f2-a-application_desire/delete',
         'level' => '1',
@@ -331,8 +332,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105088 bfc-',
       ),
-      105261 => 
-      array (
+      105261 =>
+      array(
         'id' => '105261',
         'code' => 'f2-a-applicant_account/edit',
         'level' => '1',
@@ -342,8 +343,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105261 bfc-',
       ),
-      105263 => 
-      array (
+      105263 =>
+      array(
         'id' => '105263',
         'code' => 'f2-a-applicant_account/delete',
         'level' => '1',
@@ -353,8 +354,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105263 bfc-',
       ),
-      105264 => 
-      array (
+      105264 =>
+      array(
         'id' => '105264',
         'code' => 'f2-a-applicant_account/display',
         'level' => '1',
@@ -364,8 +365,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105264 bfc-',
       ),
-      105265 => 
-      array (
+      105265 =>
+      array(
         'id' => '105265',
         'code' => 'f2-a-applicant_account/search',
         'level' => '1',
@@ -375,8 +376,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105265 bfc-',
       ),
-      105266 => 
-      array (
+      105266 =>
+      array(
         'id' => '105266',
         'code' => 'f2-a-applicant_account/qsearch',
         'level' => '1',
@@ -386,8 +387,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105266 bfc-',
       ),
-      105267 => 
-      array (
+      105267 =>
+      array(
         'id' => '105267',
         'code' => 'f2-a-applicant_evaluation/edit',
         'level' => '1',
@@ -397,8 +398,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105267 bfc-',
       ),
-      105269 => 
-      array (
+      105269 =>
+      array(
         'id' => '105269',
         'code' => 'f2-a-applicant_evaluation/delete',
         'level' => '1',
@@ -408,8 +409,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105269 bfc-',
       ),
-      105270 => 
-      array (
+      105270 =>
+      array(
         'id' => '105270',
         'code' => 'f2-a-applicant_evaluation/display',
         'level' => '1',
@@ -419,8 +420,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105270 bfc-',
       ),
-      105271 => 
-      array (
+      105271 =>
+      array(
         'id' => '105271',
         'code' => 'f2-a-applicant_evaluation/search',
         'level' => '1',
@@ -430,8 +431,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105271 bfc-',
       ),
-      105272 => 
-      array (
+      105272 =>
+      array(
         'id' => '105272',
         'code' => 'f2-a-applicant_evaluation/qsearch',
         'level' => '1',
@@ -441,63 +442,63 @@
         'css' => 'bf',
         'icon' => 'bficon-105272 bfc-',
       ),
-      105273 => 
-      array (
+      105273 =>
+      array(
         'id' => '105273',
         'code' => 'f2-a-applicant_qualification/edit',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إنشاء مؤهل متقدم',
         'menu_name_en' => 'create Applicant qualification',
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantQualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105273 bfc-',
       ),
-      105275 => 
-      array (
+      105275 =>
+      array(
         'id' => '105275',
         'code' => 'f2-a-applicant_qualification/delete',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مسح مؤهل متقدم',
         'menu_name_en' => 'delete Applicant qualification',
         'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantQualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105275 bfc-',
       ),
-      105276 => 
-      array (
+      105276 =>
+      array(
         'id' => '105276',
         'code' => 'f2-a-applicant_qualification/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل مؤهل متقدم',
         'menu_name_en' => 'display details of Applicant qualification',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantQualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105276 bfc-',
       ),
-      105277 => 
-      array (
+      105277 =>
+      array(
         'id' => '105277',
         'code' => 'f2-a-applicant_qualification/search',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'البحث في مؤهلات المتقدمين',
         'menu_name_en' => 'Applicant qualifications search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantQualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105277 bfc-',
       ),
-      105278 => 
-      array (
+      105278 =>
+      array(
         'id' => '105278',
         'code' => 'f2-a-applicant_qualification/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مؤهلات المتقدمين',
         'menu_name_en' => 'Applicant qualifications',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantQualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105278 bfc-',
       ),
-      105279 => 
-      array (
+      105279 =>
+      array(
         'id' => '105279',
         'code' => 'f2-a-applicant_scholarship/edit',
         'level' => '1',
@@ -507,8 +508,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105279 bfc-',
       ),
-      105281 => 
-      array (
+      105281 =>
+      array(
         'id' => '105281',
         'code' => 'f2-a-applicant_scholarship/delete',
         'level' => '1',
@@ -518,8 +519,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105281 bfc-',
       ),
-      105282 => 
-      array (
+      105282 =>
+      array(
         'id' => '105282',
         'code' => 'f2-a-applicant_scholarship/display',
         'level' => '1',
@@ -529,8 +530,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105282 bfc-',
       ),
-      105283 => 
-      array (
+      105283 =>
+      array(
         'id' => '105283',
         'code' => 'f2-a-applicant_scholarship/search',
         'level' => '1',
@@ -540,8 +541,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105283 bfc-',
       ),
-      105284 => 
-      array (
+      105284 =>
+      array(
         'id' => '105284',
         'code' => 'f2-a-applicant_scholarship/qsearch',
         'level' => '1',
@@ -552,8 +553,7 @@
         'icon' => 'bficon-105284 bfc-',
       ),
     ),
-    'sub-folders' => 
-    array (
-    ),
+    'sub-folders' =>
+    array(),
   ),
 );
