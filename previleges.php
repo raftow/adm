@@ -173,6 +173,10 @@ $tab_info = array(
     array(
       'name' => 'application_plan_branch',
     ),
+  14033 =>
+    array(
+      'name' => 'application_requirement',
+    ),
   13945 =>
     array(
       'name' => 'application_simulation',
@@ -268,6 +272,10 @@ $tab_info = array(
   13903 =>
     array(
       'name' => 'program_qualification',
+    ),
+  14032 =>
+    array(
+      'name' => 'program_requirement',
     ),
   13875 =>
     array(
@@ -2251,6 +2259,50 @@ $tbf_info = array(
           'id' => '104727',
         ),
     ),
+  'application_requirement' =>
+    array(
+      'id' => '14033',
+      'display' =>
+        array(
+          'id' => -1,
+        ),
+      'search' =>
+        array(
+          'id' => -1,
+        ),
+      'qsearch' =>
+        array(
+          'id' => -1,
+        ),
+      'edit' =>
+        array(
+          'id' => -1,
+        ),
+      'qedit' =>
+        array(
+          'id' => -1,
+        ),
+      'crossed' =>
+        array(
+          'id' => -1,
+        ),
+      'stats' =>
+        array(
+          'id' => -1,
+        ),
+      'ddb' =>
+        array(
+          'id' => -1,
+        ),
+      'minibox' =>
+        array(
+          'id' => -1,
+        ),
+      'delete' =>
+        array(
+          'id' => -1,
+        ),
+    ),
   'application_simulation' =>
     array(
       'id' => '13945',
@@ -3305,6 +3357,50 @@ $tbf_info = array(
       'delete' =>
         array(
           'id' => '104755',
+        ),
+    ),
+  'program_requirement' =>
+    array(
+      'id' => '14032',
+      'display' =>
+        array(
+          'id' => -1,
+        ),
+      'search' =>
+        array(
+          'id' => -1,
+        ),
+      'qsearch' =>
+        array(
+          'id' => -1,
+        ),
+      'edit' =>
+        array(
+          'id' => -1,
+        ),
+      'qedit' =>
+        array(
+          'id' => -1,
+        ),
+      'crossed' =>
+        array(
+          'id' => -1,
+        ),
+      'stats' =>
+        array(
+          'id' => -1,
+        ),
+      'ddb' =>
+        array(
+          'id' => -1,
+        ),
+      'minibox' =>
+        array(
+          'id' => -1,
+        ),
+      'delete' =>
+        array(
+          'id' => -1,
         ),
     ),
   'program_track' =>
