@@ -1,22 +1,20 @@
 <?php
 class AdmAcademicProgramAfwStructure
 {
-
         public static function initInstance(&$obj)
         {
                 if ($obj instanceof AcademicProgram) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 20;
-                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => "program_name_ar", 'en' => "program_name_en"];
+                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => 'program_name_ar', 'en' => 'program_name_en'];
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                         $obj->UNIQUE_KEY = array('academic_level_id', 'program_track_id', 'college_id', 'program_name_ar', 'program_name_en');
                         // $obj->public_display = true;
 
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 4;
-                        $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'AcademicProgram', "submit" => true);
+                        $obj->editNbSteps = 5;
+                        $obj->after_save_edit = array('mode' => 'qsearch', 'currmod' => 'adm', 'class' => 'AcademicProgram', 'submit' => true);
                 }
         }
-
 
         public static $DB_STRUCTURE = array(
                 'id' => array(
@@ -30,9 +28,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
-
-
                 'academic_level_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -54,12 +49,11 @@ class AdmAcademicProgramAfwStructure
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',
                         'MANDATORY' => true,
-                        'DEPENDENT_OFME' => array("degree_id"),
+                        'DEPENDENT_OFME' => array('degree_id'),
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'degree_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -76,11 +70,9 @@ class AdmAcademicProgramAfwStructure
                         'ANSMODULE' => 'adm',
                         'SIZE' => 40,
                         'DEFAUT' => 0,
-                        //'WHERE' => " id in (select concat('0',degree_mfk,'0') from §DBPREFIX§adm.academic_level where id=§academic_level_id§)",
+                        // 'WHERE' => " id in (select concat('0',degree_mfk,'0') from §DBPREFIX§adm.academic_level where id=§academic_level_id§)",
                         'WHERE' => ' id in (select o.id from §DBPREFIX§adm.academic_level l inner join §DBPREFIX§adm.degree o on degree_mfk like concat("%",o.id,"%") and l.id=§academic_level_id§)',
-
                         'DEPENDENCIES' => ['academic_level_id'],
-
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',
@@ -89,7 +81,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'program_track_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -112,10 +103,9 @@ class AdmAcademicProgramAfwStructure
                         'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
-                        'DEPENDENT_OFME' => array("college_id"),
+                        'DEPENDENT_OFME' => array('college_id'),
                         'CSS' => 'width_pct_50',
                 ),
-
                 'college_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -142,7 +132,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'department_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -164,12 +153,11 @@ class AdmAcademicProgramAfwStructure
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',
                         'MANDATORY' => true,
-                        'DEPENDENT_OFME' => array("major_id"),
+                        'DEPENDENT_OFME' => array('major_id'),
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'major_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -188,7 +176,6 @@ class AdmAcademicProgramAfwStructure
                         'DEFAUT' => 0,
                         'WHERE' => "id in (select major_id from §DBPREFIX§adm.major_department where department_id = §department_id§ and active = 'Y')",
                         'DEPENDENCIES' => ['department_id'],
-
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',
@@ -197,11 +184,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
-
-
-
                 'language_enum' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -225,8 +207,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
                 'genders_enum' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -250,8 +230,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
                 'program_name_ar' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -271,9 +249,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
-
                 'program_name_en' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -293,7 +268,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'program_code' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -313,8 +287,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
                 'program_rank' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -332,8 +304,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
                 'program_file_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => false,
@@ -361,7 +331,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'pic_view' => array(
                         'TYPE' => 'TEXT',
                         'CATEGORY' => 'SHORTCUT',
@@ -380,14 +349,12 @@ class AdmAcademicProgramAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                 ),
-
-                /*'program_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 
-                                                'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '100', 'UTF8' => false,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 1, 'MANDATORY' => false,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                /*'program_instructions' => array('IMPORTANT' => 'IN',  'SEARCH' => false,
+                                                'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,
+                                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => 'AREA', 'MAXLENGTH' => '100', 'UTF8' => false,
+                                                'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 1, 'MANDATORY' => false,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
                                                 'CSS' => 'width_pct_50',),*/
-
                 'Study_plan' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => false,
@@ -414,7 +381,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
                 'active' => array(
                         'SHOW' => true,
                         'RETRIEVE' => true,
@@ -429,8 +395,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
                 ),
-
-
                 'to_publish' => array(
                         'SHOW' => true,
                         'RETRIEVE' => true,
@@ -445,24 +409,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50'
                 ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 'program_tuition_fees' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -482,7 +428,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'sis_program_code' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -502,7 +447,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'deaf_specialty' => array(
                         'RETRIEVE' => false,
                         'SHOW' => true,
@@ -518,7 +462,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-
                 'maqbool_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -539,21 +482,19 @@ class AdmAcademicProgramAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-
-
-                /*                 
-                                        'old_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),
-
-                                        'program_title' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
-                                                'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,  
-                                                'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 2, 'MANDATORY' => false,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_50',),*/
-
+                /*
+                 * 'old_name_ar' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,
+                 *         'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,
+                 *         'TYPE' => 'TEXT',    'DISPLAY' => true,  'STEP' => 2, 'MANDATORY' => false,
+                 *         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
+                 *         'CSS' => 'width_pct_50',),
+                 *
+                 * 'program_title' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,
+                 *         'EDIT' => true,  'QEDIT' => false,  'SIZE' => '100', 'MAXLENGTH' => '100', 'UTF8' => true,
+                 *         'TYPE' => 'TEXT',    'DISPLAY' => false,  'STEP' => 2, 'MANDATORY' => false,
+                 *         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
+                 *         'CSS' => 'width_pct_50',),
+                 */
                 'program_title_ar' => array(
                         'STEP' => 2,
                         'SEARCH' => true,
@@ -566,7 +507,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 64,
                         'MAXLENGTH' => 64,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => true,
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
@@ -574,7 +515,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
                 'program_title_en' => array(
                         'STEP' => 2,
                         'SEARCH' => true,
@@ -587,7 +527,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 64,
                         'MAXLENGTH' => 64,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => true,
                         'UTF8' => false,
                         'TYPE' => 'TEXT',
@@ -595,7 +535,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
                 'program_duration_ar' => array(
                         'STEP' => 2,
                         'SEARCH' => true,
@@ -608,7 +547,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 100,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => true,
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
@@ -616,7 +555,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
                 'program_duration_en' => array(
                         'STEP' => 2,
                         'SEARCH' => true,
@@ -629,7 +567,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 100,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => true,
                         'UTF8' => false,
                         'TYPE' => 'TEXT',
@@ -637,8 +575,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
-
                 'program_instructions_ar' => array(
                         'STEP' => 2,
                         'SEARCH' => true,
@@ -651,7 +587,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 'AREA',
                         'MAXLENGTH' => 1024,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => true,
                         'UTF8' => true,
                         'TYPE' => 'TEXT',
@@ -659,7 +595,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
                 'program_instructions_en' => array(
                         'STEP' => 2,
                         'SEARCH' => true,
@@ -672,7 +607,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 'AREA',
                         'MAXLENGTH' => 1024,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => true,
                         'UTF8' => false,
                         'TYPE' => 'TEXT',
@@ -680,7 +615,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_100',
                 ),
-
                 'supp_program_mfk' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -698,9 +632,8 @@ class AdmAcademicProgramAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
-                        "WHERE" => "academic_level_id=15"
-                ), // only complementary program
-
+                        'WHERE' => 'academic_level_id=15'
+                ),  // only complementary program
                 'interview_ind' => array(
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -712,7 +645,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'YN',
@@ -721,7 +654,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-
                 'cv_ind' => array(
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -733,7 +665,7 @@ class AdmAcademicProgramAfwStructure
                         'SIZE' => 32,
                         'MAXLENGTH' => 32,
                         'MIN-SIZE' => 1,
-                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
                         'MANDATORY' => false,
                         'UTF8' => false,
                         'TYPE' => 'YN',
@@ -742,7 +674,6 @@ class AdmAcademicProgramAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-                
                 'academicProgramOfferingList' => array(
                         'TYPE' => 'FK',
                         'ANSWER' => 'academic_program_offering',
@@ -761,8 +692,6 @@ class AdmAcademicProgramAfwStructure
                         'BUTTONS' => true,
                         'NO-LABEL' => false
                 ),
-
-
                 'programQualificationList' => array(
                         'TYPE' => 'FK',
                         'ANSWER' => 'program_qualification',
@@ -781,10 +710,34 @@ class AdmAcademicProgramAfwStructure
                         'BUTTONS' => true,
                         'NO-LABEL' => false
                 ),
-
-
-
-
+                'programRequirementList' => array(
+                        'STEP' => 5,
+                        'SHOW' => true,
+                        'FORMAT' => 'retrieve',
+                        'ICONS' => true,
+                        'DELETE-ICON' => true,
+                        'BUTTONS' => true,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'MANDATORY' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'CATEGORY' => 'ITEMS',
+                        'ANSWER' => 'program_requirement',
+                        'ANSMODULE' => 'adm',
+                        'ITEM' => 'academic_program_id',
+                        'READONLY' => true,
+                        'CAN-BE-SETTED' => true,
+                        'CSS' => 'width_pct_100',
+                ),
                 'created_by' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -799,7 +752,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
                 'created_at' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -812,7 +764,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
                 'updated_by' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -827,7 +778,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
                 'updated_at' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -840,7 +790,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
                 'validated_by' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -855,7 +804,6 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
                 'validated_at' => array(
                         'SHOW-ADMIN' => true,
                         'RETRIEVE' => false,
@@ -868,11 +816,7 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-
-
-
-
-                'version'                  => array(
+                'version' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -881,8 +825,7 @@ class AdmAcademicProgramAfwStructure
                         'TYPE' => 'INT',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'update_groups_mfk'             => array(
+                'update_groups_mfk' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -893,8 +836,7 @@ class AdmAcademicProgramAfwStructure
                         'TYPE' => 'MFK',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'delete_groups_mfk'             => array(
+                'delete_groups_mfk' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -905,8 +847,7 @@ class AdmAcademicProgramAfwStructure
                         'TYPE' => 'MFK',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'display_groups_mfk'            => array(
+                'display_groups_mfk' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
@@ -917,18 +858,16 @@ class AdmAcademicProgramAfwStructure
                         'TYPE' => 'MFK',
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'sci_id'                        => array(
+                'sci_id' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'SHOW' => true,
                         'RETRIEVE' => false,
                         'QEDIT' => false,
-                        'TYPE' => 'INT', /*stepnum-not-the-object*/
+                        'TYPE' => 'INT',  /* stepnum-not-the-object */
                         'FGROUP' => 'tech_fields'
                 ),
-
-                'tech_notes'                         => array(
+                'tech_notes' => array(
                         'STEP' => 99,
                         'HIDE_IF_NEW' => true,
                         'TYPE' => 'TEXT',
@@ -940,7 +879,5 @@ class AdmAcademicProgramAfwStructure
                         'NO-ERROR-CHECK' => true,
                         'FGROUP' => 'tech_fields'
                 ),
-
-
         );
 }
