@@ -6772,6 +6772,17 @@ $role_info = array(
                   'css' => 'bf',
                   'icon' => 'bficon-104825 bfc-',
                 ),
+              105260 =>
+                array(
+                  'id' => '105260',
+                  'code' => 'f2-a-program_requirement/qsearch',
+                  'level' => '1',
+                  'menu_name_ar' => 'متطلبات البرامج',
+                  'menu_name_en' => 'Program Requirements',
+                  'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramRequirement&currmod=adm',
+                  'css' => 'bf',
+                  'icon' => 'bficon-105260 bfc-',
+                ),
             ),
           'otherbfs' =>
             array(
