@@ -1,0 +1,537 @@
+<?php
+
+	$role_info[385] = array (
+  'code' => 'goal-diploma',
+  'name' => 
+  array (
+    'ar' => 'المؤهلات',
+    'en' => 'Qualifications',
+  ),
+  'menu' => 
+  array (
+    'need_admin' => false,
+    'id' => '385',
+    'menu_name_' => 'المؤهلات',
+    'menu_name_ar' => 'المؤهلات',
+    'menu_name_en' => 'Qualifications',
+    'page' => 'main.php?Main_Page=fm.php&a=1282&r=385',
+    'css' => 'info',
+    'icon' => ' icon-385',
+    'showme' => true,
+    'items' => 
+    array (
+      104615 => 
+      array (
+        'id' => '104615',
+        'code' => 'f2-a-degree/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الشهادات',
+        'menu_name_en' => 'Degrees',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Degree&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104615 bfc-',
+      ),
+      104765 => 
+      array (
+        'id' => '104765',
+        'code' => 'f2-a-qualification/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المؤهلات',
+        'menu_name_en' => 'Qualifications',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Qualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104765 bfc-',
+      ),
+      104786 => 
+      array (
+        'id' => '104786',
+        'code' => 'f2-a-qual_source/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مصادر المؤهلات',
+        'menu_name_en' => 'Qual sources',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualSource&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104786 bfc-',
+      ),
+      104751 => 
+      array (
+        'id' => '104751',
+        'code' => 'f2-a-major_path/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مجموعات التأهيل',
+        'menu_name_en' => 'Major paths',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=MajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104751 bfc-',
+      ),
+      104779 => 
+      array (
+        'id' => '104779',
+        'code' => 'f2-a-qual_major_path/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مسارات تأهيل التخصصات',
+        'menu_name_en' => 'Qual major paths',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualMajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104779 bfc-',
+      ),
+      104758 => 
+      array (
+        'id' => '104758',
+        'code' => 'f2-a-program_qualification/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مسارات البرامج الاكاديمية',
+        'menu_name_en' => 'Program qualifications',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramQualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104758 bfc-',
+      ),
+      104832 => 
+      array (
+        'id' => '104832',
+        'code' => 'f2-a-evaluation/qsearch',
+        'level' => '1',
+        'menu_name_ar' => 'الاختبارات',
+        'menu_name_en' => 'Evaluations',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Evaluation&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104832 bfc-',
+      ),
+    ),
+    'otherbfs' => 
+    array (
+      104610 => 
+      array (
+        'id' => '104610',
+        'code' => 'f2-a-degree/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء شهادة',
+        'menu_name_en' => 'create ........',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Degree&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104610 bfc-',
+      ),
+      104612 => 
+      array (
+        'id' => '104612',
+        'code' => 'f2-a-degree/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح شهادة',
+        'menu_name_en' => 'delete ........',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=Degree&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104612 bfc-',
+      ),
+      104613 => 
+      array (
+        'id' => '104613',
+        'code' => 'f2-a-degree/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل شهادة',
+        'menu_name_en' => 'display details of ........',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Degree&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104613 bfc-',
+      ),
+      104614 => 
+      array (
+        'id' => '104614',
+        'code' => 'f2-a-degree/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في الشهادات',
+        'menu_name_en' => '........ search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Degree&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104614 bfc-',
+      ),
+      104615 => 
+      array (
+        'id' => '104615',
+        'code' => 'f2-a-degree/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الشهادات',
+        'menu_name_en' => 'Degrees',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Degree&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104615 bfc-',
+      ),
+      104746 => 
+      array (
+        'id' => '104746',
+        'code' => 'f2-a-major_path/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مجموعة تأهيل',
+        'menu_name_en' => 'create Major path',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=MajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104746 bfc-',
+      ),
+      104748 => 
+      array (
+        'id' => '104748',
+        'code' => 'f2-a-major_path/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مجموعة تأهيل',
+        'menu_name_en' => 'delete Major path',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=MajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104748 bfc-',
+      ),
+      104749 => 
+      array (
+        'id' => '104749',
+        'code' => 'f2-a-major_path/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مجموعة تأهيل',
+        'menu_name_en' => 'display details of Major path',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=MajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104749 bfc-',
+      ),
+      104750 => 
+      array (
+        'id' => '104750',
+        'code' => 'f2-a-major_path/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في مجموعات التأهيل',
+        'menu_name_en' => 'Major paths search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=MajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104750 bfc-',
+      ),
+      104751 => 
+      array (
+        'id' => '104751',
+        'code' => 'f2-a-major_path/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مجموعات التأهيل',
+        'menu_name_en' => 'Major paths',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=MajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104751 bfc-',
+      ),
+      104753 => 
+      array (
+        'id' => '104753',
+        'code' => 'f2-a-program_qualification/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مسار برنامج اكاديمي',
+        'menu_name_en' => 'create Program qualification',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ProgramQualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104753 bfc-',
+      ),
+      104755 => 
+      array (
+        'id' => '104755',
+        'code' => 'f2-a-program_qualification/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مسار برنامج اكاديمي',
+        'menu_name_en' => 'delete Program qualification',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ProgramQualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104755 bfc-',
+      ),
+      104756 => 
+      array (
+        'id' => '104756',
+        'code' => 'f2-a-program_qualification/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مسار برنامج اكاديمي',
+        'menu_name_en' => 'display details of Program qualification',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ProgramQualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104756 bfc-',
+      ),
+      104757 => 
+      array (
+        'id' => '104757',
+        'code' => 'f2-a-program_qualification/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في مسارات البرامج الاكاديمية',
+        'menu_name_en' => 'Program qualifications search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ProgramQualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104757 bfc-',
+      ),
+      104758 => 
+      array (
+        'id' => '104758',
+        'code' => 'f2-a-program_qualification/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مسارات البرامج الاكاديمية',
+        'menu_name_en' => 'Program qualifications',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramQualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104758 bfc-',
+      ),
+      104760 => 
+      array (
+        'id' => '104760',
+        'code' => 'f2-a-qualification/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مؤهل',
+        'menu_name_en' => 'create Qualification',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Qualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104760 bfc-',
+      ),
+      104762 => 
+      array (
+        'id' => '104762',
+        'code' => 'f2-a-qualification/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مؤهل',
+        'menu_name_en' => 'delete Qualification',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=Qualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104762 bfc-',
+      ),
+      104763 => 
+      array (
+        'id' => '104763',
+        'code' => 'f2-a-qualification/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مؤهل',
+        'menu_name_en' => 'display details of Qualification',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Qualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104763 bfc-',
+      ),
+      104764 => 
+      array (
+        'id' => '104764',
+        'code' => 'f2-a-qualification/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في المؤهلات',
+        'menu_name_en' => 'Qualifications search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Qualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104764 bfc-',
+      ),
+      104765 => 
+      array (
+        'id' => '104765',
+        'code' => 'f2-a-qualification/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المؤهلات',
+        'menu_name_en' => 'Qualifications',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Qualification&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104765 bfc-',
+      ),
+      104767 => 
+      array (
+        'id' => '104767',
+        'code' => 'f2-a-qualification_major/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء تخصص مؤهل',
+        'menu_name_en' => 'create Qualification major',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=QualificationMajor&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104767 bfc-',
+      ),
+      104769 => 
+      array (
+        'id' => '104769',
+        'code' => 'f2-a-qualification_major/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح تخصص مؤهل',
+        'menu_name_en' => 'delete Qualification major',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=QualificationMajor&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104769 bfc-',
+      ),
+      104770 => 
+      array (
+        'id' => '104770',
+        'code' => 'f2-a-qualification_major/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل تخصص مؤهل',
+        'menu_name_en' => 'display details of Qualification major',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=QualificationMajor&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104770 bfc-',
+      ),
+      104771 => 
+      array (
+        'id' => '104771',
+        'code' => 'f2-a-qualification_major/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في تخصصات المؤهلات',
+        'menu_name_en' => 'Qualification majors search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=QualificationMajor&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104771 bfc-',
+      ),
+      104772 => 
+      array (
+        'id' => '104772',
+        'code' => 'f2-a-qualification_major/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'تخصصات المؤهلات',
+        'menu_name_en' => 'Qualification majors',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualificationMajor&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104772 bfc-',
+      ),
+      104774 => 
+      array (
+        'id' => '104774',
+        'code' => 'f2-a-qual_major_path/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مسار تأهيل تخصص',
+        'menu_name_en' => 'create Qual major path',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=QualMajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104774 bfc-',
+      ),
+      104776 => 
+      array (
+        'id' => '104776',
+        'code' => 'f2-a-qual_major_path/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مسار تأهيل تخصص',
+        'menu_name_en' => 'delete Qual major path',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=QualMajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104776 bfc-',
+      ),
+      104777 => 
+      array (
+        'id' => '104777',
+        'code' => 'f2-a-qual_major_path/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مسار تأهيل تخصص',
+        'menu_name_en' => 'display details of Qual major path',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=QualMajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104777 bfc-',
+      ),
+      104778 => 
+      array (
+        'id' => '104778',
+        'code' => 'f2-a-qual_major_path/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في مسارات تأهيل التخصصات',
+        'menu_name_en' => 'Qual major paths search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=QualMajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104778 bfc-',
+      ),
+      104779 => 
+      array (
+        'id' => '104779',
+        'code' => 'f2-a-qual_major_path/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مسارات تأهيل التخصصات',
+        'menu_name_en' => 'Qual major paths',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualMajorPath&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104779 bfc-',
+      ),
+      104781 => 
+      array (
+        'id' => '104781',
+        'code' => 'f2-a-qual_source/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مصدر مؤهل',
+        'menu_name_en' => 'create Qual source',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=QualSource&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104781 bfc-',
+      ),
+      104783 => 
+      array (
+        'id' => '104783',
+        'code' => 'f2-a-qual_source/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مصدر مؤهل',
+        'menu_name_en' => 'delete Qual source',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=QualSource&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104783 bfc-',
+      ),
+      104784 => 
+      array (
+        'id' => '104784',
+        'code' => 'f2-a-qual_source/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مصدر مؤهل',
+        'menu_name_en' => 'display details of Qual source',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=QualSource&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104784 bfc-',
+      ),
+      104785 => 
+      array (
+        'id' => '104785',
+        'code' => 'f2-a-qual_source/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في مصادر المؤهلات',
+        'menu_name_en' => 'Qual sources search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=QualSource&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104785 bfc-',
+      ),
+      104786 => 
+      array (
+        'id' => '104786',
+        'code' => 'f2-a-qual_source/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'مصادر المؤهلات',
+        'menu_name_en' => 'Qual sources',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualSource&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104786 bfc-',
+      ),
+      104827 => 
+      array (
+        'id' => '104827',
+        'code' => 'f2-a-evaluation/edit',
+        'level' => '1',
+        'menu_name_ar' => 'إنشاء اختبار',
+        'menu_name_en' => 'create Evaluation',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Evaluation&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104827 bfc-',
+      ),
+      104830 => 
+      array (
+        'id' => '104830',
+        'code' => 'f2-a-evaluation/display',
+        'level' => '1',
+        'menu_name_ar' => 'عرض تفاصيل اختبار',
+        'menu_name_en' => 'display details of Evaluation',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Evaluation&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104830 bfc-',
+      ),
+      104831 => 
+      array (
+        'id' => '104831',
+        'code' => 'f2-a-evaluation/search',
+        'level' => '1',
+        'menu_name_ar' => 'البحث في الاختبارات',
+        'menu_name_en' => 'Evaluations search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Evaluation&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104831 bfc-',
+      ),
+      104832 => 
+      array (
+        'id' => '104832',
+        'code' => 'f2-a-evaluation/qsearch',
+        'level' => '1',
+        'menu_name_ar' => 'الاختبارات',
+        'menu_name_en' => 'Evaluations',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Evaluation&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104832 bfc-',
+      ),
+    ),
+    'sub-folders' => 
+    array (
+    ),
+  ),
+);
