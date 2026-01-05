@@ -92,7 +92,7 @@ class AdmProgramRequirementAfwStructure
                                 'EMPTY_IS_ALL' => true,
                                 'UTF8' => false,
                                 'TYPE' => 'ENUM',
-                                'ANSWER' => '',
+                                'ANSWER' => 'FUNCTION',
                                 'READONLY' => false,
                                 'DNA' => true,
                                 'CSS' => 'width_pct_25',
