@@ -1,0 +1,503 @@
+
+	$role_info[381] = array (
+  'code' => 'goal-struct',
+  'name' => 
+  array (
+    'ar' => 'الهيكل الأكاديمي',
+    'en' => 'Academic structure',
+  ),
+  'menu' => 
+  array (
+    'need_admin' => false,
+    'id' => '381',
+    'menu_name_' => 'الهيكل الأكاديمي',
+    'menu_name_ar' => 'الهيكل الأكاديمي',
+    'menu_name_en' => 'Academic structure',
+    'page' => 'main.php?Main_Page=fm.php&a=1282&r=381',
+    'css' => 'info',
+    'icon' => ' icon-381',
+    'showme' => true,
+    'items' => 
+    array (
+      104608 => 
+      array (
+        'id' => '104608',
+        'code' => 'f2-a-academic_level/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المراحل الدراسية',
+        'menu_name_en' => 'Academic levels',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104608 bfc-',
+      ),
+      104629 => 
+      array (
+        'id' => '104629',
+        'code' => 'f2-a-department/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الأقسام',
+        'menu_name_en' => 'xxxxx',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Department&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104629 bfc-',
+      ),
+      104657 => 
+      array (
+        'id' => '104657',
+        'code' => 'f2-a-training_unit_type/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الكليات',
+        'menu_name_en' => 'Colleges',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnitType&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104657 bfc-',
+      ),
+      104671 => 
+      array (
+        'id' => '104671',
+        'code' => 'f2-a-training_unit/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الجامعات',
+        'menu_name_en' => 'Training units',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnit&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104671 bfc-',
+      ),
+      104664 => 
+      array (
+        'id' => '104664',
+        'code' => 'f2-a-institution/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المؤسسات الدراسية',
+        'menu_name_en' => 'Institutions',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Institution&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104664 bfc-',
+      ),
+      104678 => 
+      array (
+        'id' => '104678',
+        'code' => 'f2-a-academic_program/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'البرامج الدراسية',
+        'menu_name_en' => 'Academic programs',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgram&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104678 bfc-',
+      ),
+      104692 => 
+      array (
+        'id' => '104692',
+        'code' => 'f2-a-program_track/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المسارات الأكاديمية',
+        'menu_name_en' => 'Program tracks',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramTrack&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104692 bfc-',
+      ),
+    ),
+    'otherbfs' => 
+    array (
+      104603 => 
+      array (
+        'id' => '104603',
+        'code' => 'f2-a-academic_level/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مرحلة اكاديمية',
+        'menu_name_en' => 'create Academic level',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104603 bfc-',
+      ),
+      104605 => 
+      array (
+        'id' => '104605',
+        'code' => 'f2-a-academic_level/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مرحلة اكاديمية',
+        'menu_name_en' => 'delete Academic level',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104605 bfc-',
+      ),
+      104606 => 
+      array (
+        'id' => '104606',
+        'code' => 'f1-a-tb13865/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مرحلة اكاديمية',
+        'menu_name_en' => 'display details of Academic level',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104606 bfc-',
+      ),
+      104607 => 
+      array (
+        'id' => '104607',
+        'code' => 'f2-a-academic_level/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في المراحل الدراسية',
+        'menu_name_en' => 'Academic levels search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104607 bfc-',
+      ),
+      104608 => 
+      array (
+        'id' => '104608',
+        'code' => 'f2-a-academic_level/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المراحل الدراسية',
+        'menu_name_en' => 'Academic levels',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104608 bfc-',
+      ),
+      104624 => 
+      array (
+        'id' => '104624',
+        'code' => 'f2-a-department/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء قسم',
+        'menu_name_en' => 'create xxxxx',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Department&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104624 bfc-',
+      ),
+      104626 => 
+      array (
+        'id' => '104626',
+        'code' => 'f2-a-department/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح قسم',
+        'menu_name_en' => 'delete xxxxx',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=Department&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104626 bfc-',
+      ),
+      104627 => 
+      array (
+        'id' => '104627',
+        'code' => 'f2-a-department/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل قسم',
+        'menu_name_en' => 'display details of xxxxx',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Department&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104627 bfc-',
+      ),
+      104628 => 
+      array (
+        'id' => '104628',
+        'code' => 'f2-a-department/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في الأقسام',
+        'menu_name_en' => 'xxxxx search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Department&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104628 bfc-',
+      ),
+      104629 => 
+      array (
+        'id' => '104629',
+        'code' => 'f2-a-department/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الأقسام',
+        'menu_name_en' => 'xxxxx',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Department&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104629 bfc-',
+      ),
+      104652 => 
+      array (
+        'id' => '104652',
+        'code' => 'f2-a-training_unit_type/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء كلية',
+        'menu_name_en' => 'create College',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=TrainingUnitType&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104652 bfc-',
+      ),
+      104654 => 
+      array (
+        'id' => '104654',
+        'code' => 'f2-a-training_unit_type/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح كلية',
+        'menu_name_en' => 'delete College',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=TrainingUnitType&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104654 bfc-',
+      ),
+      104655 => 
+      array (
+        'id' => '104655',
+        'code' => 'f2-a-training_unit_type/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل كلية',
+        'menu_name_en' => 'display details of College',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=TrainingUnitType&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104655 bfc-',
+      ),
+      104656 => 
+      array (
+        'id' => '104656',
+        'code' => 'f2-a-training_unit_type/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في الكليات',
+        'menu_name_en' => 'Colleges search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=TrainingUnitType&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104656 bfc-',
+      ),
+      104657 => 
+      array (
+        'id' => '104657',
+        'code' => 'f2-a-training_unit_type/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الكليات',
+        'menu_name_en' => 'Colleges',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnitType&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104657 bfc-',
+      ),
+      104659 => 
+      array (
+        'id' => '104659',
+        'code' => 'f2-a-institution/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مؤسسة اكاديمية',
+        'menu_name_en' => 'create Institution',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Institution&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104659 bfc-',
+      ),
+      104661 => 
+      array (
+        'id' => '104661',
+        'code' => 'f2-a-institution/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مؤسسة اكاديمية',
+        'menu_name_en' => 'delete Institution',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=Institution&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104661 bfc-',
+      ),
+      104662 => 
+      array (
+        'id' => '104662',
+        'code' => 'f2-a-institution/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مؤسسة اكاديمية',
+        'menu_name_en' => 'display details of Institution',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Institution&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104662 bfc-',
+      ),
+      104663 => 
+      array (
+        'id' => '104663',
+        'code' => 'f2-a-institution/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في المؤسسات الدراسية',
+        'menu_name_en' => 'Institutions search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Institution&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104663 bfc-',
+      ),
+      104664 => 
+      array (
+        'id' => '104664',
+        'code' => 'f2-a-institution/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المؤسسات الدراسية',
+        'menu_name_en' => 'Institutions',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Institution&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104664 bfc-',
+      ),
+      104666 => 
+      array (
+        'id' => '104666',
+        'code' => 'f2-a-training_unit/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء جامعة',
+        'menu_name_en' => 'create Training unit',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=TrainingUnit&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104666 bfc-',
+      ),
+      104668 => 
+      array (
+        'id' => '104668',
+        'code' => 'f2-a-training_unit/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح جامعة',
+        'menu_name_en' => 'delete Training unit',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=TrainingUnit&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104668 bfc-',
+      ),
+      104669 => 
+      array (
+        'id' => '104669',
+        'code' => 'f2-a-training_unit/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل جامعة',
+        'menu_name_en' => 'display details of Training unit',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=TrainingUnit&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104669 bfc-',
+      ),
+      104670 => 
+      array (
+        'id' => '104670',
+        'code' => 'f2-a-training_unit/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في الجامعات',
+        'menu_name_en' => 'Training units search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=TrainingUnit&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104670 bfc-',
+      ),
+      104671 => 
+      array (
+        'id' => '104671',
+        'code' => 'f2-a-training_unit/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'الجامعات',
+        'menu_name_en' => 'Training units',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TrainingUnit&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104671 bfc-',
+      ),
+      104673 => 
+      array (
+        'id' => '104673',
+        'code' => 'f2-a-academic_program/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء برنامج دراسي',
+        'menu_name_en' => 'create Academic program',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=AcademicProgram&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104673 bfc-',
+      ),
+      104675 => 
+      array (
+        'id' => '104675',
+        'code' => 'f2-a-academic_program/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح برنامج دراسي',
+        'menu_name_en' => 'delete Academic program',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=AcademicProgram&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104675 bfc-',
+      ),
+      104676 => 
+      array (
+        'id' => '104676',
+        'code' => 'f2-a-academic_program/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل برنامج دراسي',
+        'menu_name_en' => 'display details of Academic program',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=AcademicProgram&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104676 bfc-',
+      ),
+      104677 => 
+      array (
+        'id' => '104677',
+        'code' => 'f2-a-academic_program/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في البرامج الدراسية',
+        'menu_name_en' => 'Academic programs search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=AcademicProgram&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104677 bfc-',
+      ),
+      104678 => 
+      array (
+        'id' => '104678',
+        'code' => 'f2-a-academic_program/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'البرامج الدراسية',
+        'menu_name_en' => 'Academic programs',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AcademicProgram&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104678 bfc-',
+      ),
+      104687 => 
+      array (
+        'id' => '104687',
+        'code' => 'f2-a-program_track/edit',
+        'level' => '999',
+        'menu_name_ar' => 'إنشاء مسار أكاديمي',
+        'menu_name_en' => 'create Program track',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ProgramTrack&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104687 bfc-',
+      ),
+      104689 => 
+      array (
+        'id' => '104689',
+        'code' => 'f2-a-program_track/delete',
+        'level' => '999',
+        'menu_name_ar' => 'مسح مسار أكاديمي',
+        'menu_name_en' => 'delete Program track',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ProgramTrack&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104689 bfc-',
+      ),
+      104690 => 
+      array (
+        'id' => '104690',
+        'code' => 'f2-a-program_track/display',
+        'level' => '999',
+        'menu_name_ar' => 'عرض تفاصيل مسار أكاديمي',
+        'menu_name_en' => 'display details of Program track',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ProgramTrack&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104690 bfc-',
+      ),
+      104691 => 
+      array (
+        'id' => '104691',
+        'code' => 'f2-a-program_track/search',
+        'level' => '999',
+        'menu_name_ar' => 'البحث في المسارات الأكاديمية',
+        'menu_name_en' => 'Program tracks search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ProgramTrack&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104691 bfc-',
+      ),
+      104692 => 
+      array (
+        'id' => '104692',
+        'code' => 'f2-a-program_track/qsearch',
+        'level' => '999',
+        'menu_name_ar' => 'المسارات الأكاديمية',
+        'menu_name_en' => 'Program tracks',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ProgramTrack&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104692 bfc-',
+      ),
+      104817 => 
+      array (
+        'id' => '104817',
+        'code' => 'f2-a-academic_level/display',
+        'level' => '1',
+        'menu_name_ar' => 'عرض تفاصيل مرحلة اكاديمية',
+        'menu_name_en' => 'display details of Academic level',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=AcademicLevel&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104817 bfc-',
+      ),
+    ),
+    'sub-folders' => 
+    array (
+    ),
+  ),
+);
