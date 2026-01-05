@@ -57,7 +57,7 @@ $role_info[386] = array(
       array(
         'id' => '105272',
         'code' => 'f2-a-applicant_evaluation/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'اختبارات المتقدم',
         'menu_name_en' => 'Applicant evaluations',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantEvaluation&currmod=adm',
@@ -391,7 +391,7 @@ $role_info[386] = array(
       array(
         'id' => '105267',
         'code' => 'f2-a-applicant_evaluation/edit',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إنشاء اختبار المتقدم',
         'menu_name_en' => 'create Applicant evaluation',
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm',
@@ -402,7 +402,7 @@ $role_info[386] = array(
       array(
         'id' => '105269',
         'code' => 'f2-a-applicant_evaluation/delete',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مسح اختبار المتقدم',
         'menu_name_en' => 'delete Applicant evaluation',
         'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantEvaluation&currmod=adm',
@@ -413,7 +413,7 @@ $role_info[386] = array(
       array(
         'id' => '105270',
         'code' => 'f2-a-applicant_evaluation/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل اختبار المتقدم',
         'menu_name_en' => 'display details of Applicant evaluation',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantEvaluation&currmod=adm',
@@ -424,7 +424,7 @@ $role_info[386] = array(
       array(
         'id' => '105271',
         'code' => 'f2-a-applicant_evaluation/search',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'البحث في اختبارات المتقدم',
         'menu_name_en' => 'Applicant evaluations search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantEvaluation&currmod=adm',
@@ -435,7 +435,7 @@ $role_info[386] = array(
       array(
         'id' => '105272',
         'code' => 'f2-a-applicant_evaluation/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'اختبارات المتقدم',
         'menu_name_en' => 'Applicant evaluations',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantEvaluation&currmod=adm',
