@@ -1707,4 +1707,48 @@ class AdmObject extends AfwMomkenObject
 
         return $arr_list_of_reupload;
     }
+
+    public static function list_of_application_category_enum()
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        return self::application_category()[$lang];
+    }
+
+    public static function application_category()
+    {
+        $arr_list_of_application_category = array();
+
+        $main_company = AfwSession::currentCompany();
+        $file_dir_name = dirname(__FILE__);
+        include ($file_dir_name . "/../../client-$main_company/extra/application_category-$main_company.php");
+
+        foreach ($lookup as $id => $lookup_row) {
+            $arr_list_of_application_category['ar'][$id] = $lookup_row['ar'];
+            $arr_list_of_application_category['en'][$id] = $lookup_row['en'];
+        }
+
+        return $arr_list_of_application_category;
+    }
+
+    public static function list_of_application_class_enum()
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        return self::application_class()[$lang];
+    }
+
+    public static function application_class()
+    {
+        $arr_list_of_application_class = array();
+
+        $main_company = AfwSession::currentCompany();
+        $file_dir_name = dirname(__FILE__);
+        include ($file_dir_name . "/../../client-$main_company/extra/application_class-$main_company.php");
+
+        foreach ($lookup as $id => $lookup_row) {
+            $arr_list_of_application_class['ar'][$id] = $lookup_row['ar'];
+            $arr_list_of_application_class['en'][$id] = $lookup_row['en'];
+        }
+
+        return $arr_list_of_application_class;
+    }
 }
