@@ -144,7 +144,7 @@ class ApplicantFile extends AdmObject
     {
         if($fields_updated['approved']) {
             if($this->getVal('approved') != 'W'){
-                $this->set('reupload_enum', 0);
+                $this->set('reupload_enum', 3);
             }
         }
 
