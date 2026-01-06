@@ -143,10 +143,17 @@ class ApplicantFile extends AdmObject
     public function beforeMaj($id, $fields_updated)
     {
         if($fields_updated['approved']) {
-            if($this->sureIs('approved')){
+            if($this->getVal('approved') != 'W'){
                 $this->set('reupload_enum', 0);
             }
         }
+
+        if($fields_updated['reupload_enum']) {
+            if($this->getVal('reupload_enum') == 1){
+                $this->set('approved', 'W');
+            }
+        }
+
         return true;
     }      
 
