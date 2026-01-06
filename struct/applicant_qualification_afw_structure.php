@@ -201,7 +201,8 @@ class AdmApplicantQualificationAfwStructure
                         'QEDIT' => true,
                         'EDIT' => true,
                         'SIZE' => 32,
-                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
                         'MANDATORY' => true,
                         'STEP' => 1,
                         'DISPLAY' => true,
@@ -209,7 +210,7 @@ class AdmApplicantQualificationAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-                
+
 
                 'gpa_from' => array(
                         'IMPORTANT' => 'HIGH',
@@ -301,11 +302,24 @@ class AdmApplicantQualificationAfwStructure
                         'DEPENDENCIES' => ['qualification_id'],
                         'CSS' => 'width_pct_25',
                 ),
-                'source_name' => array('SEARCH' => false,  'QSEARCH' => false,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 48,  'MAXLENGTH' => 48,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => true,  
-				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_50', ),
+                'source_name' => array(
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 48,
+                        'MAXLENGTH' => 48,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
                 'qualification_major_desc' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -329,7 +343,7 @@ class AdmApplicantQualificationAfwStructure
 
                 'imported' => array(
                         'IMPORTANT' => 'HIGH',
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false,
                         'SHOW' => true,
                         'EDIT' => true,
                         'DEFAUT' => 'N',
@@ -381,7 +395,7 @@ class AdmApplicantQualificationAfwStructure
                         'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => 40,
@@ -423,8 +437,8 @@ class AdmApplicantQualificationAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
-                                                ),
-'grading_scale_id' => array(
+                ),
+                'grading_scale_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,
@@ -449,7 +463,7 @@ class AdmApplicantQualificationAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_50',
-                                                ),
+                ),
                 'study_type_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
