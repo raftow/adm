@@ -40,7 +40,7 @@ class AdmObject extends AfwMomkenObject
             $file_dir_name = dirname(__FILE__);
             $fields_manager_full_file_name = $file_dir_name . "/../../cache/$main_company" . '_fields_manager.php';
             if (file_exists($fields_manager_full_file_name)) {
-                self::$fields_manager_matrix = include_once ($fields_manager_full_file_name);
+                self::$fields_manager_matrix = include_once($fields_manager_full_file_name);
             } else {
                 throw new AfwBusinessException("Fields Manager File $fields_manager_full_file_name has not been already generated");
             }
@@ -862,7 +862,7 @@ class AdmObject extends AfwMomkenObject
 
         $main_company = AfwSession::currentCompany();
         $file_dir_name = dirname(__FILE__);
-        include ($file_dir_name . "/../../client-$main_company/extra/qualification_level-$main_company.php");
+        include($file_dir_name . "/../../client-$main_company/extra/qualification_level-$main_company.php");
 
         foreach ($lookup as $id => $lookup_row) {
             $arr_list_of_level['ar'][$id] = $lookup_row['ar'];
@@ -1519,7 +1519,7 @@ class AdmObject extends AfwMomkenObject
         $api_runner_class = AfwStringHelper::tableToClass($api_runner_file);
         if (!class_exists($api_runner_class, false)) {
             $file_dir_name = dirname(__FILE__);
-            require ($file_dir_name . "/../../client-$main_company/extra/$api_runner_file.php");
+            require($file_dir_name . "/../../client-$main_company/extra/$api_runner_file.php");
         }
 
         return $api_runner_class;
@@ -1532,7 +1532,7 @@ class AdmObject extends AfwMomkenObject
         $tunit_to_orgunit_class = AfwStringHelper::tableToClass($tunit_to_orgunit_file);
         if (!class_exists($tunit_to_orgunit_class, false)) {
             $file_dir_name = dirname(__FILE__);
-            require ($file_dir_name . "/../../client-$main_company/extra/$tunit_to_orgunit_file.php");
+            require($file_dir_name . "/../../client-$main_company/extra/$tunit_to_orgunit_file.php");
         }
 
         return $tunit_to_orgunit_class;
@@ -1675,12 +1675,15 @@ class AdmObject extends AfwMomkenObject
             $title_en = 'Reset settings';
             $methodName = 'resetSettings';
 
-            $pbms[AfwStringHelper::hzmEncode($methodName)] = ['METHOD' => $methodName,
+            $pbms[AfwStringHelper::hzmEncode($methodName)] = [
+                'METHOD' => $methodName,
                 'COLOR' => $color,
                 'LABEL_AR' => $title_ar,
                 'LABEL_EN' => $title_en,
-                'ADMIN-ONLY' => true, 'BF-ID' => '',
-                'STEP' => $settings_step];
+                'ADMIN-ONLY' => true,
+                'BF-ID' => '',
+                'STEP' => $settings_step
+            ];
         }
 
         return $pbms;
@@ -1721,7 +1724,7 @@ class AdmObject extends AfwMomkenObject
 
         $main_company = AfwSession::currentCompany();
         $file_dir_name = dirname(__FILE__);
-        include ($file_dir_name . "/../../client-$main_company/extra/application_category-$main_company.php");
+        include($file_dir_name . "/../../client-$main_company/extra/application_category-$main_company.php");
 
         foreach ($lookup as $id => $lookup_row) {
             $arr_list_of_application_category['ar'][$id] = $lookup_row['ar'];
@@ -1743,7 +1746,7 @@ class AdmObject extends AfwMomkenObject
 
         $main_company = AfwSession::currentCompany();
         $file_dir_name = dirname(__FILE__);
-        include ($file_dir_name . "/../../client-$main_company/extra/application_class-$main_company.php");
+        include($file_dir_name . "/../../client-$main_company/extra/application_class-$main_company.php");
 
         foreach ($lookup as $id => $lookup_row) {
             $arr_list_of_application_class['ar'][$id] = $lookup_row['ar'];
@@ -1751,5 +1754,26 @@ class AdmObject extends AfwMomkenObject
         }
 
         return $arr_list_of_application_class;
+    }
+
+
+
+
+    public function runCondition($workflowConditionObject, $workflowRequestObject, $lang = "ar")
+    {
+        $condition_code = $workflowConditionObject->getVal("lookup_code");
+        $conditionMethod = "checkCondition_" . $condition_code;
+
+        if ($condition_code == "nothing") {
+            $reason = '';
+            $result = true;
+            return [$result, $reason];
+        }
+
+
+
+
+
+        return $this->$conditionMethod($workflowConditionObject, $workflowRequestObject, $lang);
     }
 }

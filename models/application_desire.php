@@ -1008,28 +1008,23 @@ class ApplicationDesire extends AdmObject
                         if ($id_replace == 0) {
                                 // FK part of me - not deletable
                                 $this->getApplicationPlan();
-                                if ($this->objApplicationPlan)
-                                {
+                                if ($this->objApplicationPlan) {
                                         $wModelObj = $this->objApplicationPlan->getWorkflowModel();
-                                        if($wModelObj)
-                                        {
+                                        if ($wModelObj) {
                                                 $applicationObj = $this->getApplicationObject();
                                                 $applicantObj = $applicationObj->getApplicant();
                                                 $wApplicantObj = $applicantObj->getWorkflowApplicant();
-                                                if($wApplicantObj)
-                                                {
+                                                if ($wApplicantObj) {
                                                         $wApplicantObjId = $wApplicantObj->id;
                                                         $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
-                                                        if($wRequestObj)
-                                                        {
+                                                        if ($wRequestObj) {
                                                                 $this->deleteNotAllowedReason = "The applicant has a workflow request linked to this desire and can't be deleted";
                                                                 return false;
                                                         }
                                                 }
-                                                
                                         }
                                 }
-                                
+
                                 // FK part of me - deletable
 
                                 // FK not part of me - replaceable
@@ -1748,5 +1743,14 @@ class ApplicationDesire extends AdmObject
         public function showSortingDiv($lang)
         {
                 return $this->tm('@@ working on ...', $lang);
+        }
+
+
+        public function checkCondition_allDocumentsValid($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                $reason = 'Not implemented yet';
+                $result = false;
+
+                return [$result, $reason];
         }
 }
