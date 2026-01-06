@@ -232,7 +232,8 @@ class ApplicantFile extends AdmObject
 
         return [$switcher_authorized, $switcher_title, $switcher_text];
     }
-    /*
+
+
     public function popupEditConfig($col, $auser = null)
     {
         $authorized = false;
@@ -246,7 +247,7 @@ class ApplicantFile extends AdmObject
         }
 
         return [$authorized, $title, $text];
-    }*/
+    }
 }
 
 // errors
