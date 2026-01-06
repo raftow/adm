@@ -242,6 +242,7 @@ class AdmApplicantFileAfwStructure
                                 'QEDIT' => true,
                                 'DEFAULT' => 'W',
                                 'TYPE' => 'YN',
+                                'W-IS-VALUE' => true, 
                                 'FORMAT' => 'icon',
                                 'READONLY' => false,
                         ),
