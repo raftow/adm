@@ -142,22 +142,22 @@ class ApplicantFile extends AdmObject
 
     public function beforeMaj($id, $fields_updated)
     {
-        if($fields_updated['approved']) {
-            if($this->getVal('approved') != 'W'){
+        if ($fields_updated['approved']) {
+            if ($this->getVal('approved') != 'W') {
                 $this->set('reupload_enum', 3);
             }
         }
 
-        if($fields_updated['reupload_enum']) {
-            if($this->getVal('reupload_enum') == 1){
+        if ($fields_updated['reupload_enum']) {
+            if ($this->getVal('reupload_enum') == 1) {
                 $this->set('approved', 'W');
             }
         }
 
         return true;
-    }      
+    }
 
-    
+
 
     public function beforeDelete($id, $id_replace)
     {
@@ -210,8 +210,6 @@ class ApplicantFile extends AdmObject
             $wfObj->set('doc_type_id', $this->v('doc_type_id'));
             $wfObj->commit();
         }
-
-        
     }
 
     public function switcherConfig($col, $auser = null)
@@ -234,6 +232,21 @@ class ApplicantFile extends AdmObject
 
         return [$switcher_authorized, $switcher_title, $switcher_text];
     }
+    /*
+    public function popupEditConfig($col, $auser = null)
+    {
+        $authorized = false;
+        $title = "";
+        $text = "";
+
+        if ($col == "reupload_enum") {
+            $authorized = true;
+            $title = "لاجل إعادة الرفع";
+            $text = "لاجل شاشة إعادة رفع الوثائق من قبل المتقدم";
+        }
+
+        return [$authorized, $title, $text];
+    }*/
 }
 
 // errors
