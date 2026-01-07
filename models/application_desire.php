@@ -1761,6 +1761,8 @@ class ApplicationDesire extends AdmObject
                                 // list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo('N');
                                 $reason = $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang);
                                 break;
+                        } else {
+                                $reason .= $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang) . "<br>\n";
                         }
                 }
 
