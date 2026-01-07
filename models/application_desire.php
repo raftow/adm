@@ -1748,10 +1748,15 @@ class ApplicationDesire extends AdmObject
 
         public function checkCondition_allDocumentsValid($workflowConditionObject, $workflowRequestObject, $lang)
         {
-                $reason = '';
                 $result = true;
+                $applicationObject = $this->getApplicationObject();
+                if (!$applicationObject) {
+                        return [false, "No application object found"];
+                }
+                $applicantFileList = $applicationObject->showAttribute('applicantFileList');
+                $reason = $applicationObject->getDisplay($lang) . " : Files count : " . count($applicantFileList) . "<br>\n";
 
-                $applicantFileList = $this->getApplicationObject()->showAttribute('applicantFileList');
+
                 foreach ($applicantFileList as $applicantFileItem) {
                         /**
                          * @var ApplicantFile $applicantFileItem
@@ -1762,7 +1767,7 @@ class ApplicationDesire extends AdmObject
                                 $reason = $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang);
                                 break;
                         } else {
-                                $reason .= $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang) . "<br>\n";
+                                $reason .= $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " != N = " . $applicantFileItem->getVal('approved') . "<br>\n";
                         }
                 }
 
