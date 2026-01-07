@@ -1753,7 +1753,7 @@ class ApplicationDesire extends AdmObject
                 if (!$applicationObject) {
                         return [false, "No application object found"];
                 }
-                $applicantFileList = $applicationObject->showAttribute('applicantFileList');
+                $applicantFileList = $applicationObject->get('applicantFileList');
                 $reason = $applicationObject->getDisplay($lang) . " : Files count : " . count($applicantFileList) . "<br>\n";
 
 
