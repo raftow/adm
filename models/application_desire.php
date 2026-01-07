@@ -1748,8 +1748,21 @@ class ApplicationDesire extends AdmObject
 
         public function checkCondition_allDocumentsValid($workflowConditionObject, $workflowRequestObject, $lang)
         {
-                $reason = 'Not implemented yet';
-                $result = false;
+                $reason = '';
+                $result = true;
+
+                $applicantFileList = $this->getApplicationObject()->showAttribute('applicantFileList');
+                foreach ($applicantFileList as $applicantFileItem) {
+                        /**
+                         * @var ApplicantFile $applicantFileItem
+                         */
+                        if ($applicantFileItem->getVal('approved') == 'N') {
+                                $result = false;
+                                // list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo('N');
+                                $reason = $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang);
+                                break;
+                        }
+                }
 
                 return [$result, $reason];
         }
