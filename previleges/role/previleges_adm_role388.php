@@ -1,14 +1,14 @@
 <?php
 
-	$role_info[388] = array (
+$role_info[388] = array(
   'code' => 'goal-supervisor',
-  'name' => 
-  array (
+  'name' =>
+  array(
     'ar' => 'ادارة المحتوى',
     'en' => 'content management',
   ),
-  'menu' => 
-  array (
+  'menu' =>
+  array(
     'need_admin' => false,
     'id' => '388',
     'menu_name_' => 'ادارة المحتوى',
@@ -18,21 +18,21 @@
     'css' => 'info',
     'icon' => ' icon-388',
     'showme' => true,
-    'items' => 
-    array (
-      104860 => 
-      array (
+    'items' =>
+    array(
+      104860 =>
+      array(
         'id' => '104860',
         'code' => 'f2-a-adm_orgunit/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إدارات قبول وتسجيل الطلاب',
         'menu_name_en' => 'Adm orgunits',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmOrgunit&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104860 bfc-',
       ),
-      104861 => 
-      array (
+      104861 =>
+      array(
         'id' => '104861',
         'code' => 'f2-a-adm_orgunit/stats',
         'level' => '1',
@@ -42,19 +42,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104861 bfc-',
       ),
-      104846 => 
-      array (
+      104846 =>
+      array(
         'id' => '104846',
         'code' => 'f2-a-adm_employee/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'منسقي القبول والتسجيل',
         'menu_name_en' => 'Adm employees',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmEmployee&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104846 bfc-',
       ),
-      104847 => 
-      array (
+      104847 =>
+      array(
         'id' => '104847',
         'code' => 'f2-a-adm_employee/stats',
         'level' => '1',
@@ -64,19 +64,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104847 bfc-',
       ),
-      104853 => 
-      array (
+      104853 =>
+      array(
         'id' => '104853',
         'code' => 'f2-a-adm_emp_request/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'طلبات اضافة منسقي القبول والتسجيل',
         'menu_name_en' => 'Adm emp requests',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmEmpRequest&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104853 bfc-',
       ),
-      104854 => 
-      array (
+      104854 =>
+      array(
         'id' => '104854',
         'code' => 'f2-a-adm_emp_request/stats',
         'level' => '1',
@@ -87,10 +87,10 @@
         'icon' => 'bficon-104854 bfc-',
       ),
     ),
-    'otherbfs' => 
-    array (
-      104841 => 
-      array (
+    'otherbfs' =>
+    array(
+      104841 =>
+      array(
         'id' => '104841',
         'code' => 'f2-a-adm_employee/edit',
         'level' => '1',
@@ -100,8 +100,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104841 bfc-',
       ),
-      104842 => 
-      array (
+      104842 =>
+      array(
         'id' => '104842',
         'code' => 'f2-a-adm_employee/qedit',
         'level' => '1',
@@ -111,8 +111,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104842 bfc-',
       ),
-      104843 => 
-      array (
+      104843 =>
+      array(
         'id' => '104843',
         'code' => 'f2-a-adm_employee/delete',
         'level' => '1',
@@ -122,19 +122,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104843 bfc-',
       ),
-      104844 => 
-      array (
+      104844 =>
+      array(
         'id' => '104844',
         'code' => 'f2-a-adm_employee/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل منسق',
         'menu_name_en' => 'display details of Adm employee',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=AdmEmployee&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104844 bfc-',
       ),
-      104845 => 
-      array (
+      104845 =>
+      array(
         'id' => '104845',
         'code' => 'f2-a-adm_employee/search',
         'level' => '1',
@@ -144,19 +144,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104845 bfc-',
       ),
-      104846 => 
-      array (
+      104846 =>
+      array(
         'id' => '104846',
         'code' => 'f2-a-adm_employee/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'منسقي القبول والتسجيل',
         'menu_name_en' => 'Adm employees',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmEmployee&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104846 bfc-',
       ),
-      104847 => 
-      array (
+      104847 =>
+      array(
         'id' => '104847',
         'code' => 'f2-a-adm_employee/stats',
         'level' => '1',
@@ -166,8 +166,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104847 bfc-',
       ),
-      104848 => 
-      array (
+      104848 =>
+      array(
         'id' => '104848',
         'code' => 'f2-a-adm_emp_request/edit',
         'level' => '1',
@@ -177,8 +177,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104848 bfc-',
       ),
-      104849 => 
-      array (
+      104849 =>
+      array(
         'id' => '104849',
         'code' => 'f2-a-adm_emp_request/qedit',
         'level' => '1',
@@ -188,8 +188,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104849 bfc-',
       ),
-      104850 => 
-      array (
+      104850 =>
+      array(
         'id' => '104850',
         'code' => 'f2-a-adm_emp_request/delete',
         'level' => '1',
@@ -199,19 +199,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104850 bfc-',
       ),
-      104851 => 
-      array (
+      104851 =>
+      array(
         'id' => '104851',
         'code' => 'f2-a-adm_emp_request/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل طلب اضافة منسق',
         'menu_name_en' => 'display details of Adm emp request',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=AdmEmpRequest&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104851 bfc-',
       ),
-      104852 => 
-      array (
+      104852 =>
+      array(
         'id' => '104852',
         'code' => 'f2-a-adm_emp_request/search',
         'level' => '1',
@@ -221,19 +221,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104852 bfc-',
       ),
-      104853 => 
-      array (
+      104853 =>
+      array(
         'id' => '104853',
         'code' => 'f2-a-adm_emp_request/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'طلبات اضافة منسقي القبول والتسجيل',
         'menu_name_en' => 'Adm emp requests',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmEmpRequest&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104853 bfc-',
       ),
-      104854 => 
-      array (
+      104854 =>
+      array(
         'id' => '104854',
         'code' => 'f2-a-adm_emp_request/stats',
         'level' => '1',
@@ -243,8 +243,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104854 bfc-',
       ),
-      104855 => 
-      array (
+      104855 =>
+      array(
         'id' => '104855',
         'code' => 'f2-a-adm_orgunit/edit',
         'level' => '1',
@@ -254,8 +254,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104855 bfc-',
       ),
-      104856 => 
-      array (
+      104856 =>
+      array(
         'id' => '104856',
         'code' => 'f2-a-adm_orgunit/qedit',
         'level' => '1',
@@ -265,8 +265,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104856 bfc-',
       ),
-      104857 => 
-      array (
+      104857 =>
+      array(
         'id' => '104857',
         'code' => 'f2-a-adm_orgunit/delete',
         'level' => '1',
@@ -276,19 +276,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104857 bfc-',
       ),
-      104858 => 
-      array (
+      104858 =>
+      array(
         'id' => '104858',
         'code' => 'f2-a-adm_orgunit/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل إدارة قبول وتسجيل',
         'menu_name_en' => 'display details of Adm orgunit',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=AdmOrgunit&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104858 bfc-',
       ),
-      104859 => 
-      array (
+      104859 =>
+      array(
         'id' => '104859',
         'code' => 'f2-a-adm_orgunit/search',
         'level' => '1',
@@ -298,19 +298,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104859 bfc-',
       ),
-      104860 => 
-      array (
+      104860 =>
+      array(
         'id' => '104860',
         'code' => 'f2-a-adm_orgunit/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إدارات قبول وتسجيل الطلاب',
         'menu_name_en' => 'Adm orgunits',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=AdmOrgunit&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104860 bfc-',
       ),
-      104861 => 
-      array (
+      104861 =>
+      array(
         'id' => '104861',
         'code' => 'f2-a-adm_orgunit/stats',
         'level' => '1',
@@ -321,8 +321,7 @@
         'icon' => 'bficon-104861 bfc-',
       ),
     ),
-    'sub-folders' => 
-    array (
-    ),
+    'sub-folders' =>
+    array(),
   ),
 );

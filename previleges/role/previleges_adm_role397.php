@@ -1,14 +1,14 @@
 <?php
 
-	$role_info[397] = array (
+$role_info[397] = array(
   'code' => 'goal-candidates',
-  'name' => 
-  array (
+  'name' =>
+  array(
     'ar' => 'إدارة المرشحين',
     'en' => 'arole.397',
   ),
-  'menu' => 
-  array (
+  'menu' =>
+  array(
     'need_admin' => false,
     'id' => '397',
     'menu_name_' => 'إدارة المرشحين',
@@ -18,10 +18,10 @@
     'css' => 'info',
     'icon' => ' icon-397',
     'showme' => true,
-    'items' => 
-    array (
-      105059 => 
-      array (
+    'items' =>
+    array(
+      105059 =>
+      array(
         'id' => '105059',
         'code' => 'f2-a-nominating_authority_category/qsearch',
         'level' => '999',
@@ -31,8 +31,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105059 bfc-',
       ),
-      105066 => 
-      array (
+      105066 =>
+      array(
         'id' => '105066',
         'code' => 'f2-a-nominating_candidates/qsearch',
         'level' => '999',
@@ -42,8 +42,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105066 bfc-',
       ),
-      105073 => 
-      array (
+      105073 =>
+      array(
         'id' => '105073',
         'code' => 'f2-a-nomination_letter/qsearch',
         'level' => '999',
@@ -53,8 +53,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105073 bfc-',
       ),
-      105052 => 
-      array (
+      105052 =>
+      array(
         'id' => '105052',
         'code' => 'f2-a-nominating_authority/qsearch',
         'level' => '999',
@@ -65,10 +65,10 @@
         'icon' => 'bficon-105052 bfc-',
       ),
     ),
-    'otherbfs' => 
-    array (
-      105047 => 
-      array (
+    'otherbfs' =>
+    array(
+      105047 =>
+      array(
         'id' => '105047',
         'code' => 'f2-a-nominating_authority/edit',
         'level' => '999',
@@ -78,8 +78,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105047 bfc-',
       ),
-      105048 => 
-      array (
+      105048 =>
+      array(
         'id' => '105048',
         'code' => 'f2-a-nominating_authority/qedit',
         'level' => '999',
@@ -89,8 +89,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105048 bfc-',
       ),
-      105049 => 
-      array (
+      105049 =>
+      array(
         'id' => '105049',
         'code' => 'f2-a-nominating_authority/delete',
         'level' => '999',
@@ -100,8 +100,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105049 bfc-',
       ),
-      105050 => 
-      array (
+      105050 =>
+      array(
         'id' => '105050',
         'code' => 'f2-a-nominating_authority/display',
         'level' => '999',
@@ -111,8 +111,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105050 bfc-',
       ),
-      105051 => 
-      array (
+      105051 =>
+      array(
         'id' => '105051',
         'code' => 'f2-a-nominating_authority/search',
         'level' => '999',
@@ -122,8 +122,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105051 bfc-',
       ),
-      105052 => 
-      array (
+      105052 =>
+      array(
         'id' => '105052',
         'code' => 'f2-a-nominating_authority/qsearch',
         'level' => '999',
@@ -133,8 +133,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105052 bfc-',
       ),
-      105054 => 
-      array (
+      105054 =>
+      array(
         'id' => '105054',
         'code' => 'f2-a-nominating_authority_category/edit',
         'level' => '1',
@@ -144,8 +144,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105054 bfc-',
       ),
-      105055 => 
-      array (
+      105055 =>
+      array(
         'id' => '105055',
         'code' => 'f2-a-nominating_authority_category/qedit',
         'level' => '1',
@@ -155,8 +155,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105055 bfc-',
       ),
-      105056 => 
-      array (
+      105056 =>
+      array(
         'id' => '105056',
         'code' => 'f2-a-nominating_authority_category/delete',
         'level' => '1',
@@ -166,8 +166,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105056 bfc-',
       ),
-      105057 => 
-      array (
+      105057 =>
+      array(
         'id' => '105057',
         'code' => 'f2-a-nominating_authority_category/display',
         'level' => '999',
@@ -177,8 +177,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105057 bfc-',
       ),
-      105058 => 
-      array (
+      105058 =>
+      array(
         'id' => '105058',
         'code' => 'f2-a-nominating_authority_category/search',
         'level' => '1',
@@ -188,8 +188,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105058 bfc-',
       ),
-      105059 => 
-      array (
+      105059 =>
+      array(
         'id' => '105059',
         'code' => 'f2-a-nominating_authority_category/qsearch',
         'level' => '999',
@@ -199,8 +199,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105059 bfc-',
       ),
-      105061 => 
-      array (
+      105061 =>
+      array(
         'id' => '105061',
         'code' => 'f2-a-nominating_candidates/edit',
         'level' => '999',
@@ -210,8 +210,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105061 bfc-',
       ),
-      105062 => 
-      array (
+      105062 =>
+      array(
         'id' => '105062',
         'code' => 'f2-a-nominating_candidates/qedit',
         'level' => '999',
@@ -221,8 +221,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105062 bfc-',
       ),
-      105063 => 
-      array (
+      105063 =>
+      array(
         'id' => '105063',
         'code' => 'f2-a-nominating_candidates/delete',
         'level' => '999',
@@ -232,8 +232,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105063 bfc-',
       ),
-      105064 => 
-      array (
+      105064 =>
+      array(
         'id' => '105064',
         'code' => 'f2-a-nominating_candidates/display',
         'level' => '999',
@@ -243,8 +243,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105064 bfc-',
       ),
-      105065 => 
-      array (
+      105065 =>
+      array(
         'id' => '105065',
         'code' => 'f2-a-nominating_candidates/search',
         'level' => '999',
@@ -254,8 +254,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105065 bfc-',
       ),
-      105066 => 
-      array (
+      105066 =>
+      array(
         'id' => '105066',
         'code' => 'f2-a-nominating_candidates/qsearch',
         'level' => '999',
@@ -265,8 +265,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105066 bfc-',
       ),
-      105068 => 
-      array (
+      105068 =>
+      array(
         'id' => '105068',
         'code' => 'f2-a-nomination_letter/edit',
         'level' => '999',
@@ -276,8 +276,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105068 bfc-',
       ),
-      105069 => 
-      array (
+      105069 =>
+      array(
         'id' => '105069',
         'code' => 'f2-a-nomination_letter/qedit',
         'level' => '1',
@@ -287,8 +287,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105069 bfc-',
       ),
-      105070 => 
-      array (
+      105070 =>
+      array(
         'id' => '105070',
         'code' => 'f2-a-nomination_letter/delete',
         'level' => '1',
@@ -298,19 +298,19 @@
         'css' => 'bf',
         'icon' => 'bficon-105070 bfc-',
       ),
-      105071 => 
-      array (
+      105071 =>
+      array(
         'id' => '105071',
         'code' => 'f2-a-nomination_letter/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل خطاب ترشيح',
         'menu_name_en' => 'display details of Nomination letter',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=NominationLetter&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105071 bfc-',
       ),
-      105072 => 
-      array (
+      105072 =>
+      array(
         'id' => '105072',
         'code' => 'f2-a-nomination_letter/search',
         'level' => '1',
@@ -320,8 +320,8 @@
         'css' => 'bf',
         'icon' => 'bficon-105072 bfc-',
       ),
-      105073 => 
-      array (
+      105073 =>
+      array(
         'id' => '105073',
         'code' => 'f2-a-nomination_letter/qsearch',
         'level' => '999',
@@ -332,8 +332,7 @@
         'icon' => 'bficon-105073 bfc-',
       ),
     ),
-    'sub-folders' => 
-    array (
-    ),
+    'sub-folders' =>
+    array(),
   ),
 );

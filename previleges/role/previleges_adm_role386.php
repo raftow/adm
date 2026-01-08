@@ -68,7 +68,7 @@ $role_info[386] = array(
       array(
         'id' => '105084',
         'code' => 'f2-a-application_desire/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'الترشحات',
         'menu_name_en' => 'Application desires',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationDesire&currmod=adm',
@@ -90,7 +90,7 @@ $role_info[386] = array(
       array(
         'id' => '105266',
         'code' => 'f2-a-applicant_account/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'رسوم المتقدمين',
         'menu_name_en' => 'Applicant fintranss',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantAccount&currmod=adm',
@@ -101,7 +101,7 @@ $role_info[386] = array(
       array(
         'id' => '105284',
         'code' => 'f2-a-applicant_scholarship/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'منح المتقدمين',
         'menu_name_en' => 'Applicant scholarships',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantScholarship&currmod=adm',
@@ -193,7 +193,7 @@ $role_info[386] = array(
       array(
         'id' => '104837',
         'code' => 'f2-a-application/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل طلب تقديم',
         'menu_name_en' => 'display details of Application',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Application&currmod=adm',
@@ -215,7 +215,7 @@ $role_info[386] = array(
       array(
         'id' => '104839',
         'code' => 'f2-a-application/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'طلبات التقديم',
         'menu_name_en' => 'Applications',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Application&currmod=adm',
@@ -281,7 +281,7 @@ $role_info[386] = array(
       array(
         'id' => '105082',
         'code' => 'f2-a-application_desire/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل ترشح',
         'menu_name_en' => 'display details of Application desire',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicationDesire&currmod=adm',
@@ -303,7 +303,7 @@ $role_info[386] = array(
       array(
         'id' => '105084',
         'code' => 'f2-a-application_desire/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'الترشحات',
         'menu_name_en' => 'Application desires',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationDesire&currmod=adm',
@@ -358,7 +358,7 @@ $role_info[386] = array(
       array(
         'id' => '105264',
         'code' => 'f2-a-applicant_account/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل رسوم متقدم',
         'menu_name_en' => 'display details of Applicant fintrans',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantAccount&currmod=adm',
@@ -380,7 +380,7 @@ $role_info[386] = array(
       array(
         'id' => '105266',
         'code' => 'f2-a-applicant_account/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'رسوم المتقدمين',
         'menu_name_en' => 'Applicant fintranss',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantAccount&currmod=adm',
@@ -523,7 +523,7 @@ $role_info[386] = array(
       array(
         'id' => '105282',
         'code' => 'f2-a-applicant_scholarship/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل منحة متقدم',
         'menu_name_en' => 'display details of Applicant scholarship',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantScholarship&currmod=adm',
@@ -545,7 +545,7 @@ $role_info[386] = array(
       array(
         'id' => '105284',
         'code' => 'f2-a-applicant_scholarship/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'منح المتقدمين',
         'menu_name_en' => 'Applicant scholarships',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantScholarship&currmod=adm',

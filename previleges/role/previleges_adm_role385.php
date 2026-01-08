@@ -1,14 +1,14 @@
 <?php
 
-	$role_info[385] = array (
+$role_info[385] = array(
   'code' => 'goal-diploma',
-  'name' => 
-  array (
+  'name' =>
+  array(
     'ar' => 'المؤهلات',
     'en' => 'Qualifications',
   ),
-  'menu' => 
-  array (
+  'menu' =>
+  array(
     'need_admin' => false,
     'id' => '385',
     'menu_name_' => 'المؤهلات',
@@ -18,10 +18,10 @@
     'css' => 'info',
     'icon' => ' icon-385',
     'showme' => true,
-    'items' => 
-    array (
-      104615 => 
-      array (
+    'items' =>
+    array(
+      104615 =>
+      array(
         'id' => '104615',
         'code' => 'f2-a-degree/qsearch',
         'level' => '999',
@@ -31,8 +31,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104615 bfc-',
       ),
-      104765 => 
-      array (
+      104765 =>
+      array(
         'id' => '104765',
         'code' => 'f2-a-qualification/qsearch',
         'level' => '999',
@@ -42,8 +42,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104765 bfc-',
       ),
-      104786 => 
-      array (
+      104786 =>
+      array(
         'id' => '104786',
         'code' => 'f2-a-qual_source/qsearch',
         'level' => '999',
@@ -53,8 +53,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104786 bfc-',
       ),
-      104751 => 
-      array (
+      104751 =>
+      array(
         'id' => '104751',
         'code' => 'f2-a-major_path/qsearch',
         'level' => '999',
@@ -64,8 +64,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104751 bfc-',
       ),
-      104779 => 
-      array (
+      104779 =>
+      array(
         'id' => '104779',
         'code' => 'f2-a-qual_major_path/qsearch',
         'level' => '999',
@@ -75,8 +75,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104779 bfc-',
       ),
-      104758 => 
-      array (
+      104758 =>
+      array(
         'id' => '104758',
         'code' => 'f2-a-program_qualification/qsearch',
         'level' => '999',
@@ -86,11 +86,11 @@
         'css' => 'bf',
         'icon' => 'bficon-104758 bfc-',
       ),
-      104832 => 
-      array (
+      104832 =>
+      array(
         'id' => '104832',
         'code' => 'f2-a-evaluation/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'الاختبارات',
         'menu_name_en' => 'Evaluations',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Evaluation&currmod=adm',
@@ -98,10 +98,10 @@
         'icon' => 'bficon-104832 bfc-',
       ),
     ),
-    'otherbfs' => 
-    array (
-      104610 => 
-      array (
+    'otherbfs' =>
+    array(
+      104610 =>
+      array(
         'id' => '104610',
         'code' => 'f2-a-degree/edit',
         'level' => '999',
@@ -111,8 +111,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104610 bfc-',
       ),
-      104612 => 
-      array (
+      104612 =>
+      array(
         'id' => '104612',
         'code' => 'f2-a-degree/delete',
         'level' => '999',
@@ -122,8 +122,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104612 bfc-',
       ),
-      104613 => 
-      array (
+      104613 =>
+      array(
         'id' => '104613',
         'code' => 'f2-a-degree/display',
         'level' => '999',
@@ -133,8 +133,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104613 bfc-',
       ),
-      104614 => 
-      array (
+      104614 =>
+      array(
         'id' => '104614',
         'code' => 'f2-a-degree/search',
         'level' => '999',
@@ -144,8 +144,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104614 bfc-',
       ),
-      104615 => 
-      array (
+      104615 =>
+      array(
         'id' => '104615',
         'code' => 'f2-a-degree/qsearch',
         'level' => '999',
@@ -155,8 +155,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104615 bfc-',
       ),
-      104746 => 
-      array (
+      104746 =>
+      array(
         'id' => '104746',
         'code' => 'f2-a-major_path/edit',
         'level' => '999',
@@ -166,8 +166,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104746 bfc-',
       ),
-      104748 => 
-      array (
+      104748 =>
+      array(
         'id' => '104748',
         'code' => 'f2-a-major_path/delete',
         'level' => '999',
@@ -177,8 +177,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104748 bfc-',
       ),
-      104749 => 
-      array (
+      104749 =>
+      array(
         'id' => '104749',
         'code' => 'f2-a-major_path/display',
         'level' => '999',
@@ -188,8 +188,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104749 bfc-',
       ),
-      104750 => 
-      array (
+      104750 =>
+      array(
         'id' => '104750',
         'code' => 'f2-a-major_path/search',
         'level' => '999',
@@ -199,8 +199,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104750 bfc-',
       ),
-      104751 => 
-      array (
+      104751 =>
+      array(
         'id' => '104751',
         'code' => 'f2-a-major_path/qsearch',
         'level' => '999',
@@ -210,8 +210,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104751 bfc-',
       ),
-      104753 => 
-      array (
+      104753 =>
+      array(
         'id' => '104753',
         'code' => 'f2-a-program_qualification/edit',
         'level' => '999',
@@ -221,8 +221,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104753 bfc-',
       ),
-      104755 => 
-      array (
+      104755 =>
+      array(
         'id' => '104755',
         'code' => 'f2-a-program_qualification/delete',
         'level' => '999',
@@ -232,8 +232,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104755 bfc-',
       ),
-      104756 => 
-      array (
+      104756 =>
+      array(
         'id' => '104756',
         'code' => 'f2-a-program_qualification/display',
         'level' => '999',
@@ -243,8 +243,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104756 bfc-',
       ),
-      104757 => 
-      array (
+      104757 =>
+      array(
         'id' => '104757',
         'code' => 'f2-a-program_qualification/search',
         'level' => '999',
@@ -254,8 +254,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104757 bfc-',
       ),
-      104758 => 
-      array (
+      104758 =>
+      array(
         'id' => '104758',
         'code' => 'f2-a-program_qualification/qsearch',
         'level' => '999',
@@ -265,8 +265,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104758 bfc-',
       ),
-      104760 => 
-      array (
+      104760 =>
+      array(
         'id' => '104760',
         'code' => 'f2-a-qualification/edit',
         'level' => '999',
@@ -276,8 +276,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104760 bfc-',
       ),
-      104762 => 
-      array (
+      104762 =>
+      array(
         'id' => '104762',
         'code' => 'f2-a-qualification/delete',
         'level' => '999',
@@ -287,8 +287,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104762 bfc-',
       ),
-      104763 => 
-      array (
+      104763 =>
+      array(
         'id' => '104763',
         'code' => 'f2-a-qualification/display',
         'level' => '999',
@@ -298,8 +298,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104763 bfc-',
       ),
-      104764 => 
-      array (
+      104764 =>
+      array(
         'id' => '104764',
         'code' => 'f2-a-qualification/search',
         'level' => '999',
@@ -309,8 +309,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104764 bfc-',
       ),
-      104765 => 
-      array (
+      104765 =>
+      array(
         'id' => '104765',
         'code' => 'f2-a-qualification/qsearch',
         'level' => '999',
@@ -320,8 +320,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104765 bfc-',
       ),
-      104767 => 
-      array (
+      104767 =>
+      array(
         'id' => '104767',
         'code' => 'f2-a-qualification_major/edit',
         'level' => '999',
@@ -331,8 +331,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104767 bfc-',
       ),
-      104769 => 
-      array (
+      104769 =>
+      array(
         'id' => '104769',
         'code' => 'f2-a-qualification_major/delete',
         'level' => '999',
@@ -342,8 +342,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104769 bfc-',
       ),
-      104770 => 
-      array (
+      104770 =>
+      array(
         'id' => '104770',
         'code' => 'f2-a-qualification_major/display',
         'level' => '999',
@@ -353,8 +353,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104770 bfc-',
       ),
-      104771 => 
-      array (
+      104771 =>
+      array(
         'id' => '104771',
         'code' => 'f2-a-qualification_major/search',
         'level' => '999',
@@ -364,8 +364,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104771 bfc-',
       ),
-      104772 => 
-      array (
+      104772 =>
+      array(
         'id' => '104772',
         'code' => 'f2-a-qualification_major/qsearch',
         'level' => '999',
@@ -375,8 +375,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104772 bfc-',
       ),
-      104774 => 
-      array (
+      104774 =>
+      array(
         'id' => '104774',
         'code' => 'f2-a-qual_major_path/edit',
         'level' => '999',
@@ -386,8 +386,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104774 bfc-',
       ),
-      104776 => 
-      array (
+      104776 =>
+      array(
         'id' => '104776',
         'code' => 'f2-a-qual_major_path/delete',
         'level' => '999',
@@ -397,8 +397,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104776 bfc-',
       ),
-      104777 => 
-      array (
+      104777 =>
+      array(
         'id' => '104777',
         'code' => 'f2-a-qual_major_path/display',
         'level' => '999',
@@ -408,8 +408,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104777 bfc-',
       ),
-      104778 => 
-      array (
+      104778 =>
+      array(
         'id' => '104778',
         'code' => 'f2-a-qual_major_path/search',
         'level' => '999',
@@ -419,8 +419,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104778 bfc-',
       ),
-      104779 => 
-      array (
+      104779 =>
+      array(
         'id' => '104779',
         'code' => 'f2-a-qual_major_path/qsearch',
         'level' => '999',
@@ -430,8 +430,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104779 bfc-',
       ),
-      104781 => 
-      array (
+      104781 =>
+      array(
         'id' => '104781',
         'code' => 'f2-a-qual_source/edit',
         'level' => '999',
@@ -441,8 +441,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104781 bfc-',
       ),
-      104783 => 
-      array (
+      104783 =>
+      array(
         'id' => '104783',
         'code' => 'f2-a-qual_source/delete',
         'level' => '999',
@@ -452,8 +452,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104783 bfc-',
       ),
-      104784 => 
-      array (
+      104784 =>
+      array(
         'id' => '104784',
         'code' => 'f2-a-qual_source/display',
         'level' => '999',
@@ -463,8 +463,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104784 bfc-',
       ),
-      104785 => 
-      array (
+      104785 =>
+      array(
         'id' => '104785',
         'code' => 'f2-a-qual_source/search',
         'level' => '999',
@@ -474,8 +474,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104785 bfc-',
       ),
-      104786 => 
-      array (
+      104786 =>
+      array(
         'id' => '104786',
         'code' => 'f2-a-qual_source/qsearch',
         'level' => '999',
@@ -485,8 +485,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104786 bfc-',
       ),
-      104827 => 
-      array (
+      104827 =>
+      array(
         'id' => '104827',
         'code' => 'f2-a-evaluation/edit',
         'level' => '1',
@@ -496,19 +496,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104827 bfc-',
       ),
-      104830 => 
-      array (
+      104830 =>
+      array(
         'id' => '104830',
         'code' => 'f2-a-evaluation/display',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'عرض تفاصيل اختبار',
         'menu_name_en' => 'display details of Evaluation',
         'page' => 'main.php?Main_Page=afw_mode_display.php&cl=Evaluation&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104830 bfc-',
       ),
-      104831 => 
-      array (
+      104831 =>
+      array(
         'id' => '104831',
         'code' => 'f2-a-evaluation/search',
         'level' => '1',
@@ -518,11 +518,11 @@
         'css' => 'bf',
         'icon' => 'bficon-104831 bfc-',
       ),
-      104832 => 
-      array (
+      104832 =>
+      array(
         'id' => '104832',
         'code' => 'f2-a-evaluation/qsearch',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'الاختبارات',
         'menu_name_en' => 'Evaluations',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Evaluation&currmod=adm',
@@ -530,8 +530,7 @@
         'icon' => 'bficon-104832 bfc-',
       ),
     ),
-    'sub-folders' => 
-    array (
-    ),
+    'sub-folders' =>
+    array(),
   ),
 );
