@@ -706,6 +706,10 @@ class AdmApplicationAfwStructure
                         'WHERE' => 'applicant_id=§applicant_id§ and workflow_file_id > 0',
                         'READONLY' => true,
                         'CAN-BE-SETTED' => true,
+                        'DO-NOT-RETRIEVE-COLS' => [
+                                'applicant_id',
+                                'idn',
+                        ],
                         'CSS' => 'width_pct_100',
                         'RETRIEVE-POPUP-EDITOR' => [
                                 'reupload_enum',
@@ -751,10 +755,24 @@ class AdmApplicationAfwStructure
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
                 ),
-                'applicantSimulationList' => array('STEP' => 99, 'TYPE' => 'FK', 'ANSWER' => 'applicant_simulation', 'ANSMODULE' => 'adm',
-                        'CATEGORY' => 'ITEMS', 'ITEM' => '', 'WHERE' => 'application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§',
-                        'SHOW' => true, 'FORMAT' => 'retrieve', 'EDIT' => false, 'READONLY' => true,
-                        'ICONS' => true, 'DELETE-ICON' => true, 'VIEW-ICON' => false, 'BUTTONS' => true, 'NO-LABEL' => false),
+                'applicantSimulationList' => array(
+                        'STEP' => 99,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'applicant_simulation',
+                        'ANSMODULE' => 'adm',
+                        'CATEGORY' => 'ITEMS',
+                        'ITEM' => '',
+                        'WHERE' => 'application_simulation_id=§application_simulation_id§ and applicant_id=§applicant_id§',
+                        'SHOW' => true,
+                        'FORMAT' => 'retrieve',
+                        'EDIT' => false,
+                        'READONLY' => true,
+                        'ICONS' => true,
+                        'DELETE-ICON' => true,
+                        'VIEW-ICON' => false,
+                        'BUTTONS' => true,
+                        'NO-LABEL' => false
+                ),
                 'sortingGroupList' => array(
                         'SHOW' => true,
                         'FORMAT' => 'retrieve',
@@ -1173,18 +1191,68 @@ class AdmApplicationAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_100',
                 ),
-                'version' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false,
-                        'QEDIT' => false, 'TYPE' => 'INT', 'FGROUP' => 'tech_fields'),
-                'update_groups_mfk' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false,
-                        'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-                'delete_groups_mfk' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false,
-                        'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-                'display_groups_mfk' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false,
-                        'QEDIT' => false, 'ANSWER' => 'ugroup', 'ANSMODULE' => 'ums', 'TYPE' => 'MFK', 'FGROUP' => 'tech_fields'),
-                'sci_id' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, 'RETRIEVE' => false, 'QEDIT' => false,
-                        'TYPE' => 'INT', /* stepnum-not-the-object */ 'FGROUP' => 'tech_fields'),
-                'tech_notes' => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'TYPE' => 'TEXT', 'CATEGORY' => 'FORMULA', 'SHOW-ADMIN' => true, 'QEDIT' => false,
-                        'TOKEN_SEP' => '§', 'READONLY' => true, 'NO-ERROR-CHECK' => true, 'FGROUP' => 'tech_fields'),
+                'version' => array(
+                        'STEP' => 99,
+                        'HIDE_IF_NEW' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'QEDIT' => false,
+                        'TYPE' => 'INT',
+                        'FGROUP' => 'tech_fields'
+                ),
+                'update_groups_mfk' => array(
+                        'STEP' => 99,
+                        'HIDE_IF_NEW' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'QEDIT' => false,
+                        'ANSWER' => 'ugroup',
+                        'ANSMODULE' => 'ums',
+                        'TYPE' => 'MFK',
+                        'FGROUP' => 'tech_fields'
+                ),
+                'delete_groups_mfk' => array(
+                        'STEP' => 99,
+                        'HIDE_IF_NEW' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'QEDIT' => false,
+                        'ANSWER' => 'ugroup',
+                        'ANSMODULE' => 'ums',
+                        'TYPE' => 'MFK',
+                        'FGROUP' => 'tech_fields'
+                ),
+                'display_groups_mfk' => array(
+                        'STEP' => 99,
+                        'HIDE_IF_NEW' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'QEDIT' => false,
+                        'ANSWER' => 'ugroup',
+                        'ANSMODULE' => 'ums',
+                        'TYPE' => 'MFK',
+                        'FGROUP' => 'tech_fields'
+                ),
+                'sci_id' => array(
+                        'STEP' => 99,
+                        'HIDE_IF_NEW' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'QEDIT' => false,
+                        'TYPE' => 'INT', /* stepnum-not-the-object */
+                        'FGROUP' => 'tech_fields'
+                ),
+                'tech_notes' => array(
+                        'STEP' => 99,
+                        'HIDE_IF_NEW' => true,
+                        'TYPE' => 'TEXT',
+                        'CATEGORY' => 'FORMULA',
+                        'SHOW-ADMIN' => true,
+                        'QEDIT' => false,
+                        'TOKEN_SEP' => '§',
+                        'READONLY' => true,
+                        'NO-ERROR-CHECK' => true,
+                        'FGROUP' => 'tech_fields'
+                ),
         );
 }
-?>
