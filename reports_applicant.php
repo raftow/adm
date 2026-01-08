@@ -118,14 +118,16 @@ $out_scr .= "</div>";
 
  // rows and totals
  $grandTotal = 0;
- $stepTotals = array_fill(0, count($steps), 0);
+ //$stepTotals = array_fill(0, count($steps)-1, 0);
+ $stepTotals  = array();
  foreach($categories as $cat){
      $out_scr .= "<tr><td>".htmlspecialchars($cat)."</td>";
      $rowTotal = 0;
      foreach($steps_list as $i => $step){
          $val = isset($matrix[$cat][$step["id"]]) ? $matrix[$cat][$step["id"]] : 0;
          $rowTotal += $val;
-         $stepTotals[$i] += $val;
+         if($stepTotals[$i]) $stepTotals[$i] += $val;
+         else $stepTotals[$i] += $val;
          $out_scr .= "<td>".$val."</td>";
      }
      $grandTotal += $rowTotal;
