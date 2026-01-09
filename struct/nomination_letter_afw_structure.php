@@ -228,6 +228,7 @@ class AdmNominationLetterAfwStructure
                         'DISPLAY' => true,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_100',
                 ),
                 'nominationCandidateList' => array(
                         'TYPE' => 'FK',
