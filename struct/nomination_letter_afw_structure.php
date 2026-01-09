@@ -8,7 +8,7 @@ class AdmNominationLetterAfwStructure
         {
                 if ($obj instanceof NominationLetter) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD = ['nominating_authority_id' , 'application_plan_id', 'letter_code'];
+                        $obj->DISPLAY_FIELD = ['nominating_authority_id', 'application_plan_id', 'letter_code'];
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
@@ -54,8 +54,9 @@ class AdmNominationLetterAfwStructure
                         'TYPE' => 'FK',
                         'ANSWER' => 'application_plan',
                         'ANSMODULE' => 'adm',
-                        'RELATION' => 'unkn',
+                        'RELATION' => 'OneToMany',
                         'READONLY' => true,
+                        'MANDATORY' => true,
                         'EDIT_IF_EMPTY' => true,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
@@ -69,17 +70,16 @@ class AdmNominationLetterAfwStructure
                         'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
-                        'SHOW-ADMIN' => true,
-                        'EDIT-ADMIN' => true,
+
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'application_simulation',
                         'ANSMODULE' => 'adm',
                         'SIZE' => 40,
-                        'DEFAUT' => 1,
+                        'DEFAUT' => 2,
                         'DISPLAY' => true,
-                        'STEP' => 1,
-                        'RELATION' => 'OneToMany',
+                        'STEP' => 99,
+                        'RELATION' => 'ManyToOne',
                         'MANDATORY' => true,
                         'READONLY' => true,
                         'EDIT_IF_EMPTY' => true,
@@ -116,6 +116,7 @@ class AdmNominationLetterAfwStructure
                         'ANSWER' => 'nominating_authority',
                         'ANSMODULE' => 'adm',
                         'RELATION' => 'OneToMany',
+                        'MANDATORY' => true,
                         'READONLY' => true,
                         'EDIT_IF_EMPTY' => true,
                         'DNA' => true,
@@ -190,7 +191,7 @@ class AdmNominationLetterAfwStructure
                 ),
 
                 'nomination_letter_file_id' => array(
-                        'STEP' => 1,
+                        'STEP' => 3,
                         'SHORTNAME' => 'admfile',
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -210,12 +211,12 @@ class AdmNominationLetterAfwStructure
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
-                'download_light' => array(
-                        'STEP' => 1,
+                'pic_view' => array(
+                        'STEP' => 3,
                         'TYPE' => 'TEXT',
                         'SHORTCUT_CATEGORY' => 'FORMULA',
                         'CATEGORY' => 'SHORTCUT',
-                        'SHORTCUT' => "nomination_letter_file_id.download_light",
+                        'SHORTCUT' => "nomination_letter_file_id.pic_view",
                         'SHOW' => true,
                         'RETRIEVE' => true,
                         'EDIT' => false,
