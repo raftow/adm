@@ -206,6 +206,7 @@ class AdmNominationLetterAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'workflow_file',
+                        'WHERE' => 'doc_type_id=7 AND active="Y"',
                         'ANSMODULE' => 'workflow',
                         'RELATION' => 'ManyToOne',
                         'READONLY' => false,
