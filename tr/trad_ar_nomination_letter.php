@@ -1,11 +1,13 @@
 <?php
 
-class NominationLetterArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class NominationLetterArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 		$trad["nomination_letter"]["step1"] = "خطاب الترشيح";
 		$trad["nomination_letter"]["step2"] = "المرشحين";
+		$trad["nomination_letter"]["step3"] = "عرض";
 
 		$trad["nomination_letter"]["nominationletter.single"] = "خطاب ترشيح";
 		$trad["nomination_letter"]["nominationletter.new"] = "جديد";
@@ -21,18 +23,19 @@ class NominationLetterArTranslator{
 		$trad["nomination_letter"]["sponsor_cordinator_id"] = "منسق جهة الترشيح";
 		$trad["nomination_letter"]["nomination_letter_file_id"] = "خطاب الترشيح";
 		$trad["nomination_letter"]["download_light"] = "تحميل الخطاب";
+		$trad["nomination_letter"]["pic_view"] = "صورة الخطاب";
 		$trad["nomination_letter"]["application_simulation_id"] = "نوع التقديم";
 		$trad["nomination_letter"]["nominationCandidateList"] = "قائمة المرشحين";
 		$trad["nomination_letter"]["letter_code"] = "رقم الخطاب";
 
 
-        // steps
-        return $trad;
-    }
+		// steps
+		return $trad;
+	}
 
-    public static function getInstance()
+	public static function getInstance()
 	{
-        if(false) return new NominationLetterEnTranslator();
+		if (false) return new NominationLetterEnTranslator();
 		return new NominationLetter();
 	}
 }

@@ -13,7 +13,7 @@ class AdmNominationLetterAfwStructure
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 2;
+                        $obj->editNbSteps = 3;
 
 
                         $obj->UNIQUE_KEY = array('application_plan_id', 'nominating_authority_id', 'letter_code');
