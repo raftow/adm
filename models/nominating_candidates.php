@@ -183,6 +183,7 @@ class NominatingCandidates extends AdmObject
                 'LABEL_AR' => $title_ar,
                 'LABEL_EN' => $title_en,
                 'ROLS' => 'adm/397',
+                'PUBLIC' => true,
                 'HIDE' => true,
                 'BF-ID' => '',
             );
@@ -197,6 +198,7 @@ class NominatingCandidates extends AdmObject
                 'LABEL_AR' => $title_ar,
                 'LABEL_EN' => $title_en,
                 'ROLS' => 'adm/397',
+                'PUBLIC' => true,
                 'HIDE' => true,
                 'BF-ID' => '',
             );
@@ -228,6 +230,7 @@ class NominatingCandidates extends AdmObject
                     'COLOR' => $color,
                     'LABEL_AR' => $title_ar,
                     'ROLS' => 'adm/397',
+                    'PUBLIC' => true,
                     'BF-ID' => '',
                     'STEP' => $this->stepOfAttribute('trackOverpassDiv'),
                     'CONFIRMATION_NEEDED' => true,
@@ -252,6 +255,7 @@ class NominatingCandidates extends AdmObject
                     'COLOR' => $color,
                     'LABEL_AR' => $title_ar,
                     'ROLS' => 'adm/397',
+                    'PUBLIC' => true,
                     'BF-ID' => '',
                     'STEP' => $this->stepOfAttribute('ratingOverpassDiv'),
                     'CONFIRMATION_NEEDED' => true,
