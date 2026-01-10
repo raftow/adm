@@ -1773,4 +1773,13 @@ class ApplicationDesire extends AdmObject
 
                 return [$result, $reason];
         }
+
+        /**
+         * @param Auser $auser
+         */
+
+        public function canBeDeletedWithoutRoleBy($auser)
+        {
+                return $auser->hasRole("adm", 397);
+        }
 }
