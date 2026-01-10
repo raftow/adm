@@ -246,7 +246,7 @@ class Applicant extends AdmObject
 
                                 if (!is_numeric($idn)) throw new AfwRuntimeException("The identity type is not correctly entered"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
-                                if ($type != $idn_type_id) throw new AfwRuntimeException("The identity type is incorrect"); // 
+                                if ($type != $idn_type_id) throw new AfwRuntimeException("The identity type is incorrect $idn -> type=$type != idn_type_id=$idn_type_id"); // 
                                 if (!$idn_correct) throw new AfwRuntimeException("The identity number is not correctly entered"); //   ,$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"
                                 $this->set("id", $idn);
                         } else {
