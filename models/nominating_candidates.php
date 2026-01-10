@@ -122,12 +122,14 @@ class NominatingCandidates extends AdmObject
 
         if ($mode == "mode_candidateEvaluationList") {
             $nl_id = $this->getVal("nomination_letter_id");
+            $applicant_id = $this->getVal("applicant_id");
+
             if ($nl_id) {
                 unset($link);
                 $link = array();
                 $title = "إضافة اختبار جديد";
                 // $title_detailed = $title . "لـ : " . $displ;
-                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm&sel_applicant_id=$my_id&sel_nomination_letter_id=$nl_id";
+                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm&sel_applicant_id=$applicant_id&sel_nomination_letter_id=$nl_id";
                 $link["TITLE"] = $title;
                 $link["UGROUPS"] = array();
                 // tempo for demo @todo
