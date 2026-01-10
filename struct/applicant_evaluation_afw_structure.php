@@ -221,7 +221,7 @@ class AdmApplicantEvaluationAfwStructure
                         'ANSMODULE' => 'adm',
                         'RELATION' => 'OneToMany',
                         'READONLY' => true,
-                        'MANDATORY' => true,
+                        'MANDATORY' => false,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                         'STEP' => 1,
