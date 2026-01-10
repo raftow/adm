@@ -32,7 +32,7 @@ class Applicant extends AdmObject
         private $aptitude_Score = null;
         private $achievement_Score = null;
         private $aptitude_university = null;
-        
+
         private $objSQ = null;
         private $applicantQualificationList = null;
 
@@ -47,7 +47,7 @@ class Applicant extends AdmObject
                 $id = null;
                 if (($idn_type_id == 1) or ($idn_type_id == 2)) {
                         if (is_numeric($idn) and $idn_correct) $id = $idn;
-                } 
+                }
 
                 return $id;
         }
@@ -56,17 +56,17 @@ class Applicant extends AdmObject
         public function convertIdnToID($value)
         {
                 $idn = $value;
-                if(!$idn) return 0;
+                if (!$idn) return 0;
                 list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
-                if(!$idn_type_id) $idn_type_id = $this->getVal("idn_type_id");
-                if(!$idn_type_id) return 0;
-                
+                if (!$idn_type_id) $idn_type_id = $this->getVal("idn_type_id");
+                if (!$idn_type_id) return 0;
+
                 $id = 0;
                 if (($idn_type_id == 1) or ($idn_type_id == 2)) {
                         if (is_numeric($idn) and $idn_correct) $id = $idn;
                 } else {
                         $country_id = $this->getSelectedValueForAttribute("country_id");
-                        if(!$country_id) $country_id = $this->getVal("country_id");
+                        if (!$country_id) $country_id = $this->getVal("country_id");
                         if ($country_id) {
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
                         } else {
@@ -129,8 +129,7 @@ class Applicant extends AdmObject
         public function getWorkflowApplicant($create_obj_if_not_found = false, $update_if_found = false)
         {
                 $wAppObj = WorkflowApplicant::loadByMainIndex($this->getVal("country_id"), $this->getVal("idn_type_id"), $this->getVal("idn"), $create_obj_if_not_found);
-                if($wAppObj->is_new or $update_if_found)
-                {
+                if ($wAppObj->is_new or $update_if_found) {
                         $wAppObj->set("mobile", $this->getVal("mobile"));
                         $wAppObj->set("email", $this->getVal("email"));
                         $wAppObj->set("gender_enum", $this->getVal("gender_enum"));
@@ -144,8 +143,8 @@ class Applicant extends AdmObject
                         $wAppObj->set("last_name_en", $this->getVal("last_name_en"));
                         $wAppObj->commit();
                 }
-                   
-   
+
+
                 return $wAppObj;
         }
 
@@ -182,15 +181,14 @@ class Applicant extends AdmObject
         }
 
 
-        public function updateSortingData($lang="ar", $force=true, $echo=false, $ignorePublish = false)
+        public function updateSortingData($lang = "ar", $force = true, $echo = false, $ignorePublish = false)
         {
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
                 $api_runner_class = self::loadApiRunner();
-                if ($this->id) 
-                {                        
+                if ($this->id) {
                         $sorting_apis = $api_runner_class::sorting_apis();
                         // create register apis call requests to be done by applicant-api-request-job                        
                         foreach ($sorting_apis as $sorting_api) {
@@ -207,7 +205,7 @@ class Applicant extends AdmObject
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }
-        
+
 
         public function beforeMaj($id, $fields_updated)
         {
@@ -228,7 +226,7 @@ class Applicant extends AdmObject
 
                 $idn = $this->getVal("idn");
                 $idn_type_id = $this->getVal("idn_type_id");
-                if(!$idn_type_id) list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
+                if (!$idn_type_id) list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($idn);
                 if ((!$idn) or (!$idn_type_id)) // should never happen but ...
                 {
                         throw new  AfwRuntimeException("BAD DATA For IDN=$idn IDN-TYPE=$idn_type_id");
@@ -244,16 +242,16 @@ class Applicant extends AdmObject
                 {
                         if ($idn_type_id == 3) $idn_type_id = 2;
                         if (($idn_type_id == 1) or ($idn_type_id == 2)) {
-                                
-                                
-                                if (!is_numeric($idn)) throw new AfwRuntimeException("The identity type is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id SHOULD BE NUMERIC", "adm"); // 
+
+
+                                if (!is_numeric($idn)) throw new AfwRuntimeException("The identity type is not correctly entered"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
-                                if ($type != $idn_type_id) throw new AfwRuntimeException("The identity type is incorrect",$lang,"","","index.php","IDN $idn is not of type $idn_type_id but of type $type", "adm"); // 
-                                if (!$idn_correct) throw new AfwRuntimeException("The identity number is not correctly entered",$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"); //  
+                                if ($type != $idn_type_id) throw new AfwRuntimeException("The identity type is incorrect"); // 
+                                if (!$idn_correct) throw new AfwRuntimeException("The identity number is not correctly entered"); //   ,$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"
                                 $this->set("id", $idn);
                         } else {
                                 $country_id = $this->getVal("country_id");
-                                if (!$country_id) throw new  AfwRuntimeException("The country/nationalty is required",$lang,"","","index.php","For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm");
+                                if (!$country_id) throw new  AfwRuntimeException("The country/nationalty is required"); // , $lang, "", "", "index.php", "For IDN=$idn IDN-TYPE=$idn_type_id COUNTRY IS REQUIRED", "adm"
                                 $id = IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn);
                                 if (!$id) throw new  AfwRuntimeException("Failed IDN conversion IdnToId::convertToID('adm', $country_id, $idn_type_id, $idn)");
                                 $this->set("id", $id);
@@ -268,11 +266,11 @@ class Applicant extends AdmObject
                         if ($id != $idn) throw new AfwRuntimeException("beforeMaj Contact admin please because IDN=$idn != id=$id when idn_type_id == $idn_type_id");
                 }
 
-                
+
                 // $register_apis_need_refresh = AfwSession::config("register_apis_need_refresh", false);
                 $api_runner_class = self::loadApiRunner();
                 if ($this->id and $first_register) {
-                        
+
                         $register_apis = $api_runner_class::register_apis();
                         // create register apis call requests to be done by applicant-api-request-job                        
                         foreach ($register_apis as $register_api) {
@@ -283,59 +281,49 @@ class Applicant extends AdmObject
                 }
                 $file_dir_name = dirname(__FILE__);
 
-                $file_dir_name = dirname(__FILE__);                
+                $file_dir_name = dirname(__FILE__);
                 $main_company = AfwSession::currentCompany();
-                
+
                 $active_eval_fields = [];
                 $active_eval_arr = [];
-                $active_evals_file = "$file_dir_name/../../client-$main_company/extra/$main_company"."_active_evals.php";
-                if(file_exists($active_evals_file))
-                {
+                $active_evals_file = "$file_dir_name/../../client-$main_company/extra/$main_company" . "_active_evals.php";
+                if (file_exists($active_evals_file)) {
                         $active_evals = require($active_evals_file);
-                        foreach($active_evals as $eval_code => $eval_settings)
-                        {
+                        foreach ($active_evals as $eval_code => $eval_settings) {
                                 $active_eval_arr[$eval_code] = true;
-                                foreach($eval_settings as $eval_type => $eval_setting_row)
-                                {
-                                        foreach($eval_setting_row as $categ => $eval_setting_case)
-                                        {
+                                foreach ($eval_settings as $eval_type => $eval_setting_row) {
+                                        foreach ($eval_setting_row as $categ => $eval_setting_case) {
                                                 $eval_id = $eval_setting_case["id"];
-                                                $eval_attribute = $eval_code."_".$eval_type."_".$categ;
+                                                $eval_attribute = $eval_code . "_" . $eval_type . "_" . $categ;
                                                 $eval_date_attribute = $eval_attribute . "_date";
-                                                if($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute]) 
-                                                {
+                                                if ($fields_updated[$eval_date_attribute] or $fields_updated[$eval_attribute]) {
                                                         $eval_date = $this->getVal($eval_date_attribute);
-                                                        if(!$eval_date) $eval_date = "2025-01-01";
+                                                        if (!$eval_date) $eval_date = "2025-01-01";
                                                         $eval_result = $this->getVal($eval_attribute);
-                                                        if($eval_date and $eval_result)
-                                                        {
+                                                        if ($eval_date and $eval_result) {
                                                                 $objEval = ApplicantEvaluation::loadByMainIndex($eval_id, $this->id, $eval_date, $eval_result, true, true);
                                                         }
-                                                        
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                         // die("fields_updated = ".var_export($fields_updated,true));
                                                 }
                                         }
                                 }
                         }
                 }
-                
+
 
                 return true;
         }
 
         public function afterMaj($id, $fields_updated)
         {
-                if((!$this->getVal("first_name_ar")) or (!$this->getVal("father_name_ar")) or (!$this->getVal("last_name_ar")))
-                {
+                if ((!$this->getVal("first_name_ar")) or (!$this->getVal("father_name_ar")) or (!$this->getVal("last_name_ar"))) {
                         $this->runNeededApis();
                 }
         }
 
 
-        
+
 
 
         public static function getAdditionalFieldParams($field_name)
@@ -451,22 +439,18 @@ class Applicant extends AdmObject
                 return $attribute;
         }
 
-        public function getAlreadyPlanIds($application_simulation_id, $implode=",")
+        public function getAlreadyPlanIds($application_simulation_id, $implode = ",")
         {
                 $already_plan_ids_arr = [];
                 $applicationList = $this->get("applicationList");
-                foreach($applicationList as $applicationItem)
-                {
-                        if($applicationItem->getVal("application_simulation_id") == $application_simulation_id) 
-                        {
+                foreach ($applicationList as $applicationItem) {
+                        if ($applicationItem->getVal("application_simulation_id") == $application_simulation_id) {
                                 $already_plan_ids_arr[] = $applicationItem->getVal("application_plan_id");
                         }
-                        
                 }
 
-                if(!$implode) return $already_plan_ids_arr;
+                if (!$implode) return $already_plan_ids_arr;
                 else return implode($implode, $already_plan_ids_arr);
-
         }
 
         protected function getOtherLinksArray($mode, $genereLog = false, $step = "all")
@@ -556,54 +540,47 @@ class Applicant extends AdmObject
                         return ($this->getRelation("applicantEvaluationsNoFile")->count() > 0);
                 }
 
-                
-                
-                $file_dir_name = dirname(__FILE__);                
+
+
+                $file_dir_name = dirname(__FILE__);
                 $main_company = AfwSession::currentCompany();
-                
+
                 $active_eval_fields = [];
                 $active_eval_arr = [];
-                $active_evals_file = "$file_dir_name/../../client-$main_company/extra/$main_company"."_active_evals.php";
-                if(file_exists($active_evals_file))
-                {
+                $active_evals_file = "$file_dir_name/../../client-$main_company/extra/$main_company" . "_active_evals.php";
+                if (file_exists($active_evals_file)) {
                         $active_evals = require($active_evals_file);
-                        foreach($active_evals as $eval_code => $eval_settings)
-                        {
+                        foreach ($active_evals as $eval_code => $eval_settings) {
                                 $active_eval_arr[$eval_code] = true;
-                                foreach($eval_settings as $eval_type => $eval_setting_row)
-                                {
-                                        foreach($eval_setting_row as $categ => $eval_setting_case)
-                                        {
+                                foreach ($eval_settings as $eval_type => $eval_setting_row) {
+                                        foreach ($eval_setting_row as $categ => $eval_setting_case) {
                                                 $eval_id = $eval_setting_case["id"];
-                                                $eval_attribute = $eval_code."_".$eval_type."_".$categ;
+                                                $eval_attribute = $eval_code . "_" . $eval_type . "_" . $categ;
                                                 $eval_date_attribute = $eval_attribute . "_date";
-                                                $active_eval_fields[$eval_attribute]=true;
-                                                $active_eval_fields[$eval_date_attribute]=true;                                        
+                                                $active_eval_fields[$eval_attribute] = true;
+                                                $active_eval_fields[$eval_date_attribute] = true;
                                         }
                                 }
                         }
                 }
-                
 
 
-                if (AfwStringHelper::stringStartsWith($attribute, "qiyas_"))
-                {
-                        return ($active_eval_arr["qiyas"] and $active_eval_fields[$attribute]); 
+
+                if (AfwStringHelper::stringStartsWith($attribute, "qiyas_")) {
+                        return ($active_eval_arr["qiyas"] and $active_eval_fields[$attribute]);
                 }
 
 
-                if ($attribute == "applicantApiRequestList")
-                {
+                if ($attribute == "applicantApiRequestList") {
                         $api_runner_class = self::loadApiRunner();
                         $arrAPIs = [];
-                        if(method_exists($api_runner_class,"applicant_apis"))
-                        {
+                        if (method_exists($api_runner_class, "applicant_apis")) {
                                 $arrAPIs = $api_runner_class::applicant_apis();
                         }
-                        
 
-                        return (count($arrAPIs)>0);                        
-                } 
+
+                        return (count($arrAPIs) > 0);
+                }
 
 
                 return true;
@@ -664,184 +641,165 @@ class Applicant extends AdmObject
         }
 
 
-        public function beforeDelete($id,$id_replace) 
+        public function beforeDelete($id, $id_replace)
         {
-            $server_db_prefix = AfwSession::config("db_prefix","xxxx");
-            
-            if(!$id)
-            {
-                $id = $this->getId();
-                $simul = true;
-            }
-            else
-            {
-                $simul = false;
-            }
-            
-            if($id)
-            {   
-               if($id_replace==0)
-               {
-                   // FK part of me - not deletable 
-                       // adm.application-المتقدم	applicant_id  أنا تفاصيل لها (required field)
-                        // require_once "../adm/application.php";
-                        $obj = new Application();
-                        $obj->where("applicant_id = '$id' and active='Y' ");
-                        $nbRecords = $obj->count();
-                        // check if there's no record that block the delete operation
-                        if($nbRecords>0)
-                        {
-                            $this->deleteNotAllowedReason = "Some related application(s) exists";
-                            return false;
+                $server_db_prefix = AfwSession::config("db_prefix", "xxxx");
+
+                if (!$id) {
+                        $id = $this->getId();
+                        $simul = true;
+                } else {
+                        $simul = false;
+                }
+
+                if ($id) {
+                        if ($id_replace == 0) {
+                                // FK part of me - not deletable 
+                                // adm.application-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                                // require_once "../adm/application.php";
+                                $obj = new Application();
+                                $obj->where("applicant_id = '$id' and active='Y' ");
+                                $nbRecords = $obj->count();
+                                // check if there's no record that block the delete operation
+                                if ($nbRecords > 0) {
+                                        $this->deleteNotAllowedReason = "Some related application(s) exists";
+                                        return false;
+                                }
+                                // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                                if (!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
+
+                                // adm.application_desire-المتفدم	applicant_id  حقل يفلتر به (required field)
+                                // require_once "../adm/application_desire.php";
+                                $obj = new ApplicationDesire();
+                                $obj->where("applicant_id = '$id' and active='Y' ");
+                                $nbRecords = $obj->count();
+                                // check if there's no record that block the delete operation
+                                if ($nbRecords > 0) {
+                                        $this->deleteNotAllowedReason = "Some related desire(s) exists";
+                                        return false;
+                                }
+                                // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                                if (!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
+
+                                // adm.applicant_file-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                                // require_once "../adm/applicant_file.php";
+                                $obj = new ApplicantFile();
+                                $obj->where("applicant_id = '$id' and active='Y' ");
+                                $nbRecords = $obj->count();
+                                // check if there's no record that block the delete operation
+                                if ($nbRecords > 0) {
+                                        $this->deleteNotAllowedReason = "Some related file(s) exists";
+                                        return false;
+                                }
+                                // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                                if (!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
+
+
+
+                                // FK part of me - deletable 
+                                // adm.applicant_qualification-المتقدم	applicant_id  أنا تفاصيل لها
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_qualification.php";
+                                        ApplicantQualification::removeWhere("applicant_id='$id'");
+                                        // $this->execQuery("delete from ${server_db_prefix}adm.applicant_qualification where applicant_id = '$id' ");
+
+                                }
+
+
+                                // adm.applicant_evaluation-المتقدم	applicant_id  حقل يفلتر به
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_evaluation.php";
+                                        ApplicantEvaluation::removeWhere("applicant_id='$id'");
+                                        // $this->execQuery("delete from ${server_db_prefix}adm.applicant_evaluation where applicant_id = '$id' ");
+
+                                }
+
+
+                                // adm.applicant_api_request-المتقدم	applicant_id  أنا تفاصيل لها
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_api_request.php";
+                                        ApplicantApiRequest::removeWhere("applicant_id='$id'");
+                                        // $this->execQuery("delete from ${server_db_prefix}adm.applicant_api_request where applicant_id = '$id' ");
+
+                                }
+
+
+
+
+                                // FK not part of me - replaceable 
+
+
+
+                                // MFK
+
+                        } else {
+                                // FK on me 
+
+
+                                // adm.application-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                                if (!$simul) {
+                                        // require_once "../adm/application.php";
+                                        Application::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                                        // $this->execQuery("update ${server_db_prefix}adm.application set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                                }
+
+
+
+
+                                // adm.application_desire-المتفدم	applicant_id  حقل يفلتر به (required field)
+                                if (!$simul) {
+                                        // require_once "../adm/application_desire.php";
+                                        ApplicationDesire::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                                        // $this->execQuery("update ${server_db_prefix}adm.application_desire set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                                }
+
+
+
+
+                                // adm.applicant_file-المتقدم	applicant_id  أنا تفاصيل لها (required field)
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_file.php";
+                                        ApplicantFile::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                                        // $this->execQuery("update ${server_db_prefix}adm.applicant_file set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                                }
+
+
+                                // adm.applicant_qualification-المتقدم	applicant_id  أنا تفاصيل لها
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_qualification.php";
+                                        ApplicantQualification::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                                        // $this->execQuery("update ${server_db_prefix}adm.applicant_qualification set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                                }
+
+                                // adm.applicant_evaluation-المتقدم	applicant_id  حقل يفلتر به
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_evaluation.php";
+                                        ApplicantEvaluation::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                                        // $this->execQuery("update ${server_db_prefix}adm.applicant_evaluation set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                                }
+
+                                // adm.applicant_api_request-المتقدم	applicant_id  أنا تفاصيل لها
+                                if (!$simul) {
+                                        // require_once "../adm/applicant_api_request.php";
+                                        ApplicantApiRequest::updateWhere(array('applicant_id' => $id_replace), "applicant_id='$id'");
+                                        // $this->execQuery("update ${server_db_prefix}adm.applicant_api_request set applicant_id='$id_replace' where applicant_id='$id' ");
+
+                                }
+
+
+
+                                // MFK
+
+
                         }
-                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
-                        if(!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
-
-                       // adm.application_desire-المتفدم	applicant_id  حقل يفلتر به (required field)
-                        // require_once "../adm/application_desire.php";
-                        $obj = new ApplicationDesire();
-                        $obj->where("applicant_id = '$id' and active='Y' ");
-                        $nbRecords = $obj->count();
-                        // check if there's no record that block the delete operation
-                        if($nbRecords>0)
-                        {
-                            $this->deleteNotAllowedReason = "Some related desire(s) exists";
-                            return false;
-                        }
-                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
-                        if(!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
-
-                       // adm.applicant_file-المتقدم	applicant_id  أنا تفاصيل لها (required field)
-                        // require_once "../adm/applicant_file.php";
-                        $obj = new ApplicantFile();
-                        $obj->where("applicant_id = '$id' and active='Y' ");
-                        $nbRecords = $obj->count();
-                        // check if there's no record that block the delete operation
-                        if($nbRecords>0)
-                        {
-                            $this->deleteNotAllowedReason = "Some related file(s) exists";
-                            return false;
-                        }
-                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
-                        if(!$simul) $obj->deleteWhere("applicant_id = '$id' and active='N'");
-
-
-                        
-                   // FK part of me - deletable 
-                       // adm.applicant_qualification-المتقدم	applicant_id  أنا تفاصيل لها
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_qualification.php";
-                            ApplicantQualification::removeWhere("applicant_id='$id'");
-                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_qualification where applicant_id = '$id' ");
-                            
-                        } 
-                        
-                        
-                       // adm.applicant_evaluation-المتقدم	applicant_id  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_evaluation.php";
-                            ApplicantEvaluation::removeWhere("applicant_id='$id'");
-                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_evaluation where applicant_id = '$id' ");
-                            
-                        } 
-                        
-                        
-                       // adm.applicant_api_request-المتقدم	applicant_id  أنا تفاصيل لها
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_api_request.php";
-                            ApplicantApiRequest::removeWhere("applicant_id='$id'");
-                            // $this->execQuery("delete from ${server_db_prefix}adm.applicant_api_request where applicant_id = '$id' ");
-                            
-                        } 
-                        
-                        
-
-                   
-                   // FK not part of me - replaceable 
-
-                        
-                   
-                   // MFK
-
-               }
-               else
-               {
-                        // FK on me 
- 
-
-                        // adm.application-المتقدم	applicant_id  أنا تفاصيل لها (required field)
-                        if(!$simul)
-                        {
-                            // require_once "../adm/application.php";
-                            Application::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.application set applicant_id='$id_replace' where applicant_id='$id' ");
-                            
-                        } 
-                        
-
- 
-
-                        // adm.application_desire-المتفدم	applicant_id  حقل يفلتر به (required field)
-                        if(!$simul)
-                        {
-                            // require_once "../adm/application_desire.php";
-                            ApplicationDesire::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.application_desire set applicant_id='$id_replace' where applicant_id='$id' ");
-                            
-                        } 
-                        
-
- 
-
-                        // adm.applicant_file-المتقدم	applicant_id  أنا تفاصيل لها (required field)
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_file.php";
-                            ApplicantFile::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.applicant_file set applicant_id='$id_replace' where applicant_id='$id' ");
-                            
-                        } 
-                        
-
-                       // adm.applicant_qualification-المتقدم	applicant_id  أنا تفاصيل لها
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_qualification.php";
-                            ApplicantQualification::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.applicant_qualification set applicant_id='$id_replace' where applicant_id='$id' ");
-                            
-                        }
-                        
-                       // adm.applicant_evaluation-المتقدم	applicant_id  حقل يفلتر به
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_evaluation.php";
-                            ApplicantEvaluation::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.applicant_evaluation set applicant_id='$id_replace' where applicant_id='$id' ");
-                            
-                        }
-                        
-                       // adm.applicant_api_request-المتقدم	applicant_id  أنا تفاصيل لها
-                        if(!$simul)
-                        {
-                            // require_once "../adm/applicant_api_request.php";
-                            ApplicantApiRequest::updateWhere(array('applicant_id'=>$id_replace), "applicant_id='$id'");
-                            // $this->execQuery("update ${server_db_prefix}adm.applicant_api_request set applicant_id='$id_replace' where applicant_id='$id' ");
-                            
-                        }
-                        
-
-                        
-                        // MFK
-
-                   
-               } 
-               return true;
-            }    
-	}
+                        return true;
+                }
+        }
 
         // applicant 
         public function getScenarioItemId($currstep)
@@ -867,7 +825,7 @@ class Applicant extends AdmObject
 
         public function getQualificationList()
         {
-                if(!$this->applicantQualificationList) $this->applicantQualificationList = $this->get("applicantQualificationList");
+                if (!$this->applicantQualificationList) $this->applicantQualificationList = $this->get("applicantQualificationList");
         }
 
         public function updateQualificationLevelFields()
@@ -936,82 +894,108 @@ class Applicant extends AdmObject
                 $pbms = array();
 
 
-                if(false)
-                {
+                if (false) {
                         $color = "orange";
                         $title_en = "Verify enrollment at another university";
-                        $title_ar = $this->tm($title_en, 'ar');                
+                        $title_ar = $this->tm($title_en, 'ar');
                         $methodName = "verifyEnrollment";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                "LABEL_AR" => $title_ar, 
-                                                "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEPS' => 'all'
+                        );
                         $color = "grey";
                         $title_en = "Verify enrollment at UOH university";
-                        $title_ar = $this->tm($title_en, 'ar');                
+                        $title_ar = $this->tm($title_en, 'ar');
                         $methodName = "verifyEnrollmentUOH";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                "LABEL_AR" => $title_ar, 
-                                                "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEPS' => 'all'
+                        );
 
                         //@todo
                         // checkOtherUniversityAcceptance
                         $color = "blue";
                         $title_en = "Force updating data via electronic services";
-                        $title_ar = $this->tm($title_en, 'ar');                
+                        $title_ar = $this->tm($title_en, 'ar');
                         $methodName = "runNeededApis";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                "LABEL_AR" => $title_ar, 
-                                                "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEPS' => 'all'
+                        );
 
                         $color = "green";
                         $title_ar = $this->tm("Updating data via electronic services", 'ar');
                         $title_en = $this->tm("Updating data via electronic services", 'en');
                         $methodName = "runOnlyNeedUpdateApis";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                "LABEL_AR" => $title_ar, 
-                                                "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEPS' => 'all'
+                        );
                 }
 
 
-                
-                
-                
 
-                if(!$this->sureIs("signup_acknowldgment"))
-                {
+
+
+
+                if (!$this->sureIs("signup_acknowldgment")) {
                         $color = "blue";
                         $title_en = "Signup Acknowldgment";
                         $title_ar = $this->tm($title_en, 'ar');
-                        
+
                         $methodName = "signupAcknowldgment";
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                "LABEL_AR" => $title_ar, 
-                                                "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');        
-
-
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                "METHOD" => $methodName,
+                                "COLOR" => $color,
+                                "LABEL_AR" => $title_ar,
+                                "LABEL_EN" => $title_en,
+                                "PUBLIC" => true,
+                                "BF-ID" => "",
+                                'STEPS' => 'all'
+                        );
                 }
-                
+
 
                 $color = "red";
                 $title_en = "Reset Applicant";
                 $title_ar = $this->tm($title_en, 'ar');
                 $methodName = "resetApplicant";
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, 
-                                                "LABEL_AR" => $title_ar, 
-                                                "LABEL_EN" => $title_en, 
-                                                "PUBLIC" => true, "BF-ID" => "", 'STEPS' => 'all');                                        
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                        "METHOD" => $methodName,
+                        "COLOR" => $color,
+                        "LABEL_AR" => $title_ar,
+                        "LABEL_EN" => $title_en,
+                        "PUBLIC" => true,
+                        "BF-ID" => "",
+                        'STEPS' => 'all'
+                );
 
 
                 return $pbms;
         }
 
 
-        public function signupAcknowldgment($lang="ar")
+        public function signupAcknowldgment($lang = "ar")
         {
                 $this->set("signup_acknowldgment", "Y");
                 $this->commit();
@@ -1021,50 +1005,43 @@ class Applicant extends AdmObject
 
         protected function afterSetAttribute($attribute)
         {
-                if($attribute=="idn") // and (!$this->getVal("idn_type_id"))) 
+                if ($attribute == "idn") // and (!$this->getVal("idn_type_id"))) 
                 {
                         list($idn_correct, $idn_type_id) = AfwFormatHelper::getIdnTypeId($this->getVal("idn"));
-                        if($idn_correct)
-                        { 
-                                $this->set("idn_type_id", $idn_type_id);                                
-                        }  
+                        if ($idn_correct) {
+                                $this->set("idn_type_id", $idn_type_id);
+                        }
                 }
 
-                if($attribute=="idn_type_id") // and (!$this->getVal("idn_type_id"))) 
+                if ($attribute == "idn_type_id") // and (!$this->getVal("idn_type_id"))) 
                 {
-                        if($this->getVal("idn_type_id")==1)
-                        { 
-                                $this->set("country_id", 183);                                
-                        }  
+                        if ($this->getVal("idn_type_id") == 1) {
+                                $this->set("country_id", 183);
+                        }
                 }
         }
-        
 
-        public function resetApplicant($lang="ar")
+
+        public function resetApplicant($lang = "ar")
         {
                 $id = $this->id;
 
                 $objApp = new Application();
                 $objDes = new ApplicationDesire();
                 $objFle = new ApplicantFile();
-                
+
                 $objDes->where("applicant_id = '$id' and active='Y' and desire_status_enum in (2,3)");
                 $nbRecordsCritical = $objDes->count();
 
-                
-                if(!$nbRecordsCritical)
-                {
+
+                if (!$nbRecordsCritical) {
                         $objApp->deleteWhere("applicant_id = '$id'");
                         $objDes->deleteWhere("applicant_id = '$id'");
                         $objFle->deleteWhere("applicant_id = '$id'");
                         return ["", "The applicant has been reset and can be deleted"];
-                }
-                else
-                {
+                } else {
                         return ["The applicant has some accepted desires and can't be deleted", ""];
                 }
-
-                
         }
 
         public function runOnlyNeedUpdateApis($lang = "ar")
@@ -1079,52 +1056,52 @@ class Applicant extends AdmObject
         }
 
         public static function verifyEnrollmentForIdn($idn, $lang = "ar")
-        {                
+        {
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
-                $tech_arr = [];  
-                $result = [];  
+                $tech_arr = [];
+                $result = [];
 
                 try {
                         // medali to implement your code of mourakaba
                         // ...
-                        $token = self::getToken();        
+                        $token = self::getToken();
                         $request = [
-                                "idn"=>$idn,       
+                                "idn" => $idn,
                         ];
                         $gsb_api_manager_enpoint = AfwSession::config("gsb_api_manager_enpoint", "http://212.138.86.196/api");
-                        $ch = curl_init("$gsb_api_manager_enpoint/morakaba?idn=".$idn);
+                        $ch = curl_init("$gsb_api_manager_enpoint/morakaba?idn=" . $idn);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                         //curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
                         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                        'Authorization: Bearer ' . $token,
-                        'Accept: application/json'
+                                'Authorization: Bearer ' . $token,
+                                'Accept: application/json'
                         ]);
-                
+
                         $dataResponse = curl_exec($ch);
                         if (curl_errno($ch)) {
-                        $err_arr[] = 'Curl error: ' . curl_error($ch);
+                                $err_arr[] = 'Curl error: ' . curl_error($ch);
                         }
                         curl_close($ch);
-                
+
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
                         $nb_univ = 0;
                         $universities_arr = [];
                         //$inf_arr[] = $dataResponse;
-                        foreach($data as $row){
-                                if($row["Universities_Graduated_ind"]==true){
+                        foreach ($data as $row) {
+                                if ($row["Universities_Graduated_ind"] == true) {
                                         $nb_univ++;
                                         $universities_arr["ar"][] = $row["UniversityNameAr"];
                                         $universities_arr["en"][] = $row["UniversityNameEn"];
-                                        $war_arr[] = "المتقدم مقبول في جامعة ".$row["UniversityNameAr"]." (".$row["UniversityID"].")";
+                                        $war_arr[] = "المتقدم مقبول في جامعة " . $row["UniversityNameAr"] . " (" . $row["UniversityID"] . ")";
                                         //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
                                 }
                         }
 
-                        if($nb_univ==0){
+                        if ($nb_univ == 0) {
                                 $inf_arr[] = "لا توجد سجلات للمتقدم في الجامعات السعودية";
                         }
 
@@ -1141,11 +1118,11 @@ class Applicant extends AdmObject
                 } catch (Error $e) {
                         $err_arr[] = $e->__toString();
                 }
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr,$result);
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result);
         }
 
-        
-        
+
+
         public function verifyEnrollmentUOH($lang = "ar")
         {
                 $idn = $this->getVal("idn");
@@ -1153,48 +1130,48 @@ class Applicant extends AdmObject
         }
 
         public static function verifyEnrollmentUOHForIdn($idn, $lang = "ar")
-        {                
+        {
                 $err_arr = [];
                 $inf_arr = [];
                 $war_arr = [];
-                $tech_arr = [];  
-                $result = [];  
+                $tech_arr = [];
+                $result = [];
 
                 try {
                         // medali to implement your code of mourakaba
                         // ...
-                        $token = self::getTokenUOH();        
-                        
+                        $token = self::getTokenUOH();
+
                         $request = [
-                                "idn"=>$idn,       
+                                "idn" => $idn,
                         ];
-                        $ch = curl_init("https://apis.uoh.edu.sa/uoh/StuProfileADM/GetStu/".$idn);
+                        $ch = curl_init("https://apis.uoh.edu.sa/uoh/StuProfileADM/GetStu/" . $idn);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                         //curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
                         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                        'Authorization: Bearer ' . $token,
-                        'Accept: application/json'
+                                'Authorization: Bearer ' . $token,
+                                'Accept: application/json'
                         ]);
-                
+
                         $dataResponse = curl_exec($ch);
                         if (curl_errno($ch)) {
-                        $err_arr[] = 'Curl error: ' . curl_error($ch);
+                                $err_arr[] = 'Curl error: ' . curl_error($ch);
                         }
                         curl_close($ch);
                         //$inf_arr[] = "token : ".$dataResponse;
-                
+
                         // تحليل الاستجابة
                         $data = json_decode($dataResponse, true);
                         $nb_univ = 0;
                         $universities_arr = [];
-                        if($data["AdmissionStatusAr"]!=""){
-                                $war_arr[] = "المتقدم ".$data["AdmissionStatusAr"]." في جامعة حائل ";
+                        if ($data["AdmissionStatusAr"] != "") {
+                                $war_arr[] = "المتقدم " . $data["AdmissionStatusAr"] . " في جامعة حائل ";
                                 //$this->errorResponse(null, __("messages.applicant_has_other_admission",["univ"=>$row["UniversityNameAr"],"univEn"=>$row["UniversityID"]]));
-                        }else{
+                        } else {
                                 $inf_arr[] = "لا توجد سجلات للمتقدم في جامعة حائل";
                         }
-                        
+
 
                         /*$result["universities"] = $nb_univ;
                         $result["universities_arr"] = $universities_arr;*/
@@ -1209,9 +1186,9 @@ class Applicant extends AdmObject
                 } catch (Error $e) {
                         $err_arr[] = $e->__toString();
                 }
-                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr,$result);
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result);
         }
-        public function runNeededApis($lang = "ar", $force=true, $echo=false, $stopMethod="")
+        public function runNeededApis($lang = "ar", $force = true, $echo = false, $stopMethod = "")
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -1228,10 +1205,9 @@ class Applicant extends AdmObject
                          */
                         foreach ($applicantApiRequestList as $applicantApiRequestItem) {
 
-                                if($stopMethod)
-                                {
+                                if ($stopMethod) {
                                         $war_arr[] = "Stopped by stop method = $stopMethod";
-                                        if($this->$stopMethod()) break;
+                                        if ($this->$stopMethod()) break;
                                 }
 
                                 list($err, $inf, $war, $tech) = $applicantApiRequestItem->runMe(null, $this, $lang, $force, $echo);
@@ -1252,9 +1228,9 @@ class Applicant extends AdmObject
         public function getFieldApiEndpoint($field_name)
         {
                 $application_fieldObj = ApplicationField::loadByMainIndex($field_name, 1);
-                if(!$application_fieldObj) return null;
+                if (!$application_fieldObj) return null;
 
-                $arr = ApiEndpoint::findAllApiEndpointForField($application_fieldObj->id,1);
+                $arr = ApiEndpoint::findAllApiEndpointForField($application_fieldObj->id, 1);
                 return $arr[0];
         }
 
@@ -1267,9 +1243,9 @@ class Applicant extends AdmObject
         }
 
 
-        
 
-        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $offlineDesiresRow, $lang='ar', $only_reset=false)
+
+        public function simulateApplication(&$applicationPlanObj, &$applicationSimulationObj, $offlineDesiresRow, $lang = 'ar', $only_reset = false)
         {
                 $err_arr = [];
                 $inf_arr = [];
@@ -1278,15 +1254,15 @@ class Applicant extends AdmObject
                 /*
                 if(!$applicationModelObj or !$applicationModelObj->id) throw new AfwRuntimeException("simulateApplication : No Application Model Defined for this simulation");
                 else*/
-                
-                $reason = $this->tm("reason",$lang);
 
-                if(!$applicationSimulationObj or !$applicationSimulationObj->id) throw new AfwRuntimeException("simulateApplication : No Application Simulation ID Defined to do this simulation");
-                elseif(!$applicationPlanObj or !$applicationPlanObj->id) throw new AfwRuntimeException("simulateApplication : No Application Plan Defined for this simulation");
+                $reason = $this->tm("reason", $lang);
+
+                if (!$applicationSimulationObj or !$applicationSimulationObj->id) throw new AfwRuntimeException("simulateApplication : No Application Simulation ID Defined to do this simulation");
+                elseif (!$applicationPlanObj or !$applicationPlanObj->id) throw new AfwRuntimeException("simulateApplication : No Application Plan Defined for this simulation");
                 $applicant_id = $this->id;
                 $application_plan_id = $applicationPlanObj->id;
                 $application_model_id = $applicationPlanObj->getVal("application_model_id");
-                $application_simulation_id = $applicationSimulationObj->id; 
+                $application_simulation_id = $applicationSimulationObj->id;
                 $options = $applicationSimulationObj->getOptions();
                 $skipConditionsApply = (strtolower($options["SKIP-CONDITIONS-APPLY"]) == "on");
                 $reComputeSortingCriterea = (strtolower($options["RE-COMPUTE-SORTING-CRITEREA-VALUES"]) == "on");
@@ -1294,171 +1270,142 @@ class Applicant extends AdmObject
                 $bootstraps = 0;
                 $desire_bootstraps = 0;
                 $blocked = false;
-                if($only_reset or (strtolower($options["ERASE-EXISTING-APPLICATIONS"])=="on"))
-                {
-                        list($result, $row_count, $affected_row_count) = Application::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");     
-                        if($affected_row_count) $tech_arr[]  = "$affected_row_count ".$this->tm("application(s) already existing deleted", $lang)."<br>\n";
-                        list($result, $row_count, $affected_row_count) = ApplicationDesire::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");     
-                        if($affected_row_count) $tech_arr[]  = "$affected_row_count ".$this->tm("desire(s) already existing deleted", $lang)."<br>\n";
+                if ($only_reset or (strtolower($options["ERASE-EXISTING-APPLICATIONS"]) == "on")) {
+                        list($result, $row_count, $affected_row_count) = Application::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");
+                        if ($affected_row_count) $tech_arr[]  = "$affected_row_count " . $this->tm("application(s) already existing deleted", $lang) . "<br>\n";
+                        list($result, $row_count, $affected_row_count) = ApplicationDesire::deleteWhere("applicant_id = $applicant_id and application_plan_id=$application_plan_id and application_simulation_id=$application_simulation_id");
+                        if ($affected_row_count) $tech_arr[]  = "$affected_row_count " . $this->tm("desire(s) already existing deleted", $lang) . "<br>\n";
                 }
-                
-                if(!$only_reset)
-                {
+
+                if (!$only_reset) {
                         $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn, true);
-                        if($appObj)
-                        {
+                        if ($appObj) {
                                 $appObj->setApplicantObject($this);
-                                if($skipConditionsApply)
-                                {
+                                if ($skipConditionsApply) {
                                         list($err, $inf, $war, $tech, $result) = $appObj->forceGotoDesireStep($lang);
-                                        if ($err) $err_arr[] = $err; 
+                                        if ($err) $err_arr[] = $err;
                                         if ($inf) $inf_arr[] = $inf;
                                         if ($war) $war_arr[] = $war;
                                         if ($tech) $tech_arr[] = $tech;
-                                        if (!$err)
-                                        {
+                                        if (!$err) {
                                                 $stepCode = $result["STEP_CODE"];
                                                 $bootstrapAppResult = "forceGotoDesireStep";
                                                 $bootstrapAppResultDetails = "no-error";
-                                        }
-                                        else
-                                        {
+                                        } else {
                                                 $stepCode = $result["STEP_CODE"];
                                                 $bootstrapAppResult = "forceGotoDesireStep-failed";
                                                 $bootstrapAppResultDetails = $err;
                                         }
-                                        
-                                }
-                                else
-                                {
+                                } else {
                                         list($stepCode, $resPbm, $tentatives1, $bootstrapAppResult, $bootstrapAppResultDetails) = $appObj->bootstrapApplication($lang, true, $options);
                                         $bootstraps += $tentatives1;
                                         list($err, $inf, $war, $tech) = $resPbm;
                                 }
-                                
-                                
-                                
-                                if ($err) $err_arr[] = $err; 
+
+
+
+                                if ($err) $err_arr[] = $err;
                                 if ($inf) $inf_arr[] = $inf;
                                 if ($war) $war_arr[] = $war;
                                 if ($tech) $tech_arr[] = $tech;
                                 $stepCodeTile = self::standard_application_step_title_by_code($stepCode);
-                                if($stepCode=="DSR")
-                                {
-                                        
-                                        $inf_arr[] = $this->tm("Application",$lang) ." ". $this->tm("reached step",$lang) . " : $stepCodeTile <!-- $stepCode -->";
+                                if ($stepCode == "DSR") {
+
+                                        $inf_arr[] = $this->tm("Application", $lang) . " " . $this->tm("reached step", $lang) . " : $stepCodeTile <!-- $stepCode -->";
                                         list($appDesireList, $log, $nb_desires_gen, $nb_desires_mfk) = $appObj->simulateDesires($applicationSimulationObj, $applicationPlanObj, $lang, $offlineDesiresRow);
                                         $tech_arr[] = $log;
                                         $appDesireListCount = count($appDesireList);
-                                        
+
                                         $appDesireIdList = array_keys($appDesireList);
                                         /**
                                          * @var ApplicationDesire $appDesireItem
                                          */
                                         $oneDesireAtLeastIsBlocked = false;
-                                        foreach($appDesireIdList as $appDesireId)
-                                        {
-                                                $appDesireItem =& $appDesireList[$appDesireId];
+                                        foreach ($appDesireIdList as $appDesireId) {
+                                                $appDesireItem = &$appDesireList[$appDesireId];
                                                 $disp = $appDesireItem->getDisplay($lang);
-                                                if($skipConditionsApply)
-                                                {
+                                                if ($skipConditionsApply) {
                                                         list($err, $inf, $war, $tech) = $appDesireItem->forceGotoSortingStep($lang);
                                                         $desireStepCode = "SRT";
                                                         $bootstrapDesireResult = "no-bootstrap but forceGotoSortingStep";
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                         list($desireStepCode, $resPbm, $tentatives2, $bootstrapDesireResult) = $appDesireItem->bootstrapDesire($lang, true, $options);
                                                         $desire_bootstraps += $tentatives2;
                                                         list($err, $inf, $war, $tech) = $resPbm;
-                                                }                                                
-                                                if ($err) $err_arr[] = $err; 
+                                                }
+                                                if ($err) $err_arr[] = $err;
                                                 if ($inf) $inf_arr[] = $inf;
                                                 if ($war) $war_arr[] = $war;
                                                 if ($tech) $tech_arr[] = $tech;
                                                 $desireStepTile = self::standard_application_step_title_by_code($desireStepCode);
-                                                if($desireStepCode=="SRT")
-                                                {
-                                                        
-                                                        if($reComputeSortingCriterea or $appDesireItem->sortingCritereaNeedRefresh())
-                                                        {
+                                                if ($desireStepCode == "SRT") {
+
+                                                        if ($reComputeSortingCriterea or $appDesireItem->sortingCritereaNeedRefresh()) {
                                                                 $appDesireItem->reComputeSortingCriterea($lang);
                                                         }
-                                                        
-                                                        $inf_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("reached step",$lang) . " : $desireStepTile <!-- $desireStepCode -->"; 
+
+                                                        $inf_arr[] = $this->tm("Application desire", $lang) . " [$disp] " . $this->tm("reached step", $lang) . " : $desireStepTile <!-- $desireStepCode -->";
+                                                } else {
+                                                        $war_arr[] = $this->tm("Application desire", $lang) . " [$disp] " . $this->tm("faltered at step", $lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : " . $appDesireItem->statusExplanations();
                                                 }
-                                                else
-                                                {
-                                                        $war_arr[] = $this->tm("Application desire",$lang) ." [$disp] ". $this->tm("faltered at step",$lang) . " : $desireStepTile <!-- $desireStepCode --> , $reason : ". $appDesireItem->statusExplanations(); 
-                                                } 
-                                                if($bootstrapDesireResult == "standby")
-                                                {
+                                                if ($bootstrapDesireResult == "standby") {
                                                         $oneDesireAtLeastIsBlocked = $appDesireId;
                                                 }
-                                                        
-        
+
+
                                                 unset($appDesireItem);
-                                                unset($appDesireList[$appDesireId]);                                                
+                                                unset($appDesireList[$appDesireId]);
                                         }
 
-                                        if($appDesireListCount>0)
-                                        {
+                                        if ($appDesireListCount > 0) {
                                                 $appObj->set("application_status_enum", self::application_status_enum_by_code('complete'));
-                                                $appObj->set("comments", $this->tm("application is complete",$lang));
+                                                $appObj->set("comments", $this->tm("application is complete", $lang));
                                                 $appObj->commit();
                                         }
-        
+
                                         // the minimum nb of desires authorized by application model
                                         $minDesires = Aparameter::getParameterValueForContext(15, $application_model_id, $application_plan_id, $this);
-                                        if(!$minDesires) $minDesires = 1;
+                                        if (!$minDesires) $minDesires = 1;
                                         // check if nb of desires is less than the minimum authorized by application model so consider we are blocked                                        
                                         // also check if at least one desire is blocked so here also consider we are blocked
 
-                                        if($oneDesireAtLeastIsBlocked) 
-                                        {
+                                        if ($oneDesireAtLeastIsBlocked) {
                                                 $blocked = true;
                                                 $blocked_reason = "Desire $oneDesireAtLeastIsBlocked is blocked";
-                                        }  
-                                        
-                                        if($appDesireListCount<$minDesires)
-                                        {
+                                        }
+
+                                        if ($appDesireListCount < $minDesires) {
                                                 $blocked = true;
                                                 $blocked_reason = "Desire count $appDesireListCount is less the minimum required ($minDesires)";
                                         }
 
-                                        if($nb_desires_gen != $nb_desires_mfk)
-                                        {
+                                        if ($nb_desires_gen != $nb_desires_mfk) {
                                                 $blocked = true;
                                                 $blocked_reason = "Desires generated count $nb_desires_gen is not equal Desires mfk setted count $nb_desires_mfk";
                                         }
-                                }
-                                else
-                                {
+                                } else {
                                         // if the bootstrap failed (one condition failed) or passed (all conditions succeeded) or done (passed and reached last step) 
                                         // then it is not blocked (only standby bootstrap status is considered blocked and need try later)
-                                        if($bootstrapAppResult=="standby")
-                                        {
-                                                $blocked = true;  
-                                                $blocked_reason = $bootstrapAppResultDetails;   
+                                        if ($bootstrapAppResult == "standby") {
+                                                $blocked = true;
+                                                $blocked_reason = $bootstrapAppResultDetails;
                                         }
-                                        $war_arr[] = $this->tm("Application",$lang) ." ". $this->tm("faltered at step",$lang). " : $stepCodeTile <!-- $stepCode --> / ". $appObj->statusExplanations(); 
+                                        $war_arr[] = $this->tm("Application", $lang) . " " . $this->tm("faltered at step", $lang) . " : $stepCodeTile <!-- $stepCode --> / " . $appObj->statusExplanations();
                                 }
-                        }
-                        else
-                        {
+                        } else {
                                 $blocked = true;
                                 $blocked_reason = "Application creation failed app=$applicant_id, plan=$application_plan_id, sim=$application_simulation_id, idn=$idn";
                                 $err_arr[] = $blocked_reason;
                         }
                 }
-                
+
 
                 unset($appObj);
                 $tech_result = [
-                        'bootstraps'=>$bootstraps,
-                        'desire_bootstraps'=>$desire_bootstraps,
-                        'blocked'=>$blocked,
-                        'blocked_reason'=>$blocked_reason
+                        'bootstraps' => $bootstraps,
+                        'desire_bootstraps' => $desire_bootstraps,
+                        'blocked' => $blocked,
+                        'blocked_reason' => $blocked_reason
                 ];
                 $pbm_result = AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "\n", $tech_arr);
 
@@ -1469,7 +1416,7 @@ class Applicant extends AdmObject
          * @param Application $applicationObj
          * 
          */
-        public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", &$applicationObj = null, $onlyIfTheyAreUpdated = false, $technical_infos=true)
+        public function getFieldsMatrix($applicantFieldsArr, $lang = "ar", &$applicationObj = null, $onlyIfTheyAreUpdated = false, $technical_infos = true)
         {
 
                 $matrix = [];
@@ -1482,7 +1429,7 @@ class Applicant extends AdmObject
                         $field_reel = $applicantFieldObj->_isReel();
                         $row_matrix['reel'] = $field_reel;
                         $field_title = $applicantFieldObj->getDisplay($lang);
-                        if($technical_infos) $field_title .= "<!-- $field_name -->";
+                        if ($technical_infos) $field_title .= "<!-- $field_name -->";
                         $row_matrix['title'] = $field_title;
                         if ($field_reel) {
                                 $field_value = $this->getVal($field_name);
@@ -1492,7 +1439,7 @@ class Applicant extends AdmObject
                                 $field_value_case = "calc";
                         }
                         $field_decode = $this->decode($field_name);
-                        if($technical_infos) $field_decode .= "<!-- $field_value -->";
+                        if ($technical_infos) $field_decode .= "<!-- $field_value -->";
                         $row_matrix['decode'] = $field_decode;
 
                         $row_matrix['value'] = $field_value;
@@ -1502,49 +1449,42 @@ class Applicant extends AdmObject
                         $row_matrix['empty'] = $field_empty;
                         $row_matrix['error'] = AfwDataQualityHelper::getAttributeError($this, $field_name);
                         $field_name_step = $this->stepOfAttribute($field_name);
-                        $field_name_step_title = $this->getAttributeLabel("step".$field_name_step, $lang);
-                        
-                        if($this instanceof Applicant)
-                        {
+                        $field_name_step_title = $this->getAttributeLabel("step" . $field_name_step, $lang);
+
+                        if ($this instanceof Applicant) {
                                 $applicant_id = $this->id;
-                        }
-                        else
-                        {
+                        } else {
                                 $applicant_id = $this->getVal("appicant_id");
                         }
-                        $row_matrix['admstep'] = "<a target='_admstep' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&id=$applicant_id&currmod=adm&currstep=$field_name_step'>".$field_name_step . "-" . $field_name_step_title."</a>";
-                        
+                        $row_matrix['admstep'] = "<a target='_admstep' href='main.php?Main_Page=afw_mode_edit.php&cl=Applicant&id=$applicant_id&currmod=adm&currstep=$field_name_step'>" . $field_name_step . "-" . $field_name_step_title . "</a>";
+
                         $field_value_datetime = "";
-                        $default_update_date_of_field_is_api_run_date = AfwSession::config("default_update_date_of_field_is_api_run_date", false); 
-                        if($default_update_date_of_field_is_api_run_date)
-                        {
+                        $default_update_date_of_field_is_api_run_date = AfwSession::config("default_update_date_of_field_is_api_run_date", false);
+                        if ($default_update_date_of_field_is_api_run_date) {
                                 if ($applicationObj) list($field_value_datetime, $api) = $applicationObj->getApplicantFieldUpdateDate($field_name, $lang);
-                                else $api = "no-applicationObj";        
+                                else $api = "no-applicationObj";
                         }
-                        
-                        if($field_value and (!$field_value_datetime))
-                        {
+
+                        if ($field_value and (!$field_value_datetime)) {
                                 // For the moment we consider the field manally enetred and the 
                                 // update date time is the record last update datetime
                                 $field_value_datetime = $this->getVal("updated_at");
                                 $api = "ادخال يدوي في بيانات المتقدم";
                         }
-                        
+
                         if ($row_matrix['empty']) {
-                                $api .= " ".$applicationObj->tm("can not find the field value", $lang);
+                                $api .= " " . $applicationObj->tm("can not find the field value", $lang);
                                 $field_value_datetime = "";
                         }
 
                         if ($row_matrix['error']) {
-                                $api .= " ".$row_matrix['error'];
+                                $api .= " " . $row_matrix['error'];
                                 $not_avail[] = $field_title;
                                 $not_avail_reason[] = $field_title . " " . $row_matrix['error'];
-                        }
-                        else
-                        {
+                        } else {
                                 $row_matrix['datetime'] = $field_value_datetime;
                                 $row_matrix['api'] = $api;
-        
+
                                 if ($field_value_datetime) {
                                         if ($applicationObj) {
                                                 $duration_expiry = $applicationObj->getFieldExpiryDuration($field_name);
@@ -1555,22 +1495,16 @@ class Applicant extends AdmObject
                                                         $theyAreUpdated = false;
                                                         $not_avail[] = $field_title;
                                                         $not_avail_reason[] = $field_title . " " . $need_update_message;
-                                                } 
-                                                else 
-                                                {
-                                                        
+                                                } else {
+
                                                         $row_matrix['status'] = self::updatedIcon($api);
                                                 }
-                                        } 
-                                        else 
-                                        {
+                                        } else {
                                                 $need_update_message = $api . " no application Object";
                                                 $row_matrix['status'] = self::needUpdateIcon($need_update_message);
                                                 $not_avail_reason[] = $need_update_message;
                                         }
-                                } 
-                                else 
-                                {
+                                } else {
                                         $need_update_message = $api . " => never updated";
                                         $row_matrix['status'] = self::needUpdateIcon($need_update_message);
                                         $theyAreUpdated = false;
@@ -1580,7 +1514,7 @@ class Applicant extends AdmObject
                         }
 
 
-                        
+
 
                         $matrix[] = $row_matrix;
                 }
@@ -1595,8 +1529,8 @@ class Applicant extends AdmObject
 
         public function getApiUpdateDate($apiEndpoint)
         {
-                
-                
+
+
 
                 if (!$this->update_date[$apiEndpoint->id]) {
 
@@ -1652,38 +1586,35 @@ class Applicant extends AdmObject
 
         public function calcAptitude_score($what = "value")
         {
-                if($this->aptitude_Score===null)
-                {
-                       $this->aptitude_Score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "1,2");    
-                       if(!$this->aptitude_Score) $this->aptitude_Score = 0;
+                if ($this->aptitude_Score === null) {
+                        $this->aptitude_Score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "1,2");
+                        if (!$this->aptitude_Score) $this->aptitude_Score = 0;
                 }
                 return $this->aptitude_Score;
         }
 
         public function calcAptitude_university($what = "value")
         {
-                if($this->aptitude_university===null)
-                {
-                       $this->aptitude_university = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "7");    
-                       if(!$this->aptitude_university) $this->aptitude_university = 0;
+                if ($this->aptitude_university === null) {
+                        $this->aptitude_university = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "7");
+                        if (!$this->aptitude_university) $this->aptitude_university = 0;
                 }
                 return $this->aptitude_university;
         }
 
         public function calcHas_aptitude_university($what = "value")
         {
-               list($yes, $no) = AfwLanguageHelper::translateYesNo($what); 
-               return ($this->calcAptitude_university()>0) ?  $yes : $no;
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+                return ($this->calcAptitude_university() > 0) ?  $yes : $no;
         }
 
-        
+
 
         public function calcAchievement_score($what = "value")
         {
-                if($this->achievement_Score===null)
-                {
+                if ($this->achievement_Score === null) {
                         $this->achievement_Score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = "3,4");
-                        if(!$this->achievement_Score) $this->achievement_Score = 0;
+                        if (!$this->achievement_Score) $this->achievement_Score = 0;
                 }
                 return $this->achievement_Score;
         }
@@ -1694,62 +1625,58 @@ class Applicant extends AdmObject
         }
 
 
-public function updateEvaluationFields($lang="ar", $evaluation_id="all")
-{
-        /*
+        public function updateEvaluationFields($lang = "ar", $evaluation_id = "all")
+        {
+                /*
                 1	اختبار القدرات العامة	اختبار القدرات العامة للتخصصات العلمية
                 2	اختبار القدرات العامة	اختبار القدرات العامة للتخصصات النظرية
                 3	اختبار التحصيل الدراسي	اختبار التحصيل الدراسي للتخصصات العلمي
                 4	اختبار التحصيل الدراسي	اختبار التحصيل الدراسي للتخصصات النظري
 
         */
-        $arr_types = ["qiyas_aptitude_sc"=>1,
-                      "qiyas_aptitude_th"=>2,
-                      "qiyas_achievement_sc"=>3,
-                      "qiyas_achievement_th"=>4,
-                      
-                      
-        ];
+                $arr_types = [
+                        "qiyas_aptitude_sc" => 1,
+                        "qiyas_aptitude_th" => 2,
+                        "qiyas_achievement_sc" => 3,
+                        "qiyas_achievement_th" => 4,
 
-        if($evaluation_id=="all")
-        {
-                // الأصل أنه ليس لديه لا قدرات ولا تحصيلي
-                $this->set("attribute_27", "N");
-                $this->set("attribute_28", "N");
-        }
-        
-        foreach($arr_types as $attribute => $eval_id)
-        {
-                if(($evaluation_id=="all") or ($evaluation_id==$eval_id))
-                {
-                        $score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = $eval_id);
-                        $this->set($attribute, $score);
 
-                        if(($score>0) and (($eval_id==1) or ($eval_id==2)))
-                        {
-                                $this->set("attribute_27", "Y");
-                        }
+                ];
 
-                        if(($score>0) and (($eval_id==3) or ($eval_id==4)))
-                        {
-                                $this->set("attribute_28", "Y");
+                if ($evaluation_id == "all") {
+                        // الأصل أنه ليس لديه لا قدرات ولا تحصيلي
+                        $this->set("attribute_27", "N");
+                        $this->set("attribute_28", "N");
+                }
+
+                foreach ($arr_types as $attribute => $eval_id) {
+                        if (($evaluation_id == "all") or ($evaluation_id == $eval_id)) {
+                                $score = ApplicantEvaluation::loadMaxScoreFor($this->id, $eval_id_list = $eval_id);
+                                $this->set($attribute, $score);
+
+                                if (($score > 0) and (($eval_id == 1) or ($eval_id == 2))) {
+                                        $this->set("attribute_27", "Y");
+                                }
+
+                                if (($score > 0) and (($eval_id == 3) or ($eval_id == 4))) {
+                                        $this->set("attribute_28", "Y");
+                                }
                         }
                 }
-        }
-        $this->commit();
+                $this->commit();
 
-        return ["done", ""];
-}
-        
+                return ["done", ""];
+        }
+
 
         public function calcSecondary_info($info, $what = "value", $objSQ = null)
         {
-                if ($this->$info===null) {
+                if ($this->$info === null) {
                         if (!$this->objSQ) $this->objSQ = $objSQ;
                         if (!$this->objSQ) $this->objSQ = $this->getSecondaryQualification();
                         if ($this->objSQ) $this->$info = $this->objSQ->getInfo($info);
                         // die("this->objSQ->id = ".$this->objSQ->id);
-                        if(!$this->$info) $this->$info = '';
+                        if (!$this->$info) $this->$info = '';
                         // if($info=="secondary_cumulative_pct") die("this->$info = ".$this->$info);
                 }
                 return $this->$info;
@@ -1767,8 +1694,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
 
         public function readyWeighted_percentage()
         {
-                if($this->calcWeighted_percentage()>=60.0)
-                {
+                if ($this->calcWeighted_percentage() >= 60.0) {
                         return true;
                 }
         }
@@ -1803,7 +1729,7 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                         $c = $this->calcAchievement_score();
                         if (!$c) $c = "0.0";
 
-                         
+
                         list($coefAPct, $coefAPctSubContext) = Aparameter::getMyValueForSubContext($coef_cumulative_pct_aparameter_id, $major_path_id, $program_track_id, $sub_context_log, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0, false, true);
                         list($coefBPct, $coefBPctSubContext) = Aparameter::getMyValueForSubContext($coef_aptitude_aparameter_id, $major_path_id, $program_track_id, $sub_context_log, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0, false, true);
                         list($coefCPct, $coefCPctSubContext) = Aparameter::getMyValueForSubContext($coef_achievement_aparameter_id, $major_path_id, $program_track_id, $sub_context_log, $application_model_id = 0, $application_plan_id = 0, $training_unit_id = 0, $department_id = 0, $application_model_branch_id = 0, false, true);
@@ -1831,19 +1757,16 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 }
         }
 
-        public function calcDragDropDiv($what = "value", $doc_type_mfk=null)
+        public function calcDragDropDiv($what = "value", $doc_type_mfk = null)
         {
                 $lang = AfwSession::getSessionVar("current_lang");
                 if (!$lang) $lang = "ar";
-                if(!$doc_type_mfk)
-                {
+                if (!$doc_type_mfk) {
                         $adm_file_types = AfwSession::config("adm_file_types", "0");
-                }
-                else
-                {
+                } else {
                         $adm_file_types = trim($doc_type_mfk, ",");
                 }
-                
+
                 $allowed_upload_size = AfwSession::config("allowed_upload_size", "0");
                 $objme = AfwSession::getUserConnected();
 
@@ -1881,15 +1804,12 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 list($can, $message_upload_blocked_reason) = $this->canUploadFiles();
                 if ($can) {
                         $option_ask_missed_file_wizard = false; //should be setted by institution for the moment false as asked by amjad whatsapp 6/128/2025
-                        if($option_ask_missed_file_wizard)
-                        {
+                        if ($option_ask_missed_file_wizard) {
                                 list($doc_type_id, $doc_attach_id, $doc_attach_name) = $this->getMissedDocument($lang);
-                        }
-                        else
-                        {
+                        } else {
                                 $doc_type_id = null;
                         }
-                        
+
                         // die("(doc_type_id, doc_attach_id, doc_attach_name) = ($doc_type_id, $doc_attach_id, , $doc_attach_name)")
                         if ($doc_type_id) {
                                 $whendone = "submit";
@@ -2125,37 +2045,36 @@ public function updateEvaluationFields($lang="ar", $evaluation_id="all")
                 $afObj->select("applicant_id", $this->getId());
                 $afObj->select("doc_type_id", $type);
                 $afObj->select("active", "Y");
-                if($afObj->load()) return $afObj;
+                if ($afObj->load()) return $afObj;
                 unset($afObj);
                 return null;
                 //if($afObj->getId()<=0) die("pfObj($type) = ".var_export($afObj,true));
-                
+
         }
-        
-       
-        public function calcApplication_model_id($what="value")
+
+
+        public function calcApplication_model_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcTraining_unit_id($what="value")
+        public function calcTraining_unit_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcDepartment_id($what="value")
+        public function calcDepartment_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcApplication_model_branch_id($what="value")
+        public function calcApplication_model_branch_id($what = "value")
         {
                 return 0;
         }
 
-        public function calcProgram_track_id($what="value")
+        public function calcProgram_track_id($what = "value")
         {
                 return 0;
         }
 }
-
