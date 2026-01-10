@@ -278,7 +278,7 @@ class NominatingCandidates extends AdmObject
     {
         $objme = AfwSession::getUserConnected();
 
-        if ($objme and $objme->isAdmin()) {
+        if ($objme) {
             $this->set('track_overpass_user_id', $objme->id);
             $this->set('track_overpass', 'Y');
             $this->set('track_overpass_gdate', date('Y-m-d H:i:s'));
@@ -305,7 +305,7 @@ class NominatingCandidates extends AdmObject
     {
         $objme = AfwSession::getUserConnected();
 
-        if ($objme and $objme->isAdmin()) {
+        if ($objme) {
             $this->set('rating_overpass_user_id', $objme->id);
             $this->set('rating_overpass', 'Y');
             $this->set('rating_overpass_gdate', date('Y-m-d H:i:s'));
