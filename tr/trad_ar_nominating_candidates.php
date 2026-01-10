@@ -1,17 +1,19 @@
 <?php
 
-class NominatingCandidatesArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class NominatingCandidatesArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 
 		$trad["nominating_candidates"]["step1"] = "تعريف المترشح";
 		$trad["nominating_candidates"]["step2"] = "البيانات الشخصية";
 		$trad["nominating_candidates"]["step3"] = "المؤهل والبرنامج";
-		$trad["nominating_candidates"]["step4"] = "فرع القبول";
-		$trad["nominating_candidates"]["step5"] = "رفع الوثائق";
-		$trad["nominating_candidates"]["step6"] = "تطبيق الشروط";
-		$trad["nominating_candidates"]["step7"] = "معلومات متقدمة";
+		$trad["nominating_candidates"]["step4"] = "الاختبارات";
+		$trad["nominating_candidates"]["step5"] = "فرع القبول";
+		$trad["nominating_candidates"]["step6"] = "رفع الوثائق";
+		$trad["nominating_candidates"]["step7"] = "تطبيق الشروط";
+		$trad["nominating_candidates"]["step8"] = "معلومات متقدمة";
 
 		$trad["nominating_candidates"]["nominatingcandidates.single"] = "مرشح";
 		$trad["nominating_candidates"]["nominatingcandidates.new"] = "جديد(ة)";
@@ -67,21 +69,21 @@ class NominatingCandidatesArTranslator{
 		$trad["nominating_candidates"]["gpa_from"] = "المعدل من";
 		$trad["nominating_candidates"]["date"] = "تاريخ  المؤهل";
 		$trad["nominating_candidates"]["qualification_major_desc"] = "وصف تخصص المؤهل";
-		$trad["nominating_candidates"]["adm_file_id"] = "المرفق";		
+		$trad["nominating_candidates"]["adm_file_id"] = "المرفق";
 		$trad["nominating_candidates"]["qual_country_id"] = "الدولة مصدر المؤهل";
 		$trad["nominating_candidates"]["grading_scale_id"] = "التقدير";
-		
+
 		$trad["nominating_candidates"]["action_type_id"] = "نوع الحركة";
-		
-		
 
-        // steps
-        return $trad;
-    }
 
-    public static function getInstance()
+
+		// steps
+		return $trad;
+	}
+
+	public static function getInstance()
 	{
-        if(false) return new NominatingCandidatesEnTranslator();
+		if (false) return new NominatingCandidatesEnTranslator();
 		return new NominatingCandidates();
 	}
 }

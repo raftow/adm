@@ -1,9 +1,19 @@
 <?php
 
-class NominatingCandidatesEnTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class NominatingCandidatesEnTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
+
+		$trad["nominating_candidates"]["step1"] = "Candidate definition";
+		$trad["nominating_candidates"]["step2"] = "البيانات الشخصية";
+		$trad["nominating_candidates"]["step3"] = "المؤهل والبرنامج";
+		$trad["nominating_candidates"]["step4"] = "الاختبارات";
+		$trad["nominating_candidates"]["step5"] = "فرع القبول";
+		$trad["nominating_candidates"]["step6"] = "رفع الوثائق";
+		$trad["nominating_candidates"]["step7"] = "تطبيق الشروط";
+		$trad["nominating_candidates"]["step8"] = "معلومات متقدمة";
 
 		$trad["nominating_candidates"]["nominatingcandidates.single"] = "Nominating candidates";
 		$trad["nominating_candidates"]["nominatingcandidates.new"] = "new";
@@ -20,17 +30,17 @@ class NominatingCandidatesEnTranslator{
 		$trad["nominating_candidates"]["candidateFullName"] = "Full name";
 		$trad["nominating_candidates"]["applicantIdLink"] = "Applicant";
 		$trad["nominating_candidates"]["myApplicationLink"] = "my application";
-		
+
 		$trad["nominating_candidates"]["gender_enum"] = "Gender";
 		$trad["nominating_candidates"]["action_type_id"] = "Action Type";
 
-        // steps
-        return $trad;
-    }
+		// steps
+		return $trad;
+	}
 
-    public static function getInstance()
+	public static function getInstance()
 	{
-        if(false) return new NominatingCandidatesArTranslator();
+		if (false) return new NominatingCandidatesArTranslator();
 		return new NominatingCandidates();
 	}
 }

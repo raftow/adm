@@ -27,7 +27,7 @@ class AdmNominatingCandidatesAfwStructure
 			$obj->general_check_errors = true;
 
 			$obj->editByStep = true;
-			$obj->editNbSteps = 7;
+			$obj->editNbSteps = 8;
 			$obj->after_save_edit = array("class" => 'NominationLetter', "attribute" => 'nomination_letter_id', "currmod" => 'adm', "currstep" => 2);
 			// $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'NominatingCandidates', "submit" => true);
 		} else {
@@ -124,17 +124,13 @@ class AdmNominatingCandidatesAfwStructure
 			'RETRIEVE' => true,
 			'EDIT' => false,
 			'QEDIT' => false,
-			'UTF8' => false,
 			'TYPE' => 'TEXT',
 			"CATEGORY" => "FORMULA",
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 99,
-			'MANDATORY' => false,
+			'STEP' => 8,
 			'READONLY' => true,
-			'AUTOCOMPLETE' => true,
-			'AUTOCOMPLETE-SEARCH' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
 			'CSS' => 'width_pct_25',
