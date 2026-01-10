@@ -162,6 +162,8 @@ class ApplicantEvaluation extends AdmObject
                 if (!$nl_id) return AfwLoadHelper::giveWhat(null, $what);
                 $applicantObj = $this->het("applicant_id");
                 if (!$applicantObj) return AfwLoadHelper::giveWhat(null, $what);
+                if (!$applicantObj->getVal("idn")) return AfwLoadHelper::giveWhat(null, $what);
+                if (!$applicantObj->getVal("idn_type_id")) return AfwLoadHelper::giveWhat(null, $what);
                 $identity_type_id = $applicantObj->getVal("idn_type_id");
                 $idn = $applicantObj->getVal("idn");
                 $ncObject = NominatingCandidates::loadByMainIndex($nl_id, $identity_type_id, $idn);
