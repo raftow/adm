@@ -129,7 +129,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 8,
+			'STEP' => 0, // otherwise if >= 7 it will be N/A until we select the application plan branchs
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',

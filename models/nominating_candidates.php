@@ -831,7 +831,7 @@ class NominatingCandidates extends AdmObject
             $branch_count = 0;
 
         $ok = ($branch_count == 1);
-        if ($stp >= 6) {
+        if ($stp >= 7) {
             return $ok;
         }
 

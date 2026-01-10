@@ -32,6 +32,7 @@ class NominatingCandidatesArTranslator
 		$trad["nominating_candidates"]["second_name_en"] = "اسم الأب انجليزي";
 		$trad["nominating_candidates"]["third_name_en"] = "اسم الجد انجليزي";
 		$trad["nominating_candidates"]["last_name_en"] = "الاسم الأخير انجليزي";
+		$trad["nominating_candidates"]["candidateEvaluationList"] = "قائمة الاختبارات";
 		$trad["nominating_candidates"]["academic_program_id"] = "البرنامج المرشح عليه";
 		$trad["nominating_candidates"]["email"] = "البريد الإلكتروني";
 		$trad["nominating_candidates"]["mobile"] = "الجوال";
