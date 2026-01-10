@@ -23,22 +23,20 @@ class ApplicantEvaluation extends AdmObject
                 } else return null;
         }
 
-        public static function getMyEvaluationNeedingFileAttachment($applicant_id, $afObj=null, $evaluation_id=0, $eval_date=null)
+        public static function getMyEvaluationNeedingFileAttachment($applicant_id, $afObj = null, $evaluation_id = 0, $eval_date = null)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("getMyQualificationNeedingFileAttachment : applicant_id is mandatory field");
-                
+
                 $obj = new ApplicantEvaluation();
                 $obj->select("applicant_id", $applicant_id);
                 if ($evaluation_id) $obj->select("evaluation_id", $evaluation_id);
                 if ($eval_date) $obj->select("eval_date", $eval_date);
                 $obj->where("workflow_file_id = 0 or workflow_file_id is null");
-                
+
                 $obj->select("active", "Y");
                 $objNeedFound = $obj->load();
-                if($afObj)
-                {
-                        if(!$objNeedFound)
-                        {
+                if ($afObj) {
+                        if (!$objNeedFound) {
                                 $obj->set("applicant_id", $applicant_id);
                                 $obj->set("evaluation_id", $evaluation_id);
                                 $obj->set("eval_date", $eval_date);
@@ -46,9 +44,7 @@ class ApplicantEvaluation extends AdmObject
                         $obj->set("workflow_file_id", $afObj->id);
                         $obj->commit();
                         return $obj;
-                }
-                else return $objNeedFound ? $obj : null;
-                
+                } else return $objNeedFound ? $obj : null;
         }
 
         public static function loadMaxScoreFor($applicant_id, $eval_id_list)
@@ -60,7 +56,7 @@ class ApplicantEvaluation extends AdmObject
                 return $obj->func("max(eval_result)");
         }
 
-        public static function loadByMainIndex($evaluation_id, $applicant_id, $eval_date, $eval_result, $create_obj_if_not_found = false, $imported=false)
+        public static function loadByMainIndex($evaluation_id, $applicant_id, $eval_date, $eval_result, $create_obj_if_not_found = false, $imported = false)
         {
                 if (!$evaluation_id) throw new AfwRuntimeException("loadByMainIndex : evaluation_id is mandatory field");
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
@@ -73,14 +69,14 @@ class ApplicantEvaluation extends AdmObject
 
                 if ($obj->load()) {
                         $obj->set("eval_result", $eval_result);
-                        if ($create_obj_if_not_found) $obj->activate();                        
+                        if ($create_obj_if_not_found) $obj->activate();
                         return $obj;
                 } elseif ($create_obj_if_not_found) {
                         $obj->set("evaluation_id", $evaluation_id);
                         $obj->set("applicant_id", $applicant_id);
                         $obj->set("eval_date", $eval_date);
                         $obj->set("eval_result", $eval_result);
-                        if($imported) $obj->set("imported", "Y");
+                        if ($imported) $obj->set("imported", "Y");
                         else $obj->set("imported", "N");
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
@@ -150,14 +146,33 @@ class ApplicantEvaluation extends AdmObject
 
         public function afterMaj($id, $fields_updated)
         {
-                if($this->sureIs("imported"))
-                {
+                if ($this->sureIs("imported")) {
                         /**
                          * @var Applicant $applicantObj
                          */
                         $applicantObj = $this->het("applicant_id");
                         $applicantObj->updateEvaluationFields("ar", $this->getVal("evaluation_id"));
                 }
-                
+        }
+
+
+        public function calcNominating_candidates_id($what = "value")
+        {
+                $nl_id = $this->getVal("nomination_letter_id");
+                if (!$nl_id) return AfwLoadHelper::giveWhat(null, $what);
+                $applicantObj = $this->het("applicant_id");
+                if (!$applicantObj) return AfwLoadHelper::giveWhat(null, $what);
+                $identity_type_id = $applicantObj->getVal("idn_type_id");
+                $idn = $applicantObj->getVal("idn");
+                $ncObject = NominatingCandidates::loadByMainIndex($nl_id, $identity_type_id, $idn);
+                return AfwLoadHelper::giveWhat($ncObject, $what);
+        }
+
+
+        public function afterSaveEditCase()
+        {
+                if ($this->get("calcNominating_candidates_id")) return 2;
+
+                return 1;
         }
 }

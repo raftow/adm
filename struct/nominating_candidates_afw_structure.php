@@ -20,6 +20,7 @@ class AdmNominatingCandidatesAfwStructure
 			$obj->OwnedBy = array('module' => "adm", 'afw' => "NominationLetter");
 
 			$obj->UNIQUE_KEY = array('nomination_letter_id', 'identity_type_id', 'idn');
+			$obj->UNIQUE_KEY2 = array('nomination_letter_id', 'applicant_id');
 
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
@@ -42,7 +43,7 @@ class AdmNominatingCandidatesAfwStructure
 
 
 		'nomination_letter_id' => array(
-			'SHORTNAME' => 'funding_status',
+			// 'SHORTNAME' => 'funding_status',
 			'SEARCH' => true,
 			'QSEARCH' => true,
 			'SHOW' => true,
@@ -114,6 +115,38 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_25',
 			'STEP' => 1,
 		),
+
+		'candidateFullName' => array(
+			'IMPORTANT' => 'IN',
+			'SEARCH' => false,
+			'QSEARCH' => false,
+			'SHOW' => false,
+			'RETRIEVE' => true,
+			'EDIT' => false,
+			'QEDIT' => false,
+			'SHOW-ADMIN' => true,
+			'EDIT-ADMIN' => false,
+			'UTF8' => false,
+			'TYPE' => 'TEXT',
+			"CATEGORY" => "FORMULA",
+			'ANSMODULE' => 'adm',
+			'SIZE' => 40,
+			'DEFAUT' => 0,
+			'DISPLAY' => true,
+			'STEP' => 99,
+			'RELATION' => 'ManyToOne-OneToMany',
+			'MANDATORY' => false,
+			'READONLY' => true,
+			'AUTOCOMPLETE' => true,
+			'AUTOCOMPLETE-SEARCH' => true,
+			'DISPLAY-UGROUPS' => '',
+			'EDIT-UGROUPS' => '',
+			'CSS' => 'width_pct_25',
+			'HIDE_IF_NEW' => true
+		),
+
+
+
 		'action_type_id' => array(
 			'SHORTNAME' => 'type',
 			'SEARCH' => true,
@@ -138,7 +171,7 @@ class AdmNominatingCandidatesAfwStructure
 			'CSS' => 'width_pct_50',
 		),
 		'application_plan_id' => array(
-			'STEP' => 7,
+			'STEP' => 8,
 			'SHORTNAME' => 'plan',
 			'SEARCH' => true,
 			'QSEARCH' => true,
@@ -164,7 +197,7 @@ class AdmNominatingCandidatesAfwStructure
 
 		'application_simulation_id' => array(
 			'IMPORTANT' => 'IN',
-			'STEP' => 7,
+			'STEP' => 8,
 			'SEARCH' => false,
 			'QSEARCH' => false,
 			'SHOW' => false,
@@ -646,7 +679,7 @@ class AdmNominatingCandidatesAfwStructure
 		],
 
 		'adm_file_id' => array(
-			'STEP' => 7,
+			'STEP' => 8,
 			'SHORTNAME' => 'workflow_file',
 			'SEARCH' => false,
 			'QSEARCH' => false,
@@ -750,11 +783,11 @@ class AdmNominatingCandidatesAfwStructure
 		'training_period_enum' => array(
 			'IMPORTANT' => 'IN',
 			'SEARCH' => false,
+			'QSEARCH' => false,
 			'SHOW' => false,
 			'RETRIEVE' => false,
 			'EDIT' => true,
 			'QEDIT' => false,
-			'QSEARCH' => true,
 			'SHOW-ADMIN' => true,
 			'EDIT-ADMIN' => true,
 			'UTF8' => false,
@@ -798,6 +831,39 @@ class AdmNominatingCandidatesAfwStructure
 
 		/****************************************/
 
+		'candidateEvaluationList' => array(
+			'STEP' => 4,
+			'FGROUP' => 'evaluation',
+			'SHOW' => true,
+			'FORMAT' => 'retrieve',
+			'ICONS' => true,
+			'DELETE-ICON' => true,
+			'BUTTONS' => true,
+			'SEARCH' => false,
+			'QSEARCH' => false,
+			'AUDIT' => false,
+			'RETRIEVE' => false,
+			'EDIT' => false,
+			'QEDIT' => false,
+			'SIZE' => 32,
+			'MAXLENGTH' => 32,
+			'MIN-SIZE' => 1,
+			'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+			'MANDATORY' => false,
+			'UTF8' => false,
+			'TYPE' => 'FK',
+			'CATEGORY' => 'ITEMS',
+			'ANSWER' => 'applicant_evaluation',
+			'ANSMODULE' => 'adm',
+			'ITEM' => 'applicant_id',
+			'WHERE' => 'nomination_letter_id = §nomination_letter_id§',
+			'READONLY' => true,
+			'CAN-BE-SETTED' => true,
+			'CSS' => 'width_pct_100',
+		),
+
+		/****************************************/
+
 		'program_offering_mfk' => array(
 			'STEP' => 98,
 			'TYPE' => 'MFK',
@@ -816,7 +882,7 @@ class AdmNominatingCandidatesAfwStructure
 
 		'applicationWarningDiv' => array(
 			'STEP' => 'STEPS',
-			'STEPS' => [2, 3, 4, 5, 6],
+			'STEPS' => [2, 3, 4, 5, 6, 7],
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -832,7 +898,7 @@ class AdmNominatingCandidatesAfwStructure
 
 		'desiresLimitWarningDiv' => array(
 			'STEP' => 'STEPS',
-			'STEPS' => [4, 5, 6],
+			'STEPS' => [5, 6, 7],
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -846,7 +912,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 		'assignedProgramDiv' => array(
-			'STEP' => 4,
+			'STEP' => 5,
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -860,7 +926,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 		'application_plan_branch_mfk' => array(
-			'STEP' => 4,
+			'STEP' => 5,
 			'SEARCH' => true,
 			'QSEARCH' => false,
 			'SHOW' => true,
@@ -957,7 +1023,7 @@ class AdmNominatingCandidatesAfwStructure
 		],
 
 		'trackOverpassDiv' => array(
-			'STEP' => 4,
+			'STEP' => 5,
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -975,7 +1041,7 @@ class AdmNominatingCandidatesAfwStructure
 		/****************************************/
 
 		'dragDropDiv' => array(
-			'STEP' => 5,
+			'STEP' => 6,
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -988,7 +1054,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 		'applicantFileList' => array(
-			'STEP' => 5,
+			'STEP' => 6,
 			'SHOW' => true,
 			'FORMAT' => 'retrieve',
 			'ICONS' => true,
@@ -1019,7 +1085,7 @@ class AdmNominatingCandidatesAfwStructure
 		/******************************************/
 
 		'applyConditionsDiv' => array(
-			'STEP' => 6,
+			'STEP' => 7,
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -1034,35 +1100,6 @@ class AdmNominatingCandidatesAfwStructure
 
 		/******************************************/
 
-
-		'candidateFullName' => array(
-			'IMPORTANT' => 'IN',
-			'SEARCH' => false,
-			'QSEARCH' => false,
-			'SHOW' => false,
-			'RETRIEVE' => true,
-			'EDIT' => false,
-			'QEDIT' => false,
-			'SHOW-ADMIN' => true,
-			'EDIT-ADMIN' => false,
-			'UTF8' => false,
-			'TYPE' => 'TEXT',
-			"CATEGORY" => "FORMULA",
-			'ANSMODULE' => 'adm',
-			'SIZE' => 40,
-			'DEFAUT' => 0,
-			'DISPLAY' => true,
-			'STEP' => 2,
-			'RELATION' => 'ManyToOne-OneToMany',
-			'MANDATORY' => false,
-			'READONLY' => true,
-			'AUTOCOMPLETE' => true,
-			'AUTOCOMPLETE-SEARCH' => true,
-			'DISPLAY-UGROUPS' => '',
-			'EDIT-UGROUPS' => '',
-			'CSS' => 'width_pct_25',
-			'HIDE_IF_NEW' => true
-		),
 
 
 
@@ -1132,7 +1169,7 @@ class AdmNominatingCandidatesAfwStructure
 
 
 		'ratingOverpassDiv' => array(
-			'STEP' => 6,
+			'STEP' => 7,
 			'TYPE' => 'TEXT',
 			'CATEGORY' => 'FORMULA',
 			'SHOW' => true,
@@ -1146,7 +1183,7 @@ class AdmNominatingCandidatesAfwStructure
 		),
 
 		'applicant_id' => array(
-			'STEP' => 7,
+			'STEP' => 8,
 			'SHORTNAME' => 'applicant',
 			'SEARCH' => true,
 			'QSEARCH' => true,
@@ -1187,7 +1224,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 7,
+			'STEP' => 8,
 			'MANDATORY' => false,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',
@@ -1212,7 +1249,7 @@ class AdmNominatingCandidatesAfwStructure
 			'SIZE' => 40,
 			'DEFAUT' => 0,
 			'DISPLAY' => true,
-			'STEP' => 7,
+			'STEP' => 8,
 			'MANDATORY' => false,
 			'READONLY' => true,
 			'DISPLAY-UGROUPS' => '',

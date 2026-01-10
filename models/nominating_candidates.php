@@ -85,6 +85,8 @@ class NominatingCandidates extends AdmObject
             return null;
     }
 
+
+
     public static function loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id)
     {
         if (!$applicant_id)
@@ -116,6 +118,23 @@ class NominatingCandidates extends AdmObject
 
         // check errors on all steps (by default no for optimization)
         // rafik don't know why this : \//  = false;
+
+
+        if ($mode == "mode_candidateEvaluationList") {
+            $nl_id = $this->getVal("nomination_letter_id");
+            if ($nl_id) {
+                unset($link);
+                $link = array();
+                $title = "إضافة اختبار جديد";
+                // $title_detailed = $title . "لـ : " . $displ;
+                $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm&sel_applicant_id=$my_id&sel_nomination_letter_id=$nl_id";
+                $link["TITLE"] = $title;
+                $link["UGROUPS"] = array();
+                // tempo for demo @todo
+                $link["PUBLIC"] = true;
+                $otherLinksArray[] = $link;
+            }
+        }
 
         return $otherLinksArray;
     }
@@ -186,10 +205,15 @@ class NominatingCandidates extends AdmObject
                 $title_ar = $this->tm($title_en, 'ar');
 
                 $methodName = 'signupAcknowldgment';
-                $pbms[AfwStringHelper::hzmEncode($methodName)] = array('METHOD' => $methodName, 'COLOR' => $color,
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                    'METHOD' => $methodName,
+                    'COLOR' => $color,
                     'LABEL_AR' => $title_ar,
                     'LABEL_EN' => $title_en,
-                    'PUBLIC' => true, 'BF-ID' => '', 'STEP' => 6);
+                    'PUBLIC' => true,
+                    'BF-ID' => '',
+                    'STEP' => 7
+                );
             }
 
             if (!$this->sureIs('track_overpass')) {
@@ -205,10 +229,14 @@ class NominatingCandidates extends AdmObject
                     'BF-ID' => '',
                     'STEP' => $this->stepOfAttribute('trackOverpassDiv'),
                     'CONFIRMATION_NEEDED' => true,
-                    'CONFIRMATION_QUESTION' => array('ar' => 'هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر',
-                        'en' => 'Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring.'),
-                    'CONFIRMATION_WARNING' => array('ar' => 'هذا الاجراء غير قابل للتراجع',
-                        'en' => 'This process is irreversible.'),
+                    'CONFIRMATION_QUESTION' => array(
+                        'ar' => 'هل أنت متأكد من رغبتك للسماح بتجاوز شرط توفر مسار للبرنامج الذي اسند عليه المترشح وعدم تطبيق هذا الشرط؟ هذه العملية خاضعة للتدقيق وتتبع الأثر',
+                        'en' => 'Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring.'
+                    ),
+                    'CONFIRMATION_WARNING' => array(
+                        'ar' => 'هذا الاجراء غير قابل للتراجع',
+                        'en' => 'This process is irreversible.'
+                    ),
                 ];
             }
 
@@ -225,10 +253,14 @@ class NominatingCandidates extends AdmObject
                     'BF-ID' => '',
                     'STEP' => $this->stepOfAttribute('ratingOverpassDiv'),
                     'CONFIRMATION_NEEDED' => true,
-                    'CONFIRMATION_QUESTION' => array('ar' => 'هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر',
-                        'en' => 'Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring.'),
-                    'CONFIRMATION_WARNING' => array('ar' => 'هذا الاجراء غير قابل للتراجع',
-                        'en' => 'This process is irreversible.'),
+                    'CONFIRMATION_QUESTION' => array(
+                        'ar' => 'هل أنت متأكد من رغبتك للسماح بتجاوز شرط التقدير لهذا المترش وعدم تطبيقه؟ هذه العملية خاضعة للتدقيق وتتبع الأثر',
+                        'en' => 'Are you certain you wish to allow the candidate to bypass the requirement of having a track record for the program they were assigned, and not apply this condition? This process is subject to auditing and monitoring.'
+                    ),
+                    'CONFIRMATION_WARNING' => array(
+                        'ar' => 'هذا الاجراء غير قابل للتراجع',
+                        'en' => 'This process is irreversible.'
+                    ),
                 ];
             }
         }
@@ -388,16 +420,18 @@ class NominatingCandidates extends AdmObject
             $source_name = 'nominating-candidate-' . $this->id;
             $applicant_id = $this->getVal('applicant_id');
 
-            if ($applicant_id and
-                    $this->getVal('grading_scale_id') and
-                    $this->getVal('qual_country_id') and
-                    $this->getVal('date') and
-                    $this->getVal('gpa_from') and
-                    $this->getVal('gpa') and
-                    $this->getVal('qualification_major_id') and
-                    $this->getVal('major_path_id') and
-                    $this->getVal('major_category_id') and
-                    $this->getVal('qualification_id')) {
+            if (
+                $applicant_id and
+                $this->getVal('grading_scale_id') and
+                $this->getVal('qual_country_id') and
+                $this->getVal('date') and
+                $this->getVal('gpa_from') and
+                $this->getVal('gpa') and
+                $this->getVal('qualification_major_id') and
+                $this->getVal('major_path_id') and
+                $this->getVal('major_category_id') and
+                $this->getVal('qualification_id')
+            ) {
                 $appQualObj = ApplicantQualification::loadByMainIndex($applicant_id, $this->getVal('qualification_id'), $this->getVal('major_category_id'), true);
                 $appQualObjId = $appQualObj->id;
                 $appQualObj->set('source_name', $source_name);

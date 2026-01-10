@@ -13,7 +13,7 @@ class AdmNominationLetterAfwStructure
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 3;
+                        $obj->editNbSteps = 2;
 
 
                         $obj->UNIQUE_KEY = array('application_plan_id', 'nominating_authority_id', 'letter_code');
@@ -219,7 +219,7 @@ class AdmNominationLetterAfwStructure
                         'CATEGORY' => 'SHORTCUT',
                         'SHORTCUT' => "nomination_letter_file_id.pic_view",
                         'SHOW' => true,
-                        'RETRIEVE' => true,
+                        'RETRIEVE' => false, // true
                         'EDIT' => false,
                         'QEDIT' => false,
                         'READONLY' => true,

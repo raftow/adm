@@ -17,7 +17,10 @@ class AdmApplicantEvaluationAfwStructure
 
                         $obj->editByStep = false;
                         //$obj->editNbSteps = 1; 
-                        $obj->after_save_edit = array("class"=>'Applicant',"attribute"=>'applicant_id', "currmod"=>'adm',"currstep"=>3);
+                        $obj->after_save_edit_cases = array(
+                                'case-1' => array("class" => 'Applicant', "attribute" => 'applicant_id', "currmod" => 'adm', "currstep" => 3),
+                                'case-2' => array("class" => 'NominatingCandidates', "formulaAttribute" => 'nominating_candidates_id', "currmod" => 'adm', "currstep" => 4),
+                        );
                 }
         }
 
@@ -34,7 +37,7 @@ class AdmApplicantEvaluationAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                
+
                 'evaluation_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -90,7 +93,35 @@ class AdmApplicantEvaluationAfwStructure
                         'CSS' => 'width_pct_50',
                 ),
 
-                
+                /**** FORMULA */
+                'nominating_candidates_id' => array(
+                        'CATEGORY' => 'FORMULA',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'nominating_candidates',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => true,
+                        'STEP' => 99,
+                        'RELATION' => 'OneToMany',
+                        'MANDATORY' => true,
+                        'READONLY' => true,
+                        'AUTOCOMPLETE' => true,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50',
+                ),
+                /**** FORMULA */
+
                 'eval_result' => array(
                         'IMPORTANT' => 'IN',
                         'SHOW' => true,
@@ -98,7 +129,8 @@ class AdmApplicantEvaluationAfwStructure
                         'QEDIT' => true,
                         'EDIT' => true,
                         'SIZE' => 32,
-                        'TYPE' => 'FLOAT', 'FORMAT' => '*.2',
+                        'TYPE' => 'FLOAT',
+                        'FORMAT' => '*.2',
                         'MANDATORY' => true,
                         'STEP' => 1,
                         'DISPLAY' => true,
@@ -170,21 +202,29 @@ class AdmApplicantEvaluationAfwStructure
                 ],
 
 
-                
-
-                'imported' => array(
-                        'RETRIEVE' => true,
+                'nomination_letter_id' => array(
+                        // 'SHORTNAME' => 'funding_status',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
                         'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
                         'EDIT' => true,
-                        'DEFAUT' => 'N',
-                        'TYPE' => 'YN',
-                        'DISPLAY' => true,
-                        'STEP' => 1,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'nomination_letter',
+                        'ANSMODULE' => 'adm',
+                        'RELATION' => 'OneToMany',
+                        'READONLY' => true,
                         'MANDATORY' => true,
-                        'QSEARCH' => false,
-                        'DISPLAY-UGROUPS' => '',
-                        'EDIT-UGROUPS' => '',
-                        'CSS' => 'width_pct_25',
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                        'STEP' => 1,
                 ),
 
                 'workflow_file_id' => array(
@@ -207,6 +247,21 @@ class AdmApplicantEvaluationAfwStructure
                         'RELATION' => 'ManyToOne',
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
+                ),
+
+                'imported' => array(
+                        'RETRIEVE' => true,
+                        'SHOW' => true,
+                        'EDIT' => true,
+                        'DEFAUT' => 'N',
+                        'TYPE' => 'YN',
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'MANDATORY' => true,
+                        'QSEARCH' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
                 ),
 
 
@@ -379,11 +434,26 @@ class AdmApplicantEvaluationAfwStructure
                         'NO-ERROR-CHECK' => true,
                         'FGROUP' => 'tech_fields'
                 ),
-                'need_evaluation_enum' => array('SHORTNAME' => 'evaluation',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => false,  
-				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'UTF8' => false,  
-				'TYPE' => 'ENUM',  'ANSWER' => '',  'READONLY' => false,  'DNA' => true, 
-				'CSS' => 'width_pct_25', ),
+                'need_evaluation_enum' => array(
+                        'SHORTNAME' => 'evaluation',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => false,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => '',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_25',
+                ),
 
 
         );
