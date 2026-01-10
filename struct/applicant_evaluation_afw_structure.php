@@ -21,6 +21,9 @@ class AdmApplicantEvaluationAfwStructure
                                 'case-1' => array("class" => 'Applicant', "attribute" => 'applicant_id', "currmod" => 'adm', "currstep" => 3),
                                 'case-2' => array("class" => 'NominatingCandidates', "formulaAttribute" => 'nominating_candidates_id', "currmod" => 'adm', "currstep" => 4),
                         );
+                } else {
+                        ApplicantEvaluationArTranslator::initData();
+                        ApplicantEvaluationEnTranslator::initData();
                 }
         }
 

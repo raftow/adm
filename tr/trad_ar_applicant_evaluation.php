@@ -1,9 +1,10 @@
 <?php
 
-class ApplicantEvaluationArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class ApplicantEvaluationArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 
 		$trad["applicant_evaluation"]["applicantevaluation.single"] = "اختبار متقدم";
 		$trad["applicant_evaluation"]["applicantevaluation.new"] = "جديد";
@@ -18,14 +19,13 @@ class ApplicantEvaluationArTranslator{
 		$trad["applicant_evaluation"]["imported"] = "تم التحقق";
 		$trad["applicant_evaluation"]["workflow_file_id"] = "المرفق";
 		$trad["applicant_evaluation"]["need_evaluation_enum"] = "بيانات بحاجة للتحديث";
-        return $trad;
-    }
+		$trad["applicant_evaluation"]["nomination_letter_id"] = "خطاب الترشيح";
+		return $trad;
+	}
 
-    public static function getInstance()
+	public static function getInstance()
 	{
-        if(false) return new ApplicantEvaluationEnTranslator();
+		if (false) return new ApplicantEvaluationEnTranslator();
 		return new ApplicantEvaluation();
 	}
 }
-
-	
