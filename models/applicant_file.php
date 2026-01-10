@@ -194,14 +194,7 @@ class ApplicantFile extends AdmObject
         }
     }
 
-    public function shouldBeCalculatedField($attribute)
-    {
-        if ($attribute == 'download_light')
-            return true;
-        if ($attribute == 'afile_ext')
-            return true;
-        return false;
-    }
+
 
     public function afterMaj($id, $fields_updated)
     {
@@ -247,6 +240,15 @@ class ApplicantFile extends AdmObject
         }
 
         return [$authorized, $title, $text];
+    }
+
+
+    public function shouldBeCalculatedField($attribute)
+    {
+        if ($attribute == "download_light") return true;
+        if ($attribute == "afile_ext") return true;
+        if ($attribute == "pic_view") return true;
+        return false;
     }
 }
 
