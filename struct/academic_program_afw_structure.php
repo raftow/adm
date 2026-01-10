@@ -8,7 +8,7 @@ class AdmAcademicProgramAfwStructure
                         $obj->DISPLAY_FIELD_BY_LANG = ['ar' => 'program_name_ar', 'en' => 'program_name_en'];
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
                         $obj->UNIQUE_KEY = array('academic_level_id', 'program_track_id', 'college_id', 'program_name_ar', 'program_name_en');
-                        // $obj->public_display = true;
+                        $obj->public_display = true; // Needed for NominatingCandidates
 
                         $obj->editByStep = true;
                         $obj->editNbSteps = 5;
