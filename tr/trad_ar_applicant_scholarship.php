@@ -19,6 +19,8 @@ class ApplicantScholarshipArTranslator{
 	$trad["applicant_scholarship"]["remarks"] = "ملاحظات";
 	$trad["applicant_scholarship"]["grant_committee_interview_score"] = "نتيجة مقابلة لجنة المنح";
 	$trad["applicant_scholarship"]["grant_committee_letter"] = "خطاب لجنة المنح";
+	$trad["applicant_scholarship"]["scholarship_type"] = "نوع المنحة";
+
 
         return $trad;
         }

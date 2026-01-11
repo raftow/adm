@@ -66,7 +66,75 @@
                         return $otherLinksArray;
                 }
 
-             
+            public function beforeDelete($id,$id_replace) 
+        {
+            $server_db_prefix = AfwSession::config("db_prefix","nauss_");
+            
+            if(!$id)
+            {
+                $id = $this->getId();
+                $simul = true;
+            }
+            else
+            {
+                $simul = false;
+            }
+            
+            if($id)
+            {   
+               if($id_replace==0)
+               {
+                   // FK part of me - not deletable 
+                       // adm.applicant_scholarship-المنحة	scholarship_id  حقل يفلتر به (required field)
+                        // require_once "../adm/applicant_scholarship.php";
+                        $obj = new ApplicantScholarship();
+                        $obj->where("scholarship_id = '$id' and active='Y' ");
+                        $nbRecords = $obj->count();
+                        // check if there's no record that block the delete operation
+                        if($nbRecords>0)
+                        {
+                            $this->deleteNotAllowedReason = "Used in some Applicant scholarships(s) as Scholarship";
+                            return false;
+                        }
+                        // if there's no record that block the delete operation perform the delete of the other records linked with me and deletable
+                        if(!$simul) $obj->deleteWhere("scholarship_id = '$id' and active='N'");
 
-        }
+
+                        
+                   // FK part of me - deletable 
+
+                   
+                   // FK not part of me - replaceable 
+
+                        
+                   
+                   // MFK
+
+               }
+               else
+               {
+                        // FK on me 
+ 
+
+                        // adm.applicant_scholarship-المنحة	scholarship_id  حقل يفلتر به (required field)
+                        if(!$simul)
+                        {
+                            // require_once "../adm/applicant_scholarship.php";
+                            ApplicantScholarship::updateWhere(array('scholarship_id'=>$id_replace), "scholarship_id='$id'");
+                            // $this->execQuery("update ${server_db_prefix}adm.applicant_scholarship set scholarship_id='$id_replace' where scholarship_id='$id' ");
+                            
+                        } 
+                        
+
+
+                        
+                        // MFK
+
+                   
+               } 
+               return true;
+            }    
+	} 
+
+}
 ?>

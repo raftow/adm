@@ -67,6 +67,7 @@ class AdmApplicantScholarshipAfwStructure
 			'READONLY' => false,
 			'CSS' => 'width_pct_25',
                         //'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
+                        //'WHERE' => 'id not in (select applicant_id from §DBPREFIX§adm.nominating_candidates nc inner join nomination_letter nl on nc.nomination_letter_id=nl.id where )'
                 ),
 
 
@@ -118,7 +119,12 @@ class AdmApplicantScholarshipAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
                                      
-
+'scholarship_type' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
+        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+        'TYPE' => 'FK','ANSWER'=>"scholarship_type",'ANSMODULE'=>'adm',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
+        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+        'CSS' => 'width_pct_25',),
+ 
                 'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 
                         'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
                         'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => false,  'EDIT-ADMIN' => false,  'UTF8' => false,  
@@ -238,12 +244,12 @@ class AdmApplicantScholarshipAfwStructure
                         'IMPORTANT' => 'IN',
                         'SEARCH' => false,
                         'QSEARCH' => false,
-                        'SHOW' => true,
+                        'SHOW' => false,
                         'RETRIEVE' => false,
-                        'EDIT' => true,
-                        'QEDIT' => true,
-                        'SHOW-ADMIN' => true,
-                        'EDIT-ADMIN' => true,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SHOW-ADMIN' => false,
+                        'EDIT-ADMIN' => false,
                         'UTF8' => false,
                         'TYPE' => 'FK',
                         'ANSWER' => 'workflow_file',

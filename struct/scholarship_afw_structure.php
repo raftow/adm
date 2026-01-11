@@ -56,9 +56,9 @@
         
 
 
-'scholarship_type' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
-        'TYPE' => 'FK','ANSWER'=>"scholarship_type",'ANSMODULE'=>'adm',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => true,  
+'scholarship_type' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE-AR' => false,  
+        'EDIT' => false,  'QEDIT' => false,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
+        'TYPE' => 'FK','ANSWER'=>"scholarship_type",'ANSMODULE'=>'adm',    'DISPLAY' => false,  'STEP' => 1, 'MANDATORY' => false,  
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25',),
         
@@ -192,10 +192,10 @@
         'CSS' => 'width_pct_25', ),	
 
 
-'academic_program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => true,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+'academic_program_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
+        'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => false,  'EDIT-ADMIN' => false,  'UTF8' => false,  
         'TYPE' => 'FK',  'ANSWER' => 'academic_program',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
+        'DISPLAY' => false,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25', ),	
 
