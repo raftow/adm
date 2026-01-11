@@ -243,11 +243,11 @@ class Applicant extends AdmObject
                         if ($idn_type_id == 3) $idn_type_id = 2;
                         if (($idn_type_id == 1) or ($idn_type_id == 2)) {
 
-
-                                if (!is_numeric($idn)) throw new AfwRuntimeException("The identity type is not correctly entered"); // 
+                                // should be AfwBusinessException
+                                if (!is_numeric($idn)) throw new AfwBusinessException("The identity type is not correctly entered", $lang, "", "", "index.php", "IDN TYPE of $idn is $idn_type_id !!!!", "adm"); // 
                                 list($idn_correct, $type) = AfwFormatHelper::getIdnTypeId($idn);
-                                if ($type != $idn_type_id) throw new AfwRuntimeException("The identity type is incorrect $idn -> type=$type != idn_type_id=$idn_type_id"); // 
-                                if (!$idn_correct) throw new AfwRuntimeException("The identity number is not correctly entered"); //   ,$lang,"","","index.php","IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"
+                                if ($type != $idn_type_id) throw new AfwBusinessException("The identity type is incorrect $idn -> type = $type != idn_type_id=$idn_type_id", $lang, "", "", "index.php", "IDN TYPE of $idn is $idn_type_id !!!!", "adm"); // 
+                                if (!$idn_correct) throw new AfwBusinessException("The identity number is not correctly entered", $lang, "", "", "index.php", "IDN $idn of TYPE $idn_type_id HAVE BAD FORMAT", "adm"); //   
                                 $this->set("id", $idn);
                         } else {
                                 $country_id = $this->getVal("country_id");
