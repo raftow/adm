@@ -66,7 +66,7 @@ $out_scr .= "                </select>
     });
 </script>";
 
-$q = "select id,name_ar,name_en from " . $server_db_prefix . "adm.study_funding_status where active='Y'";
+$q = "select id,name_ar from " . $server_db_prefix . "adm.study_funding_status where active='Y'";
 $funding_status_list = AfwDatabase::db_recup_rows($q);
 $q2 = "select count(*) NB_CANDIDATE,sfs.name_ar,na.nominating_authority_name_ar from ".$server_db_prefix."adm.nominating_candidates nc inner join ".$server_db_prefix."adm.nomination_letter nl on nc.nomination_letter_id = nl.id
        inner join ".$server_db_prefix."adm.nominating_authority na on nl.nominating_authority_id = na.id 
@@ -81,10 +81,13 @@ foreach ($results as $row) {
     $authority = $row['nominating_authority_name_ar'];
     $name = $row['name_ar'] ?? 'غير محدد';
 
-    $columns[$name] = true;
+    //$columns[$name] = true;
     $rows[$authority][$name] = $row['NB_CANDIDATE'];
 }
-
+foreach($funding_status_list as $fs){
+  $columns[$fs['name_ar']] = true;
+}
+$columns['غير محدد'] = true;
 $out_scr .= '<div class="table-responsive p-2" style="margin-right:0;margin-left:auto;"><table border="1" cellpadding="5" class="table table-bordered table-striped" style="width:100%;margin:0;">';
 
 // Header
