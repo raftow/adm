@@ -18,7 +18,7 @@ class AdmApplicationAfwStructure
                         // $obj->IS_LOOKUP = true;
 
                         $obj->editByStep = true;
-                        $obj->editNbSteps = 8;
+                        $obj->editNbSteps = 7; // 12/01/2026 : step 8 to hide because technical said Amjad
                         $obj->setContextAndPartitionCols($part_cols, $context_cols);
                         $obj->setMultiplePK($multiple_key_cols, $obj->PK_MULTIPLE);
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
