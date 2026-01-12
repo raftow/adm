@@ -79,7 +79,7 @@ $rows = [];
 
 foreach ($results as $row) {
     $authority = $row['nominating_authority_name_ar'];
-    $name = $row['name_ar'] ?? 'غير محدد';
+    $name = $row['name_ar'] ?? 'غير محدد التمويل';
 
     //$columns[$name] = true;
     $rows[$authority][$name] = $row['NB_CANDIDATE'];
@@ -87,7 +87,7 @@ foreach ($results as $row) {
 foreach($funding_status_list as $fs){
   $columns[$fs['name_ar']] = true;
 }
-$columns['غير محدد'] = true;
+//$columns['غير محدد'] = true;
 $out_scr .= '<div class="table-responsive p-2" style="margin-right:0;margin-left:auto;"><table border="1" cellpadding="5" class="table table-bordered table-striped" style="width:100%;margin:0;">';
 
 // Header
