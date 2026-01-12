@@ -13,46 +13,13 @@ $arr_sql_conds[] = "me.active='Y'";
 $objme = AfwSession::getUserConnected();
 $myEmplId = $objme->getEmployeeId();
 
-/*
-$crm_active_period = AfwSession::config("crm_active_period", 365);
-$oldest_date = AfwDateHelper::shiftGregDate("", -$crm_active_period);
-$newest_date = AfwDateHelper::shiftGregDate("", -2);
-
-$supList = CrmEmployee::getSupervisorList();
-
-
-$where_old_still_not_assigned="active='Y' and status_id < 5 and (orgunit_id=0 or employee_id=0) and created_at between '$oldest_date' and '$newest_date'";
-
-$stats_arr = Request::aggreg($function="count(*)", 
-                $where = $where_old_still_not_assigned, 
-                $group_by = "supervisor_id",
-                $throw_error=true, 
-                $throw_analysis_crash=true);
-
-if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
-
-$statsMatrix = array();
-foreach($supList as $supItem)                
-{
-        $supObj = $supItem["obj"];
-        $sup_employee_id = $supObj->getVal("employee_id");
-        if($stats_arr[$sup_employee_id]>0)
-        {
-            $statsMatrix[$sup_employee_id] = array('name'=>$supObj->getDisplay($lang), 'missed'=>$stats_arr[$sup_employee_id]);
-        }        
-}
-                          
-
-$reqList = Request::loadRecords($where_old_still_not_assigned, $limit="5", $order_by="id asc");
-
-$header_trad = array("missed"=>"عدد الطلبات", "name" => 'الادارة - المشرف');
-*/
 if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
 if(!$lang) $lang = "ar";
 // $out_scr .= Page::showPage("adm", "main-page", $lang);
+$server_db_prefix = AfwSession::currentDBPrefix();
 
-$application_plan_id = 11;
-
+$application_plan_id = $_GET['application_plan_id'];
+if(!$application_plan_id) $application_plan_id = 11;
 $out_scr .= "<ul class=\"nav nav-tabs p-2\">
       <li class=\"nav-item\">
         <a class=\"nav-link\" style=\"border: none !important;\" href=\"/adm/index2.php?Main_Page=reports.php\">تقارير المتقدمين</a>
@@ -69,6 +36,93 @@ $out_scr .= "<div id='page-content-wrapper' class=\"container-fluid h-100\">";//
 
 // customer number increasing (cni)
 
+$q_plans = "select id, application_model_name_ar from " . $server_db_prefix . "adm.application_plan order by id desc";
+$plans_list = AfwDatabase::db_recup_rows($q_plans);
+//die(var_dump($plans_list));
+$out_scr .= "<div class='container-fluid m-3'>
+    <form method='post'>
+        <div class='row'>
+            <div class='col-md-6'>
+                <label for='application_plan_id'>البرنامج</label>
+                <select name='application_plan_id' id='application_plan_id' class='form-control'>
+                    <option value='' disabled selected>اختر البرنامج</option>";
+                     foreach ($plans_list as $plan) { 
+                        //if($plan['id'] == $application_plan_id) $out_scr .= "<option value='".$plan['id'] ."' selected>".$plan['application_model_name_ar'] ."</option>";
+                        /*else*/ $out_scr .= "<option value='".$plan['id'] ."'>".$plan['application_model_name_ar'] ."</option>";
+                     } 
+$out_scr .= "                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#application_plan_id').change(function() {
+            var application_plan_id = $(this).val();
+            if(application_plan_id) {
+               window.location.href = 'index2.php?Main_Page=reports_candidate.php&application_plan_id=' + application_plan_id;
+            }
+        });
+    });
+</script>";
+
+$q = "select id,name_ar,name_en from " . $server_db_prefix . "adm.study_funding_status where active='Y'";
+$funding_status_list = AfwDatabase::db_recup_rows($q);
+$q2 = "select count(*) NB_CANDIDATE,sfs.name_ar,na.nominating_authority_name_ar from ".$server_db_prefix."adm.nominating_candidates nc inner join ".$server_db_prefix."adm.nomination_letter nl on nc.nomination_letter_id = nl.id
+       inner join ".$server_db_prefix."adm.nominating_authority na on nl.nominating_authority_id = na.id 
+       left outer join ".$server_db_prefix."adm.study_funding_status sfs on nc.study_funding_status_id = sfs.id
+      where nl.application_plan_id = $application_plan_id group by sfs.name_ar,na.nominating_authority_name_ar";
+$results = AfwDatabase::db_recup_rows($q2);
+
+$columns = [];
+$rows = [];
+
+foreach ($results as $row) {
+    $authority = $row['nominating_authority_name_ar'];
+    $name = $row['name_ar'] ?? 'غير محدد';
+
+    $columns[$name] = true;
+    $rows[$authority][$name] = $row['NB_CANDIDATE'];
+}
+
+$out_scr .= '<div class="table-responsive p-2" style="margin-right:0;margin-left:auto;"><table border="1" cellpadding="5" class="table table-bordered table-striped" style="width:100%;margin:0;">';
+
+// Header
+$out_scr .= '<thead><tr><th style="text-align:center;">جهة الترشيح</th>';
+foreach (array_keys($columns) as $col) {
+    $out_scr .= "<th style='text-align:center;'>{$col}</th>";
+}
+//$out_scr .= '</tr>';
+ $out_scr .= "<th style='text-align:center;'>المجموع</th></tr>";
+
+// Body
+$out_scr .= "</thead><tbody>";
+$total_col = [];
+foreach ($rows as $authority => $data) {
+    $out_scr .= "<tr>";
+    $out_scr .= "<td>{$authority}</td>";
+    
+    $total_row = 0;
+    foreach (array_keys($columns) as $col) {
+        $out_scr .= '<td>' . ($data[$col] ?? 0) . '</td>';
+        $total_row += $data[$col];
+        $total_col[$col] = ($total_col[$col] ?? 0) + ($data[$col] ?? 0);
+
+    }
+    $out_scr .= '<td>' . ($total_row) . '</td>';
+    //$total_col[$col] += $data[$col];
+    $out_scr .= "</tr>";
+}
+$out_scr .= "<tr><td>المجموع</td>";
+//die(var_dump($total_col));
+foreach (array_keys($columns) as $col) {
+    $out_scr .= '<td>' . ($total_col[$col] ?? 0) . '</td>';
+}
+    $out_scr .= '<td>' . array_sum($total_col) . '</td>';
+
+$out_scr .= "</tr>";
+$out_scr .= '</tbody></table></div>';
+$out_scr .="<br><br><br>";
 if(true)
 {
     
