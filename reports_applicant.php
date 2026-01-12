@@ -139,7 +139,7 @@ $out_scr .= "                </select>
  
  // build bootstrap table (responsive)
  //$out_scr .= "<div class='table-responsive p-2'><table class='table table-bordered table-striped'>";
-  $out_scr .= "<div class='table-responsive p-2' style='margin-right:0;margin-left:auto;'><table class='table table-bordered table-striped' style='width:100%;margin:0;'>";
+  $out_scr .= "<div class='table-responsive p-2' style='margin-right:0;margin-left:auto;'><table id='reportTable' class='table table-bordered table-striped' style='width:100%;margin:0;'>";
  // header
  $out_scr .= "<thead><tr ><th style='text-align:center;'>البرنامج</th>";
  foreach($steps_list as $step){
@@ -172,6 +172,37 @@ $out_scr .= "                </select>
  }
  $out_scr .= "<td><strong>".$grandTotal."</strong></td></tr>";
 
- $out_scr .= "</tbody></table></div>";
-                                   
+ $out_scr .= "</tbody></table>";
+ $out_scr .= '<button class="btn btn-primary" onclick="exportToPDF()">تصدير PDF</button>';
+ $out_scr .= "</div>";
+
+$out_scr .="<script>
+        function exportToPDF() {
+            // Get the table HTML
+            var tableHTML = document.getElementById('reportTable').outerHTML;
+            
+            // Create a form and submit
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'index2.php?Main_Page=report_pdf.php';
+            
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'table_html';
+            input.value = tableHTML;
+            form.appendChild(input);
+            
+            var input2 = document.createElement('input');
+            
+            input2.type = 'hidden';
+            input2.name = 'title';
+            input2.value = 'احصائية التقديم حسب البرامج والمراحل';
+            form.appendChild(input2);
+
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>";
+
 ?>

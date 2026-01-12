@@ -88,7 +88,8 @@ foreach($funding_status_list as $fs){
   $columns[$fs['name_ar']] = true;
 }
 //$columns['غير محدد'] = true;
-$out_scr .= '<div class="table-responsive p-2" style="margin-right:0;margin-left:auto;"><table border="1" cellpadding="5" class="table table-bordered table-striped" style="width:100%;margin:0;">';
+$out_scr .= '<div class="table-responsive p-2" style="margin-right:0;margin-left:auto;">';
+$out_scr .= '<table id="reportTable" border="1" cellpadding="5" class="table table-bordered table-striped" style="width:100%;margin:0;">';
 
 // Header
 $out_scr .= '<thead><tr><th style="text-align:center;">جهة الترشيح</th>';
@@ -103,28 +104,57 @@ $out_scr .= "</thead><tbody>";
 $total_col = [];
 foreach ($rows as $authority => $data) {
     $out_scr .= "<tr>";
-    $out_scr .= "<td>{$authority}</td>";
+    $out_scr .= "<td style='text-align:center;'>{$authority}</td>";
     
     $total_row = 0;
     foreach (array_keys($columns) as $col) {
-        $out_scr .= '<td>' . ($data[$col] ?? 0) . '</td>';
+        $out_scr .= '<td style="text-align:center;">' . ($data[$col] ?? 0) . '</td>';
         $total_row += $data[$col];
         $total_col[$col] = ($total_col[$col] ?? 0) + ($data[$col] ?? 0);
 
     }
-    $out_scr .= '<td>' . ($total_row) . '</td>';
+    $out_scr .= '<td style="text-align:center;">' . ($total_row) . '</td>';
     //$total_col[$col] += $data[$col];
     $out_scr .= "</tr>";
 }
-$out_scr .= "<tr><td>المجموع</td>";
+$out_scr .= "<tr><td style='text-align:center;'>المجموع</td>";
 //die(var_dump($total_col));
 foreach (array_keys($columns) as $col) {
-    $out_scr .= '<td>' . ($total_col[$col] ?? 0) . '</td>';
+    $out_scr .= '<td style="text-align:center;">' . ($total_col[$col] ?? 0) . '</td>';
 }
-    $out_scr .= '<td>' . array_sum($total_col) . '</td>';
+    $out_scr .= '<td style="text-align:center;">' . array_sum($total_col) . '</td>';
 
 $out_scr .= "</tr>";
 $out_scr .= '</tbody></table></div>';
+$out_scr .= '<button class="btn btn-primary" onclick="exportToPDF()">تصدير PDF</button>';
+$out_scr .="<script>
+        function exportToPDF() {
+            // Get the table HTML
+            var tableHTML = document.getElementById('reportTable').outerHTML;
+            
+            // Create a form and submit
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'index2.php?Main_Page=report_pdf.php';
+            
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'table_html';
+            input.value = tableHTML;
+            form.appendChild(input);
+            
+            var input2 = document.createElement('input');
+            
+            input2.type = 'hidden';
+            input2.name = 'title';
+            input2.value = 'قائمة المرشحين حسب التمويل';
+            form.appendChild(input2);
+
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>";
 $out_scr .="<br><br><br>";
 if(true)
 {
