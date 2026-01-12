@@ -47,8 +47,8 @@ $out_scr .= "<div class='container-fluid m-3'>
                 <select name='application_plan_id' id='application_plan_id' class='form-control'>
                     <option value='' disabled selected>اختر البرنامج</option>";
                      foreach ($plans_list as $plan) { 
-                        //if($plan['id'] == $application_plan_id) $out_scr .= "<option value='".$plan['id'] ."' selected>".$plan['application_model_name_ar'] ."</option>";
-                        /*else*/ $out_scr .= "<option value='".$plan['id'] ."'>".$plan['application_model_name_ar'] ."</option>";
+                        if($plan['id'] == $application_plan_id) $out_scr .= "<option value='".$plan['id'] ."' selected>".$plan['application_model_name_ar'] ."</option>";
+                        else $out_scr .= "<option value='".$plan['id'] ."'>".$plan['application_model_name_ar'] ."</option>";
                      } 
 $out_scr .= "                </select>
             </div>
