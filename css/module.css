@@ -752,6 +752,14 @@ div>a.downloadbtn>div.pdf_download {
 
 /*****     end of upload files css   *********************/
 
+div#fg-applicationWarningDiv {
+    min-height: 0;
+}
+
+div#fg-desiresLimitWarningDiv {
+    min-height: 0;
+}
+
 .hzm_data.form-control.inputreadonly {
     padding-top: 10px !important;
     font-size: 100% !important;

@@ -87,6 +87,37 @@ $out_scr .= "<br><br><br><h2 class='m-2'>احصائية التقديم حسب ا
 $out_scr .= "</div>";
 // Generations
 
+$q_plans = "select id, application_model_name_ar from " . $server_db_prefix . "adm.application_plan order by id desc";
+$plans_list = AfwDatabase::db_recup_rows($q_plans);
+//die(var_dump($plans_list));
+$out_scr .= "<div class='container-fluid m-3'>
+    <form method='post'>
+        <div class='row'>
+            <div class='col-md-6'>
+                <label for='application_plan_id'>البرنامج</label>
+                <select name='application_plan_id' id='application_plan_id' class='form-control'>
+                    <option value='' disabled selected>اختر البرنامج</option>";
+                     foreach ($plans_list as $plan) { 
+                        if($plan['id'] == $application_plan_id) $out_scr .= "<option value='".$plan['id'] ."' selected>".$plan['application_model_name_ar'] ."</option>";
+                        else $out_scr .= "<option value='".$plan['id'] ."'>".$plan['application_model_name_ar'] ."</option>";
+                     } 
+$out_scr .= "                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#application_plan_id').change(function() {
+            var application_plan_id = $(this).val();
+            if(application_plan_id) {
+               window.location.href = 'index2.php?Main_Page=reports_applicant.php&application_plan_id=' + application_plan_id;
+            }
+        });
+    });
+</script>
+";
+
 
 // pivot data: category rows x step_name_ar columns, values = NB_APPLICANT
  $steps = array();
@@ -108,9 +139,9 @@ $out_scr .= "</div>";
  
  // build bootstrap table (responsive)
  //$out_scr .= "<div class='table-responsive p-2'><table class='table table-bordered table-striped'>";
-  $out_scr .= "<div class='table-responsive p-2' style='margin-right:0;margin-left:auto;'><table class='table table-bordered table-striped' style='width:100%;margin:0;'>";
+  $out_scr .= "<div class='table-responsive p-2' style='margin-right:0;margin-left:auto;'><table id='reportTable' class='table table-bordered table-striped' style='width:100%;margin:0;'>";
  // header
- $out_scr .= "<thead><tr ><th style='text-align:center;'>الفئة</th>";
+ $out_scr .= "<thead><tr ><th style='text-align:center;'>البرنامج</th>";
  foreach($steps_list as $step){
      $out_scr .= "<th style='text-align:center;'>".htmlspecialchars($step["step_name_ar"])."</th>";
  }
@@ -141,6 +172,37 @@ $out_scr .= "</div>";
  }
  $out_scr .= "<td><strong>".$grandTotal."</strong></td></tr>";
 
- $out_scr .= "</tbody></table></div>";
-                                   
+ $out_scr .= "</tbody></table>";
+ $out_scr .= '<button class="btn btn-primary" onclick="exportToPDF()">تصدير PDF</button>';
+ $out_scr .= "</div>";
+
+$out_scr .="<script>
+        function exportToPDF() {
+            // Get the table HTML
+            var tableHTML = document.getElementById('reportTable').outerHTML;
+            
+            // Create a form and submit
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'index2.php?Main_Page=report_pdf.php';
+            
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'table_html';
+            input.value = tableHTML;
+            form.appendChild(input);
+            
+            var input2 = document.createElement('input');
+            
+            input2.type = 'hidden';
+            input2.name = 'title';
+            input2.value = 'احصائية التقديم حسب البرامج والمراحل';
+            form.appendChild(input2);
+
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>";
+
 ?>
