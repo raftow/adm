@@ -1626,7 +1626,7 @@ class AdmObject extends AfwMomkenObject
 
     public function calcDoc_type_allowed_list($what = 'value')
     {
-        return '6,7,18,19,20,27,28,29,33,34';
+        return '6,7,18,19,20,27,28,29,33,34,39';
     }
 
     public static function trainingPeriodContainOther($one_training_period_enum, $other_training_period_enum)
