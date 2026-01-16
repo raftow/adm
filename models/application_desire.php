@@ -807,7 +807,7 @@ class ApplicationDesire extends AdmObject
                                 $wRequestObj->set('external_request_code', "A$wApplicantObjId" . "P$applicationPlanId" . "S$application_simulation_id" . "D$desire_num");
                         if (!$wRequestObj->getVal('request_type_code') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('request_type_code', 'desire');
-                        // @todo the orgunit (إدارة القبول) is now only one id = 12416 but later for other clients it can be many
+                        // @todo the orgunit (إدارة التسجيل والقبول - مراجعة الوثائق) is now only one id = 12416 but later for other clients it can be many
                         //       so we should find the appropriate orgunit depending on the program or the training unit or college (following policy of institution)
                         $orgunit_id = 12416;
                         $wRequestObj->set('orgunit_id', $orgunit_id);
