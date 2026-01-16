@@ -765,7 +765,7 @@ class ApplicationDesire extends AdmObject
          * @return Array
          * return [Workflow Request Object, Error Message, Action done, Log about best emloyee assign algorithm]
          */
-        public function exportApplicationToWorkflow($wModelObj = null, $wSessionObj = null, $update_if_exists = false, $reset = false)
+        public function exportApplicationToWorkflow($wModelObj = null, $wSessionObj = null, $update_if_exists = false, $reset = false, $wRequestObj = null)
         {
                 $action = 'ignored';
                 AfwAutoloader::addModule('workflow');
@@ -788,7 +788,7 @@ class ApplicationDesire extends AdmObject
                 $applicantObj = $applicationObj->getApplicant();
                 $wApplicantObj = $applicantObj->getWorkflowApplicant(true, $update_if_exists);
                 $wApplicantObjId = $wApplicantObj->id;
-                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id, true);
+                if (!$wRequestObj) $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id, true);
                 if (!$wRequestObj)
                         return [null, $this->tm('Failed to create workflow request', $lang), $action];
 
@@ -1778,5 +1778,11 @@ class ApplicationDesire extends AdmObject
         public function canBeDeletedWithoutRoleBy($auser)
         {
                 return $auser->hasRole("adm", 397);
+        }
+
+        public function updateDataOfWorkflowRequest($workflowRequestObj)
+        {
+                list($wReqObj, $message, $action, $log) = $this->exportApplicationToWorkflow(null, null, true, false, $workflowRequestObj);
+                return ["", "done", $message . " action=$action, log=$log"];
         }
 }
