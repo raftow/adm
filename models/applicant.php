@@ -133,6 +133,8 @@ class Applicant extends AdmObject
                         $wAppObj->set("mobile", $this->getVal("mobile"));
                         $wAppObj->set("email", $this->getVal("email"));
                         $wAppObj->set("gender_enum", $this->getVal("gender_enum"));
+                        $wAppObj->set("birth_gdate", $this->getVal("birth_gdate"));
+
                         $wAppObj->set("first_name_ar", $this->getVal("first_name_ar"));
                         $wAppObj->set("father_name_ar", $this->getVal("father_name_ar"));
                         $wAppObj->set("middle_name_ar", $this->getVal("middle_name_ar"));
