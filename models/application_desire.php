@@ -1026,7 +1026,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
-                die("pbms = " . var_export($pbms, true) . "");
+                // die("pbms = " . var_export($pbms, true) . "");
 
                 return $pbms;
         }
