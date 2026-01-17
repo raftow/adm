@@ -1018,7 +1018,7 @@ class ApplicationDesire extends AdmObject
                                 $suppProgramList = $programObj->get("supp_program_mfk");
                         }
                 }
-                $suppProgramList[0] = "كما هو";
+                $suppProgramList[0] = ['ar' => "كما هو", 'en' => "As is",];
                 foreach (self::$PUB_METHODS as $methodName0 => $publicDynamicMethodProps) {
                         $log = "";
                         if ($publicDynamicMethodProps['itemsMethod'] == 'getSuppPrograms') {
@@ -1026,6 +1026,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
+                die("pbms = " . var_export($pbms, true) . "");
 
                 return $pbms;
         }
