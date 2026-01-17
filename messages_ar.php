@@ -223,6 +223,5 @@ $messages['Not a candidate'] = 'غير مترشح';
 $messages['This will approve or disapprove the document for this applicant'] = 'سيؤدي هذا إلى الموافقة أو الرفض على المستند لهذا المتقدم';
 
 $messages['You have not reached this step yet'] = 'لم نصل إلى هذه الخطوة بعد';
-
+$messages["disapprove the program"] = "رفض أهلية التقديم على البرنامج";
 // $messages[""] = "";
-?>

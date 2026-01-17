@@ -1021,7 +1021,7 @@ class ApplicationDesire extends AdmObject
                 $suppProgramList[0] = "كما هو";
                 foreach (self::$PUB_METHODS as $methodName0 => $publicDynamicMethodProps) {
                         $log = "";
-                        if ($suppProgramList and ($publicDynamicMethodProps['itemsMethod'] == 'getSuppPrograms')) {
+                        if ($publicDynamicMethodProps['itemsMethod'] == 'getSuppPrograms') {
                                 $pbms = AfwDynamicPublicMethodHelper::splitMethodWithItems($pbms, $publicDynamicMethodProps, $methodName0, $this, $log, $suppProgramList, false, true);
                         }
                 }
