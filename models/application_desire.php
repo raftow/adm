@@ -20,6 +20,19 @@ class ApplicationDesire extends AdmObject
                 AdmApplicationDesireAfwStructure::initInstance($this);
         }
 
+        public static $PUB_METHODS = array(
+                'approveProgramWith' => array(
+                        'title' => 'اعتماد البرنامج [item]',
+                        'color' => 'random',
+                        'confirmation_needed' => false,
+                        'confirmation_warning' => '',
+                        'confirmation_question' => '',
+                        'published' => ['workflow-commitee' => true],
+                        'itemsMethod' => 'getSuppPrograms',
+                ),
+
+        );
+
         public function getApplicationPlan()
         {
                 if (!$this->objApplicationPlan)
@@ -900,6 +913,25 @@ class ApplicationDesire extends AdmObject
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 // $objFirstStep = $objApplicationModel->getFirstDesireStep();
                 if ($objApplicationModel) {
+
+
+
+
+                        $color = 'red';
+                        $title_ar = $this->tm('disapprove the program', 'ar');
+                        $title_en = $this->tm('disapprove the program', 'en');
+                        $methodName = 'disApproveProgram';
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                'METHOD' => $methodName,
+                                'COLOR' => $color,
+                                'LABEL_AR' => $title_ar,
+                                'LABEL_EN' => $title_en,
+                                'PUBLIC' => true,
+                                'PUBLISHED' => ['workflow-commitee' => true],
+                                'BF-ID' => '',
+                                'STEP' => 6
+                        );
+
                         $color = 'blue';
                         $title_ar = $this->tm('Compute sorting criterea', 'ar');
                         $title_en = $this->tm('Compute sorting criterea', 'en');
@@ -974,6 +1006,26 @@ class ApplicationDesire extends AdmObject
                         );
                 } else
                         die('no ApplicationModel for this desire');
+
+                $branchObj = $this->het("application_plan_branch_id");
+                $suppProgramList = [];
+                if ($branchObj) {
+                        /**
+                         * @var AcademicProgram $programObj
+                         */
+                        $programObj = $branchObj->het("program_id");
+                        if ($programObj) {
+                                $suppProgramList = $programObj->get("supp_program_mfk");
+                        }
+                }
+                $suppProgramList[0] = "كما هو";
+                foreach (self::$PUB_METHODS as $methodName0 => $publicDynamicMethodProps) {
+                        $log = "";
+                        if ($suppProgramList and ($publicDynamicMethodProps['itemsMethod'] == 'getSuppPrograms')) {
+                                $pbms = AfwDynamicPublicMethodHelper::splitMethodWithItems($pbms, $publicDynamicMethodProps, $methodName0, $this, $log, $suppProgramList, false, true);
+                        }
+                }
+
 
                 return $pbms;
         }
@@ -1776,6 +1828,8 @@ class ApplicationDesire extends AdmObject
         }
 
 
+
+
         public function checkCondition_allDocumentsValid($workflowConditionObject, $workflowRequestObject, $lang)
         {
                 $result = true;
@@ -1817,5 +1871,33 @@ class ApplicationDesire extends AdmObject
         {
                 list($wReqObj, $message, $action, $log) = $this->exportApplicationToWorkflow(null, null, true, false, $workflowRequestObj);
                 return ["", "done", $message . " action=$action, log=$log"];
+        }
+
+        protected function afwCall($name, $arguments)
+        {
+
+
+                if (substr($name, 0, 18) == 'approveProgramWith') {
+                        $transitionId = intval(substr($name, 18));
+                        return $this->approveProgramWith($transitionId, $arguments[0]);
+                }
+
+
+                return false;
+                // the above return should be keeped if not treated
+        }
+
+
+        public function disApproveProgram($lang = 'ar')
+        {
+                $this->getApplicationObject();
+                return $this->applicationObj->disApproveProgram($lang);
+        }
+
+
+        public function approveProgramWith($suppProgramId, $lang = 'ar')
+        {
+                $this->getApplicationObject();
+                return $this->applicationObj->approveProgramWith($suppProgramId, $lang);
         }
 }
