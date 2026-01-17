@@ -29,6 +29,7 @@ class ApplicationDesire extends AdmObject
                         'confirmation_question' => '',
                         'published' => ['workflow-commitee' => true],
                         'itemsMethod' => 'getSuppPrograms',
+                        'step' => 'all',
                 ),
 
         );
