@@ -1743,11 +1743,36 @@ class ApplicationDesire extends AdmObject
                 } else {
                         $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test no found", $lang);
                 }
+                $html_program_table = $this->tm("Academic program no found", $lang);
+                $branchObj = $this->het("application_plan_branch_id");
+                if ($branchObj) {
+                        /**
+                         * @var AcademicProgram $programObj
+                         */
+                        $programObj = $branchObj->het("program_id");
+                        if ($programObj) {
+                                $html_program_table = AfwShowHelper::showMinibox($programObj, '', $lang);
+                        }
+                }
+
+
+
+                $evaluationItem = reset($evaluationList);
+                if ($evaluationItem) {
+                        list($html_evaluation_table, $evaluationList, $ids,) = AfwShowHelper::showManyObj(
+                                $evaluationList,
+                                $evaluationItem,
+                                $objme,
+                                $lang,
+                                $options = []
+                        );
+                } else {
+                }
 
 
                 return "<div class='committee-review'>
                                 <div class='eval-review'>$html_evaluation_table</div>
-                                <div class='program-review'></div>
+                                <div class='program-review'>$html_program_table</div>
                 </div>";
         }
 
