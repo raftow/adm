@@ -1905,4 +1905,9 @@ class ApplicationDesire extends AdmObject
         {
                 return $this->tm(self::$PUB_METHODS[$methodName]['title'], $lang);
         }
+
+        public function getMethodTooltip($methodName, $lang = 'ar')
+        {
+                return $this->tm(self::$PUB_METHODS[$methodName]['tooltip'], $lang);
+        }
 }
