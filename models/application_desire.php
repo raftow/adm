@@ -1751,7 +1751,7 @@ class ApplicationDesire extends AdmObject
                          */
                         $programObj = $branchObj->het("program_id");
                         if ($programObj) {
-                                $html_program_table = AfwShowHelper::showMinibox($programObj, '', $lang);
+                                $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang);
                         }
                 }
 
@@ -1772,7 +1772,9 @@ class ApplicationDesire extends AdmObject
 
                 return "<div class='committee-review'>
                                 <div class='eval-review'>$html_evaluation_table</div>
-                                <div class='program-review'>$html_program_table</div>
+                                <div class='program-review'>$html_program_table
+                                
+                                </div>
                 </div>";
         }
 
