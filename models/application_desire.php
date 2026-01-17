@@ -1900,4 +1900,9 @@ class ApplicationDesire extends AdmObject
                 $this->getApplicationObject();
                 return $this->applicationObj->approveProgramWith($suppProgramId, $lang);
         }
+
+        public function getMethodTitle($methodName, $lang = 'ar')
+        {
+                return $this->tm(self::$PUB_METHODS[$methodName]['title'], $lang);
+        }
 }
