@@ -1731,15 +1731,8 @@ class ApplicationDesire extends AdmObject
         {
                 $objme = AfwSession::getUserConnected();
                 $evaluationList = $this->getApplicationObject()->getApplicant()->getRelation('applicantEvaluationList')->resetWhere("evaluation_id = 7")->getList();
-                $evaluationItem = reset($evaluationList);
-                if ($evaluationItem) {
-                        list($html_evaluation_table, $evaluationList, $ids,) = AfwShowHelper::showManyObj(
-                                $evaluationList,
-                                $evaluationItem,
-                                $objme,
-                                $lang,
-                                $options = []
-                        );
+                if ($evaluationList) {
+                        $html_evaluation_table = AfwShowHelper::showRetrieveTable($evaluationList, $lang);
                 } else {
                         $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test no found", $lang);
                 }
@@ -1757,17 +1750,7 @@ class ApplicationDesire extends AdmObject
 
 
 
-                $evaluationItem = reset($evaluationList);
-                if ($evaluationItem) {
-                        list($html_evaluation_table, $evaluationList, $ids,) = AfwShowHelper::showManyObj(
-                                $evaluationList,
-                                $evaluationItem,
-                                $objme,
-                                $lang,
-                                $options = []
-                        );
-                } else {
-                }
+
 
 
                 return "<div class='committee-review'>
