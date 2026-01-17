@@ -1729,7 +1729,26 @@ class ApplicationDesire extends AdmObject
 
         public function showCommiteeDiv($lang, $workflowRequestObject)
         {
-                return $this->tm('@@ working on ...', $lang);
+                $objme = AfwSession::getUserConnected();
+                $evaluationList = $this->getApplicationObject()->getApplicant()->getRelation('applicantEvaluationList')->resetWhere("evaluation_id = 7")->getList();
+                $evaluationItem = reset($evaluationList);
+                if ($evaluationItem) {
+                        list($html_evaluation_table, $evaluationList, $ids,) = AfwShowHelper::showManyObj(
+                                $evaluationList,
+                                $evaluationItem,
+                                $objme,
+                                $lang,
+                                $options = []
+                        );
+                } else {
+                        $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test no found", $lang);
+                }
+
+
+                return "<div class='committee-review'>
+                                <div class='eval-review'>$html_evaluation_table</div>
+                                <div class='program-review'></div>
+                </div>";
         }
 
         public function showInterviewDiv($lang)

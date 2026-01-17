@@ -8,6 +8,7 @@ $trad['academic_program']['step5'] = 'قائمة متطلبات البرامج';
 $trad['academic_program']['academicProgramOfferingList'] = 'المنشآت المنفذة';
 $trad['academic_program']['programQualificationList'] = 'قائمة المسارات';
 $trad['academic_program']['programRequirementList'] = 'قائمة متطلبات البرامج';
+$trad['academic_program']['supp_program_mfk'] = 'قائمة المقررات التكميلية';
 
 $trad['academic_program']['academicprogram.single'] = 'برنامج تدريبي';
 $trad['academic_program']['academicprogram.new'] = 'جديد';
