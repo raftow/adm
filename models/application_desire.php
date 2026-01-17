@@ -1732,19 +1732,23 @@ class ApplicationDesire extends AdmObject
                 $objme = AfwSession::getUserConnected();
                 $evaluationList = $this->getApplicationObject()->getApplicant()->getRelation('applicantEvaluationList')->resetWhere("evaluation_id = 7")->getList();
                 if ($evaluationList) {
-                        $html_evaluation_table = AfwShowHelper::showRetrieveTable($evaluationList, $lang);
+                        $hide_retrieve_cols = ["active", "imported", "need_evaluation_enum"];
+                        $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
+                        $html_evaluation_table = AfwShowHelper::showRetrieveTable($evaluationList, $lang, $options);
                 } else {
                         $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test no found", $lang);
                 }
                 $html_program_table = $this->tm("Academic program no found", $lang);
                 $branchObj = $this->het("application_plan_branch_id");
                 if ($branchObj) {
+                        $hide_retrieve_cols = ["active", "pic_view", "to_publish", "supp_program_mfk", "interview_ind", "cv_ind"];
+                        $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
                         /**
                          * @var AcademicProgram $programObj
                          */
                         $programObj = $branchObj->het("program_id");
                         if ($programObj) {
-                                $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang);
+                                $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang, $options);
                         }
                 }
 
