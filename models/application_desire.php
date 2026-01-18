@@ -1830,6 +1830,16 @@ class ApplicationDesire extends AdmObject
         }
 
 
+        public function checkCondition_programApproved($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                $applicationObject = $this->getApplicationObject();
+                if (!$applicationObject) {
+                        return [false, "No application object found"];
+                }
+
+                if ($applicationObject->sureIs("attribute_1")) return [true, ""];
+                else return [null, $this->tm("Still need to approve the requested program or select the needed supplementary programs", $lang)];
+        }
 
 
         public function checkCondition_allDocumentsValid($workflowConditionObject, $workflowRequestObject, $lang)
