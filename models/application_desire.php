@@ -30,6 +30,7 @@ class ApplicationDesire extends AdmObject
                         'published' => ['workflow-commitee' => true],
                         'itemsMethod' => 'getSuppPrograms',
                         'step' => 'all',
+                        'title-length' => "72",
                 ),
 
         );
@@ -1843,8 +1844,20 @@ class ApplicationDesire extends AdmObject
                         return [false, "No application object found"];
                 }
 
-                if ($applicationObject->sureIs("attribute_1")) return [true, ""];
+                if ($applicationObject->getVal("attribute_1") == "W") return [true, ""];
+                else if ($applicationObject->getVal("attribute_1") == "Y") return [true, ""];
                 else return [null, $this->tm("Still need to approve the requested program or select the needed supplementary programs", $lang)];
+        }
+
+        public function checkCondition_programNotApproved($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                $applicationObject = $this->getApplicationObject();
+                if (!$applicationObject) {
+                        return [false, "No application object found"];
+                }
+
+                if ($applicationObject->getVal("attribute_1") == "N") return [true, ""];
+                else return [null, $this->tm("Please before reject the requested program", $lang)];
         }
 
 
