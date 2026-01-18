@@ -87,15 +87,22 @@ class Application extends AdmObject
         }
 
 
-        public function calcDragDropDiv($what = "value")
+        public function calcDragDropDiv($what = "value", $doc_type_mfk = "")
         {
                 $return = "";
-                $applicationModelObj = $this->getApplicationModel();
-                if ($applicationModelObj) {
-                        $this->getApplicant();
-                        if ($this->applicantObj) {
-                                $return = $this->applicantObj->calcDragDropDiv($what = "value", $applicationModelObj->getVal("doc_type_mfk"));
+                $this->getApplicant();
+                if ($this->applicantObj) {
+                        if (!$doc_type_mfk) {
+                                if ($this->isSynchronisedUniqueDesire()) {
+                                        $uniqueDesireObj = $this->getSynchronisedUniqueDesire();
+                                        $doc_type_mfk = $uniqueDesireObj->calcNeeded_doc_types_mfk();
+                                }
                         }
+                        if (!$doc_type_mfk) {
+                                $applicationModelObj = $this->getApplicationModel();
+                                $doc_type_mfk = $applicationModelObj->getVal("doc_type_mfk");
+                        }
+                        $return = $this->applicantObj->calcDragDropDiv($what = "value", $doc_type_mfk);
                 }
 
                 return $return;
