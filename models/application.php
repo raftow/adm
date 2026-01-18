@@ -103,7 +103,7 @@ class Application extends AdmObject
                         $status_css = "standby";
                 }
 
-                return "<div class='$status_css'>$status</div>";
+                return "<div class='acceptance-status $status_css'>$status</div>";
         }
 
         public function calcDragDropDiv($what = "value", $doc_type_mfk = "")
