@@ -1794,8 +1794,10 @@ class ApplicationDesire extends AdmObject
                         $hide_retrieve_cols = ["active", "imported", "need_evaluation_enum"];
                         $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
                         $html_evaluation_table = AfwShowHelper::showRetrieveTable($evaluationList, $lang, $options);
+                        $eval_css = "";
                 } else {
-                        $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test no found", $lang);
+                        $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test not found", $lang);
+                        $eval_css = "error";
                 }
                 $html_program_table = $this->tm("Academic program no found", $lang);
                 $branchObj = $this->het("application_plan_branch_id");
@@ -1819,7 +1821,7 @@ class ApplicationDesire extends AdmObject
 
 
                 return "<div class='committee-review'>
-                                <div class='eval-review'>$html_evaluation_table</div>
+                                <div class='eval-review $eval_css'>$html_evaluation_table</div>
                                 <div class='program-review'>$html_program_table
                                 $status_program_approve
                                 </div>

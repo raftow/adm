@@ -224,4 +224,5 @@ $messages['This will approve or disapprove the document for this applicant'] = '
 
 $messages['You have not reached this step yet'] = 'لم نصل إلى هذه الخطوة بعد';
 $messages["disapprove the program"] = "رفض أهلية التقديم على البرنامج";
+$messages["Post-Graduate General Aptitude Test not found"] = "لم يتم العثور على اختبار القدرات العامة للجامعيين";
 // $messages[""] = "";
