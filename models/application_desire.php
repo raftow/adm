@@ -22,7 +22,7 @@ class ApplicationDesire extends AdmObject
 
         public static $PUB_METHODS = array(
                 'approveProgramWith' => array(
-                        'title' => 'اعتماد البرنامج [item]',
+                        'title' => 'يحتاج [item]',
                         'color' => 'random',
                         'confirmation_needed' => false,
                         'confirmation_warning' => '',
