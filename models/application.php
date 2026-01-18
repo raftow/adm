@@ -3355,7 +3355,7 @@ class Application extends AdmObject
         public function approveProgramWith($suppProgramId, $lang = 'ar')
         {
                 $this->set("attribute_2", $suppProgramId);
-                $approveType = $suppProgramId ? "Y" : "W";
+                $approveType = ($suppProgramId > 0) ? "W" : "Y";
                 $this->set("attribute_1", $approveType);
                 $this->commit();
         }
