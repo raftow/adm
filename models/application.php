@@ -93,7 +93,7 @@ class Application extends AdmObject
                         $status = "تم رفض اعتماد أهلية طلب التقديم على البرنامج الأكاديمي";
                         $status_css = "rejection";
                 } elseif ($this->getVal("attribute_1") == "Y") {
-                        $status = "تم اعتماد أهلية طلب التقديم على البرنامج الأكاديمي كما هو";
+                        $status = "تم اعتماد أهلية طلب التقديم على البرنامج الأكاديمي كما هو بدون برامج تكميلية";
                         $status_css = "acceptance";
                 } elseif ($this->getVal("attribute_1") == "W") {
                         $status = "تم اعتماد أهلية طلب التقديم على البرنامج الأكاديمي ولكن مع البرنامج التكميلي : " . $this->decode("attribute_2");
