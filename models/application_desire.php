@@ -1784,7 +1784,11 @@ class ApplicationDesire extends AdmObject
         public function showCommiteeDiv($lang, $workflowRequestObject)
         {
                 $objme = AfwSession::getUserConnected();
-                $evaluationList = $this->getApplicationObject()->getApplicant()->getRelation('applicantEvaluationList')->resetWhere("evaluation_id = 7")->getList();
+                $applicationObject = $this->getApplicationObject();
+                if (!$applicationObject) return "No Application Object";
+                $applicantObject = $applicationObject->getApplicant();
+                if (!$applicantObject) return "No Applicant Object";
+                $evaluationList = $applicantObject->getRelation('applicantEvaluationList')->resetWhere("evaluation_id = 7")->getList();
                 if ($evaluationList) {
                         $hide_retrieve_cols = ["active", "imported", "need_evaluation_enum"];
                         $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
@@ -1806,6 +1810,8 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
+                $status_program_approve = $applicationObject->calcStatus_program_approve();
+
 
 
 
@@ -1814,7 +1820,7 @@ class ApplicationDesire extends AdmObject
                 return "<div class='committee-review'>
                                 <div class='eval-review'>$html_evaluation_table</div>
                                 <div class='program-review'>$html_program_table
-                                
+                                $status_program_approve
                                 </div>
                 </div>";
         }

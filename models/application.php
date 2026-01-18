@@ -87,6 +87,22 @@ class Application extends AdmObject
         }
 
 
+        public function calcStatus_program_approve($what = "value")
+        {
+                if ($this->getVal("attribute_1") == "N") {
+                        $status = "تم رفض اعتماد أهلية طلب التقديم على البرنامج الأكاديمي";
+                        $status_css = "rejection";
+                } elseif ($this->getVal("attribute_1") == "Y") {
+                        $status = "تم اعتماد أهلية طلب التقديم على البرنامج الأكاديمي كما هو";
+                        $status_css = "acceptance";
+                } elseif ($this->getVal("attribute_1") == "W") {
+                        $status = "تم اعتماد أهلية طلب التقديم على البرنامج الأكاديمي ولكن مع البرنامج التكميلي : " . $this->decode("attribute_2");
+                        $status_css = "acceptance";
+                }
+
+                return "<div class='$status_css'>$status</div>";
+        }
+
         public function calcDragDropDiv($what = "value", $doc_type_mfk = "")
         {
                 $return = "";
