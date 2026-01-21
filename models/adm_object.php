@@ -1712,19 +1712,19 @@ class AdmObject extends AfwMomkenObject
         return $arr_list_of_reupload;
     }
 
-    public static function list_of_application_category_enum()
+    public static function list_of_workflow_category_enum()
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
-        return self::application_category()[$lang];
+        return self::workflow_category()[$lang];
     }
 
-    public static function application_category()
+    public static function workflow_category()
     {
         $arr_list_of_application_category = array();
 
         $main_company = AfwSession::currentCompany();
         $file_dir_name = dirname(__FILE__);
-        include($file_dir_name . "/../../client-$main_company/extra/application_category-$main_company.php");
+        include($file_dir_name . "/../../client-$main_company/extra/workflow_category-$main_company.php");
 
         foreach ($lookup as $id => $lookup_row) {
             $arr_list_of_application_category['ar'][$id] = $lookup_row['ar'];

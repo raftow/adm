@@ -218,8 +218,8 @@ $messages['تبويب المؤهل'] = 'Qualification tab';
 
 $messages['Registration and Admissions Department'] = 'إدارة التسجيل والقبول';
 
-$messages['Candidate'] = 'مترشح';
-$messages['Not a candidate'] = 'غير مترشح';
+$messages['Candidate'] = 'مرشح';
+$messages['Not a candidate'] = 'غير مرشح';
 $messages['This will approve or disapprove the document for this applicant'] = 'سيؤدي هذا إلى الموافقة أو الرفض على المستند لهذا المتقدم';
 
 $messages['You have not reached this step yet'] = 'لم نصل إلى هذه الخطوة بعد';

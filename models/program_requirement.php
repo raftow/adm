@@ -155,6 +155,14 @@ class ProgramRequirement extends AdmObject
             return true;
         }
     }
+
+
+    public static function requirementFoundIn($application_requirement_id, $program_id, $workflow_category_enum, $application_class_enum)
+    {
+        // @to implement
+
+        return false;
+    }
 }
 
 // errors

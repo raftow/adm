@@ -1868,6 +1868,41 @@ class ApplicationDesire extends AdmObject
                 else return [null, $this->tm("Please before reject the requested program", $lang)];
         }
 
+        public function checkCondition_requireInterview($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                $branchObj = $this->het("application_plan_branch_id");
+                $require = null;
+                $reason = "Unknown";
+                if ($branchObj) {
+                        /**
+                         * @var AcademicProgram $programObj
+                         */
+                        $programObj = $branchObj->het("program_id");
+                        if ($programObj) {
+                                if ($programObj->sureIs("interview_ind")) {
+                                        if (ProgramRequirement::requirementFoundIn(2, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"))) {
+                                                $require = true;
+                                                $reason = "The program itself require interview and category and class of the application also";
+                                        } else {
+                                                $require = false;
+                                                $reason = "The program itself require interview but category and class of the application doesn't";
+                                        }
+                                } else {
+                                        $require = false;
+                                        $reason = "The program itself does'nt require interview";
+                                }
+                        } else {
+                                $require = false;
+                                $reason = "No program defined";
+                        }
+                } else {
+                        $require = false;
+                        $reason = "No branch defined";
+                }
+
+                return [$require, $reason];
+        }
+
 
         public function checkCondition_allDocumentsValid($workflowConditionObject, $workflowRequestObject, $lang)
         {
