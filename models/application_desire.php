@@ -27,7 +27,8 @@ class ApplicationDesire extends AdmObject
                         'confirmation_needed' => false,
                         'confirmation_warning' => '',
                         'confirmation_question' => '',
-                        'published' => ['workflow-commitee' => true],
+                        // amjad asked to remove : 20/01/2026 teams conf
+                        //'published' => ['workflow-commitee' => true],
                         'itemsMethod' => 'getSuppPrograms',
                         'step' => 6,
                         'title-length' => "72",
@@ -1789,6 +1790,8 @@ class ApplicationDesire extends AdmObject
                 if (!$applicationObject) return "No Application Object";
                 $applicantObject = $applicationObject->getApplicant();
                 if (!$applicantObject) return "No Applicant Object";
+                /*
+                
                 $evaluationList = $applicantObject->getRelation('applicantEvaluationList')->resetWhere("evaluation_id = 7")->getList();
                 if ($evaluationList) {
                         $hide_retrieve_cols = ["active", "imported", "need_evaluation_enum"];
@@ -1799,6 +1802,9 @@ class ApplicationDesire extends AdmObject
                         $html_evaluation_table = $this->tm("Post-Graduate General Aptitude Test not found", $lang);
                         $eval_css = "error";
                 }
+                */
+                $html_evaluation_table = "";
+                $eval_css = "";
                 $html_program_table = $this->tm("Academic program no found", $lang);
                 $branchObj = $this->het("application_plan_branch_id");
                 if ($branchObj) {
@@ -1821,7 +1827,7 @@ class ApplicationDesire extends AdmObject
 
 
                 return "<div class='committee-review'>
-                                <div class='eval-review $eval_css'>$html_evaluation_table</div>
+                                <!-- <div class='eval-review $eval_css'>$html_evaluation_table</div> -->
                                 <div class='program-review'>$html_program_table
                                 $status_program_approve
                                 </div>
@@ -1878,13 +1884,14 @@ class ApplicationDesire extends AdmObject
                         /**
                          * @var ApplicantFile $applicantFileItem
                          */
+                        $file_approve_status = $applicantFileItem->decode("doc_type_id", '', false, $lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang);
                         if ($applicantFileItem->getVal('approved') != 'Y') {
                                 $result = false;
                                 // list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo('N');
-                                $reason = $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " = " . $applicantFileItem->decode('approved', '', false, $lang);
+                                $reason = $file_approve_status;
                                 break;
                         } else {
-                                $reason .= $applicantFileItem->getDisplay($lang) . " : " . $applicantFileItem->translate('approved', $lang) . " != N = " . $applicantFileItem->getVal('approved') . "<br>\n";
+                                $reason .= $file_approve_status . "<br>\n";
                         }
                 }
 
