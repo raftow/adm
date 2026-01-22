@@ -930,7 +930,8 @@ class ApplicationDesire extends AdmObject
                                 'LABEL_AR' => $title_ar,
                                 'LABEL_EN' => $title_en,
                                 'PUBLIC' => true,
-                                'PUBLISHED' => ['workflow-commitee' => true],
+                                // amjad asked to remove : 20/01/2026 teams conf
+                                //'PUBLISHED' => ['workflow-commitee' => true],
                                 'BF-ID' => '',
                                 'STEP' => 6
                         );
@@ -1819,7 +1820,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
-                $status_program_approve = $applicationObject->calcStatus_program_approve();
+                $status_program_approve = ""; // $applicationObject->calcStatus_program_approve(); // // amjad asked to remove : 20/01/2026 teams conf
 
 
 
