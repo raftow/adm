@@ -28,43 +28,38 @@ class ApplicationPlanBranch extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($application_plan_id, $program_offering_id, $gender_enum, $training_period_enum, $create_obj_if_not_found=false)
+        public static function loadByMainIndex($application_plan_id, $program_offering_id, $gender_enum, $training_period_enum, $create_obj_if_not_found = false)
         {
-           if(!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
-           if(!$gender_enum) throw new AfwRuntimeException("loadByMainIndex : gender_enum is mandatory field");
-           if(!$training_period_enum) throw new AfwRuntimeException("loadByMainIndex : training_period_enum is mandatory field");
-           if(!$program_offering_id) throw new AfwRuntimeException("loadByMainIndex : program_offering_id is mandatory field");
+                if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
+                if (!$gender_enum) throw new AfwRuntimeException("loadByMainIndex : gender_enum is mandatory field");
+                if (!$training_period_enum) throw new AfwRuntimeException("loadByMainIndex : training_period_enum is mandatory field");
+                if (!$program_offering_id) throw new AfwRuntimeException("loadByMainIndex : program_offering_id is mandatory field");
 
 
-           $obj = new ApplicationPlanBranch();
-           $obj->select("application_plan_id",$application_plan_id);
-           $obj->select("gender_enum",$gender_enum);
-           $obj->select("training_period_enum",$training_period_enum);
-           $obj->select("program_offering_id",$program_offering_id);
-           if($obj->load())
-           {
-                if($create_obj_if_not_found) $obj->activate();
-                return $obj;
-           }
-           elseif($create_obj_if_not_found)
-           {
-                $obj->set("application_plan_id",$application_plan_id);
-                $obj->set("gender_enum",$gender_enum);
-                $obj->set("training_period_enum",$training_period_enum);
-                $obj->set("program_offering_id",$program_offering_id);
+                $obj = new ApplicationPlanBranch();
+                $obj->select("application_plan_id", $application_plan_id);
+                $obj->select("gender_enum", $gender_enum);
+                $obj->select("training_period_enum", $training_period_enum);
+                $obj->select("program_offering_id", $program_offering_id);
+                if ($obj->load()) {
+                        if ($create_obj_if_not_found) $obj->activate();
+                        return $obj;
+                } elseif ($create_obj_if_not_found) {
+                        $obj->set("application_plan_id", $application_plan_id);
+                        $obj->set("gender_enum", $gender_enum);
+                        $obj->set("training_period_enum", $training_period_enum);
+                        $obj->set("program_offering_id", $program_offering_id);
 
-                $applicationPlanObj = ApplicationPlan::loadById($application_plan_id);
-                $application_model_id = $applicationPlanObj->getVal("application_model_id");
-                $applicationModelBranchObj = ApplicationModelBranch::loadByMainIndex($application_model_id, $program_offering_id, $gender_enum, $training_period_enum);
-                $obj->set("application_model_branch_id",$applicationModelBranchObj->id);
+                        $applicationPlanObj = ApplicationPlan::loadById($application_plan_id);
+                        $application_model_id = $applicationPlanObj->getVal("application_model_id");
+                        $applicationModelBranchObj = ApplicationModelBranch::loadByMainIndex($application_model_id, $program_offering_id, $gender_enum, $training_period_enum);
+                        $obj->set("application_model_branch_id", $applicationModelBranchObj->id);
 
-                $obj->insertNew();
-                if(!$obj->id) return null; // means beforeInsert rejected insert operation
-                $obj->is_new = true;
-                return $obj;
-           }
-           else return null;
-           
+                        $obj->insertNew();
+                        if (!$obj->id) return null; // means beforeInsert rejected insert operation
+                        $obj->is_new = true;
+                        return $obj;
+                } else return null;
         }
 
 
@@ -73,16 +68,15 @@ class ApplicationPlanBranch extends AdmObject
         public static function getBranchsCondWPMatrix($application_plan_id, $sorting_group_id)
         {
                 $server_db_prefix = AfwSession::currentDBPrefix();
-                return AfwDatabase::db_recup_index("SELECT id, cond_weighted_percentage from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "cond_weighted_percentage");
+                return AfwDatabase::db_recup_index("SELECT id, cond_weighted_percentage from " . $server_db_prefix . "adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "cond_weighted_percentage");
         }
 
-        public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track, $removeConfirmedSeats=false, $application_simulation_id=0)
+        public static function getBranchsCapacityMatrix($application_plan_id, $sorting_group_id, $track, $removeConfirmedSeats = false, $application_simulation_id = 0)
         {
                 $server_db_prefix = AfwSession::currentDBPrefix();
-                $return = AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from ".$server_db_prefix."adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "capacity");
+                $return = AfwDatabase::db_recup_index("SELECT id, capacity_track$track as capacity from " . $server_db_prefix . "adm.application_plan_branch where application_plan_id=$application_plan_id and sorting_group_id=$sorting_group_id", "id", "capacity");
 
-                if($removeConfirmedSeats)
-                {
+                if ($removeConfirmedSeats) {
 
                         // desire_status_enum = 3  below means (accepted or accepted with upgrade)
                         $to_remove = AfwDatabase::db_recup_index("SELECT application_plan_branch_id as id, count(*) as capacity
@@ -91,15 +85,14 @@ class ApplicationPlanBranch extends AdmObject
                                         AND application_simulation_id = $application_simulation_id
                                         AND active = 'Y'
                                         AND desire_status_enum = 3 
-                                        GROUP BY application_plan_branch_id","id", "capacity");
+                                        GROUP BY application_plan_branch_id", "id", "capacity");
 
-                        foreach($to_remove as $apb_id => $torem)
-                        {
+                        foreach ($to_remove as $apb_id => $torem) {
                                 $return[$apb_id] -= $torem;
                         }
                 }
 
-                
+
 
                 return $return;
         }
@@ -137,7 +130,7 @@ class ApplicationPlanBranch extends AdmObject
                 $applicationModelBranchObj->set("capacity_track3", $this->getVal("capacity_track3"));
                 $applicationModelBranchObj->set("capacity_track4", $this->getVal("capacity_track4"));
                 $applicationModelBranchObj->set("sorting_group_id", $this->getVal("sorting_group_id"));
-                
+
 
                 $applicationModelBranchObj->commit();
 
@@ -155,7 +148,7 @@ class ApplicationPlanBranch extends AdmObject
                 $this->set("capacity_track3", $applicationModelBranchObj->getVal("capacity_track3"));
                 $this->set("capacity_track4", $applicationModelBranchObj->getVal("capacity_track4"));
                 $this->set("sorting_group_id", $applicationModelBranchObj->getVal("sorting_group_id"));
-                
+
 
                 $this->commit();
 
@@ -202,15 +195,11 @@ class ApplicationPlanBranch extends AdmObject
                         $remain_capacity = $this->getVal("seats_capacity");
                         $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
                         $maxPaths = SortingPath::nbPaths($application_model_id);
-                        for($t=1;$t<=4;$t++)
-                        {
-                                if(($t>=$maxPaths) or ($remain_capacity<$this->getVal("capacity_track$t")))
-                                {
+                        for ($t = 1; $t <= 4; $t++) {
+                                if (($t >= $maxPaths) or ($remain_capacity < $this->getVal("capacity_track$t"))) {
                                         $this->set("capacity_track$t", $remain_capacity);
                                         $remain_capacity = 0;
-                                }
-                                else
-                                {
+                                } else {
                                         $remain_capacity -= $this->getVal("capacity_track$t");
                                 }
                         }
@@ -279,16 +268,14 @@ class ApplicationPlanBranch extends AdmObject
         {
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_model_id = null;
-                
-                
-                for ($spath = 1; $spath <= 4; $spath++) 
-                {                        
+
+
+                for ($spath = 1; $spath <= 4; $spath++) {
                         if ($attribute == "capacity_track$spath") {
-                                if($application_plan_id and (!$application_model_id))
-                                {
+                                if ($application_plan_id and (!$application_model_id)) {
                                         $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                                 }
-                                if($application_model_id) return SortingPath::trackTranslation($application_model_id, $spath, $lang);
+                                if ($application_model_id) return SortingPath::trackTranslation($application_model_id, $spath, $lang);
                         }
                 }
 
@@ -299,18 +286,19 @@ class ApplicationPlanBranch extends AdmObject
 
         public function attributeIsApplicable($attribute)
         {
-                $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
-                $appModelObj = ApplicationModel::loadById($application_model_id);
-                $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
-                if($split_sorting_by_enum==1)
-                {
+                $split_sorting_by_enum = 99;
+                if ($this->getVal("application_plan_id")) {
+                        $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
+                        $appModelObj = ApplicationModel::loadById($application_model_id);
+                        $split_sorting_by_enum = $appModelObj->getVal("split_sorting_by_enum");
+                }
+
+                if ($split_sorting_by_enum == 1) {
                         if ($attribute == "capacity_track1") return true;
                         if ($attribute == "capacity_track2") return false;
                         if ($attribute == "capacity_track3") return false;
                         if ($attribute == "capacity_track4") return false;
-                }
-                elseif($split_sorting_by_enum==2)
-                {
+                } elseif ($split_sorting_by_enum == 2) {
                         $academic_program_id = $this->getVal("program_id");
                         $maxPaths = SortingPath::nbPaths($application_model_id);
                         // die("$maxPaths = SortingPath::nbPaths($application_model_id);");
@@ -327,7 +315,8 @@ class ApplicationPlanBranch extends AdmObject
                                         return false;
                                 }
                         }
-                }
+                } else return false;
+
                 return true;
         }
 
@@ -399,20 +388,28 @@ class ApplicationPlanBranch extends AdmObject
         public static function getAllMinAppliedScore($sorting_group_id, $application_plan_id, $application_simulation_id, $application_model_id)
         {
                 $sorting_step_id = ApplicationModel::getSortingStepId($application_model_id);
-                list($sortingCriterea,
-                $msf1,$sf1_order_sens,$sf1_func,
-                $msf2,$sf2_order_sens,$sf2_func,
-                $msf3,$sf3_order_sens,$sf3_func) = SortingGroup::getGroupingCriterea($sorting_group_id);
+                list(
+                        $sortingCriterea,
+                        $msf1,
+                        $sf1_order_sens,
+                        $sf1_func,
+                        $msf2,
+                        $sf2_order_sens,
+                        $sf2_func,
+                        $msf3,
+                        $sf3_order_sens,
+                        $sf3_func
+                ) = SortingGroup::getGroupingCriterea($sorting_group_id);
 
                 $server_db_prefix = AfwSession::currentDBPrefix();
 
                 // @todo below should be dynamic min(xx) from application_plan_branch ...etc
                 $sorting_value_1_min = 60;
-                
-                $msf_functions = trim("$sf1_func,$sf2_func,$sf3_func"," ,");
-                $msf_cols = trim("$msf1,$msf2,$msf3"," ,");
 
-                $sql = "SELECT application_plan_branch_id, $msf_functions from $server_db_prefix"."adm.application_desire
+                $msf_functions = trim("$sf1_func,$sf2_func,$sf3_func", " ,");
+                $msf_cols = trim("$msf1,$msf2,$msf3", " ,");
+
+                $sql = "SELECT application_plan_branch_id, $msf_functions from $server_db_prefix" . "adm.application_desire
                      WHERE application_plan_id = $application_plan_id
                        AND application_simulation_id = $application_simulation_id
                        AND application_step_id = $sorting_step_id
@@ -423,19 +420,32 @@ class ApplicationPlanBranch extends AdmObject
 
 
                 return [$msf_cols, AfwDatabase::db_recup_rows_by_id($sql, "application_plan_branch_id")];
-
         }
 
         public function getMinAppliedScore($application_simulation_id, $application_model_id)
         {
                 $sorting_group_id = $this->getVal("sorting_group_id");
-                list($sortingCriterea,
-                $sf1,$sf1_order_sens,$sf1_sql,$sf1_insert,$sf1_order,
-                $sf2,$sf2_order_sens,$sf2_sql,$sf2_insert,$sf2_order,
-                $sf3,$sf3_order_sens,$sf3_sql,$sf3_insert,$sf3_order) = SortingGroup::getSortingCriterea($sorting_group_id,true);
+                list(
+                        $sortingCriterea,
+                        $sf1,
+                        $sf1_order_sens,
+                        $sf1_sql,
+                        $sf1_insert,
+                        $sf1_order,
+                        $sf2,
+                        $sf2_order_sens,
+                        $sf2_sql,
+                        $sf2_insert,
+                        $sf2_order,
+                        $sf3,
+                        $sf3_order_sens,
+                        $sf3_sql,
+                        $sf3_insert,
+                        $sf3_order
+                ) = SortingGroup::getSortingCriterea($sorting_group_id, true);
 
                 $application_plan_branch_id = $this->id;
-                $application_plan_id = $this->getVal("application_plan_id");                
+                $application_plan_id = $this->getVal("application_plan_id");
                 //$application_plan_id = $this->getVal("application_plan_id");                
                 $sorting_step_id = ApplicationModel::getSortingStepId($application_model_id);
                 $adObj = new ApplicationDesire();
@@ -446,16 +456,14 @@ class ApplicationPlanBranch extends AdmObject
                 // $sqlMany = $adObj->getSQLMany('', 1, "$sf1_order $sf2_order $sf3_order applicant_id");
                 // die("sqlMany is : ".$sqlMany);
                 $adObjList = $adObj->loadMany(1, "$sf1_order $sf2_order $sf3_order applicant_id");
-                
+
                 $minArr = [];
-                foreach($adObjList as $adObjItem)
-                {
-                        if($sf1) $minArr[] = $adObjItem->getVal("sorting_value_1");
-                        if($sf2) $minArr[] = $adObjItem->getVal("sorting_value_2");
-                        if($sf3) $minArr[] = $adObjItem->getVal("sorting_value_3");
+                foreach ($adObjList as $adObjItem) {
+                        if ($sf1) $minArr[] = $adObjItem->getVal("sorting_value_1");
+                        if ($sf2) $minArr[] = $adObjItem->getVal("sorting_value_2");
+                        if ($sf3) $minArr[] = $adObjItem->getVal("sorting_value_3");
                 }
 
                 return $minArr;
-                
         }
 }
