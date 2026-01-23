@@ -1824,6 +1824,10 @@ class ApplicationDesire extends AdmObject
                 $html_evaluation_table = "";
                 $eval_css = "";
                 $html_program_table = $this->tm("Academic program no found", $lang);
+                /**
+                 * @var ApplicationPlanBranch $branchObj
+                 *
+                 **/
                 $branchObj = $this->het("application_plan_branch_id");
                 if ($branchObj) {
                         $hide_retrieve_cols = ["active", "pic_view", "to_publish", "supp_program_mfk", "interview_ind", "cv_ind"];
@@ -1835,8 +1839,12 @@ class ApplicationDesire extends AdmObject
                         if ($programObj) {
                                 $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang, $options);
                         } else {
-                                $html_program_table .= " > " . $this->tm("The program of applied branch seems to be removed", $lang) . "<br> branch-id=" . $branchObj->id . "<br>";
-                                if ($branchObj->id > 0) $html_program_table .= " > " . AfwShowHelper::showRetrieveTable($branchObj, $lang, []);
+                                $html_program_table .= " > " . $this->tm("The program of applied branch seems to be removed", $lang) .
+                                        "<br> branch-id=" . $branchObj->id;
+                                if ($branchObj->id > 0) {
+                                        $html_program_table .= " > " . "<br>" . $branchObj->showMyLink() . "<br>";
+                                        $html_program_table .= " > " . AfwShowHelper::showRetrieveTable($branchObj, $lang, []);
+                                }
                         }
                 } else {
                         $html_program_table .= " > " . $this->tm("Applied branch seems to be removed", $lang);
