@@ -796,21 +796,30 @@ class ApplicationDesire extends AdmObject
                 $applicationPlanId = $this->objApplicationPlan->id;
                 if (!$wModelObj)
                         $wModelObj = $this->objApplicationPlan->getWorkflowModel();
-                if (!$wSessionObj)
-                        $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
-                $wScopeObj = $this->het('workflow_scope_id');
-                if (!$wScopeObj)
-                        return [null, $this->tm('Fatal Error, Can not find or create the workflow scope', $lang), $action];
+
+
                 $applicationObj = $this->getApplicationObject();
                 $applicantObj = $applicationObj->getApplicant();
                 $wApplicantObj = $applicantObj->getWorkflowApplicant(true, $update_if_exists);
                 $wApplicantObjId = $wApplicantObj->id;
                 if (!$wRequestObj) $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id, true);
-                if (!$wRequestObj)
+
+                if (!$wRequestObj) {
                         return [null, $this->tm('Failed to create workflow request', $lang), $action];
+                }
+
+
+
 
                 // put in the correct position (stage, status)
                 if ($wRequestObj->is_new or $update_if_exists) {
+                        if (!$wSessionObj)
+                                $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
+                        $wScopeObj = $this->het('workflow_scope_id');
+                        if (!$wScopeObj) $wScopeObj = $wRequestObj->het('workflow_scope_id');
+                        if (!$wScopeObj)
+                                return [null, $this->tm('Fatal Error, Can not find or create the workflow scope', $lang), $action];
+
                         if (!$wRequestObj->getVal('workflow_session_id') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('workflow_session_id', $wSessionObj->id);
                         if (!$wRequestObj->getVal('workflow_scope_id') or $reset or $wRequestObj->is_new)
