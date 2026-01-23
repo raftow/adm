@@ -171,7 +171,7 @@ $role_info[386] = array(
       array(
         'id' => '104834',
         'code' => 'f2-a-application/edit',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إنشاء طلب تقديم',
         'menu_name_en' => 'create Application',
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Application&currmod=adm',

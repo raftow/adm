@@ -47,6 +47,7 @@ class ApplicantFile extends AdmObject
             $obj->set('applicant_id', $applicant_id);
             $obj->set('workflow_file_id', $workflow_file_id);
             $obj->set('idn', $idn);
+            $obj->set('approved', 'W');
 
             $obj->insertNew();
             if (!$obj->id)
