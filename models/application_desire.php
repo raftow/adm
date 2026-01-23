@@ -1835,8 +1835,8 @@ class ApplicationDesire extends AdmObject
                         if ($programObj) {
                                 $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang, $options);
                         } else {
-                                $html_program_table .= " > " . $this->tm("The program of applied branch seems to be removed", $lang) . "<br>";
-                                $html_program_table .= AfwShowHelper::showRetrieveTable($branchObj, $lang, []);
+                                $html_program_table .= " > " . $this->tm("The program of applied branch seems to be removed", $lang) . "<br> branch-id=" . $branchObj->id . "<br>";
+                                if ($branchObj->id > 0) $html_program_table .= " > " . AfwShowHelper::showRetrieveTable($branchObj, $lang, []);
                         }
                 } else {
                         $html_program_table .= " > " . $this->tm("Applied branch seems to be removed", $lang);
