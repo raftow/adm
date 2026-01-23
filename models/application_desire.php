@@ -1695,14 +1695,15 @@ class ApplicationDesire extends AdmObject
 
         public function calcWorkflow_scope_id($what = 'value')
         {
+                $wScopeObj = null;
                 list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);
                 $branchObj = $this->het('application_plan_branch_id');
                 if (!$branchObj)
-                        return AfwLoadHelper::giveWhat(null, $what);
+                        return AfwLoadHelper::giveWhat($wScopeObj, $what);
                 /** @var AcademicProgram $programObj */
                 $programObj = $branchObj->het('program_id');
                 if (!$programObj)
-                        return AfwLoadHelper::giveWhat(null, $what);
+                        return AfwLoadHelper::giveWhat($wScopeObj, $what);
                 $wScopeObj = $programObj->synchronizeWithWorkflow();
                 return AfwLoadHelper::giveWhat($wScopeObj, $what);
         }
