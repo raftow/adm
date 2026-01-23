@@ -228,12 +228,12 @@ class AdmApplicantEvaluationAfwStructure
                 ),
 
                 'workflow_file_id' => array(
-                        'STEP' => 1,
+                        'STEP' => 99,
                         'SHORTNAME' => 'workflow_file',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'AUDIT' => false,
+                        'AUTOCOMPLETE' => true,
                         'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
