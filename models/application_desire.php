@@ -1876,7 +1876,18 @@ class ApplicationDesire extends AdmObject
                 else return [null, $this->tm("Please before reject the requested program", $lang)];
         }
 
+
         public function checkCondition_requireInterview($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                return $this->checkCondition_requirementFound(2, $workflowConditionObject, $workflowRequestObject, $lang);
+        }
+
+        public function checkCondition_skipInterview($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                return $this->checkCondition_requirementFound(1, $workflowConditionObject, $workflowRequestObject, $lang);
+        }
+
+        public function checkCondition_requirementFound($requirement_id, $workflowConditionObject, $workflowRequestObject, $lang)
         {
                 $branchObj = $this->het("application_plan_branch_id");
                 $require = null;
@@ -1888,7 +1899,7 @@ class ApplicationDesire extends AdmObject
                         $programObj = $branchObj->het("program_id");
                         if ($programObj) {
                                 if ($programObj->sureIs("interview_ind")) {
-                                        if (ProgramRequirement::requirementFoundIn(2, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"))) {
+                                        if (ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"))) {
                                                 $require = true;
                                                 $reason = "The program itself require interview and category and class of the application also";
                                         } else {

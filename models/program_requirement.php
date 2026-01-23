@@ -32,6 +32,28 @@ class ProgramRequirement extends AdmObject
             return null;
     }
 
+    public static function loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum, $create_obj_if_not_found = false)
+    {
+        $obj = new ProgramRequirement();
+        $obj->select("academic_program_id", $academic_program_id);
+        $obj->select("application_category_enum", $application_category_enum);
+        $obj->select("application_class_enum", $application_class_enum);
+
+        if ($obj->load()) {
+            if ($create_obj_if_not_found) $obj->activate();
+            return $obj;
+        } elseif ($create_obj_if_not_found) {
+            $obj->set("academic_program_id", $academic_program_id);
+            $obj->set("application_category_enum", $application_category_enum);
+            $obj->set("application_class_enum", $application_class_enum);
+
+            $obj->insertNew();
+            if (!$obj->id) return null; // means beforeInsert rejected insert operation
+            $obj->is_new = true;
+            return $obj;
+        } else return null;
+    }
+
     public function getScenarioItemId($currstep)
     {
         return 0;
@@ -157,11 +179,39 @@ class ProgramRequirement extends AdmObject
     }
 
 
-    public static function requirementFoundIn($application_requirement_id, $program_id, $workflow_category_enum, $application_class_enum)
+    public static function requirementFoundIn($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)
     {
-        // @to implement
+        $objPR = null;
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex($academic_program_id, $workflow_category_enum, $application_class_enum);
+        }
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex($academic_program_id, 0, $application_class_enum);
+        }
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex($academic_program_id, $workflow_category_enum, 0);
+        }
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex($academic_program_id, 0, 0);
+        }
 
-        return false;
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex(0, $workflow_category_enum, $application_class_enum);
+        }
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex(0, 0, $application_class_enum);
+        }
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex(0, $workflow_category_enum, 0);
+        }
+
+        if (!$objPR) {
+            $objPR = self::loadByMainIndex(0, 0, 0);
+        }
+
+
+        if (!$objPR) return false;
+        return $objPR->findInMfk("application_requirement_mfk", $application_requirement_id);
     }
 }
 
