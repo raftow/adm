@@ -1314,7 +1314,7 @@
                                         'DISPLAY' => true,
                                         'STEP' => 99,
                                         'RELATION' => 'ManyToOne',
-                                        'MANDATORY' => true,
+                                        'MANDATORY' => false,
                                         'READONLY' => true,
                                         'AUTOCOMPLETE' => false,
                                         'DISPLAY-UGROUPS' => '',

@@ -314,7 +314,7 @@ $role_info[386] = array(
       array(
         'id' => '105085',
         'code' => 'f2-a-application_desire/edit',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إنشاء ترشح',
         'menu_name_en' => 'create Application desire',
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicationDesire&currmod=adm',
