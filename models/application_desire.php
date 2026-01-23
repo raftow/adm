@@ -2015,8 +2015,10 @@ class ApplicationDesire extends AdmObject
 
                 $main_company = AfwSession::currentCompany();
                 $file_dir_name = dirname(__FILE__);
-                include($file_dir_name . "/../../client-$main_company/extra/application_class_$main_company.php");
                 $classAC = "ApplicationClass" . AfwStringHelper::firstCharUpper($main_company);
+                if (!class_exists($classAC)) {
+                        include($file_dir_name . "/../../client-$main_company/extra/application_class_$main_company.php");
+                }
                 return $classAC::calcApplicationClassOf($this->applicationObj, $this);
         }
 }
