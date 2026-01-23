@@ -1829,7 +1829,7 @@ class ApplicationDesire extends AdmObject
                  *
                  **/
                 $branchObj = $this->het("application_plan_branch_id");
-                if ($branchObj) {
+                if ($branchObj and $branchObj->id) {
                         $hide_retrieve_cols = ["active", "pic_view", "to_publish", "supp_program_mfk", "interview_ind", "cv_ind"];
                         $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
                         /**
@@ -1848,6 +1848,8 @@ class ApplicationDesire extends AdmObject
                         }
                 } else {
                         $html_program_table .= " > " . $this->tm("Applied branch seems to be removed", $lang);
+                        $html_program_table .= " > " . "<br>" . $this->showMyLink() . "<br>";
+                        $html_program_table .= " > " . AfwShowHelper::showRetrieveTable($this, $lang, []);
                 }
 
                 $status_program_approve = ""; // $applicationObject->calcStatus_program_approve(); // // amjad asked to remove : 20/01/2026 teams conf
