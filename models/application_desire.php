@@ -825,8 +825,8 @@ class ApplicationDesire extends AdmObject
                         if (!$wRequestObj->getVal('request_type_code') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('request_type_code', 'desire');
 
-
-                        $wRequestObj->set('application_class_enum', $this->calcApplication_class_enum());
+                        $application_class_enum = $this->calcApplication_class_enum();
+                        $wRequestObj->set('application_class_enum', $application_class_enum);
 
 
                         list($err, $info, $log) = $wRequestObj->assignBestAvailableEmployee($lang, true, true);
@@ -841,7 +841,7 @@ class ApplicationDesire extends AdmObject
                         $action = 'already-exists';
                 }
 
-                return [$wRequestObj, '', $action, $log];
+                return [$wRequestObj, 'new application_class_enum=' . $application_class_enum, $action, $log];
         }
 
         public function getDisplay($lang = 'ar')
