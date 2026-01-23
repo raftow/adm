@@ -13,9 +13,9 @@ class AdmApplicantScholarshipAfwStructure
                         // $obj->IS_LOOKUP = true;
 
                         $obj->editByStep = false;
-                       // $obj->editNbSteps = 1;
+                        // $obj->editNbSteps = 1;
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
-                       $obj->after_save_edit = array("attribute" => 'scholarship_id', "currmod" => 'adm', "class" => 'Scholarship', "currstep" => 2);
+                        $obj->after_save_edit = array("attribute" => 'scholarship_id', "currmod" => 'adm', "class" => 'Scholarship', "currstep" => 2);
                 } else {
                         ApplicantScholarshipArTranslator::initData();
                         ApplicantScholarshipEnTranslator::initData();
@@ -35,43 +35,91 @@ class AdmApplicantScholarshipAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                'application_plan_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE' => false,  
-                        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
-                        'TYPE' => 'FK',  'ANSWER' => 'application_plan',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
-                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+
+                'scholarship_id' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'scholarship',
+                        'ANSMODULE' => 'adm',
+                        'EDIT_IF_EMPTY' => true,
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'OneToMany',
+                        'MANDATORY' => true,
+                        'READONLY' => true,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
-                        //'WHERE' => 'id in (select id from §DBPREFIX§adm.application_plan p where  p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
-                    ),
+                ),
                 'applicant_id' => array(
-                        'STEP'=>1,
-                       'SHORTNAME' => 'applicant',
-			'SEARCH' => true,
-			'QSEARCH' => true,
-			'SHOW' => true,
-			'AUDIT' => false,
-			'RETRIEVE' => true,
-			'EDIT' => false,
-			'QEDIT' => false,
-			'SIZE' => 40,
-			'MAXLENGTH' => 32,
-			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
-			'MANDATORY' => true,
-			'UTF8' => false,
-			'TYPE' => 'FK',
-			'ANSWER' => 'applicant',
-			'ANSMODULE' => 'adm',
-			'AUTOCOMPLETE' => true,
-			'AUTOCOMPLETE-SEARCH' => true,
-			'RELATION' => 'OneToOne',
-			'READONLY' => false,
-			'CSS' => 'width_pct_25',
+                        'STEP' => 1,
+                        'SHORTNAME' => 'applicant',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SIZE' => 40,
+                        'MAXLENGTH' => 32,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'MANDATORY' => true,
+                        'EDIT_IF_EMPTY' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'applicant',
+                        'ANSMODULE' => 'adm',
+                        'AUTOCOMPLETE' => true,
+                        'AUTOCOMPLETE-SEARCH' => true,
+                        'RELATION' => 'OneToMany',
+                        'READONLY' => false,
+                        'CSS' => 'width_pct_25',
                         //'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
                         //'WHERE' => 'id not in (select applicant_id from §DBPREFIX§adm.nominating_candidates nc inner join nomination_letter nl on nc.nomination_letter_id=nl.id where )'
                 ),
 
 
-                
+
+                'application_plan_id' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SHOW-ADMIN' => true,
+                        'EDIT-ADMIN' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_plan',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 0,
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'ManyToOne-OneToMany',
+                        'MANDATORY' => false,
+                        'READONLY' => false,
+                        'AUTOCOMPLETE' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                        //'WHERE' => 'id in (select id from §DBPREFIX§adm.application_plan p where  p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
+                ),
 
 
                 'applicant_scholarship_status_id' => array(
@@ -92,46 +140,56 @@ class AdmApplicantScholarshipAfwStructure
                 ),
 
 
-                'scholarship_id' => array(
+
+
+                'scholarship_type' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE' => true,
+                        'RETRIEVE-AR' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
-                        'SHOW-ADMIN' => true,
-                        'EDIT-ADMIN' => true,
-                        'UTF8' => false,
+                        'SIZE' => '10',
+                        'MAXLENGTH' => '10',
+                        'UTF8' => true,
                         'TYPE' => 'FK',
-                        'ANSWER' => 'scholarship',
+                        'ANSWER' => "scholarship_type",
                         'ANSMODULE' => 'adm',
-                        'SIZE' => 40,
-                        'DEFAUT' => 0,
                         'DISPLAY' => true,
                         'STEP' => 1,
-                        'RELATION' => 'ManyToOne-OneToMany',
-                        'MANDATORY' => true,
-                        'READONLY' => true,
+                        'MANDATORY' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_25',
+                ),
+
+                'application_simulation_id' => array(
+                        'IMPORTANT' => 'IN',
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => false,
+                        'QEDIT' => false,
+                        'SHOW-ADMIN' => false,
+                        'EDIT-ADMIN' => false,
+                        'UTF8' => false,
+                        'TYPE' => 'FK',
+                        'ANSWER' => 'application_simulation',
+                        'ANSMODULE' => 'adm',
+                        'SIZE' => 40,
+                        'DEFAUT' => 2,
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'RELATION' => 'OneToMany',
+                        'MANDATORY' => false,
+                        'READONLY' => false,
                         'AUTOCOMPLETE' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                                     
-'scholarship_type' => array('IMPORTANT' => 'IN',  'SEARCH' => true, 'QSEARCH' => true, 'SHOW' => true,  'RETRIEVE-AR' => true,  
-        'EDIT' => true,  'QEDIT' => true,  'SIZE' => '10', 'MAXLENGTH' => '10', 'UTF8' => true,  
-        'TYPE' => 'FK','ANSWER'=>"scholarship_type",'ANSMODULE'=>'adm',    'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false,  
-        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-        'CSS' => 'width_pct_25',),
- 
-                'application_simulation_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 
-                        'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
-                        'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => false,  'EDIT-ADMIN' => false,  'UTF8' => false,  
-                        'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' =>2,    
-                        'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'OneToMany', 'MANDATORY' => false, 'READONLY'=>false, 'AUTOCOMPLETE' => false,
-                        'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                        'CSS' => 'width_pct_25', ),
 
 
 
@@ -219,7 +277,7 @@ class AdmApplicantScholarshipAfwStructure
                 ),
 
 
-                
+
                 'grant_committee_interview_score' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
@@ -256,7 +314,7 @@ class AdmApplicantScholarshipAfwStructure
                         'ANSMODULE' => 'workflow',
                         'SIZE' => 40,
                         'DEFAUT' => 0,
-                        
+
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne-OneToMany',
@@ -268,7 +326,7 @@ class AdmApplicantScholarshipAfwStructure
                         'CSS' => 'width_pct_25',
                 ),
 
-'remarks' => array(
+                'remarks' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
                         'QSEARCH' => true,
