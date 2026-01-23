@@ -322,16 +322,21 @@ class ApplicationPlanBranch extends AdmObject
 
         public function whyAttributeIsNotApplicable($attribute, $lang = 'ar')
         {
-                $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
-                $maxPaths = SortingPath::nbPaths($application_model_id);
-                for ($spath = 1; $spath <= $maxPaths; $spath++) {
-                        $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
-                        if ($attribute == "capacity_track$spath") {
-                                $icon = 'N_A.png';
-                                $textReason = $this->translateMessage('This path is not open for this program', $lang);
-                                return [$icon, $textReason, 24, 24];
+                if ($this->getVal("application_plan_id")) {
+                        $application_model_id = ApplicationPlan::getApplicationModelId($this->getVal("application_plan_id"));
+                        // $appModelObj = ApplicationModel::loadById($application_model_id);
+                        $maxPaths = SortingPath::nbPaths($application_model_id);
+                        for ($spath = 1; $spath <= $maxPaths; $spath++) {
+                                $majorPathId = SortingPath::trackMajorPathId($application_model_id, $spath);
+                                if ($attribute == "capacity_track$spath") {
+                                        $icon = 'N_A.png';
+                                        $textReason = $this->translateMessage('This path is not open for this program', $lang);
+                                        return [$icon, $textReason, 24, 24];
+                                }
                         }
                 }
+
+
                 $icon = 'na20.png';
                 $textReason = $this->translateMessage('NA-HERE', $lang);
                 return [$icon, $textReason, 20, 20];
