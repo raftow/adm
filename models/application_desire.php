@@ -778,6 +778,7 @@ class ApplicationDesire extends AdmObject
 
         /**
          * @method exportApplicationToWorkflow
+         * @param WorkflowRequest $wRequestObj
          * @return Array
          * return [Workflow Request Object, Error Message, Action done, Log about best emloyee assign algorithm]
          */
@@ -825,7 +826,13 @@ class ApplicationDesire extends AdmObject
                                 $wRequestObj->set('request_type_code', 'desire');
 
 
+                        $wRequestObj->set('application_class_enum', $this->calcApplication_class_enum());
+
+
                         list($err, $info, $log) = $wRequestObj->assignBestAvailableEmployee($lang, true, true);
+                        if ($wRequestObj->isChanged()) {
+                                $wRequestObj->commit();
+                        }
                         if ($wRequestObj->is_new)
                                 $action = 'inserted';
                         else
@@ -1985,5 +1992,19 @@ class ApplicationDesire extends AdmObject
         public function getMethodTooltip($methodName, $lang = 'ar')
         {
                 return $this->tm(self::$PUB_METHODS[$methodName]['tooltip'], $lang);
+        }
+
+
+
+        // WORKFLOW RELATED FUNCTIONS
+        public function calcApplication_class_enum($what = "value")
+        {
+                $this->getApplicationObject();
+
+                $main_company = AfwSession::currentCompany();
+                $file_dir_name = dirname(__FILE__);
+                include($file_dir_name . "/../../client-$main_company/extra/application_class_$main_company.php");
+                $classAC = "ApplicationClass" . AfwStringHelper::firstCharUpper($main_company);
+                return $classAC::calcApplicationClassOf($this->applicationObj, $this);
         }
 }

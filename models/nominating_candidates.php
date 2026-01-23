@@ -525,6 +525,15 @@ class NominatingCandidates extends AdmObject
 
     public function afterMaj($id, $fields_updated)
     {
+        if ($fields_updated["study_funding_status_id"]) {
+            /**
+             * @var Application $applicationObj
+             * @var ApplicationDesire $applicationDesireObj
+             */
+            $applicationObj = $this->getMyApplication();
+            $applicationDesireObj = $applicationObj->getSynchronisedUniqueDesire();
+            if ($applicationDesireObj) $applicationDesireObj->updateDataOfWorkflowRequest(null);
+        }
         $this->createOrRepareMyApplicationObjects();
         return true;
     }
@@ -558,7 +567,7 @@ class NominatingCandidates extends AdmObject
             $this->set('applicant_id', $applicantObj->id);
             $this->commit();
 
-            $applicationObj = $this->getMyApplication($applicantObj);
+            $applicationObj = $this->getMyApplication();
 
             $this->addMyApplicantAccounts();
 
