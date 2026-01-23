@@ -1834,7 +1834,11 @@ class ApplicationDesire extends AdmObject
                         $programObj = $branchObj->het("program_id");
                         if ($programObj) {
                                 $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang, $options);
+                        } else {
+                                $html_program_table .= " > " . $this->tm("The program of applied branch seems to be removed", $lang);
                         }
+                } else {
+                        $html_program_table .= " > " . $this->tm("Applied branch seems to be removed", $lang);
                 }
 
                 $status_program_approve = ""; // $applicationObject->calcStatus_program_approve(); // // amjad asked to remove : 20/01/2026 teams conf

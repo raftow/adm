@@ -225,4 +225,7 @@ $messages['This will approve or disapprove the document for this applicant'] = '
 $messages['You have not reached this step yet'] = 'لم نصل إلى هذه الخطوة بعد';
 $messages["disapprove the program"] = "رفض أهلية التقديم على البرنامج";
 $messages["Post-Graduate General Aptitude Test not found"] = "لم يتم العثور على اختبار القدرات العامة للجامعيين";
+$messages["Academic program no found"] = "البرنامج الدراسي غير موجود";
+$messages["Applied branch seems to be removed"] = "فرع القبول الذي تم التقديم عليه مفقود من ملف الرغبة الأصلي";
+$messages["The program of applied branch seems to be removed"] = "يبدو أن فرع القبول الذي تم التقديم عليه تم حذف برنامجه الدراسي";
 // $messages[""] = "";
