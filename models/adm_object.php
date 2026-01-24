@@ -1724,7 +1724,11 @@ class AdmObject extends AfwMomkenObject
 
         $main_company = AfwSession::currentCompany();
         $file_dir_name = dirname(__FILE__);
-        include($file_dir_name . "/../../client-$main_company/extra/workflow_category-$main_company.php");
+        $classAC = "ApplicationClass" . AfwStringHelper::firstCharUpper($main_company);
+        if (!class_exists($classAC)) {
+            include($file_dir_name . "/../../client-$main_company/extra/application_class_$main_company.php");
+        }
+        $lookup = $classAC::getWorkflowCategoryLookup();
 
         foreach ($lookup as $id => $lookup_row) {
             $arr_list_of_application_category['ar'][$id] = $lookup_row['ar'];

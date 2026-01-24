@@ -95,6 +95,9 @@ class ApplicationDesireArTranslator
 		$trad["application_desire"]["step5"] = "الفرز والقبول";
 		$trad["application_desire"]["step6"] = "حقول الخوارزميات";
 
+		$trad['application_desire']['application_class_enum'] = 'قسم طلب التقديم';
+		$trad['application_desire']['workflow_category_enum'] = 'صنف طلب التقديم';
+
 		return $trad;
 	}
 

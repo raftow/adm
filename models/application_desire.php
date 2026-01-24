@@ -866,6 +866,10 @@ class ApplicationDesire extends AdmObject
                         $application_class_enum = $this->calcApplication_class_enum();
                         $wRequestObj->set('application_class_enum', $application_class_enum);
 
+                        $workflow_category_enum = $this->calcWorkflow_category_enum();
+                        $wRequestObj->set('workflow_category_enum', $workflow_category_enum);
+
+
 
                         list($err, $info, $log) = $wRequestObj->assignBestAvailableEmployee($lang, true, true);
                         if ($wRequestObj->isChanged()) {
@@ -879,7 +883,7 @@ class ApplicationDesire extends AdmObject
                         $action = 'already-exists';
                 }
 
-                return [$wRequestObj, 'new application_class_enum=' . $application_class_enum, $action, $log];
+                return [$wRequestObj, 'new application_class_enum=' . $application_class_enum . ' workflow_category_enum=' . $workflow_category_enum, $action, $log];
         }
 
         public function getDisplay($lang = 'ar')
@@ -2113,7 +2117,22 @@ class ApplicationDesire extends AdmObject
 
 
 
+
         // WORKFLOW RELATED FUNCTIONS
+
+        public function calcWorkflow_category_enum($what = "value")
+        {
+                $this->getApplicationObject();
+
+                $main_company = AfwSession::currentCompany();
+                $file_dir_name = dirname(__FILE__);
+                $classAC = "ApplicationClass" . AfwStringHelper::firstCharUpper($main_company);
+                if (!class_exists($classAC)) {
+                        include($file_dir_name . "/../../client-$main_company/extra/application_class_$main_company.php");
+                }
+                return $classAC::calcWorkflowCategoryOf($this->applicationObj, $this);
+        }
+
         public function calcApplication_class_enum($what = "value")
         {
                 $this->getApplicationObject();

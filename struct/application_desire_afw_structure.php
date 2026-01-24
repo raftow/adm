@@ -1348,9 +1348,31 @@
                                         'CSS' => 'width_pct_50',
                                 ),
 
+                                'workflow_category_enum' => array(
+                                        'CATEGORY' => 'FORMULA',
+                                        'IMPORTANT' => 'IN',
+                                        'SHOW' => true,
+                                        'RETRIEVE' => false,
+                                        'EDIT' => true,
+                                        'UTF8' => false,
+                                        'TYPE' => 'ENUM',
+                                        'ANSWER' => 'FUNCTION',
+                                        'SIZE' => 40,
+                                        'DEFAUT' => 0,
+                                        'DISPLAY' => true,
+                                        'STEP' => 99,
+                                        'RELATION' => 'ManyToOne',
+                                        'MANDATORY' => false,
+                                        'READONLY' => true,
+                                        'AUTOCOMPLETE' => false,
+                                        'DISPLAY-UGROUPS' => '',
+                                        'EDIT-UGROUPS' => '',
+                                        'CSS' => 'width_pct_100',
+                                ),
+
 
                                 'application_class_enum' => array(
-                                        'CATEGORY' => 'formula',
+                                        'CATEGORY' => 'FORMULA',
                                         'IMPORTANT' => 'IN',
                                         'SHOW' => true,
                                         'RETRIEVE' => false,
