@@ -802,7 +802,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
-                return AfwLoadHelper::giveWhat($what, $wRequestObj);
+                return AfwLoadHelper::giveWhat($wRequestObj, $what);
         }
 
         /**
