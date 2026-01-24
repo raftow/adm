@@ -1764,8 +1764,11 @@ class AdmObject extends AfwMomkenObject
 
     public function runCondition($workflowConditionObject, $workflowRequestObject, $lang = "ar")
     {
-        $condition_code = $workflowConditionObject->getVal("lookup_code");
-        $conditionMethod = "checkCondition_" . $condition_code;
+        $condition_code = "nothing";
+        if ($workflowConditionObject) {
+            $condition_code = $workflowConditionObject->getVal("lookup_code");
+            $conditionMethod = "checkCondition_" . $condition_code;
+        }
 
         if ($condition_code == "nothing") {
             $reason = '';
