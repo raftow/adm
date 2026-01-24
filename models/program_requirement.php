@@ -182,36 +182,45 @@ class ProgramRequirement extends AdmObject
     public static function requirementFoundIn($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)
     {
         $objPR = null;
+        $case = "No case";
         if (!$objPR) {
             $objPR = self::loadByMainIndex($academic_program_id, $workflow_category_enum, $application_class_enum);
+            $case = "loadByMainIndex($academic_program_id, $workflow_category_enum, $application_class_enum)";
         }
         if (!$objPR) {
             $objPR = self::loadByMainIndex($academic_program_id, 0, $application_class_enum);
+            $case = "loadByMainIndex($academic_program_id, 0, $application_class_enum)";
         }
         if (!$objPR) {
             $objPR = self::loadByMainIndex($academic_program_id, $workflow_category_enum, 0);
+            $case = "loadByMainIndex($academic_program_id, $workflow_category_enum, 0)";
         }
         if (!$objPR) {
             $objPR = self::loadByMainIndex($academic_program_id, 0, 0);
+            $case = "loadByMainIndex($academic_program_id, 0, 0)";
         }
 
         if (!$objPR) {
             $objPR = self::loadByMainIndex(0, $workflow_category_enum, $application_class_enum);
+            $case = "loadByMainIndex(0, $workflow_category_enum, $application_class_enum)";
         }
         if (!$objPR) {
             $objPR = self::loadByMainIndex(0, 0, $application_class_enum);
+            $case = "loadByMainIndex(0, 0, $application_class_enum)";
         }
         if (!$objPR) {
             $objPR = self::loadByMainIndex(0, $workflow_category_enum, 0);
+            $case = "loadByMainIndex(0, $workflow_category_enum, 0)";
         }
 
         if (!$objPR) {
             $objPR = self::loadByMainIndex(0, 0, 0);
+            $case = "loadByMainIndex(0, 0, 0)";
         }
 
 
-        if (!$objPR) return false;
-        return $objPR->findInMfk("application_requirement_mfk", $application_requirement_id);
+        if (!$objPR) return [false, "no object requirement found for ($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)"];
+        return [$objPR->findInMfk("application_requirement_mfk", $application_requirement_id), $case];
     }
 }
 

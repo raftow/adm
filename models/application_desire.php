@@ -1968,7 +1968,7 @@ class ApplicationDesire extends AdmObject
         public function checkCondition_requirementFound($requirement_id, $workflowConditionObject, $workflowRequestObject, $lang)
         {
                 $branchObj = $this->het("application_plan_branch_id");
-                $require = null;
+                $found = null;
                 $reason = "Unknown";
                 if ($branchObj) {
                         /**
@@ -1977,27 +1977,29 @@ class ApplicationDesire extends AdmObject
                         $programObj = $branchObj->het("program_id");
                         if ($programObj) {
                                 if ($programObj->sureIs("interview_ind")) {
-                                        if (ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"))) {
-                                                $require = true;
+                                        list($found, $case) = ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"));
+                                        if ($found) {
+                                                $found = true;
                                                 $reason = "The program itself require interview and category and class of the application also";
                                         } else {
-                                                $require = false;
+                                                $found = false;
                                                 $reason = "The program itself require interview but category and class of the application doesn't";
                                         }
                                 } else {
-                                        $require = false;
+                                        $found = false;
                                         $reason = "The program itself does'nt require interview";
                                 }
                         } else {
-                                $require = false;
+                                $found = false;
                                 $reason = "No program defined";
                         }
                 } else {
-                        $require = false;
+                        $found = false;
                         $reason = "No branch defined";
                 }
 
-                return [$require, $reason];
+                if (!$found and ($requirement_id == 1)) die("The Prog Req ($requirement_id) not found reason = $reason, case = $case !");
+                return [$found, $reason, $case];
         }
 
 
