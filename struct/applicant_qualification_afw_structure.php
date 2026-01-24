@@ -479,7 +479,7 @@ class AdmApplicantQualificationAfwStructure
                         'ANSWER' => 'study_type',
                         'ANSMODULE' => 'adm',
                         'SIZE' => 40,
-                        'DEFAUT' => 0,
+                        'DEFAUT' => 1,
                         'DISPLAY' => true,
                         'STEP' => 1,
                         'RELATION' => 'ManyToOne',

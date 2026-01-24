@@ -3,6 +3,8 @@ if (!class_exists("AfwSession")) die("Denied access");
 
 $server_db_prefix = AfwSession::currentDBPrefix();
 try {
+
+    AfwDatabase::db_query("UPDATE " . $server_db_prefix . "adm.`applicant_qualification` set study_type_id = 1 where study_type_id = 0 or study_type_id is null;");
     AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.`application`
             CHANGE `attribute_1` `attribute_1` char(1) NULL AFTER `application_plan_branch_mfk`,
             CHANGE `attribute_2` `attribute_2` int(11) NULL DEFAULT '0' AFTER `attribute_1`;      ");
