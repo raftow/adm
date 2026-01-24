@@ -1960,7 +1960,7 @@ class ApplicationDesire extends AdmObject
                 return $this->checkCondition_requirementFound(2, $workflowConditionObject, $workflowRequestObject, $lang);
         }
 
-        public function checkCondition_skipInterview($workflowConditionObject, $workflowRequestObject, $lang)
+        public function checkCondition_shouldSkipInterview($workflowConditionObject, $workflowRequestObject, $lang)
         {
                 return $this->checkCondition_requirementFound(1, $workflowConditionObject, $workflowRequestObject, $lang);
         }
