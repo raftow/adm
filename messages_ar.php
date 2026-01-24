@@ -72,6 +72,7 @@ $messages['This employee is not from'] = 'هذا الموظف ليس من';
 $messages['but from'] = 'وإنما من';
 $messages['The empolyee account has been approved, he can use it now'] = 'تم اعتماد حساب الموظف يمكنه استخدامه الآن';
 $messages['Waiting to apply conditions ...'] = 'بانتظار تطبيق الشروط ...';
+$messages['Waiting commitees work ...'] = 'بانتظار عمل اللجان ...';
 $messages['Waiting to apply sorting process ...'] = 'بانتظار تطبيق الفرز ...';
 
 $messages['Application is faltered, please see details and resolve manually'] = 'هذا التقديم متعثر، من فضلك قم بحل الاشكال يدويا للاستمرار';

@@ -701,10 +701,12 @@ class ApplicationDesire extends AdmObject
                                         $tech_arr[] = $tech_info;
 
                                         // في حالة الفرز يبقى المتقدم في حالة ترشح الى حين تطبيق الفرز
-                                        if ($newStepCode != 'SRT') {
-                                                $message_war = $this->tm('Waiting to apply conditions ...', $lang);
-                                        } elseif ($newStepCode == 'SRT') {
+                                        if ($newStepCode == 'SRT') {
                                                 $message_war = $this->tm('Waiting to apply sorting process ...', $lang);
+                                        } else if ($newStepCode == 'WKF') {
+                                                $message_war = $this->tm('Waiting commitees work ...', $lang);
+                                        } else {
+                                                $message_war = $this->tm('Waiting to apply conditions ...', $lang);
                                         }
                                         $this->set('comments', $message_war . "<!-- new step : code=$newStepCode/num=$nextStepNum -->");
                                         // echo "<br>this->fieldsHasChanged() = ".var_export($this->fieldsHasChanged(true), true)." tech_info=$tech_info ";
@@ -774,6 +776,33 @@ class ApplicationDesire extends AdmObject
                         $err_arr[] = $e->__toString();
                 }
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
+        }
+
+        public function calcWorkflow_request_id($what = "value")
+        {
+                $wRequestObj = null;
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+                $this->getApplicationPlan();
+                if ($this->objApplicationPlan) {
+                        // $application_simulation_id = $this->getVal('application_simulation_id');
+                        // $desire_num = $this->getVal('desire_num');
+                        // $applicationPlanId = $this->objApplicationPlan->id;
+                        $applicationObj = $this->getApplicationObject();
+                        if ($applicationObj) {
+                                $wModelObj = $this->objApplicationPlan->getWorkflowModel();
+                                if ($wModelObj) {
+                                        $applicantObj = $applicationObj->getApplicant();
+                                        if ($applicantObj) {
+                                                $wApplicantObj = $applicantObj->getWorkflowApplicant();
+                                                $wApplicantObjId = $wApplicantObj->id;
+                                                AfwAutoloader::addModule('workflow');
+                                                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
+                                        }
+                                }
+                        }
+                }
+
+                return AfwLoadHelper::giveWhat($what, $wRequestObj);
         }
 
         /**
