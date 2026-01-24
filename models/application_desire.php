@@ -1924,9 +1924,20 @@ class ApplicationDesire extends AdmObject
                 </div>";
         }
 
-        public function showInterviewDiv($lang)
+        public function showInterviewDiv($lang, $workflowRequestObject)
         {
-                return $this->tm('@@ working on ...', $lang);
+                $interviewBookingObj = $workflowRequestObject->getInterviewBooking();
+                $interview_css = "xx";
+                $html_booking_table = AfwShowHelper::showRetrieveTable($interviewBookingObj, $lang, []);
+                $html_interview_table = "";
+                return "<div class='committee-interview'>
+                                <div class='interview $interview_css'>
+                                        $html_booking_table
+                                </div>
+                                <div class='program-review'>
+                                        $html_interview_table
+                                </div>
+                </div>";
         }
 
         public function showSortingDiv($lang)
