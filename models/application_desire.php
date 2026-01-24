@@ -2032,12 +2032,22 @@ class ApplicationDesire extends AdmObject
         {
                 $info = "";
                 $error = "";
-                list($wReqObj, $warning, $action, $tech) = $this->exportApplicationToWorkflow();
-                if ($wReqObj) {
-                        $info = $wReqObj->getDisplay($lang) . " " . $this->tm("Has been successfully exported to workflow module", $lang);
+                $warning = "";
+
+                $currentDesireStepObj = $this->het('application_step_id');
+                $step_code = $currentDesireStepObj->getVal('step_code');
+                if ($step_code == 'WKF') {
+                        list($wReqObj, $warning, $action, $tech) = $this->exportApplicationToWorkflow();
+                        if ($wReqObj) {
+                                $info = $wReqObj->getDisplay($lang) . " " . $this->tm("Has been successfully exported to workflow module", $lang);
+                        } else {
+                                $error = $this->tm("Export to workflow module has been failed", $lang);
+                        }
                 } else {
-                        $error = $this->tm("Export to workflow module has been failed", $lang);
+                        $warning = $this->tm("Export to workflow module has been failed", $lang) . " : " . $this->tm("You still not in this step", $lang);;
                 }
+
+
 
                 return [$error, $info, $warning, "action=$action " . $tech];
         }
