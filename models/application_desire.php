@@ -2002,7 +2002,7 @@ class ApplicationDesire extends AdmObject
                         $reason = "No branch defined";
                 }
 
-                if (!$found and ($requirement_id == 1)) die("The Prog Req ($requirement_id) not found reason = $reason, case = $case !");
+                // if (!$found and ($requirement_id == 1)) die("The Prog Req ($requirement_id) not found reason = $reason, case = $case !");
                 return [$found, $reason, $case];
         }
 
