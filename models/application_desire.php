@@ -1778,6 +1778,17 @@ class ApplicationDesire extends AdmObject
                         return $notRequested;
         }
 
+        public function calcNominating_candidates_id($what = 'value')
+        {
+                $applicant_id = $this->getVal('applicant_id');
+                $application_plan_id = $this->getVal('application_plan_id');
+                $application_simulation_id = $this->getVal('application_simulation_id');
+
+                $ncObj = NominatingCandidates::loadByApplicationInfos($applicant_id, $application_plan_id, $application_simulation_id);
+
+                return AfwLoadHelper::giveWhat($ncObj, $what);
+        }
+
         public function calcCandidateInfo($what = 'value')
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
