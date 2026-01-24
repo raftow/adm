@@ -229,4 +229,9 @@ $messages["Post-Graduate General Aptitude Test not found"] = "لم يتم الع
 $messages["Academic program no found"] = "البرنامج الدراسي غير موجود";
 $messages["Applied branch seems to be removed"] = "فرع القبول الذي تم التقديم عليه مفقود من ملف الرغبة الأصلي";
 $messages["The program of applied branch seems to be removed"] = "يبدو أن فرع القبول الذي تم التقديم عليه تم حذف برنامجه الدراسي";
+$messages["Has been successfully exported to workflow module"] = "تم تصدير البيانات بنجاح إلى وحدة سير العمل";
+$messages["Export to workflow module has been failed"] = "فشلت عملية التصدير إلى وحدة سير العمل";
+
+
+
 // $messages[""] = "";

@@ -963,6 +963,19 @@ class ApplicationDesire extends AdmObject
                 if ($objApplicationModel) {
 
 
+                        $color = 'green';
+                        $title_ar = $this->tm('Export to workflow', 'ar');
+                        $title_en = $this->tm('Export to workflow', 'en');
+                        $methodName = 'exportToWorkflow';
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                'METHOD' => $methodName,
+                                'COLOR' => $color,
+                                'LABEL_AR' => $title_ar,
+                                'LABEL_EN' => $title_en,
+                                'ADMIN-ONLY' => true,
+                                'BF-ID' => '',
+                                'STEP' => 99
+                        );
 
 
                         $color = 'red';
@@ -2014,6 +2027,22 @@ class ApplicationDesire extends AdmObject
         {
                 return $auser->hasRole("adm", 397);
         }
+
+        public function exportToWorkflow($lang = 'ar')
+        {
+                $info = "";
+                $error = "";
+                list($wReqObj, $warning, $action, $tech) = $this->exportApplicationToWorkflow();
+                if ($wReqObj) {
+                        $info = $wReqObj->getDisplay($lang) . " " . $this->tm("Has been successfully exported to workflow module", $lang);
+                } else {
+                        $error = $this->tm("Export to workflow module has been failed", $lang);
+                }
+
+                return [$error, $info, $warning, "action=$action " . $tech];
+        }
+
+
 
         public function updateDataOfWorkflowRequest($workflowRequestObj)
         {

@@ -715,9 +715,10 @@
                                         'ANSWER' => 'workflow_request',
                                         'ANSMODULE' => 'workflow',
                                         'RELATION' => 'OneToMany',
-                                        'READONLY' => false,
+                                        'READONLY' => true,
                                         'DNA' => true,
                                         'CSS' => 'width_pct_50',
+                                        'STEP' => 99,
                                 ),
 
                                 'applicationConditionExecList' => array(
