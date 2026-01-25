@@ -232,6 +232,11 @@ $messages["The program of applied branch seems to be removed"] = "يبدو أن 
 $messages["Has been successfully exported to workflow module"] = "تم تصدير البيانات بنجاح إلى وحدة سير العمل";
 $messages["Export to workflow module has been failed"] = "فشلت عملية التصدير إلى وحدة سير العمل";
 $messages["You still not in this step"] = "لم نصل بعد إلى هذه المرحلة";
+$messages["taught in English"] = "تدرس باللغة الإنجليزية";
+$messages["CV Degree"] = "درجة السيرة الذاتية";
+$messages["No CV found for this applicant"] = "لم يتم العثور على سيرة ذاتية لهذا المتقدم";
+$messages["Interview score not sufficient"] = "درجة المقابلة الشخصية غير كافية";
+
 
 
 // $messages[""] = "";
