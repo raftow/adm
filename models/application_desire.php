@@ -1987,7 +1987,7 @@ class ApplicationDesire extends AdmObject
                 }
 
                 $interview_css = "bs" . $interviewBookingObj->getVal("booking_status_id") . " it" . $interviewBookingObj->getVal("interview_type");
-                $html_interview_table = "";
+                $html_interview_table = $this->showMyLink() . "<br>";
                 return "<div class='committee-interview'>
                                 <div class='interview $interview_css'>
                                         $html_booking_table
