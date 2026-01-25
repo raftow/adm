@@ -1989,7 +1989,8 @@ class ApplicationDesire extends AdmObject
                         $cv_html = "<div class='cv-info'>$cv_html</div>";
                 }
 
-                $interview_css = "bs" . $interviewBookingObj->getVal("booking_status_id") . " it" . $interviewBookingObj->getVal("interview_type");
+                if ($interviewBookingObj) $interview_css = "bs" . $interviewBookingObj->getVal("booking_status_id") . " it" . $interviewBookingObj->getVal("interview_type");
+                else $interview_css = "no-interview-booking";
                 $html_interview_table = "<!-- " . $this->showMyLink() . " --><br>";
                 return "<div class='committee-interview'>
                                 <div class='interview $interview_css'>
