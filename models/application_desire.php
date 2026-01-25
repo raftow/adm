@@ -2056,11 +2056,14 @@ class ApplicationDesire extends AdmObject
                 $branchObj = $this->het("application_plan_branch_id");
                 $found = null;
                 $reason = "Unknown";
+                /**
+                 * @var ApplicationPlanBranch $branchObj
+                 */
                 if ($branchObj) {
                         /**
                          * @var AcademicProgram $programObj
                          */
-                        $programObj = $branchObj->het("program_id");
+                        $programObj = $branchObj->getMyProgram();
                         if ($programObj) {
                                 if ($programObj->sureIs("interview_ind")) {
                                         list($found, $case) = ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"));

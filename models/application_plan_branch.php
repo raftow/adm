@@ -208,6 +208,16 @@ class ApplicationPlanBranch extends AdmObject
                 return true;
         }
 
+
+        public function getMyProgram()
+        {
+                $progObj = $this->het("program_id");
+                if ($progObj) return $progObj;
+                $progOffObj = $this->het("program_offering_id");
+                if ($progOffObj) return $progOffObj->het("program_id");
+                return null;
+        }
+
         public function genereNames($lang = "ar", $progOffObj = null, $commit = true, $force = false)
         {
                 if (!$progOffObj) $progOffObj = $this->het("program_offering_id");
