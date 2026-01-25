@@ -2007,6 +2007,16 @@ class ApplicationDesire extends AdmObject
         }
 
 
+        public function checkCondition_interviewSuccess($workflowConditionObject, $workflowRequestObject, $lang)
+        {
+                $scoreMinInterview = AfwSession::config("score_min_interview", 1);
+                if ($workflowRequestObject->getVal("interview_score") >= $scoreMinInterview) {
+                        return [true, ""];
+                } else {
+                        return [false, $workflowRequestObject->tm("Interview score not sufficient", $lang)];
+                }
+        }
+
         public function checkCondition_programApproved($workflowConditionObject, $workflowRequestObject, $lang)
         {
                 $applicationObject = $this->getApplicationObject();
