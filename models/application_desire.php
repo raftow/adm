@@ -1979,7 +1979,7 @@ class ApplicationDesire extends AdmObject
                         $apCvScoreObj = ApplicationCvScore::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                         if ($apCvScoreObj) {
                                 $apCvScoreObjId = $apCvScoreObj->id;
-                                $click_here = $apCvScoreObj->tm("Click here to ....", $lang);
+                                $click_here = $apCvScoreObj->tm("Edit the CV evaluation", $lang);
                                 $cv_link = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationCvScore&currmod=adm&id=$apCvScoreObjId&popup=";
                                 $cv_html = $programObj->tm("CV Degree", $lang) . " : " . $apCvScoreObj->decode("total_score") . "<br><a target='_cv' href='$cv_link'>$click_here</a>";
                         } else {
@@ -1990,7 +1990,7 @@ class ApplicationDesire extends AdmObject
                 }
 
                 $interview_css = "bs" . $interviewBookingObj->getVal("booking_status_id") . " it" . $interviewBookingObj->getVal("interview_type");
-                $html_interview_table = $this->showMyLink() . "<br>";
+                $html_interview_table = "<!-- " . $this->showMyLink() . " --><br>";
                 return "<div class='committee-interview'>
                                 <div class='interview $interview_css'>
                                         $html_booking_table
