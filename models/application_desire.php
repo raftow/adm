@@ -1959,7 +1959,10 @@ class ApplicationDesire extends AdmObject
                                         $html_program_language = $programObj->tm("Note: Proficiency in English is essential for programs taught in English", $lang);
                                         $html_program_language .= "<br>" . $programObj->getDisplay($lang) . " " . $programObj->tm("taught in English", $lang);
                                         $case = "ENGLISH";
-                                } else $case = "NOT-ENGLISH";
+                                } else {
+                                        $html_program_language = $programObj->getDisplay($lang) . " " . $programObj->tm("taught in", $lang) . " " . $programObj->decode("language_enum", '', false, $lang);
+                                        $case = "NOT-ENGLISH";
+                                }
                         } else {
                                 $case = "NPO";
                         }
