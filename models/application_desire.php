@@ -1924,16 +1924,77 @@ class ApplicationDesire extends AdmObject
                 </div>";
         }
 
+        /**
+         * @param WorkflowRequest $workflowRequestObject
+         */
+
         public function showInterviewDiv($lang, $workflowRequestObject)
         {
+                if (!$workflowRequestObject) return "No Workflow Request Object !!!!????";
                 $interviewBookingObj = $workflowRequestObject->getInterviewBooking();
-                $interview_css = "xx";
-                $html_booking_table = AfwShowHelper::showRetrieveTable($interviewBookingObj, $lang, []);
+                if (!$interviewBookingObj) $html_booking_table = $workflowRequestObject->tm("No interview booking invitation sent", $lang);
+                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) .
+                        " : " . $workflowRequestObject->tm("Bookings status", $lang) .
+                        " : " . $interviewBookingObj->decode("booking_status_id", '', false, $lang) .
+                        " " . $interviewBookingObj->decode("interview_date", '', false, $lang) .
+                        " " . $interviewBookingObj->decode("start_time", '', false, $lang) .
+                        " " . $interviewBookingObj->decode("interview_type", '', false, $lang);
+
+
+                $html_program_language = $this->tm("Academic program no found", $lang);
+                /**
+                 * @var ApplicationPlanBranch $branchObj
+                 *
+                 **/
+                $branchObj = $this->het("application_plan_branch_id");
+                if ($branchObj and $branchObj->id) {
+                        /**
+                         * @var AcademicProgram $programObj
+                         */
+                        $programObj = $branchObj->het("program_id");
+                        $cv_needed = false;
+                        if ($programObj) {
+                                $cv_needed = $programObj->sureIs("cv_ind");
+                                if ($programObj->getVal("language_enum") == 2) {
+                                        $html_program_language = $programObj->tm("Note: Proficiency in English is essential for programs taught in English", $lang);
+                                        $html_program_language .= "<br>" . $programObj->getDisplay($lang) . " " . $programObj->tm("taught in English", $lang);
+                                        $case = "ENGLISH";
+                                } else $case = "NOT-ENGLISH";
+                        } else {
+                                $case = "NPO";
+                        }
+                } else {
+                        $case = "NBO";
+                }
+
+                $cv_html = "";
+
+                if ($cv_needed) {
+                        $applicant_id = $this->getVal('applicant_id');
+                        $application_plan_id = $this->getVal('application_plan_id');
+                        $application_simulation_id = $this->getVal('application_simulation_id');
+                        $apCvScoreObj = ApplicationCvScore::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                        if ($apCvScoreObj) {
+                                $apCvScoreObjId = $apCvScoreObj->id;
+                                $cv_link = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationCvScore&currmod=adm&id=$apCvScoreObjId&popup=";
+                                $cv_html = $programObj->tm("CV Degree", $lang) . " : " . $apCvScoreObj->decode("total_score") . "<br>" . $cv_link;
+                        } else {
+                                $cv_html = $programObj->tm("No CV found for this applicant", $lang);
+                        }
+
+                        $cv_html = "<div class='cv-info'>$cv_html</div>";
+                }
+
+                $interview_css = "bs" . $interviewBookingObj->getVal("booking_status_id") . " it" . $interviewBookingObj->getVal("interview_type");
                 $html_interview_table = "";
                 return "<div class='committee-interview'>
                                 <div class='interview $interview_css'>
                                         $html_booking_table
                                 </div>
+                                <div class='program-language'>
+                                        $html_program_language <!-- $case -->
+                                </div>
+                                $cv_html
                                 <div class='program-review'>
                                         $html_interview_table
                                 </div>
