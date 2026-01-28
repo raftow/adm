@@ -2053,7 +2053,29 @@ class ApplicationDesire extends AdmObject
 
         public function checkCondition_shouldSkipInterview($workflowConditionObject, $workflowRequestObject, $lang)
         {
+                if(!$this->programRequireInterview()) return [true, 'Program itself does not require interview !'];
                 return $this->checkCondition_requirementFound(1, $workflowConditionObject, $workflowRequestObject, $lang);
+        }
+
+        public function programRequireInterview()
+        {
+                $branchObj = $this->het("application_plan_branch_id");
+                /**
+                 * @var ApplicationPlanBranch $branchObj
+                 */
+                if ($branchObj) {
+                        /**
+                         * @var AcademicProgram $programObj
+                         */
+                        $programObj = $branchObj->getMyProgram();
+                        if ($programObj) {
+                                return $programObj->sureIs("interview_ind");
+                        } else {
+                                return 999;
+                        }
+                } else {
+                        return 999;
+                }
         }
 
         public function checkCondition_requirementFound($requirement_id, $workflowConditionObject, $workflowRequestObject, $lang)
