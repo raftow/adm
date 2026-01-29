@@ -16,44 +16,6 @@ $file_dir_name = dirname(__FILE__);
 class RequestStatus extends AdmObject
 {
 
-     public static $MY_ATABLE_ID = 3570;
-
-
-     // lookup Value List codes 
-     // NEW - طلب جديد  
-     public static $REQUEST_STATUS_DRAFT = 1;
-
-     // MISSED_INFO -  عودة للعميل لاستكمال البيانات
-     public static $REQUEST_STATUS_MISSED_INFO = 101;
-
-     // MISSED_FILES -  عودة للعميل لاستكمال المرفقات
-     public static $REQUEST_STATUS_MISSED_FILES = 102;
-
-     // SENT - طلب مرسل  
-     public static $REQUEST_STATUS_SENT = 2;
-
-     // REDIRECT - طلب إعادة التحويل  
-     public static $REQUEST_STATUS_REDIRECT = 3;
-
-     // ONGOING - طلب تحت الإنجاز  
-     public static $REQUEST_STATUS_ONGOING = 4;
-
-     // DONE - تمت الإجابة  
-     public static $REQUEST_STATUS_DONE = 5;
-
-     // CANCELED - طلب ملغى  
-     public static $REQUEST_STATUS_CANCELED = 6;
-
-     // CLOSED - طلب مغلق  
-     public static $REQUEST_STATUS_CLOSED = 7;
-
-     // REJECTED - طلب مرفوض  
-     public static $REQUEST_STATUS_REJECTED = 8;
-
-     // IGNORED - طلب مهمل  
-     public static $REQUEST_STATUS_IGNORED = 9;
-
-
 
      public static $DATABASE          = "";
      public static $MODULE              = "adm";
@@ -154,49 +116,5 @@ class RequestStatus extends AdmObject
      }
 
 
-     public function beforeDelete($id, $id_replace)
-     {
-
-
-          if ($id) {
-               if ($id_replace == 0) {
-                    $server_db_prefix = AfwSession::currentDBPrefix(); // FK part of me - not deletable 
-
-
-                    $server_db_prefix = AfwSession::currentDBPrefix(); // FK part of me - deletable 
-
-
-                    // FK not part of me - replaceable 
-                    // crm.request-حالة التذكرة	status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.request set status_id='$id_replace' where status_id='$id' ");
-                    // crm.response-الحالة الجديدة للطلب	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.response set new_status_id='$id_replace' where new_status_id='$id' ");
-                    // crm.action_policy-حالة التذكرة قبل	old_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.action_policy set old_status_id='$id_replace' where old_status_id='$id' ");
-                    // crm.action_policy-حالة التذكرة بعد	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.action_policy set new_status_id='$id_replace' where new_status_id='$id' ");
-
-
-
-                    // MFK
-
-               } else {
-                    $server_db_prefix = AfwSession::currentDBPrefix(); // FK on me 
-                    // crm.request-حالة التذكرة	status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.request set status_id='$id_replace' where status_id='$id' ");
-                    // crm.response-الحالة الجديدة للطلب	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.response set new_status_id='$id_replace' where new_status_id='$id' ");
-                    // crm.action_policy-حالة التذكرة قبل	old_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.action_policy set old_status_id='$id_replace' where old_status_id='$id' ");
-                    // crm.action_policy-حالة التذكرة بعد	new_status_id  حقل يفلتر به-ManyToOne
-                    $this->execQuery("update ${server_db_prefix}adm.action_policy set new_status_id='$id_replace' where new_status_id='$id' ");
-
-
-                    // MFK
-
-
-               }
-               return true;
-          }
-     }
+     
 }
