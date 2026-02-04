@@ -229,7 +229,7 @@ class ApplicationPlanBranch extends AdmObject
                 $progObj = $this->het("program_id");
                 if ($progObj) return $progObj;
                 $progOffObj = $this->het("program_offering_id");
-                if ($progOffObj) return $progOffObj->het("program_id");
+                if ($progOffObj) return $progOffObj->het("academic_program_id");
                 return null;
         }
 
