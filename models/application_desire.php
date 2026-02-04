@@ -1765,7 +1765,7 @@ class ApplicationDesire extends AdmObject
                 if (!$branchObj)
                         return AfwLoadHelper::giveWhat($wScopeObj, $what);
                 /** @var AcademicProgram $programObj */
-                $programObj = $branchObj->het('program_id');
+                $programObj = $branchObj->getMyProgram();
                 if (!$programObj)
                         return AfwLoadHelper::giveWhat($wScopeObj, $what);
                 $wScopeObj = $programObj->synchronizeWithWorkflow();

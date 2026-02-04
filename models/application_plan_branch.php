@@ -226,7 +226,7 @@ class ApplicationPlanBranch extends AdmObject
 
         public function getMyProgram()
         {
-                $progObj = $this->het("program_id");
+                $progObj = $this->getMyProgram();
                 if ($progObj) return $progObj;
                 $progOffObj = $this->het("program_offering_id");
                 if ($progOffObj) return $progOffObj->het("program_id");
