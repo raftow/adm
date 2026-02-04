@@ -109,6 +109,7 @@ $migrations = [
     '00103' => ['by'=>'medali','title'=>'add reupload field'],
     '00104' => ['by'=>'medali','title'=>'add action type'],
     '00105' => ['by'=>'medali','title'=>'add fields to applicant_scolarship'],
-    '00106' => ['by'=>'medali','title'=>'add filed to applicant_scholarship']
+    '00106' => ['by'=>'medali','title'=>'add filed to applicant_scholarship'],
+    '00107' => ['by'=>'medali','title'=>'add next_transition_id to applicant_account']
 ];
 

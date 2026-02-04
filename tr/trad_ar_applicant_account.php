@@ -19,6 +19,8 @@ class ApplicantAccountArTranslator
 		$trad["applicant_account"]["due_date"] = "تاريخ الاستحقاق";
 		$trad["applicant_account"]["academic_period_id"] = "فترة التقديم";
 		$trad["applicant_account"]["payment_deadline"] = "آخر تاريخ للدفع";
+		$trad["applicant_account"]["workflow_request_id"] = "طلب سير العمل";
+		$trad["applicant_account"]["next_transition_id"] = "الحركة التالية";
 		
 		return $trad;
 		if(false) return ApplicantAccountEnTranslator::initData();
