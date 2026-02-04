@@ -211,7 +211,7 @@ class ApplicationPlanBranch extends AdmObject
         public function synchronizeWithWorkflow()
         {
                 $module_id = 1;
-                $programObj = $this->het('program_id');
+                $programObj = $this->getMyProgram();
                 $wScopeObj = $programObj->synchronizeWithWorkflow();
                 $wssObj = WorkflowSubScope::loadByMainIndex($module_id, $wScopeObj->id, $this->id, true);
                 $wssObj->set('sub_scope_name_ar', $this->getVal('name_ar'));
@@ -226,7 +226,7 @@ class ApplicationPlanBranch extends AdmObject
 
         public function getMyProgram()
         {
-                $progObj = $this->getMyProgram();
+                $progObj = $this->het("program_id");
                 if ($progObj) return $progObj;
                 $progOffObj = $this->het("program_offering_id");
                 if ($progOffObj) return $progOffObj->het("program_id");
