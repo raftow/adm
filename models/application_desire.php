@@ -1777,10 +1777,12 @@ class ApplicationDesire extends AdmObject
                 $wSubScopeObj = null;
                 list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);
                 $branchObj = $this->het('application_plan_branch_id');
-                if (!$branchObj)
-                        return AfwLoadHelper::giveWhat($wSubScopeObj, $what);
+                if (!$branchObj or !$branchObj->id) {
+                        throw new AfwRuntimeException("calcWorkflow_sub_scope_id: no branchObj for ApplicationDesire id=" . $this->id);
+                }
+                //                        return AfwLoadHelper::giveWhat($wSubScopeObj, $what);
                 $wSubScopeObj = $branchObj->synchronizeWithWorkflow();
-                return AfwLoadHelper::giveWhat($wScopeObj, $what);
+                return AfwLoadHelper::giveWhat($wSubScopeObj, $what);
         }
 
         public function calcApplication_cv_ready($what = 'value')
