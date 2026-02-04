@@ -211,14 +211,23 @@ class ApplicationPlanBranch extends AdmObject
         public function synchronizeWithWorkflow()
         {
                 $module_id = 1;
+                $wssObj = null;
+
                 $programObj = $this->getMyProgram();
-                $wScopeObj = $programObj->synchronizeWithWorkflow();
-                $wssObj = WorkflowSubScope::loadByMainIndex($module_id, $wScopeObj->id, $this->id, true);
-                $wssObj->set('sub_scope_name_ar', $this->getVal('name_ar'));
-                $wssObj->set('sub_scope_name_en', $this->getVal('name_en'));
-                $wssObj->set('sub_scope_description_ar', $this->getVal('name_ar'));
-                $wssObj->set('sub_scope_description_en', $this->getVal('name_en'));
-                $wssObj->commit();
+                if ($this->id and $programObj) {
+                        $wScopeObj = $programObj->synchronizeWithWorkflow();
+                        if ($wScopeObj) {
+                                $wssObj = WorkflowSubScope::loadByMainIndex($module_id, $wScopeObj->id, $this->id, true);
+                                $wssObj->set('sub_scope_name_ar', $this->getVal('name_ar'));
+                                $wssObj->set('sub_scope_name_en', $this->getVal('name_en'));
+                                $wssObj->set('sub_scope_description_ar', $this->getVal('name_ar'));
+                                $wssObj->set('sub_scope_description_en', $this->getVal('name_en'));
+                                $wssObj->commit();
+                        }
+                } else {
+                        throw new AfwRuntimeException("ApplicationPlanBranch::synchronizeWithWorkflow : no program for ap plan branch id = " . $this->id);
+                }
+
 
                 return $wssObj;
         }
