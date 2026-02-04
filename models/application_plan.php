@@ -58,20 +58,38 @@ class ApplicationPlan extends AdmObject
         $domain_id = 25;
 
         // create institution orgunit
-        $orgunitObj = Orgunit::findOrgunit(OrgunitType::$ORGUNIT_TYPE_COMPANY, 0, $instObj->getVal('institution_code'),
-            $institution_name_ar, $institution_name_ar,
-            $institution_name_en, $institution_name_en,
-            $domain_id, true, true, 'hrm');
+        $orgunitObj = Orgunit::findOrgunit(
+            OrgunitType::$ORGUNIT_TYPE_COMPANY,
+            0,
+            $instObj->getVal('institution_code'),
+            $institution_name_ar,
+            $institution_name_ar,
+            $institution_name_en,
+            $institution_name_en,
+            $domain_id,
+            true,
+            true,
+            'hrm'
+        );
 
         $instWorkflowOrgunitObj = WorkflowOrgunit::loadByMainIndex($orgunitObj->id, true);
         // admission - department
         $admission_department_name_ar = $this->tm('Registration and Admissions Department', 'ar');
         $admission_department_name_en = $this->tm('Registration and Admissions Department', 'en');
 
-        $departmentObj = Orgunit::findOrgunit(OrgunitType::$ORGUNIT_TYPE_DEPARTMENT, $orgunitObj->id, 'adm-' . $instObj->getVal('institution_code'),
-            $admission_department_name_ar, $admission_department_name_ar,
-            $admission_department_name_en, $admission_department_name_en,
-            $domain_id, true, true, 'hrm');
+        $departmentObj = Orgunit::findOrgunit(
+            OrgunitType::$ORGUNIT_TYPE_DEPARTMENT,
+            $orgunitObj->id,
+            'adm-' . $instObj->getVal('institution_code'),
+            $admission_department_name_ar,
+            $admission_department_name_ar,
+            $admission_department_name_en,
+            $admission_department_name_en,
+            $domain_id,
+            true,
+            true,
+            'hrm'
+        );
 
         $departmentWorkflowOrgunitObj = WorkflowOrgunit::loadByMainIndex($departmentObj->id, true);
 
@@ -484,11 +502,15 @@ class ApplicationPlan extends AdmObject
             $title_en = 'Update link with workflow system';
             $methodName = 'linkWithWorkflow';
             $pbms[AfwStringHelper::hzmEncode($methodName)] =
-                array('METHOD' => $methodName, 'COLOR' => $color,
+                array(
+                    'METHOD' => $methodName,
+                    'COLOR' => $color,
                     'LABEL_AR' => $title_ar,
                     'LABEL_EN' => $title_en,
-                    'ADMIN-ONLY' => true, 'BF-ID' => '',
-                    'STEP' => 3);
+                    'ADMIN-ONLY' => true,
+                    'BF-ID' => '',
+                    'STEP' => 3
+                );
         }
 
         return $pbms;
@@ -609,6 +631,15 @@ class ApplicationPlan extends AdmObject
         $this_id = $this->id;
 
         if ($reset) {
+            // we can not reset when desires exists
+            $sql_check = "select count(*) as nb from $db.application_desire ad
+                            where ad.application_plan_id=$this_id
+                              and ad.active='Y'";
+            $nb_desires = AfwDatabase::db_recup_value($sql_check);
+            if ($nb_desires > 0) {
+                $err_arr[] = $this->tm('لا يمكن مسح فروع التقديم لأن هناك رغبات مسجلة', $lang);
+                return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
+            }
             $sql_delete = "delete from $db.application_plan_branch 
                         where application_plan_id=$this_id";
 
