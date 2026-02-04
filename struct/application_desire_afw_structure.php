@@ -531,7 +531,7 @@
                                         'CATEGORY' => 'FORMULA',
                                         'TYPE' => 'FK',
                                         'ANSWER' => 'workflow_scope',
-                                        'ANSMODULE' => 'adm',
+                                        'ANSMODULE' => 'workflow',
                                         'SIZE' => 40,
                                         'DEFAUT' => 0,
                                         'STEP' => 99,
@@ -542,6 +542,23 @@
                                         'EDIT-UGROUPS' => '',
                                         'CSS' => 'width_pct_25',
                                 ),
+
+                                'workflow_sub_scope_id' => array(
+                                        'CATEGORY' => 'FORMULA',
+                                        'TYPE' => 'FK',
+                                        'ANSWER' => 'workflow_sub_scope',
+                                        'ANSMODULE' => 'workflow',
+                                        'SIZE' => 40,
+                                        'DEFAUT' => 0,
+                                        'STEP' => 99,
+                                        'RELATION' => 'ManyToOne',
+                                        'MANDATORY' => false,
+                                        'READONLY' => true,
+                                        'DISPLAY-UGROUPS' => '',
+                                        'EDIT-UGROUPS' => '',
+                                        'CSS' => 'width_pct_25',
+                                ),
+
 
                                 'application_cv_ready' => array(
                                         'CATEGORY' => 'FORMULA',

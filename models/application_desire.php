@@ -849,10 +849,19 @@ class ApplicationDesire extends AdmObject
                         if (!$wScopeObj)
                                 return [null, $this->tm('Fatal Error, Can not find or create the workflow scope', $lang), $action];
 
+
+                        $wSubScopeObj = $this->het('workflow_sub_scope_id');
+                        if (!$wSubScopeObj) $wSubScopeObj = $wRequestObj->het('workflow_sub_scope_id');
+                        if (!$wSubScopeObj)
+                                return [null, $this->tm('Fatal Error, Can not find or create the workflow sub-scope', $lang), $action];
+
+
                         if (!$wRequestObj->getVal('workflow_session_id') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('workflow_session_id', $wSessionObj->id);
                         if (!$wRequestObj->getVal('workflow_scope_id') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('workflow_scope_id', $wScopeObj->id);
+                        if (!$wRequestObj->getVal('workflow_sub_scope_id') or $reset or $wRequestObj->is_new)
+                                $wRequestObj->set('workflow_sub_scope_id', $wSubScopeObj->id);
 
                         if (!$wRequestObj->getVal('workflow_stage_id') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('workflow_stage_id', $wModelObj->getVal('initial_workflow_stage_id'));
@@ -1763,6 +1772,17 @@ class ApplicationDesire extends AdmObject
                 return AfwLoadHelper::giveWhat($wScopeObj, $what);
         }
 
+        public function calcWorkflow_sub_scope_id($what = 'value')
+        {
+                $wSubScopeObj = null;
+                list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);
+                $branchObj = $this->het('application_plan_branch_id');
+                if (!$branchObj)
+                        return AfwLoadHelper::giveWhat($wSubScopeObj, $what);
+                $wSubScopeObj = $branchObj->synchronizeWithWorkflow();
+                return AfwLoadHelper::giveWhat($wScopeObj, $what);
+        }
+
         public function calcApplication_cv_ready($what = 'value')
         {
                 list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);
@@ -2053,7 +2073,7 @@ class ApplicationDesire extends AdmObject
 
         public function checkCondition_shouldSkipInterview($workflowConditionObject, $workflowRequestObject, $lang)
         {
-                if(!$this->programRequireInterview()) return [true, 'Program itself does not require interview !'];
+                if (!$this->programRequireInterview()) return [true, 'Program itself does not require interview !'];
                 return $this->checkCondition_requirementFound(1, $workflowConditionObject, $workflowRequestObject, $lang);
         }
 

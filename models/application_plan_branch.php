@@ -208,6 +208,21 @@ class ApplicationPlanBranch extends AdmObject
                 return true;
         }
 
+        public function synchronizeWithWorkflow()
+        {
+                $module_id = 1;
+                $programObj = $this->het('program_id');
+                $wScopeObj = $programObj->synchronizeWithWorkflow();
+                $wssObj = WorkflowSubScope::loadByMainIndex($module_id, $wScopeObj->id, $this->id, true);
+                $wssObj->set('sub_scope_name_ar', $this->getVal('name_ar'));
+                $wssObj->set('sub_scope_name_en', $this->getVal('name_en'));
+                $wssObj->set('sub_scope_description_ar', $this->getVal('name_ar'));
+                $wssObj->set('sub_scope_description_en', $this->getVal('name_en'));
+                $wssObj->commit();
+
+                return $wssObj;
+        }
+
 
         public function getMyProgram()
         {
