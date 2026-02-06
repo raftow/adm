@@ -378,7 +378,6 @@
 
 
                                 'qualification_id' => array(
-                                        'IMPORTANT' => 'IN',
                                         'SEARCH' => true,
                                         'QSEARCH' => false,
                                         'SHOW' => true,
@@ -395,7 +394,7 @@
                                         'DEFAUT' => 0,
                                         'DISPLAY' => true,
                                         'STEP' => 1,
-                                        'RELATION' => 'ManyToOne-OneToMany',
+                                        'RELATION' => 'ManyToOne',
                                         'MANDATORY' => false,
                                         'READONLY' => true,
                                         'AUTOCOMPLETE' => false,
