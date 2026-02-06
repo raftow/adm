@@ -320,6 +320,29 @@ class AdmApplicantQualificationAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
+
+                'university' => array(
+                        'CATEGORY' => 'FORMULA',
+                        'STEP' => 99,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => false,
+                        'EDIT' => true,
+                        'SIZE' => 48,
+                        'MAXLENGTH' => 48,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => true,
+                        'TYPE' => 'TEXT',
+                        'READONLY' => true,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_50',
+                ),
+
+
+
                 'qualification_major_desc' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,

@@ -15,7 +15,7 @@ class ApplicantQualification extends AdmObject
         }
 
 
-        
+
         public static function loadById($id)
         {
                 $obj = new ApplicantQualification();
@@ -26,12 +26,12 @@ class ApplicantQualification extends AdmObject
         }
 
 
-        
 
-        public static function getMyQualificationNeedingFileAttachment($applicant_id, $afObj=null, $qualification_id=0, $major_category_id=0)
+
+        public static function getMyQualificationNeedingFileAttachment($applicant_id, $afObj = null, $qualification_id = 0, $major_category_id = 0)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("getMyQualificationNeedingFileAttachment : applicant_id is mandatory field");
-                
+
                 $obj = new ApplicantQualification();
                 $obj->select("applicant_id", $applicant_id);
                 if ($qualification_id) $obj->select("qualification_id", $qualification_id);
@@ -39,10 +39,8 @@ class ApplicantQualification extends AdmObject
                 $obj->where("adm_file_id = 0 or adm_file_id is null");
                 $obj->select("active", "Y");
                 $objNeedFound = $obj->load();
-                if($afObj)
-                {
-                        if(!$objNeedFound)
-                        {
+                if ($afObj) {
+                        if (!$objNeedFound) {
                                 $obj->set("applicant_id", $applicant_id);
                                 $obj->set("qualification_id", $qualification_id);
                                 $obj->set("major_category_id", $major_category_id);
@@ -50,8 +48,7 @@ class ApplicantQualification extends AdmObject
                         $obj->set("adm_file_id", $afObj->id);
                         $obj->commit();
                         return $obj;
-                }
-                else return $objNeedFound ? $obj : null;                
+                } else return $objNeedFound ? $obj : null;
         }
 
         public static function loadByMainIndex($applicant_id, $qualification_id, $major_category_id, $create_obj_if_not_found = false)
@@ -124,7 +121,7 @@ class ApplicantQualification extends AdmObject
                 return true;
         }
 
-        public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent=false)
+        public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent = false)
         {
                 if ($fields_updated["qualification_id"]) {
                         /**
@@ -235,37 +232,28 @@ class ApplicantQualification extends AdmObject
 
         public function getInfo($info)
         {
-                if($info=="secondary_cumulative_pct")
-                {
+                if ($info == "secondary_cumulative_pct") {
                         // $qualificationId = $this->getVal("qualification_id");                        
                         $qualificationObj = $this->het("qualification_id");
                         $qualificationLevel = $qualificationObj->getVal("level_enum");
-                        if($qualificationObj->sureIs("active") and ($qualificationLevel==20))
-                        {
+                        if ($qualificationObj->sureIs("active") and ($qualificationLevel == 20)) {
                                 $gpa_from = $this->getVal("gpa_from");
-                                if(!$gpa_from) $gpa_from = 100;
+                                if (!$gpa_from) $gpa_from = 100;
                                 $gpa = $this->getVal("gpa");
                                 return $gpa * 100 / $gpa_from;
-                        }
-                        else 
+                        } else
 
-                        return -999;
-                }
-                
-           
-                if($info=="secondary_major_path")
-                {
-                       return $this->getVal("major_path_id");
-                }
-
-                if($info=="secondary_major_path_decoded")
-                {
-                       return $this->decode("major_path_id");
+                                return -999;
                 }
 
 
-                
-                
+                if ($info == "secondary_major_path") {
+                        return $this->getVal("major_path_id");
+                }
+
+                if ($info == "secondary_major_path_decoded") {
+                        return $this->decode("major_path_id");
+                }
         }
 
         public static function getGradingScale($gpa, $gpa_from = 100)
@@ -275,7 +263,19 @@ class ApplicantQualification extends AdmObject
                 $objGradingScale = new GradingScale();
                 $objGradingScale->where("active='Y' and  mark_min <= $grade and mark_max >= $grade"); // active='Y' and
                 $objGradingScale->load();
-                if($objGradingScale->getVal("id"))
+                if ($objGradingScale->getVal("id"))
                         return $objGradingScale->getVal("id");
+        }
+
+
+        public function calcUniversity($what = "value")
+        {
+                $sourceObj = $this->het("source");
+                if ($sourceObj) {
+                        $lang = AfwLanguageHelper::getGlobalLanguage();
+                        $sourceObj->getDisplay($lang);
+                }
+
+                return $this->getVal("source_name");
         }
 }

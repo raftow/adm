@@ -1,16 +1,17 @@
 <?php
 
-class ApplicantQualificationArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class ApplicantQualificationArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 
 		$trad["applicant_qualification"]["step1"] = "التعريف";
 
 		$trad["applicant_qualification"]["applicantqualification.single"] = "مؤهل متقدم";
 		$trad["applicant_qualification"]["applicantqualification.new"] = "جديد";
 		$trad["applicant_qualification"]["applicant_qualification"] = "مؤهلات المتقدمين";
-	
+
 		$trad["applicant_qualification"]["applicant_id"] = "المتقدم";
 		$trad["applicant_qualification"]["qualification_id"] = "المؤهل";
 		$trad["applicant_qualification"]["major_category_id"] = "فئة التخصص";
@@ -25,20 +26,21 @@ class ApplicantQualificationArTranslator{
 		$trad["applicant_qualification"]["import_utility_id"] = "مصدر استيراد البيانات";
 		$trad["applicant_qualification"]["qualification_major_desc"] = "وصف تخصص المؤهل";
 		$trad["applicant_qualification"]["adm_file_id"] = "المرفق";
-		$trad["applicant_qualification"]["source_name"] = "مصدر المؤهل - نص";
+		$trad["applicant_qualification"]["source_name"] = "مصدر المؤهل";
+		$trad["applicant_qualification"]["university"] = "الجامعة";
 		$trad["applicant_qualification"]["educational_zone_id"] = "المنطقة التعليمية";
-		
+
 		$trad["applicant_qualification"]["country_id"] = "الدولة";
 		$trad["applicant_qualification"]["grading_scale_id"] = "التقدير";
 		$trad["applicant_qualification"]["study_type_id"] = "نوع الدراسة";
 
-		
-        return $trad;
-    }
 
-    public static function getInstance()
+		return $trad;
+	}
+
+	public static function getInstance()
 	{
-        if(false) return new ApplicantQualificationEnTranslator();
+		if (false) return new ApplicantQualificationEnTranslator();
 		return new ApplicantQualification();
 	}
 }
