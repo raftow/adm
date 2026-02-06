@@ -276,6 +276,12 @@ class ApplicantQualification extends AdmObject
                         $sourceObj->getDisplay($lang);
                 }
 
-                return $this->getVal("source_name");
+                $return = $this->getVal("source_name");
+
+                if (AfwStringHelper::stringStartsWith($return, "nominating-candidate-")) {
+                        $return =  "";
+                }
+
+                return $return;
         }
 }
