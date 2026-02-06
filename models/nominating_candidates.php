@@ -16,6 +16,12 @@ class NominatingCandidates extends AdmObject
 
     public static $DB_STRUCTURE = null;
 
+    public function __construct()
+    {
+        parent::__construct('nominating_candidates', 'id', 'adm');
+        AdmNominatingCandidatesAfwStructure::initInstance($this);
+    }
+
     /**
      * @var Application $applicationObj
      */
@@ -37,11 +43,7 @@ class NominatingCandidates extends AdmObject
         ),
     );
 
-    public function __construct()
-    {
-        parent::__construct('nominating_candidates', 'id', 'adm');
-        AdmNominatingCandidatesAfwStructure::initInstance($this);
-    }
+
 
     public static function loadById($id)
     {
@@ -886,6 +888,9 @@ class NominatingCandidates extends AdmObject
 
         return $sp_errors;
     }
+
+
+
 
     /*
      * public static function statsData($paramsArr=[])

@@ -844,12 +844,18 @@ class ApplicationDesire extends AdmObject
                 if ($wRequestObj->is_new or $update_if_exists) {
                         if (!$wSessionObj)
                                 $wSessionObj = $this->objApplicationPlan->getWorkflowSession();
+
+                        // source
+                        $wSourceObj = $this->het('workflow_source_id');
+                        if (!$wSourceObj) $wSourceObj = $wRequestObj->het('workflow_source_id');
+                        if (!$wSourceObj)
+                                return [null, $this->tm('Fatal Error, Can not find or create the workflow source', $lang), $action];
+                        // scope
                         $wScopeObj = $this->het('workflow_scope_id');
                         if (!$wScopeObj) $wScopeObj = $wRequestObj->het('workflow_scope_id');
                         if (!$wScopeObj)
                                 return [null, $this->tm('Fatal Error, Can not find or create the workflow scope', $lang), $action];
-
-
+                        // sub-scope
                         $wSubScopeObj = $this->het('workflow_sub_scope_id');
                         if (!$wSubScopeObj) $wSubScopeObj = $wRequestObj->het('workflow_sub_scope_id');
                         if (!$wSubScopeObj)
@@ -858,6 +864,8 @@ class ApplicationDesire extends AdmObject
 
                         if (!$wRequestObj->getVal('workflow_session_id') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('workflow_session_id', $wSessionObj->id);
+                        if (!$wRequestObj->getVal('workflow_source_id') or $reset or $wRequestObj->is_new)
+                                $wRequestObj->set('workflow_source_id', $wSourceObj->id);
                         if (!$wRequestObj->getVal('workflow_scope_id') or $reset or $wRequestObj->is_new)
                                 $wRequestObj->set('workflow_scope_id', $wScopeObj->id);
                         if (!$wRequestObj->getVal('workflow_sub_scope_id') or $reset or $wRequestObj->is_new)
@@ -1772,6 +1780,31 @@ class ApplicationDesire extends AdmObject
                 return AfwLoadHelper::giveWhat($wScopeObj, $what);
         }
 
+        public function calcWorkflow_source_id($what = 'value')
+        {
+
+                list($yes, $no, $notRequested) = AfwLanguageHelper::translateYesNo($what);
+                $wSourceObj = null;
+                if (!$wSourceObj) {
+                        // if nominating candidates exist, get source from there
+                        $ncObj = $this->calcNominating_candidates_id('object');
+                        if ($ncObj) {
+                                $ncAuthObj = $ncObj->het("nomination_letter_id.nominating_authority_id");
+                                $wSourceObj = $ncAuthObj->synchronizeWithWorkflow();
+                        }
+                }
+
+
+                // if nothing above applied so the source is the application front end
+                if (!$wSourceObj) {
+                        $wSourceObj = WorkflowSource::loadByMainIndex(1, "frontend");
+                }
+
+
+
+                return AfwLoadHelper::giveWhat($wSourceObj, $what);
+        }
+
         public function calcWorkflow_sub_scope_id($what = 'value')
         {
                 $wSubScopeObj = null;
@@ -1804,6 +1837,10 @@ class ApplicationDesire extends AdmObject
                         return $notRequested;
         }
 
+
+        /**
+         * @return int|mixed|null|NominatingCandidates
+         */
         public function calcNominating_candidates_id($what = 'value')
         {
                 $applicant_id = $this->getVal('applicant_id');

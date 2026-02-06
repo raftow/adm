@@ -527,6 +527,23 @@
                                         'CSS' => 'width_pct_25',
                                 ),
 
+
+                                'workflow_source_id' => array(
+                                        'CATEGORY' => 'FORMULA',
+                                        'TYPE' => 'FK',
+                                        'ANSWER' => 'workflow_source',
+                                        'ANSMODULE' => 'workflow',
+                                        'SIZE' => 40,
+                                        'DEFAUT' => 0,
+                                        'STEP' => 99,
+                                        'RELATION' => 'ManyToOne',
+                                        'MANDATORY' => false,
+                                        'READONLY' => true,
+                                        'DISPLAY-UGROUPS' => '',
+                                        'EDIT-UGROUPS' => '',
+                                        'CSS' => 'width_pct_25',
+                                ),
+
                                 'workflow_scope_id' => array(
                                         'CATEGORY' => 'FORMULA',
                                         'TYPE' => 'FK',
