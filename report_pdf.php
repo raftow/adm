@@ -2,7 +2,7 @@
 $file_dir_name = dirname(__FILE__);
 
 require_once("$file_dir_name/../config/global_config.php");
-require_once __DIR__ . '/../lib/pdf-generator/vendor/autoload.php';
+require_once __DIR__ . '/../lib/pdf-generator/autoload.php';
 
 $datatable_on = 1;
 $limite = 0;
