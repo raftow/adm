@@ -4,7 +4,7 @@ $file_dir_name = dirname(__FILE__);
 require_once("$file_dir_name/../config/global_config.php");
 require_once __DIR__ . '/../lib/vendor/autoload.php';
 
-$datatable_on=1;
+$datatable_on = 1;
 $limite = 0;
 $genere_xls = 0;
 
@@ -13,13 +13,13 @@ $arr_sql_conds[] = "me.active='Y'";
 $objme = AfwSession::getUserConnected();
 $myEmplId = $objme->getEmployeeId();
 
-if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
-if(!$lang) $lang = "ar";
+if (!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
+if (!$lang) $lang = "ar";
 // $out_scr .= Page::showPage("adm", "main-page", $lang);
 $server_db_prefix = AfwSession::currentDBPrefix();
 
 // Get the HTML from POST
-if(!isset($_POST['table_html'])) {
+if (!isset($_POST['table_html'])) {
     die('No table data received');
 }
 
@@ -35,6 +35,7 @@ $html = '
             font-family: Arial, sans-serif;
         }
         h2 {
+            margin-top:20px;
             text-align: center;
             color: #333;
         }
@@ -86,4 +87,3 @@ $mpdf->WriteHTML($html);
 
 // Output PDF
 $mpdf->Output('user_data_' . date('Y-m-d') . '.pdf', 'D');
-?>
