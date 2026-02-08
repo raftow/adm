@@ -286,7 +286,7 @@ class ApplicationCvScore extends AFWObject{
     public function printCvPdf(){
         
         $id = $this->id;
-        require __DIR__ . '/../../lib/vendor/autoload.php';
+        require __DIR__ . '/../../lib/pdf-generator/autoload.php';
 
         $applicantObj = $this->het("applicant_id");
         $applicant_id = $this->getVal("id");
