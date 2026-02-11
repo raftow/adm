@@ -2316,4 +2316,60 @@ class ApplicationDesire extends AdmObject
                 }
                 return $classAC::calcApplicationClassOf($this->applicationObj, $this);
         }
+
+
+        public function afterRunTransition($objTransition, $workflowRequest, $lang)
+        {
+                // $this->getApplicationObject();
+                // $this->applicationObj->afterRunTransition($objTransition, $workflowRequest, $lang);
+                $final_stage_id = $objTransition->getVal('final_stage_id');
+                $final_status_id = $objTransition->getVal('final_status_id');
+                $last_payment_deadline = $objTransition->getVal('final_status_id.last_payment_deadline');
+                if ($final_stage_id == 5 and $final_status_id == 11) {
+                        // this means : قبول مبدئي  بشرط السداد
+                        $tuitionBaseApplicantAccount = $this->addMyTuitionBase();
+                        $payment_deadline = AfwDateHelper::addDatetimeToGregDatetime(date("Y-m-d"), 0, 0, $last_payment_deadline);
+                        $tuitionBaseApplicantAccount->set("payment_deadline", $payment_deadline);
+                        $tuitionBaseApplicantAccount->set("workflow_request_id", $workflowRequest->id);
+                        $tuitionBaseApplicantAccount->set("next_transition_id", $objTransition->getVal('next_transition_id'));
+                        $tuitionBaseApplicantAccount->commit();
+                }
+        }
+
+
+        public function addMyTuitionBase()
+        {
+                $applicant_id = $this->getVal('applicant_id');
+
+                $applicationPlanObj = $this->het('application_plan_id');
+                if (!$applicationPlanObj)
+                        return -1;
+                $application_plan_id = $applicationPlanObj->id;
+                if (!$application_plan_id)
+                        return -2;
+                $application_model_id = $applicationPlanObj->getVal('application_model_id');
+                if (!$application_model_id)
+                        return -3;
+                $application_simulation_id = $this->getVal('application_simulation_id');
+                if (!$application_simulation_id)
+                        return -4;
+
+                // $applicationFinancialTransaction = new ApplicationModelFinancialTransaction();
+                // $applicationFinancialTransaction->where("application_model_id = $application_model_id and active ='Y' and process_enabled ='Y' and phase_enum=1");
+                //$appFinTransObjectList = $applicationFinancialTransaction->loadMany();
+                //foreach ($appFinTransObjectList as $appFinTransObject) {
+                // $total_amount = $appFinTransObject->getVal('amount');
+                // $payment_status_enum = 4;  // معفي من الدفع
+                // ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransObject->id, $total_amount, $payment_status_enum, true);
+                // }
+                $appFinTransId = 15;
+                $payment_status_enum = 1;
+                $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this);
+                if ($tuitionBase) {
+                        $total_amount = $tuitionBase["total_ammount"];
+                } else {
+                        $total_amount = 0;
+                }
+                return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $appFinTransId, $total_amount, $payment_status_enum, true);
+        }
 }
