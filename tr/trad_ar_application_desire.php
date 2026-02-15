@@ -12,7 +12,7 @@ class ApplicationDesireArTranslator
 		$trad["application_desire"]["application_desire"] = "رغبات المتقدمين";
 
 		$trad["application_desire"]["idn"] = "رقم هوية المتقدم";
-		$trad["application_desire"]["applicant_id"] = "تقدم";
+		$trad["application_desire"]["applicant_id"] = "المتقدم";
 		$trad["application_desire"]["application_plan_id"] = "حملة التقديم";
 		$trad["application_desire"]["application_simulation_id"] = "نوع التقديم";
 		$trad["application_desire"]["application_plan_branch_id"] = "فرع التقديم";
@@ -97,6 +97,12 @@ class ApplicationDesireArTranslator
 
 		$trad['application_desire']['application_class_enum'] = 'قسم طلب التقديم';
 		$trad['application_desire']['workflow_category_enum'] = 'صنف طلب التقديم';
+		$trad['application_desire']['guid'] = 'معرف السجل';
+		$trad['application_desire']['student_id'] = 'الرقم الأكاديمي';
+		$trad['application_desire']['student_created_ind'] = 'تم إنشاء سجل الطالب';
+		$trad['application_desire']['sis_date'] = 'تاريخ إنشاء سجل الطالب';
+		$trad['application_desire']['admission_status'] = 'حالة القبول';
+		$trad['application_desire']['admission_status_date'] = 'تاريخ حالة القبول';
 
 		return $trad;
 	}
