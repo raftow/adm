@@ -238,6 +238,7 @@ $messages["CV Degree"] = "درجة السيرة الذاتية";
 $messages["No CV found for this applicant"] = "لم يتم العثور على سيرة ذاتية لهذا المتقدم";
 $messages["Interview score not sufficient"] = "درجة المقابلة الشخصية غير كافية";
 $messages["Edit the CV evaluation"] = "تعديل تقييم السيرة الذاتية";
+$messages["SendToSIS"] = "شاشة ترحيل البيانات إلى نظام SIS";
 
 
 
