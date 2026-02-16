@@ -103,6 +103,7 @@ class ApplicationDesireArTranslator
 		$trad['application_desire']['sis_date'] = 'تاريخ إنشاء سجل الطالب';
 		$trad['application_desire']['admission_status'] = 'حالة القبول';
 		$trad['application_desire']['admission_status_date'] = 'تاريخ حالة القبول';
+		$trad['application_desire']['payment_created_ind'] = 'تم إنشاء المدفوعات';
 
 		return $trad;
 	}

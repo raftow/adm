@@ -57,8 +57,9 @@ try {
                 'applicant_id',
                 'student_id',
                 'student_created_ind',
-                'sis_date',
+                'payment_created_ind',
                 'admission_status',
+                'student_id',
                // 'admission_status_date',
         ];
 
@@ -71,6 +72,7 @@ try {
                 'student_id',
                 'student_created_ind',
                 'sis_date',
+                'payment_created_ind',
                
         ];
        $hide_retrieve_cols = [
