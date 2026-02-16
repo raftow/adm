@@ -27,8 +27,8 @@ try {
         // $actions_tpl_arr['edit'] = array('framework_action');
 
       $fixed_criterea_arr =  array(
-             /*     0 => array('col' => 'admission_status', 'oper' => '=', 'val' => '1',),
-                1 => array('col' => 'datatable_off', 'oper' => '=', 'val' => true,),*/
+                 0 => array('col' => 'admission_status', 'oper' => '=', 'val' => '18',),
+               /*  1 => array('col' => 'datatable_off', 'oper' => '=', 'val' => true,),*/
         );
 
         $current_page = "sendDesireToSIS.php";
@@ -39,9 +39,9 @@ try {
 
 
         $requiredColumns = [
-               /* 'application_model_id',
+                'application_model_id',
                 'application_plan_id',
-                'application_plan_branch_id',
+               /* 'application_plan_branch_id',
                 'applicant_id',
                 'student_id',
                 'student_created_ind',
@@ -59,18 +59,18 @@ try {
                 'student_created_ind',
                 'sis_date',
                 'admission_status',
-                'admission_status_date',
+               // 'admission_status_date',
         ];
 
         $forced_retrieve_cols = [
                 'application_model_id',
                 'application_plan_id',
                 'application_plan_branch_id',
+                'admission_status',
                 'applicant_id',
                 'student_id',
                 'student_created_ind',
                 'sis_date',
-                'admission_status',
                
         ];
        $hide_retrieve_cols = [
@@ -82,6 +82,9 @@ try {
                 'application_step_id',
                 'comments',
                 'sorting_value_1',
+                'desire_status_enum',
+                'application_model_id',
+                'application_plan_id',
                /* 'orgunit_id',
                 'employee_id',
                 'request_date',
@@ -91,6 +94,7 @@ try {
         ];
 
         //$specialStructure = ['workflow_stage_id'=>['WHERE'=>'id in (3,6)']];
+        $specialStructure = ['admission_status'=>['WHERE'=>'id in (18,19,20)']];
 
         $qsearch_page_title = AfwLanguageHelper::tt('SendToSIS', $lang, $currmod);
         include "$file_dir_name/../lib/afw/modes/afw_mode_qsearch.php";

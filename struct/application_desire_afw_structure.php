@@ -1505,7 +1505,7 @@
                                         'QEDIT' => true,
                                         'UTF8' => false,
                                         'TYPE' => 'FK',
-                                        'ANSWER' => 'workflow_request',
+                                        'ANSWER' => 'workflow_status',
                                         'ANSMODULE' => 'workflow',
                                         'RELATION' => 'ManyToOne',
                                         'MANDATORY' => false,
