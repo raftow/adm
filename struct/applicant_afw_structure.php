@@ -1344,6 +1344,7 @@ class AdmApplicantAfwStructure
 
                 'aptitude_university' => array(
                         'STEP' => 99,
+                        'CATEGORY' => 'FORMULA',
                         'SEARCH' => false,
                         'QSEARCH' => false,
                         'SHOW' => true,
