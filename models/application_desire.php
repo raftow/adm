@@ -1985,6 +1985,17 @@ class ApplicationDesire extends AdmObject
                 </div>";
         }
 
+        public function calcMyApplicationCvScore($what = 'value')
+        {
+                $applicant_id = $this->getVal('applicant_id');
+                $application_plan_id = $this->getVal('application_plan_id');
+                $application_simulation_id = $this->getVal('application_simulation_id');
+
+                $apCvScoreObj = ApplicationCvScore::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+
+                return AfwLoadHelper::giveWhat($apCvScoreObj, $what);
+        }
+
         /**
          * @param WorkflowRequest $workflowRequestObject
          */
@@ -2034,10 +2045,7 @@ class ApplicationDesire extends AdmObject
                 $cv_html = "";
 
                 if ($cv_needed) {
-                        $applicant_id = $this->getVal('applicant_id');
-                        $application_plan_id = $this->getVal('application_plan_id');
-                        $application_simulation_id = $this->getVal('application_simulation_id');
-                        $apCvScoreObj = ApplicationCvScore::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                        $apCvScoreObj = $this->calcMyApplicationCvScore('object');
                         if ($apCvScoreObj) {
                                 $apCvScoreObjId = $apCvScoreObj->id;
                                 $click_here = $apCvScoreObj->tm("Edit the CV evaluation", $lang);

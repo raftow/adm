@@ -588,6 +588,22 @@
                                         'CSS' => 'width_pct_25',
                                 ),
 
+                                'myApplicationCvScore' => array(
+                                        'CATEGORY' => 'FORMULA',
+                                        'TYPE' => 'FK',
+                                        'ANSWER' => 'application_cv_score',
+                                        'ANSMODULE' => 'adm',
+                                        'SIZE' => 40,
+                                        'DEFAUT' => 0,
+                                        'STEP' => 99,
+                                        'RELATION' => 'ManyToOne',
+                                        'MANDATORY' => false,
+                                        'READONLY' => true,
+                                        'DISPLAY-UGROUPS' => '',
+                                        'EDIT-UGROUPS' => '',
+                                        'CSS' => 'width_pct_25',
+                                ),
+
 
                                 'health_ind' => array(
                                         'SHOW' => true,
