@@ -604,6 +604,26 @@
                                         'CSS' => 'width_pct_25',
                                 ),
 
+                                'cv_score' => array(
+                                        'STEP' => 99,
+                                        'SEARCH' => false,
+                                        'QSEARCH' => false,
+                                        'SHOW' => true,
+                                        'AUDIT' => false,
+                                        'RETRIEVE' => false,
+                                        'CATEGORY' => 'FORMULA',
+                                        'EDIT' => true,
+                                        'QEDIT' => true,
+                                        'SIZE' => 9999,
+                                        'MAXLENGTH' => 32,
+                                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                                        'UTF8' => false,
+                                        'TYPE' => 'FLOAT',
+                                        'FORMAT' => '*.2',
+                                        'READONLY' => false,
+                                        'CSS' => 'width_pct_50',
+                                ),
+
 
                                 'health_ind' => array(
                                         'SHOW' => true,

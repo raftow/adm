@@ -1996,6 +1996,15 @@ class ApplicationDesire extends AdmObject
                 return AfwLoadHelper::giveWhat($apCvScoreObj, $what);
         }
 
+        public function calcCv_score($what = 'value')
+        {
+                $apCvScoreObj = $this->calcMyApplicationCvScore('object');
+                if ($apCvScoreObj)
+                        return $apCvScoreObj->getVal('total_score');
+                else
+                        return null;
+        }
+
         /**
          * @param WorkflowRequest $workflowRequestObject
          */
