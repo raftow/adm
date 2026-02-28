@@ -2084,9 +2084,36 @@ class ApplicationDesire extends AdmObject
                 </div>";
         }
 
-        public function showSortingDiv($lang)
+        /**
+         * @param WorkflowRequest $workflowRequestObject
+         *
+         **/
+
+        public function showSortingDiv($lang, $workflowRequestObject)
         {
-                return $this->tm('@@ working on ...', $lang);
+                $html_sorting_table = "";
+                $eval_css = "";
+
+                if ($workflowRequestObject and $workflowRequestObject->id) {
+                        $hide_retrieve_cols = ["active", "pic_view", "to_publish", "supp_program_mfk", "interview_ind", "cv_ind"];
+                        $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
+                        $html_sorting_table .= AfwShowHelper::showRetrieveTable($workflowRequestObject, $lang, $options);
+                } else {
+                        $html_sorting_table .= " > " . $this->tm("The workflow request seems to be removed", $lang);
+                        $html_sorting_table .= " > " . "<br>" . $this->showMyLink() . "<br>";
+                        $html_sorting_table .= " > " . AfwShowHelper::showRetrieveTable($this, $lang, []);
+                }
+
+                $status_sorting = "";
+
+
+
+
+
+
+                return "<div class='committee-review'>
+                                <div class='sorting $eval_css'>$html_sorting_table</div>
+                        </div>";
         }
 
 
