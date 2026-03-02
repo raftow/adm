@@ -12,6 +12,7 @@ try {
     AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.application_desire ADD admission_status INT(11) DEFAULT NULL AFTER sis_date;");
     AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.application_desire ADD admission_status_date DATETIME DEFAULT NULL AFTER admission_status;");
     AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.application_desire ADD payment_created_ind CHAR(1) DEFAULT NULL AFTER admission_status_date;");
+    AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.application_desire ADD student_password VARCHAR(250) DEFAULT NULL AFTER payment_created_ind;");
 
 } catch (Exception $e) {
     $migration_error .= " " . $e->getMessage();
