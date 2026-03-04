@@ -414,7 +414,58 @@ class ApplicationDesire extends AdmObject
 
                 return $return;
         }
+        public function calcsend_to_sis($what = 'value')
+        {
+                $objme = AfwSession::getUserConnected();
+                $method_icon = 'run';
+                $method_name = 'sendToSIS';
+                $color = 'green';
+                $lang = AfwLanguageHelper::getGlobalLanguage();
 
+                $swal_title = $this->tm("Are you sure you want to send this application to SIS?", $lang) . " : " . $this->tm($method_name, $lang);
+                $swal_text = $this->tm("This Action is irreversible", $lang);
+
+                return AfwHtmlHelper::showHtmlOfStatusChangeApiButton(
+                        $this,
+                        'changestatus',
+                        $method_name,
+                        $color,
+                        $swal_title,
+                        $swal_text,
+                        $method_icon,
+                        $lang,
+                        false,
+                        $objme->isSuperAdmin()
+                );
+        }
+        public function sendToSIS(){
+                
+                return "send testing ...";
+                $url = 'https://banner.bmeholding.com/insertintobanner';
+                $data = [
+                        'applicant_id' => $this->getVal('applicant_id'),
+                        'application_plan_id' => $this->getVal('application_plan_id'),
+                        'application_simulation_id' => $this->getVal('application_simulation_id'),
+                        'application_plan_branch_id' => $this->getVal('application_plan_branch_id'),
+                        'application_model_branch_id' => $this->getVal('application_model_branch_id'),
+                        'sorting_group_id' => $this->getVal('sorting_group_id'),
+                        'applicant_qualification_id' => $this->getVal('applicant_qualification_id'),
+                        'qualification_id' => $this->getVal('qualification_id'),
+                        'major_category_id' => $this->getVal('major_category_id'),
+                        'desire_num' => $this->getVal('desire_num'),
+                        'idn' => $this->getVal('idn'),
+                ];
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                $response = curl_exec($ch);
+                curl_close($ch);
+
+                return $response;
+
+        }
         public function fieldsMatrixForStep($stepNum, $lang = 'ar', $onlyIfTheyAreUpdated = false)
         {
                 $this->getApplicationObject();
