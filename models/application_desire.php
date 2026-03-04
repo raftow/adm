@@ -2472,4 +2472,10 @@ class ApplicationDesire extends AdmObject
                         return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicationFinancialTransaction->id, $total_amount, $payment_status_enum, true);
                 } else return null;
         }
+
+
+        public function userCanChangeStatus($auser, $csmethod)
+        {
+                return true;
+        }
 }
