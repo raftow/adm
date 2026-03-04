@@ -1029,6 +1029,7 @@ class ApplicationDesire extends AdmObject
                 $pbms = array();
 
                 $currentStepNum = $this->getVal('step_num');
+                if(!$currentStepNum) $currentStepNum = 1;
                 $nextStepNum = $currentStepNum + 1;
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 // $objFirstStep = $objApplicationModel->getFirstDesireStep();
