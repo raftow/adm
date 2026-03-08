@@ -74,6 +74,7 @@ try {
                 'sis_date',
                 'payment_created_ind',
                 'send_to_sis',
+                'send_fees_to_sis',
                
         ];
        $hide_retrieve_cols = [

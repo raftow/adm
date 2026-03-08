@@ -1629,6 +1629,26 @@
                                         'INPUT_WIDE' => true,
                                 ),
 
+                        'send_fees_to_sis' => array(
+                                        'STEP' => 99,
+                                        'CATEGORY' => 'FORMULA',
+                                        'SHOW' => true,
+                                        'EDIT' => true,
+                                        'RETRIEVE' => false,
+                                        'DEFAUT' => 'Y',
+                                        'TYPE' => 'TEXT',
+                                        'SIZE' => 'AREA',
+                                        'ROWS' => 16,
+                                        'DISPLAY' => true,
+                                        'NO-LABEL' => true,
+                                        'READONLY' => true,
+                                        'FORMAT' => 'HTML',
+                                        'DISPLAY-UGROUPS' => '',
+                                        'EDIT-UGROUPS' => '',
+                                        'CSS' => 'width_pct_25',
+                                        'CAN-BE-SETTED' => false,
+                                        'INPUT_WIDE' => true,
+                                ),
 
                                 'active' => array(
                                         'SHOW' => true,

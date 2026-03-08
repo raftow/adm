@@ -414,6 +414,8 @@ class ApplicationDesire extends AdmObject
 
                 return $return;
         }
+
+        
         public function calcsend_to_sis($what = 'value')
         {
                 $objme = AfwSession::getUserConnected();
@@ -438,33 +440,178 @@ class ApplicationDesire extends AdmObject
                         $objme->isSuperAdmin()
                 );
         }
-        public function sendToSIS(){
+
+        public function calcsend_fees_to_sis($what = 'value')
+        {
+                $objme = AfwSession::getUserConnected();
+                $method_icon = 'run';
+                $method_name = 'sendFeesToSis';
+                $color = 'green';
+                $lang = AfwLanguageHelper::getGlobalLanguage();
+
+                $swal_title = $this->tm("Are you sure you want to send this application to SIS?", $lang) . " : " . $this->tm($method_name, $lang);
+                $swal_text = $this->tm("This Action is irreversible", $lang);
+
+                return AfwHtmlHelper::showHtmlOfStatusChangeApiButton(
+                        $this,
+                        'changestatus',
+                        $method_name,
+                        $color,
+                        $swal_title,
+                        $swal_text,
+                        $method_icon,
+                        $lang,
+                        false,
+                        $objme->isSuperAdmin()
+                );
+        }
+        public function apiChangeStatusDoneOn($the_module, $afwclass, $obj_id, $csmethod) {
+               // $this->sendToSIS();
+        }
+        public function sendToSIS($what = 'value'){
                 
-                return "send testing ...";
-                $url = 'https://banner.bmeholding.com/insertintobanner';
+                include_once(__DIR__."/../NaussSisApi.php");
+                
+                $api = new NaussApi();
+
+                $this->getApplicationObject();
+                if (!$this->applicationObj)
+                        throw new AfwRuntimeException("Can't retrieve fields matrix without any application defined");
+                
+                $applicantObj = $this->applicationObj->getApplicant();
+                $applicationModelBranchObj = $this->het('application_model_branch_id');
+                $qualificationObj = $this->het('applicant_qualification_id');
+                //calculate cz
+                $cz = $applicantObj->getVal('country_id')=="183"?"SA":"CZ";
+                // Split guardian_name into fname, mname, lname using separators: space, بنت, بن
+                $guardian_name = $applicantObj->getVal('guardian_name');
+                $guardian_name_parts = preg_split('/\s*(?:بنت|بن)\s*|\s+/', $guardian_name, -1, PREG_SPLIT_NO_EMPTY);
+                $guardian_fname = $guardian_name_parts[0] ?? '';
+                $guardian_mname = '';
+                $guardian_lname = '';
+                $parts_count = count($guardian_name_parts);
+                if ($parts_count == 3) {
+                        $guardian_mname = $guardian_name_parts[1];
+                        $guardian_lname = $guardian_name_parts[2];
+                } elseif ($parts_count == 2) {
+                        $guardian_lname = $guardian_name_parts[1];
+                }
+
+
+                //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 $data = [
-                        'applicant_id' => $this->getVal('applicant_id'),
-                        'application_plan_id' => $this->getVal('application_plan_id'),
-                        'application_simulation_id' => $this->getVal('application_simulation_id'),
-                        'application_plan_branch_id' => $this->getVal('application_plan_branch_id'),
-                        'application_model_branch_id' => $this->getVal('application_model_branch_id'),
-                        'sorting_group_id' => $this->getVal('sorting_group_id'),
-                        'applicant_qualification_id' => $this->getVal('applicant_qualification_id'),
-                        'qualification_id' => $this->getVal('qualification_id'),
-                        'major_category_id' => $this->getVal('major_category_id'),
-                        'desire_num' => $this->getVal('desire_num'),
-                        'idn' => $this->getVal('idn'),
+                        "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
+                        "idType" => $applicantObj->getVal('idn_type_id'),
+                        "id" => $applicantObj->getVal('idn'),
+                        "gender" => ($applicantObj->getVal('gender_enum')==1?"M":"F"),
+                        "birthDate" => date("d/m/Y", strtotime($applicantObj->getVal('birth_gdate'))),
+                        "email" => $applicantObj->getVal('email'),
+                        "phoneArea" => $applicantObj->getVal('phone_area'),
+                        "mobile" => $applicantObj->getVal('mobile'),
+                        "citz" => $cz,
+                        "nationality" => "SA",
+                        "firstNameAr" => $applicantObj->getVal('first_name_ar'),
+                        "fatherNameAr" => $applicantObj->getVal('father_name_ar'),
+                        "middleNameAr" => $applicantObj->getVal('middle_name_ar'),
+                        "lastNameAr" => $applicantObj->getVal('last_name_ar'),
+                        "firstNameEn" => $applicantObj->getVal('first_name_en'),
+                        "fatherNameEn" => $applicantObj->getVal('father_name_en'),
+                        "middleNameEn" => $applicantObj->getVal('middle_name_en'),
+                        "lastNameEn" => $applicantObj->getVal('last_name_en'),
+                        "passport" => $applicantObj->getVal('passeport_num'),
+                        "passportExpiryDate" => $applicantObj->getVal('passeport_expiry_gdate'),
+                        "guardianFname" => $guardian_fname,
+                        "guardianMname" => $guardian_mname,
+                        "guardianLname" => $guardian_lname,
+                        "guardianPhoneArea" => "966",
+                        "guardianPhone" => $applicantObj->getVal('guardian_phone'),
+                        "priorColl" => $qualificationObj->getVal('source_name'),
+                        "priorDegree" => $qualificationObj->het('qualification_id')->getVal('sis_code'),
+                        "priorMajor" => $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar'),
+                        "gpa" => $qualificationObj->getVal('gpa'),
+                        "maxGpa" => $qualificationObj->getVal('gpa_from'),
+                        "program" => "BSC-ACCT",//$this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),
+                        "major" => "ACCT",//$this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),
+                        "academicStatus" => "AS",
+                        "period" => $this->applicationObj->getVal('training_period_enum'),
+                        "enableMatch" => "N",
+                        "dateFormat" => "DD/MM/YYYY"
                 ];
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//die(var_dump($data));
+                $response =  $api->pushApplicant($data);
+                if($response['status'] == "SUCCESS"){
+                        $studentId = $response['studentId'];
+                        $this->set("student_id", $studentId);
+                        $this->set("sis_date", "now()");
+                        $this->set("student_created_ind", "Y");
+                        $this->save();
+                        return true;
+                        //die(var_dump($response));
+                }else{
+                        return false;
+                }
+        }
+        public function sendFeesToSis(){
+                include_once(__DIR__."/../NaussSisApi.php");
+                $api = new NaussApi();
+                $applicantAccountObj = new ApplicantAccount();
+                $applicantAccountObj->select("applicant_id = ", $this->getVal("applicant_id"));
+                $applicantAccountObj->select("application_plan_id = ", $this->getVal("application_plan_id"));
+                $applicantAccountObj->select("application_simulation_id = ", $this->getVal("application_simulation_id"));
+                $applicantAccountObj->select("active = ", "Y");
+                $applicantAccountList = $applicantAccountObj->loadMany();
 
-                $response = curl_exec($ch);
-                curl_close($ch);
+                $data = [];
+                $applicationPlanBranchObj = $this->het('application_plan_branch_id');
+                foreach($applicantAccountList as $applicantAccount){
+                        $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction");
+                        $term_code = $applicantAccount->het("application_plan_id")->het('term_id')->getVal('term_code');
+                        $tuitionBaseObj = new TuitionBase();
+                        $tuitionBaseObj->select("term_id = ", $applicantAccount->het("application_plan_id")->getVal('term_id'));
+                        $tuitionBaseObj->select("active = ", "Y");
+                        $tuitionBaseObj->load();
+                        $financialTransactionObj = $applicationModelFinancialTransactionObj->het("financial_transaction_id");
+                        if($financialTransactionObj->getVal("id")==11){ // الرسوم الادارية و الرسوم الدراسية
 
-                return $response;
 
+                                $tuitionBaseObj = new TuitionBase();
+                                $tuitionBaseObj->where("active = 'Y' and (degree_id = '".$applicationPlanBranchObj->het('program_id')->getVal("degree_id")."' or program_id = '".$applicationPlanBranchObj->getVal('program_id')."') and (amount + mandatory_fees) = '".$applicantAccount->getVal("total_amount")."'");
+                                $tuitionBaseObj->load();
+                                //financial transaction 2
+                                $financialTransactionObj2 = FinancialTransaction::loadById(2);
+                                $data[] = [ // الرسوم الادارية
+                                        "id" => $applicantAccount->getVal("student_id"),
+                                        "term" => $term_code,
+                                        "chargeCode" => $financialTransactionObj2->getVal("sis_charge_code"),
+                                        "amount" => $tuitionBaseObj->getVal("mandatory_fees"),
+                                        "paid" => ($applicantAccount->getVal("payment_status_enum")==2)
+                                ];
+                                $financialTransactionObj4 = FinancialTransaction::loadById(4);
+                                $data[] = [ // الرسوم الدراسية
+                                        "id" => $applicantAccount->getVal("student_id"),
+                                        "term" => $term_code,
+                                        "chargeCode" => $financialTransactionObj4->getVal("sis_charge_code"),
+                                        "amount" => $tuitionBaseObj->getVal("amount"),
+                                        "paid" => ($applicantAccount->getVal("payment_status_enum")==2)
+                                ];
+                        }else{
+                                $data[] = [
+                                        "id" => $applicantAccount->getVal("student_id"),
+                                        "term" => $term_code,
+                                        "chargeCode" => $financialTransactionObj->getVal("sis_charge_code"),
+                                        "amount" => $applicantAccount->getVal("total_amount"),
+                                        "paid" => ($applicantAccount->getVal("payment_status_enum")==2)
+                                ];
+                        }
+                }
+                $response = $api->pushPayments($data);
+                if($response['status'] == "SUCCESS"){
+                        $this->set("payment_created_ind", "Y");
+                        $this->save();
+                        return true;
+                }else{
+                        return false;
+                }
         }
         public function fieldsMatrixForStep($stepNum, $lang = 'ar', $onlyIfTheyAreUpdated = false)
         {
