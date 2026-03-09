@@ -465,10 +465,8 @@ class ApplicationDesire extends AdmObject
                         $objme->isSuperAdmin()
                 );
         }
-        public function apiChangeStatusDoneOn($the_module, $afwclass, $obj_id, $csmethod) {
-               // $this->sendToSIS();
-        }
-        public function sendToSIS($what = 'value'){
+        
+        public function sendToSIS($lang = 'ar'){
                 
                 include_once(__DIR__."/../NaussSisApi.php");
                 
@@ -545,10 +543,10 @@ class ApplicationDesire extends AdmObject
                         $this->set("sis_date", "now()");
                         $this->set("student_created_ind", "Y");
                         $this->save();
-                        return true;
+                        return ["", $this->tm("The process of sending data to SIS has succeeded, the new ID of student is", $lang)." : ".$studentId];
                         //die(var_dump($response));
                 }else{
-                        return false;
+                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang)." : ".$response['message'], ""];
                 }
         }
         public function sendFeesToSis(){
@@ -1171,6 +1169,15 @@ class ApplicationDesire extends AdmObject
                         $this->commit();
         }
 
+        public static function getQsearchDefaultOptions() {
+                $options = [];
+                $options["records-in-page"] = 500;
+                $all = AfwLanguageHelper::translateKeyword("ALL");
+                $options["lengthMenu"] = '[[50, 100, 200, 300, 400, 500, -1], [50, 100, 200, 300, 400, 500, "'.$all.'"]]';
+        
+                return $options;
+        }
+
         protected function getPublicMethods()
         {
                 $pbms = array();
@@ -1180,8 +1187,23 @@ class ApplicationDesire extends AdmObject
                 $nextStepNum = $currentStepNum + 1;
                 $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 // $objFirstStep = $objApplicationModel->getFirstDesireStep();
-                if ($objApplicationModel) {
+                if ($objApplicationModel or (!$this->id)) {
 
+
+                        $color = 'blue';
+                        $title_ar = $this->tm('send to SIS', 'ar');
+                        $title_en = $this->tm('send to SIS', 'en');
+                        $methodName = 'sendToSIS';
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                'METHOD' => $methodName,
+                                'COLOR' => $color,
+                                "EXECUTE-IN-RETRIEVE-MODE" => true,
+                                'LABEL_AR' => $title_ar,
+                                'LABEL_EN' => $title_en,
+                                'ADMIN-ONLY' => true,
+                                'BF-ID' => '',
+                                'STEP' => 99
+                        );
 
                         $color = 'green';
                         $title_ar = $this->tm('Export to workflow', 'ar');

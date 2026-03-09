@@ -241,9 +241,10 @@ $messages["Edit the CV evaluation"] = "تعديل تقييم السيرة الذ
 $messages["SendToSIS"] = "شاشة ترحيل البيانات إلى نظام SIS";
 $messages["Are you sure you want to send this application to SIS?"] = "هل أنت متأكد من رغبتك في ترحيل هذا التقديم إلى نظام SIS؟";
 $messages["This Action is irreversible"] = "هذا الإجراء غير قابل للإلغاء";
+$messages["The process of sending data to SIS has succeeded, the new ID of student is"] = "تمت عملية إرسال البيانات إلى نظام معلومات الطلاب بنجاح، ورقم الطالب الجديد هو";
+$messages["The process of sending data to SIS has failed, with the following message"] = "فشلت عملية إرسال البيانات إلى نظام معلومات الطلاب (SIS)، مع ظهور الرسالة التالية";
 
-
-// $messages[""] = "";
+// 
 // $messages[""] = "";
 // $messages[""] = "";
 // $messages[""] = "";
