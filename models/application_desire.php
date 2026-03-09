@@ -1188,9 +1188,10 @@ class ApplicationDesire extends AdmObject
                 $currentStepNum = $this->getVal('step_num');
                 if (!$currentStepNum) $currentStepNum = 1;
                 $nextStepNum = $currentStepNum + 1;
-                if ($this->id) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                $my_id = trim($this->id);
+                if ($my_id) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 // $objFirstStep = $objApplicationModel->getFirstDesireStep();
-                if ($objApplicationModel or (!$this->id)) {
+                if ($objApplicationModel or (!$my_id)) {
 
 
                         $color = 'blue';
