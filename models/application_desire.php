@@ -38,8 +38,13 @@ class ApplicationDesire extends AdmObject
 
         public function getApplicationPlan()
         {
-                if (!$this->objApplicationPlan)
+                if (!$this->objApplicationPlan) {
+                        if (!$this->getVal('application_plan_id')) {
+                                throw new AfwRuntimeException("No application_plan_id for this desire : " . $this->id);
+                        }
                         $this->objApplicationPlan = ApplicationPlan::loadById($this->getVal('application_plan_id'));
+                }
+
                 return $this->objApplicationPlan;
         }
 
