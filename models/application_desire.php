@@ -415,7 +415,7 @@ class ApplicationDesire extends AdmObject
                 return $return;
         }
 
-        
+
         public function calcsend_to_sis($what = 'value')
         {
                 $objme = AfwSession::getUserConnected();
@@ -465,22 +465,23 @@ class ApplicationDesire extends AdmObject
                         $objme->isSuperAdmin()
                 );
         }
-        
-        public function sendToSIS($lang = 'ar'){
-                
-                include_once(__DIR__."/../NaussSisApi.php");
-                
+
+        public function sendToSIS($lang = 'ar')
+        {
+
+                include_once(__DIR__ . "/../NaussSisApi.php");
+
                 $api = new NaussApi();
 
                 $this->getApplicationObject();
                 if (!$this->applicationObj)
                         throw new AfwRuntimeException("Can't retrieve fields matrix without any application defined");
-                
+
                 $applicantObj = $this->applicationObj->getApplicant();
                 $applicationModelBranchObj = $this->het('application_model_branch_id');
                 $qualificationObj = $this->het('applicant_qualification_id');
                 //calculate cz
-                $cz = $applicantObj->getVal('country_id')=="183"?"SA":"CZ";
+                $cz = $applicantObj->getVal('country_id') == "183" ? "SA" : "CZ";
                 // Split guardian_name into fname, mname, lname using separators: space, بنت, بن
                 $guardian_name = $applicantObj->getVal('guardian_name');
                 $guardian_name_parts = preg_split('/\s*(?:بنت|بن)\s*|\s+/', $guardian_name, -1, PREG_SPLIT_NO_EMPTY);
@@ -501,7 +502,7 @@ class ApplicationDesire extends AdmObject
                         "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
                         "idType" => $applicantObj->getVal('idn_type_id'),
                         "id" => $applicantObj->getVal('idn'),
-                        "gender" => ($applicantObj->getVal('gender_enum')==1?"M":"F"),
+                        "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
                         "birthDate" => date("d/m/Y", strtotime($applicantObj->getVal('birth_gdate'))),
                         "email" => $applicantObj->getVal('email'),
                         "phoneArea" => $applicantObj->getVal('phone_area'),
@@ -528,29 +529,30 @@ class ApplicationDesire extends AdmObject
                         "priorMajor" => $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar'),
                         "gpa" => $qualificationObj->getVal('gpa'),
                         "maxGpa" => $qualificationObj->getVal('gpa_from'),
-                        "program" => "BSC-ACCT",//$this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),
-                        "major" => "ACCT",//$this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),
+                        "program" => "BSC-ACCT", //$this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),
+                        "major" => "ACCT", //$this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),
                         "academicStatus" => "AS",
                         "period" => $this->applicationObj->getVal('training_period_enum'),
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-//die(var_dump($data));
+                //die(var_dump($data));
                 $response =  $api->pushApplicant($data);
-                if($response['status'] == "SUCCESS"){
+                if ($response['status'] == "SUCCESS") {
                         $studentId = $response['studentId'];
                         $this->set("student_id", $studentId);
                         $this->set("sis_date", "now()");
                         $this->set("student_created_ind", "Y");
                         $this->save();
-                        return ["", $this->tm("The process of sending data to SIS has succeeded, the new ID of student is", $lang)." : ".$studentId];
+                        return ["", $this->tm("The process of sending data to SIS has succeeded, the new ID of student is", $lang) . " : " . $studentId];
                         //die(var_dump($response));
-                }else{
-                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang)." : ".$response['message'], ""];
+                } else {
+                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response['message'], ""];
                 }
         }
-        public function sendFeesToSis(){
-                include_once(__DIR__."/../NaussSisApi.php");
+        public function sendFeesToSis()
+        {
+                include_once(__DIR__ . "/../NaussSisApi.php");
                 $api = new NaussApi();
                 $applicantAccountObj = new ApplicantAccount();
                 $applicantAccountObj->select("applicant_id = ", $this->getVal("applicant_id"));
@@ -561,7 +563,7 @@ class ApplicationDesire extends AdmObject
 
                 $data = [];
                 $applicationPlanBranchObj = $this->het('application_plan_branch_id');
-                foreach($applicantAccountList as $applicantAccount){
+                foreach ($applicantAccountList as $applicantAccount) {
                         $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction");
                         $term_code = $applicantAccount->het("application_plan_id")->het('term_id')->getVal('term_code');
                         $tuitionBaseObj = new TuitionBase();
@@ -569,11 +571,11 @@ class ApplicationDesire extends AdmObject
                         $tuitionBaseObj->select("active = ", "Y");
                         $tuitionBaseObj->load();
                         $financialTransactionObj = $applicationModelFinancialTransactionObj->het("financial_transaction_id");
-                        if($financialTransactionObj->getVal("id")==11){ // الرسوم الادارية و الرسوم الدراسية
+                        if ($financialTransactionObj->getVal("id") == 11) { // الرسوم الادارية و الرسوم الدراسية
 
 
                                 $tuitionBaseObj = new TuitionBase();
-                                $tuitionBaseObj->where("active = 'Y' and (degree_id = '".$applicationPlanBranchObj->het('program_id')->getVal("degree_id")."' or program_id = '".$applicationPlanBranchObj->getVal('program_id')."') and (amount + mandatory_fees) = '".$applicantAccount->getVal("total_amount")."'");
+                                $tuitionBaseObj->where("active = 'Y' and (degree_id = '" . $applicationPlanBranchObj->het('program_id')->getVal("degree_id") . "' or program_id = '" . $applicationPlanBranchObj->getVal('program_id') . "') and (amount + mandatory_fees) = '" . $applicantAccount->getVal("total_amount") . "'");
                                 $tuitionBaseObj->load();
                                 //financial transaction 2
                                 $financialTransactionObj2 = FinancialTransaction::loadById(2);
@@ -582,7 +584,7 @@ class ApplicationDesire extends AdmObject
                                         "term" => $term_code,
                                         "chargeCode" => $financialTransactionObj2->getVal("sis_charge_code"),
                                         "amount" => $tuitionBaseObj->getVal("mandatory_fees"),
-                                        "paid" => ($applicantAccount->getVal("payment_status_enum")==2)
+                                        "paid" => ($applicantAccount->getVal("payment_status_enum") == 2)
                                 ];
                                 $financialTransactionObj4 = FinancialTransaction::loadById(4);
                                 $data[] = [ // الرسوم الدراسية
@@ -590,24 +592,24 @@ class ApplicationDesire extends AdmObject
                                         "term" => $term_code,
                                         "chargeCode" => $financialTransactionObj4->getVal("sis_charge_code"),
                                         "amount" => $tuitionBaseObj->getVal("amount"),
-                                        "paid" => ($applicantAccount->getVal("payment_status_enum")==2)
+                                        "paid" => ($applicantAccount->getVal("payment_status_enum") == 2)
                                 ];
-                        }else{
+                        } else {
                                 $data[] = [
                                         "id" => $applicantAccount->getVal("student_id"),
                                         "term" => $term_code,
                                         "chargeCode" => $financialTransactionObj->getVal("sis_charge_code"),
                                         "amount" => $applicantAccount->getVal("total_amount"),
-                                        "paid" => ($applicantAccount->getVal("payment_status_enum")==2)
+                                        "paid" => ($applicantAccount->getVal("payment_status_enum") == 2)
                                 ];
                         }
                 }
                 $response = $api->pushPayments($data);
-                if($response['status'] == "SUCCESS"){
+                if ($response['status'] == "SUCCESS") {
                         $this->set("payment_created_ind", "Y");
                         $this->save();
                         return true;
-                }else{
+                } else {
                         return false;
                 }
         }
@@ -1169,12 +1171,13 @@ class ApplicationDesire extends AdmObject
                         $this->commit();
         }
 
-        public static function getQsearchDefaultOptions() {
+        public static function getQsearchDefaultOptions()
+        {
                 $options = [];
                 $options["records-in-page"] = 500;
                 $all = AfwLanguageHelper::translateKeyword("ALL");
-                $options["lengthMenu"] = '[[50, 100, 200, 300, 400, 500, -1], [50, 100, 200, 300, 400, 500, "'.$all.'"]]';
-        
+                $options["lengthMenu"] = '[[50, 100, 200, 300, 400, 500, -1], [50, 100, 200, 300, 400, 500, "' . $all . '"]]';
+
                 return $options;
         }
 
@@ -1183,9 +1186,9 @@ class ApplicationDesire extends AdmObject
                 $pbms = array();
 
                 $currentStepNum = $this->getVal('step_num');
-                if(!$currentStepNum) $currentStepNum = 1;
+                if (!$currentStepNum) $currentStepNum = 1;
                 $nextStepNum = $currentStepNum + 1;
-                $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
+                if ($this->id) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
                 // $objFirstStep = $objApplicationModel->getFirstDesireStep();
                 if ($objApplicationModel or (!$this->id)) {
 
@@ -1205,71 +1208,101 @@ class ApplicationDesire extends AdmObject
                                 'STEP' => 99
                         );
 
-                        $color = 'green';
-                        $title_ar = $this->tm('Export to workflow', 'ar');
-                        $title_en = $this->tm('Export to workflow', 'en');
-                        $methodName = 'exportToWorkflow';
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                'METHOD' => $methodName,
-                                'COLOR' => $color,
-                                'LABEL_AR' => $title_ar,
-                                'LABEL_EN' => $title_en,
-                                'ADMIN-ONLY' => true,
-                                'BF-ID' => '',
-                                'STEP' => 99
-                        );
-
-
-                        $color = 'red';
-                        $title_ar = $this->tm('disapprove the program', 'ar');
-                        $title_en = $this->tm('disapprove the program', 'en');
-                        $methodName = 'disApproveProgram';
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                'METHOD' => $methodName,
-                                'COLOR' => $color,
-                                'LABEL_AR' => $title_ar,
-                                'LABEL_EN' => $title_en,
-                                'PUBLIC' => true,
-                                // amjad asked to remove : 20/01/2026 teams conf
-                                //'PUBLISHED' => ['workflow-commitee' => true],
-                                'BF-ID' => '',
-                                'STEP' => 6
-                        );
-
-                        $color = 'blue';
-                        $title_ar = $this->tm('Compute sorting criterea', 'ar');
-                        $title_en = $this->tm('Compute sorting criterea', 'en');
-                        $methodName = 'reComputeSortingCriterea';
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                'METHOD' => $methodName,
-                                'COLOR' => $color,
-                                'LABEL_AR' => $title_ar,
-                                'LABEL_EN' => $title_en,
-                                'PUBLIC' => true,
-                                'BF-ID' => '',
-                                'STEP' => 6
-                        );
-
-                        $asObj = ApplicationStep::loadByMainIndex($objApplicationModel->id, $nextStepNum);
-                        if ($asObj) {
+                        if ($objApplicationModel) {
                                 $color = 'green';
-                                $title_ar = $asObj->tm('go to next step', 'ar') . " '" . $asObj->getDisplay('ar') . "'";
-                                $title_en = $asObj->tm('go to next step', 'en') . " '" . $asObj->getDisplay('en') . "'";
-                                $methodName = 'gotoNextDesireStep';
+                                $title_ar = $this->tm('Export to workflow', 'ar');
+                                $title_en = $this->tm('Export to workflow', 'en');
+                                $methodName = 'exportToWorkflow';
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        'METHOD' => $methodName,
+                                        'COLOR' => $color,
+                                        'LABEL_AR' => $title_ar,
+                                        'LABEL_EN' => $title_en,
+                                        'ADMIN-ONLY' => true,
+                                        'BF-ID' => '',
+                                        'STEP' => 99
+                                );
+
+
+                                $color = 'red';
+                                $title_ar = $this->tm('disapprove the program', 'ar');
+                                $title_en = $this->tm('disapprove the program', 'en');
+                                $methodName = 'disApproveProgram';
                                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                         'METHOD' => $methodName,
                                         'COLOR' => $color,
                                         'LABEL_AR' => $title_ar,
                                         'LABEL_EN' => $title_en,
                                         'PUBLIC' => true,
+                                        // amjad asked to remove : 20/01/2026 teams conf
+                                        //'PUBLISHED' => ['workflow-commitee' => true],
                                         'BF-ID' => '',
-                                        'STEP' => 3
+                                        'STEP' => 6
                                 );
 
                                 $color = 'blue';
-                                $title_ar = $asObj->tm('Force updating data via electronic services', 'ar');
-                                $title_en = $asObj->tm('Force updating data via electronic services', 'en');
-                                $methodName = 'runNeededApis';
+                                $title_ar = $this->tm('Compute sorting criterea', 'ar');
+                                $title_en = $this->tm('Compute sorting criterea', 'en');
+                                $methodName = 'reComputeSortingCriterea';
+                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                        'METHOD' => $methodName,
+                                        'COLOR' => $color,
+                                        'LABEL_AR' => $title_ar,
+                                        'LABEL_EN' => $title_en,
+                                        'PUBLIC' => true,
+                                        'BF-ID' => '',
+                                        'STEP' => 6
+                                );
+
+                                $asObj = ApplicationStep::loadByMainIndex($objApplicationModel->id, $nextStepNum);
+                                if ($asObj) {
+                                        $color = 'green';
+                                        $title_ar = $asObj->tm('go to next step', 'ar') . " '" . $asObj->getDisplay('ar') . "'";
+                                        $title_en = $asObj->tm('go to next step', 'en') . " '" . $asObj->getDisplay('en') . "'";
+                                        $methodName = 'gotoNextDesireStep';
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                'METHOD' => $methodName,
+                                                'COLOR' => $color,
+                                                'LABEL_AR' => $title_ar,
+                                                'LABEL_EN' => $title_en,
+                                                'PUBLIC' => true,
+                                                'BF-ID' => '',
+                                                'STEP' => 3
+                                        );
+
+                                        $color = 'blue';
+                                        $title_ar = $asObj->tm('Force updating data via electronic services', 'ar');
+                                        $title_en = $asObj->tm('Force updating data via electronic services', 'en');
+                                        $methodName = 'runNeededApis';
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                'METHOD' => $methodName,
+                                                'COLOR' => $color,
+                                                'LABEL_AR' => $title_ar,
+                                                'LABEL_EN' => $title_en,
+                                                'PUBLIC' => true,
+                                                'BF-ID' => '',
+                                                'STEP' => 2
+                                        );
+
+                                        $color = 'gray';
+                                        $title_ar = $asObj->tm('Updating data via electronic services', 'ar');
+                                        $title_en = $asObj->tm('Updating data via electronic services', 'en');
+                                        $methodName = 'runOnlyNeedUpdateApis';
+                                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                                                'METHOD' => $methodName,
+                                                'COLOR' => $color,
+                                                'LABEL_AR' => $title_ar,
+                                                'LABEL_EN' => $title_en,
+                                                'PUBLIC' => true,
+                                                'BF-ID' => '',
+                                                'STEP' => 2
+                                        );
+                                }
+
+                                $color = 'yellow';
+                                $title_ar = $this->tm('Repare data', 'ar');
+                                $title_en = $this->tm('Repare data', 'en');
+                                $methodName = 'repareData';
                                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
                                         'METHOD' => $methodName,
                                         'COLOR' => $color,
@@ -1280,57 +1313,30 @@ class ApplicationDesire extends AdmObject
                                         'STEP' => 2
                                 );
 
-                                $color = 'gray';
-                                $title_ar = $asObj->tm('Updating data via electronic services', 'ar');
-                                $title_en = $asObj->tm('Updating data via electronic services', 'en');
-                                $methodName = 'runOnlyNeedUpdateApis';
-                                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                        'METHOD' => $methodName,
-                                        'COLOR' => $color,
-                                        'LABEL_AR' => $title_ar,
-                                        'LABEL_EN' => $title_en,
-                                        'PUBLIC' => true,
-                                        'BF-ID' => '',
-                                        'STEP' => 2
-                                );
-                        }
 
-                        $color = 'yellow';
-                        $title_ar = $this->tm('Repare data', 'ar');
-                        $title_en = $this->tm('Repare data', 'en');
-                        $methodName = 'repareData';
-                        $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
-                                'METHOD' => $methodName,
-                                'COLOR' => $color,
-                                'LABEL_AR' => $title_ar,
-                                'LABEL_EN' => $title_en,
-                                'PUBLIC' => true,
-                                'BF-ID' => '',
-                                'STEP' => 2
-                        );
-                } else
-                        die('no ApplicationModel for this desire');
-
-                $branchObj = $this->het("application_plan_branch_id");
-                $suppProgramList = [];
-                if ($branchObj) {
-                        /**
-                         * @var AcademicProgram $programObj
-                         */
-                        $programObj = $branchObj->het("program_id");
-                        if ($programObj) {
-                                $suppProgramList = $programObj->get("supp_program_mfk");
+                                $branchObj = $this->het("application_plan_branch_id");
+                                $suppProgramList = [];
+                                if ($branchObj) {
+                                        /**
+                                         * @var AcademicProgram $programObj
+                                         */
+                                        $programObj = $branchObj->het("program_id");
+                                        if ($programObj) {
+                                                $suppProgramList = $programObj->get("supp_program_mfk");
+                                        }
+                                }
+                                $suppProgramList[0] = ['ar' => "كما هو", 'en' => "As is",];
+                                foreach (self::$PUB_METHODS as $methodName0 => $publicDynamicMethodProps) {
+                                        $log = "";
+                                        if ($publicDynamicMethodProps['itemsMethod'] == 'getSuppPrograms') {
+                                                $pbms = AfwDynamicPublicMethodHelper::splitMethodWithItems($pbms, $publicDynamicMethodProps, $methodName0, $this, $log, $suppProgramList, false, true);
+                                        }
+                                }
                         }
-                }
-                $suppProgramList[0] = ['ar' => "كما هو", 'en' => "As is",];
-                foreach (self::$PUB_METHODS as $methodName0 => $publicDynamicMethodProps) {
-                        $log = "";
-                        if ($publicDynamicMethodProps['itemsMethod'] == 'getSuppPrograms') {
-                                $pbms = AfwDynamicPublicMethodHelper::splitMethodWithItems($pbms, $publicDynamicMethodProps, $methodName0, $this, $log, $suppProgramList, false, true);
-                        }
+                        // die("pbms = " . var_export($pbms, true) . "");
                 }
 
-                // die("pbms = " . var_export($pbms, true) . "");
+
 
                 return $pbms;
         }
