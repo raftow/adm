@@ -5,10 +5,10 @@
       $direct_page = "login_ums.php";
       $direct_page_path = "$file_dir_name/../ums";
       require("$file_dir_name/../lib/afw/afw_main_page.php"); 
-      //AfwMainPage::echoDirectPage($MODULE, $direct_page, $direct_page_path);
+      AfwMainPage::echoDirectPage($MODULE, $direct_page, $direct_page_path);
 
       /**WSO2 */
-      $clientId = 'h51_DG3tGSlVV7tnmjNMuofMxAUa';
+     /* $clientId = 'h51_DG3tGSlVV7tnmjNMuofMxAUa';
 $redirectUri = 'https://localhost/adm/login_ums.php'; // عدلها حسب دومينك الحقيقي
 
 $wso2AuthUrl = 'https://ethostest.nauss.edu.sa:443/oauth2/authorize';
@@ -22,5 +22,5 @@ $params = [
 ];
 
 header('Location: ' . $wso2AuthUrl . '?' . http_build_query($params));
-exit;
+exit;*/
 ?>
