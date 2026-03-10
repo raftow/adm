@@ -26,16 +26,16 @@ try {
         $action = "retrieve-simple";
         // $actions_tpl_arr['edit'] = array('framework_action');
 
-      $fixed_criterea_arr =  array(
+        $fixed_criterea_arr =  array(
                  0 => array('col' => 'admission_status', 'oper' => '=', 'val' => '18',),
                /*  1 => array('col' => 'datatable_off', 'oper' => '=', 'val' => true,),*/
         );
 
         $current_page = "sendDesireToSIS.php";
 
-        /*$readOnlyColumns = [
-                'workflow_stage_id',
-        ];*/
+        $readOnlyColumns = [
+                'admission_status',
+        ];
 
 
         $requiredColumns = [
