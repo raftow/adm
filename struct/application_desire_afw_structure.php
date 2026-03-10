@@ -19,6 +19,7 @@
                                         // $obj->UNIQUE_KEY = array('applicant_id','application_plan_id', 'application_simulation_id','application_plan_branch_id'); big one
                                         $obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id', 'desire_num');
                                         $obj->public_display = true;
+                                        $obj->OwnedBy = array('module' => "adm", 'afw' => "Application", 'afw2' => "Applicant"); 
                                         // $obj->IS_LOOKUP = true;
                                         $obj->MOVE_UP_ACTION = true;
                                         $obj->editByStep = true;
