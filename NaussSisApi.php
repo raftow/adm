@@ -2,8 +2,12 @@
 
 class NaussApi
 {
-    private $baseUrl = "https://selfservice9.bmeholding.com:8081/naussadm/api/admission/";
+    //private $baseUrl = "https://selfservice9.bmeholding.com:8081/naussadm/api/admission/";
+    private $baseUrl = "https://193.122.73.144/naussadm/api/admission";
+
     private $token = "i9G0vbjMKqTPY3wS276Ghx0lx7UtzfV30vx60PsWPmbciSD7rm98Ws2bsWFbvRim";
+    //https://193.122.73.144/naussadm/api/admission/push-applicant
+    //https://193.122.73.144/naussadm/api/admission/push-payments
 
     private function sendRequest($endpoint, $data)
     {
