@@ -34,7 +34,7 @@ try {
         $current_page = "sendDesireToSIS.php";
 
         $readOnlyColumns = [
-                'admission_status',
+              //  'admission_status',
         ];
 
 

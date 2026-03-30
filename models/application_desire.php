@@ -504,7 +504,7 @@ class ApplicationDesire extends AdmObject
 
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 $data = [
-                        "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
+                        "term" => "202510",//$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
                         "idType" => $applicantObj->getVal('idn_type_id'),
                         "id" => $applicantObj->getVal('idn'),
                         "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
@@ -543,6 +543,7 @@ class ApplicationDesire extends AdmObject
                 ];
                 //die(var_dump($data));
                 $response =  $api->pushApplicant($data);
+                //die(var_dump($response));
                 if ($response['status'] == "SUCCESS") {
                         $studentId = $response['studentId'];
                         $this->set("student_id", $studentId);
@@ -552,7 +553,7 @@ class ApplicationDesire extends AdmObject
                         return ["", $this->tm("The process of sending data to SIS has succeeded, the new ID of student is", $lang) . " : " . $studentId];
                         //die(var_dump($response));
                 } else {
-                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response['message'], ""];
+                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response['body']['message'], ""];
                 }
         }
         public function sendFeesToSis()

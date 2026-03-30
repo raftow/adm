@@ -3,7 +3,7 @@
 class NaussApi
 {
     //private $baseUrl = "https://selfservice9.bmeholding.com:8081/naussadm/api/admission/";
-    private $baseUrl = "https://193.122.73.144/naussadm/api/admission";
+    private $baseUrl = "https://193.122.73.144/naussadm/api/admission/";
 
     private $token = "i9G0vbjMKqTPY3wS276Ghx0lx7UtzfV30vx60PsWPmbciSD7rm98Ws2bsWFbvRim";
     //https://193.122.73.144/naussadm/api/admission/push-applicant
@@ -28,7 +28,7 @@ class NaussApi
         ]);
 
         $response = curl_exec($curl);
-
+//return $response;
         if (curl_errno($curl)) {
             throw new Exception("cURL Error: " . curl_error($curl));
         }
