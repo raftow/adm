@@ -561,21 +561,18 @@ class ApplicationDesire extends AdmObject
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $api = new NaussApi();
                 $applicantAccountObj = new ApplicantAccount();
-                $applicantAccountObj->select("applicant_id = ", $this->getVal("applicant_id"));
-                $applicantAccountObj->select("application_plan_id = ", $this->getVal("application_plan_id"));
-                $applicantAccountObj->select("application_simulation_id = ", $this->getVal("application_simulation_id"));
-                $applicantAccountObj->select("active = ", "Y");
+                $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
+                $applicantAccountObj->select("application_plan_id", $this->getVal("application_plan_id"));
+                $applicantAccountObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
+                $applicantAccountObj->select("active", "Y");
                 $applicantAccountList = $applicantAccountObj->loadMany();
 
                 $data = [];
                 $applicationPlanBranchObj = $this->het('application_plan_branch_id');
                 foreach ($applicantAccountList as $applicantAccount) {
-                        $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction");
+                        $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
                         $term_code = $applicantAccount->het("application_plan_id")->het('term_id')->getVal('term_code');
-                        $tuitionBaseObj = new TuitionBase();
-                        $tuitionBaseObj->select("term_id = ", $applicantAccount->het("application_plan_id")->getVal('term_id'));
-                        $tuitionBaseObj->select("active = ", "Y");
-                        $tuitionBaseObj->load();
+                        
                         $financialTransactionObj = $applicationModelFinancialTransactionObj->het("financial_transaction_id");
                         if ($financialTransactionObj->getVal("id") == 11) { // الرسوم الادارية و الرسوم الدراسية
 
