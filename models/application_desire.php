@@ -486,7 +486,7 @@ class ApplicationDesire extends AdmObject
                 $applicationModelBranchObj = $this->het('application_model_branch_id');
                 $qualificationObj = $this->het('applicant_qualification_id');
                 //calculate cz
-                $cz = $applicantObj->getVal('country_id') == "183" ? "SA" : "CZ";
+                $cz = $applicantObj->getVal('country_id') == "183" ? "N" : "C";
                 // Split guardian_name into fname, mname, lname using separators: space, بنت, بن
                 $guardian_name = $applicantObj->getVal('guardian_name');
                 $guardian_name_parts = preg_split('/\s*(?:بنت|بن)\s*|\s+/', $guardian_name, -1, PREG_SPLIT_NO_EMPTY);
@@ -513,7 +513,7 @@ class ApplicationDesire extends AdmObject
                         "phoneArea" => $applicantObj->getVal('phone_area'),
                         "mobile" => $applicantObj->getVal('mobile'),
                         "citz" => $cz,
-                        "nationality" => "SA",
+                        "nationality" => $applicantObj->het('country_id')->getVal('external_code'),
                         "firstNameAr" => $applicantObj->getVal('first_name_ar'),
                         "fatherNameAr" => $applicantObj->getVal('father_name_ar'),
                         "middleNameAr" => $applicantObj->getVal('middle_name_ar'),
@@ -534,8 +534,8 @@ class ApplicationDesire extends AdmObject
                         "priorMajor" => $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar'),
                         "gpa" => $qualificationObj->getVal('gpa'),
                         "maxGpa" => $qualificationObj->getVal('gpa_from'),
-                        "program" => "BSC-ACCT", //$this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),
-                        "major" => "ACCT", //$this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),
+                        "program" => $this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),//"BSC-ACCT"
+                        "major" => $this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),//"ACCT", 
                         "academicStatus" => "AS",
                         "period" => $this->applicationObj->getVal('training_period_enum'),
                         "enableMatch" => "N",
