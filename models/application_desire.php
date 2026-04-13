@@ -423,27 +423,32 @@ class ApplicationDesire extends AdmObject
 
         public function calcsend_to_sis($what = 'value')
         {
-                $objme = AfwSession::getUserConnected();
-                $method_icon = 'run';
-                $method_name = 'sendToSIS';
-                $color = 'green';
-                $lang = AfwLanguageHelper::getGlobalLanguage();
+                if($this->getVal('student_created_ind')=='N' || $this->getVal('student_created_ind')==null){
+                
+                        $objme = AfwSession::getUserConnected();
+                        $method_icon = 'run';
+                        $method_name = 'sendToSIS';
+                        $color = 'green';
+                        $lang = AfwLanguageHelper::getGlobalLanguage();
 
-                $swal_title = $this->tm("Are you sure you want to send this application to SIS?", $lang) . " : " . $this->tm($method_name, $lang);
-                $swal_text = $this->tm("This Action is irreversible", $lang);
+                        $swal_title = $this->tm("Are you sure you want to send this application to SIS?", $lang) . " : " . $this->tm($method_name, $lang);
+                        $swal_text = $this->tm("This Action is irreversible", $lang);
 
-                return AfwHtmlHelper::showHtmlOfStatusChangeApiButton(
-                        $this,
-                        'changestatus',
-                        $method_name,
-                        $color,
-                        $swal_title,
-                        $swal_text,
-                        $method_icon,
-                        $lang,
-                        false,
-                        $objme->isSuperAdmin()
-                );
+                        return AfwHtmlHelper::showHtmlOfStatusChangeApiButton(
+                                $this,
+                                'changestatus',
+                                $method_name,
+                                $color,
+                                $swal_title,
+                                $swal_text,
+                                $method_icon,
+                                $lang,
+                                false,
+                                $objme->isSuperAdmin()
+                        );
+                } else {
+                        return "--";
+                }
         }
 
         public function calcsend_fees_to_sis($what = 'value')
@@ -503,6 +508,12 @@ class ApplicationDesire extends AdmObject
 
 
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
+                //die($applicantObj->het('country_id')->getVal('id'));
+                $sponsorSISCode = "";
+                $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
+                if ($ncObject) {
+                        $sponsorSISCode = $ncObject->het('nomination_letter_id')->het('nominating_authority_id')->getVal('sis_code');
+                }
                 $data = [
                         "term" => "202510",//$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
                         "idType" => $applicantObj->getVal('idn_type_id'),
@@ -510,7 +521,7 @@ class ApplicationDesire extends AdmObject
                         "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
                         "birthDate" => date("d/m/Y", strtotime($applicantObj->getVal('birth_gdate'))),
                         "email" => $applicantObj->getVal('email'),
-                        "phoneArea" => $applicantObj->getVal('phone_area'),
+                        "phoneArea" => 966,//$applicantObj->getVal('phone_area'),
                         "mobile" => $applicantObj->getVal('mobile'),
                         "citz" => $cz,
                         "nationality" => $applicantObj->het('country_id')->getVal('external_code'),
@@ -538,18 +549,19 @@ class ApplicationDesire extends AdmObject
                         "major" => $this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),//"ACCT", 
                         "academicStatus" => "AS",
                         "period" => $this->applicationObj->getVal('training_period_enum'),
+                        "sponsorId" =>$sponsorSISCode == "" ? null : $sponsorSISCode,
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
                 //die(var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
-                if ($response['status'] == "SUCCESS") {
+                if ($response["body"]['status'] == "SUCCESS") {
                         $studentId = $response['studentId'];
                         $this->set("student_id", $studentId);
                         $this->set("sis_date", "now()");
                         $this->set("student_created_ind", "Y");
-                        $this->save();
+                        $this->commit();
                         return ["", $this->tm("The process of sending data to SIS has succeeded, the new ID of student is", $lang) . " : " . $studentId];
                         //die(var_dump($response));
                 } else {
@@ -610,7 +622,7 @@ class ApplicationDesire extends AdmObject
                 $response = $api->pushPayments($data);
                 if ($response['status'] == "SUCCESS") {
                         $this->set("payment_created_ind", "Y");
-                        $this->save();
+                        $this->commit();
                         return true;
                 } else {
                         return false;

@@ -82,7 +82,7 @@ class NaussApi
             "enableMatch" => "N",
             "dateFormat" => "DD/MM/YYYY"
         ];*/
-
+//die(var_dump($data));
         return $this->sendRequest("push-applicant", $data);
     }
 
