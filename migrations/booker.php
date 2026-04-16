@@ -113,5 +113,6 @@ $migrations = [
     '00107' => ['by'=>'medali','title'=>'add next_transition_id to applicant_account'],
     '00108' => ['by'=>'medali','title'=>'add fields to application_desire'],
     '00109' => ['by'=>'medali','title'=>'add field to nomination_authority'],
+    '00110' => ['by'=>'medali','title'=>'add field to academic_program'],    
 ];
 

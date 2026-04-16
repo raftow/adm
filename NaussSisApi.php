@@ -6,6 +6,8 @@ class NaussApi
     private $baseUrl = "https://193.122.73.144/naussadm/api/admission/";
 
     private $token = "i9G0vbjMKqTPY3wS276Ghx0lx7UtzfV30vx60PsWPmbciSD7rm98Ws2bsWFbvRim";
+    private $baseUrlStudent = "https://193.122.73.144/naussadm/api/student/";
+    private $baseUrlLookup  = "https://193.122.73.144/naussadm/api/lookup/";
     //https://193.122.73.144/naussadm/api/admission/push-applicant
     //https://193.122.73.144/naussadm/api/admission/push-payments
 
@@ -29,6 +31,37 @@ class NaussApi
 
         $response = curl_exec($curl);
 //return $response;
+        if (curl_errno($curl)) {
+            throw new Exception("cURL Error: " . curl_error($curl));
+        }
+
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        return [
+            "status" => $httpCode,
+            "body" => json_decode($response, true)
+        ];
+    }
+
+    private function sendGetRequest($url)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPGET => true,
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer " . $this->token,
+                "lang: EN"
+            ],
+            CURLOPT_TIMEOUT => 30,
+        ]);
+
+        $response = curl_exec($curl);
+
         if (curl_errno($curl)) {
             throw new Exception("cURL Error: " . curl_error($curl));
         }
@@ -113,6 +146,31 @@ class NaussApi
         ];*/
 
         return $this->sendRequest("push-payments", $data);
+    }
+
+    public function checkActiveStudent($studentId)
+    {
+        return $this->sendGetRequest($this->baseUrlStudent . "academicStatus/" . urlencode($studentId));
+    }
+
+    public function getLevels()
+    {
+        return $this->sendGetRequest($this->baseUrlLookup . "levels");
+    }
+
+    public function getProgramsByLevel($level)
+    {
+        return $this->sendGetRequest($this->baseUrlLookup . "programs?level=" . urlencode($level));
+    }
+
+    public function getMajorsByProgram($program)
+    {
+        return $this->sendGetRequest($this->baseUrlLookup . "majors?program=" . urlencode($program));
+    }
+
+    public function getSponsors()
+    {
+        return $this->sendGetRequest($this->baseUrlLookup . "sponsors");
     }
 }
 
