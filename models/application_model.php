@@ -5,7 +5,7 @@ class ApplicationModel extends AdmObject
 
         private $applicationStepList = null;
         private $currentPlan = null;
-        private $stepMax=[];
+        private $stepMax = [];
 
         private static $arrSortingStepIdByModelId = [];
 
@@ -119,15 +119,15 @@ class ApplicationModel extends AdmObject
         public function getLastDesireStep()
         {
                 $workflowStep = ApplicationStep::loadWorkflowStep($this->id);
-                if($workflowStep) return $workflowStep;
+                if ($workflowStep) return $workflowStep;
 
                 $sortingStep = ApplicationStep::loadSortingStep($this->id);
-                if($sortingStep) return $sortingStep;
+                if ($sortingStep) return $sortingStep;
 
                 return null;
         }
 
-        
+
 
         /**
          * 
@@ -1296,7 +1296,7 @@ class ApplicationModel extends AdmObject
                         $link["UGROUPS"] = array();
                         $otherLinksArray[] = $link;
                 }
-                
+
                 if ($mode == "mode_engagementList") {
                         unset($link);
                         $link = array();
@@ -1638,7 +1638,7 @@ class ApplicationModel extends AdmObject
 
         public function isSynchronisedUniqueDesire()
         {
-                return ($this->getVal("application_category_enum")==1);
+                return ($this->getVal("application_category_enum") == 1);
         }
 
         public static function code_of_application_category_enum($lkp_id = null)
@@ -1683,18 +1683,40 @@ class ApplicationModel extends AdmObject
         }
 
 
-        public function synchronizeProgramsWithWorkflow($lang='ar')
+        public function synchronizeProgramsWithWorkflow($lang = 'ar')
         {
                 $applicationModelBranchList = $this->get("applicationModelBranchList");
-                foreach($applicationModelBranchList as $ambObj)
-                {
+                foreach ($applicationModelBranchList as $ambObj) {
                         $programObj = $ambObj->het("academic_program_id");
-                        if($programObj and $programObj->id)
-                        {
+                        if ($programObj and $programObj->id) {
                                 $programObj->synchronizeWithWorkflow();
                         }
                 }
 
                 return ['', 'done'];
+        }
+
+        public function getWorkflowModel($createIfNotExists = false, $updateIfExists = false)
+        {
+                $application_model_id = $this->id;
+                $name_ar = $this->getVal('application_model_name_ar');
+                $name_en = $this->getVal('application_model_name_en');
+                return ApplicationModel::retrieveWorkflowModel($application_model_id, $name_ar, $name_en, $createIfNotExists, $updateIfExists);
+        }
+
+        public static function retrieveWorkflowModel($application_model_id, $name_ar, $name_en, $createIfNotExists = false, $updateIfExists = false)
+        {
+                $wModelCode = 'adm-' . $application_model_id;
+                $wModelObj = WorkflowModel::loadByMainIndex($wModelCode, $createIfNotExists);
+                if ($wModelObj and ($wModelObj->is_new or $updateIfExists)) {
+
+                        $wModelObj->set('workflow_model_name_ar', $name_ar);
+                        $wModelObj->set('workflow_model_name_en', $name_en);
+                        $wModelObj->set('workflow_model_desc_ar', $name_ar);
+                        $wModelObj->set('workflow_model_desc_en', $name_en);
+                        $wModelObj->commit();
+                }
+
+                return $wModelObj;
         }
 }

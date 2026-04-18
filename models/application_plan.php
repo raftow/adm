@@ -155,19 +155,11 @@ class ApplicationPlan extends AdmObject
 
     public function getWorkflowModel($createIfNotExists = false, $updateIfExists = false)
     {
-        $wModelCode = 'adm-' . $this->getVal('application_model_id');
-        $wModelObj = WorkflowModel::loadByMainIndex($wModelCode, $createIfNotExists);
-        if ($wModelObj and ($wModelObj->is_new or $updateIfExists)) {
-            $name_ar = $this->getVal('application_model_name_ar');
-            $name_en = $this->getVal('application_model_name_ar');
-            $wModelObj->set('workflow_model_name_ar', $name_ar);
-            $wModelObj->set('workflow_model_name_en', $name_en);
-            $wModelObj->set('workflow_model_desc_ar', $name_ar);
-            $wModelObj->set('workflow_model_desc_en', $name_en);
-            $wModelObj->commit();
-        }
+        $application_model_id = $this->getVal('application_model_id');
+        $name_ar = $this->getVal('application_model_name_ar');
+        $name_en = $this->getVal('application_model_name_en');
 
-        return $wModelObj;
+        return ApplicationModel::retrieveWorkflowModel($application_model_id, $name_ar, $name_en, $createIfNotExists, $updateIfExists);
     }
 
     public static function getWorkflowModelId($aplan_id, $objAppPlan = null)
@@ -185,6 +177,23 @@ class ApplicationPlan extends AdmObject
             return 0;
 
         return self::$arrWorkflowModelIdByPlanId[$aplan_id];
+    }
+
+    public static function modelIdToWorkflowModelId($app_model_id, $objAppModel = null)
+    {
+        if (!self::$arrWorkflowModelIdByPlanId[$app_model_id]) {
+            if (!$objAppModel)
+                $objAppModel = ApplicationModel::loadById($app_model_id);
+            if ($objAppModel) {
+                $wModelObj = $objAppModel->getWorkflowModel();
+                self::$arrWorkflowModelIdByPlanId[$app_model_id] = $wModelObj->id;
+            } else
+                self::$arrWorkflowModelIdByPlanId[$app_model_id] = 'NOT-FOUND';
+        }
+        if (self::$arrWorkflowModelIdByPlanId[$app_model_id] == 'NOT-FOUND')
+            return 0;
+
+        return self::$arrWorkflowModelIdByPlanId[$app_model_id];
     }
 
     public static function getApplicationModelId($aplan_id)

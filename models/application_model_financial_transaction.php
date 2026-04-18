@@ -93,4 +93,23 @@ class ApplicationModelFinancialTransaction extends AdmObject
                         return true;
                 }
         }
+
+        public function synchronizeWithWorkflow()
+        {
+                $module_id = 1;
+                $wftObj = WorkflowFinancialTransaction::loadByMainIndex($module_id, $this->id, true);
+
+                $name_ar = $this->decode("financial_transaction_id", '', false, 'ar');
+                $name_en = $this->decode("financial_transaction_id", '', false, 'en');
+
+                $wModelObj = ApplicationModel::retrieveWorkflowModel($this->getVal("application_model_id"), $name_ar, $name_en, true, true);
+                $wftObj->set('workflow_model_id', $wModelObj->id);
+                $wftObj->set('financial_transaction_name_ar', $name_ar);
+                $wftObj->set('financial_transaction_name_en', $name_en);
+                $wftObj->set('financial_transaction_description_ar', $name_ar);
+                $wftObj->set('financial_transaction_description_en', $name_en);
+                $wftObj->commit();
+
+                return $wftObj;
+        }
 }
