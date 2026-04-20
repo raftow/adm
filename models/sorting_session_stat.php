@@ -85,7 +85,7 @@ class SortingSessionStat extends AFWObject
         } else return null;
     }
 
-    public function rowCategoryAttribute()
+    public function rowCategoryAttribute($mode="retrieve")
     {
         return "correct:FORMULA";
     }
