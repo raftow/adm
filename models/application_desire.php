@@ -423,8 +423,8 @@ class ApplicationDesire extends AdmObject
 
         public function calcsend_to_sis($what = 'value')
         {
-                if($this->getVal('student_created_ind')=='N' || $this->getVal('student_created_ind')==null){
-                
+                if ($this->getVal('student_created_ind') == 'N' || $this->getVal('student_created_ind') == null) {
+
                         $objme = AfwSession::getUserConnected();
                         $method_icon = 'run';
                         $method_name = 'sendToSIS';
@@ -515,13 +515,13 @@ class ApplicationDesire extends AdmObject
                         $sponsorSISCode = $ncObject->het('nomination_letter_id')->het('nominating_authority_id')->getVal('sis_code');
                 }
                 $data = [
-                        "term" => "202510",//$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
+                        "term" => "202510", //$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
                         "idType" => $applicantObj->getVal('idn_type_id'),
                         "id" => $applicantObj->getVal('idn'),
                         "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
                         "birthDate" => date("d/m/Y", strtotime($applicantObj->getVal('birth_gdate'))),
                         "email" => $applicantObj->getVal('email'),
-                        "phoneArea" => 966,//$applicantObj->getVal('phone_area'),
+                        "phoneArea" => 966, //$applicantObj->getVal('phone_area'),
                         "mobile" => $applicantObj->getVal('mobile'),
                         "citz" => $cz,
                         "nationality" => $applicantObj->het('country_id')->getVal('external_code'),
@@ -545,11 +545,11 @@ class ApplicationDesire extends AdmObject
                         "priorMajor" => $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar'),
                         "gpa" => $qualificationObj->getVal('gpa'),
                         "maxGpa" => $qualificationObj->getVal('gpa_from'),
-                        "program" => $this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),//"BSC-ACCT"
-                        "major" => $this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),//"ACCT", 
+                        "program" => $this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'), //"BSC-ACCT"
+                        "major" => $this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'), //"ACCT", 
                         "academicStatus" => "AS",
                         "period" => $this->applicationObj->getVal('training_period_enum'),
-                        "sponsorId" =>$sponsorSISCode == "" ? null : $sponsorSISCode,
+                        "sponsorId" => $sponsorSISCode == "" ? null : $sponsorSISCode,
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
@@ -584,7 +584,7 @@ class ApplicationDesire extends AdmObject
                 foreach ($applicantAccountList as $applicantAccount) {
                         $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
                         $term_code = $applicantAccount->het("application_plan_id")->het('term_id')->getVal('term_code');
-                        
+
                         $financialTransactionObj = $applicationModelFinancialTransactionObj->het("financial_transaction_id");
                         if ($financialTransactionObj->getVal("id") == 11) { // الرسوم الادارية و الرسوم الدراسية
 
@@ -1204,7 +1204,7 @@ class ApplicationDesire extends AdmObject
                 if (!$currentStepNum) $currentStepNum = 1;
                 $nextStepNum = $currentStepNum + 1;
                 $my_id = trim($this->id);
-                $this_object_not_empty = (($this->getVal('application_plan_id')>0) and ($this->getVal('applicant_id')>0));
+                $this_object_not_empty = (($this->getVal('application_plan_id') > 0) and ($this->getVal('applicant_id') > 0));
                 if ($this_object_not_empty) $objApplicationModel = $this->getApplicationPlan()->getApplicationModel();
 
                 // $objFirstStep = $objApplicationModel->getFirstDesireStep();
@@ -2624,6 +2624,18 @@ class ApplicationDesire extends AdmObject
                         $tuitionBaseApplicantAccount->set("workflow_request_id", $workflowRequest->id);
                         $tuitionBaseApplicantAccount->set("next_transition_id", $objTransition->getVal('next_transition_id'));
                         $tuitionBaseApplicantAccount->commit();
+                }
+
+                if (($final_status_id == 18) or ($final_status_id == 19) or ($final_status_id == 20)) {
+                        if (($final_status_id == 18) or ($workflowRequest->isNotSponsored())) {
+                                // in the second case (19, 20) the applicant already paid the tuition fee, and he is not admitted:  
+                                // (منسحب من القبول النهائي ,20 مرفوض لعدم المطابقة 19)
+                                // We will transfer his data to Banner SIS, 
+                                // just to enable him to refund the tuition paid
+                                $this->set("admission_status", $final_status_id);
+                                $this->set("admission_status_date", date("Y-m-d"));
+                                $this->commit();
+                        }
                 }
         }
 

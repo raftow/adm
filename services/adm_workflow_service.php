@@ -21,4 +21,23 @@ class AdmWorkflowService
         $keyLookup = "applicant_id=$applicant_id, PlanId=$applicationPlanId, simulation_id=$application_simulation_id, desire_num=$desire_num";
         return [$objDesire, $keyLookup];
     }
+
+    public static function loadOriginalScopeObject($wScopeObj)
+    {
+        $program_code = $wScopeObj->getVal('lookup_code');
+        if ($program_code) {
+            return AcademicProgram::loadByMainIndex($program_code);
+        } else
+            return null;
+    }
+
+    public static function loadOriginalSubScopeObject($wSubScopeObj)
+    {
+        // $workflow_module_id, $workflow_scope_id, $lookup_code
+        $apb_id = $wSubScopeObj->getVal('lookup_code');
+        if ($apb_id) {
+            return ApplicationPlanBranch::loadById($apb_id);
+        } else
+            return null;
+    }
 }
