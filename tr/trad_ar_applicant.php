@@ -156,6 +156,17 @@ class ApplicantArTranslator{
 		$additional_step++;
 		$trad["applicant"]["step".$additional_step] = "هيئة قياس";
 		$additional_step++;*/
+		$trad["applicant"]["sis_closed_ind"] = "طالب مطوي القيد";		
+		$trad["applicant"]["sis_visitor_ind"] = "زائر";		
+		$trad["applicant"]["sis_withdrawn_ind"] = "طالب منسحب نهائي";		
+		$trad["applicant"]["sis_dismissed_ind"] = "طالب مفصول أكاديمي";		
+		$trad["applicant"]["sis_graduate_ind"] = "طالب خريج";		
+		$trad["applicant"]["sis_continuous_ind"] = "طالب مستمر";
+
+
+
+
+
 
 		return $trad;
     }

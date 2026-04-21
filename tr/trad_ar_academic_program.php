@@ -18,7 +18,7 @@ $trad['academic_program']['college_id'] = 'الكلّية';
 $trad['academic_program']['program_code'] = 'رمز البرنامج التدريبي';
 $trad['academic_program']['program_name_ar'] = 'اسم البرنامج التدريبي - العربي';
 $trad['academic_program']['program_name_en'] = 'اسم البرنامج التدريبي بالإنجليزية';
-$trad['academic_program']['sis_program_code'] = 'الربط مع نظام معلومات المتدربين';
+$trad['academic_program']['sis_program_code'] = 'رمز البرنامج';
 $trad['academic_program']['major_id'] = 'تخصص البرنامح';
 $trad['academic_program']['degree_id'] = 'الشهادة';
 $trad['academic_program']['degree_id.tooltip'] = 'الشهادات التي تظهر هنا هي فقط الشهادات المفعلة أنها شهادة تخرج ممنوحة بعد اكمال المرحلة الدراسية';
@@ -48,3 +48,9 @@ $trad['academic_program']['Study_plan'] = 'الخطة الدراسية';
 $trad['academic_program']['to_publish'] = 'النشر للتقديم على البوابة';
 $trad['academic_program']['interview_ind'] = 'يتضمن مقابلة شخصية';
 $trad['academic_program']['cv_ind'] = 'يتطلب سيرة ذاتية؟';
+
+    $trad["academic_program"]["sis_codes"] = "رموز نظام معلومات الطالب";
+    $trad["academic_program"]["sis_level_code"] = "رمز المرحلة";
+    $trad["academic_program"]["sis_major_code"] = "رمز التخصص";
+
+
