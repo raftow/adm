@@ -23,6 +23,27 @@ class AcademicProgram extends AdmObject
                         return null;
         }
 
+        public static function loadByMainIndex($program_code, $create_obj_if_not_found = false)
+        {
+                if (!$program_code) throw new AfwRuntimeException("loadByMainIndex : program_code is mandatory field");
+
+
+                $obj = new AcademicProgram();
+                $obj->select("program_code", $program_code);
+
+                if ($obj->load()) {
+                        if ($create_obj_if_not_found) $obj->activate();
+                        return $obj;
+                } elseif ($create_obj_if_not_found) {
+                        $obj->set("program_code", $program_code);
+
+                        $obj->insertNew();
+                        if (!$obj->id) return null; // means beforeInsert rejected insert operation
+                        $obj->is_new = true;
+                        return $obj;
+                } else return null;
+        }
+
         public function getDisplay($lang = 'ar')
         {
                 $data = [];
@@ -222,7 +243,7 @@ class AcademicProgram extends AdmObject
                 return $wsObj;
         }
 
-        
+
         protected function getPublicMethods()
         {
 
@@ -230,7 +251,7 @@ class AcademicProgram extends AdmObject
 
 
 
-                
+
                 $color = 'blue';
                 $title_ar = "تحديث الربط مع نظام معلومات الطلاب";
                 $title_en = "Sync SIS lookup codes from SIS";

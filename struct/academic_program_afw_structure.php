@@ -7,7 +7,8 @@ class AdmAcademicProgramAfwStructure
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 20;
                         $obj->DISPLAY_FIELD_BY_LANG = ['ar' => 'program_name_ar', 'en' => 'program_name_en'];
                         // $obj->ORDER_BY_FIELDS = "xxxx, yyyy";
-                        $obj->UNIQUE_KEY = array('academic_level_id', 'program_track_id', 'college_id', 'program_name_ar', 'program_name_en');
+                        $obj->UNIQUE_KEY = array('program_code');
+                        $obj->UNIQUE_KEY2 = array('academic_level_id', 'program_track_id', 'college_id', 'program_name_ar', 'program_name_en');
                         $obj->public_display = true; // Needed for NominatingCandidates
 
                         $obj->editByStep = true;
@@ -428,7 +429,7 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                
+
                 'deaf_specialty' => array(
                         'RETRIEVE' => false,
                         'SHOW' => true,
