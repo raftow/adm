@@ -427,7 +427,7 @@ class ApplicationDesire extends AdmObject
                 
                         $objme = AfwSession::getUserConnected();
                         $method_icon = 'run';
-                        $method_name = 'sendToSIS';
+                        $method_name = 'sendAllDataToSIS';//'sendToSIS';
                         $color = 'green';
                         $lang = AfwLanguageHelper::getGlobalLanguage();
 
@@ -628,6 +628,23 @@ class ApplicationDesire extends AdmObject
                         return false;
                 }
         }
+        public function sendAllDataToSIS($lang = 'ar')
+        {
+                $result = $this->sendToSIS($lang);
+
+                // $result is [$errorMsg, $successMsg]; success when errorMsg is empty
+                if ($result[0] !== '') {
+                        return $result;
+                }
+
+                $feesSent = $this->sendFeesToSis();
+                if (!$feesSent) {
+                        return [$this->tm("Student data was sent to SIS successfully, but sending fees has failed", $lang), ""];
+                }
+
+                return $result;
+        }
+
         public function fieldsMatrixForStep($stepNum, $lang = 'ar', $onlyIfTheyAreUpdated = false)
         {
                 $this->getApplicationObject();

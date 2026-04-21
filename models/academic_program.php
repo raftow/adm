@@ -221,4 +221,66 @@ class AcademicProgram extends AdmObject
 
                 return $wsObj;
         }
+
+        
+        protected function getPublicMethods()
+        {
+
+                $pbms = array();
+
+
+
+                
+                $color = 'blue';
+                $title_ar = "تحديث رموز نظام معلومات الطالب من SIS";
+                $title_en = "Sync SIS lookup codes from SIS";
+                $methodName = 'syncAllSISLookups';
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                        'METHOD' => $methodName,
+                        'COLOR' => $color,
+                        "EXECUTE-IN-RETRIEVE-MODE" => true,
+                        'LABEL_AR' => $title_ar,
+                        'LABEL_EN' => $title_en,
+                        'ADMIN-ONLY' => true,
+                        //'BF-ID' => '',
+                        'STEP' => 99
+                );
+
+
+
+                return $pbms;
+        }
+
+        /**
+         * Syncs all SIS lookup tables in dependency order:
+         * 1. SisLevelCode   (no dependency)
+         * 2. SisProgramCode (depends on SisLevelCode)
+         * 3. SisMajorCode   (depends on SisProgramCode)
+         *
+         * Returns an array with results per step:
+         * ['levels' => [...], 'programs' => [...], 'majors' => [...]]
+         * Each step result has keys: inserted, updated, errors.
+         * Stops early if a step produces errors, to avoid cascading bad data.
+         */
+        public static function syncAllSISLookups()
+        {
+                $results = [];
+
+                $results['levels'] = SisLevelCode::syncFromSIS();
+                if (!empty($results['levels']['errors'])) {
+                        $results['programs'] = ['inserted' => 0, 'updated' => 0, 'errors' => ['Skipped: level sync had errors']];
+                        $results['majors']   = ['inserted' => 0, 'updated' => 0, 'errors' => ['Skipped: level sync had errors']];
+                        return $results;
+                }
+
+                $results['programs'] = SisProgramCode::syncFromSIS();
+                if (!empty($results['programs']['errors'])) {
+                        $results['majors'] = ['inserted' => 0, 'updated' => 0, 'errors' => ['Skipped: program sync had errors']];
+                        return $results;
+                }
+
+                $results['majors'] = SisMajorCode::syncFromSIS();
+
+                return $results;
+        }
 }
