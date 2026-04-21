@@ -191,7 +191,7 @@ class ApplicationModelField extends AdmObject
         return false;
     }
 
-    public function rowCategoryAttribute()
+    public function rowCategoryAttribute($mode="retrieve")
     {
         return 'step_num';
     }
