@@ -733,8 +733,8 @@ class AdmApplicantAfwStructure
                         'QEDIT' => true,
                         'CSS' => 'width_pct_25',
                         'UTF8' => false,
-                        'TYPE' => 'ENUM',
-                        'ANSWER' => 'FUNCTION',
+                        'TYPE' => 'YN',
+                        
                         'SIZE' => 40,
                         'DEFAUT' => 0,
                         'DISPLAY' => true,
