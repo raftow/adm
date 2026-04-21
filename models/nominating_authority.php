@@ -92,15 +92,26 @@ class NominatingAuthority extends AdmObject
         $pbms = array();
 
         $color = "green";
-        $title_ar = "xxxxxxxxxxxxxxxxxxxx";
-        $methodName = "mmmmmmmmmmmmmmmmmmmmmmm";
-        //$pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD"=>$methodName,"COLOR"=>$color, "LABEL_AR"=>$title_ar, "ADMIN-ONLY"=>true, "BF-ID"=>"", 'STEP' =>$this->stepOfAttribute("xxyy"));
-
-
+        $title_ar = "تحديث قائمة جهات الترشيح من نظام SIS"; 
+        $title_en = "Update Nominating Authorities list from SIS"; 
+        $methodName = "syncFromSIS";
+        $pbms[AfwStringHelper::hzmEncode($methodName)] = 
+                array("METHOD"=>$methodName,
+                        "COLOR"=>$color, 
+                        "LABEL_AR"=>$title_ar, 
+                        "LABEL_EN"=>$title_en,
+                        "ADMIN-ONLY"=>true, 
+                        "BF-ID"=>"", 
+                        'STEP' =>$this->stepOfAttribute("sis_code"));
 
         return $pbms;
     }
-
+    public function syncFromSIS()
+    {
+        $res = SisSponsorCode::syncFromSIS();
+        
+        return $res;
+    }
     public function fld_CREATION_USER_ID()
     {
         return "created_by";

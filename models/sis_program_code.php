@@ -5,7 +5,7 @@ $file_dir_name = dirname(__FILE__);
                 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class SisProgramCode extends AFWObject{
+class SisProgramCode extends AdmObject{
 
         public static $MY_ATABLE_ID=14044; 
   
@@ -42,7 +42,11 @@ class SisProgramCode extends AFWObject{
         
         public function getDisplay($lang="ar")
         {
-               
+               $data = [];
+                $data[0] = $this->getVal("lookup_code");
+
+                $data[1] = $this->getVal("name_$lang");
+                return implode('-', $data);
         }
         
         
@@ -175,12 +179,10 @@ class SisProgramCode extends AFWObject{
                         foreach ($items as $program) {
                                 if (!is_array($program)) continue;
 
-                                $code   = $program['code']          ?? ($program['programCode']   ?? null);
-                                $nameAr = $program['nameAr']        ?? ($program['name_ar']       ?? ($program['description'] ?? ($program['name'] ?? $code)));
-                                $nameEn = $program['nameEn']        ?? ($program['name_en']       ?? ($program['descriptionEn'] ?? $nameAr));
-                                $descAr = $program['descriptionAr'] ?? ($program['desc_ar']       ?? '');
-                                $descEn = $program['descriptionEn'] ?? ($program['desc_en']       ?? '');
-
+                                $code   = $program['code'];
+                                $nameAr = $program['description'];
+                                $nameEn = $program['description'];
+                               
                                 if ($code === null) continue;
 
                                 // Upsert: match by lookup_code + sis_level_code (FK id)
@@ -191,8 +193,7 @@ class SisProgramCode extends AFWObject{
                                 $obj->set('lookup_code',   $code);
                                 $obj->set('name_ar',       $nameAr);
                                 $obj->set('name_en',       $nameEn);
-                                if ($descAr !== '') $obj->set('desc_ar', $descAr);
-                                if ($descEn !== '') $obj->set('desc_en', $descEn);
+                               
                                 $obj->set('sis_level_code', $levelId);
                                 $obj->set('active', 'Y');
 

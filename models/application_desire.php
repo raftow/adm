@@ -506,13 +506,13 @@ class ApplicationDesire extends AdmObject
                         $guardian_lname = $guardian_name_parts[1];
                 }
 
-
+                $programObj = $applicationModelBranchObj->het('program_id');
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 //die($applicantObj->het('country_id')->getVal('id'));
                 $sponsorSISCode = "";
                 $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                 if ($ncObject) {
-                        $sponsorSISCode = $ncObject->het('nomination_letter_id')->het('nominating_authority_id')->getVal('sis_code');
+                        $sponsorSISCode = $ncObject->het('nomination_letter_id')->het('nominating_authority_id')->het('sis_code')->getVal('lookup_code');
                 }
                 $data = [
                         "term" => "202510",//$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
@@ -545,8 +545,8 @@ class ApplicationDesire extends AdmObject
                         "priorMajor" => $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar'),
                         "gpa" => $qualificationObj->getVal('gpa'),
                         "maxGpa" => $qualificationObj->getVal('gpa_from'),
-                        "program" => $this->het('application_plan_branch_id')->het('program_id')->getVal('sis_program_code'),//"BSC-ACCT"
-                        "major" => $this->het('application_plan_branch_id')->het('major_id')->getVal('major_code'),//"ACCT", 
+                        "program" => $programObj->het('sis_program_code')->getVal("lookup_code"),//"BSC-ACCT"
+                        "major" => $programObj->het('sis_major_code')->getVal("lookup_code"),//"ACCT", 
                         "academicStatus" => "AS",
                         "period" => $this->applicationObj->getVal('training_period_enum'),
                         "sponsorId" =>$sponsorSISCode == "" ? null : $sponsorSISCode,

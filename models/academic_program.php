@@ -232,7 +232,7 @@ class AcademicProgram extends AdmObject
 
                 
                 $color = 'blue';
-                $title_ar = "تحديث رموز نظام معلومات الطالب من SIS";
+                $title_ar = "تحديث الربط مع نظام معلومات الطلاب";
                 $title_en = "Sync SIS lookup codes from SIS";
                 $methodName = 'syncAllSISLookups';
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
@@ -241,9 +241,10 @@ class AcademicProgram extends AdmObject
                         "EXECUTE-IN-RETRIEVE-MODE" => true,
                         'LABEL_AR' => $title_ar,
                         'LABEL_EN' => $title_en,
-                        'ADMIN-ONLY' => true,
-                        //'BF-ID' => '',
-                        'STEP' => 99
+                       // 'ADMIN-ONLY' => true,
+                        'PUBLIC' => true,
+                        'BF-ID' => '',
+                        'STEP' => $this->stepOfAttribute("program_name_ar")
                 );
 
 

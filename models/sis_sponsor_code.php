@@ -5,24 +5,24 @@ $file_dir_name = dirname(__FILE__);
                 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class SisMajorCode extends AdmObject{
+class SisSponsorCode extends AFWObject{
 
-        public static $MY_ATABLE_ID=14046; 
+        public static $MY_ATABLE_ID=14047; 
   
         public static $DATABASE		= "";
         public static $MODULE		        = "adm";        
-        public static $TABLE			= "sis_major_code";
+        public static $TABLE			= "sis_sponsor_code";
 
 	    public static $DB_STRUCTURE = null;
 	
 	    public function __construct(){
-		parent::__construct("sis_major_code","id","adm");
-            AdmSisMajorCodeAfwStructure::initInstance($this);    
+		parent::__construct("sis_sponsor_code","id","adm");
+            AdmSisSponsorCodeAfwStructure::initInstance($this);    
 	    }
         
         public static function loadById($id)
         {
-           $obj = new SisMajorCode();
+           $obj = new SisSponsorCode();
            $obj->select_visibilite_horizontale();
            if($obj->load($id))
            {
@@ -42,7 +42,7 @@ class SisMajorCode extends AdmObject{
         
         public function getDisplay($lang="ar")
         {
-               $data = [];
+                $data = [];
                 $data[0] = $this->getVal("lookup_code");
 
                 $data[1] = $this->getVal("name_$lang");
@@ -77,9 +77,9 @@ class SisMajorCode extends AdmObject{
             $pbms = array();
             
             $color = "green";
-            $title_ar = "xxxxxxxxxxxxxxxxxxxx"; 
-            $title_en = "xxxxxxxxxxxxxxxxxxxx"; 
-            $methodName = "mmmmmmmmmmmmmmmmmmmmmmm";
+            $title_ar = "تحديث قائمة جهات الترشيح من نظام SIS"; 
+            $title_en = "Update Nominating Authorities list from SIS"; 
+            $methodName = "syncFromSIS";
             //$pbms[AfwStringHelper::hzmEncode($methodName)] = 
                     array("METHOD"=>$methodName,
                           "COLOR"=>$color, 
@@ -87,7 +87,7 @@ class SisMajorCode extends AdmObject{
                           "LABEL_EN"=>$title_en,
                           "ADMIN-ONLY"=>true, 
                           "BF-ID"=>"", 
-                          'STEP' =>$this->stepOfAttribute("xxyy"));
+                          'STEP' =>$this->stepOfAttribute("sis_code"));
             
             
             
@@ -137,9 +137,10 @@ class SisMajorCode extends AdmObject{
         
 
         /**
-         * Fetches all majors from NaussApi::getMajorsByProgram() for every program
-         * stored in the sis_program_code table, then upserts into sis_major_code
-         * (matched by lookup_code + sis_program_code_id FK).
+         * Fetches all sponsors from NaussApi::getSponsors() and upserts them
+         * into the sis_sponsor_code table (matched by lookup_code).
+         * sponsorId  → lookup_code
+         * sponsorName → name_ar, name_en
          * Returns ['inserted' => int, 'updated' => int, 'errors' => array].
          */
         public static function syncFromSIS()
@@ -151,57 +152,44 @@ class SisMajorCode extends AdmObject{
                 $updated  = 0;
                 $errors   = [];
 
-                // Load all locally known programs to iterate over
-                $programObj = new SisProgramCode();
-                $programObj->select_visibilite_horizontale();
-                $programs = $programObj->loadMany();
+                $response = $api->getSponsors();
 
-                foreach ($programs as $program) {
-                        $programCode = $program->getVal('lookup_code');
-                        $programId   = $program->getId();
+                if (!isset($response['body']) || !is_array($response['body'])) {
+                        $errors[] = "Invalid API response (HTTP " . ($response['status'] ?? '?') . ")";
+                        return compact('inserted', 'updated', 'errors');
+                }
 
-                        $response = $api->getMajorsByProgram($programCode);
+                $body = $response['body'];
+                if (isset($body['data']) && is_array($body['data'])) {
+                        $items = $body['data'];
+                } elseif (isset($body['sponsors']) && is_array($body['sponsors'])) {
+                        $items = $body['sponsors'];
+                } else {
+                        $items = $body;
+                }
 
-                        if (!isset($response['body']) || !is_array($response['body'])) {
-                                $errors[] = "Invalid API response for program: $programCode (HTTP " . ($response['status'] ?? '?') . ")";
-                                continue;
-                        }
+                foreach ($items as $sponsor) {
+                        if (!is_array($sponsor)) continue;
 
-                        $body = $response['body'];
-                        if (isset($body['data']) && is_array($body['data'])) {
-                                $items = $body['data'];
-                        } elseif (isset($body['majors']) && is_array($body['majors'])) {
-                                $items = $body['majors'];
+                        $code = $sponsor['sponsorId'] ?? null;
+                        $name = $sponsor['sponsorName'] ?? $code;
+
+                        if ($code === null) continue;
+
+                        $obj = new SisSponsorCode();
+                        $obj->where("lookup_code = '" . addslashes($code) . "'");
+                        $exists = $obj->load();
+
+                        $obj->set('lookup_code', $code);
+                        $obj->set('name_ar',     $name);
+                        $obj->set('name_en',     $name);
+                        $obj->set('active',      'Y');
+
+                        $ok = $obj->commit();
+                        if ($ok) {
+                                $exists ? $updated++ : $inserted++;
                         } else {
-                                $items = $body;
-                        }
-
-                        foreach ($items as $major) {
-                                if (!is_array($major)) continue;
-
-                                $code   = $major['code'];
-                                $nameAr = $major['description'];
-                                $nameEn = $major['description'];
-                                
-                                if ($code === null) continue;
-
-                                // Upsert: match by lookup_code + sis_program_code_id (FK id)
-                                $obj = new SisMajorCode();
-                                $obj->where("lookup_code = '" . addslashes($code) . "' AND sis_program_code_id = '" . (int)$programId . "'");
-                                $exists = $obj->load();
-
-                                $obj->set('lookup_code',         $code);
-                                $obj->set('name_ar',             $nameAr);
-                                $obj->set('name_en',             $nameEn);
-                                $obj->set('sis_program_code_id', $programId);
-                                $obj->set('active', 'Y');
-
-                                $ok = $obj->commit();
-                                if ($ok) {
-                                        $exists ? $updated++ : $inserted++;
-                                } else {
-                                        $errors[] = "Failed to save major code: $code (program: $programCode)";
-                                }
+                                $errors[] = "Failed to save sponsor code: $code";
                         }
                 }
 
@@ -257,6 +245,8 @@ class SisMajorCode extends AdmObject{
                return true;
             }    
 	}
+
+
              
 }
 

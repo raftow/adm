@@ -5,7 +5,7 @@ $file_dir_name = dirname(__FILE__);
                 
 // require_once("$file_dir_name/../afw/afw.php");
 
-class SisLevelCode extends AFWObject{
+class SisLevelCode extends AdmObject{
 
         public static $MY_ATABLE_ID=14043; 
   
@@ -42,7 +42,11 @@ class SisLevelCode extends AFWObject{
         
         public function getDisplay($lang="ar")
         {
-               
+               $data = [];
+                $data[0] = $this->getVal("lookup_code");
+
+                $data[1] = $this->getVal("name_$lang");
+                return implode('-', $data);
         }
         
         
@@ -165,9 +169,9 @@ class SisLevelCode extends AFWObject{
                 foreach ($items as $level) {
                         if (!is_array($level)) continue;
 
-                        $code    = $level['code']          ?? ($level['levelCode']      ?? null);
-                        $nameAr  = $level['nameAr']        ?? ($level['name_ar']        ?? ($level['description'] ?? ($level['name'] ?? $code)));
-                        $nameEn  = $level['nameEn']        ?? ($level['name_en']        ?? ($level['descriptionEn'] ?? $nameAr));
+                        $code    = $level['code']          ?? ($level['code']      ?? null);
+                        $nameAr  = $level['description'];
+                        $nameEn  = $level['description'];
                         
                         if ($code === null) continue;
 

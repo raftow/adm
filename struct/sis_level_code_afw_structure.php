@@ -9,11 +9,16 @@
                         if ($obj instanceof SisLevelCode ) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"name_ar", 'en'=>"name_en"];
-                                $obj->DISPLAY_FIELD = "lookup_code";
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>array("name_ar","lookup_code"), 'en'=>array("name_en","lookup_code")];
                                 // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
+                                $obj->FORMULA_DISPLAY_FIELD = "concat(IF(ISNULL(name_ar), '', name_ar) , ' - ' , IF(ISNULL(lookup_code), '', lookup_code) ))";
+                                //$obj->DISPLAY_FIELD = "name_ar";
+
                                 $obj->ORDER_BY_FIELDS = "lookup_code";
-                                $obj->IS_LOOKUP = true;$obj->public_display = true;$obj->ENABLE_DISPLAY_MODE_IN_QEDIT = true;$obj->showQeditErrors = true; 
+                                $obj->IS_LOOKUP = true;
+                                $obj->public_display = true;
+                                $obj->ENABLE_DISPLAY_MODE_IN_QEDIT = true;
+                                $obj->showQeditErrors = true; 
                                 
                                 $obj->ignore_insert_doublon = true;
                                 $obj->UNIQUE_KEY = array('lookup_code');
@@ -40,13 +45,13 @@
 		
 		'lookup_code' => array("TYPE" => "TEXT", "SHOW" => true, "RETRIEVE"=>true, "EDIT" => true, "SIZE" => 64, "QEDIT" => true, "SHORTNAME"=>"code"),
 
-		'name_ar' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+		'name_ar' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => TRUE,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 128,  'MAXLENGTH' => 128,  'MIN-SIZE' => 5,  'CHAR_TEMPLATE' => "ARABIC-CHARS,SPACE",  'MANDATORY' => true,  'UTF8' => true,  
 				'TYPE' => 'TEXT',  'READONLY' => false, 
 				'CSS' => 'width_pct_50', ),
 
-		'name_en' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => false,  
+		'name_en' => array('STEP' => 1,  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => TRUE,  
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 128,  'MAXLENGTH' => 128,  'MIN-SIZE' => 5,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 

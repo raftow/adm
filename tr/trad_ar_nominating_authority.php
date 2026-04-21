@@ -18,6 +18,7 @@ class NominatingAuthorityArTranslator{
 		$trad["nominating_authority"]["nominating_authority_source_enum"] = "مصدر جهة الترشيح";
 		$trad["nominating_authority"]["principal_autority_ind"] = "جهة رئيسية";
 		$trad["nominating_authority"]["country_id"] = "الدولة";
+		$trad["nominating_authority"]["sis_code"] = "رمز جهه الترشيح في نظام SIS";
 
         // steps
         return $trad;
