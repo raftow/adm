@@ -114,6 +114,14 @@ class ApplicantEnTranslator{
 		$trad["applicant"]["qiyas_achievement_sc_date"] = "Date of the achievement test - scientific";
 		$trad["applicant"]["profile_populated"] = "Profile populated";
 
+
+		$trad["applicant"]["sis_closed_ind"] = "Closed Student";
+		$trad["applicant"]["sis_visitor_ind"] = "Visitor";
+		$trad["applicant"]["sis_withdrawn_ind"] = "Student Withdrawn Definitively";
+		$trad["applicant"]["sis_dismissed_ind"] = "Student Dismissed Academically";
+		$trad["applicant"]["sis_graduate_ind"] = "Graduate Student";
+		$trad["applicant"]["sis_continuous_ind"] = "Continuous Student";
+
 		return $trad;
     }
 
