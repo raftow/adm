@@ -429,7 +429,7 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                
+
                 'deaf_specialty' => array(
                         'RETRIEVE' => false,
                         'SHOW' => true,
@@ -673,7 +673,7 @@ class AdmAcademicProgramAfwStructure
                         'ANSMODULE' => 'adm',
                         'DISPLAY' => true,
                         'STEP' => 2,
-                        'MANDATORY' => '::settings',
+                        'MANDATORY' => false,
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
