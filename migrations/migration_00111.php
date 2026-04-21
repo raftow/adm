@@ -99,6 +99,13 @@ AfwDatabase::db_query("CREATE UNIQUE INDEX uk_sis_program_code ON " . $server_db
   
 AfwDatabase::db_query("CREATE UNIQUE INDEX uk_sis_major_code ON " . $server_db_prefix . "adm.sis_major_code(lookup_code,sis_program_code_id);");
 
+
+AfwDatabase::db_query("alter table " . $server_db_prefix . "adm.applicant add sis_continuous_ind char(1) NOT NULL default 'N' after cv_ind;");
+AfwDatabase::db_query("alter table " . $server_db_prefix . "adm.applicant add sis_graduate_ind char(1) NOT NULL default 'N' after sis_continuous_ind;");
+AfwDatabase::db_query("alter table " . $server_db_prefix . "adm.applicant add sis_withdrawn_ind char(1) NOT NULL default 'N' after sis_graduate_ind;");
+AfwDatabase::db_query("alter table " . $server_db_prefix . "adm.applicant add sis_dismissed_ind char(1) NOT NULL default 'N' after sis_withdrawn_ind;");
+AfwDatabase::db_query("alter table " . $server_db_prefix . "adm.applicant add sis_closed_ind char(1) NOT NULL default 'N' after sis_dismissed_ind;");
+AfwDatabase::db_query("alter table " . $server_db_prefix . "adm.applicant add sis_visitor_ind char(1) NOT NULL default 'N' after sis_closed_ind;");
 } catch (Exception $e) {
     $migration_error .= " " . $e->getMessage();
 }
