@@ -2181,10 +2181,11 @@ class ApplicationDesire extends AdmObject
 
         public function showFilesDiv($lang, $workflowRequestObject)
         {
-                $structure = AfwStructureHelper::getStructureOf($this, 'applicantFileList');
+                $applicationObject = $this->getApplicationObject();
+                $structure = AfwStructureHelper::getStructureOf($applicationObject, 'applicantFileList');
                 // die("showFilesDiv structure = ".var_export($structure, true));
                 $structure['ICONS'] = false;
-                return $this->getApplicationObject()->showAttribute('applicantFileList', $structure, true, $lang);
+                return $applicationObject->showAttribute('applicantFileList', $structure, true, $lang);
         }
 
         public function showCommiteeDiv($lang, $workflowRequestObject)
