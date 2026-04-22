@@ -506,13 +506,16 @@ class ApplicationDesire extends AdmObject
                         $guardian_lname = $guardian_name_parts[1];
                 }
 
-                $programObj = $applicationModelBranchObj->het('program_id');
+                $programObj = $applicationModelBranchObj->het('academic_program_id');
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 //die($applicantObj->het('country_id')->getVal('id'));
                 $sponsorSISCode = "";
                 $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                 if ($ncObject) {
-                        $sponsorSISCode = $ncObject->het('nomination_letter_id')->het('nominating_authority_id')->het('sis_code')->getVal('lookup_code');
+                        $sponsorObj = $ncObject->getVal('nominating_authority_id');
+                        if ($sponsorObj) {
+                                $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                        }
                 }
                 $data = [
                         "term" => "202510", //$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
@@ -540,21 +543,21 @@ class ApplicationDesire extends AdmObject
                         "guardianLname" => $guardian_lname,
                         "guardianPhoneArea" => "966",
                         "guardianPhone" => $applicantObj->getVal('guardian_phone'),
-                        "priorColl" => $qualificationObj->getVal('source_name'),
-                        "priorDegree" => $qualificationObj->het('qualification_id')->getVal('sis_code'),
-                        "priorMajor" => $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar'),
-                        "gpa" => $qualificationObj->getVal('gpa'),
-                        "maxGpa" => $qualificationObj->getVal('gpa_from'),
+                        "priorColl" => ($qualificationObj) ? $qualificationObj->getVal('source_name') : null,
+                        "priorDegree" => ($qualificationObj) ? $qualificationObj->het('qualification_id')->getVal('sis_code') : null,
+                        "priorMajor" => ($qualificationObj) ? $qualificationObj->het('qualification_major_id')->getVal('qualification_major_name_ar') : null,
+                        "gpa" => ($qualificationObj) ? $qualificationObj->getVal('gpa') : null,
+                        "maxGpa" => ($qualificationObj) ? $qualificationObj->getVal('gpa_from') : null,
 
-                        "program" => $programObj->het('sis_program_code')->getVal("lookup_code"),//"BSC-ACCT"
-                        "major" => $programObj->het('sis_major_code')->getVal("lookup_code"),//"ACCT", 
+                        "program" => ($sisCodeObj = $programObj->het('sis_program_code')) ? $sisCodeObj->getVal("lookup_code") : null,//"BSC-ACCT"
+                        "major" => ($sisCodeObj = $programObj->het('sis_major_code')) ? $sisCodeObj->getVal("lookup_code") : null,//"ACCT", 
                         "academicStatus" => "AS",
-                        "period" => $this->applicationObj->getVal('training_period_enum'),
+                        "period" => ($this->applicationObj->getVal('training_period_enum')==1) ? "L1" : "N1",
                         "sponsorId" => $sponsorSISCode == "" ? null : $sponsorSISCode,
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-                //die(var_dump($data));
+               // die(var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
@@ -579,7 +582,7 @@ class ApplicationDesire extends AdmObject
                 $applicantAccountObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
                 $applicantAccountObj->select("active", "Y");
                 $applicantAccountList = $applicantAccountObj->loadMany();
-
+//die(var_dump($applicantAccountList));
                 $data = [];
                 $applicationPlanBranchObj = $this->het('application_plan_branch_id');
                 foreach ($applicantAccountList as $applicantAccount) {
@@ -612,7 +615,7 @@ class ApplicationDesire extends AdmObject
                                 ];
                         } else {
                                 $data[] = [
-                                        "id" => $applicantAccount->getVal("student_id"),
+                                        "id" => $this->getVal("student_id"),
                                         "term" => $term_code,
                                         "chargeCode" => $financialTransactionObj->getVal("sis_charge_code"),
                                         "amount" => $applicantAccount->getVal("total_amount"),
@@ -620,6 +623,7 @@ class ApplicationDesire extends AdmObject
                                 ];
                         }
                 }
+         //       die(var_dump($data));
                 $response = $api->pushPayments($data);
                 if ($response['status'] == "SUCCESS") {
                         $this->set("payment_created_ind", "Y");
