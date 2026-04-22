@@ -9,8 +9,10 @@
                         if ($obj instanceof SisProgramCode ) 
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                                //$obj->DISPLAY_FIELD_BY_LANG = ['ar'=>"name_ar", 'en'=>"name_en"];
-                                $obj->DISPLAY_FIELD = "lookup_code";
+                                $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>array("name_ar","lookup_code"), 'en'=>array("name_en","lookup_code")];
+                               // $obj->DISPLAY_FIELD = "lookup_code";
+                                $obj->FORMULA_DISPLAY_FIELD = "concat(IF(ISNULL(name_ar), '', name_ar) , ' - ' , IF(ISNULL(lookup_code), '', lookup_code) ))";
+
                                // $obj->FORMULA_DISPLAY_FIELD = "concat(IF(ISNULL(name_ar2), '', name_ar) , ' ' , IF(ISNULL(lookup_code), '', lookup_code) ))";
 
                                 
