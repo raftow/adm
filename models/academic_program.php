@@ -284,7 +284,7 @@ class AcademicProgram extends AdmObject
          * Each step result has keys: inserted, updated, errors.
          * Stops early if a step produces errors, to avoid cascading bad data.
          */
-        public static function syncAllSISLookups()
+        public function syncAllSISLookups($lang="ar")
         {
                 $results = [];
 
