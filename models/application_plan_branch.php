@@ -73,7 +73,7 @@ class ApplicationPlanBranch extends AdmObject
                                         FROM " . $server_db_prefix . "adm.application_desire
                                         WHERE application_plan_branch_id = $application_plan_branch_id
                                         AND active = 'Y'
-                                        AND desire_status_enum = 3");
+                                        AND admission_status = 18");
                         $remain = $seats_capacity - $to_remove;
                         if ($seats_capacity < 0) {
                                 return $this->translateMessage("full", $lang);
