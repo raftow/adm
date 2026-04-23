@@ -244,6 +244,10 @@ $messages["Are you sure you want to send this application to SIS?"] = "هل أن
 $messages["This Action is irreversible"] = "هذا الإجراء غير قابل للإلغاء";
 $messages["The process of sending data to SIS has succeeded, the new ID of student is"] = "تمت عملية إرسال البيانات إلى نظام معلومات الطلاب بنجاح، ورقم الطالب الجديد هو";
 $messages["The process of sending data to SIS has failed, with the following message"] = "فشلت عملية إرسال البيانات إلى نظام معلومات الطلاب (SIS)، مع ظهور الرسالة التالية";
+$messages['remain'] = 'باقي';
+$messages['from'] = 'من';
+$messages['closed'] = 'مغلق';
+$messages['full'] = 'ممتلئ';
 
 // 
 // $messages[""] = "";

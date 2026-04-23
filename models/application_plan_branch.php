@@ -63,6 +63,27 @@ class ApplicationPlanBranch extends AdmObject
         }
 
 
+        public function getStatusDisplay($lang = 'ar', $context = 'default')
+        {
+                if ($context == "nauss") {
+                        $server_db_prefix = AfwSession::currentDBPrefix();
+                        $seats_capacity = $this->getVal("seats_capacity");
+                        $application_plan_branch_id = $this->id;
+                        $to_remove = AfwDatabase::db_recup_value("SELECT count(*) as used_seats_capacity
+                                        FROM " . $server_db_prefix . "adm.application_desire
+                                        WHERE application_plan_branch_id = $application_plan_branch_id
+                                        AND active = 'Y'
+                                        AND desire_status_enum = 3");
+                        $remain = $seats_capacity - $to_remove;
+                        if ($seats_capacity < 0) {
+                                return $this->translateMessage("full", $lang);
+                        } elseif ($seats_capacity > 0) {
+                                return $this->translateMessage("remain", $lang) . " $remain " . $this->translateMessage("from", $lang) . " " . $seats_capacity;
+                        }
+                }
+                return '';
+        }
+
 
 
         public static function getBranchsCondWPMatrix($application_plan_id, $sorting_group_id)
@@ -80,7 +101,7 @@ class ApplicationPlanBranch extends AdmObject
 
                         // desire_status_enum = 3  below means (accepted or accepted with upgrade)
                         $to_remove = AfwDatabase::db_recup_index("SELECT application_plan_branch_id as id, count(*) as capacity
-                                        FROM uoh_adm.application_desire
+                                        FROM " . $server_db_prefix . "adm.application_desire
                                         WHERE application_plan_id = $application_plan_id 
                                         AND application_simulation_id = $application_simulation_id
                                         AND active = 'Y'
