@@ -1537,6 +1537,8 @@
                                 'admission_status' => array(
                                         'IMPORTANT' => 'IN',
                                         'SHOW' => true,
+                                        'SEARCH' => true,
+                                        'QSEARCH' => true,
                                         'RETRIEVE' => false,
                                         'EDIT' => true,
                                         'QEDIT' => true,
