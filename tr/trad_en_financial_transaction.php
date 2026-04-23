@@ -13,6 +13,7 @@ class FinancialTransactionEnTranslator{
 	$trad["financial_transaction"]["fee_description_en"] = "Fee Description -En";
 	$trad["financial_transaction"]["sis_charge_code"] = "Accounting Fee Code";
 	$trad["financial_transaction"]["sis_payment_code"] = "Payment Code";
+	$trad["financial_transaction"]["add_charge_ind"] = "Add Charge?";
         return $trad;
         }
 

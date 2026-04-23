@@ -512,7 +512,7 @@ class ApplicationDesire extends AdmObject
                 $sponsorSISCode = "";
                 $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                 if ($ncObject) {
-                        $sponsorObj = $ncObject->getVal('nominating_authority_id');
+                        $sponsorObj = $ncObject->het('nominating_authority_id');
                         if ($sponsorObj) {
                                 $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
                         }

@@ -164,6 +164,22 @@ class AdmFinancialTransactionAfwStructure
                         'CSS' => 'width_pct_50'
                 ),
 
+                'add_charge_ind' => array(
+                        'IMPORTANT' => 'HIGH',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'RETRIEVE-AR' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'TYPE' => 'YN',
+                        'DISPLAY' => true,
+                        'STEP' => 1,
+                        'MANDATORY' => false,
+                        'DISPLAY-UGROUPS' => '',
+                        'EDIT-UGROUPS' => '',
+                        'CSS' => 'width_pct_50'
+                ),
 
 
                 'active' => array(
