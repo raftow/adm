@@ -248,9 +248,9 @@ $messages['remain'] = 'باقي';
 $messages['from'] = 'من';
 $messages['closed'] = 'مغلق';
 $messages['full'] = 'ممتلئ';
-
+$messages["Note: Proficiency in English is essential for programs taught in English"] = "ملاحظة: إتقان اللغة الإنجليزية شرط أساسي للبرامج التي تُدرَّس باللغة الإنجليزية";
 // 
-// $messages[""] = "";
+// 
 // $messages[""] = "";
 // $messages[""] = "";
 // $messages[""] = "";
