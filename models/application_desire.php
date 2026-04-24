@@ -427,7 +427,7 @@ class ApplicationDesire extends AdmObject
 
                         $objme = AfwSession::getUserConnected();
                         $method_icon = 'run';
-                        $method_name = 'sendAllDataToSIS';//'sendToSIS';
+                        $method_name = 'sendAllDataToSIS'; //'sendToSIS';
                         $color = 'green';
                         $lang = AfwLanguageHelper::getGlobalLanguage();
 
@@ -549,15 +549,15 @@ class ApplicationDesire extends AdmObject
                         "gpa" => ($qualificationObj) ? $qualificationObj->getVal('gpa') : null,
                         "maxGpa" => ($qualificationObj) ? $qualificationObj->getVal('gpa_from') : null,
 
-                        "program" => ($sisCodeObj = $programObj->het('sis_program_code')) ? $sisCodeObj->getVal("lookup_code") : null,//"BSC-ACCT"
-                        "major" => ($sisCodeObj = $programObj->het('sis_major_code')) ? $sisCodeObj->getVal("lookup_code") : null,//"ACCT", 
+                        "program" => ($sisCodeObj = $programObj->het('sis_program_code')) ? $sisCodeObj->getVal("lookup_code") : null, //"BSC-ACCT"
+                        "major" => ($sisCodeObj = $programObj->het('sis_major_code')) ? $sisCodeObj->getVal("lookup_code") : null, //"ACCT", 
                         "academicStatus" => "AS",
-                        "period" => ($this->applicationObj->getVal('training_period_enum')==1) ? "L1" : "N1",
+                        "period" => ($this->applicationObj->getVal('training_period_enum') == 1) ? "L1" : "N1",
                         "sponsorId" => $sponsorSISCode == "" ? null : $sponsorSISCode,
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-               // die(var_dump($data));
+                // die(var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
@@ -582,7 +582,7 @@ class ApplicationDesire extends AdmObject
                 $applicantAccountObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
                 $applicantAccountObj->select("active", "Y");
                 $applicantAccountList = $applicantAccountObj->loadMany();
-//die(var_dump($applicantAccountList));
+                //die(var_dump($applicantAccountList));
                 $data = [];
                 $applicationPlanBranchObj = $this->het('application_plan_branch_id');
                 foreach ($applicantAccountList as $applicantAccount) {
@@ -623,7 +623,7 @@ class ApplicationDesire extends AdmObject
                                 ];
                         }
                 }
-         //       die(var_dump($data));
+                //       die(var_dump($data));
                 $response = $api->pushPayments($data);
                 if ($response['status'] == "SUCCESS") {
                         $this->set("payment_created_ind", "Y");
@@ -2281,9 +2281,9 @@ class ApplicationDesire extends AdmObject
         public function showInterviewDiv($lang, $workflowRequestObject)
         {
                 if (!$workflowRequestObject) return "No Workflow Request Object !!!!????";
-                $interviewBookingObj = $workflowRequestObject->getInterviewBooking();
-                if (!$interviewBookingObj) $html_booking_table = $workflowRequestObject->tm("No interview booking invitation sent", $lang);
-                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) .
+                list($err, $info, $war, $interviewBookingObj) = $workflowRequestObject->getInterviewBooking();
+                if (!$interviewBookingObj) $html_booking_table = "$err : $war : $info"; // $workflowRequestObject->tm("No interview booking invitation sent", $lang)
+                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) . " : $info" .
                         " : " . $workflowRequestObject->tm("Bookings status", $lang) .
                         " : " . $interviewBookingObj->decode("booking_status_id", '', false, $lang) .
                         " " . $interviewBookingObj->decode("interview_date", '', false, $lang) .
