@@ -68,6 +68,16 @@ class ApplicationDesire extends AdmObject
                 return $this->applicationObj;
         }
 
+        public function getMyLinks($lang = "ar")
+        {
+                $appObj = $this->getApplicationObject();
+                $html = $this->showMyLink(0, '', $this->singleTranslation($lang));
+                if ($appObj) $html .= " / " . $appObj->showMyLink(0, '', $appObj->singleTranslation($lang));
+
+                return $html;
+        }
+
+
         public function moveColumn()
         {
                 return 'desire_num';
