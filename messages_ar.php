@@ -249,6 +249,14 @@ $messages['from'] = 'من';
 $messages['closed'] = 'مغلق';
 $messages['full'] = 'ممتلئ';
 $messages["Note: Proficiency in English is essential for programs taught in English"] = "ملاحظة: إتقان اللغة الإنجليزية شرط أساسي للبرامج التي تُدرَّس باللغة الإنجليزية";
+$messages["The program itself require interview and category and class of the application also"] =
+    "يتطلب البرنامج نفسه مقابلة، وكذلك تحديد فئة ونوع الطلب.";
+$messages["The program itself require interview but category and class of the application doesn't"] =
+    "يتطلب البرنامج نفسه مقابلة، لكن فئة ونوع الطلب لا يتطلبان ذلك.";
+$messages["The program itself does'nt require interview"] = "لا يتطلب البرنامج نفسه مقابلة.";
+$messages["No program defined"] = "لم يتم تعريف أي برنامج.";
+$messages["No branch defined"] = "لم يتم تعريف أي فرع.";
+
 // 
 // 
 // $messages[""] = "";
