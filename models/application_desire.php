@@ -2181,12 +2181,14 @@ class ApplicationDesire extends AdmObject
 
         public function showQualificationsDiv($lang, $workflowRequestObject)
         {
-                return $this->getApplicationObject()->showAttribute('applicationQualificationList', null, true, $lang);
+                $applicationQualificationList = $this->getApplicationObject()->get('applicationQualificationList');
+                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, []);
         }
 
         public function showEvaluationsDiv($lang, $workflowRequestObject)
         {
-                return $this->getApplicationObject()->getApplicant()->showAttribute('applicantEvaluationList', null, true, $lang);
+                $applicantEvaluationList = $this->getApplicationObject()->getApplicant()->get('applicantEvaluationList');
+                return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, []);
         }
 
         public function showFilesDiv($lang, $workflowRequestObject)
@@ -2195,6 +2197,15 @@ class ApplicationDesire extends AdmObject
                 $structure = AfwStructureHelper::getStructureOf($applicationObject, 'applicantFileList');
                 // die("showFilesDiv structure = ".var_export($structure, true));
                 $structure['ICONS'] = false;
+                if ($workflowRequestObject->getVal("workflow_stage_id") != 1) {
+                        $structure['DO-NOT-RETRIEVE-COLS'] = [
+                                'applicant_id',
+                                'idn',
+                                'approved',
+                                'reupload_enum',
+                        ];
+                }
+
                 return $applicationObject->showAttribute('applicantFileList', $structure, true, $lang);
         }
 
