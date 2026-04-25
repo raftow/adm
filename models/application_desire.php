@@ -68,7 +68,7 @@ class ApplicationDesire extends AdmObject
                 return $this->applicationObj;
         }
 
-        public function getMyLinks($lang = "ar")
+        public function showMyLinks($lang = "ar")
         {
                 $appObj = $this->getApplicationObject();
                 $html = $this->showMyLink(0, '', $this->singleTranslation($lang));
