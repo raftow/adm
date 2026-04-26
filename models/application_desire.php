@@ -70,9 +70,11 @@ class ApplicationDesire extends AdmObject
 
         public function showMyLinks($lang = "ar")
         {
-                $appObj = $this->getApplicationObject();
-                $html = $this->showMyLink(0, '', $this->singleTranslation($lang));
-                if ($appObj) $html .= " / " . $appObj->showMyLink(0, '', $appObj->singleTranslation($lang));
+                $applicationObj = $this->getApplicationObject();
+                $applicantObj = $applicationObj->getApplicant();
+                $title = $applicantObj->translate("step2", $lang); // $applicantObj->singleTranslation($lang,true)
+                $html = $applicantObj->showMyLink(2, '_candidate_data', $title);
+                //if ($applicationObj) $html .= " / " . $appObj->showMyLink(0, '', $appObj->singleTranslation($lang));
 
                 return $html;
         }
