@@ -73,8 +73,9 @@ class ApplicationDesire extends AdmObject
                 $applicationObj = $this->getApplicationObject();
                 $applicantObj = $applicationObj->getApplicant();                
                 if ($applicantObj) {
+                        $prefix = $this->translateOperator("view",$lang);
                         $title = $applicantObj->translate("step2", $lang); 
-                        $html = $applicantObj->showMyLink(2, '_candidate_data', $title);
+                        $html = $applicantObj->showMyLink(2, '_candidate_data', $prefix." ".$title);
                 }
                 
 
@@ -2427,7 +2428,7 @@ class ApplicationDesire extends AdmObject
                 $my_css = "";
 
                 if ($workflowRequestObject and $workflowRequestObject->id) {
-                        $html .= $workflowRequestObject->calcMyOriginalObjectLinks();
+                        $html .= $workflowRequestObject->calcMyOriginalObjectLinks('value',false);
                 } else {
                         $html .= " > " . $this->tm("The workflow request seems to be removed", $lang);
                         $html .= " > " . "<br>" . $this->showMyLink() . "<br>";
