@@ -71,10 +71,12 @@ class ApplicationDesire extends AdmObject
         public function showMyLinks($lang = "ar")
         {
                 $applicationObj = $this->getApplicationObject();
-                $applicantObj = $applicationObj->getApplicant();
-                $title = $applicantObj->translate("step2", $lang); // $applicantObj->singleTranslation($lang,true)
-                $html = $applicantObj->showMyLink(2, '_candidate_data', $title);
-                //if ($applicationObj) $html .= " / " . $appObj->showMyLink(0, '', $appObj->singleTranslation($lang));
+                $applicantObj = $applicationObj->getApplicant();                
+                if ($applicantObj) {
+                        $title = $applicantObj->translate("step2", $lang); 
+                        $html = $applicantObj->showMyLink(2, '_candidate_data', $title);
+                }
+                
 
                 return $html;
         }
@@ -2178,6 +2180,12 @@ class ApplicationDesire extends AdmObject
                 if ($step == 8)
                         return $this->showSortingDiv($lang, $workflowRequestObject);
 
+                // step10 => المطابقة النهائية';
+                if ($step == 10)
+                        return $this->showFinalMatchDiv($lang, $workflowRequestObject);
+
+
+
                 return $this->tm('Unknown workflow step' . $step, $lang);
         }
 
@@ -2407,6 +2415,33 @@ class ApplicationDesire extends AdmObject
                                 <div class='sorting $eval_css'>$html_sorting_table</div>
                         </div>";
         }
+
+        /**
+         * @param WorkflowRequest $workflowRequestObject
+         *
+         **/
+
+        public function showFinalMatchDiv($lang, $workflowRequestObject)
+        {
+                $html = "";
+                $my_css = "";
+
+                if ($workflowRequestObject and $workflowRequestObject->id) {
+                        $html .= $workflowRequestObject->calcMyOriginalObjectLinks();
+                } else {
+                        $html .= " > " . $this->tm("The workflow request seems to be removed", $lang);
+                        $html .= " > " . "<br>" . $this->showMyLink() . "<br>";
+                        $html .= " > " . AfwShowHelper::showRetrieveTable($this, $lang, []);
+                }
+
+                $status_sorting = "";
+                return "<div class='committee-review'>
+                                <div class='final match $my_css'>$html</div>
+                        </div>";
+        }
+
+
+        
 
 
         public function checkCondition_interviewSuccess($workflowConditionObject, $workflowRequestObject, $lang)
