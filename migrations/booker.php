@@ -115,6 +115,7 @@ $migrations = [
     '00109' => ['by'=>'medali','title'=>'add field to nomination_authority'],
     '00110' => ['by'=>'medali','title'=>'add field to academic_program'],  
     '00111' => ['by'=>'medali','title'=>'add sis code tables'],
-    '00112' => ['by'=>'medali','title'=>'add field to financial_transaction']
+    '00112' => ['by'=>'medali','title'=>'add field to financial_transaction'],
+    '00113' => ['by'=>'medali','title'=>'add field to tuition_base + financial_transaction relationship + application class relationship with financial transaction'],
 ];
 

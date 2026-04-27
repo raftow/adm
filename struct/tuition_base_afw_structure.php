@@ -135,7 +135,12 @@
 				'TYPE' => 'TEXT',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 
-
+                'financial_transaction_id' => array('IMPORTANT' => 'IN',  'SEARCH' => true,  'SHOW' => true,  'RETRIEVE' => true,  
+                                'EDIT' => true,  'QEDIT' => true,  'SIZE' => 40,  'UTF8' => false,  
+                                'TYPE' => 'FK',  'ANSWER' => 'financial_transaction',  'ANSMODULE' => 'adm',  'DEFAUT' => 0,    
+                                'DISPLAY' => true,  'STEP' => 1, 'MANDATORY' => false, 
+                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
+                                'CSS' => 'width_pct_25', ),
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 

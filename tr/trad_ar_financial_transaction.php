@@ -14,7 +14,7 @@ class FinancialTransactionArTranslator{
 	$trad["financial_transaction"]["sis_charge_code"] = "رمز الرسوم المحاسبي";
 	$trad["financial_transaction"]["sis_payment_code"] = "رمز  الدفع";
 	$trad["financial_transaction"]["financial_element_unit_enum"] = "وحدة السعر";
-	$trad["financial_transaction"]["add_charge_ind"] = "إضافة رسوم ؟";
+	$trad["financial_transaction"]["add_charge_ind"] = "إضافة مطالبة ؟";
         return $trad;
         }
 

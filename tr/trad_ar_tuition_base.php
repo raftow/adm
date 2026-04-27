@@ -18,6 +18,10 @@ class TuitionBaseArTranslator{
 	$trad["tuition_base"]["mandatory_fees"] = "الرسوم الإلزامية";
 	$trad["tuition_base"]["notes"] = "ملاحظات";
 	$trad["tuition_base"]["degree_id"] = "الشهادة";
+	$trad["tuition_base"]["currency_ar"] = "العملة - العربية";
+	$trad["tuition_base"]["currency_en"] = "العملة - الإنجليزية";
+	$trad["tuition_base"]["financial_transaction_id"] = "المعاملة المالية";
+
 
         return $trad;
         }
