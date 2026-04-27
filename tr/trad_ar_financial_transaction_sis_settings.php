@@ -14,8 +14,8 @@ class FinancialTransactionSisSettingsArTranslator{
 		$trad["financial_transaction_sis_settings"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["financial_transaction_sis_settings"]["financial_transaction_id"] = "الحركة المالية";
 		$trad["financial_transaction_sis_settings"]["application_class_id"] = "تصنيف التقديم";
-		$trad["financial_transaction_sis_settings"]["add_charge_ind"] = "إضافة المطالبات";
-		$trad["financial_transaction_sis_settings"]["add_payment_ind"] = "يمكن الإلغاء";
+		$trad["financial_transaction_sis_settings"]["add_charge_ind"] = "إرسال سجل المطالبة";
+		$trad["financial_transaction_sis_settings"]["add_payment_ind"] = "ارسال سجل السداد";
         // steps
         return $trad;
     }
