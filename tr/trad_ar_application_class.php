@@ -12,7 +12,7 @@ class ApplicationClassArTranslator{
 		$trad["application_class"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["application_class"]["desc_ar"] = "وصف  بالعربية";
 		$trad["application_class"]["desc_en"] = "وصف  بالانجليزية";
-		$trad["financial_transaction_sis_settings"]["budgeting_ind"] = "مدفوع ؟";
+		$trad["application_class"]["budgeting_ind"] = "مدفوع ؟";
 
         // steps
         return $trad;
