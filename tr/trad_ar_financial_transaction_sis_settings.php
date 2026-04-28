@@ -16,7 +16,6 @@ class FinancialTransactionSisSettingsArTranslator{
 		$trad["financial_transaction_sis_settings"]["application_class_id"] = "تصنيف التقديم";
 		$trad["financial_transaction_sis_settings"]["add_charge_ind"] = "إرسال سجل المطالبة";
 		$trad["financial_transaction_sis_settings"]["add_payment_ind"] = "ارسال سجل السداد";
-		$trad["financial_transaction_sis_settings"]["budgeting_ind"] = "مدفوع ؟";
         // steps
         return $trad;
     }
