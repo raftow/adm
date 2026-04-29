@@ -188,6 +188,7 @@ class AdmNominatingAuthorityAfwStructure
                         'READONLY' => false,
                         'AUTOCOMPLETE' => true,
                         'AUTOCOMPLETE-SEARCH' => true,
+                        'MANDATORY' => true,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
