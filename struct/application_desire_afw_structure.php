@@ -69,7 +69,8 @@
                                         'EDIT-ADMIN' => true,
                                         'UTF8' => false,
                                         'READONLY' => true,
-                                        'AUTOCOMPLETE' => false,
+                                        'AUTOCOMPLETE' => true,
+                                        'AUTOCOMPLETE-SEARCH' => true,
                                         'TYPE' => 'FK',
                                         'ANSWER' => 'applicant',
                                         'ANSMODULE' => 'adm',
@@ -1497,7 +1498,7 @@
                                         'AUTOCOMPLETE' => false,
                                         'DISPLAY-UGROUPS' => '',
                                         'EDIT-UGROUPS' => '',
-                                        'CSS' => 'width_pct_100',
+                                        'CSS' => 'width_pct_50',
                                 ),
                                 'student_created_ind' => array(
                                         'IMPORTANT' => 'IN',

@@ -587,7 +587,7 @@ class ApplicationDesire extends AdmObject
                         return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response['body']['message'], ""];
                 }
         }
-        public function sendFeesToSis()
+        public function sendFeesToSisOld()
         {
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $api = new NaussApi();
@@ -648,37 +648,63 @@ class ApplicationDesire extends AdmObject
                         return false;
                 }
         }
-        public function sendFeesToSisNew(){
+        public function sendFeesToSis(){
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $api = new NaussApi();
+                
+                $application_class_id = $this->getVal("application_class_enum");
+
+                $applicationClassObj = ApplicationClass::loadById($application_class_id);
+                $applicationPlanBranchObj = $this->het('application_plan_branch_id');
 
                 $applicationModelFinancialTransactionObj = new ApplicationModelFinancialTransaction();
-                $applicationModelFinancialTransactionObj->select("application_plan_id", $this->getVal("application_plan_id"));
-                $applicationModelFinancialTransactionObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
+                $applicationModelFinancialTransactionObj->select("application_model_id", $this->getVal("application_model_id"));
+                //$applicationModelFinancialTransactionObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
                 $applicationModelFinancialTransactionObj->select("active", "Y");
                 $applicationModelFinancialTransactionList = $applicationModelFinancialTransactionObj->loadMany();
-                $applicantAccountObj = new ApplicantAccount();
-                $applicationPlanBranchObj = $this->het('application_plan_branch_id');
-                $term_code = $applicationModelFinancialTransaction->get("application_plan_id")->het('term_id')->getVal('term_code');
-                $degree_id = $applicationPlanBranchObj->het('academic_program_id')->getVal("degree_id");
-                $program_id = $applicationPlanBranchObj->getVal("academic_program_id");
-                $data = [];
-                foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
-                        $financialTransactionObj = $applicationModelFinancialTransaction->get("financial_transaction_id");
-                        
-                        
-                        $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
-                        $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
-                        $applicantAccountObj->select("active", "Y");
-                        $applicantAccountList = $applicantAccountObj->load();
-                        if($applicantAccountObj){
-                                $payment_status_enum = ($applicantAccountObj->getVal("payment_status_enum") == 2);
-                        }elseif($financialTransactionObj->getVal("add_charge_ind") == "Y"){
-                                $payment_status_enum = false;
+
+                $term_code = $this->het("application_plan_id")->het('term_id')->getVal('term_code');
+                $degree_id = $applicationPlanBranchObj->het('program_id')->getVal("degree_id");
+                $program_id = $applicationPlanBranchObj->getVal("program_id");
+                $student_id = $this->getVal("student_id");
+                if(!$student_id){
+                        return false; // can't send fees if student id is not set
+                }
+                if($applicationClassObj->getVal("budgeting_ind") == "N"){
+                        $data = [];
+                        foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
+                                $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
+                                
+                                
+                                $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
+                                $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
+                                $applicantAccountObj->select("active", "Y");
+                                $applicantAccountList = $applicantAccountObj->load();
+                                if($applicantAccountObj && $applicantAccountObj->getVal("payment_status_enum") == 2){
+                                        foreach($financialTransactionObj as $financialTransaction){
+                                                $data = array_merge($data, $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id));
+                                        }
+
+                                }
                         }
-                        
-                        $data = array_merge($data, $this->getFee($financialTransactionObj,  $payment_status_enum, $term_code, $degree_id, $program_id));
-     
+                }else{
+                        $data = [];
+                        foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
+                                $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
+
+                                foreach($financialTransactionObj as $financialTransaction)
+                                {
+                                        if($financialTransaction && $financialTransaction->getVal("add_charge_ind") == "Y")
+                                        {
+                                                $data = array_merge($data, $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id));
+
+                                        }
+                                }
+                        }
+                }
+                die(var_dump($data));
+                if(empty($data)){
+                        return true; // no fees to send, but process is successful
                 }
                 $response = $api->pushPayments($data);
                 if ($response['status'] == "SUCCESS") {
@@ -691,43 +717,24 @@ class ApplicationDesire extends AdmObject
         }
         public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id)
         {
-                if ($financialTransactionObj->getVal("id") == 11) { // الرسوم الادارية و الرسوم الدراسية
+                $tuitionBaseObj = new TuitionBase();        
+                $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("financial_transaction_id")."'");
+                $tuitionBaseObj->load();
+                $amount = (float) $tuitionBaseObj->getVal("amount");
+                $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
+                $addCharge = $financialTransactionObj->getVal("add_charge_ind");
+                $sisChargeCode = $financialTransactionObj->getVal("sis_charge_code");
 
-
-                        $tuitionBaseObj = new TuitionBase();
-                        $tuitionBaseObj->where("active = 'Y' and (degree_id = '" . $degree_id . "' or program_id = '" . $program_id . "') and (amount + mandatory_fees) = '" . $total_amount . "'");
-                        $tuitionBaseObj->load();
-                        //financial transaction 2
-                        $financialTransactionObj2 = FinancialTransaction::loadById(2);
-                        $data[] = [ // الرسوم الادارية
-                                "id" => $student_id,
-                                "term" => $term_code,
-                                "chargeCode" => $financialTransactionObj2->getVal("sis_charge_code"),
-                                "amount" => $tuitionBaseObj->getVal("mandatory_fees"),
-                                "paid" => ($payment_status_enum == 2),
-                                "create_charge" => ($financialTransactionObj2->getVal("add_charge_ind")== "Y" ? true : false)
-                        ];
-                        $financialTransactionObj4 = FinancialTransaction::loadById(4);
-                        $data[] = [ // الرسوم الدراسية
-                                "id" => $student_id,
-                                "term" => $term_code,
-                                "chargeCode" => $financialTransactionObj4->getVal("sis_charge_code"),
-                                "amount" => $tuitionBaseObj->getVal("amount"),
-                                "paid" => ($payment_status_enum == 2),
-                                "create_charge" => ($financialTransactionObj4->getVal("add_charge_ind")== "Y" ? true : false)
-
-                        ];
-                } else {
-                        $data[] = [
-                                "id" => $student_id,
-                                "term" => $term_code,
-                                "chargeCode" => $financialTransactionObj->getVal("sis_charge_code"),
-                                "amount" => $financialTransactionObj->getVal("amount") + $financialTransactionObj->getVal("mandatory_fees"),
-                                "paid" => ($payment_status_enum == 2),
-                                "create_charge" => ($financialTransactionObj->getVal("add_charge_ind")== "Y" ? true : false)
-                        ];
-                }
-                return $data;
+                return [
+                        "id" => $student_id,
+                        "term" => $term_code,
+                        "chargeCode" => $sisChargeCode,
+                        "amount" => $amount + $fees,
+                        "paid" => $payment_status_enum,
+                        "create_charge" => $addCharge === "Y"
+                ];
+                
+                
         }
         public function sendAllDataToSIS($lang = 'ar')
         {

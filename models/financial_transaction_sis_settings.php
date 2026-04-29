@@ -39,7 +39,34 @@ class FinancialTransactionSisSettings extends AFWObject{
                     return 0;
                 }
         
-        
+        public static function loadByMainIndex($financial_transaction_id, $application_class_id,$create_obj_if_not_found=false)
+        {
+           if(!$financial_transaction_id) throw new AfwRuntimeException("loadByMainIndex : financial_transaction_id is mandatory field");
+           if(!$application_class_id) throw new AfwRuntimeException("loadByMainIndex : application_class_id is mandatory field");
+
+
+           $obj = new FinancialTransactionSisSettings();
+           $obj->select("financial_transaction_id",$financial_transaction_id);
+           $obj->select("application_class_id",$application_class_id);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("financial_transaction_id",$financial_transaction_id);
+                $obj->set("application_class_id",$application_class_id);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
         public function getDisplay($lang="ar")
         {
                

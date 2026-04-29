@@ -112,4 +112,14 @@ class ApplicationModelFinancialTransaction extends AdmObject
 
                 return $wftObj;
         }
+
+        public function getFinancialTransaction()
+        {
+                if($this->getVal("is_composite_ind") == "Y"){
+                        $objList =  $this->get("financial_transaction_mfk");
+                }else{
+                        $objList[] = $this->het("financial_transaction_id");
+                }
+                return $objList;
+        }
 }
