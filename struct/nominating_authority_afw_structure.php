@@ -186,6 +186,8 @@ class AdmNominatingAuthorityAfwStructure
                         'ANSWER' => 'sis_sponsor_code',
                         'ANSMODULE' => 'adm',
                         'READONLY' => false,
+                        'AUTOCOMPLETE' => true,
+                        'AUTOCOMPLETE-SEARCH' => true,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
