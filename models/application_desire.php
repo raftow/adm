@@ -2834,15 +2834,19 @@ class ApplicationDesire extends AdmObject
 
                 //$applicationFinancialTransaction = ApplicationModelFinancialTransaction::loadByMainIndex($application_model_id, $finTransId);
 
-                $total_amount = $applicationFinancialTransaction ? $applicationFinancialTransaction->getVal("amount") : 0;
+                /*$total_amount = $applicationFinancialTransaction ? $applicationFinancialTransaction->getVal("amount") : 0;
                 if (!$total_amount) $total_amount = 0;
                 if ($applicationFinancialTransaction) {
-                        $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this);
+                        $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this,$applicationFinancialTransaction);
                         if ($tuitionBase) {
                                 $total_amount += $tuitionBase["total_ammount"];
                         }
+                }*/
+                $total_amount = 0;
+                $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this,$applicationFinancialTransaction);
+                if ($tuitionBase) {
+                        $total_amount = $tuitionBase["total_ammount"];
                 }
-
                 if ($applicationFinancialTransaction && $total_amount > 0) {
                         $payment_status_enum = 1;
                         return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicationFinancialTransaction->id, $total_amount, $payment_status_enum, true);
