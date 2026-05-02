@@ -14,6 +14,10 @@ class ApplicationModelFinancialTransactionArTranslator{
 	$trad["application_model_financial_transaction"]["amount"] = "المبلغ";
 	$trad["application_model_financial_transaction"]["process_enabled"] = "تفعيل معالجة الدفع";
 	$trad["application_model_financial_transaction"]["phase_enum"] = "المرحلة";
+	$trad["application_model_financial_transaction"]["is_composite_ind"] = "رسوم مركبة ؟";
+	$trad["application_model_financial_transaction"]["financial_transaction_mfk"] = "تفاصيل الرسوم";
+
+	
 	
         return $trad;
         }

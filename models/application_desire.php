@@ -527,7 +527,7 @@ class ApplicationDesire extends AdmObject
                 $sponsorSISCode = "";
                 $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                 if ($ncObject) {
-                        $sponsorObj = $ncObject->het('nominating_authority_id');
+                        $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
                         if ($sponsorObj) {
                                 $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
                         }
@@ -704,7 +704,7 @@ class ApplicationDesire extends AdmObject
                 }
                 die(var_dump($data));
                 if(empty($data)){
-                        return true; // no fees to send, but process is successful
+                        return false; // no fees to send, but process is successful
                 }
                 $response = $api->pushPayments($data);
                 if ($response['status'] == "SUCCESS") {
@@ -2789,7 +2789,7 @@ class ApplicationDesire extends AdmObject
                 $last_payment_deadline = $objTransition->getVal('final_status_id.last_payment_deadline');
                 if ($final_stage_id == 5 and $final_status_id == 11) {
                         // this means : قبول مبدئي  بشرط السداد
-                        $tuitionBaseApplicantAccount = $this->addMyTuitionBase();
+                        $tuitionBaseApplicantAccount = $this->addMyTuitionBase($objTransition->het('application_model_financial_transaction_id'));
                         $payment_deadline = AfwDateHelper::addDatetimeToGregDatetime(date("Y-m-d"), 0, 0, $last_payment_deadline);
                         $tuitionBaseApplicantAccount->set("payment_deadline", $payment_deadline);
                         $tuitionBaseApplicantAccount->set("workflow_request_id", $workflowRequest->id);
@@ -2808,10 +2808,10 @@ class ApplicationDesire extends AdmObject
                                 $this->commit();
                         }
                 }
-        }
+                $objTransition->sendNotificationForTransition($workflowRequest, $lang);//to do
+        }                              
 
-
-        public function addMyTuitionBase()
+        public function addMyTuitionBase($applicationFinancialTransaction)
         {
                 $applicant_id = $this->getVal('applicant_id');
 
@@ -2828,21 +2828,25 @@ class ApplicationDesire extends AdmObject
                 if (!$application_simulation_id)
                         return -4;
 
-
+                        $applicationFinancialTransaction = WorkflowTransition->het("application_model_financial_transaction_id");
                 // الرسوم الادراية والدراسية
-                $finTransId = 11;
+                //$finTransId = 11;
 
-                $applicationFinancialTransaction = ApplicationModelFinancialTransaction::loadByMainIndex($application_model_id, $finTransId);
+                //$applicationFinancialTransaction = ApplicationModelFinancialTransaction::loadByMainIndex($application_model_id, $finTransId);
 
-                $total_amount = $applicationFinancialTransaction ? $applicationFinancialTransaction->getVal("amount") : 0;
+                /*$total_amount = $applicationFinancialTransaction ? $applicationFinancialTransaction->getVal("amount") : 0;
                 if (!$total_amount) $total_amount = 0;
                 if ($applicationFinancialTransaction) {
-                        $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this);
+                        $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this,$applicationFinancialTransaction);
                         if ($tuitionBase) {
                                 $total_amount += $tuitionBase["total_ammount"];
                         }
+                }*/
+                $total_amount = 0;
+                $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this,$applicationFinancialTransaction);
+                if ($tuitionBase) {
+                        $total_amount = $tuitionBase["total_ammount"];
                 }
-
                 if ($applicationFinancialTransaction && $total_amount > 0) {
                         $payment_status_enum = 1;
                         return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicationFinancialTransaction->id, $total_amount, $payment_status_enum, true);

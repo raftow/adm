@@ -10,7 +10,10 @@
                         {
                                 $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
                                 $obj->DISPLAY_FIELD_BY_LANG = ['ar'=>array("name_ar","lookup_code"), 'en'=>array("name_en","lookup_code")];
-                                $obj->FORMULA_DISPLAY_FIELD = "concat(IF(ISNULL(name_ar), '', name_ar) , ' - ' , IF(ISNULL(lookup_code), '', lookup_code) ))";
+                                $obj->FORMULA_DISPLAY_FIELD = "concat(IF(ISNULL(name_ar), '', name_ar) , ' - ' , IF(ISNULL(lookup_code), '', lookup_code) )";
+                                $obj->AUTOCOMPLETE_FIELD = "concat(IF(ISNULL(name_ar), '', name_ar) , ' - ' , IF(ISNULL(lookup_code), '', lookup_code) )";
+                                 $obj->ORDER_BY_FIELDS = "name_ar";
+
                                 
                                 // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                                 $obj->ORDER_BY_FIELDS = "lookup_code";
