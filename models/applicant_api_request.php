@@ -140,10 +140,10 @@ class ApplicantApiRequest extends AdmObject
                         $api_runner_method = "run_api_" . $api_endpoint_code;
                         $api_runner_class = self::loadApiRunner();
                         list($err, $inf, $war, $tech) = $api_runner_class::$api_runner_method($applicantObject);
-                        if($echo and $err) AfwBatch::print_error($err);
-                        if($echo and $inf) AfwBatch::print_info($err);
-                        if($echo and $war) AfwBatch::print_warning($err);
-                        if($echo and $tech) AfwBatch::print_debugg($err);
+                        if($echo and $err) UfwBatch::print_error($err);
+                        if($echo and $inf) UfwBatch::print_info($err);
+                        if($echo and $war) UfwBatch::print_warning($err);
+                        if($echo and $tech) UfwBatch::print_debugg($err);
 
                         if ($err) $err_arr[] = "$api_name : " . $err;
                         if ($inf) $inf_arr[] = "$api_name : " . $inf;

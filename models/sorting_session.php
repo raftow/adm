@@ -438,7 +438,7 @@ class SortingSession extends AdmObject
         $inf_arr[] = $this->tm("the sorting session has been successfully validated", $lang);
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-        AfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::resetQueriesExecuted();
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
@@ -558,7 +558,7 @@ class SortingSession extends AdmObject
         $inf_arr[] = $this->tm("the sorting session has been successfully validated", $lang);
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-        AfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::resetQueriesExecuted();
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
@@ -1434,7 +1434,7 @@ class SortingSession extends AdmObject
         }
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-        AfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::resetQueriesExecuted();
 
 
         
@@ -1636,7 +1636,7 @@ class SortingSession extends AdmObject
         $obj->where("`application_plan_id`=$application_plan_id and `application_simulation_id`=$application_simulation_id and application_step_id=$sorting_step_id and active = 'Y' and (sorting_value_1 is null or sorting_value_1 < $vmin)");
         $desireList = $obj->loadMany(1500);
         $desireListCount = count($desireList);
-        if($echo) AfwBatch::print_info("found to repare : ".$desireListCount);
+        if($echo) UfwBatch::print_info("found to repare : ".$desireListCount);
         $total = 0;
         /**
          * @var ApplicationDesire $desireItem
@@ -1646,7 +1646,7 @@ class SortingSession extends AdmObject
         foreach($desireList as $desireItem)
         {
             $total ++; 
-            if($echo) AfwBatch::print_info("repare case $total / $desireListCount");
+            if($echo) UfwBatch::print_info("repare case $total / $desireListCount");
             $desireItem->repareData($lang, true, $echo);            
         }
 
@@ -2160,7 +2160,7 @@ class SortingSession extends AdmObject
 
         $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
 
-        AfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::resetQueriesExecuted();
 
         return AfwFormatHelper::pbm_result($err_arr, $info_arr, $war_arr);
 

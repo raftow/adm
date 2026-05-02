@@ -1302,7 +1302,7 @@ class ApplicationDesire extends AdmObject
 
                 if ($this->sortingCritereaNeedRefresh()) {
                         if ($echo)
-                                AfwBatch::print_debugg('sorting Criterea Need Refresh');
+                                UfwBatch::print_debugg('sorting Criterea Need Refresh');
                         $this->reComputeSortingCriterea($lang, false, $echo);
                         $is_to_commit = true;
                 }
@@ -1959,7 +1959,7 @@ class ApplicationDesire extends AdmObject
                 }
 
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-                AfwQueryAnalyzer::resetQueriesExecuted();
+                UfwQueryAnalyzer::resetQueriesExecuted();
 
                 if ($what == 'value')
                         return $errors;

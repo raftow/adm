@@ -157,7 +157,7 @@ class Application extends AdmObject
                 }
 
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-                AfwQueryAnalyzer::resetQueriesExecuted();
+                UfwQueryAnalyzer::resetQueriesExecuted();
 
 
                 if ($what == "value") return $errors;
@@ -207,7 +207,7 @@ class Application extends AdmObject
                 }
 
                 $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-                AfwQueryAnalyzer::resetQueriesExecuted();
+                UfwQueryAnalyzer::resetQueriesExecuted();
 
                 return [$total_done, $found, $total, $now_done];
         }

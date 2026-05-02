@@ -131,7 +131,7 @@ class ApplicationField extends AdmObject
                }
 
                $php = self::calcPhp(false);
-               AfwFileSystem::write($fileFullName, $php, 'erase', true);
+               UfwFileSystem::write($fileFullName, $php, 'erase', true);
                return array("", "$fileFullName created successfully");
           } catch (Exception $e) {
                if ($throwError) throw $e;
@@ -989,11 +989,16 @@ class ApplicationField extends AdmObject
                               $message .= "<br>Warning : Field $field_name is not reversable, it $reason !";
                          }
                     }
-                    else
+                    elseif(($field_name!=$field_action) and ($instanceObj->isFrameworkDesignedField($field_name)))
+                    {
+                         $message .= "<br>Warning : Field $field_name is not to be reversed because it is a framework designed field !";
+                    }
+                    /*
+                    elseif($field_name!=$field_action)
                     {
                          
                          $message .= "<br>Warning : Field $field_name is not to be reversed ($field_action to be reversed) !";
-                    } 
+                    }*/ 
                }
 
                if($toberev>0) $message = "<br>Application-Field-Manger start reversing ... ".$message;

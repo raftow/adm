@@ -10,7 +10,7 @@ $batchs_dir_name = dirname(__FILE__);
 $lib_root_path = "$batchs_dir_name/../../lib";
 
 
-require_once("$lib_root_path/afw/afw_autoloader.php");
+require_once("$lib_root_path/afw/core/afw_autoloader.php");
 AfwAutoLoader::addMainModule("adm");
 
 
@@ -140,13 +140,13 @@ $recap_colors = array(
                               
                );*/
 
-AfwBatch::print_data($recap_header,$recap_data, $recap_colors);
+UfwBatch::print_data($recap_header,$recap_data, $recap_colors);
 
-if($err) AfwBatch::print_error($err);
-if($war) AfwBatch::print_warning($war);
-if($inf) AfwBatch::print_info($inf);
-if($tech) AfwBatch::print_debugg($tech);
-AfwBatch::print_the_log();
+if($err) UfwBatch::print_error($err);
+if($war) UfwBatch::print_warning($war);
+if($inf) UfwBatch::print_info($inf);
+if($tech) UfwBatch::print_debugg($tech);
+UfwBatch::print_the_log();
 //die("nbrows_migrated = ".$nbrows_migrated);
 
 // send mail to managers
@@ -166,7 +166,7 @@ $body = array();
 $body[] = headerMail("ltr");
 $body[] = "<h3>$subject</h3>";
 $body[] = "Date of run : $forced_job_timestamp";
-$body[] = AfwBatch::html_data($recap_header,$recap_data, $recap_colors);
+$body[] = UfwBatch::html_data($recap_header,$recap_data, $recap_colors);
 $body[] = footerMail();
 
 $res = hzmMail($project_code,"$project_code-php$run_timestamp-sys$date_time_run",$to_email_arr,$subject,$body, $send_from, $format="html", $language="ar");
