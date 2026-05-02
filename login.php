@@ -1,3 +1,3 @@
 <?php
    include("adm_start.php");
-   include("$file_dir_name/../ums/login.php");
+   include(dirname(__FILE__)."/../ums/login.php");
