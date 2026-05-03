@@ -62,7 +62,7 @@ class TuitionBase extends AdmObject
                                                         
                                                 }
                                         }
-                                        die(var_dump($res["total_ammount"]));
+                                        die($academicProgramObj->getVal("degree_id"));
                                 }
                         
                         }
