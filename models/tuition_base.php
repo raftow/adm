@@ -49,7 +49,7 @@ class TuitionBase extends AdmObject
                                 $tuitionBaseObj->where("active = 'Y' and (program_id = '$program_id') and financial_transaction_id = '".$financialTransaction->getVal("id")."'");
                                 if ($tuitionBaseObj->load()) {
                                         $res["total_ammount"] += (float)$tuitionBaseObj->getVal("amount") + (float)$tuitionBaseObj->getVal("mandatory_fees");
-                                        die(var_dump($res["total_ammount"]));
+                                        
                                 } else {
                                         $academicProgramObj = new AcademicProgram();
                                         if ($academicProgramObj->load($program_id)) {
@@ -61,9 +61,8 @@ class TuitionBase extends AdmObject
                                                         $res["total_ammount"] += (float)$objectThis->getVal("amount") + (float)$objectThis->getVal("mandatory_fees");
                                                         
                                                 }
-                                                die("program id : ".$program_id);
                                         }
-                                        
+                                        die(var_dump($res["total_ammount"]));
                                 }
                         
                         }
