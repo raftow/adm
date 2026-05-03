@@ -2828,7 +2828,6 @@ class ApplicationDesire extends AdmObject
                 if (!$application_simulation_id)
                         return -4;
 
-                        $applicationFinancialTransaction = WorkflowTransition->het("application_model_financial_transaction_id");
                 // الرسوم الادراية والدراسية
                 //$finTransId = 11;
 

@@ -69,7 +69,7 @@ class TuitionBase extends AdmObject
                 return false;
         }
 
-        public function getTuitionBaseForApplicant($applicationDesireObj = null, $applicationFinancialTransaction = null, $program_id = 0)
+        public static function getTuitionBaseForApplicant($applicationDesireObj = null, $applicationFinancialTransaction = null, $program_id = 0)
         {
                 if ($applicationDesireObj) {
                         $applicationPlanBranch = $applicationDesireObj->het("application_plan_branch_id");
