@@ -587,67 +587,6 @@ class ApplicationDesire extends AdmObject
                         return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response['body']['message'], ""];
                 }
         }
-        public function sendFeesToSisOld()
-        {
-                include_once(__DIR__ . "/../NaussSisApi.php");
-                $api = new NaussApi();
-                $applicantAccountObj = new ApplicantAccount();
-                $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
-                $applicantAccountObj->select("application_plan_id", $this->getVal("application_plan_id"));
-                $applicantAccountObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
-                $applicantAccountObj->select("active", "Y");
-                $applicantAccountList = $applicantAccountObj->loadMany();
-                //die(var_dump($applicantAccountList));
-                $data = [];
-                $applicationPlanBranchObj = $this->het('application_plan_branch_id');
-                foreach ($applicantAccountList as $applicantAccount) {
-                        $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
-                        $term_code = $applicantAccount->het("application_plan_id")->het('term_id')->getVal('term_code');
-
-                        $financialTransactionObj = $applicationModelFinancialTransactionObj->het("financial_transaction_id");
-                        if ($financialTransactionObj->getVal("id") == 11) { // الرسوم الادارية و الرسوم الدراسية
-
-
-                                $tuitionBaseObj = new TuitionBase();
-                                $tuitionBaseObj->where("active = 'Y' and (degree_id = '" . $applicationPlanBranchObj->het('program_id')->getVal("degree_id") . "' or program_id = '" . $applicationPlanBranchObj->getVal('program_id') . "') and (amount + mandatory_fees) = '" . $applicantAccount->getVal("total_amount") . "'");
-                                $tuitionBaseObj->load();
-                                //financial transaction 2
-                                $financialTransactionObj2 = FinancialTransaction::loadById(2);
-                                $data[] = [ // الرسوم الادارية
-                                        "id" => $applicantAccount->getVal("student_id"),
-                                        "term" => $term_code,
-                                        "chargeCode" => $financialTransactionObj2->getVal("sis_charge_code"),
-                                        "amount" => $tuitionBaseObj->getVal("mandatory_fees"),
-                                        "paid" => ($applicantAccount->getVal("payment_status_enum") == 2)
-                                ];
-                                $financialTransactionObj4 = FinancialTransaction::loadById(4);
-                                $data[] = [ // الرسوم الدراسية
-                                        "id" => $applicantAccount->getVal("student_id"),
-                                        "term" => $term_code,
-                                        "chargeCode" => $financialTransactionObj4->getVal("sis_charge_code"),
-                                        "amount" => $tuitionBaseObj->getVal("amount"),
-                                        "paid" => ($applicantAccount->getVal("payment_status_enum") == 2)
-                                ];
-                        } else {
-                                $data[] = [
-                                        "id" => $this->getVal("student_id"),
-                                        "term" => $term_code,
-                                        "chargeCode" => $financialTransactionObj->getVal("sis_charge_code"),
-                                        "amount" => $applicantAccount->getVal("total_amount"),
-                                        "paid" => ($applicantAccount->getVal("payment_status_enum") == 2)
-                                ];
-                        }
-                }
-                //       die(var_dump($data));
-                $response = $api->pushPayments($data);
-                if ($response['status'] == "SUCCESS") {
-                        $this->set("payment_created_ind", "Y");
-                        $this->commit();
-                        return true;
-                } else {
-                        return false;
-                }
-        }
         public function sendFeesToSis(){
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $api = new NaussApi();
@@ -731,7 +670,7 @@ class ApplicationDesire extends AdmObject
                         "chargeCode" => $sisChargeCode,
                         "amount" => $amount + $fees,
                         "paid" => $payment_status_enum,
-                        "create_charge" => $addCharge === "Y"
+                        "addCharge" => $addCharge == "Y"
                 ];
                 
                 
