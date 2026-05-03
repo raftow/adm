@@ -33,42 +33,6 @@ class TuitionBase extends AdmObject
                 return false;
         }
 
-        public static function getTuitionBaseForApplicantOld($applicationDesireObj = null, $program_id = 0)
-        {
-
-                if ($applicationDesireObj) {
-                        $applicationPlanBranch = $applicationDesireObj->het("application_plan_branch_id");
-                        if ($applicationPlanBranch) $program_id = $applicationPlanBranch->getVal("program_id");
-                }
-                if ($program_id) {
-                        $objectThis = new TuitionBase();
-                        $objectThis->where("active='Y' and program_id = '$program_id'");
-                        if ($objectThis->load()) {
-                                $res["total_ammount"] = $objectThis->getVal("amount") + $objectThis->getVal("mandatory_fees");
-                                $res["curr_ar"] = $objectThis->getVal("currency_ar");
-                                $res["curr_en"] = $objectThis->getVal("currency_en");
-                                return $res;
-                        } else {
-                                $academicProgramObj = new AcademicProgram();
-                                if ($academicProgramObj->load($program_id)) {
-                                        $degree_id = $academicProgramObj->getVal("degree_id");
-                                        unset($objectThis);
-                                        $objectThis = new TuitionBase();
-                                        $objectThis->where("active='Y' and degree_id = '$degree_id'");
-                                        if ($objectThis->load()) {
-                                                $res["total_ammount"] = $objectThis->getVal("amount") + $objectThis->getVal("mandatory_fees");
-                                                $res["curr_ar"] = $objectThis->getVal("currency_ar");
-                                                $res["curr_en"] = $objectThis->getVal("currency_en");
-                                                return $res;
-                                        }
-                                }
-                                return false;
-                        }
-                        return false;
-                }
-                return false;
-        }
-
         public static function getTuitionBaseForApplicant($applicationDesireObj = null, $applicationFinancialTransaction = null, $program_id = 0)
         {
                 if ($applicationDesireObj) {
@@ -85,7 +49,7 @@ class TuitionBase extends AdmObject
                                 $tuitionBaseObj->where("active = 'Y' and (program_id = '$program_id') and financial_transaction_id = '".$financialTransaction->getVal("id")."'");
                                 if ($tuitionBaseObj->load()) {
                                         $res["total_ammount"] += (float)$tuitionBaseObj->getVal("amount") + (float)$tuitionBaseObj->getVal("mandatory_fees");
-                                        
+                                        die(var_dump($res["total_ammount"]));
                                 } else {
                                         $academicProgramObj = new AcademicProgram();
                                         if ($academicProgramObj->load($program_id)) {
@@ -97,6 +61,7 @@ class TuitionBase extends AdmObject
                                                         $res["total_ammount"] += (float)$objectThis->getVal("amount") + (float)$objectThis->getVal("mandatory_fees");
                                                         
                                                 }
+                                                die("program id : ".$program_id);
                                         }
                                         
                                 }
