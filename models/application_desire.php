@@ -2747,7 +2747,8 @@ class ApplicationDesire extends AdmObject
                                 $this->commit();
                         }
                 }
-                $objTransition->sendNotificationForTransition($workflowRequest, $lang);//to do
+                list($status, $response) = $objTransition->sendNotificationForTransition($workflowRequest, $lang);//to do
+                die(var_dump($response));
         }                              
 
         public function addMyTuitionBase($applicationFinancialTransaction)
