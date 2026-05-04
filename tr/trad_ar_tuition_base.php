@@ -6,9 +6,9 @@ class TuitionBaseArTranslator{
         $trad = [];
 	$trad["tuition_base"]["step1"] = "التعريف";
 
-	$trad["tuition_base"]["tuitionbase.single"] = "قاعدة رسوم دراسية";
+	$trad["tuition_base"]["tuitionbase.single"] = "قاعدة حساب الرسوم";
 	$trad["tuition_base"]["tuitionbase.new"] = "جديد ة";
-	$trad["tuition_base"]["tuition_base"] = "قواعد رسوم دراسية";
+	$trad["tuition_base"]["tuition_base"] = "قواعد حساب الرسوم";
 	$trad["tuition_base"]["residency_enum"] = "الإقامة";
 	$trad["tuition_base"]["semester_type"] = "نوع الفصل الدراسي";
 	$trad["tuition_base"]["tuition_model"] = "نموذج الرسوم الدراسية";

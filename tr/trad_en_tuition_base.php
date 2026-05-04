@@ -6,9 +6,9 @@ class TuitionBaseEnTranslator{
         $trad = [];
 	$trad["tuition_base"]["step1"] = "Definition";
 
-	$trad["tuition_base"]["tuitionbase.single"] = "Tuition base";
+	$trad["tuition_base"]["tuitionbase.single"] = "Fees calculation rule";
 	$trad["tuition_base"]["tuitionbase.new"] = "new";
-	$trad["tuition_base"]["tuition_base"] = "Tuition bases";
+	$trad["tuition_base"]["tuition_base"] = "Fees calculation rules";
 	$trad["tuition_base"]["residency_enum"] = "Residency";
 	$trad["tuition_base"]["semester_type"] = "Semester type";
 	$trad["tuition_base"]["tuition_model"] = "Tuition Model";

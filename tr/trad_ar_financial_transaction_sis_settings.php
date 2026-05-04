@@ -5,9 +5,9 @@ class FinancialTransactionSisSettingsArTranslator{
     {
         $trad = [];
 
-		$trad["financial_transaction_sis_settings"]["financialtransactionsissettings.single"] = "إعدادت معاملة مالية";
-		$trad["financial_transaction_sis_settings"]["financialtransactionsissettings.new"] = "جديد(ة)";
-		$trad["financial_transaction_sis_settings"]["financial_transaction_sis_settings"] = "إعدادت المعاملات المالية";
+		$trad["financial_transaction_sis_settings"]["financialtransactionsissettings.single"] = "التحكم في ارسال القيود المحاسبية";
+		$trad["financial_transaction_sis_settings"]["financialtransactionsissettings.new"] = "جديد";
+		$trad["financial_transaction_sis_settings"]["financial_transaction_sis_settings"] = "التحكم في ارسال القيود المحاسبية";
 		$trad["financial_transaction_sis_settings"]["name_ar"] = "مسمى  بالعربية";
 		$trad["financial_transaction_sis_settings"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["financial_transaction_sis_settings"]["desc_ar"] = "وصف  بالعربية";
