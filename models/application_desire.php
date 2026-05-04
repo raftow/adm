@@ -611,17 +611,21 @@ class ApplicationDesire extends AdmObject
                 }
                 if($applicationClassObj->getVal("budgeting_ind") == "N"){
                         $data = [];
+                        $applicantAccountObj = new ApplicantAccount();
                         foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
-                                
                                 
                                 $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
                                 $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
                                 $applicantAccountObj->select("active", "Y");
-                                $applicantAccountList = $applicantAccountObj->load();
+                                $applicantAccountObj->load();
                                 if($applicantAccountObj && $applicantAccountObj->getVal("payment_status_enum") == 2){
                                         foreach($financialTransactionObj as $financialTransaction){
-                                                $data = array_merge($data, $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id));
+                                                $applicantPaymentObj = new ApplicantPayment();
+                                                $applicantPaymentObj->select("applicant_account_id", $applicantAccountObj->getVal("id"));
+                                                $applicantPaymentObj->select("active", "Y");
+                                                $applicantPaymentObj->load();
+                                                $data = array_merge($data, $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$applicantPaymentObj));
                                         }
 
                                 }
@@ -654,7 +658,7 @@ class ApplicationDesire extends AdmObject
                         return false;
                 }
         }
-        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id)
+        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$applicantPaymentObj = null)
         {
                 $tuitionBaseObj = new TuitionBase();        
                 $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("financial_transaction_id")."'");
@@ -663,6 +667,17 @@ class ApplicationDesire extends AdmObject
                 $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
                 $addCharge = $financialTransactionObj->getVal("add_charge_ind");
                 $sisChargeCode = $financialTransactionObj->getVal("sis_charge_code");
+                $receipt_id = null;
+                $card_type = null;
+                $payment_type = null;
+                $transId = null;
+                if($applicantPaymentObj)
+                {
+                        $transId = $applicantPaymentObj->getVal("id");
+                        $receipt_id = $applicantPaymentObj->getVal("receipt_id");
+                        $card_type = $applicantPaymentObj->getVal("card_type");
+                        $payment_type = $applicantPaymentObj->getVal("payment_type");
+                }
 
                 return [
                         "id" => $student_id,
@@ -670,7 +685,11 @@ class ApplicationDesire extends AdmObject
                         "chargeCode" => $sisChargeCode,
                         "amount" => $amount + $fees,
                         "paid" => $payment_status_enum,
-                        "addCharge" => $addCharge == "Y"
+                        "addCharge" => $addCharge == "Y",
+                        "transId" => $transId,
+                        "transReciept" => $receipt_id,
+                        "cardType" => $card_type,
+                        "paymentBrand" => $payment_type
                 ];
                 
                 
@@ -2726,7 +2745,8 @@ class ApplicationDesire extends AdmObject
                 $final_stage_id = $objTransition->getVal('final_stage_id');
                 $final_status_id = $objTransition->getVal('final_status_id');
                 $last_payment_deadline = $objTransition->getVal('final_status_id.last_payment_deadline');
-                if ($final_stage_id == 5 and $final_status_id == 11) {
+                $WorkflowStatus = WorkflowStatus ::loadById($final_status_id);
+                if ($WorkflowStatus->getVal("payment_ind") == 'Y' and !$workflowRequest->isSponsored()) { // $final_stage_id == 5 and $final_status_id == 11
                         // this means : قبول مبدئي  بشرط السداد
                         $tuitionBaseApplicantAccount = $this->addMyTuitionBase($objTransition->het('application_model_financial_transaction_id'));
                         $payment_deadline = AfwDateHelper::addDatetimeToGregDatetime(date("Y-m-d"), 0, 0, $last_payment_deadline);
