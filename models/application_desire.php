@@ -2748,8 +2748,8 @@ class ApplicationDesire extends AdmObject
                 $final_status_id = $objTransition->getVal('final_status_id');
                 $last_payment_deadline = $objTransition->getVal('final_status_id.last_payment_deadline');
                 $WorkflowStatus = WorkflowStatus ::loadById($final_status_id);
-                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, $application_plan_id, $this);
-
+                //$addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, $application_plan_id, $this);
+                $addAccount = false;
                 if ($WorkflowStatus->getVal("payment_ind") == 'Y' and (!$workflowRequest->isSponsored() || $addAccount=='Y')) { // $final_stage_id == 5 and $final_status_id == 11
                         // this means : قبول مبدئي  بشرط السداد
                         $tuitionBaseApplicantAccount = $this->addMyTuitionBase($objTransition->het('application_model_financial_transaction_id'));
