@@ -2247,7 +2247,8 @@ class ApplicationDesire extends AdmObject
         public function showQualificationsDiv($lang, $workflowRequestObject)
         {
                 $applicationQualificationList = $this->getApplicationObject()->get('applicationQualificationList');
-                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, []);
+                $options2 = ['mode_force_cols' => true, 'hide_retrieve_cols' => ['active']];
+                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, $options2);
         }
 
         public function showEvaluationsDiv($lang, $workflowRequestObject)
