@@ -1102,9 +1102,11 @@ class ApplicationDesire extends AdmObject
         }
 
         /**
-         * @method exportApplicationToWorkflow
-         * @param WorkflowRequest $wRequestObj
-         * @return Array
+         * @method 
+         * @param WorkflowModel $wModelObj
+         * @param WorkflowSession $wSessionObj
+         * @param bool $update_if_exists : if true, the existing workflow request will be
+         * @return array
          * return [Workflow Request Object, Error Message, Action done, Log about best emloyee assign algorithm]
          */
         public function exportApplicationToWorkflow($wModelObj = null, $wSessionObj = null, $update_if_exists = false, $reset = false, $wRequestObj = null)
