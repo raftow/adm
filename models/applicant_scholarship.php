@@ -116,10 +116,10 @@
                 }
 
                 $nominatingCandidateObj = new NominatingCandidates();
-                $nominatingCandidateObj->where("applicant_id = '".$applicant_id."' 
-                                        and application_plan_id = '".$application_plan_id."' 
-                                        and application_simulation_id = '".$application_simulation_id."' 
-                                        and active = 'Y'");
+                $nominatingCandidateObj->select("applicant_id", $applicant_id);
+                $nominatingCandidateObj->select("application_plan_id", $application_plan_id);
+                $nominatingCandidateObj->select("application_simulation_id", $application_simulation_id);
+                $nominatingCandidateObj->select("active", "Y");
                 $nominatingCandidateObj->load();
                 if($nominatingCandidateObj)
                 {
