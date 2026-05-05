@@ -34,12 +34,39 @@ class ApplicationClassUpgrade extends AFWObject{
         
 
         public function getScenarioItemId($currstep)
-                {
-                    
-                    return 0;
-                }
+        {
+            
+            return 0;
+        }
         
-        
+        public static function loadByMainIndex($initial_applicant_class_id, $sponsor_id,$create_obj_if_not_found=false)
+        {
+           if(!$initial_applicant_class_id) throw new AfwRuntimeException("loadByMainIndex : initial_applicant_class_id is mandatory field");
+           if(!$sponsor_id) throw new AfwRuntimeException("loadByMainIndex : sponsor_id is mandatory field");
+
+
+           $obj = new ApplicationClassUpgrade();
+           $obj->select("initial_applicant_class_id",$initial_applicant_class_id);
+           $obj->select("sponsor_id",$sponsor_id);
+
+           if($obj->load())
+           {
+                if($create_obj_if_not_found) $obj->activate();
+                return $obj;
+           }
+           elseif($create_obj_if_not_found)
+           {
+                $obj->set("initial_applicant_class_id",$initial_applicant_class_id);
+                $obj->set("sponsor_id",$sponsor_id);
+
+                $obj->insertNew();
+                if(!$obj->id) return null; // means beforeInsert rejected insert operation
+                $obj->is_new = true;
+                return $obj;
+           }
+           else return null;
+           
+        }
         public function getDisplay($lang="ar")
         {
                
