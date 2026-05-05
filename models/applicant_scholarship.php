@@ -120,8 +120,8 @@
                 $nominatingCandidateObj->select("application_plan_id", $application_plan_id);
                 $nominatingCandidateObj->select("application_simulation_id", $application_simulation_id);
                 $nominatingCandidateObj->select("active", "Y");
-                $nominatingCandidateObj->load();
-                if($nominatingCandidateObj)
+                
+                if($nominatingCandidateObj->load())
                 {
                         $nominatingCandidateObj->set("study_funding_status_id", 3);
                         $nominatingCandidateObj->commit();
