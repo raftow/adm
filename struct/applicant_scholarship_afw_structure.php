@@ -62,6 +62,7 @@ class AdmApplicantScholarshipAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
+                        'DEPENDENT_OFME' => array('applicant_id'),
                 ),
                 'applicant_id' => array(
                         'STEP' => 1,
@@ -87,8 +88,9 @@ class AdmApplicantScholarshipAfwStructure
                         'RELATION' => 'OneToMany',
                         'READONLY' => false,
                         'CSS' => 'width_pct_25',
-                        //'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))'
+                        'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))',
                         //'WHERE' => 'id not in (select applicant_id from §DBPREFIX§adm.nominating_candidates nc inner join nomination_letter nl on nc.nomination_letter_id=nl.id where )'
+                        'DEPENDENCIES' => ['scholarship_id'],
                 ),
 
 

@@ -80,32 +80,80 @@
 	}
         public function afterMaj($id, $fields_updated)
         {
-                $app_id = $this->getVal("applicant_id");
-                if($app_id)
+          
+                $applicantObj = $this->het("applicant_id");
+                $applicant_id = $this->getVal("applicant_id");
+                $application_plan_id = $this->getVal("application_plan_id");
+                $application_simulation_id = $this->getVal("application_simulation_id");
+                $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                if($appObj)
                 {
-                        $nominatingCandidateObj = new NominatingCandidates();
-                        $nominatingCandidateObj->where("applicant_id = '".$app_id."' and active = 'Y'");
-                        $nominatingCandidateObj->load();
-                        if($nominatingCandidateObj->id )
+                        $applicationPlanObj = $appObj->het("application_plan_id");
+                        $ScholarshipObj = $this->het("scholarship_id");
+                        $sponsor_id = $ScholarshipObj->getVal("sponsor_id");
+                        $desireobj = new ApplicationDesire();
+                        $desireobj->where("applicant_id = '$applicant_id' 
+                                 and application_plan_id = '$application_plan_id' 
+                                 and application_simulation_id = '$application_simulation_id' 
+                                 and active='Y'");
+                        $desireList = $desireobj->loadMany();
+                        foreach($desireList as $desire)
                         {
-                                $nominationLetterObj = $nominatingCandidateObj->het("nomination_letter_id");
-                                $ScholarshipObj = $this->het("scholarship_id");
-                                $sponsor_id = $ScholarshipObj->getVal("sponsor_id");
-                                $applicationPlanObj = $nominationLetterObj->het("application_plan_id");
-                                //die($nominationLetterObj->getVal("application_plan_id")."++++");
-                                if($applicationPlanObj)
+                                $ApplicationClassUpgradeObj = ApplicationClassUpgrade::loadByMainIndex($desire->getVal("application_class_enum"), $sponsor_id);
+                                
+                                if($ApplicationClassUpgradeObj &&  $applicationPlanObj->getVal("term_id") == $ScholarshipObj->getVal("academic_term_id"))
                                 {
-                                        //die( $applicationPlanObj->getVal("term_id")."----------");
-                                        if($sponsor_id==1 && $applicationPlanObj->getVal("term_id") == $ScholarshipObj->getVal("academic_term_id"))
+                                        // update workflow request if exists
+                                        $workflowRequest = $desire->het("workflow_request_id");
+                                        if($workflowRequest)
                                         {
-                                                $nominatingCandidateObj->set("study_funding_status_id", 3); // منحة الامير نايف
-                                                $nominatingCandidateObj->commit();
+                                                $workflowRequest->set("application_class_enum", $ApplicationClassUpgradeObj->getVal("final_applicant_class_id"));
+                                                $workflowRequest->commit();
                                         }
+
                                 }
-                                
-                                
                         }
                 }
+
+                $nominatingCandidateObj = new NominatingCandidates();
+                $nominatingCandidateObj->where("applicant_id = '".$applicant_id."' 
+                                        and application_plan_id = '".$application_plan_id."' 
+                                        and application_simulation_id = '".$application_simulation_id."' 
+                                        and active = 'Y'");
+                $nominatingCandidateObj->load();
+                if($nominatingCandidateObj)
+                {
+                        $nominatingCandidateObj->set("study_funding_status_id", 3);
+                        $nominatingCandidateObj->commit();
+                }
+
+                // delete all applicant accounts if exists
+                $applicantAccountObj = new ApplicantAccount();
+                $applicantAccountObj->where("applicant_id = '".$applicant_id."' and application_plan_id = '".$application_plan_id."' and application_simulation_id = '".$application_simulation_id."'");
+                $applicantAccountObj->loadMany();
+                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, $application_plan_id, $this);
+                foreach($applicantAccountObj as $applicantAccount)
+                {
+                        if($applicantAccount)
+                        {
+                                $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
+                                if($applicationModelFinancialTransactionObj->getVal("phase_enum") == 2 && $applicantAccount->getVal("payment_status_enum") == 2) // if the account is for tuition and not already exempted
+                                {       
+                                        if($addAccount=='Y')
+                                        {
+                                                $applicantAccount->set("payment_status_enum", "4"); // معفى
+                                                $applicantAccount->commit();
+                                        }
+                                        else
+                                        {
+                                                $applicantAccount->delete();
+                                        }
+                                }
+                        }
+                }
+
+                return true;
+
         }
 }
 ?>
