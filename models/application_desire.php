@@ -2196,6 +2196,12 @@ class ApplicationDesire extends AdmObject
                 return $ncObj->calcCandidateInfo($what);
         }
 
+        /**
+         * This method is used to calculate the content of the div to show in the workflow step details page for this desire
+         * @param int $step
+         * @param string $what
+         * @param WorkflowRequest $workflowRequestObject
+         */
         public function calcDivForWorkflowStep($step, $what, $workflowRequestObject)
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
