@@ -2196,6 +2196,12 @@ class ApplicationDesire extends AdmObject
                 return $ncObj->calcCandidateInfo($what);
         }
 
+        /**
+         * This method is used to calculate the content of the div to show in the workflow step details page for this desire
+         * @param int $step
+         * @param string $what
+         * @param WorkflowRequest $workflowRequestObject
+         */
         public function calcDivForWorkflowStep($step, $what, $workflowRequestObject)
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -2241,7 +2247,8 @@ class ApplicationDesire extends AdmObject
         public function showQualificationsDiv($lang, $workflowRequestObject)
         {
                 $applicationQualificationList = $this->getApplicationObject()->get('applicationQualificationList');
-                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, []);
+                $options2 = ['mode_force_cols' => true, 'hide_retrieve_cols' => ['active']];
+                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, $options2);
         }
 
         public function showEvaluationsDiv($lang, $workflowRequestObject)
