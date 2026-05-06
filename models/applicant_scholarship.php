@@ -132,7 +132,7 @@
                 $applicantAccountObj->where("applicant_id = '".$applicant_id."' and application_plan_id = '".$application_plan_id."' and application_simulation_id = '".$application_simulation_id."'");
                 $applicantAccountObj->loadMany();
                 $application_model_id = $applicationPlanObj->getVal("application_model_id");
-                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, $application_plan_id, $this);
+                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, 0, $this);
                 foreach($applicantAccountObj as $applicantAccount)
                 {
                         if($applicantAccount)
