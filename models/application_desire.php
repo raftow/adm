@@ -576,7 +576,7 @@ class ApplicationDesire extends AdmObject
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
-                        $studentId = $response['studentId'];
+                        $studentId = $response["body"]['studentId'];
                         $this->set("student_id", $studentId);
                         $this->set("sis_date", "now()");
                         $this->set("student_created_ind", "Y");
@@ -584,7 +584,7 @@ class ApplicationDesire extends AdmObject
                         return ["", $this->tm("The process of sending data to SIS has succeeded, the new ID of student is", $lang) . " : " . $studentId];
                         //die(var_dump($response));
                 } else {
-                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response['body']['message'], ""];
+                        return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response["body"]['message'], ""];
                 }
         }
         public function sendFeesToSis(){
@@ -614,7 +614,7 @@ class ApplicationDesire extends AdmObject
                         $applicantAccountObj = new ApplicantAccount();
                         foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
-                                
+                                die(var_dump($financialTransactionObj));
                                 $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
                                 $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
                                 $applicantAccountObj->select("active", "Y");
