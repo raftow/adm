@@ -2196,12 +2196,6 @@ class ApplicationDesire extends AdmObject
                 return $ncObj->calcCandidateInfo($what);
         }
 
-        /**
-         * This method is used to calculate the content of the div to show in the workflow step details page for this desire
-         * @param int $step
-         * @param string $what
-         * @param WorkflowRequest $workflowRequestObject
-         */
         public function calcDivForWorkflowStep($step, $what, $workflowRequestObject)
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
@@ -2247,8 +2241,7 @@ class ApplicationDesire extends AdmObject
         public function showQualificationsDiv($lang, $workflowRequestObject)
         {
                 $applicationQualificationList = $this->getApplicationObject()->get('applicationQualificationList');
-                $options2 = ['mode_force_cols' => true, 'hide_retrieve_cols' => ['active']];
-                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, $options2);
+                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, []);
         }
 
         public function showEvaluationsDiv($lang, $workflowRequestObject)
@@ -2755,10 +2748,8 @@ class ApplicationDesire extends AdmObject
                 $final_status_id = $objTransition->getVal('final_status_id');
                 $last_payment_deadline = $objTransition->getVal('final_status_id.last_payment_deadline');
                 $WorkflowStatus = WorkflowStatus ::loadById($final_status_id);
-                $application_plan_id = $this->getVal('application_plan_id');
                 $application_model_id = $this->getVal('application_model_id');
-
-                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, $application_plan_id, $this);
+                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, 0, $this);
                 if ($WorkflowStatus->getVal("payment_ind") == 'Y' and (!$workflowRequest->isSponsored() || $addAccount=='Y')) { // $final_stage_id == 5 and $final_status_id == 11
                         // this means : قبول مبدئي  بشرط السداد
                         $tuitionBaseApplicantAccount = $this->addMyTuitionBase($objTransition->het('application_model_financial_transaction_id'));

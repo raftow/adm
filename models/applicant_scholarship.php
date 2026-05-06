@@ -86,6 +86,7 @@
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+                // 1. update applicant class if needed
                 if($appObj)
                 {
                         $applicationPlanObj = $appObj->het("application_plan_id");
@@ -114,7 +115,7 @@
                                 }
                         }
                 }
-
+                // 2. update nominating candidate's study_funding_status_id if exists
                 $nominatingCandidateObj = new NominatingCandidates();
                 $nominatingCandidateObj->select("applicant_id", $applicant_id);
                 $nominatingCandidateObj->select("application_plan_id", $application_plan_id);
@@ -127,28 +128,30 @@
                         $nominatingCandidateObj->update();
                 }
 
-                // delete all applicant accounts if exists
+                // 3.update  applicant accounts tuition fees if exists
                 $applicantAccountObj = new ApplicantAccount();
                 $applicantAccountObj->where("applicant_id = '".$applicant_id."' and application_plan_id = '".$application_plan_id."' and application_simulation_id = '".$application_simulation_id."'");
                 $applicantAccountObj->loadMany();
                 $application_model_id = $applicationPlanObj->getVal("application_model_id");
-                $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, 0, $this);
+                
                 foreach($applicantAccountObj as $applicantAccount)
                 {
                         if($applicantAccount)
                         {
                                 $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
-                                if($applicationModelFinancialTransactionObj->getVal("phase_enum") == 2 && $applicantAccount->getVal("payment_status_enum") == 2) // if the account is for tuition and not already exempted
+                                if($applicationModelFinancialTransactionObj->getVal("phase_enum") == 2 && $applicantAccount->getVal("payment_status_enum") == 1) // if the account is for tuition and not already exempted
                                 {       
-                                        if($addAccount=='Y')
-                                        {
-                                                $applicantAccount->set("payment_status_enum", "4"); // معفى
-                                                $applicantAccount->commit();
+                                        $applicantAccount->set("payment_status_enum", "4"); // معفى
+                                        $applicantAccount->commit();
+                                         
+                                        $transitionId = $applicantAccount->getVal("next_transition_id");
+                                        $reqObj = $applicantAccount->het("workflow_request_id");
+                                        //run transition 16
+                                        if($transitionId){
+                                                list($error, $status_comment) = $reqObj->runTransition($transitionId, $lang);
+
                                         }
-                                        else
-                                        {
-                                                $applicantAccount->delete();
-                                        }
+
                                 }
                         }
                 }
