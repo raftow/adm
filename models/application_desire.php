@@ -661,7 +661,7 @@ class ApplicationDesire extends AdmObject
         public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$applicantPaymentObj = null)
         {
                 $tuitionBaseObj = new TuitionBase();        
-                $tuitionBaseObj->where("active2 = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("financial_transaction_id")."'");
+                $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("id")."'");
                 $tuitionBaseObj->load();
                 $amount = (float) $tuitionBaseObj->getVal("amount");
                 $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
