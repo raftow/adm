@@ -614,7 +614,7 @@ class ApplicationDesire extends AdmObject
                         $applicantAccountObj = new ApplicantAccount();
                         foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
-                                die(var_dump($financialTransactionObj));
+                                if($applicationModelFinancialTransaction->getVal("id") == 7) die(var_dump($financialTransactionObj));
                                 $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
                                 $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
                                 $applicantAccountObj->select("active", "Y");
