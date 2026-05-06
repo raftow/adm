@@ -615,6 +615,7 @@ class ApplicationDesire extends AdmObject
                         $applicantAccountObj = new ApplicantAccount();
                         foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
+                                $model_amount = $applicationModelFinancialTransaction->getVal("amount");
                                 //if($applicationModelFinancialTransaction->getVal("id") == 7) die(var_dump($financialTransactionObj));
                                 $applicantAccountObj->select("applicant_id", $this->getVal("applicant_id"));
                                 $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
@@ -626,7 +627,7 @@ class ApplicationDesire extends AdmObject
                                                 $applicantPaymentObj->select("applicant_account_id", $applicantAccountObj->getVal("id"));
                                                 $applicantPaymentObj->select("active", "Y");
                                                 $applicantPaymentObj->load();
-                                                $data[] = $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$applicantPaymentObj);
+                                                $data[] = $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$model_amount,$applicantPaymentObj);
                                         }
 
                                 }
@@ -635,12 +636,13 @@ class ApplicationDesire extends AdmObject
                         $data = [];
                         foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
+                                $model_amount = $applicationModelFinancialTransaction->getVal("amount");
 
                                 foreach($financialTransactionObj as $financialTransaction)
                                 {
                                         if($financialTransaction && $financialTransaction->getVal("add_charge_ind") == "Y")
                                         {
-                                                $data[] = $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id);
+                                                $data[] = $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id,$model_amount);
 
                                         }
                                 }
@@ -659,19 +661,25 @@ class ApplicationDesire extends AdmObject
                         return false;
                 }
         }
-        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$applicantPaymentObj = null)
+        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$model_amount = 0,$applicantPaymentObj = null)
         {
                 $tuitionBaseObj = new TuitionBase();        
                 $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("id")."'");
                 $tuitionBaseObj->load();
-                $amount = (float) $tuitionBaseObj->getVal("amount");
-                $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
+                if($tuitionBaseObj){
+                        $amount = (float) $tuitionBaseObj->getVal("amount");
+                        $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
+                }elseif($model_amount){
+                        $amount = (float) $model_amount;
+                        $fees = 0;
+                }
                 $addCharge = $financialTransactionObj->getVal("add_charge_ind");
                 $sisChargeCode = $financialTransactionObj->getVal("sis_charge_code");
                 $receipt_id = null;
                 $card_type = null;
                 $payment_type = null;
                 $transId = null;
+
                 if($applicantPaymentObj)
                 {
                         $transId = $applicantPaymentObj->getVal("id");
