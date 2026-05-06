@@ -666,11 +666,11 @@ class ApplicationDesire extends AdmObject
                 $tuitionBaseObj = new TuitionBase();        
                 $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("id")."'");
                 $tuitionBaseObj->load();
-                if($tuitionBaseObj){
+                if($tuitionBaseObj->getVal("amount")>0 || $tuitionBaseObj->getVal("mandatory_fees")>0){
                         $amount = (float) $tuitionBaseObj->getVal("amount");
                         $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
                 }elseif($model_amount){
-                        $amount = (float) $model_amount;
+                        $amount =  $model_amount;
                         $fees = 0;
                 }
                 $addCharge = $financialTransactionObj->getVal("add_charge_ind");
