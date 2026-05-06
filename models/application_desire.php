@@ -599,6 +599,7 @@ class ApplicationDesire extends AdmObject
                 $applicationModelFinancialTransactionObj = new ApplicationModelFinancialTransaction();
                 $applicationModelFinancialTransactionObj->select("application_model_id", $this->getVal("application_model_id"));
                 //$applicationModelFinancialTransactionObj->select("application_simulation_id", $this->getVal("application_simulation_id"));
+                $applicationModelFinancialTransactionObj->select("process_enabled", "Y");
                 $applicationModelFinancialTransactionObj->select("active", "Y");
                 $applicationModelFinancialTransactionList = $applicationModelFinancialTransactionObj->loadMany();
 
@@ -625,7 +626,7 @@ class ApplicationDesire extends AdmObject
                                                 $applicantPaymentObj->select("applicant_account_id", $applicantAccountObj->getVal("id"));
                                                 $applicantPaymentObj->select("active", "Y");
                                                 $applicantPaymentObj->load();
-                                                $data = array_merge($data, $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$applicantPaymentObj));
+                                                $data[] = $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$applicantPaymentObj);
                                         }
 
                                 }
@@ -639,7 +640,7 @@ class ApplicationDesire extends AdmObject
                                 {
                                         if($financialTransaction && $financialTransaction->getVal("add_charge_ind") == "Y")
                                         {
-                                                $data = array_merge($data, $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id));
+                                                $data[] = $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id);
 
                                         }
                                 }
