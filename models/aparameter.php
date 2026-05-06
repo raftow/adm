@@ -110,6 +110,7 @@ class Aparameter extends AdmObject
                         }
                         if(!$this->contextValueArray[$context]) $this->contextValueArray[$context] = "NOT-FOUND";
                 }
+                if($this->contextValueArray[$context] == "NOT-FOUND") return null;
                 return $this->contextValueArray[$context];
         }
 
