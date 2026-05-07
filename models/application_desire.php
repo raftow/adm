@@ -2549,8 +2549,8 @@ class ApplicationDesire extends AdmObject
         public function checkCondition_requireInterview($workflowConditionObject, 
                                                           $workflowRequestObject, $lang)
         {
-                $should_skip_interview = 2;
-                return $this->checkCondition_requirementFound($should_skip_interview, 
+                $require_interview = 2;
+                return $this->checkCondition_requirementFound($require_interview, 
                                                                 $workflowConditionObject, 
                                                                 $workflowRequestObject, $lang);
         }
@@ -2563,9 +2563,9 @@ class ApplicationDesire extends AdmObject
         public function checkCondition_shouldSkipInterview($workflowConditionObject, 
                 $workflowRequestObject, $lang)
         {
-                $require_interview = 1;
+                $should_skip_interview = 1;
                 if (!$this->programRequireInterview()) return [true, 'Program itself does not require interview !'];
-                return $this->checkCondition_requirementFound($require_interview, $workflowConditionObject, $workflowRequestObject, $lang);
+                return $this->checkCondition_requirementFound($should_skip_interview, $workflowConditionObject, $workflowRequestObject, $lang);
         }
 
         public function programRequireInterview()
