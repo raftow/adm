@@ -131,9 +131,9 @@
                 // 3.update  applicant accounts tuition fees if exists
                 $applicantAccountObj = new ApplicantAccount();
                 $applicantAccountObj->where("applicant_id = '".$applicant_id."' and application_plan_id = '".$application_plan_id."' and application_simulation_id = '".$application_simulation_id."'");
-                $applicantAccountObj->loadMany();
+                $applicantAccountList = $applicantAccountObj->loadMany();
                 
-                foreach($applicantAccountObj as $applicantAccount)
+                foreach($applicantAccountList as $applicantAccount)
                 {
                         
                                 $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
