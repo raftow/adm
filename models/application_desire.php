@@ -2535,16 +2535,37 @@ class ApplicationDesire extends AdmObject
                 else return [null, $this->tm("Please before reject the requested program", $lang)];
         }
 
+        /**
+         * requirement_id = 1 => require interview
+         * requirement_id = 2 => should skip interview
+         */
 
-        public function checkCondition_requireInterview($workflowConditionObject, $workflowRequestObject, $lang)
+
+        /**
+         * @param WorkflowCondition $workflowConditionObject
+         * @param WorkflowRequest $workflowRequestObject
+         * @param string $lang
+         */
+        public function checkCondition_requireInterview($workflowConditionObject, 
+                                                          $workflowRequestObject, $lang)
         {
-                return $this->checkCondition_requirementFound(2, $workflowConditionObject, $workflowRequestObject, $lang);
+                $require_interview = 2;
+                return $this->checkCondition_requirementFound($require_interview, 
+                                                                $workflowConditionObject, 
+                                                                $workflowRequestObject, $lang);
         }
 
-        public function checkCondition_shouldSkipInterview($workflowConditionObject, $workflowRequestObject, $lang)
+        /**
+         * @param WorkflowCondition $workflowConditionObject
+         * @param WorkflowRequest $workflowRequestObject
+         * @param string $lang
+         */
+        public function checkCondition_shouldSkipInterview($workflowConditionObject, 
+                $workflowRequestObject, $lang)
         {
+                $should_skip_interview = 1;
                 if (!$this->programRequireInterview()) return [true, 'Program itself does not require interview !'];
-                return $this->checkCondition_requirementFound(1, $workflowConditionObject, $workflowRequestObject, $lang);
+                return $this->checkCondition_requirementFound($should_skip_interview, $workflowConditionObject, $workflowRequestObject, $lang);
         }
 
         public function programRequireInterview()
