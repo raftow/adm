@@ -132,12 +132,10 @@
                 $applicantAccountObj = new ApplicantAccount();
                 $applicantAccountObj->where("applicant_id = '".$applicant_id."' and application_plan_id = '".$application_plan_id."' and application_simulation_id = '".$application_simulation_id."'");
                 $applicantAccountObj->loadMany();
-                $application_model_id = $applicationPlanObj->getVal("application_model_id");
                 
                 foreach($applicantAccountObj as $applicantAccount)
                 {
-                        if($applicantAccount)
-                        {
+                        
                                 $applicationModelFinancialTransactionObj = $applicantAccount->het("application_model_financial_transaction_id");
                                 if($applicationModelFinancialTransactionObj->getVal("phase_enum") == 2 && $applicantAccount->getVal("payment_status_enum") == 1) // if the account is for tuition and not already exempted
                                 {       
@@ -153,7 +151,7 @@
                                         }
 
                                 }
-                        }
+                      
                 }
 
                 return true;
