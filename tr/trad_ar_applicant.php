@@ -16,6 +16,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["step9"] = "معلومات متقدمة";
 		$trad["applicant"]["step10"] = "الصحة والسلامة";
 		$trad["applicant"]["step11"] = "بيانات فنية";
+		$trad["applicant"]["step12"] = "الحساب المالي";
 
 		$trad["applicant"]["apis"] = "الخدمات الالكترونية";
 		$trad["applicant"]["applicantFileList"] = "قائمة مرفقات المتقدم";
@@ -164,6 +165,9 @@ class ApplicantArTranslator{
 		$trad["applicant"]["sis_continuous_ind"] = "طالب مستمر";
 
 
+		$trad["applicant"]["applicantAccountList"] = "حسابات المتقدم";
+		$trad["applicant"]["account"] = "الحساب المالي";
+		$trad["applicant"]["sis-infos"] = "الحالة الأكاديمية";
 
 
 
