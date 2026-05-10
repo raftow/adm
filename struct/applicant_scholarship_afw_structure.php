@@ -281,11 +281,11 @@ class AdmApplicantScholarshipAfwStructure
 
                 'grant_committee_interview_score' => array(
                         'IMPORTANT' => 'IN',
-                        'SEARCH' => true,
-                        'QSEARCH' => true,
+                        'SEARCH' => false,
+                        'QSEARCH' => false,
                         'SHOW' => true,
                         'RETRIEVE-AR' => true,
-                        'EDIT' => true,
+                        'EDIT' => true, 
                         'QEDIT' => true,
                         'SIZE' => '250',
                         'MAXLENGTH' => '250',
