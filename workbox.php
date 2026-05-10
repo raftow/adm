@@ -3,8 +3,8 @@ $file_dir_name = dirname(__FILE__);
 
 require_once("$file_dir_name/../config/global_config.php");
 // old include of afw.php
-require_once("$file_dir_name/../lib/afw/modes/afw_config.php");
-
+if(isset($lang)) $lang = AfwLanguageHelper::getGlobalLanguage();
+$server_db_prefix = AfwSession::config("server_db_prefix", "hzm_");
 
 $datatable_on=1;
 $cl = "Request";
@@ -44,12 +44,18 @@ $tit_qedit_ppp_fixm = "عرض التذكرة";
 $actions_tpl_arr = array();
 
 $actions_tpl_arr["edit"] = array("framework_action");
+
+/**
+ * @var int $data_count
+ * @var string $search_result_html
+ */
                           
 if($datatable_on) {
 	include "$file_dir_name/../lib/afw/modes/afw_handle_default_search.php";
         $collapse_in = "";
 }
 else $collapse_in = "in";
+
 
 
 $wb_prefix = AfwLanguageHelper::tt("صندوق الوارد لـ");
