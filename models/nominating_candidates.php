@@ -540,6 +540,95 @@ class NominatingCandidates extends AdmObject
         return true;
     }
 
+/*
+    public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent = false)
+    {
+        $this->createOrRepareMyApplicationObjects();
+        switch ($fields_updated["action_type_id"]) {
+            case 1: // New Candidate
+                if ($fields_updated["study_funding_status_id"]) {
+                    
+                    $applicationObj = $this->getMyApplication();
+                    $applicationDesireObj = $applicationObj->getSynchronisedUniqueDesire();
+                    if ($applicationDesireObj) $applicationDesireObj->updateDataOfWorkflowRequest(null);
+                }
+                $this->createOrRepareMyApplicationObjects();
+                break;
+            case 2: // Program modification
+                $this->deleteOldApplicationObjects();
+                break;
+            case 3: // Cancellation of nomination
+                $this->deleteOldApplicationObjects();
+                break;
+            case 4: // Amendment to study funding status
+                //$this->createOrRepareMyApplicationObjects();
+                $applicationObj = $this->getMyApplication();
+                if ($applicationObj) {
+                    $applicationDesireObj = $applicationObj->getSynchronisedUniqueDesire();
+                    if ($applicationDesireObj) $applicationDesireObj->updateDataOfWorkflowRequest(null);
+                }
+                break;
+            default:
+                $this->createOrRepareMyApplicationObjects();
+                break;
+        }
+    }*/
+ // to be checked with rafik : do we need to delete old application objects in case of program modification and cancellation of nomination ? or we just need to update them ? for now we will delete them to avoid complexity of update and potential data inconsistency, but maybe we can optimize this later by doing update instead of delete + create new objects
+    private function deleteOldApplicationObjects()
+    {
+        $applicant_id = $this->getVal('applicant_id');
+        $application_plan_id = $this->getVal('application_plan_id');
+        $application_simulation_id = $this->getVal('application_simulation_id');
+        $identity_type_id = $this->getVal('identity_type_id');
+        $idn = $this->getVal('idn');
+        $currentId = $this->getId();
+
+        if (!$applicant_id && $identity_type_id && $idn && $application_plan_id) {
+            $oldCand = new NominatingCandidates();
+            $oldCand->select('identity_type_id', $identity_type_id);
+            $oldCand->select('idn', $idn);
+            $oldCand->select('application_plan_id', $application_plan_id);
+            $oldCand->where("id != '$currentId'");
+            if ($oldCand->load()) {
+                $applicant_id = $oldCand->getVal('applicant_id');
+            }
+        }
+
+        if (!$applicant_id || !$application_plan_id || !$application_simulation_id)
+            return;
+
+        AfwAutoloader::addModule('workflow');
+        $oldApplicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $idn);
+        if ($oldApplicationObj) {
+            $oldDesireObj = $oldApplicationObj->getSynchronisedUniqueDesire();
+            if ($oldDesireObj) {
+                $applicationPlanObj = $oldApplicationObj->het('application_plan_id');
+                if ($applicationPlanObj) {
+                    $wModelObj = $applicationPlanObj->getWorkflowModel();
+                    if ($wModelObj) {
+                        $applicantObj = $oldApplicationObj->getApplicant();
+                        if ($applicantObj) {
+                            $wApplicantObj = $applicantObj->getWorkflowApplicant();
+                            if ($wApplicantObj) {
+                                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObj->id, $wModelObj->id);
+                                if ($wRequestObj) {
+                                    $wRequestObj->delete($wRequestObj->id, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $desireObj = new ApplicationDesire();
+        $desireObj->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
+
+        $appObj = new Application();
+        $appObj->deleteWhere("applicant_id = '$applicant_id' and application_plan_id = '$application_plan_id' and application_simulation_id = '$application_simulation_id'");
+
+        $this->applicationObj = null;
+    }
     public function createOrRepareMyApplicationObjects()
     {
         if ($this->getVal('idn') and $this->getVal('identity_type_id')) {
@@ -593,7 +682,7 @@ class NominatingCandidates extends AdmObject
                 if ($this->getVal('training_period_enum'))
                     $this->applicationObj->set('training_period_enum', $this->getVal('training_period_enum'));
                 $this->applicationObj->set('signup_acknowldgment', 'Y');
-                $this->applicationObj->set('comments', 'NomCand :: first creation of applicatio');
+                $this->applicationObj->set('comments', 'NomCand :: first creation of application');
                 $this->applicationObj->commit();
             }
         }
@@ -888,9 +977,6 @@ class NominatingCandidates extends AdmObject
 
         return $sp_errors;
     }
-
-
-
 
     /*
      * public static function statsData($paramsArr=[])
