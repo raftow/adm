@@ -3402,6 +3402,11 @@ td.end.calculated>label {
     content: "\f0c0";
 }
 
+.icon-405:before {
+    content: "\e534";
+}
+
+
 .icon-406:before {
     content: "\f4c0";
 }
