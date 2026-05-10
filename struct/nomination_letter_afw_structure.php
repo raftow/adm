@@ -191,7 +191,7 @@ class AdmNominationLetterAfwStructure
                 ),
 
                 'nomination_letter_file_id' => array(
-                        'STEP' => 3,
+                        'STEP' => 1,
                         'SHORTNAME' => 'admfile',
                         'SEARCH' => true,
                         'QSEARCH' => false,
@@ -211,9 +211,10 @@ class AdmNominationLetterAfwStructure
                         'RELATION' => 'ManyToOne',
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
+                        'CAN-BE-SETTED' => true,
                 ),
                 'pic_view' => array(
-                        'STEP' => 3,
+                        'STEP' => 1,
                         'TYPE' => 'TEXT',
                         'SHORTCUT_CATEGORY' => 'FORMULA',
                         'CATEGORY' => 'SHORTCUT',
