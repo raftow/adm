@@ -911,7 +911,8 @@ class NominatingCandidates extends AdmObject
         $applicationFinancialTransaction->where("application_model_id = $application_model_id and active ='Y' and process_enabled ='Y' and phase_enum=1");
 
         $studyFundingStatusObj = $this->het('study_funding_status_id');
-        $payment_status_enum = ($studyFundingStatusObj->getVal('payment_ind') == 'Y') ? 1 : 4;
+        if($studyFundingStatusObj)  $payment_status_enum = ($studyFundingStatusObj->getVal('payment_ind') == 'Y') ? 1 : 4;
+        else $payment_status_enum = 4; 
         $appFinTransObjectList = $applicationFinancialTransaction->loadMany();
         foreach ($appFinTransObjectList as $appFinTransObject) {
             $total_amount = $appFinTransObject->getVal('amount');
