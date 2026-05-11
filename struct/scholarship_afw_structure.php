@@ -1,6 +1,10 @@
 <?php 
         class AdmScholarshipAfwStructure
         {
+                public static function pageCode($uri_items)
+                {
+                        return "qsearch_scholarship.js";
+                }
         
                 public static function initInstance(&$obj)
                 {
