@@ -13,7 +13,3 @@ function applicant_id_onchange()
   
 }
 
-function scholarship_id_onchange()
-{
-  
-}
