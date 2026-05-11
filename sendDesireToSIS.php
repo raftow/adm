@@ -99,7 +99,7 @@ try {
                 
         ];
 
-        //$specialStructure = ['admission_status'=>['WHERE'=>'id in (18,19,20)']];
+        $specialStructure = ['admission_status'=>['WHERE'=>'id in (18,19,20)']];
 
         $qsearch_page_title = AfwLanguageHelper::tt('SendToSIS', $lang, $currmod);
         include "$file_dir_name/../lib/afw/modes/afw_mode_qsearch.php";

@@ -650,7 +650,7 @@ class ApplicationDesire extends AdmObject
                 }
                 //die(var_dump($data));
                 if(empty($data)){
-                        return false; // no fees to send, but process is successful
+                        return true; // no fees to send, but process is successful
                 }
                 $response = $api->pushPayments($data);
                 if ($response['status'] == "SUCCESS") {
