@@ -37,10 +37,10 @@ $currmod = trim($_GET['currmod']);
 $clwhere = trim($_GET['clwhere']);
 if($clwhere) die("use of clwhere in autocomplete is removed");
 
-$clp = trim($_GET['clp']);
-$idp = trim($_GET['idp']);
+//$clp = trim($_GET['clp']);
+//$idp = trim($_GET['idp']);
 $modp = trim($_GET['modp']);
-$attp = trim($_GET['attp']);
+//$attp = trim($_GET['attp']);
 $debugg = trim($_GET['debugg']);
 
 $method = trim($_GET['method']);
@@ -51,7 +51,7 @@ $program = trim($_GET['program']);
 if($currmod) AfwAutoLoader::addMainModule($currmod);
 if($modp and ($modp != $currmod)) AfwAutoLoader::addModule($modp);
 
-$application_plan_id = $_GET['application_plan_id'];
+$application_plan_id = (int)trim($_GET['application_plan_id']);
 
 $server_db_prefix = AfwSession::currentDBPrefix();
 

@@ -46,7 +46,7 @@ $debugg = trim($_GET['debugg']);
 if($currmod) AfwAutoLoader::addMainModule($currmod);
 if($modp and ($modp != $currmod)) AfwAutoLoader::addModule($modp);
 
-$qualification_id = $_GET['qualification_id'];
+$qualification_id = (int)trim($_GET['qualification_id']);
 
 $server_db_prefix = AfwSession::currentDBPrefix();
 

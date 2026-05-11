@@ -51,7 +51,7 @@ $program = trim($_GET['program']);
 if($currmod) AfwAutoLoader::addMainModule($currmod);
 if($modp and ($modp != $currmod)) AfwAutoLoader::addModule($modp);
 
-$application_plan_id = $_GET['application_plan_id'];
+$application_plan_id = (int)trim($_GET['application_plan_id']);
 
 $server_db_prefix = AfwSession::currentDBPrefix();
 
