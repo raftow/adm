@@ -116,3 +116,4 @@ include('previleges/role/previleges_adm_role381.php');
 include('previleges/role/previleges_adm_role388.php');
 
 include('previleges/role/previleges_adm_role405.php');
+include('previleges/role/previleges_adm_role406.php');
