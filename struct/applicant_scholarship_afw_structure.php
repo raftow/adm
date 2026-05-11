@@ -1,6 +1,10 @@
 <?php
 class AdmApplicantScholarshipAfwStructure
 {
+        public static function pageCode($uri_items)
+        {
+                return "manage_applicant_scholarship.js";
+        }
 
         public static function initInstance(&$obj)
         {
