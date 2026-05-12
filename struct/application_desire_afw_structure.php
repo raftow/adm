@@ -1492,6 +1492,7 @@
                                         'TYPE' => 'TEXT',
                                         'SIZE' => 48,
                                         'MAXLENGTH' => 48,
+                                        'TEXT-SEARCHABLE-SEPARATED' => true,
                                         'DEFAUT' => 0,
                                         'DISPLAY' => true,
                                         'STEP' => 99,
