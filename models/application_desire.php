@@ -544,7 +544,7 @@ class ApplicationDesire extends AdmObject
                         
                 } 
                 $data = [
-                        "term" => "202510", //$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
+                        "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),// "202510", 
                         "idType" => $applicantObj->getVal('idn_type_id'),
                         "id" => $applicantObj->getVal('idn'),
                         "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
