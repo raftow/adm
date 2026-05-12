@@ -536,7 +536,7 @@ class ApplicationDesire extends AdmObject
                 $workflow_request = $this->het('workflow_request_id');
                 if($workflow_request){
                         
-                        $workflowStatus = $workflow_request->getRelation("workflow_status_id");
+                        $workflowStatus = $workflow_request->het("workflow_status_id");
                         if($workflowStatus)
                         {
                                 $studentStatus = $workflowStatus->getVal('sis_status_code');
