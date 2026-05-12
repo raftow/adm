@@ -583,7 +583,7 @@ class ApplicationDesire extends AdmObject
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-                // die(var_dump($data));
+                 die(var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
@@ -659,7 +659,7 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
                 }
-                //die(var_dump($data));
+                die(var_dump($data));
                 if(empty($data)){
                         return true; // no fees to send, but process is successful
                 }
