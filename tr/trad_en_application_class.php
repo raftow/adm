@@ -12,6 +12,7 @@ class ApplicationClassEnTranslator{
 		$trad["application_class"]["name_en"] = "English Application class name";
 		$trad["application_class"]["desc_ar"] = "Arabic Application class description";
 		$trad["application_class"]["desc_en"] = "English Application class description";
+		$trad["application_class"]["scholarship_ind"] = "Scholarship ?";
         // steps
         return $trad;
     }

@@ -13,6 +13,7 @@ class ApplicationClassArTranslator{
 		$trad["application_class"]["desc_ar"] = "وصف  بالعربية";
 		$trad["application_class"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["application_class"]["budgeting_ind"] = "مدفوع ؟";
+		$trad["application_class"]["scholarship_ind"] = "منح دراسية ؟";
 
         // steps
         return $trad;

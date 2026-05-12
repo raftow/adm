@@ -79,7 +79,29 @@
         'CSS' => 'width_pct_50',),
         
 
-
+'sis_code' => array(
+        'SEARCH' => true,
+        'QSEARCH' => false,
+        'SHOW' => true,
+        'AUDIT' => false,
+        'RETRIEVE' => true,
+        'EDIT' => true,
+        'QEDIT' => false,
+        'SIZE' => 32,
+        'MAXLENGTH' => 32,
+        'MIN-SIZE' => 1,
+        'CHAR_TEMPLATE' => "ALPHANUMERIC",
+        'UTF8' => false,
+        'TYPE' => 'FK',
+        'ANSWER' => 'sis_sponsor_code',
+        'ANSMODULE' => 'adm',
+        'READONLY' => false,
+        'AUTOCOMPLETE' => true,
+        'AUTOCOMPLETE-SEARCH' => true,
+        'MANDATORY' => true,
+        'DNA' => true,
+        'CSS' => 'width_pct_50',
+),
 
                                         'active' => array('SHOW' => true,  'RETRIEVE' => true,  'EDIT' => true, 'QEDIT' => true, 'DEFAUT' => 'Y',  
                                                 'TYPE' => 'YN',    'FORMAT' => 'icon',  'STEP' => 99,  

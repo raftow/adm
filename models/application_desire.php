@@ -525,11 +525,32 @@ class ApplicationDesire extends AdmObject
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 //die($applicantObj->het('country_id')->getVal('id'));
                 $sponsorSISCode = "";
-                $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
-                if ($ncObject) {
-                        $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
-                        if ($sponsorObj) {
-                                $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                if($applicationClassObj->getVal("scholarship_ind") == "Y")
+                {
+                        $obj = new ApplicantScholarship();
+                        $obj->select("applicant_id",$this->getVal('applicant_id'));
+                        $obj->select("application_plan_id",$this->getVal('application_plan_id'));
+                        $obj->select("application_simulation_id",$this->getVal('application_simulation_id'));
+
+                        if($obj->load())
+                        {
+                                $scholarshipObj = $obj->het("scholarship_id");
+                                if($scholarshipObj)
+                                {
+                                        $sponsorObj = $scholarshipObj->het('sponsor_id');
+                                        if ($sponsorObj) 
+                                        {
+                                                $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                                        }
+                                }
+                        }
+                }else{
+                        $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
+                        if ($ncObject) {
+                                $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
+                                if ($sponsorObj) {
+                                        $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                                }
                         }
                 }
                 $studentStatus = "-";

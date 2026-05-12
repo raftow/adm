@@ -14,6 +14,7 @@ class SponsorArTranslator{
 	$trad["sponsor"]["sponsor_email"] = "البريد الالكتروني";
 	$trad["sponsor"]["sponsor_phone"] = "الهاتف";
 	$trad["sponsor"]["sponsor_adress"] = "العنوان";
+	$trad["sponsor"]["sis_code"] = "رمز SIS";
         return $trad;
         }
 
