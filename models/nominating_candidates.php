@@ -652,6 +652,9 @@ class NominatingCandidates extends AdmObject
             $applicantObj->set('gender_enum', $this->getVal('gender_enum'));
             $applicantObj->set('email', $this->getVal('email'));
             $applicantObj->set('mobile', $this->getVal('mobile'));
+            $applicantObj->set('birth_date', $this->getVal('birth_date'));
+            $applicantObj->set('birth_gdate', $this->getVal('birth_gdate'));
+
             $applicantObj->commit();
 
             $this->set('country_id', $candidate_country_id);

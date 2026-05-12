@@ -669,6 +669,7 @@ class ApplicationDesire extends AdmObject
                         $this->commit();
                         return true;
                 } else {
+                        die(var_dump($response));        
                         return false;
                 }
         }
