@@ -525,7 +525,21 @@ class ApplicationDesire extends AdmObject
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 //die($applicantObj->het('country_id')->getVal('id'));
                 $sponsorSISCode = "";
-                $applicationClassObj = $this->het("application_class_enum");
+                
+                $studentStatus = "-";
+                $workflow_request = $this->het('workflow_request_id');
+                if($workflow_request){
+                        
+                        $workflowStatus = $workflow_request->het("workflow_status_id");
+                        if($workflowStatus)
+                        {
+                                $studentStatus = $workflowStatus->getVal('sis_status_code');
+                        }
+                        $applicationClassObj = $workflow_request->het("application_class_enum");
+
+                        
+                } 
+
                 if($applicationClassObj && $applicationClassObj->getVal("scholarship_ind") == "Y")
                 {
                         $obj = new ApplicantScholarship();
@@ -554,17 +568,6 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
                 }
-                $studentStatus = "-";
-                $workflow_request = $this->het('workflow_request_id');
-                if($workflow_request){
-                        
-                        $workflowStatus = $workflow_request->het("workflow_status_id");
-                        if($workflowStatus)
-                        {
-                                $studentStatus = $workflowStatus->getVal('sis_status_code');
-                        }
-                        
-                } 
                 $data = [
                         "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),// "202510", 
                         "idType" => $applicantObj->getVal('idn_type_id'),
