@@ -75,6 +75,8 @@ class NominatingCandidatesArTranslator
 		$trad["nominating_candidates"]["grading_scale_id"] = "التقدير";
 
 		$trad["nominating_candidates"]["action_type_id"] = "نوع الحركة";
+		$trad["nominating_candidates"]["birth_date"] = "تاريخ الميلاد";
+		$trad["nominating_candidates"]["birth_gdate"] = "تاريخ الميلاد (ميلادي)";
 
 
 

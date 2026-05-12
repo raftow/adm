@@ -33,6 +33,8 @@ class NominatingCandidatesEnTranslator
 
 		$trad["nominating_candidates"]["gender_enum"] = "Gender";
 		$trad["nominating_candidates"]["action_type_id"] = "Action Type";
+		$trad["nominating_candidates"]["birth_date"] = "Birth Date";
+		$trad["nominating_candidates"]["birth_gdate"] = "Birth Date (Gregorian)";
 
 		// steps
 		return $trad;

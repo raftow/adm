@@ -544,7 +544,7 @@ class ApplicationDesire extends AdmObject
                         
                 } 
                 $data = [
-                        "term" => "202510", //$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
+                        "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),// "202510", 
                         "idType" => $applicantObj->getVal('idn_type_id'),
                         "id" => $applicantObj->getVal('idn'),
                         "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
@@ -583,7 +583,7 @@ class ApplicationDesire extends AdmObject
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-                // die(var_dump($data));
+                 die(var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
@@ -667,9 +667,11 @@ class ApplicationDesire extends AdmObject
                 if ($response['body']['status'] == "SUCCESS") {
                         $this->set("payment_created_ind", "Y");
                         $this->commit();
-                        return true;
+                        return $response;
                 } else {
-                        return false;
+                        $response['data'] = $data;
+                        //die(var_dump($response));        
+                        return $response;
                 }
         }
         public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$model_amount = 0,$applicantPaymentObj = null)
@@ -728,7 +730,7 @@ class ApplicationDesire extends AdmObject
                 }
 
                 $feesSent = $this->sendFeesToSis();
-                if (!$feesSent) {
+                if (!$feesSent["body"] || $feesSent["body"]['status'] != "SUCCESS") {
                         return [$this->tm("Student data was sent to SIS successfully, but sending fees has failed", $lang), ""];
                 }
 
