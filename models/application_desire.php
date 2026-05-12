@@ -525,6 +525,7 @@ class ApplicationDesire extends AdmObject
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 //die($applicantObj->het('country_id')->getVal('id'));
                 $sponsorSISCode = "";
+                $applicationClassObj = $this->het("application_class_enum");
                 if($applicationClassObj->getVal("scholarship_ind") == "Y")
                 {
                         $obj = new ApplicantScholarship();
