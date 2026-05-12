@@ -532,6 +532,17 @@ class ApplicationDesire extends AdmObject
                                 $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
                         }
                 }
+                $studentStatus = "-";
+                $workflow_request = $this->het('workflow_request_id');
+                if($workflow_request){
+                        
+                        $workflowStatus = $workflow_request->getRelation("workflow_status_id");
+                        if($workflowStatus)
+                        {
+                                $studentStatus = $workflowStatus->getVal('sis_status_code');
+                        }
+                        
+                } 
                 $data = [
                         "term" => "202510", //$this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),
                         "idType" => $applicantObj->getVal('idn_type_id'),
@@ -566,13 +577,13 @@ class ApplicationDesire extends AdmObject
 
                         "program" => ($sisCodeObj = $programObj->het('sis_program_code')) ? $sisCodeObj->getVal("lookup_code") : null, //"BSC-ACCT"
                         "major" => ($sisCodeObj = $programObj->het('sis_major_code')) ? $sisCodeObj->getVal("lookup_code") : null, //"ACCT", 
-                        "academicStatus" => "AS",
+                        "academicStatus" => $studentStatus, // to be mapped from workflow status
                         "period" => ($this->applicationObj->getVal('training_period_enum') == 1) ? "L1" : "N1",
                         "sponsorId" => $sponsorSISCode == "" ? null : $sponsorSISCode,
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-                // die(var_dump($data));
+                 die(var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
@@ -687,7 +698,11 @@ class ApplicationDesire extends AdmObject
                         $card_type = $applicantPaymentObj->getVal("card_type");
                         $payment_type = $applicantPaymentObj->getVal("payment_type");
                 }
-
+                $application_class_id = $this->getVal("application_class_enum");
+                $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransactionObj->getVal("id"),$application_class_id);
+                if($financialTransactionSisSettingObj){
+                       $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
+                }
                 return [
                         "id" => $student_id,
                         "term" => $term_code,
