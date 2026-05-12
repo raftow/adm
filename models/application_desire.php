@@ -664,7 +664,7 @@ class ApplicationDesire extends AdmObject
                         return true; // no fees to send, but process is successful
                 }
                 $response = $api->pushPayments($data);
-                if ($response['status'] == "SUCCESS") {
+                if ($response['body']['status'] == "SUCCESS") {
                         $this->set("payment_created_ind", "Y");
                         $this->commit();
                         return true;
