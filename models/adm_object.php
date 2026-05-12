@@ -1430,6 +1430,23 @@ class AdmObject extends AfwMomkenObject
         return $arr_list_of_application_table;
     }
 
+
+    public static function list_of_answer_table_id()
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        return self::answer_table()[$lang];
+    }
+
+    public static function answer_table_code($ansTabId)
+    {
+        return self::answer_table()['code'][$ansTabId];
+    }
+
+    public static function answer_table_module($ansTabId)
+    {
+        return self::answer_table()['module'][$ansTabId];
+    }
+
     public static function answer_table()
     {
         $arr_list_of_answer_table = array();
@@ -1764,7 +1781,10 @@ class AdmObject extends AfwMomkenObject
     }
 
 
-
+    /**
+     * @param WorkflowCondition $workflowConditionObject
+     * @param WorkflowRequest $workflowRequestObject
+     */
 
     public function runCondition($workflowConditionObject, $workflowRequestObject, $lang = "ar")
     {
@@ -1772,18 +1792,16 @@ class AdmObject extends AfwMomkenObject
         if ($workflowConditionObject) {
             $condition_code = $workflowConditionObject->getVal("lookup_code");
             $conditionMethod = "checkCondition_" . $condition_code;
+
+            if ($condition_code == "nothing") {
+                $reason = '';
+                $result = true;
+                return [$result, $reason];
+            }
+
+            return $this->$conditionMethod($workflowConditionObject, $workflowRequestObject, $lang);
         }
 
-        if ($condition_code == "nothing") {
-            $reason = '';
-            $result = true;
-            return [$result, $reason];
-        }
-
-
-
-
-
-        return $this->$conditionMethod($workflowConditionObject, $workflowRequestObject, $lang);
+        throw new AfwRuntimeException("workflowConditionObject is required to do runCondition");
     }
 }
