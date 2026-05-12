@@ -618,6 +618,7 @@ class ApplicationDesire extends AdmObject
                 $degree_id = $applicationPlanBranchObj->het('program_id')->getVal("degree_id");
                 $program_id = $applicationPlanBranchObj->getVal("program_id");
                 $student_id = $this->getVal("student_id");
+                die($student_id);
                 if(!$student_id){
                         return false; // can't send fees if student id is not set
                 }
@@ -721,7 +722,7 @@ class ApplicationDesire extends AdmObject
         public function sendAllDataToSIS($lang = 'ar')
         {
                 $result = $this->sendToSIS($lang);
-
+                
                 // $result is [$errorMsg, $successMsg]; success when errorMsg is empty
                 if ($result[0] !== '') {
                         return $result;
