@@ -535,11 +535,11 @@ class ApplicationDesire extends AdmObject
                         {
                                 $studentStatus = $workflowStatus->getVal('sis_status_code');
                         }
+                        $applicationClassEnumId = $workflow_request->getVal("application_class_enum");
+                        $applicationClassObj = ApplicationClass::loadById($applicationClassEnumId);
 
                         
                 } 
-                $applicationClassEnumId = $this->getVal("application_class_enum");
-                $applicationClassObj = ApplicationClass::loadById($applicationClassEnumId);
                 if($applicationClassObj && $applicationClassObj->getVal("scholarship_ind") == "Y")
                 {
                         $obj = new ApplicantScholarship();
