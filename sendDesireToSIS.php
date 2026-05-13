@@ -72,11 +72,9 @@ try {
                 'applicant_id',
                 'application_class_enum',
                 'student_id',
-                'student_created_ind',
                 'sis_date',
                 //'payment_created_ind',
                 'send_to_sis',
-                'send_fees_to_sis',
                
         ];
        $hide_retrieve_cols = [
@@ -91,6 +89,9 @@ try {
                 'desire_status_enum',
                 'application_model_id',
                 'application_plan_id',
+                'student_created_ind',
+                'send_fees_to_sis',
+                'desire_num'
                /* 'orgunit_id',
                 'employee_id',
                 'request_date',

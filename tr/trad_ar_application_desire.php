@@ -104,7 +104,7 @@ class ApplicationDesireArTranslator
 		$trad['application_desire']['admission_status'] = 'حالة القبول';
 		$trad['application_desire']['admission_status_date'] = 'تاريخ حالة القبول';
 		$trad['application_desire']['payment_created_ind'] = 'تم إنشاء المدفوعات';
-		$trad['application_desire']['send_to_sis'] = 'ترحيل';
+		$trad['application_desire']['send_to_sis'] = 'ترحيل البيانات';
 		$trad['application_desire']['send_fees_to_sis'] = 'ترحيل الرسوم';
 
 		return $trad;
