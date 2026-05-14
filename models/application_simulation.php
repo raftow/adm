@@ -407,9 +407,7 @@ class ApplicationSimulation extends AdmObject
         $war_arr = [];
         $tech_arr = [];
         
-        global $MODE_BATCH_LOURD;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
+        UfwQueryAnalyzer::startProcessLourdMode();
 
         $objme = AfwSession::getUserConnected();
         $me = $objme->id;
@@ -475,7 +473,7 @@ class ApplicationSimulation extends AdmObject
         $inf_arr[] = "application desire done";
         
 
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        UfwQueryAnalyzer::stopProcessLourdMode();
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr); 
 
 
@@ -510,10 +508,7 @@ class ApplicationSimulation extends AdmObject
 
     public function runDecisionSimulation($lang = "ar", $only_reset = false)
     {
-        global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
-        $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+        UfwQueryAnalyzer::startProcessLourdMode();
         set_time_limit(1800);
 
         AfwSession::setConfig("_sql_analysis_seuil_calls", 700000);
@@ -632,8 +627,7 @@ class ApplicationSimulation extends AdmObject
         $result_arr["errors"] = count($err_arr);
         $result_arr["warnings"] = count($war_arr);
 
-        $boucle_loadObjectFK = $old_boucle_loadObjectFK;
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        UfwQueryAnalyzer::stopProcessLourdMode();
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
     }
 
@@ -659,10 +653,7 @@ class ApplicationSimulation extends AdmObject
 
     public function runApplicationSimulation($lang = "ar", $only_reset = false)
     {
-        global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
-        $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+        UfwQueryAnalyzer::startProcessLourdMode();
         set_time_limit(1800);
 
         AfwSession::setConfig("_sql_analysis_seuil_calls", 700000);
@@ -897,8 +888,7 @@ class ApplicationSimulation extends AdmObject
         $result_arr["errors"] = count($err_arr);
         $result_arr["warnings"] = count($war_arr);
 
-        $boucle_loadObjectFK = $old_boucle_loadObjectFK;
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        UfwQueryAnalyzer::stopProcessLourdMode();
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
     }
 
@@ -1275,7 +1265,8 @@ class ApplicationSimulation extends AdmObject
         $decoderArr = [];
         $decoderArr["atype"] = ["applicant" => $this->tm("applicant", $lang), "application" => $this->tm("application", $lang), "desire" => $this->tm("desire", $lang)];
         $decoderArr["comments"] = ["registered" => $this->tm("registered", $lang)];
-        $decoderArr["step_name"] = AfwLoadHelper::loadAllLookupData(new ApplicationStep, "application_model_id = $application_model_id", "");
+        $appStep = new ApplicationStep();
+        $decoderArr["step_name"] = AfwLoadHelper::loadAllLookupData($appStep, "application_model_id = $application_model_id", "","",$lang);
 
         // die("decoderArr=".var_export($decoderArr,true));
         $html .= AfwHtmlHelper::tableToHtml($rows_bootstrap, $header_bootstrap, $decoderArr);

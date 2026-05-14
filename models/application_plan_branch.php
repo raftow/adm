@@ -281,8 +281,7 @@ class ApplicationPlanBranch extends AdmObject
 
         public static function genereAllNames($lang = "ar")
         {
-                global $MODE_BATCH_LOURD;
-                $MODE_BATCH_LOURD = true;
+                UfwQueryAnalyzer::startProcessLourdMode();
                 $obj = new ApplicationPlanBranch();
                 // $obj->select_visibilite_horizontale();
                 $objList = $obj->loadMany();
@@ -290,6 +289,7 @@ class ApplicationPlanBranch extends AdmObject
                 foreach ($objList as $objItem) {
                         $objItem->genereNames($lang);
                 }
+                UfwQueryAnalyzer::stopProcessLourdMode();
         }
 
         public function repareHijriApplicationEndDate($lang = "ar", $commit = true)

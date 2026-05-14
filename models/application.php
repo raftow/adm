@@ -129,11 +129,7 @@ class Application extends AdmObject
 
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what = "value")
         {
-                global $MODE_BATCH_LOURD;
-                $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-                $MODE_BATCH_LOURD = true;
-
-
+                UfwQueryAnalyzer::startProcessLourdMode();
                 $examples = "";
                 $errors = 0;
                 $obj = new Application();
@@ -156,8 +152,7 @@ class Application extends AdmObject
                         }
                 }
 
-                $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-                UfwQueryAnalyzer::resetQueriesExecuted();
+                UfwQueryAnalyzer::stopProcessLourdMode();
 
 
                 if ($what == "value") return $errors;
@@ -166,9 +161,7 @@ class Application extends AdmObject
 
         public static function recomputeWeightedPercentage($application_plan_id, $application_simulation_id, $indicators_update_date, $applicant_ids_arr = null, $updateDesires = false)
         {
-                global $MODE_BATCH_LOURD;
-                $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-                $MODE_BATCH_LOURD = true;
+                UfwQueryAnalyzer::startProcessLourdMode();
 
                 $obj0 = new Application();
                 $obj0->select("application_plan_id", $application_plan_id);
@@ -206,8 +199,7 @@ class Application extends AdmObject
                         unset($objList[$objId]);
                 }
 
-                $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-                UfwQueryAnalyzer::resetQueriesExecuted();
+                UfwQueryAnalyzer::stopProcessLourdMode();
 
                 return [$total_done, $found, $total, $now_done];
         }
