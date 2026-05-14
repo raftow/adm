@@ -1136,13 +1136,13 @@ class ApplicationDesire extends AdmObject
                         // $applicationPlanId = $this->objApplicationPlan->id;
                         $applicationObj = $this->getApplicationObject();
                         if ($applicationObj) {
+                                AfwAutoloader::addModule('workflow');
                                 $wModelObj = $this->objApplicationPlan->getWorkflowModel();
                                 if ($wModelObj) {
                                         $applicantObj = $applicationObj->getApplicant();
                                         if ($applicantObj) {
                                                 $wApplicantObj = $applicantObj->getWorkflowApplicant();
                                                 $wApplicantObjId = $wApplicantObj->id;
-                                                AfwAutoloader::addModule('workflow');
                                                 $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
                                         }
                                 }

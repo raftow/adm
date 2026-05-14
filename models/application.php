@@ -728,7 +728,30 @@ class Application extends AdmObject
                 return [$status, $error_message, $data];
         }
 
+        public static function admissionStatus($input_arr,$debugg=0){
+                $application_simulation_id = $input_arr['simulation_id'];
+                if (!$application_simulation_id) {
+                        $application_simulation_id = self::currentApplicationSimulation();
+                }
+                $applicationDesireObj = ApplicationDesire::loadByMainIndex($input_arr['applicant_id'], $input_arr['plan_id'], $application_simulation_id,$input_arr['desire_num']);
+                if($applicationDesireObj){
+                        $workflowRequestObj = $applicationDesireObj->het("workflow_request_id");
+                        if($workflowRequestObj){
+                                $workflowStatusObj = $workflowRequestObj->het("workflow_status_id");
+                                $workflowStageObj = $workflowRequestObj->het("workflow_stage_id");
 
+                        }
+                }
+                $data = [
+                        "workflow_status_name_ar" => $workflowStatusObj ? $workflowStatusObj->getVal("workflow_status_name_ar") : null,
+                        "workflow_status_name_en" => $workflowStatusObj ? $workflowStatusObj->getVal("workflow_status_name_en") : null,
+                        "workflow_stage_name_ar" => $workflowStageObj ? $workflowStageObj->getVal("workflow_stage_name_ar") : null,
+                        "workflow_stage_name_en" => $workflowStageObj ? $workflowStageObj->getVal("workflow_stage_name_en") : null,
+                        "updated_at" => $workflowRequestObj ? $workflowRequestObj->getVal("updated_at") : null,
+                ];
+                $status = $error_message ? "error" : "success";
+                return [$status, $error_message, $data];
+        }
 
 
         public function getDisplay($lang = "ar")

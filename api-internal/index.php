@@ -119,6 +119,18 @@ $allowed_methods["disclaim"] = [
         "plan_id"      => ['type' => 'INT', 'required' => true],
     ]
 ];
+
+$allowed_methods["admissionStatus"] = [
+    "class" => 'Application',
+    "method" => 'admissionStatus',
+    "submit-method" => 'BOTH',
+    "input" =>  [
+        "applicant_id" => ['type' => 'INT', 'required' => true],
+        "plan_id"      => ['type' => 'INT', 'required' => true],
+        "desire_num"    => ['type' => 'INT', 'required' => true],
+    ]
+];
+
 try {
     $error = false;
     $data_for_json = [];
