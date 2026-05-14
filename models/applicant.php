@@ -26,9 +26,9 @@ class Applicant extends AdmObject
         // attachement - مرفق توضيحي
         public static $doc_type_attachement = 7;
 
-        private $secondary_cumulative_pct = null; // do not removed it is used with $$xxx way
-        private $secondary_major_path = null; // do not removed it is used with $$xxx way
-        private $secondary_program_track = null; // do not removed it is used with $$xxx way
+        private $secondary_cumulative_pct = null; // do not remove it is used with $$xxx way
+        private $secondary_major_path = null; // do not remove it is used with $$xxx way
+        private $secondary_program_track = null; // do not remove it is used with $$xxx way
         private $aptitude_Score = null;
         private $achievement_Score = null;
         private $aptitude_university = null;

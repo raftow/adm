@@ -1265,7 +1265,8 @@ class ApplicationSimulation extends AdmObject
         $decoderArr = [];
         $decoderArr["atype"] = ["applicant" => $this->tm("applicant", $lang), "application" => $this->tm("application", $lang), "desire" => $this->tm("desire", $lang)];
         $decoderArr["comments"] = ["registered" => $this->tm("registered", $lang)];
-        $decoderArr["step_name"] = AfwLoadHelper::loadAllLookupData(new ApplicationStep, "application_model_id = $application_model_id", "");
+        $appStep = new ApplicationStep();
+        $decoderArr["step_name"] = AfwLoadHelper::loadAllLookupData($appStep, "application_model_id = $application_model_id", "","",$lang);
 
         // die("decoderArr=".var_export($decoderArr,true));
         $html .= AfwHtmlHelper::tableToHtml($rows_bootstrap, $header_bootstrap, $decoderArr);
