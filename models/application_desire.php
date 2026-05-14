@@ -1938,9 +1938,7 @@ class ApplicationDesire extends AdmObject
 
         public static function checkWeightedPercentageErrors($application_plan_id, $application_simulation_id, $pct, $what = 'value')
         {
-                global $MODE_BATCH_LOURD;
-                $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-                $MODE_BATCH_LOURD = true;
+                UfwQueryAnalyzer::startProcessLourdMode();
 
                 $examples = '';
                 $errors = 0;
@@ -1969,8 +1967,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
 
-                $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-                UfwQueryAnalyzer::resetQueriesExecuted();
+                UfwQueryAnalyzer::stopProcessLourdMode();
 
                 if ($what == 'value')
                         return $errors;

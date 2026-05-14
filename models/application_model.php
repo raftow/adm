@@ -862,11 +862,7 @@ class ApplicationModel extends AdmObject
 
         public function genereApplicationModelBranchList($lang = "ar")
         {
-
-                global $MODE_SQL_PROCESS_LOURD, $nb_queries_executed;
-                $old_nb_queries_executed = $nb_queries_executed;
-                $old_MODE_SQL_PROCESS_LOURD = $MODE_SQL_PROCESS_LOURD;
-                $MODE_SQL_PROCESS_LOURD = true;
+                UfwQueryAnalyzer::startProcessLourdMode();
 
                 $err_arr = [];
                 $inf_arr = [];
@@ -916,8 +912,7 @@ class ApplicationModel extends AdmObject
                 $inf_arr[] = "تم انشاء $nb_inserted من الفروع";
                 $inf_arr[] = "$nb_updated من الفروع موجودة سابقا";
 
-                $MODE_SQL_PROCESS_LOURD = $old_MODE_SQL_PROCESS_LOURD;
-                $nb_queries_executed = $old_nb_queries_executed;
+                UfwQueryAnalyzer::stopProcessLourdMode();
 
                 return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
         }

@@ -236,8 +236,7 @@ class AcademicProgramOffering extends AdmObject
 
         public static function genereAllNames($lang = "ar")
         {
-                global $MODE_BATCH_LOURD;
-                $MODE_BATCH_LOURD = true;
+                UfwQueryAnalyzer::startProcessLourdMode();
                 $obj = new AcademicProgramOffering();
                 // $obj->select_visibilite_horizontale();
                 $objList = $obj->loadMany();
@@ -246,6 +245,7 @@ class AcademicProgramOffering extends AdmObject
                         $objItem->genereName($lang);
                         // $objItem->genereApplicationModelBranchList($lang);                                
                 }
+                UfwQueryAnalyzer::stopProcessLourdMode();
         }
 
         /*

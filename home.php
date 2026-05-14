@@ -102,9 +102,7 @@ $myEmplId = $myEmplObj->getId();
 if(!$myEmplId) $out_scr .= "No employee attached to this account<br>";
 
 $out_scr .= AfwShowHelper::showMinibox($myEmplObj);
-global $MODE_SQL_PROCESS_LOURD;
-
-$MODE_SQL_PROCESS_LOURD = true;
+UfwQueryAnalyzer::startProcessLourdMode();
 
 /*
 $schoolList = SchoolEmployee::getSchoolList($myEmplId);    

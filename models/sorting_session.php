@@ -295,9 +295,7 @@ class SortingSession extends AdmObject
         $tech_arr = [];
 
         
-        global $MODE_BATCH_LOURD;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
+        UfwQueryAnalyzer::startProcessLourdMode();
         $application_simulation_id = $this->getVal("application_simulation_id");
         // $applicationPlanObj = $this->het("application_plan_id");
         $application_plan_id = $this->getVal("application_plan_id");
@@ -437,8 +435,7 @@ class SortingSession extends AdmObject
         if ($commit) $this->commit();
         $inf_arr[] = $this->tm("the sorting session has been successfully validated", $lang);
 
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-        UfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::stopProcessLourdMode();
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
@@ -450,9 +447,7 @@ class SortingSession extends AdmObject
         $war_arr = [];
         $tech_arr = [];
         
-        global $MODE_BATCH_LOURD;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
+        UfwQueryAnalyzer::startProcessLourdMode();
 
         
         
@@ -557,8 +552,7 @@ class SortingSession extends AdmObject
         if ($commit) $this->commit();
         $inf_arr[] = $this->tm("the sorting session has been successfully validated", $lang);
 
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-        UfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::stopProcessLourdMode();
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
     }
@@ -1381,9 +1375,7 @@ class SortingSession extends AdmObject
 
     public function reloadSortingData($lang="ar", $origin_partition = "SCHEDULE", $force=true, $echo=true)
     {
-        global $MODE_BATCH_LOURD;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
+        UfwQueryAnalyzer::startProcessLourdMode();
         $old_task_pct=intval($this->getVal("task_pct"));
         $result_arr = [];
         $result_arr["total"] = -1;
@@ -1433,8 +1425,7 @@ class SortingSession extends AdmObject
             $this->commit();
         }
 
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-        UfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::stopProcessLourdMode();
 
 
         
@@ -1607,10 +1598,7 @@ class SortingSession extends AdmObject
     /* because need too much optimization it has bloqued the server 
     public function updateFarzData($lang = "ar", $echo=false)
     {
-        global $MODE_BATCH_LOURD, $boucle_loadObjectFK;
-            $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-            $MODE_BATCH_LOURD = true;
-            $old_boucle_loadObjectFK = $boucle_loadObjectFK;
+        UfwQueryAnalyzer::startProcessLourdMode();
         set_time_limit(1800); 
 
         AfwSession::setConfig("_sql_analysis_seuil_calls",70000);
@@ -1656,8 +1644,7 @@ class SortingSession extends AdmObject
         $result_arr["total"] = $total;
 
         $inf_arr[] = "done";
-        $boucle_loadObjectFK = $old_boucle_loadObjectFK;
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
+        UfwQueryAnalyzer::stopProcessLourdMode();
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr, $result_arr);
     }*/
 
@@ -1711,9 +1698,7 @@ class SortingSession extends AdmObject
             CHANGE `min_weighted_percentage` `min_weighted_percentage` decimal(5,2) NULL DEFAULT '0.00' AFTER `sorting_group_id`;
 
          */
-        global $MODE_BATCH_LOURD;
-        $old_MODE_BATCH_LOURD = $MODE_BATCH_LOURD;
-        $MODE_BATCH_LOURD = true;
+        UfwQueryAnalyzer::startProcessLourdMode();
         $object_id_for_audit = $this->getVal("applicant_id");
         $session_num = $this->getVal("session_num");
         $sortingGroupList = $this->get("sortingGroupList");
@@ -2155,12 +2140,7 @@ class SortingSession extends AdmObject
             $this->commit();
         }
 
-        
-
-
-        $MODE_BATCH_LOURD = $old_MODE_BATCH_LOURD;
-
-        UfwQueryAnalyzer::resetQueriesExecuted();
+        UfwQueryAnalyzer::stopProcessLourdMode();
 
         return AfwFormatHelper::pbm_result($err_arr, $info_arr, $war_arr);
 
