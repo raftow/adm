@@ -720,18 +720,19 @@ class Application extends AdmObject
                 return [$status, $error_message, $data];
         }
 
-        public static function admissionStatus($input_arr,$debugg=0){
+        public static function admissionStatus($input_arr, $debugg = 0)
+        {
+                $error_message = "";
                 $application_simulation_id = $input_arr['simulation_id'];
                 if (!$application_simulation_id) {
                         $application_simulation_id = self::currentApplicationSimulation();
                 }
-                $applicationDesireObj = ApplicationDesire::loadByMainIndex($input_arr['applicant_id'], $input_arr['plan_id'], $application_simulation_id,$input_arr['desire_num']);
-                if($applicationDesireObj){
+                $applicationDesireObj = ApplicationDesire::loadByMainIndex($input_arr['applicant_id'], $input_arr['plan_id'], $application_simulation_id, $input_arr['desire_num']);
+                if ($applicationDesireObj) {
                         $workflowRequestObj = $applicationDesireObj->het("workflow_request_id");
-                        if($workflowRequestObj){
+                        if ($workflowRequestObj) {
                                 $workflowStatusObj = $workflowRequestObj->het("workflow_status_id");
                                 $workflowStageObj = $workflowRequestObj->het("workflow_stage_id");
-
                         }
                 }
                 $data = [
