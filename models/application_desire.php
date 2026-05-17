@@ -646,6 +646,8 @@ class ApplicationDesire extends AdmObject
                 if(!$student_id){
                         return false; // can't send fees if student id is not set
                 }
+                $application_class_id = $this->getVal("application_class_enum");
+
                 if($applicationClassObj->getVal("budgeting_ind") == "N"){
                         $data = [];
                         $applicantAccountObj = new ApplicantAccount();
@@ -663,7 +665,12 @@ class ApplicationDesire extends AdmObject
                                                 $applicantPaymentObj->select("applicant_account_id", $applicantAccountObj->getVal("id"));
                                                 $applicantPaymentObj->select("active", "Y");
                                                 $applicantPaymentObj->load();
-                                                $data[] = $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$model_amount,$applicantPaymentObj);
+                                                $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransaction->getVal("id"),$application_class_id);
+                                                $addCharge = "N";
+                                                if($financialTransactionSisSettingObj){
+                                                        $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
+                                                }
+                                                $data[] = $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$model_amount,$addCharge,$applicantPaymentObj);
                                         }
 
                                 }
@@ -676,15 +683,19 @@ class ApplicationDesire extends AdmObject
 
                                 foreach($financialTransactionObj as $financialTransaction)
                                 {
-                                        if($financialTransaction && $financialTransaction->getVal("add_charge_ind") == "Y")
+                                        $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransaction->getVal("id"),$application_class_id);
+                                        $addCharge = "N";
+                                        if($financialTransactionSisSettingObj){
+                                                $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
+                                        }
+                                        if($financialTransactionSisSettingObj && $addCharge == "Y")
                                         {
-                                                $data[] = $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id,$model_amount);
-
+                                                $data[] = $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id,$model_amount,$addCharge);
                                         }
                                 }
                         }
                 }
-                //die(var_dump($data));
+                die(var_dump($data));
                 if(empty($data)){
                         return true; // no fees to send, but process is successful
                 }
@@ -699,7 +710,7 @@ class ApplicationDesire extends AdmObject
                         return $response;
                 }
         }
-        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$model_amount = 0,$applicantPaymentObj = null)
+        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$model_amount = 0,$addCharge="N",$applicantPaymentObj = null)
         {
                 $tuitionBaseObj = new TuitionBase();        
                 $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("id")."'");
@@ -725,12 +736,7 @@ class ApplicationDesire extends AdmObject
                         $card_type = $applicantPaymentObj->getVal("card_type");
                         $payment_type = $applicantPaymentObj->getVal("payment_type");
                 }
-                $application_class_id = $this->getVal("application_class_enum");
-                $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransactionObj->getVal("id"),$application_class_id);
-                $addCharge = "N";
-                if($financialTransactionSisSettingObj){
-                       $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
-                }
+                
                 return [
                         "id" => $student_id,
                         "term" => $term_code,
