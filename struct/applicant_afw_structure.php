@@ -1697,7 +1697,7 @@ class AdmApplicantAfwStructure
                         'ANSMODULE' => 'adm',
                         'ITEM' => 'applicant_id',
                         'READONLY' => true,
-                        'CAN-BE-SETTED' => true,
+                        'CAN-BE-SETTED' => false,
                         'CSS' => 'width_pct_100',
                 ),
                 'dragDropDiv' => array(

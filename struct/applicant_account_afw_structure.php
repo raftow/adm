@@ -248,6 +248,10 @@ class AdmApplicantAccountAfwStructure
                         'STEP' => 1,
                         'DISPLAY' => true,
                         'EDIT-UGROUPS' => '',
+			'DIR' => 'ltr',
+                        //'TEXT-ALIGN' => 'left',
+			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                        'UTF8' => false,
                         'CSS' => 'width_pct_25',
                 ),
 
