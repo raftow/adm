@@ -711,7 +711,7 @@ class ApplicationDesire extends AdmObject
                         $amount =  $model_amount;
                         $fees = 0;
                 }
-                $addCharge = $financialTransactionObj->getVal("add_charge_ind");
+                //$addCharge = $financialTransactionObj->getVal("add_charge_ind");
                 $sisChargeCode = $financialTransactionObj->getVal("sis_charge_code");
                 $receipt_id = null;
                 $card_type = null;
@@ -727,6 +727,7 @@ class ApplicationDesire extends AdmObject
                 }
                 $application_class_id = $this->getVal("application_class_enum");
                 $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransactionObj->getVal("id"),$application_class_id);
+                $addCharge = "N";
                 if($financialTransactionSisSettingObj){
                        $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
                 }
