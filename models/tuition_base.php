@@ -45,11 +45,15 @@ class TuitionBase extends AdmObject
                 }
                 if ($program_id) {
                         $tuitionBaseObj = new TuitionBase();
+                        $feeDescriptionAR = "";
+                        $feeDescriptionEN = "";
                         foreach ($financialTransactionList as $financialTransaction) {
                                 $tuitionBaseObj->where("active = 'Y' and (program_id = '$program_id') and financial_transaction_id = '".$financialTransaction->getVal("id")."'");
                                 if ($tuitionBaseObj->load()) {
-                                        $res["total_ammount"] += (float)$tuitionBaseObj->getVal("amount") + (float)$tuitionBaseObj->getVal("mandatory_fees");
-                                        
+                                        $sum_amount = (float)$tuitionBaseObj->getVal("amount") + (float)$tuitionBaseObj->getVal("mandatory_fees");
+                                        $res["total_ammount"] += $sum_amount;
+                                        $feeDescriptionAR .= $financialTransaction->getVal("fee_description_ar")." : ".$sum_amount;
+                                        $feeDescriptionEN .= $financialTransaction->getVal("fee_description_en")." : ".$sum_amount;
                                 } else {
                                         $academicProgramObj = new AcademicProgram();
                                         if ($academicProgramObj->load($program_id)) {
@@ -58,8 +62,10 @@ class TuitionBase extends AdmObject
                                                 $objectThis = new TuitionBase();
                                                 $objectThis->where("active='Y' and degree_id = '$degree_id' and financial_transaction_id = '".$financialTransaction->getVal("id")."'");
                                                 if ($objectThis->load()) {
-                                                        $res["total_ammount"] += (float)$objectThis->getVal("amount") + (float)$objectThis->getVal("mandatory_fees");
-                                                        
+                                                        $sum_amount = (float)$objectThis->getVal("amount") + (float)$objectThis->getVal("mandatory_fees");
+                                                        $res["total_ammount"] += $sum_amount;
+                                                        $feeDescriptionAR .= $financialTransaction->getVal("fee_description_ar")." : ".$sum_amount." , ";
+                                                        $feeDescriptionEN .= $financialTransaction->getVal("fee_description_en")." : ".$sum_amount." , ";
                                                 }
                                         }
                                         
@@ -70,6 +76,8 @@ class TuitionBase extends AdmObject
                         else{
                                 $res["curr_ar"] = $tuitionBaseObj->getVal("currency_ar");
                                 $res["curr_en"] = $tuitionBaseObj->getVal("currency_en");
+                                $res["fee_description_ar"] = rtrim($feeDescriptionAR," , ");
+                                $res["fee_description_en"] = rtrim($feeDescriptionEN," , ");
                                 return $res;
                         }
                         
