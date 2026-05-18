@@ -11,7 +11,9 @@ require_once("$file_dir_name/../lib/afw/core/afw_autoloader.php");
 require_once("$file_dir_name/../config/global_config.php");
 
 
-
+/**
+ * @var array $config_arr
+ */
 AfwAutoLoader::addMainModule("adm");
 
 include_once ("$file_dir_name/../adm/ini.php");
