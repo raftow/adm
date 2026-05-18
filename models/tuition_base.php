@@ -52,8 +52,8 @@ class TuitionBase extends AdmObject
                                 if ($tuitionBaseObj->load()) {
                                         $sum_amount = (float)$tuitionBaseObj->getVal("amount") + (float)$tuitionBaseObj->getVal("mandatory_fees");
                                         $res["total_ammount"] += $sum_amount;
-                                        $feeDescriptionAR .= $financialTransaction->getVal("fee_description_ar")." : ".$sum_amount;
-                                        $feeDescriptionEN .= $financialTransaction->getVal("fee_description_en")." : ".$sum_amount;
+                                        $feeDescriptionAR .= $financialTransaction->getVal("fee_description_ar")." : ".$sum_amount." ".$tuitionBaseObj->getVal("currency_ar");
+                                        $feeDescriptionEN .= $financialTransaction->getVal("fee_description_en")." : ".$sum_amount." ".$tuitionBaseObj->getVal("currency_en");
                                 } else {
                                         $academicProgramObj = new AcademicProgram();
                                         if ($academicProgramObj->load($program_id)) {
@@ -64,8 +64,8 @@ class TuitionBase extends AdmObject
                                                 if ($objectThis->load()) {
                                                         $sum_amount = (float)$objectThis->getVal("amount") + (float)$objectThis->getVal("mandatory_fees");
                                                         $res["total_ammount"] += $sum_amount;
-                                                        $feeDescriptionAR .= $financialTransaction->getVal("fee_description_ar")." : ".$sum_amount." , ";
-                                                        $feeDescriptionEN .= $financialTransaction->getVal("fee_description_en")." : ".$sum_amount." , ";
+                                                        $feeDescriptionAR .= $financialTransaction->getVal("fee_description_ar")." : ".$sum_amount." ".$objectThis->getVal("currency_ar")." , ";
+                                                        $feeDescriptionEN .= $financialTransaction->getVal("fee_description_en")." : ".$sum_amount." ".$objectThis->getVal("currency_en")." , ";
                                                 }
                                         }
                                         
