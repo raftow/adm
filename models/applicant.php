@@ -992,6 +992,19 @@ class Applicant extends AdmObject
                         'STEPS' => 'all'
                 );
 
+                $color = "green";
+                $title_en = "Reset/send password";
+                $title_ar = $this->tm($title_en, 'ar');
+                $methodName = "resetPassword";
+                $pbms[AfwStringHelper::hzmEncode($methodName)] = array(
+                        "METHOD" => $methodName,
+                        "COLOR" => $color,
+                        "LABEL_AR" => $title_ar,
+                        "LABEL_EN" => $title_en,
+                        "PUBLIC" => true,
+                        "BF-ID" => "",
+                        'STEPS' => 'all'
+                );
 
                 return $pbms;
         }
@@ -1045,7 +1058,38 @@ class Applicant extends AdmObject
                         return ["The applicant has some accepted desires and can't be deleted", ""];
                 }
         }
+        public function resetPassword($lang = "ar")
+        {
+                $id = $this->getVal("id");
+                
+                // send email to applicant with new password
+                $response = self::sendNotificationForApplicant($id, 15, $lang);
+                if($response["status"] != 200) {
+                        return ["Error sending notification to applicant: " . $response["response"], ""];
+                }
+                return ["", "The password has been reset and sent to the applicant"];
 
+        }
+        public static function sendNotificationForApplicant($applicant_id, $template_id, $lang)
+        {
+                
+                $base_url = AfwSession::config("api_base_url", "https://api.bmeholding.com/api");
+                $token = AfwSession::config("api_token","XXXXYYY"); // get it from config or env variable
+
+                $ch = curl_init("$base_url/notification/send/applicant/$applicant_id/$template_id");
+                curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HTTPHEADER     => [
+                        "Authorization: Bearer $token",
+                        "Accept: application/json",
+                ],
+                ]);
+
+                $response = curl_exec($ch);
+                $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+                return ["status"=>$status, "response"=>$response];
+        } 
         public function runOnlyNeedUpdateApis($lang = "ar")
         {
                 return $this->runNeededApis($lang, false);
