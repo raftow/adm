@@ -2891,7 +2891,12 @@ class ApplicationDesire extends AdmObject
                 }
                 if ($applicationFinancialTransaction && $total_amount > 0) {
                         $payment_status_enum = 1;
-                        return ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicationFinancialTransaction->id, $total_amount, $payment_status_enum, true);
+                        $applicantAccountObj = ApplicantAccount::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $applicationFinancialTransaction->id, $total_amount, $payment_status_enum, true);
+                        $applicantAccountObj->set("fee_description_ar", $tuitionBase["fee_description_ar"]);
+                        $applicantAccountObj->set("fee_description_en", $tuitionBase["fee_description_en"]);
+                        $applicantAccountObj->commit();
+
+                        return $applicantAccountObj;
                 } else return null;
         }
 
