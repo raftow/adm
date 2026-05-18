@@ -5,9 +5,9 @@ class FinancialTransactionArTranslator{
     {
         $trad = [];
 
-	$trad["financial_transaction"]["financialtransaction.single"] = "حركة مالية";
-	$trad["financial_transaction"]["financialtransaction.new"] = "جديدة";
-	$trad["financial_transaction"]["financial_transaction"] = "الحركات المالية";
+	$trad["financial_transaction"]["financialtransaction.single"] = "رمز قيد محاسبي";
+	$trad["financial_transaction"]["financialtransaction.new"] = "جديد";
+	$trad["financial_transaction"]["financial_transaction"] = "رموز القيود المحاسبية";
 	$trad["financial_transaction"]["fee_code"] = "رمز الرسوم";
 	$trad["financial_transaction"]["fee_description_ar"] = "بيان الرسوم - عربي";
     $trad["financial_transaction"]["fee_description_en"] = "بيان الرسوم - الإنجليزي";
