@@ -1,7 +1,7 @@
 <?php
 
-	$role_info[407] = array (
-  'code' => 'ar-fts',
+	$role_info[408] = array (
+  'code' => 'goal-fts',
   'name' => 
   array (
     'ar' => 'الحركات المالية',
@@ -10,13 +10,13 @@
   'menu' => 
   array (
     'need_admin' => false,
-    'id' => '407',
+    'id' => '408',
     'menu_name_' => 'الحركات المالية',
     'menu_name_ar' => 'الحركات المالية',
     'menu_name_en' => 'Financial transactions',
-    'page' => 'main.php?Main_Page=fm.php&a=1282&r=407',
+    'page' => 'main.php?Main_Page=fm.php&a=1282&r=408',
     'css' => 'info',
-    'icon' => ' icon-407',
+    'icon' => ' icon-408',
     'showme' => true,
     'items' => 
     array (
