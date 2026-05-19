@@ -43,7 +43,7 @@
 				'EDIT' => true,  'QEDIT' => true,  
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  
-				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
+				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 'AUTOCOMPLETE' => true, 'AUTOCOMPLETE-SEARCH' => true,
 				'CSS' => 'width_pct_50', ),
 
 		'application_plan_id' => array('SHORTNAME' => 'plan',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
@@ -53,8 +53,8 @@
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
 				'CSS' => 'width_pct_50', ),
 
-		'application_simulation_id' => array('SHORTNAME' => 'simulation',  'SEARCH' => true,  'QSEARCH' => true,  'SHOW' => true,  'AUDIT' => false,  'RETRIEVE' => true,  
-				'EDIT' => true,  'QEDIT' => true,  
+		'application_simulation_id' => array('SHORTNAME' => 'simulation',  'SEARCH' => false,  'QSEARCH' => false,  'SHOW' => false,  'AUDIT' => false,  'RETRIEVE' => false,  
+				'EDIT' => false,  'QEDIT' => false, 'DEFAUT' => 2,
 				'SIZE' => 32,  'MAXLENGTH' => 32,  'MIN-SIZE' => 1,  'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",  'MANDATORY' => true,  'UTF8' => false,  
 				'TYPE' => 'FK',  'ANSWER' => 'application_simulation',  'ANSMODULE' => 'adm',  
 				'RELATION' => 'unkn',  'READONLY' => false,  'DNA' => true, 
