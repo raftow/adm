@@ -21,6 +21,9 @@ class ApplicantAccountArTranslator
 		$trad["applicant_account"]["payment_deadline"] = "آخر تاريخ للدفع";
 		$trad["applicant_account"]["workflow_request_id"] = "طلب سير العمل";
 		$trad["applicant_account"]["next_transition_id"] = "الحركة التالية";
+		$trad["applicant_account"]["fee_description_ar"] = "وصف الرسوم - عربي";
+		$trad["applicant_account"]["fee_description_en"] = "وصف الرسوم - انجليزي";
+
 		
 		return $trad;
 		if(false) return ApplicantAccountEnTranslator::initData();
