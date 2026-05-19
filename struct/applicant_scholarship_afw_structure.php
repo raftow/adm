@@ -66,7 +66,7 @@ class AdmApplicantScholarshipAfwStructure
                         'DISPLAY-UGROUPS' => '',
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
-                        'DEPENDENT_OFME' => array('applicant_id'),
+                        //'DEPENDENT_OFME' => array('applicant_id'),
                 ),
                 'applicant_id' => array(
                         'STEP' => 1,
@@ -87,13 +87,14 @@ class AdmApplicantScholarshipAfwStructure
                         'TYPE' => 'FK',
                         'ANSWER' => 'applicant',
                         'ANSMODULE' => 'adm',
-                        //'AUTOCOMPLETE' => true,
-                        //'AUTOCOMPLETE-SEARCH' => true,
+                        'AUTOCOMPLETE' => true,
+                        'AUTOCOMPLETE-SEARCH' => true,
                         'RELATION' => 'OneToMany',
                         'READONLY' => false,
                         'CSS' => 'width_pct_25',
-                        'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))',
-                        'DEPENDENCIES' => ['scholarship_id'],
+                        // todo : reactivate the where condition after bug fix in autocomplete with dependent fields
+                        //'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))',
+                       // 'DEPENDENCIES' => ['scholarship_id'],
                 ),
 
 
