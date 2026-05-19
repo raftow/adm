@@ -3411,6 +3411,10 @@ td.end.calculated>label {
     content: "\f4c0";
 }
 
+.icon-408:before {
+    content: "\f81d";
+}
+
 
 .bficon-104610:before,
 .bficon-104615:before {
@@ -4523,4 +4527,10 @@ div#application_fees_record {
 div#fg-applicationWarningDiv {
     height: min-content !important;
     min-height: min-content;
+}
+
+table.search_result_table {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  width: 100%;
 }
