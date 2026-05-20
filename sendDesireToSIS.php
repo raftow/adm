@@ -91,7 +91,7 @@ try {
                 'application_model_id',
                 'application_plan_id',
                 'student_created_ind',
-                //'send_fees_to_sis',
+                'send_fees_to_sis',
                 'desire_num'
                /* 'orgunit_id',
                 'employee_id',

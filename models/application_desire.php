@@ -762,6 +762,9 @@ class ApplicationDesire extends AdmObject
                 }
 
                 $feesSent = $this->sendFeesToSis();
+                if ($feesSent == true) {
+                        return $result;
+                }
                 if (!$feesSent["body"] || $feesSent["body"]['status'] != "SUCCESS") {
                         return [$this->tm("Student data was sent to SIS successfully, but sending fees has failed", $lang), ""];
                 }
