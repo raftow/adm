@@ -695,7 +695,7 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
                 }
-                die(var_dump($data));
+                //die(var_dump($data));
                 if(empty($data)){
                         return true; // no fees to send, but process is successful
                 }
