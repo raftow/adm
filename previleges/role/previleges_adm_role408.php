@@ -42,6 +42,17 @@ $role_info[408] = array(
         'css' => 'bf',
         'icon' => 'bficon-105315 bfc-',
       ),
+      105321 =>
+      array(
+        'id' => '105321',
+        'code' => 'f2-a-tuition_base/qsearch',
+        'level' => '100',
+        'menu_name_ar' => 'قواعد حساب الرسوم',
+        'menu_name_en' => 'Fees calculation rules',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TuitionBase&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-105321 bfc-',
+      ),
     ),
     'otherbfs' =>
     array(
@@ -176,6 +187,72 @@ $role_info[408] = array(
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=FinancialTransactionSisSettings&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105315 bfc-',
+      ),
+      105316 =>
+      array(
+        'id' => '105316',
+        'code' => 'f2-a-tuition_base/edit',
+        'level' => '100',
+        'menu_name_ar' => 'إنشاء قاعدة حساب الرسوم',
+        'menu_name_en' => 'create Fees calculation rule',
+        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=TuitionBase&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-105316 bfc-',
+      ),
+      105317 =>
+      array(
+        'id' => '105317',
+        'code' => 'f2-a-tuition_base/qedit',
+        'level' => '100',
+        'menu_name_ar' => 'إدارة قواعد حساب الرسوم',
+        'menu_name_en' => 'Fees calculation rules administration',
+        'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=TuitionBase&currmod=adm&ids=all&newo=3',
+        'css' => 'bf',
+        'icon' => 'bficon-105317 bfc-',
+      ),
+      105318 =>
+      array(
+        'id' => '105318',
+        'code' => 'f2-a-tuition_base/delete',
+        'level' => '100',
+        'menu_name_ar' => 'مسح قاعدة حساب الرسوم',
+        'menu_name_en' => 'delete Fees calculation rule',
+        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=TuitionBase&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-105318 bfc-',
+      ),
+      105319 =>
+      array(
+        'id' => '105319',
+        'code' => 'f2-a-tuition_base/display',
+        'level' => '100',
+        'menu_name_ar' => 'عرض تفاصيل قاعدة حساب الرسوم',
+        'menu_name_en' => 'display details of Fees calculation rule',
+        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=TuitionBase&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-105319 bfc-',
+      ),
+      105320 =>
+      array(
+        'id' => '105320',
+        'code' => 'f2-a-tuition_base/search',
+        'level' => '100',
+        'menu_name_ar' => 'البحث في قواعد حساب الرسوم',
+        'menu_name_en' => 'Fees calculation rules search',
+        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=TuitionBase&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-105320 bfc-',
+      ),
+      105321 =>
+      array(
+        'id' => '105321',
+        'code' => 'f2-a-tuition_base/qsearch',
+        'level' => '100',
+        'menu_name_ar' => 'قواعد حساب الرسوم',
+        'menu_name_en' => 'Fees calculation rules',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=TuitionBase&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-105321 bfc-',
       ),
     ),
     'sub-folders' =>
