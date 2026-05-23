@@ -105,6 +105,7 @@ include('previleges/table/previleges_adm_table_training_unit.php');
 include('previleges/table/previleges_adm_table_training_unit_college.php');
 include('previleges/table/previleges_adm_table_training_unit_department.php');
 include('previleges/table/previleges_adm_table_training_unit_type.php');
+include('previleges_adm_table_financial_transaction_sis_settings.php');
 include('previleges/role/previleges_adm_role387.php');
 include('previleges/role/previleges_adm_role386.php');
 include('previleges/role/previleges_adm_role383.php');
