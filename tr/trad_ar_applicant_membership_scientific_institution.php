@@ -1,13 +1,14 @@
 <?php
 
-class ApplicantMembershipScientificInstitutionArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class ApplicantMembershipScientificInstitutionArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 
-		$trad["applicant_membership_scientific_institution"]["applicantmembershipscientificinstitution.single"] = "العضوية في المؤسسات والجمعيات العلمية";
-		$trad["applicant_membership_scientific_institution"]["applicantmembershipscientificinstitution.new"] = "جديد(ة)";
-		$trad["applicant_membership_scientific_institution"]["applicant_membership_scientific_institution"] = "العضوية في المؤسسات والجمعيات العلمية";
+		$trad["applicant_membership_scientific_institution"]["me.single"] = "عضوية في المؤسسات والجمعيات العلمية";
+		$trad["applicant_membership_scientific_institution"]["me.new.full"] = "عضوية جديدة";
+		$trad["applicant_membership_scientific_institution"]["me.plural"] = "العضويات في المؤسسات والجمعيات العلمية";
 		$trad["applicant_membership_scientific_institution"]["name_ar"] = "مسمى  بالعربية";
 		$trad["applicant_membership_scientific_institution"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["applicant_membership_scientific_institution"]["desc_ar"] = "وصف  بالعربية";
@@ -19,13 +20,13 @@ class ApplicantMembershipScientificInstitutionArTranslator{
 		$trad["applicant_membership_scientific_institution"]["start_date"] = "تاريخ البداية";
 		$trad["applicant_membership_scientific_institution"]["end_date"] = "تاريخ النهاية";
 		$trad["applicant_membership_scientific_institution"]["role_held"] = "الدور";
-        // steps
-        return $trad;
-    }
+		// steps
+		return $trad;
+	}
 
-    public static function getInstance()
+	public static function getInstance()
 	{
-        if(false) return new ApplicantMembershipScientificInstitutionEnTranslator();
+		if (false) return new ApplicantMembershipScientificInstitutionEnTranslator();
 		return new ApplicantMembershipScientificInstitution();
 	}
 }
