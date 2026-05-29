@@ -1,14 +1,24 @@
 <?php
 class AdmWorkflowService
 {
+    private static $desireObj = [];
+    private static $applicantObj = [];
+
     public static function loadOriginalObject($wApplicantObj, $wSessionObj, $wModelObj, $wRequestObj)
     {
-        $country_id = $wApplicantObj->getVal('country_id');
+        $country_id  = $wApplicantObj->getVal('country_id');
         $idn_type_id = $wApplicantObj->getVal('idn_type_id');
-        $idn = $wApplicantObj->getVal('idn');
-        $applicantObj = Applicant::loadByMainIndex($country_id, $idn_type_id, $idn);
+        $idn         = $wApplicantObj->getVal('idn');
+        $applicant_key = "$country_id-$idn_type_id-$idn";
+        if (!self::$applicantObj[$applicant_key]) {
+            self::$applicantObj[$applicant_key] = Applicant::loadByMainIndex($country_id, $idn_type_id, $idn);
+            if (!self::$applicantObj[$applicant_key]) self::$applicantObj[$applicant_key] = "not-found";
+        }
+        $applicantObj = self::$applicantObj[$applicant_key];
+        if ($applicantObj === "not-found") $applicantObj = null;
         if (!$applicantObj) return [null, null]; // lost original object
         $applicant_id = $applicantObj->id;
+
         // list($xxx, $application_plan_id) = explode('-', $wSessionObj->getVal('external_code'));
         $external_request_code = $wRequestObj->getVal('external_request_code');
         $external_request_code = str_replace('A', 'X', $external_request_code);
@@ -18,9 +28,16 @@ class AdmWorkflowService
 
         list($wApplicantObjId, $applicationPlanId, $application_simulation_id, $desire_num) = explode('X', trim($external_request_code, 'X'));
 
-        $objDesire = ApplicationDesire::loadByMainIndex($applicant_id, $applicationPlanId, $application_simulation_id, $desire_num);
+        $desire_key = "$applicant_id-$applicationPlanId-$application_simulation_id-$desire_num";
+
+        if (!self::$desireObj[$desire_key]) {
+            self::$desireObj[$desire_key] = ApplicationDesire::loadByMainIndex($applicant_id, $applicationPlanId, $application_simulation_id, $desire_num);
+            if (!self::$desireObj[$desire_key]) self::$desireObj[$desire_key] = "not-found";
+        }
+        $desireObj = self::$desireObj[$desire_key];
+        if ($desireObj === "not-found") $desireObj = null;
         $keyLookup = "applicant_id=$applicant_id, PlanId=$applicationPlanId, simulation_id=$application_simulation_id, desire_num=$desire_num";
-        return [$objDesire, $keyLookup];
+        return [$desireObj, $keyLookup];
     }
 
     public static function loadOriginalScopeObject($wScopeObj)
