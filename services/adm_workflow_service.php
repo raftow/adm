@@ -7,6 +7,7 @@ class AdmWorkflowService
         $idn_type_id = $wApplicantObj->getVal('idn_type_id');
         $idn = $wApplicantObj->getVal('idn');
         $applicantObj = Applicant::loadByMainIndex($country_id, $idn_type_id, $idn);
+        if (!$applicantObj) return [null, null]; // lost original object
         $applicant_id = $applicantObj->id;
         // list($xxx, $application_plan_id) = explode('-', $wSessionObj->getVal('external_code'));
         $external_request_code = $wRequestObj->getVal('external_request_code');
