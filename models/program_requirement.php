@@ -14,6 +14,8 @@ class ProgramRequirement extends AdmObject
 
     public static $TABLE = 'program_requirement';
 
+    private static $requirementCache = [];
+
     public static $DB_STRUCTURE = null;
 
     public function __construct()
@@ -32,6 +34,11 @@ class ProgramRequirement extends AdmObject
             return null;
     }
 
+    /**
+     * @param int $academic_program_id, 
+     * @param int $application_category_enum, 
+     * @param int $application_class_enum
+     */
     public static function loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum, $create_obj_if_not_found = false)
     {
         $obj = new ProgramRequirement();
@@ -52,6 +59,27 @@ class ProgramRequirement extends AdmObject
             $obj->is_new = true;
             return $obj;
         } else return null;
+    }
+
+    /**
+     * @param int $academic_program_id, 
+     * @param int $application_category_enum, 
+     * @param int $application_class_enum
+     */
+    public static function loadByUniqueIndex($academic_program_id, $application_category_enum, $application_class_enum)
+    {
+        $requirement_key = "$academic_program_id-$application_category_enum-$application_class_enum";
+        if (!self::$requirementCache[$requirement_key]) {
+            $obj = self::loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum);
+            if ($obj) {
+                self::$requirementCache[$requirement_key] = $obj;
+            } else self::$requirementCache[$requirement_key] = "not-found";
+        } else {
+            $obj = self::$requirementCache[$requirement_key];
+            if ($obj === "not-found") $obj = null;
+        }
+
+        return $obj;
     }
 
     public function getScenarioItemId($currstep)
@@ -181,41 +209,45 @@ class ProgramRequirement extends AdmObject
 
     public static function requirementFoundIn($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)
     {
+
+
+
         $objPR = null;
         $case = "No case";
         if (!$objPR) {
-            $objPR = self::loadByMainIndex($academic_program_id, $workflow_category_enum, $application_class_enum);
-            $case = "loadByMainIndex($academic_program_id, $workflow_category_enum, $application_class_enum)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByMainIndex($academic_program_id, 0, $application_class_enum);
-            $case = "loadByMainIndex($academic_program_id, 0, $application_class_enum)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByMainIndex($academic_program_id, $workflow_category_enum, 0);
-            $case = "loadByMainIndex($academic_program_id, $workflow_category_enum, 0)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByMainIndex($academic_program_id, 0, 0);
-            $case = "loadByMainIndex($academic_program_id, 0, 0)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum);
+            $case = "loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum)";
         }
 
         if (!$objPR) {
-            $objPR = self::loadByMainIndex(0, $workflow_category_enum, $application_class_enum);
-            $case = "loadByMainIndex(0, $workflow_category_enum, $application_class_enum)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, $application_class_enum);
+            $case = "loadByUniqueIndex($academic_program_id, 0, $application_class_enum)";
         }
         if (!$objPR) {
-            $objPR = self::loadByMainIndex(0, 0, $application_class_enum);
-            $case = "loadByMainIndex(0, 0, $application_class_enum)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, 0);
+            $case = "loadByUniqueIndex($academic_program_id, $workflow_category_enum, 0)";
         }
         if (!$objPR) {
-            $objPR = self::loadByMainIndex(0, $workflow_category_enum, 0);
-            $case = "loadByMainIndex(0, $workflow_category_enum, 0)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, 0);
+            $case = "loadByUniqueIndex($academic_program_id, 0, 0)";
         }
 
         if (!$objPR) {
-            $objPR = self::loadByMainIndex(0, 0, 0);
-            $case = "loadByMainIndex(0, 0, 0)";
+            $objPR = self::loadByUniqueIndex(0, $workflow_category_enum, $application_class_enum);
+            $case = "loadByUniqueIndex(0, $workflow_category_enum, $application_class_enum)";
+        }
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex(0, 0, $application_class_enum);
+            $case = "loadByUniqueIndex(0, 0, $application_class_enum)";
+        }
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex(0, $workflow_category_enum, 0);
+            $case = "loadByUniqueIndex(0, $workflow_category_enum, 0)";
+        }
+
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex(0, 0, 0);
+            $case = "loadByUniqueIndex(0, 0, 0)";
         }
 
 
