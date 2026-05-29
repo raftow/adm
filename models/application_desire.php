@@ -2299,13 +2299,17 @@ class ApplicationDesire extends AdmObject
         public function showQualificationsDiv($lang, $workflowRequestObject)
         {
                 $applicationQualificationList = $this->getApplicationObject()->get('applicationQualificationList');
-                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, []);
+                $hide_retrieve_cols = ["active"];
+                $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
+                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, $options);
         }
 
         public function showEvaluationsDiv($lang, $workflowRequestObject)
         {
                 $applicantEvaluationList = $this->getApplicationObject()->getApplicant()->get('applicantEvaluationList');
-                return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, []);
+                $hide_retrieve_cols = ["active", "need_evaluation_enum", "imported", "workflow_file_id", "eval_expired_date"];
+                $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
+                return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, $options);
         }
 
         public function showFilesDiv($lang, $workflowRequestObject)
