@@ -19,7 +19,7 @@ class ApplicantQualificationArTranslator
 		$trad["applicant_qualification"]["qualification_major_id"] = "تخصص المؤهل";
 		$trad["applicant_qualification"]["gpa"] = "المعدل";
 		$trad["applicant_qualification"]["gpa_from"] = "من";
-		$trad["applicant_qualification"]["date"] = "تاريخ  المؤهل";
+		$trad["applicant_qualification"]["date"] = "تاريخ المؤهل";
 		$trad["applicant_qualification"]["source"] = "الجهة مصدر المؤهل";
 		$trad["applicant_qualification"]["imported"] = "تم التحقق";
 		$trad["applicant_qualification"]["imported.help"] = "تم التحقق من المؤهلات";
