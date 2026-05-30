@@ -76,8 +76,7 @@ class ApplicationDesire extends AdmObject
                         $prefix = $this->translateOperator("view", $lang);
                         $title = $applicantObj->translate("step2", $lang);
                         $html = $applicantObj->showMyLink(2, '_candidate_data', $prefix . " " . $title);
-                }
-
+                } else $html = "No applicant object !!! so no links";
 
                 return $html;
         }
@@ -2438,13 +2437,15 @@ class ApplicationDesire extends AdmObject
                  * @var ApplicationPlanBranch $branchObj
                  *
                  **/
+                $cv_needed = false;
                 $branchObj = $this->het("application_plan_branch_id");
+                $programObj = null;
                 if ($branchObj and $branchObj->id) {
                         /**
                          * @var AcademicProgram $programObj
                          */
                         $programObj = $branchObj->het("program_id");
-                        $cv_needed = false;
+
                         if ($programObj) {
                                 $cv_needed = $programObj->sureIs("cv_ind");
                                 if ($programObj->getVal("language_enum") == 2) {
@@ -2470,9 +2471,9 @@ class ApplicationDesire extends AdmObject
                                 $apCvScoreObjId = $apCvScoreObj->id;
                                 $click_here = $apCvScoreObj->tm("Edit the CV evaluation", $lang);
                                 $cv_link = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationCvScore&currmod=adm&id=$apCvScoreObjId&popup=";
-                                $cv_html = $programObj->tm("CV Degree", $lang) . " : " . $apCvScoreObj->decode("total_score") . "<br><a target='_cv' href='$cv_link'>$click_here</a>";
+                                $cv_html = $this->tm("CV Degree", $lang) . " : " . $apCvScoreObj->decode("total_score") . "<br><a target='_cv' href='$cv_link'>$click_here</a>";
                         } else {
-                                $cv_html = $programObj->tm("No CV found for this applicant", $lang);
+                                $cv_html = $this->tm("No CV found for this applicant", $lang);
                         }
 
                         $cv_html = "<div class='cv-info'>$cv_html</div>";
