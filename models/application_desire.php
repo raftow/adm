@@ -2417,14 +2417,18 @@ class ApplicationDesire extends AdmObject
 
         /**
          * @param WorkflowRequest $workflowRequestObject
+         * تفاصيل المقابلة الشخصية
          */
 
         public function showInterviewDiv($lang, $workflowRequestObject)
         {
                 if (!$workflowRequestObject) return "No Workflow Request Object !!!!????";
-                list($err, $info, $war, $interviewBookingObj) = $workflowRequestObject->getInterviewBooking();
-                if (!$interviewBookingObj) $html_booking_table = "$err : $war : $info"; // $workflowRequestObject->tm("No interview booking invitation sent", $lang)
-                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) . " : $info" .
+                $codeInterviewStage = 'INRV';
+                $objInterviewStage = WorkflowStage::loadByMainIndex($codeInterviewStage);
+                if (!$objInterviewStage) return "No Interview Stage Object with code $codeInterviewStage !!!!????";
+                $interviewBookingObj = $workflowRequestObject->getInterviewBooking($objInterviewStage->id);
+                if (!$interviewBookingObj) $html_booking_table = $workflowRequestObject->tm("Interview booking invitation not found", $lang);
+                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) .
                         " : " . $workflowRequestObject->tm("Bookings status", $lang) .
                         " : " . $interviewBookingObj->decode("booking_status_id", '', false, $lang) .
                         " " . $interviewBookingObj->decode("interview_date", '', false, $lang) .
