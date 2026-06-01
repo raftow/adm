@@ -63,7 +63,7 @@
                         {
                                 //$obj = ApplicantFile::loadById($this->getVal("applicant_file_id"));
                                 $obj = $this->het("applicant_file_id");
-                                return "<a href='https://objectstorage.me-jeddah-1.oraclecloud.com/p/RMGCewYtsTMiZBX2x_Tl6BkeE_qN7LER9Ls6QFkAkPWtTneKg159OcuLlx8i_ueQ/n/axrrw2c1zxeb/b/admission_dev/o/".$obj->name_ar."'>".$obj->name_ar." الملف المرفق</a>";
+                                return "<a href='".$obj->name_ar."'>".$obj->name_ar." الملف المرفق</a>";
                         
                         }else{
                                 return "لا مرفقات";
