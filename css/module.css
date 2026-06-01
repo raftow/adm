@@ -3412,9 +3412,16 @@ td.end.calculated>label {
 }
 
 .icon-408:before {
-    content: "\f81d";
+    content: "\f53d";
 }
 
+.icon-409:before {
+    content: "\f3b1";
+}
+
+.icon-411:before {
+    content: "\f500";
+}
 
 .bficon-104610:before,
 .bficon-104615:before {
@@ -4530,7 +4537,7 @@ div#fg-applicationWarningDiv {
 }
 
 table.search_result_table {
-  margin-right: 0 !important;
-  margin-left: 0 !important;
-  width: 100%;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    width: 100%;
 }

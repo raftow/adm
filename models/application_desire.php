@@ -71,13 +71,12 @@ class ApplicationDesire extends AdmObject
         public function showMyLinks($lang = "ar")
         {
                 $applicationObj = $this->getApplicationObject();
-                $applicantObj = $applicationObj->getApplicant();                
+                $applicantObj = $applicationObj->getApplicant();
                 if ($applicantObj) {
-                        $prefix = $this->translateOperator("view",$lang);
-                        $title = $applicantObj->translate("step2", $lang); 
-                        $html = $applicantObj->showMyLink(2, '_candidate_data', $prefix." ".$title);
-                }
-                
+                        $prefix = $this->translateOperator("view", $lang);
+                        $title = $applicantObj->translate("step2", $lang);
+                        $html = $applicantObj->showMyLink(2, '_candidate_data', $prefix . " " . $title);
+                } else $html = "No applicant object !!! so no links";
 
                 return $html;
         }
@@ -525,41 +524,34 @@ class ApplicationDesire extends AdmObject
                 //$guardian_phone_area = $applicantObj->getVal('guardian_phone_area');
                 //die($applicantObj->het('country_id')->getVal('id'));
                 $sponsorSISCode = "";
-                
+
                 $studentStatus = "-";
                 $workflow_request = $this->het('workflow_request_id');
-                if($workflow_request){
-                        
+                if ($workflow_request) {
+
                         $workflowStatus = $workflow_request->het("workflow_status_id");
-                        if($workflowStatus)
-                        {
+                        if ($workflowStatus) {
                                 $studentStatus = $workflowStatus->getVal('sis_status_code');
                         }
                         $applicationClassEnumId = $workflow_request->getVal("application_class_enum");
                         $applicationClassObj = ApplicationClass::loadById($applicationClassEnumId);
-
-                        
-                } 
-                if($applicationClassObj && $applicationClassObj->getVal("scholarship_ind") == "Y")
-                {
+                }
+                if ($applicationClassObj && $applicationClassObj->getVal("scholarship_ind") == "Y") {
                         $obj = new ApplicantScholarship();
-                        $obj->select("applicant_id",$this->getVal('applicant_id'));
-                        $obj->select("application_plan_id",$this->getVal('application_plan_id'));
-                        $obj->select("application_simulation_id",$this->getVal('application_simulation_id'));
+                        $obj->select("applicant_id", $this->getVal('applicant_id'));
+                        $obj->select("application_plan_id", $this->getVal('application_plan_id'));
+                        $obj->select("application_simulation_id", $this->getVal('application_simulation_id'));
 
-                        if($obj->load())
-                        {
+                        if ($obj->load()) {
                                 $scholarshipObj = $obj->het("scholarship_id");
-                                if($scholarshipObj)
-                                {
+                                if ($scholarshipObj) {
                                         $sponsorObj = $scholarshipObj->het('sponsor_id');
-                                        if ($sponsorObj) 
-                                        {
+                                        if ($sponsorObj) {
                                                 $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
                                         }
                                 }
                         }
-                }else{
+                } else {
                         $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                         if ($ncObject) {
                                 $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
@@ -569,7 +561,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }
                 $data = [
-                        "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'),// "202510", 
+                        "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'), // "202510", 
                         "idType" => $applicantObj->getVal('idn_type_id'),
                         "id" => $applicantObj->getVal('idn'),
                         "gender" => ($applicantObj->getVal('gender_enum') == 1 ? "M" : "F"),
@@ -608,7 +600,7 @@ class ApplicationDesire extends AdmObject
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
-                 //die($applicationClassEnumId." |||||| ".var_dump($data));
+                //die($applicationClassEnumId." |||||| ".var_dump($data));
                 $response =  $api->pushApplicant($data);
                 //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
@@ -623,10 +615,11 @@ class ApplicationDesire extends AdmObject
                         return [$this->tm("The process of sending data to SIS has failed, with the following message", $lang) . " : " . $response["body"]['message'], ""];
                 }
         }
-        public function sendFeesToSis(){
+        public function sendFeesToSis()
+        {
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $api = new NaussApi();
-                
+
                 $application_class_id = $this->getVal("application_class_enum");
 
                 $applicationClassObj = ApplicationClass::loadById($application_class_id);
@@ -643,15 +636,15 @@ class ApplicationDesire extends AdmObject
                 $degree_id = $applicationPlanBranchObj->het('program_id')->getVal("degree_id");
                 $program_id = $applicationPlanBranchObj->getVal("program_id");
                 $student_id = $this->getVal("student_id");
-                if(!$student_id){
+                if (!$student_id) {
                         return false; // can't send fees if student id is not set
                 }
                 $application_class_id = $this->getVal("application_class_enum");
 
-                if($applicationClassObj->getVal("budgeting_ind") == "N"){
+                if ($applicationClassObj->getVal("budgeting_ind") == "N") {
                         $data = [];
                         $applicantAccountObj = new ApplicantAccount();
-                        foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
+                        foreach ($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction) {
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
                                 $model_amount = $applicationModelFinancialTransaction->getVal("amount");
                                 //if($applicationModelFinancialTransaction->getVal("id") == 7) die(var_dump($financialTransactionObj));
@@ -659,44 +652,41 @@ class ApplicationDesire extends AdmObject
                                 $applicantAccountObj->select("application_model_financial_transaction_id", $applicationModelFinancialTransaction->getVal("id"));
                                 $applicantAccountObj->select("active", "Y");
                                 $applicantAccountObj->load();
-                                if($applicantAccountObj && $applicantAccountObj->getVal("payment_status_enum") == 2){
-                                        foreach($financialTransactionObj as $financialTransaction){
+                                if ($applicantAccountObj && $applicantAccountObj->getVal("payment_status_enum") == 2) {
+                                        foreach ($financialTransactionObj as $financialTransaction) {
                                                 $applicantPaymentObj = new ApplicantPayment();
                                                 $applicantPaymentObj->select("applicant_account_id", $applicantAccountObj->getVal("id"));
                                                 $applicantPaymentObj->select("active", "Y");
                                                 $applicantPaymentObj->load();
-                                                $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransaction->getVal("id"),$application_class_id);
+                                                $financialTransactionSisSettingObj =  FinancialTransactionSisSettings::loadByMainIndex($financialTransaction->getVal("id"), $application_class_id);
                                                 $addCharge = "N";
-                                                if($financialTransactionSisSettingObj){
-                                                        $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
+                                                if ($financialTransactionSisSettingObj) {
+                                                        $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind");
                                                 }
-                                                $data[] = $this->getFee($financialTransaction,$student_id,  true, $term_code, $degree_id, $program_id,$model_amount,$addCharge,$applicantPaymentObj);
+                                                $data[] = $this->getFee($financialTransaction, $student_id,  true, $term_code, $degree_id, $program_id, $model_amount, $addCharge, $applicantPaymentObj);
                                         }
-
                                 }
                         }
-                }else{
+                } else {
                         $data = [];
-                        foreach($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction){
+                        foreach ($applicationModelFinancialTransactionList as $applicationModelFinancialTransaction) {
                                 $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
                                 $model_amount = $applicationModelFinancialTransaction->getVal("amount");
 
-                                foreach($financialTransactionObj as $financialTransaction)
-                                {
-                                        $financialTransactionSisSettingObj =  FinancialTransactionSisSettings ::loadByMainIndex($financialTransaction->getVal("id"),$application_class_id);
+                                foreach ($financialTransactionObj as $financialTransaction) {
+                                        $financialTransactionSisSettingObj =  FinancialTransactionSisSettings::loadByMainIndex($financialTransaction->getVal("id"), $application_class_id);
                                         $addCharge = "N";
-                                        if($financialTransactionSisSettingObj){
-                                                $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind"); 
+                                        if ($financialTransactionSisSettingObj) {
+                                                $addCharge = $financialTransactionSisSettingObj->getVal("add_charge_ind");
                                         }
-                                        if($financialTransactionSisSettingObj && $addCharge == "Y")
-                                        {
-                                                $data[] = $this->getFee($financialTransaction,$student_id,  false, $term_code, $degree_id, $program_id,$model_amount,$addCharge);
+                                        if ($financialTransactionSisSettingObj && $addCharge == "Y") {
+                                                $data[] = $this->getFee($financialTransaction, $student_id,  false, $term_code, $degree_id, $program_id, $model_amount, $addCharge);
                                         }
                                 }
                         }
                 }
                 //die(var_dump($data));
-                if(empty($data)){
+                if (empty($data)) {
                         return true; // no fees to send, but process is successful
                 }
                 $response = $api->pushPayments($data);
@@ -710,16 +700,19 @@ class ApplicationDesire extends AdmObject
                         return $response;
                 }
         }
-        public function getFee($financialTransactionObj,$student_id,$payment_status_enum, $term_code, $degree_id, $program_id,$model_amount = 0,$addCharge="N",$applicantPaymentObj = null)
+        public function getFee($financialTransactionObj, $student_id, $payment_status_enum, $term_code, $degree_id, $program_id, $model_amount = 0, $addCharge = "N", $applicantPaymentObj = null)
         {
-                $tuitionBaseObj = new TuitionBase();        
-                $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '".$financialTransactionObj->getVal("id")."'");
+                $tuitionBaseObj = new TuitionBase();
+                $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '" . $financialTransactionObj->getVal("id") . "'");
                 $tuitionBaseObj->load();
-                if($tuitionBaseObj->getVal("amount")>0 || $tuitionBaseObj->getVal("mandatory_fees")>0){
+                if ($tuitionBaseObj->getVal("amount") > 0 || $tuitionBaseObj->getVal("mandatory_fees") > 0) {
                         $amount = (float) $tuitionBaseObj->getVal("amount");
                         $fees = (float) $tuitionBaseObj->getVal("mandatory_fees");
-                }elseif($model_amount){
+                } elseif ($model_amount) {
                         $amount =  $model_amount;
+                        $fees = 0;
+                } else {
+                        $amount =  0;
                         $fees = 0;
                 }
                 //$addCharge = $financialTransactionObj->getVal("add_charge_ind");
@@ -729,14 +722,13 @@ class ApplicationDesire extends AdmObject
                 $payment_type = null;
                 $transId = null;
 
-                if($applicantPaymentObj)
-                {
+                if ($applicantPaymentObj) {
                         $transId = $applicantPaymentObj->getVal("id");
                         $receipt_id = $applicantPaymentObj->getVal("receipt_id");
                         $card_type = $applicantPaymentObj->getVal("card_type");
                         $payment_type = $applicantPaymentObj->getVal("payment_type");
                 }
-                
+
                 return [
                         "id" => $student_id,
                         "term" => $term_code,
@@ -749,23 +741,21 @@ class ApplicationDesire extends AdmObject
                         "cardType" => $card_type,
                         "paymentBrand" => $payment_type
                 ];
-                
-                
         }
         public function sendAllDataToSIS($lang = 'ar')
         {
                 $result = $this->sendToSIS($lang);
-                
+
                 // $result is [$errorMsg, $successMsg]; success when errorMsg is empty
                 if ($result[0] !== '') {
                         return $result;
                 }
 
                 $feesSent = $this->sendFeesToSis();
-                if ($feesSent == true) {
+                if ($feesSent === true) {
                         return $result;
                 }
-                if (!$feesSent["body"] || $feesSent["body"]['status'] != "SUCCESS") {
+                if (is_array($feesSent) and (!$feesSent["body"] || $feesSent["body"]['status'] != "SUCCESS")) {
                         return [$this->tm("Student data was sent to SIS successfully, but sending fees has failed", $lang), ""];
                 }
 
@@ -813,9 +803,10 @@ class ApplicationDesire extends AdmObject
                 $war_arr = [];
                 $tech_arr = [];
                 $bootstrapResult = 'standby';
+                $tentatives = 0;  // limit tentatives to 300 to avoid infinite loop
                 try {
                         $max_tentatives = 300;
-                        $tentatives = 0;  // limit tentatives to 300 to avoid infinite loop
+
                         $currentStepObj = $this->het('application_step_id');
                         $currentStepCode = $currentStepObj->getStepCode();
                         $bootstrapStatus = '--trying';
@@ -890,6 +881,7 @@ class ApplicationDesire extends AdmObject
         public function forceGotoSortingStep($lang = 'ar')
         {
                 $inf_arr = [];
+                $err_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
                 $result_arr = [];
@@ -1345,6 +1337,7 @@ class ApplicationDesire extends AdmObject
         protected function getPublicMethods()
         {
                 $pbms = array();
+                $objApplicationModel = null;
 
                 $currentStepNum = $this->getVal('step_num');
                 if (!$currentStepNum) $currentStepNum = 1;
@@ -2254,58 +2247,68 @@ class ApplicationDesire extends AdmObject
                 return $ncObj->calcCandidateInfo($what);
         }
 
-        public function calcDivForWorkflowStep($step, $what, $workflowRequestObject)
+        /**
+         * @param int $block
+         * @param string $what
+         * @param workflowRequest $workflowRequestObject
+         */
+
+        public function calcDivForWorkflowBlock($block, $what, $workflowRequestObject)
         {
                 $lang = AfwLanguageHelper::getGlobalLanguage();
                 // list($reached, $message) =
-                $reached = $workflowRequestObject->weReachedStep($step);
+                $reached = $workflowRequestObject->weReachedStep($workflowRequestObject->stepOfBlock($block));
                 if (!$reached) {
                         return $this->tm('You have not reached this step yet', $lang);
                 }
                 $lang = AfwLanguageHelper::getGlobalLanguage();
-                // step3 =>  'المؤهلات';
-                if ($step == 3)
+                // block3 =>  'المؤهلات';
+                if ($block == 3)
                         return $this->showQualificationsDiv($lang, $workflowRequestObject);
 
-                // step4 =>  'الاختبارات';
-                if ($step == 4)
+                // block4 =>  'الاختبارات';
+                if ($block == 4)
                         return $this->showEvaluationsDiv($lang, $workflowRequestObject);
 
-                // step5 =>  'مراجعة الوثائق';
-                if ($step == 5)
+                // block5 =>  'مراجعة الوثائق';
+                if ($block == 5)
                         return $this->showFilesDiv($lang, $workflowRequestObject);
 
-                // step6 =>  'مراجعة اللجنة';
-                if ($step == 6)
+                // block6 =>  'مراجعة اللجنة';
+                if ($block == 6)
                         return $this->showCommiteeDiv($lang, $workflowRequestObject);
 
-                // step7 =>  'المقابلة الشخصية';
-                if ($step == 7)
+                // block7 =>  'المقابلة الشخصية';
+                if ($block == 7)
                         return $this->showInterviewDiv($lang, $workflowRequestObject);
 
-                // step8 => المفاضلة والقبول';
-                if ($step == 8)
+                // block8 => المفاضلة والقبول';
+                if ($block == 8)
                         return $this->showSortingDiv($lang, $workflowRequestObject);
 
-                // step10 => المطابقة النهائية';
-                if ($step == 10)
+                // block10 => المطابقة النهائية';
+                if ($block == 10)
                         return $this->showFinalMatchDiv($lang, $workflowRequestObject);
 
 
 
-                return $this->tm('Unknown workflow step' . $step, $lang);
+                return $this->tm('Unknown workflow block' . $block, $lang);
         }
 
         public function showQualificationsDiv($lang, $workflowRequestObject)
         {
                 $applicationQualificationList = $this->getApplicationObject()->get('applicationQualificationList');
-                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, []);
+                $hide_retrieve_cols = ["active"];
+                $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
+                return AfwShowHelper::showRetrieveTable($applicationQualificationList, $lang, $options);
         }
 
         public function showEvaluationsDiv($lang, $workflowRequestObject)
         {
                 $applicantEvaluationList = $this->getApplicationObject()->getApplicant()->get('applicantEvaluationList');
-                return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, []);
+                $hide_retrieve_cols = ["active", "need_evaluation_enum", "imported", "workflow_file_id", "eval_expired_date"];
+                $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
+                return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, $options);
         }
 
         public function showFilesDiv($lang, $workflowRequestObject)
@@ -2414,14 +2417,18 @@ class ApplicationDesire extends AdmObject
 
         /**
          * @param WorkflowRequest $workflowRequestObject
+         * تفاصيل المقابلة الشخصية
          */
 
         public function showInterviewDiv($lang, $workflowRequestObject)
         {
                 if (!$workflowRequestObject) return "No Workflow Request Object !!!!????";
-                list($err, $info, $war, $interviewBookingObj) = $workflowRequestObject->getInterviewBooking();
-                if (!$interviewBookingObj) $html_booking_table = "$err : $war : $info"; // $workflowRequestObject->tm("No interview booking invitation sent", $lang)
-                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) . " : $info" .
+                $codeInterviewStage = 'INRV';
+                $objInterviewStage = WorkflowStage::loadByMainIndex($codeInterviewStage);
+                if (!$objInterviewStage) return "No Interview Stage Object with code $codeInterviewStage !!!!????";
+                $interviewBookingObj = $workflowRequestObject->getInterviewBooking($objInterviewStage->id);
+                if (!$interviewBookingObj) $html_booking_table = $workflowRequestObject->tm("Interview booking invitation not found", $lang);
+                else $html_booking_table = $workflowRequestObject->tm("Interview booking invitation sent", $lang) .
                         " : " . $workflowRequestObject->tm("Bookings status", $lang) .
                         " : " . $interviewBookingObj->decode("booking_status_id", '', false, $lang) .
                         " " . $interviewBookingObj->decode("interview_date", '', false, $lang) .
@@ -2434,13 +2441,15 @@ class ApplicationDesire extends AdmObject
                  * @var ApplicationPlanBranch $branchObj
                  *
                  **/
+                $cv_needed = false;
                 $branchObj = $this->het("application_plan_branch_id");
+                $programObj = null;
                 if ($branchObj and $branchObj->id) {
                         /**
                          * @var AcademicProgram $programObj
                          */
                         $programObj = $branchObj->het("program_id");
-                        $cv_needed = false;
+
                         if ($programObj) {
                                 $cv_needed = $programObj->sureIs("cv_ind");
                                 if ($programObj->getVal("language_enum") == 2) {
@@ -2466,9 +2475,9 @@ class ApplicationDesire extends AdmObject
                                 $apCvScoreObjId = $apCvScoreObj->id;
                                 $click_here = $apCvScoreObj->tm("Edit the CV evaluation", $lang);
                                 $cv_link = "main.php?Main_Page=afw_mode_edit.php&cl=ApplicationCvScore&currmod=adm&id=$apCvScoreObjId&popup=";
-                                $cv_html = $programObj->tm("CV Degree", $lang) . " : " . $apCvScoreObj->decode("total_score") . "<br><a target='_cv' href='$cv_link'>$click_here</a>";
+                                $cv_html = $this->tm("CV Degree", $lang) . " : " . $apCvScoreObj->decode("total_score") . "<br><a target='_cv' href='$cv_link'>$click_here</a>";
                         } else {
-                                $cv_html = $programObj->tm("No CV found for this applicant", $lang);
+                                $cv_html = $this->tm("No CV found for this applicant", $lang);
                         }
 
                         $cv_html = "<div class='cv-info'>$cv_html</div>";
@@ -2534,7 +2543,7 @@ class ApplicationDesire extends AdmObject
                 $my_css = "";
 
                 if ($workflowRequestObject and $workflowRequestObject->id) {
-                        $html .= $workflowRequestObject->calcMyOriginalObjectLinks('value',false);
+                        $html .= $workflowRequestObject->calcMyOriginalObjectLinks('value', false);
                 } else {
                         $html .= " > " . $this->tm("The workflow request seems to be removed", $lang);
                         $html .= " > " . "<br>" . $this->showMyLink() . "<br>";
@@ -2548,7 +2557,7 @@ class ApplicationDesire extends AdmObject
         }
 
 
-        
+
 
 
         public function checkCondition_interviewSuccess($workflowConditionObject, $workflowRequestObject, $lang)
@@ -2595,13 +2604,18 @@ class ApplicationDesire extends AdmObject
          * @param WorkflowRequest $workflowRequestObject
          * @param string $lang
          */
-        public function checkCondition_requireInterview($workflowConditionObject, 
-                                                          $workflowRequestObject, $lang)
-        {
+        public function checkCondition_requireInterview(
+                $workflowConditionObject,
+                $workflowRequestObject,
+                $lang
+        ) {
                 $require_interview = 2;
-                return $this->checkCondition_requirementFound($require_interview, 
-                                                                $workflowConditionObject, 
-                                                                $workflowRequestObject, $lang);
+                return $this->checkCondition_requirementFound(
+                        $require_interview,
+                        $workflowConditionObject,
+                        $workflowRequestObject,
+                        $lang
+                );
         }
 
         /**
@@ -2609,9 +2623,11 @@ class ApplicationDesire extends AdmObject
          * @param WorkflowRequest $workflowRequestObject
          * @param string $lang
          */
-        public function checkCondition_shouldSkipInterview($workflowConditionObject, 
-                $workflowRequestObject, $lang)
-        {
+        public function checkCondition_shouldSkipInterview(
+                $workflowConditionObject,
+                $workflowRequestObject,
+                $lang
+        ) {
                 $should_skip_interview = 1;
                 if (!$this->programRequireInterview()) return [true, 'Program itself does not require interview !'];
                 return $this->checkCondition_requirementFound($should_skip_interview, $workflowConditionObject, $workflowRequestObject, $lang);
@@ -2826,10 +2842,10 @@ class ApplicationDesire extends AdmObject
                 $final_stage_id = $objTransition->getVal('final_stage_id');
                 $final_status_id = $objTransition->getVal('final_status_id');
                 $last_payment_deadline = $objTransition->getVal('final_status_id.last_payment_deadline');
-                $WorkflowStatus = WorkflowStatus ::loadById($final_status_id);
+                $WorkflowStatus = WorkflowStatus::loadById($final_status_id);
                 $application_model_id = $this->getVal('application_model_id');
                 $addAccount =  Aparameter::getParameterValueForContext(48, $application_model_id, 0, $this);
-                if ($WorkflowStatus->getVal("payment_ind") == 'Y' and (!$workflowRequest->isSponsored() || $addAccount=='Y')) { // $final_stage_id == 5 and $final_status_id == 11
+                if ($WorkflowStatus->getVal("payment_ind") == 'Y' and (!$workflowRequest->isSponsored() || $addAccount == 'Y')) { // $final_stage_id == 5 and $final_status_id == 11
                         // this means : قبول مبدئي  بشرط السداد
                         $tuitionBaseApplicantAccount = $this->addMyTuitionBase($objTransition->het('application_model_financial_transaction_id'));
                         $payment_deadline = AfwDateHelper::addDatetimeToGregDatetime(date("Y-m-d"), 0, 0, $last_payment_deadline);
@@ -2838,7 +2854,7 @@ class ApplicationDesire extends AdmObject
                         $tuitionBaseApplicantAccount->set("next_transition_id", $objTransition->getVal('next_transition_id'));
                         if ($workflowRequest->isSponsored()) {
                                 $tuitionBaseApplicantAccount->set("payment_status_enum", 4); // 4 : معفي من الدفع
-                        } 
+                        }
                         $tuitionBaseApplicantAccount->commit();
                 }
 
@@ -2853,9 +2869,9 @@ class ApplicationDesire extends AdmObject
                                 $this->commit();
                         }
                 }
-                list($status, $response) = $objTransition->sendNotificationForTransition($workflowRequest->id, $lang);//to do
-                
-        }                              
+                list($status, $response) = $objTransition->sendNotificationForTransition($workflowRequest->id, $lang); //to do
+
+        }
 
         public function addMyTuitionBase($applicationFinancialTransaction)
         {
@@ -2888,7 +2904,7 @@ class ApplicationDesire extends AdmObject
                         }
                 }*/
                 $total_amount = 0;
-                $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this,$applicationFinancialTransaction);
+                $tuitionBase = TuitionBase::getTuitionBaseForApplicant($this, $applicationFinancialTransaction);
                 if ($tuitionBase) {
                         $total_amount = $tuitionBase["total_ammount"];
                 }

@@ -1,26 +1,26 @@
 <?php
 
-$tbf_info['financial_transaction'] = array(
-  'id' => '13952',
+$tbf_info['financial_transaction_sis_settings'] = array(
+  'id' => '14047',
   'display' =>
   array(
-    'id' => '105307',
+    'id' => '105313',
   ),
   'search' =>
   array(
-    'id' => '105308',
+    'id' => '105314',
   ),
   'qsearch' =>
   array(
-    'id' => '105309',
+    'id' => '105315',
   ),
   'edit' =>
   array(
-    'id' => '105304',
+    'id' => '105310',
   ),
   'qedit' =>
   array(
-    'id' => '105305',
+    'id' => '105311',
   ),
   'crossed' =>
   array(
@@ -40,11 +40,11 @@ $tbf_info['financial_transaction'] = array(
   ),
   'delete' =>
   array(
-    'id' => '105306',
+    'id' => '105312',
   ),
 );
 
 
-$tab_info[13952] = array(
-  'name' => 'financial_transaction',
+$tab_info[14047] = array(
+  'name' => 'financial_transaction_sis_settings',
 );
