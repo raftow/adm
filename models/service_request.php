@@ -63,7 +63,7 @@
                         {
                                 //$obj = ApplicantFile::loadById($this->getVal("applicant_file_id"));
                                 $obj = $this->het("applicant_file_id");
-                                return "<a href='".$obj->name_ar."'>".$obj->name_ar." الملف المرفق</a>";
+                                return "<a href='".$obj->name_en."'>".$obj->name_ar." الملف المرفق</a>";
                         
                         }else{
                                 return "لا مرفقات";
