@@ -186,7 +186,7 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
 
-                                        'created_at' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
+                                        'created_at' => array('SHOW-ADMIN' => true,  'RETRIEVE' => true,  'EDIT' => false, 'QEDIT' => false,'SEARCH' => true, 'QSEARCH' => true,
                                                 'TYPE' => 'GDAT',    'DISPLAY' => '',  'STEP' => 99,  
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),

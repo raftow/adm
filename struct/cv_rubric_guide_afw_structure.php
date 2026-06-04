@@ -38,7 +38,7 @@ class AdmCvRubricGuideAfwStructure
                 'cv_rubric_item_id' => array(
                         'SHORTNAME' => 'rubric',
                         'SEARCH' => true,
-                        'QSEARCH' => false,
+                        'QSEARCH' => true,
                         'SHOW' => true,
                         'AUDIT' => false,
                         'RETRIEVE' => true,
