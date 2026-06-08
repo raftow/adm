@@ -102,14 +102,17 @@
                 {
                         $id = $this->getId();
                         $applicant_id = $this->getVal("applicant_id");
-                        if (!$applicant_id)
-                                $error_mg = $this->tm("no applicant for this  request");
+                        if (!$applicant_id){
+                                $error_mg = $this->tm("no applicant for this request");
                                 return [$error_mg, ''];
+                        }
+                                
                         $comment = $this->getVal("status_comment");
-                        if (!$comment)
-                                $error_mg = "لا يوجد ملاحظة لإرسالها لهذا الطلب";
+                        if (!$comment){
+                                $error_mg = $this->tm("no comment to send for this request");
                                 return [$error_mg, ''];
-
+                        }
+                                
                         $result = self::sendMessge($applicant_id, $comment, $lang);
                         if ($result["status"] == 200)
                                 return ['', 'done'];
