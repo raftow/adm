@@ -88,7 +88,7 @@ class AdmOrgunit extends AdmObject{
         public static function loadByMainIndex($orgunit_id,$create_obj_if_not_found=false)
         {
            $obj = new AdmOrgunit();
-           if(!$orgunit_id) $obj->simpleError("loadByMainIndex : orgunit_id is mandatory field");
+           if(!$orgunit_id) throw new AfwRuntimeException("loadByMainIndex : orgunit_id is mandatory field");
 
 
            $obj->select("orgunit_id",$orgunit_id);
