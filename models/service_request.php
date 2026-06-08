@@ -112,13 +112,13 @@
                                 $error_mg = $this->tm("no comment to send for this request");
                                 return [$error_mg, ''];
                         }
-                                
-                        $result = self::sendMessge($applicant_id, $comment, $lang);
+                        $request_id =  $this->getVal("id");
+                        $result = self::sendMessge($applicant_id, $comment,$request_id = null, $lang);
                         if ($result["status"] == 200)
                                 return ['', 'done'];
                         return [$result["response"] ?? 'send failed', ''];
                 }
-                public static function sendMessge($applicant_id,$body,  $lang)
+                public static function sendMessge($applicant_id,$body,$request_id,  $lang)
                 {
                         $applicantObj = Applicant::loadById($applicant_id);
                         if (!$applicantObj)
@@ -135,8 +135,8 @@
                         if ($mobile) $payload["mobile"] = $mobile;
                         if ($email)  $payload["email"]  = $email;
                         $subject = $lang == "ar" ? "تحديث على طلبكم رقم " : "Update on your request No. ";
-                        $subject = $subject . $this->getVal("id");
-                        $payload["subject"] = $subject;
+                        
+                        $payload["subject"] = $subject.$request_id;
                         $base_url = AfwSession::config("api_base_url", "https://api.bmeholding.com/api");
                         $token    = AfwSession::config("api_token", "XXXXYYY");
 
