@@ -64,7 +64,7 @@
 
                 public function beforeMaj($id, $fields_updated)
                 {
-                        if($fields_updated["request_status"])      
+                        if($fields_updated["request_status_id"])      
                         {
                                 $this->set("status_date", "now()");
                                
@@ -100,13 +100,18 @@
                 }
                 public function sendCommentToApplicant($lang)
                 {
+                        $id = $this->getId();
                         $applicant_id = $this->getVal("applicant_id");
                         if (!$applicant_id)
-                                return ["status" => 0, "response" => "no applicant id for service request $id"];
-                        $comment  = $this->getVal("status_comment");
+                                return ["no applicant id for service request $id", ''];
+                        $comment = $this->getVal("status_comment");
                         if (!$comment)
-                                return ["status" => 0, "response" => "no comment to send for service request $id"];     
-                        return self::sendMessge($applicant_id, $comment, $lang);
+                                return ["no comment to send for service request $id", ''];
+
+                        $result = self::sendMessge($applicant_id, $comment, $lang);
+                        if ($result["status"] == 200)
+                                return ['', 'done'];
+                        return [$result["response"] ?? 'send failed', ''];
                 }
                 public static function sendMessge($applicant_id,$body,  $lang)
                 {

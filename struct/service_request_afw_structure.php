@@ -13,8 +13,11 @@
                                 // $obj->public_display = true;
                                 // $obj->IS_LOOKUP = true;
 
-                                $obj->editByStep = true;
+                                $obj->editByStep = false;
                                 $obj->editNbSteps = 1; 
+                                $obj->showQeditErrors = true;
+                                $obj->showRetrieveErrors = true;
+                                $obj->general_check_errors = true;
                                 // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                                 $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'ServiceRequest',"submit"=>true);
                         }
@@ -109,8 +112,8 @@
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
         'CSS' => 'width_pct_25', ),
 
-'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => true,  'RETRIEVE' => false,  
-        'EDIT' => true,  'QEDIT' => true, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
+'applicant_id' => array('IMPORTANT' => 'IN',  'SEARCH' => false, 'QSEARCH' => false, 'SHOW' => false,  'RETRIEVE' => false,  
+        'EDIT' => false,  'QEDIT' => false, 'SHOW-ADMIN' => true,  'EDIT-ADMIN' => true,  'UTF8' => false,  
         'TYPE' => 'FK',  'ANSWER' => 'applicant',  'ANSMODULE' => 'adm',  'SIZE' => 40,  'DEFAUT' => 0,    
         'DISPLAY' => true,  'STEP' => 1,  'RELATION' => 'ManyToOne-OneToMany', 'MANDATORY' => false, 'READONLY'=>true, 'AUTOCOMPLETE' => true,'AUTOCOMPLETE-SEARCH'=>true,
         'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
@@ -161,8 +164,8 @@
                     'SEARCH' => false,
                     'SHOW' => false,
                     'RETRIEVE' => false,
-                    'EDIT' => true,
-                    'QEDIT' => true,
+                    'EDIT' => false,
+                    'QEDIT' => false,
                     'SEARCH-ADMIN' => true,
                     'SHOW-ADMIN' => true,
                     'EDIT-ADMIN' => true,
@@ -186,10 +189,10 @@
                                                 'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
                                                 'CSS' => 'width_pct_100',),
 
-                                        'created_at' => array('SHOW-ADMIN' => true,  'RETRIEVE' => true,  'EDIT' => false, 'QEDIT' => false,'SEARCH' => true, 'QSEARCH' => true,
-                        'TEXT-SEARCHABLE-SEPARATED' => true, 'TYPE' => 'GDAT',    'DISPLAY' => '',  'STEP' => 99,  
-                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '', 
-                                                'CSS' => 'width_pct_100',),
+                                        'created_at' => array('SHOW' => true, 'SHOW-ADMIN' => true,  'RETRIEVE' => true,  'EDIT' => false, 'QEDIT' => false,'SEARCH' => true, 'QSEARCH' => true,
+                        'TYPE' => 'GDAT', 'FORMAT' => 'DATETIME',   'DISPLAY' => '',  'STEP' => 99,
+                                                'DISPLAY-UGROUPS' => '',  'EDIT-UGROUPS' => '',
+                                                'CSS' => 'width_pct_25',),
 
                                         'updated_by' => array('SHOW-ADMIN' => true,  'RETRIEVE' => false,  'EDIT' => false, 'QEDIT' => false,  
                                                 'TYPE' => 'FK',  'ANSWER' => 'auser',  'ANSMODULE' => 'ums',    'DISPLAY' => '',  'STEP' => 99,  
