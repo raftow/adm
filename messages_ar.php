@@ -259,6 +259,9 @@ $messages["No branch defined"] = "لم يتم تعريف أي فرع.";
 
 $messages["sendAllDataToSIS"] = "ترحيل البيانات";
 
+$messages["no applicant for this request"] = "لا يوجد متقدم لهذا الطلب الخدمي";
+$messages["no comment to send for this request"] = "لا يوجد تعليق لإرساله لهذا الطلب";
+
 // 
 // 
 // $messages[""] = "";

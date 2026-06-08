@@ -544,6 +544,8 @@ class AdmNominatingCandidatesAfwStructure
 			'AUTOCOMPLETE' => false,
 			'DISPLAY-UGROUPS' => '',
 			'EDIT-UGROUPS' => '',
+			'WHERE' => 'active="Y"',
+			
 			'DEPENDENT_OFME' => array("major_category_id", "source", "qualification_major_id"),
 			'CSS' => 'width_pct_50',
 		),

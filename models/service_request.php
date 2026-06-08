@@ -103,10 +103,12 @@
                         $id = $this->getId();
                         $applicant_id = $this->getVal("applicant_id");
                         if (!$applicant_id)
-                                return ["no applicant id for service request $id", ''];
+                                $error_mg = $this->tm("no applicant for this  request");
+                                return [$error_mg, ''];
                         $comment = $this->getVal("status_comment");
                         if (!$comment)
-                                return ["no comment to send for service request $id", ''];
+                                $error_mg = $this->tm("no comment to send for this request");
+                                return [$error_mg, ''];
 
                         $result = self::sendMessge($applicant_id, $comment, $lang);
                         if ($result["status"] == 200)
@@ -129,7 +131,9 @@
                         $payload = ["body" => $body];
                         if ($mobile) $payload["mobile"] = $mobile;
                         if ($email)  $payload["email"]  = $email;
-
+                        $subject = $lang == "ar" ? "تحديث على طلبكم رقم " : "Update on your request No. ";
+                        $subject = $subject . $this->getVal("id");
+                        $payload["subject"] = $subject;
                         $base_url = AfwSession::config("api_base_url", "https://api.bmeholding.com/api");
                         $token    = AfwSession::config("api_token", "XXXXYYY");
 
