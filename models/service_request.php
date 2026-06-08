@@ -113,7 +113,7 @@
                                 return [$error_mg, ''];
                         }
                         $request_id =  $this->getVal("id");
-                        $result = self::sendMessge($applicant_id, $comment,$request_id = null, $lang);
+                        $result = self::sendMessge($applicant_id, $comment,$request_id, $lang);
                         if ($result["status"] == 200)
                                 return ['', 'done'];
                         return [$result["response"] ?? 'send failed', ''];
