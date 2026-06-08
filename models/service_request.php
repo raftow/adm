@@ -107,7 +107,7 @@
                                 return [$error_mg, ''];
                         $comment = $this->getVal("status_comment");
                         if (!$comment)
-                                $error_mg = $this->tm("no comment to send for this request");
+                                $error_mg = "لا يوجد ملاحظة لإرسالها لهذا الطلب";
                                 return [$error_mg, ''];
 
                         $result = self::sendMessge($applicant_id, $comment, $lang);
