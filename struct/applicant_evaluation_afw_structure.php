@@ -245,6 +245,8 @@ class AdmApplicantEvaluationAfwStructure
                         'ANSWER' => 'workflow_file',
                         'ANSMODULE' => 'workflow',
                         'RELATION' => 'ManyToOne',
+                        'AUTOCOMPLETE' => true,
+                        'AUTOCOMPLETE-SEARCH' => true,
                         'READONLY' => false,
                         'CSS' => 'width_pct_50',
                 ),
