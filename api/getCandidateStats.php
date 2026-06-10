@@ -4,9 +4,6 @@ $file_dir_name = dirname(__FILE__);
 require_once("$file_dir_name/../../lib/afw/core/afw_autoloader.php");
 set_time_limit(8400);
 ini_set('error_reporting', E_ERROR | E_PARSE | E_RECOVERABLE_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR);
-$lang = "en";
-
-
         
 AfwSession::startSession();
 
@@ -16,9 +13,8 @@ $only_members = true;
 $debug_name = "autocomplete";
 require("$file_dir_name/../lib/afw/includes/afw_check_member.php");
 
-if(!$objme) $objme = AfwSession::getUserConnected();
-$lang = AfwSession::getSessionVar("lang");
-if(!$lang) $lang = "ar";
+if(!isset($objme)) $objme = AfwSession::getUserConnected();
+if(!isset($lang)) $lang = AfwLanguageHelper::getGlobalLanguage();
  
 // 
 
@@ -70,6 +66,10 @@ if($method==10)
 
 
   $a_json = AfwDatabase::db_recup_rows($q);
+  $arr_source = [];
+  $arr_auth = [];
+  $arr_program = [];
+  $arr_study_status = [];
   foreach($a_json as $row){
     $arr_source[$row["source"]] ++;
     $arr_auth[$row["nominating_authority_name_ar"]] ++;

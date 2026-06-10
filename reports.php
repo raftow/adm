@@ -47,11 +47,9 @@ $myEmplId = $objme->getEmployeeId();
  *
  * $header_trad = array("missed"=>"عدد الطلبات", "name" => 'الادارة - المشرف');
  */
-if (!$lang)
-    $lang = AfwLanguageHelper::getGlobalLanguage();
-if (!$lang)
-    $lang = 'ar';
-// $out_scr .= Page::showPage("adm", "main-page", $lang);
+if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
+else AfwLanguageHelper::setGlobalLanguage($lang);
+
 
 $application_plan_id = 11;
 $out_scr .= '<ul class="nav nav-tabs">
@@ -67,7 +65,7 @@ $out_scr .= '<ul class="nav nav-tabs">
     </ul>';
 $out_scr .= "<div id='page-content-wrapper' class='qsearch_page'><div class='row row-filter-request'>";
 
-// customer number increasing (cni)
+// 
 
 if (true) {
     $out_scr .= "<div class='qfilter col-sm-10 col-md-10 pb10'><h1>احصائيات عدد المتقدمين حسب الجنس (r)</h1></div>";
