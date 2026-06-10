@@ -13,9 +13,9 @@ $arr_sql_conds[] = "me.active='Y'";
 $objme = AfwSession::getUserConnected();
 $myEmplId = $objme->getEmployeeId();
 
-if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
-if(!$lang) $lang = "ar";
-// $out_scr .= Page::showPage("adm", "main-page", $lang);
+if(!isset($lang)) $lang = AfwLanguageHelper::getGlobalLanguage();
+else AfwLanguageHelper::setGlobalLanguage($lang);
+
 $server_db_prefix = AfwSession::currentDBPrefix();
 
 $application_plan_id = $_GET['application_plan_id'];

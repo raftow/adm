@@ -1,10 +1,11 @@
 <?php
-
+/**
+ * @var string $modp
+ */
 $file_dir_name = dirname(__FILE__);
 require_once("$file_dir_name/../lib/afw/core/afw_autoloader.php");
 set_time_limit(8400);
 ini_set('error_reporting', E_ERROR | E_PARSE | E_RECOVERABLE_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR);
-$lang = "en";
 
 $datatable_on=1;
 $limite = 0;
@@ -19,9 +20,9 @@ $only_members = true;
 $debug_name = "autocomplete";
 require("$file_dir_name/../lib/afw/includes/afw_check_member.php");
 
-if(!$objme) $objme = AfwSession::getUserConnected();
-$lang = AfwSession::getSessionVar("lang");
-if(!$lang) $lang = "ar";
+if(!isset($objme)) $objme = AfwSession::getUserConnected();
+if(!isset($lang)) $lang = AfwLanguageHelper::getGlobalLanguage();
+else AfwLanguageHelper::setGlobalLanguage($lang);
  
 // 
 
@@ -60,9 +61,6 @@ $q = "select count(*) NB_APPLICANT, ac.program_name_ar category,ap.application_s
 //inner join ".$server_db_prefix."adm.application_step st  on ap.application_step_id=st.id 
   $a_json = AfwDatabase::db_recup_rows($q);
 //die(var_dump($a_json));
-if(!$lang) $lang = AfwLanguageHelper::getGlobalLanguage();
-if(!$lang) $lang = "ar";
-// $out_scr .= Page::showPage("adm", "main-page", $lang);
 
 $application_plan_id = 11;
 
