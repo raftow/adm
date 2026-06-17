@@ -15,7 +15,7 @@
                                 $obj->IS_SMALL = true;
                                 $obj->editByStep = false;
                                 // $obj->editNbSteps = 1; 
-                                // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
+                                $obj->after_save_edit = array("mode"=>"qsearch", "currmod"=>'adm', "class"=>'QualificationMajor',"submit"=>true);
                         }
                 }
                 
