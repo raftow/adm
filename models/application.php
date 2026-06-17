@@ -528,6 +528,7 @@ class Application extends AdmObject
                 }
                 $move_step_details = null;
                 $move_step_details_2 = null;
+                $applicationData = null;
 
                 $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 $notes = "";

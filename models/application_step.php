@@ -370,12 +370,18 @@
                         AfwAutoLoader::addModule("workflow");
                         if(!$application_model_id) $application_model_id = ApplicationPlan::getApplicationModelId($application_plan_id);
                         $applicantObj = null;
+                        $theObj = null;
+                        $atb_id = 0;
+                        $action_status = "nothing";
                         $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);                                                
                         if(!$application_plan_branch_id and $applicationObj->isSynchronisedUniqueDesire())
                         {
                                $adObj = $applicationObj->getSynchronisedUniqueDesire();
                                if($adObj) $application_plan_branch_id = $adObj->getVal("application_plan_branch_id");
                         }
+                        $action_err = null;
+                        $action_info = null; 
+                        $action_war = null;
                         if($applicationObj and $uncomplete)
                         {
                                 list($action_err, $action_info, $action_war) = $applicationObj->uncompleteApplication($lang);
@@ -414,11 +420,14 @@
                                 $step_num = "end";
                         }
                         $stepFieldsArr = ApplicationModelField::stepFields($application_model_id, $step_num, $method, $whereiam);
+                        $scrIndex = 0;
+                        $step_fields = [];
+                        $error_message = "";
                         foreach($stepFieldsArr as $scrIndex => $scrData)
                         {
                                 $scrFields = $scrData["fields"];
                                 unset($stepFieldsArr[$scrIndex]["fields"]);
-                                $step_fields = [];
+                                
                                 foreach($scrFields as $afield_id => $scrField)
                                 {
                                         $field_name = $scrField["field"];
@@ -612,6 +621,7 @@
                          * @var ApplicationModelCondition $aModelCondItem
                          * 
                          */
+                        $audit_pass = false;
                         $success = true; // if one condition fail so all fail
                         $c = 0;
                         $f = 0;
