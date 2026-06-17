@@ -3375,4 +3375,14 @@ class Application extends AdmObject
                 $this->set("attribute_1", $approveType);
                 $this->commit();
         }
+
+        /**
+         * @param Auser $auser
+         */
+
+        public function canBeDeletedWithoutRoleBy($auser)
+        {
+                if($auser->id==3) return [true, ''];
+                return [false, 'not authorized yet Without Role for this user '.$auser];
+        }
 }
