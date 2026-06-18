@@ -120,5 +120,6 @@ $migrations = [
     '00114' => ['by'=>'medali','title'=>'add field to applicant_payment'],
     '00115' => ['by'=>'medali','title'=>'add field to nominating_candidates'],
     '00116' => ['by'=>'medali','title'=>'add field to applicant_account'],
+    '00117' => ['by'=>'medali','title'=>'add field to applicant'],
 ];
 

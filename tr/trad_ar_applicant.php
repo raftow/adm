@@ -169,7 +169,8 @@ class ApplicantArTranslator{
 		$trad["applicant"]["account"] = "الحساب المالي";
 		$trad["applicant"]["sis-infos"] = "الحالة الأكاديمية";
 
-
+		$trad["applicant"]["disability_desc"] = "وصف المشكلة الصحية";
+		$trad["applicant"]["employer_desc"] = "وصف جهة العمل";
 
 
 		return $trad;
