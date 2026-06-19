@@ -2543,7 +2543,8 @@ class ApplicationDesire extends AdmObject
                 $my_css = "";
 
                 if ($workflowRequestObject and $workflowRequestObject->id) {
-                        $html .= $workflowRequestObject->calcMyOriginalObjectLinks('value', false);
+                        // amjad asked to remove this : selectedIssue=NI-23 done at 19/6/2026
+                        // $html .= $workflowRequestObject->calcMyOriginalObjectLinks('value', false);
                 } else {
                         $html .= " > " . $this->tm("The workflow request seems to be removed", $lang);
                         $html .= " > " . "<br>" . $this->showMyLink() . "<br>";
