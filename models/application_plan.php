@@ -629,7 +629,7 @@ class ApplicationPlan extends AdmObject
         return $this->addPossibleBranchs($lang, true);
     }
 
-    public function addPossibleBranchs($lang = 'ar', $reset = false)
+    public function addPossibleBranchs($lang = 'ar', $reset = false, $application_model_branch_id=0)
     {
         $err_arr = [];
         $inf_arr = [];
@@ -697,6 +697,7 @@ class ApplicationPlan extends AdmObject
                                                 apb.training_period_enum = amb.training_period_enum
                                 where amb.application_model_id = $application_model_id
                                   and (amb.gender_enum = $gender_enum or $gender_enum > 2)
+                                  and (amb.id = $application_model_branch_id or $application_model_branch_id = 0)
                                   and amb.active = 'Y'
                                   and amb.seats_capacity > 0
                                   and apb.id is null";
@@ -1056,10 +1057,12 @@ class ApplicationPlan extends AdmObject
         return 0;
     }
 
-    public static function getCurrentApplicationPlans($except_already_applied_plan_ids = '')
+    public static function getCurrentApplicationPlans($except_already_applied_plan_ids = '', $only_published=true, $only_valid=false)
     {
         $obj = new ApplicationPlan();
-        $obj->select('published', 'Y');
+        if($only_published) $obj->select('published', 'Y');
+        if($only_valid) $obj->select('valid', 'Y');
+        
         $obj->select('active', 'Y');
         $obj->select('closed', 'N');
 

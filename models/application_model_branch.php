@@ -281,4 +281,46 @@ class ApplicationModelBranch extends AdmObject
                         return true;
                 }
         }
+
+
+        public function genereMyPlanBranch($lang="ar") {
+                $appModelObj = $this->het("application_model_id");
+                /**
+                 * @var ApplicationPlan $currPlan
+                 */
+                $currPlan = $appModelObj ? $appModelObj->currentPlan() : null;
+                if(!$currPlan) return [$this->tm("No current plan for the application model", $lang), ""];
+                return $currPlan->addPossibleBranchs($lang, $reset = false, $this->id);
+        }
+
+        protected function getPublicMethods()
+        {
+                $pbms = array();
+                // $aplanList = ApplicationPlan::getCurrentApplicationPlans($except_already_applied_plan_ids = '', $only_published=false, $only_valid=true);
+                //foreach ($aplanList as $aplanItem) 
+                /**
+                 * @var ApplicationModel $appModelObj
+                 */
+                $appModelObj = $this->het("application_model_id");
+                $currPlan = $appModelObj ? $appModelObj->currentPlan() : null;
+
+                if($currPlan)
+                {
+                        $color = 'green';
+                        $title_ar = "إنشاء/تحديث فرع القبول للخطة : ".$currPlan->getShortDisplay("ar");
+                        $title_en = 'Generate the branch for plan : '.$currPlan->getShortDisplay("en");
+                        $methodName = 'genereMyPlanBranch';
+                        $pbms[AfwStringHelper::hzmEncode($methodName)] =
+                                array(
+                                'METHOD' => $methodName,
+                                'COLOR' => $color,
+                                'LABEL_AR' => $title_ar,
+                                'LABEL_EN' => $title_en,
+                                'ADMIN-ONLY' => true,
+                                'BF-ID' => '',
+                                'STEP' => 2
+                                );
+                }
+                return $pbms;
+        }
 }
