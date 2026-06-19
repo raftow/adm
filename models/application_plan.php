@@ -710,8 +710,9 @@ class ApplicationPlan extends AdmObject
             $inf_arr[] = $this->getDisplay($lang) . ' : ' . $this->tm('عدد سجلات فروع التقديم التي تم توليدها : ', $lang) . $affected_row_count;
         } else {
             $war_arr[] = "لم يتم إضافة فروع جديدة ربما لأن الفروع موجودة سابقا";
-            if($gender_enum <= 2) $war_arr[] = 'أو لأن في نموذج القبول ' . $this->getDisplay($lang) . " لا يوجد فروع قبول على النوع : $gender_enum_decoded مفتوحة بطاقة استيعابية محددة.";
-            $war_arr[] = "تأكد من إدخال طاقة استيعابية صحيحة لكل فرع قبول. الطاقة الاستيعابية التي تساوي صفر أو الغير محددة تعني عدم فتح هذا الفرع";
+            if($gender_enum <= 2) $war_arr[] = 'أو لأن في نموذج القبول ' . $this->getDisplay($lang) . " لا يوجد فروع قبول على النوع : $gender_enum_decoded ؟!";
+            $war_arr[] = "أو أنه لا يوجد فروع قبول مفتوحة بطاقة استيعابية محددة،";
+            $war_arr[] = "تأكد من إدخال طاقة استيعابية صحيحة لكل فرع قبول. الطاقة الاستيعابية التي تساوي صفر أو الغير محددة تعني تجاهل هذا الفرع وعدم فتحه ";
         }
 
         return AfwFormatHelper::pbm_result($err_arr, $inf_arr, $war_arr, "<br>\n", $tech_arr);
