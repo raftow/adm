@@ -1,13 +1,14 @@
 <?php
 
-class CvRubricArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class CvRubricArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 
 		$trad["cv_rubric"]["cvrubric.single"] = "قسم سيرة ذاتية";
 		$trad["cv_rubric"]["cvrubric.new"] = "جديد(ة)";
-		$trad["cv_rubric"]["cv_rubric"] = "أقسام السيرة الذاتية";
+		$trad["cv_rubric"]["cv_rubric"] = "هيكلة السيرة الذاتية";
 		$trad["cv_rubric"]["name_ar"] = "مسمى  بالعربية";
 		$trad["cv_rubric"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["cv_rubric"]["desc_ar"] = "وصف  بالعربية";
@@ -24,13 +25,13 @@ class CvRubricArTranslator{
 		$trad["cv_rubric"]["rubric_helper_message"] = "رسالة مساعدة";
 		$trad["cv_rubric"]["rubric_order"] = "ترتيب القسم";
 		$trad["cv_rubric"]["cv_rubric_item_id"] = "نوع القسم";
-        // steps
-        return $trad;
-    }
+		// steps
+		return $trad;
+	}
 
-    public static function getInstance()
+	public static function getInstance()
 	{
-        if(false) return new CvRubricEnTranslator();
+		if (false) return new CvRubricEnTranslator();
 		return new CvRubric();
 	}
 }
