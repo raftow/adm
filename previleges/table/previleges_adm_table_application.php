@@ -1,51 +1,50 @@
 <?php
 
-	$tbf_info['application'] = array (
+$tbf_info['application'] = array(
   'id' => '13917',
-  'display' => 
-  array (
+  'display' =>
+  array(
     'id' => '104837',
   ),
-  'search' => 
-  array (
+  'search' =>
+  array(
     'id' => '104838',
   ),
-  'qsearch' => 
-  array (
+  'qsearch' =>
+  array(
     'id' => '104839',
   ),
-  'edit' => 
-  array (
+  'edit' =>
+  array(
     'id' => '104834',
   ),
-  'qedit' => 
-  array (
+  'qedit' =>
+  array(
     'id' => '104835',
   ),
-  'crossed' => 
-  array (
+  'crossed' =>
+  array(
     'id' => -1,
   ),
-  'stats' => 
-  array (
+  'stats' =>
+  array(
     'id' => '104840',
   ),
-  'ddb' => 
-  array (
+  'ddb' =>
+  array(
     'id' => -1,
   ),
-  'minibox' => 
-  array (
+  'minibox' =>
+  array(
     'id' => -1,
   ),
-  'delete' => 
-  array (
+  'delete' =>
+  array(
     'id' => '104836',
   ),
 );
 
 
-	$tab_info[13917] = array (
+$tab_info[13917] = array(
   'name' => 'application',
 );
-

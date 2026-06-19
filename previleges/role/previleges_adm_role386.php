@@ -5,7 +5,7 @@ $role_info[386] = array(
   'name' =>
   array(
     'ar' => 'ادارة المتقدمين',
-    'en' => 'arole.386',
+    'en' => 'candidates management',
   ),
   'menu' =>
   array(
@@ -13,7 +13,7 @@ $role_info[386] = array(
     'id' => '386',
     'menu_name_' => 'ادارة المتقدمين',
     'menu_name_ar' => 'ادارة المتقدمين',
-    'menu_name_en' => 'arole.386',
+    'menu_name_en' => 'candidates management',
     'page' => 'main.php?Main_Page=fm.php&a=1282&r=386',
     'css' => 'info',
     'icon' => ' icon-386',
@@ -31,16 +31,16 @@ $role_info[386] = array(
         'css' => 'bf',
         'icon' => 'bficon-104744 bfc-',
       ),
-      105278 =>
+      104745 =>
       array(
-        'id' => '105278',
-        'code' => 'f2-a-applicant_qualification/qsearch',
+        'id' => '104745',
+        'code' => 'f2-a-applicant/stats',
         'level' => '999',
-        'menu_name_ar' => 'مؤهلات المتقدمين',
-        'menu_name_en' => 'Applicant qualifications',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantQualification&currmod=adm',
+        'menu_name_ar' => 'إحصائيات المتقدمون',
+        'menu_name_en' => 'Applicants statistics',
+        'page' => 'main.php?Main_Page=afw_mode_stats.php&cl=Applicant&currmod=adm',
         'css' => 'bf',
-        'icon' => 'bficon-105278 bfc-',
+        'icon' => 'bficon-104745 bfc-',
       ),
       104839 =>
       array(
@@ -52,39 +52,6 @@ $role_info[386] = array(
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Application&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104839 bfc-',
-      ),
-      105272 =>
-      array(
-        'id' => '105272',
-        'code' => 'f2-a-applicant_evaluation/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'اختبارات المتقدم',
-        'menu_name_en' => 'Applicant evaluations',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantEvaluation&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105272 bfc-',
-      ),
-      105084 =>
-      array(
-        'id' => '105084',
-        'code' => 'f2-a-application_desire/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'الترشحات',
-        'menu_name_en' => 'Application desires',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationDesire&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105084 bfc-',
-      ),
-      104947 =>
-      array(
-        'id' => '104947',
-        'code' => 'f2-a-applicant_file/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'مرفقات المتقدم',
-        'menu_name_en' => 'applicant file',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantFile&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-104947 bfc-',
       ),
       105266 =>
       array(
@@ -109,7 +76,6 @@ $role_info[386] = array(
         'icon' => 'bficon-105284 bfc-',
       ),
     ),
-    /**************************** */
     'otherbfs' =>
     array(
       104739 =>
@@ -122,6 +88,17 @@ $role_info[386] = array(
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=Applicant&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104739 bfc-',
+      ),
+      104740 =>
+      array(
+        'id' => '104740',
+        'code' => 'f2-a-applicant/qedit',
+        'level' => '999',
+        'menu_name_ar' => 'إدارة المتقدمون',
+        'menu_name_en' => 'Applicants administration',
+        'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Applicant&currmod=adm&ids=all&newo=3',
+        'css' => 'bf',
+        'icon' => 'bficon-104740 bfc-',
       ),
       104741 =>
       array(
@@ -167,6 +144,17 @@ $role_info[386] = array(
         'css' => 'bf',
         'icon' => 'bficon-104744 bfc-',
       ),
+      104745 =>
+      array(
+        'id' => '104745',
+        'code' => 'f2-a-applicant/stats',
+        'level' => '999',
+        'menu_name_ar' => 'إحصائيات المتقدمون',
+        'menu_name_en' => 'Applicants statistics',
+        'page' => 'main.php?Main_Page=afw_mode_stats.php&cl=Applicant&currmod=adm',
+        'css' => 'bf',
+        'icon' => 'bficon-104745 bfc-',
+      ),
       104834 =>
       array(
         'id' => '104834',
@@ -178,11 +166,22 @@ $role_info[386] = array(
         'css' => 'bf',
         'icon' => 'bficon-104834 bfc-',
       ),
+      104835 =>
+      array(
+        'id' => '104835',
+        'code' => 'f2-a-application/qedit',
+        'level' => '999',
+        'menu_name_ar' => 'إدارة طلبات التقديم',
+        'menu_name_en' => 'Applications administration',
+        'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Application&currmod=adm&ids=all&newo=3',
+        'css' => 'bf',
+        'icon' => 'bficon-104835 bfc-',
+      ),
       104836 =>
       array(
         'id' => '104836',
         'code' => 'f2-a-application/delete',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مسح طلب تقديم',
         'menu_name_en' => 'delete Application',
         'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=Application&currmod=adm',
@@ -204,7 +203,7 @@ $role_info[386] = array(
       array(
         'id' => '104838',
         'code' => 'f2-a-application/search',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'البحث في طلبات التقديم',
         'menu_name_en' => 'Applications search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Application&currmod=adm',
@@ -222,132 +221,33 @@ $role_info[386] = array(
         'css' => 'bf',
         'icon' => 'bficon-104839 bfc-',
       ),
-      104942 =>
-      array(
-        'id' => '104942',
-        'code' => 'f2-a-applicant_file/edit',
-        'level' => '999',
-        'menu_name_ar' => 'إنشاء مرفق',
-        'menu_name_en' => 'create Applicant file',
-        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantFile&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-104942 bfc-',
-      ),
-      104944 =>
-      array(
-        'id' => '104944',
-        'code' => 'f2-a-applicant_file/delete',
-        'level' => '999',
-        'menu_name_ar' => 'مسح مرفق',
-        'menu_name_en' => 'delete Applicant file',
-        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantFile&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-104944 bfc-',
-      ),
-      104945 =>
-      array(
-        'id' => '104945',
-        'code' => 'f2-a-applicant_file/display',
-        'level' => '999',
-        'menu_name_ar' => 'عرض تفاصيل مرفق',
-        'menu_name_en' => 'display details of Applicant file',
-        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantFile&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-104945 bfc-',
-      ),
-      104946 =>
-      array(
-        'id' => '104946',
-        'code' => 'f2-a-applicant_file/search',
-        'level' => '999',
-        'menu_name_ar' => 'البحث في مرفقات المتقدم',
-        'menu_name_en' => 'applicant file search',
-        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantFile&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-104946 bfc-',
-      ),
-      104947 =>
-      array(
-        'id' => '104947',
-        'code' => 'f2-a-applicant_file/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'مرفقات المتقدم',
-        'menu_name_en' => 'applicant file',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantFile&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-104947 bfc-',
-      ),
-      105082 =>
-      array(
-        'id' => '105082',
-        'code' => 'f2-a-application_desire/display',
-        'level' => '999',
-        'menu_name_ar' => 'عرض تفاصيل ترشح',
-        'menu_name_en' => 'display details of Application desire',
-        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicationDesire&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105082 bfc-',
-      ),
-      105083 =>
-      array(
-        'id' => '105083',
-        'code' => 'f2-a-application_desire/search',
-        'level' => '1',
-        'menu_name_ar' => 'البحث في الترشحات',
-        'menu_name_en' => 'Application desires search',
-        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicationDesire&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105083 bfc-',
-      ),
-      105084 =>
-      array(
-        'id' => '105084',
-        'code' => 'f2-a-application_desire/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'الترشحات',
-        'menu_name_en' => 'Application desires',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationDesire&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105084 bfc-',
-      ),
-      105085 =>
-      array(
-        'id' => '105085',
-        'code' => 'f2-a-application_desire/edit',
-        'level' => '999',
-        'menu_name_ar' => 'إنشاء ترشح',
-        'menu_name_en' => 'create Application desire',
-        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicationDesire&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105085 bfc-',
-      ),
-      105088 =>
-      array(
-        'id' => '105088',
-        'code' => 'f2-a-application_desire/delete',
-        'level' => '1',
-        'menu_name_ar' => 'مسح ترشح',
-        'menu_name_en' => 'delete Application desire',
-        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicationDesire&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105088 bfc-',
-      ),
       105261 =>
       array(
         'id' => '105261',
         'code' => 'f2-a-applicant_account/edit',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إنشاء رسوم متقدم',
         'menu_name_en' => 'create Applicant fintrans',
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantAccount&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105261 bfc-',
       ),
+      105262 =>
+      array(
+        'id' => '105262',
+        'code' => 'f2-a-applicant_account/qedit',
+        'level' => '999',
+        'menu_name_ar' => 'إدارة رسوم المتقدمين',
+        'menu_name_en' => 'Applicant fintranss administration',
+        'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ApplicantAccount&currmod=adm&ids=all&newo=3',
+        'css' => 'bf',
+        'icon' => 'bficon-105262 bfc-',
+      ),
       105263 =>
       array(
         'id' => '105263',
         'code' => 'f2-a-applicant_account/delete',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مسح رسوم متقدم',
         'menu_name_en' => 'delete Applicant fintrans',
         'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantAccount&currmod=adm',
@@ -369,7 +269,7 @@ $role_info[386] = array(
       array(
         'id' => '105265',
         'code' => 'f2-a-applicant_account/search',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'البحث في رسوم المتقدمين',
         'menu_name_en' => 'Applicant fintranss search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantAccount&currmod=adm',
@@ -387,132 +287,33 @@ $role_info[386] = array(
         'css' => 'bf',
         'icon' => 'bficon-105266 bfc-',
       ),
-      105267 =>
-      array(
-        'id' => '105267',
-        'code' => 'f2-a-applicant_evaluation/edit',
-        'level' => '999',
-        'menu_name_ar' => 'إنشاء اختبار المتقدم',
-        'menu_name_en' => 'create Applicant evaluation',
-        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantEvaluation&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105267 bfc-',
-      ),
-      105269 =>
-      array(
-        'id' => '105269',
-        'code' => 'f2-a-applicant_evaluation/delete',
-        'level' => '999',
-        'menu_name_ar' => 'مسح اختبار المتقدم',
-        'menu_name_en' => 'delete Applicant evaluation',
-        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantEvaluation&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105269 bfc-',
-      ),
-      105270 =>
-      array(
-        'id' => '105270',
-        'code' => 'f2-a-applicant_evaluation/display',
-        'level' => '999',
-        'menu_name_ar' => 'عرض تفاصيل اختبار المتقدم',
-        'menu_name_en' => 'display details of Applicant evaluation',
-        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantEvaluation&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105270 bfc-',
-      ),
-      105271 =>
-      array(
-        'id' => '105271',
-        'code' => 'f2-a-applicant_evaluation/search',
-        'level' => '999',
-        'menu_name_ar' => 'البحث في اختبارات المتقدم',
-        'menu_name_en' => 'Applicant evaluations search',
-        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantEvaluation&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105271 bfc-',
-      ),
-      105272 =>
-      array(
-        'id' => '105272',
-        'code' => 'f2-a-applicant_evaluation/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'اختبارات المتقدم',
-        'menu_name_en' => 'Applicant evaluations',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantEvaluation&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105272 bfc-',
-      ),
-      105273 =>
-      array(
-        'id' => '105273',
-        'code' => 'f2-a-applicant_qualification/edit',
-        'level' => '999',
-        'menu_name_ar' => 'إنشاء مؤهل متقدم',
-        'menu_name_en' => 'create Applicant qualification',
-        'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantQualification&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105273 bfc-',
-      ),
-      105275 =>
-      array(
-        'id' => '105275',
-        'code' => 'f2-a-applicant_qualification/delete',
-        'level' => '999',
-        'menu_name_ar' => 'مسح مؤهل متقدم',
-        'menu_name_en' => 'delete Applicant qualification',
-        'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantQualification&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105275 bfc-',
-      ),
-      105276 =>
-      array(
-        'id' => '105276',
-        'code' => 'f2-a-applicant_qualification/display',
-        'level' => '999',
-        'menu_name_ar' => 'عرض تفاصيل مؤهل متقدم',
-        'menu_name_en' => 'display details of Applicant qualification',
-        'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicantQualification&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105276 bfc-',
-      ),
-      105277 =>
-      array(
-        'id' => '105277',
-        'code' => 'f2-a-applicant_qualification/search',
-        'level' => '999',
-        'menu_name_ar' => 'البحث في مؤهلات المتقدمين',
-        'menu_name_en' => 'Applicant qualifications search',
-        'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantQualification&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105277 bfc-',
-      ),
-      105278 =>
-      array(
-        'id' => '105278',
-        'code' => 'f2-a-applicant_qualification/qsearch',
-        'level' => '999',
-        'menu_name_ar' => 'مؤهلات المتقدمين',
-        'menu_name_en' => 'Applicant qualifications',
-        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicantQualification&currmod=adm',
-        'css' => 'bf',
-        'icon' => 'bficon-105278 bfc-',
-      ),
       105279 =>
       array(
         'id' => '105279',
         'code' => 'f2-a-applicant_scholarship/edit',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'إنشاء منحة متقدم',
         'menu_name_en' => 'create Applicant scholarship',
         'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicantScholarship&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-105279 bfc-',
       ),
+      105280 =>
+      array(
+        'id' => '105280',
+        'code' => 'f2-a-applicant_scholarship/qedit',
+        'level' => '999',
+        'menu_name_ar' => 'إدارة منح المتقدمين',
+        'menu_name_en' => 'Applicant scholarships administration',
+        'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ApplicantScholarship&currmod=adm&ids=all&newo=3',
+        'css' => 'bf',
+        'icon' => 'bficon-105280 bfc-',
+      ),
       105281 =>
       array(
         'id' => '105281',
         'code' => 'f2-a-applicant_scholarship/delete',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'مسح منحة متقدم',
         'menu_name_en' => 'delete Applicant scholarship',
         'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicantScholarship&currmod=adm',
@@ -534,7 +335,7 @@ $role_info[386] = array(
       array(
         'id' => '105283',
         'code' => 'f2-a-applicant_scholarship/search',
-        'level' => '1',
+        'level' => '999',
         'menu_name_ar' => 'البحث في منح المتقدمين',
         'menu_name_en' => 'Applicant scholarships search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicantScholarship&currmod=adm',
@@ -557,3 +358,4 @@ $role_info[386] = array(
     array(),
   ),
 );
+include "previleges_adm_role386_special.php";

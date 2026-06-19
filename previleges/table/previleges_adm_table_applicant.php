@@ -1,51 +1,50 @@
 <?php
 
-	$tbf_info['applicant'] = array (
+$tbf_info['applicant'] = array(
   'id' => '13890',
-  'display' => 
-  array (
+  'display' =>
+  array(
     'id' => '104742',
   ),
-  'search' => 
-  array (
+  'search' =>
+  array(
     'id' => '104743',
   ),
-  'qsearch' => 
-  array (
+  'qsearch' =>
+  array(
     'id' => '104744',
   ),
-  'edit' => 
-  array (
+  'edit' =>
+  array(
     'id' => '104739',
   ),
-  'qedit' => 
-  array (
+  'qedit' =>
+  array(
     'id' => '104740',
   ),
-  'crossed' => 
-  array (
+  'crossed' =>
+  array(
     'id' => -1,
   ),
-  'stats' => 
-  array (
+  'stats' =>
+  array(
     'id' => '104745',
   ),
-  'ddb' => 
-  array (
+  'ddb' =>
+  array(
     'id' => -1,
   ),
-  'minibox' => 
-  array (
+  'minibox' =>
+  array(
     'id' => -1,
   ),
-  'delete' => 
-  array (
+  'delete' =>
+  array(
     'id' => '104741',
   ),
 );
 
 
-	$tab_info[13890] = array (
+$tab_info[13890] = array(
   'name' => 'applicant',
 );
-
