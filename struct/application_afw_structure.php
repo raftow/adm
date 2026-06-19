@@ -16,7 +16,7 @@ class AdmApplicationAfwStructure
                         $obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id');
                         // $obj->public_display = true;
                         // $obj->IS_LOOKUP = true;
-
+                        $obj->OwnedBy = array('module' => "adm", 'afw' => "Applicant");
                         $obj->editByStep = true;
                         $obj->editNbSteps = 7; // 12/01/2026 : step 8 to hide because technical said Amjad
                         $obj->setContextAndPartitionCols($part_cols, $context_cols);
@@ -25,6 +25,36 @@ class AdmApplicationAfwStructure
                 } else {
                         ApplicationArTranslator::initData();
                         ApplicationEnTranslator::initData();
+                }
+        }
+
+        /**
+         * @param string $mode
+         */
+        public static function getParameters($mode, $selection = "default")
+        {
+                if ($mode == "qsearch") {
+                        if ($selection == "default")
+                                return [
+                                        'formColumns' => [
+                                                'application_plan_id',
+                                                'workflow_session_id',
+                                                'workflow_scope_id',
+                                                'workflow_sub_scope_id',
+                                                'application_class_enum', // 5
+                                                'workflow_stage_id',
+                                                'workflow_status_id',
+                                                'workflow_source_id',
+                                                'workflow_category_enum',
+                                                'idn', // 10
+                                                'request_date'
+                                        ],
+
+                                        'requiredColumns' => [
+                                                'workflow_model_id',
+                                                'workflow_session_id',
+                                        ]
+                                ];
                 }
         }
 
@@ -101,7 +131,7 @@ class AdmApplicationAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
-                
+
                 'applicant_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => false,
@@ -202,7 +232,7 @@ class AdmApplicationAfwStructure
                         'NO-COTE' => true,
                         'STEP' => 99,
                 ),
-                
+
                 'application_model_id' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,

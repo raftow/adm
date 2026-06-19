@@ -1,5 +1,5 @@
 <?php
-
+/*
 $role_info[388] = array(
   'code' => 'goal-supervisor',
   'name' =>
@@ -325,3 +325,4 @@ $role_info[388] = array(
     array(),
   ),
 );
+*/
