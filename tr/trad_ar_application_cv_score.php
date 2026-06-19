@@ -39,7 +39,7 @@ class ApplicationCvScoreArTranslator
 		$trad["application_cv_score"]["SCCONFGuideList"] = "دليل تقييم المؤتمرات العلمية";
 		$trad["application_cv_score"]["RECLTGuideList"] = "دليل تقييم التوصيات العلمية";
 
-		$trad["application_cv_score"]["applicationcvscore.single"] = "درجة سيرة ذاتية";
+		$trad["application_cv_score"]["applicationcvscore.single"] = "تقييم سيرة ذاتية";
 		$trad["application_cv_score"]["applicationcvscore.new"] = "جديد ة";
 		$trad["application_cv_score"]["application_cv_score"] = "درجات السيرة الذاتية";
 		$trad["application_cv_score"]["name_ar"] = "مسمى  بالعربية";

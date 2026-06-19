@@ -18,6 +18,7 @@ class AdmApplicationCvScoreAfwStructure
 			$obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id');
 			$obj->editByStep = true;
 			$obj->editNbSteps = 11;
+			$obj->OwnedBy = array('module' => "adm", 'afw' => "Applicant");
 
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
@@ -56,7 +57,7 @@ class AdmApplicationCvScoreAfwStructure
 			'TYPE' => 'FK',
 			'ANSWER' => 'applicant',
 			'ANSMODULE' => 'adm',
-			'RELATION' => 'unkn',
+			'RELATION' => 'OneToMany',
 			'READONLY' => false,
 			'DNA' => true,
 			'CSS' => 'width_pct_50',
@@ -161,7 +162,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_QUAL' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -280,7 +281,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_PEXP' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -401,7 +402,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_CRWQ' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -521,7 +522,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_SCINT' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -641,7 +642,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'review_date_VOLAC' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -760,7 +761,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_AWAP' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -880,7 +881,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_SCRSC' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -1000,7 +1001,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_LANGP' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -1120,7 +1121,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_SCCONF' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -1240,7 +1241,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CAN-BE-SETTED' => true,
 			'CSS' => 'width_pct_100',
 		),
-		
+
 		'score_RECLT' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
@@ -1304,7 +1305,7 @@ class AdmApplicationCvScoreAfwStructure
 			'CSS' => 'width_pct_50',
 			'STEP' => 11
 		),
-'RECLTGuideList' => array(
+		'RECLTGuideList' => array(
 			'STEP' => 11,
 			'SHOW' => true,
 			'FORMAT' => 'retrieve',
