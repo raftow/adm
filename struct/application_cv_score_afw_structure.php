@@ -7,7 +7,7 @@ class AdmApplicationCvScoreAfwStructure
 	public static function initInstance(&$obj)
 	{
 		if ($obj instanceof ApplicationCvScore) {
-			$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
+			$obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 0;
 			$obj->DISPLAY_FIELD_BY_LANG = ['ar' => "name_ar", 'en' => "name_en"];
 
 			// $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
@@ -18,7 +18,7 @@ class AdmApplicationCvScoreAfwStructure
 			$obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id');
 			$obj->editByStep = true;
 			$obj->editNbSteps = 11;
-			$obj->OwnedBy = array('module' => "adm", 'afw' => "Applicant");
+			// $obj->OwnedBy = array('module' => "adm", 'afw' => "Applicant");
 
 			$obj->showQeditErrors = true;
 			$obj->showRetrieveErrors = true;
