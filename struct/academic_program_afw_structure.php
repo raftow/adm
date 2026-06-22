@@ -236,7 +236,7 @@ class AdmAcademicProgramAfwStructure
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE' => true,
+                        'RETRIEVE-AR' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '100',
@@ -255,7 +255,7 @@ class AdmAcademicProgramAfwStructure
                         'SEARCH' => true,
                         'QSEARCH' => true,
                         'SHOW' => true,
-                        'RETRIEVE' => true,
+                        'RETRIEVE-EN' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '100',
@@ -670,7 +670,7 @@ class AdmAcademicProgramAfwStructure
                         'TYPE' => 'FK',
                         'ANSWER' => 'sis_level_code',
                         'ANSMODULE' => 'adm',
-                        
+
                         //'FORMAT-INPUT' => 'btn-bootstrap',
                         'DISPLAY' => true,
                         'STEP' => 2,
@@ -679,7 +679,7 @@ class AdmAcademicProgramAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                         'FGROUP' => 'sis_codes',
-                        'DEPENDENT_OFME' => array('sis_program_code','sis_major_code')
+                        'DEPENDENT_OFME' => array('sis_program_code', 'sis_major_code')
                 ),
                 'sis_program_code' => array(
                         'IMPORTANT' => 'IN',
@@ -706,7 +706,7 @@ class AdmAcademicProgramAfwStructure
                         'DEPENDENCIES' => ['sis_level_code'],
                         'DEPENDENT_OFME' => array('sis_major_code'),
                 ),
-                
+
                 'sis_major_code' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => true,
