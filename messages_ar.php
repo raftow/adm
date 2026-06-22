@@ -217,7 +217,7 @@ $messages['Some related completed application exists'] = 'يوجد بعض طلب
 $messages['Bad values for fields : [gpa from] and [gpa]'] = 'قيم غير صالحة للحقول: [المعدل من] و [المعدل]';
 $messages['تبويب المؤهل'] = 'Qualification tab';
 
-$messages['Registration and Admissions Department'] = 'إدارة التسجيل والقبول';
+$messages['Registration and Admissions Department'] = 'عمادة التسجيل والقبول';
 
 $messages['Candidate'] = 'مرشح';
 $messages['Not a candidate'] = 'غير مرشح';
