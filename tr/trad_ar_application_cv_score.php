@@ -6,7 +6,7 @@ class ApplicationCvScoreArTranslator
 	{
 		$trad = [];
 		$trad["application_cv_score"]["step1"] = "التعريف";
-		$trad["application_cv_score"]["step2"] = "المؤهلات الأكاديمية";
+		$trad["application_cv_score"]["step2"] = "المؤهــلات الأكاديمية";
 		$trad["application_cv_score"]["step3"] = "الخبرات المهنية";
 		$trad["application_cv_score"]["step4"] = "الدورات وورش العمل";
 		$trad["application_cv_score"]["step5"] = "العضوية في المؤسسات والجمعيات العلمية";
@@ -17,7 +17,7 @@ class ApplicationCvScoreArTranslator
 		$trad["application_cv_score"]["step10"] = "المؤتمرات العلمية";
 		$trad["application_cv_score"]["step11"] = "التوصيات العلمية";
 
-		$trad["application_cv_score"]["QUALList"] = "قائمة المؤهلات الأكاديمية";
+		$trad["application_cv_score"]["QUALList"] = "قائمة المؤهــلات الأكاديمية";
 		$trad["application_cv_score"]["PEXPList"] = "قائمة الخبرات المهنية";
 		$trad["application_cv_score"]["CRWQList"] = "قائمة الدورات وورش العمل";
 		$trad["application_cv_score"]["SCINTList"] = "قائمة العضوية في المؤسسات والجمعيات العلمية";
@@ -28,7 +28,7 @@ class ApplicationCvScoreArTranslator
 		$trad["application_cv_score"]["SCCONFList"] = "قائمة المؤتمرات العلمية";
 		$trad["application_cv_score"]["RECLTList"] = "قائمة التوصيات العلمية";
 
-		$trad["application_cv_score"]["QUALGuideList"] = "دليل تقييم المؤهلات الأكاديمية";
+		$trad["application_cv_score"]["QUALGuideList"] = "دليل تقييم المؤهــلات الأكاديمية";
 		$trad["application_cv_score"]["PEXPGuideList"] = "دليل تقييم الخبرات المهنية";
 		$trad["application_cv_score"]["CRWQGuideList"] = "دليل تقييم الدورات وورش العمل";
 		$trad["application_cv_score"]["SCINTGuideList"] = "دليل تقييم العضوية في المؤسسات والجمعيات العلمية";
@@ -49,7 +49,7 @@ class ApplicationCvScoreArTranslator
 		$trad["application_cv_score"]["applicant_id"] = "المتقدم";
 		$trad["application_cv_score"]["application_plan_id"] = "خطة التقديم";
 		$trad["application_cv_score"]["application_simulation_id"] = "الapplication_simulation.single";
-		$trad["application_cv_score"]["score_QUAL"] = "التقييم"; // المؤهلات الأكاديمية
+		$trad["application_cv_score"]["score_QUAL"] = "التقييم"; // المؤهــلات الأكاديمية
 		$trad["application_cv_score"]["review_date_QUAL"] = "تاريخ التقييم";
 		$trad["application_cv_score"]["review_comments_QUAL"] = "تعليقات التقييم";
 		$trad["application_cv_score"]["score_PEXP"] = "التقييم"; // الخبرات المهنية

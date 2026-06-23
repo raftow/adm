@@ -547,7 +547,7 @@ class ApplicationDesire extends AdmObject
                                 if ($scholarshipObj) {
                                         $sponsorObj = $scholarshipObj->het('sponsor_id');
                                         if ($sponsorObj) {
-                                                $authorityCodeObj = $sponsorObj->het('sis_code');        
+                                                $authorityCodeObj = $sponsorObj->het('sis_code');
                                                 $sponsorSISCode = $authorityCodeObj->getVal('lookup_code');
                                                 $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
                                         }
@@ -2266,7 +2266,7 @@ class ApplicationDesire extends AdmObject
                         return $this->tm('You have not reached this step yet', $lang);
                 }
                 $lang = AfwLanguageHelper::getGlobalLanguage();
-                // block3 =>  'المؤهلات';
+                // block3 =>  'المؤهــلات';
                 if ($block == 3)
                         return $this->showQualificationsDiv($lang, $workflowRequestObject);
 
