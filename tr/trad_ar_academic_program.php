@@ -21,7 +21,7 @@ $trad['academic_program']['program_name_en'] = 'اسم البرنامج التد
 $trad['academic_program']['sis_program_code'] = 'رمز البرنامج';
 $trad['academic_program']['major_id'] = 'تخصص البرنامح';
 $trad['academic_program']['degree_id'] = 'الشهادة';
-$trad['academic_program']['degree_id.tooltip'] = 'الشهادات التي تظهر هنا هي فقط الشهادات المفعلة أنها شهادة تخرج ممنوحة بعد اكمال المرحلة الدراسية';
+$trad['academic_program']['degree_id.tooltip'] = 'الدرجات العلمية التي تظهر هنا هي فقط الدرجات العلمية المفعلة أنها شهادة تخرج ممنوحة بعد اكمال المرحلة الدراسية';
 $trad['academic_program']['program_track_id'] = 'مسار البرنامج';
 $trad['academic_program']['academic_level_id'] = 'المرحلة التدريبية';
 $trad['academic_program']['department_id'] = 'القسم';
@@ -49,8 +49,6 @@ $trad['academic_program']['to_publish'] = 'النشر للتقديم على ال
 $trad['academic_program']['interview_ind'] = 'يتضمن مقابلة شخصية';
 $trad['academic_program']['cv_ind'] = 'يتطلب سيرة ذاتية؟';
 
-    $trad["academic_program"]["sis_codes"] = "رموز نظام معلومات الطالب";
-    $trad["academic_program"]["sis_level_code"] = "رمز المرحلة";
-    $trad["academic_program"]["sis_major_code"] = "رمز التخصص";
-
-
+$trad["academic_program"]["sis_codes"] = "رموز نظام معلومات الطالب";
+$trad["academic_program"]["sis_level_code"] = "رمز المرحلة";
+$trad["academic_program"]["sis_major_code"] = "رمز التخصص";
