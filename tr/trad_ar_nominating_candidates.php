@@ -64,7 +64,7 @@ class NominatingCandidatesArTranslator
 		$trad["nominating_candidates"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		$trad["nominating_candidates"]["qualification_id"] = "المؤهل";
 		$trad["nominating_candidates"]["major_category_id"] = "فئة التخصص";
-		$trad["nominating_candidates"]["major_path_id"] = "مجموعة التأهيل";
+		$trad["nominating_candidates"]["major_path_id"] = "التخــصــص العام";
 		$trad["nominating_candidates"]["qualification_major_id"] = "تخصص المؤهل";
 		$trad["nominating_candidates"]["gpa"] = "المعدل";
 		$trad["nominating_candidates"]["gpa_from"] = "المعدل من";

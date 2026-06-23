@@ -282,7 +282,7 @@ class AdmObject extends AfwMomkenObject
         $arr_list_of_split_sorting_by['en'][1] = 'No split';
 
         $arr_list_of_split_sorting_by['code'][2] = 'MPS';
-        $arr_list_of_split_sorting_by['ar'][2] = 'تقسيم حسب مجموعة التأهيل';
+        $arr_list_of_split_sorting_by['ar'][2] = 'تقسيم حسب التخــصــص العام';
         $arr_list_of_split_sorting_by['en'][2] = 'Split with major path';
 
         /* for later may be

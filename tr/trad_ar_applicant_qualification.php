@@ -15,7 +15,7 @@ class ApplicantQualificationArTranslator
 		$trad["applicant_qualification"]["applicant_id"] = "المتقدم";
 		$trad["applicant_qualification"]["qualification_id"] = "المؤهل";
 		$trad["applicant_qualification"]["major_category_id"] = "فئة التخصص";
-		$trad["applicant_qualification"]["major_path_id"] = "مجموعة التأهيل";
+		$trad["applicant_qualification"]["major_path_id"] = "التخــصــص العام";
 		$trad["applicant_qualification"]["qualification_major_id"] = "تخصص المؤهل";
 		$trad["applicant_qualification"]["gpa"] = "المعدل";
 		$trad["applicant_qualification"]["gpa_from"] = "من";
