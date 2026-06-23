@@ -540,7 +540,7 @@ class NominatingCandidates extends AdmObject
         return true;
     }
 
-/*
+    /*
     public function afterInsert($id, $fields_updated, $disableAfterCommitDBEvent = false)
     {
         $this->createOrRepareMyApplicationObjects();
@@ -573,7 +573,7 @@ class NominatingCandidates extends AdmObject
                 break;
         }
     }*/
- // to be checked with rafik : do we need to delete old application objects in case of program modification and cancellation of nomination ? or we just need to update them ? for now we will delete them to avoid complexity of update and potential data inconsistency, but maybe we can optimize this later by doing update instead of delete + create new objects
+    // to be checked with rafik : do we need to delete old application objects in case of program modification and cancellation of nomination ? or we just need to update them ? for now we will delete them to avoid complexity of update and potential data inconsistency, but maybe we can optimize this later by doing update instead of delete + create new objects
     private function deleteOldApplicationObjects()
     {
         $applicant_id = $this->getVal('applicant_id');
@@ -717,7 +717,7 @@ class NominatingCandidates extends AdmObject
 
         $nbQuals = $applicantObj->getRelation('applicantQualificationList')->count();
         if ($nbQuals == 0)
-            return 'الرجاء استكمال المؤهلات العلمية أولا';
+            return 'الرجاء استكمال المؤهــلات العلمية أولا';
 
         if ($applicationObj) {
             $application_id = $applicationObj->id;
@@ -914,8 +914,8 @@ class NominatingCandidates extends AdmObject
         $applicationFinancialTransaction->where("application_model_id = $application_model_id and active ='Y' and process_enabled ='Y' and phase_enum=1");
 
         $studyFundingStatusObj = $this->het('study_funding_status_id');
-        if($studyFundingStatusObj)  $payment_status_enum = ($studyFundingStatusObj->getVal('payment_ind') == 'Y') ? 1 : 4;
-        else $payment_status_enum = 4; 
+        if ($studyFundingStatusObj)  $payment_status_enum = ($studyFundingStatusObj->getVal('payment_ind') == 'Y') ? 1 : 4;
+        else $payment_status_enum = 4;
         $appFinTransObjectList = $applicationFinancialTransaction->loadMany();
         foreach ($appFinTransObjectList as $appFinTransObject) {
             $total_amount = $appFinTransObject->getVal('amount');

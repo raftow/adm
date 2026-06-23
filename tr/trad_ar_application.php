@@ -1,9 +1,10 @@
 <?php
 
-class ApplicationArTranslator{
-    public static function initData()
-    {
-        $trad = [];
+class ApplicationArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
 		$trad["application"]["step1"] = "المعلومات الأساسية";
 		$trad["application"]["step2"] = "المسار العام";
 		$trad["application"]["step3"] = "اختيار الرغبات";
@@ -33,19 +34,19 @@ class ApplicationArTranslator{
 		$trad["application"]["signup_acknowldgment"] = "تم الالتزام ببنود التعهدات بصحة البيانات";
 		$trad["application"]["signup_acknowldgment.EUH"] = "ليس بعد";
 
-		
-		
+
+
 
 		$trad["application"]["needed_docs_available"] = "الوثائق المطلوبة متوفرة";
 		$trad["application"]["consider_weighted_pctg"] = "اعتبار النسبة الموزونة في اختيار الرغبات";
 
 		$trad["application"]["application_fees_record"] = "سجل رسوم التقديم";
 
-		$trad["application"]["applicationQualificationList"] = "المؤهلات المسموحة للتقديم";
-		
+		$trad["application"]["applicationQualificationList"] = "المؤهــلات المسموحة للتقديم";
+
 		$trad["application"]["applicant_qualification_id"] = "مؤهل التقديم";
 		$trad["application"]["application_status_enum"] = "حالة التقديم";
-		$trad["application"]["comments"] = "ملاحظات"; 
+		$trad["application"]["comments"] = "ملاحظات";
 		$trad["application"]["qualification_id"] = "المؤهل";
 		$trad["application"]["major_category_id"] = "فئة التخصص";
 		$trad["application"]["application_fees_paid"] = "رسوم التقديم مسددة";
@@ -65,17 +66,17 @@ class ApplicationArTranslator{
 		$trad["application"]["weighted_pctg"] = "النسبة الموزونة المتقدم بها";
 
 		$trad["application"]["applicant_decision_enum"] = "قرار المتقدم";
-		
+
 		$trad["application"]["sis_fields_not_available"] = "الحقول الغير متوفرة للترحيل لنظام بيانات الطالب";
 		$trad["application"]["tafrigh_available"] = "لديه تفريغ من جهة العمل";
 		$trad["application"]["applicationAccountList"] = "قائمة رسوم التقديم";
-		
-		
-        return $trad;
-    }
 
-    public static function getInstance()
+
+		return $trad;
+	}
+
+	public static function getInstance()
 	{
 		return new Application();
 	}
-}		
+}

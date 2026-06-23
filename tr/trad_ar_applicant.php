@@ -1,13 +1,14 @@
 <?php
 
-class ApplicantArTranslator{
-    public static function initData()
-    {
-        $trad = [];
-      
+class ApplicantArTranslator
+{
+	public static function initData()
+	{
+		$trad = [];
+
 		$trad["applicant"]["step1"] = "هوية المتقدم";
 		$trad["applicant"]["step2"] = "بيانات المتقدم";
-		$trad["applicant"]["step3"] = "المؤهلات والاختبارات";
+		$trad["applicant"]["step3"] = "المؤهــلات والاختبارات";
 		$trad["applicant"]["step4"] = "المعلومات الاكاديمية";
 		$trad["applicant"]["step5"] = "طلبات التقديم";
 		$trad["applicant"]["step6"] = "رفع المرفقات";
@@ -20,7 +21,7 @@ class ApplicantArTranslator{
 
 		$trad["applicant"]["apis"] = "الخدمات الالكترونية";
 		$trad["applicant"]["applicantFileList"] = "قائمة مرفقات المتقدم";
-		
+
 		$trad["applicant"]["applicationList"] = "طلبات التقديم";
 		$trad["applicant"]["applicantApiRequestList"] = "طلبات تحديث بيانات متقدم";
 
@@ -29,10 +30,10 @@ class ApplicantArTranslator{
 
 		$trad["applicant"]["applicantEvaluationsNoFile"] = "اختبارات المتقدم التي لا تزال تحتاج الربط مع الملف المرفق";
 		$trad["applicant"]["applicantQualificationsNoFile"] = "مؤهلات المتقدم التي لا تزال تحتاج الربط مع الملف المرفق";
-		$trad["applicant"]["qualif"] = "المؤهلات العلمية";
+		$trad["applicant"]["qualif"] = "المؤهــلات العلمية";
 		$trad["applicant"]["appl"] = "بيانات التقديم";
 		$trad["applicant"]["evaluation"] = "اختبارات المتقدم";
-		
+
 
 		$trad["applicant"]["applicant.single"] = "متقدم";
 		$trad["applicant"]["applicant.new"] = "جديد";
@@ -57,7 +58,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["password"] = "كلمة المرور";
 		$trad["applicant"]["email"] = "البريد الالكتروني الشخصي";
 		$trad["applicant"]["mobile"] = "الجوال الشخصي";
-		
+
 		$trad["applicant"]["first_name_ar"] = "الاسم الأول";
 		$trad["applicant"]["father_name_ar"] = "اسم الأب";
 		$trad["applicant"]["middle_name_ar"] = "اسم الجد";
@@ -72,7 +73,7 @@ class ApplicantArTranslator{
 		$trad["applicant"]["birth_gdate"] = "تاريخ الميلاد بالميلادي";
 		$trad["applicant"]["place_of_birth"] = "مكان الميلاد";
 		$trad["applicant"]["marital_status_enum"] = "الحالة الاجتماعية";
-		
+
 		$trad["applicant"]["signup_acknowldgment"] = "تم التعهد بصحة بيانات التسجيل";
 		$trad["applicant"]["signup_acknowldgment.EUH"] = "ليس بعد";
 		/* $trad["applicant"]["signup_acknoldgment"] = "إقرار الاشتراك";
@@ -90,9 +91,9 @@ class ApplicantArTranslator{
 		$trad["applicant"]["eval"] = "درجات الاختبارات المعتمدة للمؤسسة الأكاديمية";
 		$trad["applicant"]["weighted_percentage"] = "النسبة الموزونة";
 		$trad["applicant"]["weighted_percentage_details"] = "تفاصيل حساب النسبة الموزونة";
-		
-		
-		
+
+
+
 		$trad["applicant"]["bank"] = "بيانات الحساب البنكي";
 		$trad["applicant"]["address-infos"] = "العنوان";
 		$trad["applicant"]["address"] = "العنوان";
@@ -137,19 +138,19 @@ class ApplicantArTranslator{
 		$trad["applicant"]["qiyas_aptitude_th_date"] = "تاريخ اختبار القدرات العامة-التخصصات النظرية";
 		$trad["applicant"]["qiyas_achievement_sc"] = "درجةاختبار التحصيل الدراسي-التخصصات العلمية";
 		$trad["applicant"]["qiyas_achievement_sc_date"] = "تاريخ اختبار التحصيلي-التخصصات العلمية";
-		
+
 		$trad["applicant"]["achievement_score"] = "درجة التحصيلي";
 		$trad["applicant"]["aptitude_score"] = "درجة القدرات العامة";
 		$trad["applicant"]["has_aptitude_university"] = "لديه اختبار القدرات العامة للجامعيين";
-		
+
 		$trad["applicant"]["secondary_cumulative_pct"] = "درجة الثانوية التراكمية";
-		
+
 		$trad["applicant"]["profile_populated"] = "تم تحديث الحساب";
 
 		// additional fields steps
 		// $start_additional_step = 2;
 		// $additional_step = $start_additional_step + 1;
-		// $trad["applicant"]["step".$additional_step] = "المؤهلات العلمية والاختبارات";// "التربية والتعليم";
+		// $trad["applicant"]["step".$additional_step] = "المؤهــلات العلمية والاختبارات";// "التربية والتعليم";
 		// $additional_step++;
 		// $trad["applicant"]["step".$additional_step] = "بيانات الحالة الاكاديمية";//"نظام رايات";
 		// $additional_step++;
@@ -157,11 +158,11 @@ class ApplicantArTranslator{
 		$additional_step++;
 		$trad["applicant"]["step".$additional_step] = "هيئة قياس";
 		$additional_step++;*/
-		$trad["applicant"]["sis_closed_ind"] = "طالب مطوي القيد";		
-		$trad["applicant"]["sis_visitor_ind"] = "زائر";		
-		$trad["applicant"]["sis_withdrawn_ind"] = "طالب منسحب نهائي";		
-		$trad["applicant"]["sis_dismissed_ind"] = "طالب مفصول أكاديمي";		
-		$trad["applicant"]["sis_graduate_ind"] = "طالب خريج";		
+		$trad["applicant"]["sis_closed_ind"] = "طالب مطوي القيد";
+		$trad["applicant"]["sis_visitor_ind"] = "زائر";
+		$trad["applicant"]["sis_withdrawn_ind"] = "طالب منسحب نهائي";
+		$trad["applicant"]["sis_dismissed_ind"] = "طالب مفصول أكاديمي";
+		$trad["applicant"]["sis_graduate_ind"] = "طالب خريج";
 		$trad["applicant"]["sis_continuous_ind"] = "طالب مستمر";
 
 
@@ -174,9 +175,9 @@ class ApplicantArTranslator{
 
 
 		return $trad;
-    }
+	}
 
-    public static function getInstance()
+	public static function getInstance()
 	{
 		return new Applicant();
 	}

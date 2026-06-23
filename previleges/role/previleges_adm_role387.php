@@ -1,14 +1,14 @@
 <?php
 
-	$role_info[387] = array (
+$role_info[387] = array(
   'code' => 'goal-ADM-LOOKUP',
-  'name' => 
-  array (
+  'name' =>
+  array(
     'ar' => 'البيانات المرجعية',
     'en' => 'Reference data',
   ),
-  'menu' => 
-  array (
+  'menu' =>
+  array(
     'need_admin' => false,
     'id' => '387',
     'menu_name_' => 'البيانات المرجعية',
@@ -18,10 +18,10 @@
     'css' => 'info',
     'icon' => ' icon-387',
     'showme' => true,
-    'items' => 
-    array (
-      104653 => 
-      array (
+    'items' =>
+    array(
+      104653 =>
+      array(
         'id' => '104653',
         'code' => 'f2-a-training_unit_type/qedit',
         'level' => '999',
@@ -31,8 +31,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104653 bfc-',
       ),
-      104660 => 
-      array (
+      104660 =>
+      array(
         'id' => '104660',
         'code' => 'f2-a-institution/qedit',
         'level' => '999',
@@ -42,8 +42,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104660 bfc-',
       ),
-      104688 => 
-      array (
+      104688 =>
+      array(
         'id' => '104688',
         'code' => 'f2-a-program_track/qedit',
         'level' => '999',
@@ -53,19 +53,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104688 bfc-',
       ),
-      104761 => 
-      array (
+      104761 =>
+      array(
         'id' => '104761',
         'code' => 'f2-a-qualification/qedit',
         'level' => '999',
-        'menu_name_ar' => 'إدارة المؤهلات',
+        'menu_name_ar' => 'إدارة المؤهــلات',
         'menu_name_en' => 'Qualifications administration',
         'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Qualification&currmod=adm&ids=all&newo=3',
         'css' => 'bf',
         'icon' => 'bficon-104761 bfc-',
       ),
-      104747 => 
-      array (
+      104747 =>
+      array(
         'id' => '104747',
         'code' => 'f2-a-major_path/qedit',
         'level' => '999',
@@ -75,22 +75,22 @@
         'css' => 'bf',
         'icon' => 'bficon-104747 bfc-',
       ),
-      104768 => 
-      array (
+      104768 =>
+      array(
         'id' => '104768',
         'code' => 'f2-a-qualification_major/qedit',
         'level' => '999',
-        'menu_name_ar' => 'إدارة تخصصات المؤهلات',
+        'menu_name_ar' => 'إدارة تخصصات المؤهــلات',
         'menu_name_en' => 'Qualification majors administration',
         'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=QualificationMajor&currmod=adm&ids=all&newo=3',
         'css' => 'bf',
         'icon' => 'bficon-104768 bfc-',
       ),
     ),
-    'otherbfs' => 
-    array (
-      104652 => 
-      array (
+    'otherbfs' =>
+    array(
+      104652 =>
+      array(
         'id' => '104652',
         'code' => 'f2-a-training_unit_type/edit',
         'level' => '999',
@@ -100,8 +100,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104652 bfc-',
       ),
-      104653 => 
-      array (
+      104653 =>
+      array(
         'id' => '104653',
         'code' => 'f2-a-training_unit_type/qedit',
         'level' => '999',
@@ -111,8 +111,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104653 bfc-',
       ),
-      104654 => 
-      array (
+      104654 =>
+      array(
         'id' => '104654',
         'code' => 'f2-a-training_unit_type/delete',
         'level' => '999',
@@ -122,8 +122,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104654 bfc-',
       ),
-      104655 => 
-      array (
+      104655 =>
+      array(
         'id' => '104655',
         'code' => 'f2-a-training_unit_type/display',
         'level' => '999',
@@ -133,8 +133,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104655 bfc-',
       ),
-      104656 => 
-      array (
+      104656 =>
+      array(
         'id' => '104656',
         'code' => 'f2-a-training_unit_type/search',
         'level' => '999',
@@ -144,8 +144,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104656 bfc-',
       ),
-      104657 => 
-      array (
+      104657 =>
+      array(
         'id' => '104657',
         'code' => 'f2-a-training_unit_type/qsearch',
         'level' => '999',
@@ -155,8 +155,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104657 bfc-',
       ),
-      104660 => 
-      array (
+      104660 =>
+      array(
         'id' => '104660',
         'code' => 'f2-a-institution/qedit',
         'level' => '999',
@@ -166,8 +166,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104660 bfc-',
       ),
-      104687 => 
-      array (
+      104687 =>
+      array(
         'id' => '104687',
         'code' => 'f2-a-program_track/edit',
         'level' => '999',
@@ -177,8 +177,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104687 bfc-',
       ),
-      104688 => 
-      array (
+      104688 =>
+      array(
         'id' => '104688',
         'code' => 'f2-a-program_track/qedit',
         'level' => '999',
@@ -188,8 +188,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104688 bfc-',
       ),
-      104689 => 
-      array (
+      104689 =>
+      array(
         'id' => '104689',
         'code' => 'f2-a-program_track/delete',
         'level' => '999',
@@ -199,8 +199,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104689 bfc-',
       ),
-      104690 => 
-      array (
+      104690 =>
+      array(
         'id' => '104690',
         'code' => 'f2-a-program_track/display',
         'level' => '999',
@@ -210,8 +210,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104690 bfc-',
       ),
-      104691 => 
-      array (
+      104691 =>
+      array(
         'id' => '104691',
         'code' => 'f2-a-program_track/search',
         'level' => '999',
@@ -221,8 +221,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104691 bfc-',
       ),
-      104692 => 
-      array (
+      104692 =>
+      array(
         'id' => '104692',
         'code' => 'f2-a-program_track/qsearch',
         'level' => '999',
@@ -232,8 +232,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104692 bfc-',
       ),
-      104746 => 
-      array (
+      104746 =>
+      array(
         'id' => '104746',
         'code' => 'f2-a-major_path/edit',
         'level' => '999',
@@ -243,8 +243,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104746 bfc-',
       ),
-      104747 => 
-      array (
+      104747 =>
+      array(
         'id' => '104747',
         'code' => 'f2-a-major_path/qedit',
         'level' => '999',
@@ -254,8 +254,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104747 bfc-',
       ),
-      104749 => 
-      array (
+      104749 =>
+      array(
         'id' => '104749',
         'code' => 'f2-a-major_path/display',
         'level' => '999',
@@ -265,8 +265,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104749 bfc-',
       ),
-      104750 => 
-      array (
+      104750 =>
+      array(
         'id' => '104750',
         'code' => 'f2-a-major_path/search',
         'level' => '999',
@@ -276,8 +276,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104750 bfc-',
       ),
-      104751 => 
-      array (
+      104751 =>
+      array(
         'id' => '104751',
         'code' => 'f2-a-major_path/qsearch',
         'level' => '999',
@@ -287,8 +287,8 @@
         'css' => 'bf',
         'icon' => 'bficon-104751 bfc-',
       ),
-      104760 => 
-      array (
+      104760 =>
+      array(
         'id' => '104760',
         'code' => 'f2-a-qualification/edit',
         'level' => '999',
@@ -298,19 +298,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104760 bfc-',
       ),
-      104761 => 
-      array (
+      104761 =>
+      array(
         'id' => '104761',
         'code' => 'f2-a-qualification/qedit',
         'level' => '999',
-        'menu_name_ar' => 'إدارة المؤهلات',
+        'menu_name_ar' => 'إدارة المؤهــلات',
         'menu_name_en' => 'Qualifications administration',
         'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=Qualification&currmod=adm&ids=all&newo=3',
         'css' => 'bf',
         'icon' => 'bficon-104761 bfc-',
       ),
-      104763 => 
-      array (
+      104763 =>
+      array(
         'id' => '104763',
         'code' => 'f2-a-qualification/display',
         'level' => '999',
@@ -320,30 +320,30 @@
         'css' => 'bf',
         'icon' => 'bficon-104763 bfc-',
       ),
-      104764 => 
-      array (
+      104764 =>
+      array(
         'id' => '104764',
         'code' => 'f2-a-qualification/search',
         'level' => '999',
-        'menu_name_ar' => 'البحث في المؤهلات',
+        'menu_name_ar' => 'البحث في المؤهــلات',
         'menu_name_en' => 'Qualifications search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=Qualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104764 bfc-',
       ),
-      104765 => 
-      array (
+      104765 =>
+      array(
         'id' => '104765',
         'code' => 'f2-a-qualification/qsearch',
         'level' => '999',
-        'menu_name_ar' => 'المؤهلات',
+        'menu_name_ar' => 'المؤهــلات',
         'menu_name_en' => 'Qualifications',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=Qualification&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104765 bfc-',
       ),
-      104767 => 
-      array (
+      104767 =>
+      array(
         'id' => '104767',
         'code' => 'f2-a-qualification_major/edit',
         'level' => '999',
@@ -353,19 +353,19 @@
         'css' => 'bf',
         'icon' => 'bficon-104767 bfc-',
       ),
-      104768 => 
-      array (
+      104768 =>
+      array(
         'id' => '104768',
         'code' => 'f2-a-qualification_major/qedit',
         'level' => '999',
-        'menu_name_ar' => 'إدارة تخصصات المؤهلات',
+        'menu_name_ar' => 'إدارة تخصصات المؤهــلات',
         'menu_name_en' => 'Qualification majors administration',
         'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=QualificationMajor&currmod=adm&ids=all&newo=3',
         'css' => 'bf',
         'icon' => 'bficon-104768 bfc-',
       ),
-      104770 => 
-      array (
+      104770 =>
+      array(
         'id' => '104770',
         'code' => 'f2-a-qualification_major/display',
         'level' => '999',
@@ -375,31 +375,30 @@
         'css' => 'bf',
         'icon' => 'bficon-104770 bfc-',
       ),
-      104771 => 
-      array (
+      104771 =>
+      array(
         'id' => '104771',
         'code' => 'f2-a-qualification_major/search',
         'level' => '999',
-        'menu_name_ar' => 'البحث في تخصصات المؤهلات',
+        'menu_name_ar' => 'البحث في تخصصات المؤهــلات',
         'menu_name_en' => 'Qualification majors search',
         'page' => 'main.php?Main_Page=afw_mode_search.php&cl=QualificationMajor&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104771 bfc-',
       ),
-      104772 => 
-      array (
+      104772 =>
+      array(
         'id' => '104772',
         'code' => 'f2-a-qualification_major/qsearch',
         'level' => '999',
-        'menu_name_ar' => 'تخصصات المؤهلات',
+        'menu_name_ar' => 'تخصصات المؤهــلات',
         'menu_name_en' => 'Qualification majors',
         'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=QualificationMajor&currmod=adm',
         'css' => 'bf',
         'icon' => 'bficon-104772 bfc-',
       ),
     ),
-    'sub-folders' => 
-    array (
-    ),
+    'sub-folders' =>
+    array(),
   ),
 );
