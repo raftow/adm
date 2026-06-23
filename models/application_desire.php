@@ -547,7 +547,9 @@ class ApplicationDesire extends AdmObject
                                 if ($scholarshipObj) {
                                         $sponsorObj = $scholarshipObj->het('sponsor_id');
                                         if ($sponsorObj) {
-                                                $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                                                $authorityCodeObj = $sponsorObj->het('sis_code');        
+                                                $sponsorSISCode = $authorityCodeObj->getVal('lookup_code');
+                                                $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
                                         }
                                 }
                         }
@@ -597,6 +599,8 @@ class ApplicationDesire extends AdmObject
                         "academicStatus" => $studentStatus, // to be mapped from workflow status
                         "period" => ($this->applicationObj->getVal('training_period_enum') == 1) ? "L1" : "N1",
                         "sponsorId" => $sponsorSISCode == "" ? null : $sponsorSISCode,
+                        "recEmployer" => $applicantObj->getVal('employer_desc') == "" ? null : substr($applicantObj->getVal('employer_desc'), 0, 50),
+                        "contEmployer"  => $contractorName == "" ? null : substr($contractorName, 0, 50),
                         "enableMatch" => "N",
                         "dateFormat" => "DD/MM/YYYY"
                 ];
