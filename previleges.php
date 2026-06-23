@@ -39,6 +39,7 @@ include('previleges/table/previleges_adm_table_applicant_step_request.php');
 include('previleges/table/previleges_adm_table_application.php');
 include('previleges/table/previleges_adm_table_application_condition_exec.php');
 include('previleges/table/previleges_adm_table_application_desire.php');
+include('previleges/table/previleges_adm_table_application_exception.php');
 include('previleges/table/previleges_adm_table_application_field.php');
 include('previleges/table/previleges_adm_table_application_model.php');
 include('previleges/table/previleges_adm_table_application_model_branch.php');

@@ -1,51 +1,50 @@
 <?php
 
-	$tbf_info['service_request'] = array (
+$tbf_info['service_request'] = array(
   'id' => '14010',
-  'display' => 
-  array (
+  'display' =>
+  array(
     'id' => '105078',
   ),
-  'search' => 
-  array (
+  'search' =>
+  array(
     'id' => '105079',
   ),
-  'qsearch' => 
-  array (
+  'qsearch' =>
+  array(
     'id' => '105080',
   ),
-  'edit' => 
-  array (
+  'edit' =>
+  array(
     'id' => '105075',
   ),
-  'qedit' => 
-  array (
+  'qedit' =>
+  array(
     'id' => '105076',
   ),
-  'crossed' => 
-  array (
+  'crossed' =>
+  array(
     'id' => -1,
   ),
-  'stats' => 
-  array (
+  'stats' =>
+  array(
     'id' => '105081',
   ),
-  'ddb' => 
-  array (
+  'ddb' =>
+  array(
     'id' => -1,
   ),
-  'minibox' => 
-  array (
+  'minibox' =>
+  array(
     'id' => -1,
   ),
-  'delete' => 
-  array (
+  'delete' =>
+  array(
     'id' => '105077',
   ),
 );
 
 
-	$tab_info[14010] = array (
+$tab_info[14010] = array(
   'name' => 'service_request',
 );
-
