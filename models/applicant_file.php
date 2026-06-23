@@ -251,16 +251,6 @@ class ApplicantFile extends AdmObject
         if ($attribute == "pic_view") return true;
         return false;
     }
-
-    /**
-     * @param Auser $auser
-     */
-    public function canBeSpeciallyDisplayedBy($auser)
-    {
-        $applicant_file_hierarchy_level_needed = AfwSession::config("applicant_file_hierarchy_level_needed", 999);
-        $user_hierarchy_level_enum = $auser->getVal('hierarchy_level_enum');
-        return ($user_hierarchy_level_enum <= $applicant_file_hierarchy_level_needed);
-    }
 }
 
 // errors
