@@ -458,7 +458,7 @@ class ApplicationDesire extends AdmObject
                                 $method_icon,
                                 $lang,
                                 false,
-                                $objme->isSuperAdmin()
+                                true
                         );
                 } else {
                         return "--";
