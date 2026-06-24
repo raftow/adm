@@ -1723,6 +1723,9 @@ class Application extends AdmObject
                 return [$this->myApplicationDesireList, $log, $nb_desires_gen, $nb_desires_mfk];
         }
 
+        /**
+         * @return array
+         */
         public function bootstrapApplication($lang = "ar", $returnLastStepCode = false, $options = [])
         {
                 $app_name = $this->getDisplay($lang);
@@ -3383,7 +3386,7 @@ class Application extends AdmObject
 
         public function canBeDeletedWithoutRoleBy($auser)
         {
-                if($auser->id==3) return [true, ''];
-                return [false, 'not authorized yet Without Role for this user '.$auser];
+                if ($auser->id == 3) return [true, ''];
+                return [false, 'not authorized yet Without Role for this user ' . $auser];
         }
 }
