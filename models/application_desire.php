@@ -563,10 +563,10 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
                 }
-                if ($sponsorObj) 
+                if ($ncObject) 
                 {
-                        $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
-                        $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
+                        $authorityCodeObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id')->het('sis_code');
+                        $contractorName = $authorityCodeObj->getVal('lookup_code') . "-" . $authorityCodeObj->getVal('name_ar');
                 }
                 $data = [
                         "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'), // "202510", 
