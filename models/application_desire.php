@@ -558,7 +558,7 @@ class ApplicationDesire extends AdmObject
                                 $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
                                 if ($sponsorObj) {
                                         $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
-                                        $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
+                                        //$contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
 
                                 }
                         }
