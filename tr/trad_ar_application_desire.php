@@ -22,7 +22,7 @@ class ApplicationDesireArTranslator
 		$trad["application_desire"]["desire_status_enum"] = "حالة الرغبة";
 		$trad["application_desire"]["applicant_qualification_id"] = "مؤهل المتقدم";
 		$trad["application_desire"]["qualification_id"] = "المؤهل";
-		$trad["application_desire"]["major_category_id"] = "فئة التخصص";
+		$trad["application_desire"]["major_category_id"] = "التخــصــص العام";
 		$trad["application_desire"]["health_ind"] = "لائق طبيا";
 		$trad["application_desire"]["desire_num"] = "ترتيب الرغبة";
 		$trad["application_desire"]["comments"] = "ملاحظات";

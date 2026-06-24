@@ -17,5 +17,5 @@ $trad["qualification"]["level_enum"] = "المستوى";
 $trad["qualification"]["maqbool_id"] = "الربط مع خدمة مقبول";
 $trad["qualification"]["sis_code"] = "الربط مع نظام المتدربين";
 $trad["qualification"]["qualSourceList"] = "قائمة مصادر المؤهل";
-$trad["qualification"]["qualMajorPathList"] = "قائمة التخــصــصات الدقيــقـــة";
+$trad["qualification"]["qualMajorPathList"] = "قائمة مسارات التأهيل";
 $trad["qualification"]["gpa_from"] = "الدرجة القصوى";

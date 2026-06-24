@@ -66,7 +66,7 @@ class ProgramQualification extends AdmObject
 
         public static function pathExistsFor($academic_program_id, $split_sorting_by_enum, $major_path_id, $returnObject = false)
         {
-                // 2 = "تقسيم حسب التخــصــص العام" = "Split with major path"
+                // 2 = "تقسيم حسب مجموعة التأهيل" = "Split with major path"
                 if ($split_sorting_by_enum == 2) {
                         $mpObj = MajorPath::loadById($major_path_id);
                         $qualification_id = $mpObj->getVal("qualification_id");

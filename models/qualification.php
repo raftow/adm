@@ -75,7 +75,7 @@ class Qualification extends AdmObject
         if ($mode == "mode_qualMajorPathList") {
             unset($link);
             $link = array();
-            $title = "إضافة تخــصــص دقيق جديد";
+            $title = "إضافة مسار تأهيل جديد";
             $title_detailed = $title . "لـ : " . $displ;
             $link["URL"] = "main.php?Main_Page=afw_mode_edit.php&cl=QualMajorPath&currmod=adm&sel_qualification_id=$my_id";
             $link["TITLE"] = $title;

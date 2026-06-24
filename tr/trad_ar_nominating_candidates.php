@@ -63,13 +63,13 @@ class NominatingCandidatesArTranslator
 
 		$trad["nominating_candidates"]["applicantFileList"] = "قائمة مرفقات المتقدم";
 		$trad["nominating_candidates"]["qualification_id"] = "المؤهل";
-		$trad["nominating_candidates"]["major_category_id"] = "فئة التخصص";
-		$trad["nominating_candidates"]["major_path_id"] = "التخــصــص العام";
-		$trad["nominating_candidates"]["qualification_major_id"] = "تخصص المؤهل";
+		$trad["nominating_candidates"]["major_category_id"] = "التخــصــص العام";
+		$trad["nominating_candidates"]["major_path_id"] = "مجموعة التأهيل";
+		$trad["nominating_candidates"]["qualification_major_id"] = "التخصص الدقيق";
 		$trad["nominating_candidates"]["gpa"] = "المعدل";
 		$trad["nominating_candidates"]["gpa_from"] = "المعدل من";
 		$trad["nominating_candidates"]["date"] = "تاريخ  المؤهل";
-		$trad["nominating_candidates"]["qualification_major_desc"] = "وصف تخصص المؤهل";
+		$trad["nominating_candidates"]["qualification_major_desc"] = "وصف التخصص الدقيق";
 		$trad["nominating_candidates"]["adm_file_id"] = "المرفق";
 		$trad["nominating_candidates"]["qual_country_id"] = "الدولة مصدر المؤهل";
 		$trad["nominating_candidates"]["grading_scale_id"] = "التقدير";
