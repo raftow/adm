@@ -48,7 +48,7 @@ class ApplicationArTranslator
 		$trad["application"]["application_status_enum"] = "حالة التقديم";
 		$trad["application"]["comments"] = "ملاحظات";
 		$trad["application"]["qualification_id"] = "المؤهل";
-		$trad["application"]["major_category_id"] = "فئة التخصص";
+		$trad["application"]["major_category_id"] = "التخــصــص العام";
 		$trad["application"]["application_fees_paid"] = "رسوم التقديم مسددة";
 
 		$trad["application"]["program_id"] = "البرنامج";

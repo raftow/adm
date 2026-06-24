@@ -14,9 +14,9 @@ class ApplicantQualificationArTranslator
 
 		$trad["applicant_qualification"]["applicant_id"] = "المتقدم";
 		$trad["applicant_qualification"]["qualification_id"] = "المؤهل";
-		$trad["applicant_qualification"]["major_category_id"] = "فئة التخصص";
+		$trad["applicant_qualification"]["major_category_id"] = "التخــصــص العام";
 		$trad["applicant_qualification"]["major_path_id"] = "مجموعة التأهيل";
-		$trad["applicant_qualification"]["qualification_major_id"] = "تخصص المؤهل";
+		$trad["applicant_qualification"]["qualification_major_id"] = "التخصص الدقيق";
 		$trad["applicant_qualification"]["gpa"] = "المعدل";
 		$trad["applicant_qualification"]["gpa_from"] = "من";
 		$trad["applicant_qualification"]["date"] = "تاريخ المؤهل";
@@ -24,7 +24,7 @@ class ApplicantQualificationArTranslator
 		$trad["applicant_qualification"]["imported"] = "تم التحقق";
 		$trad["applicant_qualification"]["imported.help"] = "تم التحقق من المؤهــلات";
 		$trad["applicant_qualification"]["import_utility_id"] = "مصدر استيراد البيانات";
-		$trad["applicant_qualification"]["qualification_major_desc"] = "وصف تخصص المؤهل";
+		$trad["applicant_qualification"]["qualification_major_desc"] = "وصف التخصص الدقيق";
 		$trad["applicant_qualification"]["adm_file_id"] = "المرفق";
 		$trad["applicant_qualification"]["source_name"] = "مصدر المؤهل";
 		$trad["applicant_qualification"]["university"] = "الجامعة";

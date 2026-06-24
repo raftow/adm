@@ -17,28 +17,24 @@ class ProgramQualification extends AdmObject
 
         public static function loadById($id)
         {
-                if(!self::$arrAllProgramQualification[$id])
-                {
+                if (!self::$arrAllProgramQualification[$id]) {
                         $obj = new ProgramQualification();
-                        if($obj->load($id))
-                        {
-                                self::$arrAllProgramQualification[$id] =& $obj;
-                        }
-                        else self::$arrAllProgramQualification[$id] = "NOT-FOUND";
+                        if ($obj->load($id)) {
+                                self::$arrAllProgramQualification[$id] = &$obj;
+                        } else self::$arrAllProgramQualification[$id] = "NOT-FOUND";
                 }
-                if(self::$arrAllProgramQualification[$id]=="NOT-FOUND") return null;
+                if (self::$arrAllProgramQualification[$id] == "NOT-FOUND") return null;
 
-                return self::$arrAllProgramQualification[$id];                
+                return self::$arrAllProgramQualification[$id];
         }
 
-        public static function loadByMainIndex($academic_program_id, $qualification_id, $major_path_id, $qualification_major_id=0, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($academic_program_id, $qualification_id, $major_path_id, $qualification_major_id = 0, $create_obj_if_not_found = false)
         {
                 if (!$academic_program_id) throw new AfwRuntimeException("loadByMainIndex : academic_program_id is mandatory field");
                 if (!$qualification_id) throw new AfwRuntimeException("loadByMainIndex : qualification_id is mandatory field");
                 if (!$major_path_id) throw new AfwRuntimeException("loadByMainIndex : major_path_id is mandatory field");
                 $id = "UK$academic_program_id-$qualification_id-$major_path_id-$qualification_major_id";
-                if(!self::$arrAllProgramQualification[$id])
-                {
+                if (!self::$arrAllProgramQualification[$id]) {
 
                         $obj = new ProgramQualification();
                         $obj->select("academic_program_id", $academic_program_id);
@@ -48,7 +44,7 @@ class ProgramQualification extends AdmObject
 
                         if ($obj->load()) {
                                 if ($create_obj_if_not_found) $obj->activate();
-                                self::$arrAllProgramQualification[$id] =& $obj;
+                                self::$arrAllProgramQualification[$id] = &$obj;
                         } elseif ($create_obj_if_not_found) {
                                 $obj->set("academic_program_id", $academic_program_id);
                                 $obj->set("qualification_id", $qualification_id);
@@ -58,36 +54,34 @@ class ProgramQualification extends AdmObject
                                 $obj->insertNew();
                                 if (!$obj->id) self::$arrAllProgramQualification[$id] = "NOT-FOUND";
                                 $obj->is_new = true;
-                                self::$arrAllProgramQualification[$id] =& $obj;
+                                self::$arrAllProgramQualification[$id] = &$obj;
                         } else self::$arrAllProgramQualification[$id] = "NOT-FOUND";
                 }
 
-                if(self::$arrAllProgramQualification[$id]=="NOT-FOUND") return null;
+                if (self::$arrAllProgramQualification[$id] == "NOT-FOUND") return null;
 
                 return self::$arrAllProgramQualification[$id];
         }
 
 
-        public static function pathExistsFor($academic_program_id, $split_sorting_by_enum, $major_path_id, $returnObject=false)
+        public static function pathExistsFor($academic_program_id, $split_sorting_by_enum, $major_path_id, $returnObject = false)
         {
                 // 2 = "تقسيم حسب مجموعة التأهيل" = "Split with major path"
                 if ($split_sorting_by_enum == 2) {
                         $mpObj = MajorPath::loadById($major_path_id);
                         $qualification_id = $mpObj->getVal("qualification_id");
-                        if($academic_program_id and $qualification_id and $major_path_id)
-                        {
+                        if ($academic_program_id and $qualification_id and $major_path_id) {
                                 $progQualObj = self::loadByMainIndex($academic_program_id, $qualification_id, $major_path_id, 0);
-                        }
-                        else $progQualObj = null;
+                        } else $progQualObj = null;
 
                         // if(!$progQualObj) die("self::loadByMainIndex($academic_program_id, $qualification_id, $major_path_id, 0) not found");
 
-                        if($returnObject) return $progQualObj;
-                        else return ($progQualObj and ($progQualObj->id>0));
+                        if ($returnObject) return $progQualObj;
+                        else return ($progQualObj and ($progQualObj->id > 0));
                 }
 
 
-                if($returnObject) return null;
+                if ($returnObject) return null;
                 else return false;
         }
 
@@ -108,35 +102,34 @@ class ProgramQualification extends AdmObject
         {
 
                 $pbms = array();
-                
+
                 $color = "green";
                 $title_ar = "طباعة التقرير";
                 $methodName = "programQualificationReport";
                 $pbms[AfwStringHelper::hzmEncode($methodName)] = array("METHOD" => $methodName, "COLOR" => $color, "LABEL_AR" => $title_ar, "ADMIN-ONLY" => true, "BF-ID" => "");/*'STEP' => 1*/
-                
-                
+
+
                 return $pbms;
-                
         }
         public function programQualificationReport($lang = "ar", $commit = true)
         {
-        
-        
+
+
                 require_once __DIR__ . '/../../lib/vendor/autoload.php';
                 //die(__DIR__ . '/../../lib/vendor/autoload.php');
-                
+
                 $mpdf = new \Mpdf\Mpdf([
-                'mode' => 'utf-8',
-                'format' => 'A4',
-                'orientation' => 'P',
-                'default_font' => 'xbriyaz',//'dejavusans', // يدعم العربية
-                'margin_top' => 15, // Margin for the main body content
-                'margin_bottom' => 25,
-                'margin_header' => 5, // Margin for the header content
-                'margin_footer' => 10, 
-                'margin_left' => 3,
-                'margin_right' =>3,
-                'setAutoTopMargin' => 'pad'
+                        'mode' => 'utf-8',
+                        'format' => 'A4',
+                        'orientation' => 'P',
+                        'default_font' => 'xbriyaz', //'dejavusans', // يدعم العربية
+                        'margin_top' => 15, // Margin for the main body content
+                        'margin_bottom' => 25,
+                        'margin_header' => 5, // Margin for the header content
+                        'margin_footer' => 10,
+                        'margin_left' => 3,
+                        'margin_right' => 3,
+                        'setAutoTopMargin' => 'pad'
                 ]);
                 $db = $this->getDatabase();
                 $query = "select v.academic_level_name_ar, pg.program_name_ar,f.id qualifcation, f.qualifcation_name_ar, g.id major_category_id,g.major_category_name_ar ,
@@ -146,12 +139,12 @@ class ProgramQualification extends AdmObject
                         and pg.academic_level_id=v.id and t.major_category_id=g.id
                         ";
                 $result = AfwDatabase::db_recup_rows($query);
-                
-                $arr_pdf = array();
-                
 
-                foreach($result as $row){
-                $arr_pdf[$row["academic_level_name_ar"]][$row["program_name_ar"]][$row["qualifcation_name_ar"]][$row["major_category_name_ar"]][] = array($row["qualification_major_name_ar"],$row["bridging"],$row["bridging_semester"]);
+                $arr_pdf = array();
+
+
+                foreach ($result as $row) {
+                        $arr_pdf[$row["academic_level_name_ar"]][$row["program_name_ar"]][$row["qualifcation_name_ar"]][$row["major_category_name_ar"]][] = array($row["qualification_major_name_ar"], $row["bridging"], $row["bridging_semester"]);
                 }
                 //die(var_dump($arr_pdf));
                 $html_header = '<div style="background-color: rgb(46, 96, 102); padding: 10px 20px; font-family: xbriyaz,Arial, sans-serif;">
@@ -163,7 +156,7 @@ class ProgramQualification extends AdmObject
                         <td style="vertical-align: middle; font-size: 18px; font-weight: bold; color: white; border: none;">
                                 قائمة مسارات البرامج الاكاديمية
                         </td>
-                        <td style="text-align:left;vertical-align: middle; font-size: 14px; font-weight: bold; color: white; border: none;">'.date('Y/m/d').'</td>
+                        <td style="text-align:left;vertical-align: middle; font-size: 14px; font-weight: bold; color: white; border: none;">' . date('Y/m/d') . '</td>
                         </tr>
                 </table>
                 </div>';
@@ -207,22 +200,22 @@ class ProgramQualification extends AdmObject
 
                 $list .= '<ul class="qualifications-list" style="font-family: xbriyaz !important;">';
 
-                foreach($arr_pdf as $qualification => $majors) {
+                foreach ($arr_pdf as $qualification => $majors) {
                         $list .= '<li>';
                         $list .= '<strong>' . htmlspecialchars($qualification) . '</strong>';
 
                         $list .= '<ul class="majors-list">';
 
-                        foreach($majors as $AcademicLevel => $programList) {
+                        foreach ($majors as $AcademicLevel => $programList) {
                                 $list .= '<li>';
                                 $list .= '<h3 style="margin-top:20px; font-size:18px;">' . htmlspecialchars($AcademicLevel) . '</h3>';
                                 $list .= '<ul class="majors-list">';
-                                foreach($programList as $program => $majorsList) {
+                                foreach ($programList as $program => $majorsList) {
                                         $list .= '<li>';
                                         $list .= '<h3 style="margin-top:20px; font-size:18px;">' . htmlspecialchars($program) . '</h3>';
                                         $list .= '<ul class="majors-list">';
-                                                
-                                        foreach($majorsList as $Qualification => $QualificationList) {
+
+                                        foreach ($majorsList as $Qualification => $QualificationList) {
                                                 $list .= '<li>';
                                                 $list .= '<h4 style="margin-top:20px; font-size:18px;">' . htmlspecialchars($Qualification) . '</h4>';
                                                 // جدول التخصصات
@@ -237,9 +230,9 @@ class ProgramQualification extends AdmObject
                                                                 </tr>
                                                         </thead>
                                                         <tbody>';
-//die(var_dump($QualificationList));
+                                                //die(var_dump($QualificationList));
                                                 foreach ($QualificationList as $major) {
-                                                        $extraValue = ($major[1]=='Y') ? 'نعم' : 'لا';
+                                                        $extraValue = ($major[1] == 'Y') ? 'نعم' : 'لا';
                                                         $list .= '
                                                         <tr>
                                                                 <td style="border:1px solid #ccc; padding:8px;">' . htmlspecialchars($major[0]) . '</td>
@@ -255,11 +248,8 @@ class ProgramQualification extends AdmObject
                                                         </table>
                                                 ';
                                                 $list .= '</li>';
-                                                }
-
-                                                $list .= '</ul>';
-                                                $list .= '</li>';
                                         }
+
                                         $list .= '</ul>';
                                         $list .= '</li>';
                                 }
@@ -267,20 +257,23 @@ class ProgramQualification extends AdmObject
                                 $list .= '</li>';
                         }
                         $list .= '</ul>';
+                        $list .= '</li>';
+                }
+                $list .= '</ul>';
 
                 $html .= $list;
 
                 $html .= '<br><br><br><p style="text-align:right; margin-top:20px;">
-                        تم إنشاء التقرير بتاريخ '.date('Y-m-d').'
+                        تم إنشاء التقرير بتاريخ ' . date('Y-m-d') . '
                 </p>
 
                 ';
-                $mpdf->SetMargins(15, 50,15);
+                $mpdf->SetMargins(15, 50, 15);
                 //$mpdf->SetHeaderMargin(10);
                 //$mpdf->SetFooterMargin(10);
-//echo $html;
-$fonts = $mpdf->fontdata;
-/*
+                //echo $html;
+                $fonts = $mpdf->fontdata;
+                /*
 echo "<pre>";
 print_r(array_keys($fonts));
 echo "</pre>";

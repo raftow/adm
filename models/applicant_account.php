@@ -23,7 +23,7 @@ class ApplicantAccount extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id, $total_amount=null, $payment_status_enum=null, $create_obj_if_not_found = false)
+        public static function loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $application_model_financial_transaction_id, $total_amount = null, $payment_status_enum = null, $create_obj_if_not_found = false)
         {
                 if (!$applicant_id) throw new AfwRuntimeException("loadByMainIndex : applicant_id is mandatory field");
                 if (!$application_plan_id) throw new AfwRuntimeException("loadByMainIndex : application_plan_id is mandatory field");
@@ -38,11 +38,10 @@ class ApplicantAccount extends AdmObject
                 $obj->select("application_model_financial_transaction_id", $application_model_financial_transaction_id);
 
                 if ($obj->load()) {
-                        if ($create_obj_if_not_found) 
-                        {
-                                if($total_amount) $obj->set("total_amount", $total_amount);
-                                if($payment_status_enum) $obj->set("payment_status_enum", $payment_status_enum); 
-            
+                        if ($create_obj_if_not_found) {
+                                if ($total_amount) $obj->set("total_amount", $total_amount);
+                                if ($payment_status_enum) $obj->set("payment_status_enum", $payment_status_enum);
+
 
                                 $obj->activate();
                         }
@@ -52,8 +51,8 @@ class ApplicantAccount extends AdmObject
                         $obj->set("application_plan_id", $application_plan_id);
                         $obj->set("application_simulation_id", $application_simulation_id);
                         $obj->set("application_model_financial_transaction_id", $application_model_financial_transaction_id);
-                        if($total_amount) $obj->set("total_amount", $total_amount);
-                        if($payment_status_enum) $obj->set("payment_status_enum", $payment_status_enum); 
+                        if ($total_amount) $obj->set("total_amount", $total_amount);
+                        if ($payment_status_enum) $obj->set("payment_status_enum", $payment_status_enum);
 
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
@@ -81,5 +80,42 @@ class ApplicantAccount extends AdmObject
                 $application_simulation_id = $this->getVal("application_simulation_id");
                 $appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 return AfwLoadHelper::giveWhat($appObj, $what);
+        }
+
+        public function beforeDelete($id, $id_replace)
+        {
+                $server_db_prefix = AfwSession::config("db_prefix", "nauss_");
+
+                if (!$id) {
+                        $id = $this->getId();
+                        $simul = true;
+                } else {
+                        $simul = false;
+                }
+
+                if ($id) {
+                        if ($id_replace == 0) {
+                                // FK part of me - not deletable 
+
+
+                                // FK part of me - deletable 
+
+
+                                // FK not part of me - replaceable 
+
+
+
+                                // MFK
+
+                        } else {
+                                // FK on me 
+
+
+                                // MFK
+
+
+                        }
+                        return true;
+                }
         }
 }

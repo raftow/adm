@@ -9,7 +9,7 @@ $trad["program_qualification"]["academic_program_id"] = "البرنامج الت
 $trad["program_qualification"]["qualification_id"] = "المؤهل الاكاديمي";
 $trad["program_qualification"]["major_path_id"] = "مجموعة التـأهيل";
 $trad["program_qualification"]["major_id"] = "تخصص البرنامح";
-$trad["program_qualification"]["qualification_major_id"] = "تخصص المؤهل";
+$trad["program_qualification"]["qualification_major_id"] = "التخصص الدقيق";
 $trad["program_qualification"]["bridging"] = "يحتاج مقررات تكميلية؟";
 $trad["program_qualification"]["qual_source_mfk"] = "مصادر المؤهــلات العلمية";
 

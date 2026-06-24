@@ -130,7 +130,7 @@ class QualMajorPath extends AdmObject
                         <img width="150" src="https://frontend.bmeholding.com/images/logo.svg" alt="brand logo" />
                     </td>
                     <td style="vertical-align: middle; font-size: 18px; font-weight: bold; color: white; border: none;">
-                        قائمة تخصصات المؤهــلات
+                        قائمة التخصصات الدقيقة
                     </td>
                     <td style="text-align:left;vertical-align: middle; font-size: 14px; font-weight: bold; color: white; border: none;">' . date('Y/m/d') . '</td>
                 </tr>
