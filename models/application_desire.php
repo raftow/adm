@@ -565,8 +565,12 @@ class ApplicationDesire extends AdmObject
                 }
                 if ($ncObject) 
                 {
-                        $authorityCodeObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id')->het('sis_code');
-                        $contractorName = $authorityCodeObj->getVal('lookup_code') . "-" . $authorityCodeObj->getVal('name_ar');
+                        $nominationLetterObj = $ncObject->het("nomination_letter_id");
+                        if($nominationLetterObj) $nominatingAuthorityObj = $nominationLetterObj->het('nominating_authority_id');
+                        if($nominatingAuthorityObj) $authorityCodeObj = $nominatingAuthorityObj->het('sis_code');
+                        if($authorityCodeObj){
+                                $contractorName = $authorityCodeObj->getVal('lookup_code') . "-" . $authorityCodeObj->getVal('name_ar');
+                        }
                 }
                 $data = [
                         "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'), // "202510", 
