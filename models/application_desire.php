@@ -536,6 +536,7 @@ class ApplicationDesire extends AdmObject
                         $applicationClassEnumId = $workflow_request->getVal("application_class_enum");
                         $applicationClassObj = ApplicationClass::loadById($applicationClassEnumId);
                 }
+                $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                 if ($applicationClassObj && $applicationClassObj->getVal("scholarship_ind") == "Y") {
                         $obj = new ApplicantScholarship();
                         $obj->select("applicant_id", $this->getVal('applicant_id'));
@@ -549,18 +550,23 @@ class ApplicationDesire extends AdmObject
                                         if ($sponsorObj) {
                                                 $authorityCodeObj = $sponsorObj->het('sis_code');
                                                 $sponsorSISCode = $authorityCodeObj->getVal('lookup_code');
-                                                $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
                                         }
                                 }
                         }
                 } else {
-                        $ncObject = $this->getVal('nominating_candidates_id') ? $this->het('nominating_candidates_id') : null;
                         if ($ncObject) {
                                 $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
                                 if ($sponsorObj) {
                                         $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                                        $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
+
                                 }
                         }
+                }
+                if ($sponsorObj) 
+                {
+                        $sponsorSISCode = $sponsorObj->het('sis_code')->getVal('lookup_code');
+                        $contractorName = $sponsorSISCode . "-" . $authorityCodeObj->getVal('name_ar');
                 }
                 $data = [
                         "term" => $this->applicationObj->het('application_plan_id')->het('term_id')->getVal('term_code'), // "202510", 
