@@ -13,7 +13,7 @@ class AdmApplicantEvaluationAfwStructure
                         $obj->UNIQUE_KEY = array('evaluation_id', 'applicant_id', 'eval_date');
                         // tempo for amjad demo @todo
                         $obj->public_display = true;
-                        // $obj->IS_LOOKUP = true;
+                        $obj->OwnedBy = array('module' => 'adm', 'afw' => 'Applicant');
 
                         $obj->editByStep = false;
                         //$obj->editNbSteps = 1; 

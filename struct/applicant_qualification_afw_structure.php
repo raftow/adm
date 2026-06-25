@@ -9,6 +9,7 @@ class AdmApplicantQualificationAfwStructure
                         $obj->DISPLAY_FIELD = array('applicant_id', 'qualification_id', 'major_category_id');
                         $obj->ORDER_BY_FIELDS = "applicant_id, date desc";
                         $obj->UNIQUE_KEY = array('applicant_id', 'qualification_id', 'major_category_id');
+                        $obj->OwnedBy = array('module' => 'adm', 'afw' => 'Applicant');
                         // tempo for amjad demo @todo
                         $obj->public_display = true;
                         // $obj->IS_LOOKUP = true;
