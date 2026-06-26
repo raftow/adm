@@ -1,11 +1,13 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-    
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`tuition_base` (
+try {
+
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`tuition_base` (
    `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -35,11 +37,7 @@ try
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_tuition_base on ".$server_db_prefix."adm.tuition_base(residency_enum,semester_type,tuition_model ,program_id);");
-
-
-}
-catch(Exception $e)
-{
+    AfwDatabase::db_query("create unique index uk_tuition_base on " . $server_db_prefix . "adm.tuition_base(residency_enum,semester_type,tuition_model ,program_id);");
+} catch (Exception $e) {
     $migration_error .= " " . $e->getMessage();
 }

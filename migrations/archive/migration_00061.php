@@ -1,10 +1,12 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`ADMStudentAdmission` (
+try {
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`ADMStudentAdmission` (
     `id`                INTEGER  NOT NULL auto_increment,
     `updated_at`        date  default NULL,
     `created_at`        date default Null,
@@ -32,9 +34,6 @@ try
     `RELEASEDNUMBER`    varchar(50)  NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;");
-    
-    
-}catch(Exception $e)
-{
-    $migration_info .= " " . $e->getMessage();
+} catch (Exception $e) {
+  $migration_info .= " " . $e->getMessage();
 }

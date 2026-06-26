@@ -1,14 +1,13 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_file add   document_type_id int(11) DEFAULT NULL  AFTER doc_type_id;");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.service_request add   application_plan_id int(11) NOT NULL  AFTER applicant_file_id;");
-
-    
-}catch(Exception $e)
-{
+try {
+    AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.applicant_file add   document_type_id int(11) DEFAULT NULL  AFTER doc_type_id;");
+    AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.service_request add   application_plan_id int(11) NOT NULL  AFTER applicant_file_id;");
+} catch (Exception $e) {
     $migration_info .= " " . $e->getMessage();
 }

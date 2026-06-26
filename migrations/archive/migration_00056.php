@@ -1,12 +1,14 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-if($server_db_prefix=="uoh_")
-{
-    AfwDatabase::db_query("DELETE FROM ".$server_db_prefix."adm.`program_qualification`;");
+if ($server_db_prefix == "uoh_") {
+    AfwDatabase::db_query("DELETE FROM " . $server_db_prefix . "adm.`program_qualification`;");
 
-    AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`program_qualification` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `academic_level_id`, `academic_program_id`, `major_id`, `qualification_id`, `major_path_id`, `qualification_major_id`, `bridging`, `qual_source_mfk`) VALUES
+    AfwDatabase::db_query("INSERT INTO " . $server_db_prefix . "adm.`program_qualification` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `academic_level_id`, `academic_program_id`, `major_id`, `qualification_id`, `major_path_id`, `qualification_major_id`, `bridging`, `qual_source_mfk`) VALUES
     (1, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 1, 0, 49, 143, NULL, NULL, NULL),
     (2, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 1, 0, 49, 141, NULL, NULL, NULL),
     (3, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 6, 0, 49, 143, NULL, NULL, NULL),
@@ -69,5 +71,5 @@ if($server_db_prefix=="uoh_")
     (60, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 32, 0, 49, 143, NULL, NULL, NULL),
     (61, 0, '2025-04-24 10:24:11', 0, '2025-04-24 10:24:11', NULL, '2025-04-24 10:24:11', '', 'Y', NULL, NULL, NULL, NULL, NULL, 2, 33, 0, 49, 143, NULL, NULL, NULL);");
 
-    AfwDatabase::db_query("UPDATE ".$server_db_prefix."adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
+    AfwDatabase::db_query("UPDATE " . $server_db_prefix . "adm.`program_qualification` set `qualification_major_id`=0 where `qualification_major_id` is null;");
 }

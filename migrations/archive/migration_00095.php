@@ -1,10 +1,12 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-           AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`engagement_type` (
+try {
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`engagement_type` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `created_by` int(11) NOT NULL,
             `created_at`   datetime NOT NULL,
@@ -29,7 +31,7 @@ try
             
             PRIMARY KEY (`id`)
             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-        /*
+    /*
             AfwDatabase::db_query("create unique index uk_engagement_type on ".$server_db_prefix."adm.engagement_type(engagement_type);");
         
             AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`engagement_type` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `engagement_type`, `engagement_type_name_ar`, `engagement_type_name_en`) VALUES
@@ -38,7 +40,7 @@ try
             (3, 1, '2025-12-07 10:46:57', 1, '2025-12-07 10:46:59', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, NULL, 'MC', 'شرط يدوي', 'Manual requirement');");
 */
 
-            AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`engagement` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`engagement` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `created_by` int(11) NOT NULL,
             `created_at`   datetime NOT NULL,
@@ -63,10 +65,10 @@ try
             
             PRIMARY KEY (`id`)
             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-            
-            //AfwDatabase::db_query("create unique index uk_engagement on ".$server_db_prefix."adm.engagement(engagement_type_id,engagement_name_ar);");
 
-            AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`engagement` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `engagement_type_id`, `engagement_name_ar`, `engagement_name_en`, `academic_level_mfk`) VALUES
+    //AfwDatabase::db_query("create unique index uk_engagement on ".$server_db_prefix."adm.engagement(engagement_type_id,engagement_name_ar);");
+
+    AfwDatabase::db_query("INSERT INTO " . $server_db_prefix . "adm.`engagement` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `engagement_type_id`, `engagement_name_ar`, `engagement_name_en`, `academic_level_mfk`) VALUES
             (1, 1, '2025-12-07 10:52:20', 1, '2025-12-07 10:52:23', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, 1, 'أقرّ بأن جميع البيانات والمعلومات والوثائق التي قدّمتها في طلب الالتحاق ببرامج الدراسات العليا صحيحة وكاملة، وخالية من أي تحريف أو إخفاء لحقائق جوهرية، وأتحمّل كامل المسؤولية عن ذلك.', 'I acknowledge that all data, information, and documents submitted in my application for admission to graduate programs are true, complete, and free from any misrepresentation or concealment of material facts, and I bear full responsibility for this.', ',11,12,13,14,'),
             (2, 1, '2025-12-07 10:53:41', 1, '2025-12-07 10:53:45', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, 1, 'أوافق على أن للجامعة الحق في إلغاء طلبي أو إنهاء قبولي في أي مرحلة إذا تبيّن أن قبولي بُنِي على بيانات أو وثائق غير صحيحة كليًا أو جزئيًا، وفقًا للائحة الدراسات العليا والقواعد التنفيذية المعمول بها', 'I agree that the university has the right to cancel my application or terminate my admission at any stage if it is found that my admission was based on data or documents that are wholly or partially incorrect, in accordance with the Graduate Studies Regulations and applicable implementing rules.', ''),
             (3, 1, '2025-12-07 10:54:05', 1, '2025-12-07 10:54:08', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, 1, 'أوافق على أن للجامعة الحق في التحقق من صحة مؤهلاتي ووثائقي لدى الجهات المختصة داخل المملكة أو خارجها، واتخاذ ما تراه مناسبًا من إجراءات إذا ثبت خلاف ذلك.', 'I agree that the university has the right to verify the authenticity of my qualifications and documents with the relevant authorities within or outside the Kingdom and to take any action it deems appropriate if it is found to be false.', ''),
@@ -76,7 +78,7 @@ try
             (7, 1, '2025-12-07 10:56:53', 1, '2025-12-07 10:56:54', 0, NULL, 'Y', 'Y', 2, '', '', '', NULL, 1, 'أفهم أن موافقتي على هذه البنود تمثّل إقرارًا قانونيًا ملزمًا، وتشكل جزءًا لا يتجزأ من مستندات قبولي في برنامج الدراسات العليا بالجامعة.', 'I understand that my agreement to these terms constitutes a legally binding acknowledgment and forms an integral part of my admission documents to the university\'s graduate program.', '');");
 
 
-            AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS nauss_adm.`application_model_engagement` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS nauss_adm.`application_model_engagement` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `created_by` int(11) NOT NULL,
             `created_at`   datetime NOT NULL,
@@ -101,11 +103,8 @@ try
             
             PRIMARY KEY (`id`)
             ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-        
-            AfwDatabase::db_query("create unique index uk_application_model_engagement on ".$server_db_prefix."adm.application_model_engagement(engagement_id,application_model_id,engagement_type_id);");
-            
-}
-catch(Exception $e)
-{
+
+    AfwDatabase::db_query("create unique index uk_application_model_engagement on " . $server_db_prefix . "adm.application_model_engagement(engagement_id,application_model_id,engagement_type_id);");
+} catch (Exception $e) {
     $migration_error .= " " . $e->getMessage();
-}    
+}

@@ -1,14 +1,16 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.application_desire drop application_id;");
-    AfwDatabase::db_query("CREATE TABLE ".$server_db_prefix."adm.application_tmp_76 as select * from ".$server_db_prefix."adm.application;");
+try {
+  AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.application_desire drop application_id;");
+  AfwDatabase::db_query("CREATE TABLE " . $server_db_prefix . "adm.application_tmp_76 as select * from " . $server_db_prefix . "adm.application;");
 
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.`application`;");
-    AfwDatabase::db_query("CREATE TABLE ".$server_db_prefix."adm.`application` (
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.`application`;");
+  AfwDatabase::db_query("CREATE TABLE " . $server_db_prefix . "adm.`application` (
         `created_by` int NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_by` int NOT NULL,
@@ -46,13 +48,13 @@ try
     PARTITION BY HASH (`applicant_id`)
     PARTITIONS 200;");
 
-    AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`application` (`created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `applicant_id`, `idn`, `application_plan_id`, `application_model_id`, `application_simulation_id`, `step_num`, `application_step_id`, `program_id`, `application_status_enum`, `applicant_decision_enum`, `comments`, `applicant_qualification_id`, `weighted_pctg`, `qualification_id`, `major_category_id`, `application_plan_branch_mfk`, `attribute_1`, `attribute_2`) ".
+  AfwDatabase::db_query("INSERT INTO " . $server_db_prefix . "adm.`application` (`created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `applicant_id`, `idn`, `application_plan_id`, `application_model_id`, `application_simulation_id`, `step_num`, `application_step_id`, `program_id`, `application_status_enum`, `applicant_decision_enum`, `comments`, `applicant_qualification_id`, `weighted_pctg`, `qualification_id`, `major_category_id`, `application_plan_branch_mfk`, `attribute_1`, `attribute_2`) " .
     "SELECT `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `draft`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `applicant_id`, `idn`, `application_plan_id`, `application_model_id`, `application_simulation_id`, `step_num`, `application_step_id`, `program_id`, `application_status_enum`, `applicant_decision_enum`, `comments`, `applicant_qualification_id`, `weighted_pctg`, `qualification_id`, `major_category_id`, `application_plan_branch_mfk`, `attribute_1`, `attribute_2` 
-     FROM ".$server_db_prefix."adm.application_tmp_76;");
+     FROM " . $server_db_prefix . "adm.application_tmp_76;");
 
-AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.`applicant_fintrans`");
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.`applicant_fintrans`");
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_fintrans` (
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`applicant_fintrans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -80,11 +82,11 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_applicant_fintrans on ".$server_db_prefix."adm.applicant_fintrans(applicant_id,application_plan_id, application_simulation_id,appmodel_fintran_id);");    
+  AfwDatabase::db_query("create unique index uk_applicant_fintrans on " . $server_db_prefix . "adm.applicant_fintrans(applicant_id,application_plan_id, application_simulation_id,appmodel_fintran_id);");
 
-AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.`applicant_account`");
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.`applicant_account`");
 
-AfwDatabase::db_query("CREATE TABLE ".$server_db_prefix."adm.`applicant_account` (
+  AfwDatabase::db_query("CREATE TABLE " . $server_db_prefix . "adm.`applicant_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -112,9 +114,9 @@ AfwDatabase::db_query("CREATE TABLE ".$server_db_prefix."adm.`applicant_account`
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-AfwDatabase::db_query("create unique index uk_applicant_account on ".$server_db_prefix."adm.applicant_account(applicant_id,application_plan_id,application_simulation_id,application_model_financial_transaction_id);");
+  AfwDatabase::db_query("create unique index uk_applicant_account on " . $server_db_prefix . "adm.applicant_account(applicant_id,application_plan_id,application_simulation_id,application_model_financial_transaction_id);");
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`applicant_scholarship` (
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`applicant_scholarship` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `created_by` int(11) NOT NULL,
     `created_at`   datetime NOT NULL,
@@ -144,12 +146,8 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`appl
     
     PRIMARY KEY (`id`)
   ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
-  
-   AfwDatabase::db_query("create unique index uk_applicant_scholarship on ".$server_db_prefix."adm.applicant_scholarship(applicant_id,scholarship_id);");
-  
 
-}
-catch(Exception $e)
-{
-    $migration_info .= " " . $e->getMessage();
+  AfwDatabase::db_query("create unique index uk_applicant_scholarship on " . $server_db_prefix . "adm.applicant_scholarship(applicant_id,scholarship_id);");
+} catch (Exception $e) {
+  $migration_info .= " " . $e->getMessage();
 }

@@ -1,13 +1,15 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-    
-    
+try {
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`nominating_authority_category` (
+
+
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`nominating_authority_category` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `created_by` int(11) NOT NULL,
         `created_at`   datetime NOT NULL,
@@ -34,11 +36,11 @@ try
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-        AfwDatabase::db_query("create unique index uk_nominating_authority_category on ".$server_db_prefix."adm.nominating_authority_category(lookup_code);");
+    AfwDatabase::db_query("create unique index uk_nominating_authority_category on " . $server_db_prefix . "adm.nominating_authority_category(lookup_code);");
 
 
 
-        AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`nominating_authority` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`nominating_authority` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `created_by` int(11) NOT NULL,
         `created_at`   datetime NOT NULL,
@@ -68,10 +70,10 @@ try
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-        AfwDatabase::db_query("create unique index uk_nominating_authority on ".$server_db_prefix."adm.nominating_authority(nominating_authority_name_ar,nominating_authority_name_en,nominating_authority_category_id);");
+    AfwDatabase::db_query("create unique index uk_nominating_authority on " . $server_db_prefix . "adm.nominating_authority(nominating_authority_name_ar,nominating_authority_name_en,nominating_authority_category_id);");
 
 
-        AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`sponsor_cordinator` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`sponsor_cordinator` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `created_by` int(11) NOT NULL,
         `created_at`   datetime NOT NULL,
@@ -99,9 +101,9 @@ try
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-        AfwDatabase::db_query("create unique index uk_sponsor_cordinator on ".$server_db_prefix."adm.sponsor_cordinator(nominating_authority_id,sponsor_cordinator_name_ar);");
+    AfwDatabase::db_query("create unique index uk_sponsor_cordinator on " . $server_db_prefix . "adm.sponsor_cordinator(nominating_authority_id,sponsor_cordinator_name_ar);");
 
-        AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`nomination_letter` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`nomination_letter` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `created_by` int(11) NOT NULL,
         `created_at`   datetime NOT NULL,
@@ -130,12 +132,12 @@ try
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-        AfwDatabase::db_query("create unique index uk_nomination_letter on ".$server_db_prefix."adm.nomination_letter(application_plan_id,nominating_authority_source_enum,nominating_authority_id,nomination_letter_date);");
+    AfwDatabase::db_query("create unique index uk_nomination_letter on " . $server_db_prefix . "adm.nomination_letter(application_plan_id,nominating_authority_source_enum,nominating_authority_id,nomination_letter_date);");
 
 
 
 
-        AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`study_funding_status` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`study_funding_status` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `created_by` int(11) NOT NULL,
         `created_at`   datetime NOT NULL,
@@ -161,9 +163,9 @@ try
         PRIMARY KEY (`id`)
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-        AfwDatabase::db_query("create unique index uk_study_funding_status on ".$server_db_prefix."adm.study_funding_status(lookup_code);");
+    AfwDatabase::db_query("create unique index uk_study_funding_status on " . $server_db_prefix . "adm.study_funding_status(lookup_code);");
 
-        AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`nominating_candidates` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`nominating_candidates` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `created_by` int(11) NOT NULL,
         `created_at`   datetime NOT NULL,
@@ -201,10 +203,7 @@ try
         ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-        AfwDatabase::db_query("create unique index uk_nominating_candidates on ".$server_db_prefix."adm.nominating_candidates(nomination_letter_id,identity_type_id,idn);");
-
-}
-catch(Exception $e)
-{
+    AfwDatabase::db_query("create unique index uk_nominating_candidates on " . $server_db_prefix . "adm.nominating_candidates(nomination_letter_id,identity_type_id,idn);");
+} catch (Exception $e) {
     $migration_error .= " " . $e->getMessage();
 }

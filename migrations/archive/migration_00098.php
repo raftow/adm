@@ -1,15 +1,17 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-          
+try {
 
 
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.cv_rubric_item;");
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_rubric_item` (
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.cv_rubric_item;");
+
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`cv_rubric_item` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `created_by` int(11) NOT NULL,
       `created_at`   datetime NOT NULL,
@@ -35,12 +37,12 @@ try
     ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-      AfwDatabase::db_query("create unique index uk_cv_rubric_item on ".$server_db_prefix."adm.cv_rubric_item(lookup_code);");
+  AfwDatabase::db_query("create unique index uk_cv_rubric_item on " . $server_db_prefix . "adm.cv_rubric_item(lookup_code);");
 
-      AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.cv_rubric;");
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.cv_rubric;");
 
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_rubric` (
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`cv_rubric` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `created_by` int(11) NOT NULL,
       `created_at`   datetime NOT NULL,
@@ -63,13 +65,11 @@ try
       rubric_order smallint NOT NULL DEFAULT 0 , 
       
       PRIMARY KEY (`id`)
-    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;"); 
+    ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
 
-AfwDatabase::db_query("create unique index uk_cv_rubric on ".$server_db_prefix."adm.cv_rubric(cv_rubric_item_id);");
+  AfwDatabase::db_query("create unique index uk_cv_rubric on " . $server_db_prefix . "adm.cv_rubric(cv_rubric_item_id);");
+} catch (Exception $e) {
+  $migration_error .= " " . $e->getMessage();
 }
-catch(Exception $e)
-{
-    $migration_error .= " " . $e->getMessage();
-}    

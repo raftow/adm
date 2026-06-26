@@ -1,14 +1,16 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-          
+try {
 
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.lor_type;");
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`lor_type` (
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.lor_type;");
+
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`lor_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -35,10 +37,8 @@ try
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-    AfwDatabase::db_query("create unique index uk_lor_type on nauss_adm.lor_type(lookup_code);");
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.recommendation_letter change   lor_type lor_type int(11) DEFAULT NULL  AFTER organization_name;");
-  }
-catch(Exception $e)
-{
-    $migration_error .= " " . $e->getMessage();
-}    
+  AfwDatabase::db_query("create unique index uk_lor_type on nauss_adm.lor_type(lookup_code);");
+  AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.recommendation_letter change   lor_type lor_type int(11) DEFAULT NULL  AFTER organization_name;");
+} catch (Exception $e) {
+  $migration_error .= " " . $e->getMessage();
+}

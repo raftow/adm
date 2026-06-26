@@ -1,11 +1,13 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
+try {
 
-    AfwDatabase::db_query("CREATE TABLE ".$server_db_prefix."adm.`request_status` (
+    AfwDatabase::db_query("CREATE TABLE " . $server_db_prefix . "adm.`request_status` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created_by` int NOT NULL,
   `created_at` datetime NOT NULL,
@@ -28,7 +30,7 @@ try
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_request_status` (`lookup_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;");
-    AfwDatabase::db_query("INSERT INTO ".$server_db_prefix."adm.`request_status` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `request_status_name_ar`, `request_status_name_en`, `response_type_mfk`, `customer_status_name_ar`, `customer_status_name_en`) VALUES
+    AfwDatabase::db_query("INSERT INTO " . $server_db_prefix . "adm.`request_status` (`id`, `created_by`, `created_at`, `updated_by`, `updated_at`, `validated_by`, `validated_at`, `active`, `version`, `update_groups_mfk`, `delete_groups_mfk`, `display_groups_mfk`, `sci_id`, `lookup_code`, `request_status_name_ar`, `request_status_name_en`, `response_type_mfk`, `customer_status_name_ar`, `customer_status_name_en`) VALUES
     (1,	0,	'2021-06-03 14:47:56',	1,	'2021-06-03 14:47:56',	NULL,	NULL,	'Y',	3,	NULL,	NULL,	NULL,	NULL,	'customer_draft',	'مسودة',	'draft',	NULL,	'مسودة',	'draft'),
     (2,	0,	'2022-03-13 17:09:34',	1,	'2022-03-13 17:09:34',	NULL,	NULL,	'Y',	5,	NULL,	NULL,	NULL,	NULL,	'customer_sent',	'طلب مرسل',	'sent for check',	NULL,	'طلب مرسل',	'sent for check'),
     (3,	0,	'2022-04-11 15:21:09',	1,	'2022-04-11 15:21:09',	NULL,	NULL,	'Y',	3,	NULL,	NULL,	NULL,	NULL,	'invest_redirect',	'يحول إلى الجهة المختصة',	'redirect',	',2,1,',	'يحول إلى الجهة المختصة',	'redirect'),
@@ -43,8 +45,6 @@ try
     (102,	1,	'2021-11-24 18:36:37',	1,	'2022-04-11 15:21:09',	0,	NULL,	'Y',	4,	NULL,	NULL,	NULL,	0,	'superv_invest_missed_files',	'لاستكمال المرفقات',	'MISSED_FILES',	',2,5,',	'لاستكمال المرفقات',	'MISSED_FILES'),
     (201,	1,	'2022-04-10 17:06:38',	1,	'2022-04-10 17:06:38',	0,	NULL,	'Y',	1,	NULL,	NULL,	NULL,	0,	'assigned',	'عند الموظف',	'Assigned to employee',	NULL,	'عند الموظف',	'Assigned to employee'),
     (301,	1,	'2022-04-07 15:11:50',	1,	'2022-04-11 15:21:09',	0,	NULL,	'Y',	3,	NULL,	NULL,	NULL,	0,	'invest_under_revision',	'تدقيق الاجابة',	'RESPONSE UNDER REVISION',	',1,',	'تدقيق الاجابة',	'RESPONSE UNDER REVISION');");
-    
-}catch(Exception $e)
-{
+} catch (Exception $e) {
     $migration_info .= " " . $e->getMessage();
 }

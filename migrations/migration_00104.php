@@ -1,13 +1,15 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-          
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.action_type;");
+try {
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`action_type` (
+    AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.action_type;");
+
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`action_type` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `created_by` int(11) NOT NULL,
     `created_at`   datetime NOT NULL,
@@ -33,13 +35,13 @@ try
     PRIMARY KEY (`id`)
     ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-    AfwDatabase::db_query("create unique index uk_action_type on ".$server_db_prefix."adm.action_type(action_type_code);");
+    AfwDatabase::db_query("create unique index uk_action_type on " . $server_db_prefix . "adm.action_type(action_type_code);");
 
 
-    AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.nominating_candidates add   action_type_id int(11) NOT NULL DEFAULT 0  AFTER idn;");
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.application_exception;");
+    AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.nominating_candidates add   action_type_id int(11) NOT NULL DEFAULT 0  AFTER idn;");
+    AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.application_exception;");
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`application_exception` (
+    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`application_exception` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `created_by` int(11) NOT NULL,
     `created_at`   datetime NOT NULL,
@@ -67,9 +69,7 @@ try
 
 
 
-AfwDatabase::db_query("create unique index uk_application_exception on ".$server_db_prefix."adm.application_exception(applicant_id,application_plan_id,application_simulation_id,expiry_date);");
-}
-catch(Exception $e)
-{
+    AfwDatabase::db_query("create unique index uk_application_exception on " . $server_db_prefix . "adm.application_exception(applicant_id,application_plan_id,application_simulation_id,expiry_date);");
+} catch (Exception $e) {
     $migration_error .= " " . $e->getMessage();
-}    
+}

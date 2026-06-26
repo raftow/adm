@@ -1,15 +1,17 @@
 <?php
-if(!class_exists("AfwSession")) die("Denied access");
+if (!class_exists("AfwSession")) die("Denied access");
+/**
+ * @var string $migration_error
+ */
 
 $server_db_prefix = AfwSession::currentDBPrefix();
-try
-{
-          
+try {
 
 
-    AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.application_cv_score;");
 
-    AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`application_cv_score` (
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.application_cv_score;");
+
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`application_cv_score` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -64,11 +66,11 @@ try
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
-    AfwDatabase::db_query("create unique index uk_application_cv_score on ".$server_db_prefix."adm.application_cv_score(applicant_id,application_plan_id,application_simulation_id);");
+  AfwDatabase::db_query("create unique index uk_application_cv_score on " . $server_db_prefix . "adm.application_cv_score(applicant_id,application_plan_id,application_simulation_id);");
 
-AfwDatabase::db_query("DROP TABLE IF EXISTS ".$server_db_prefix."adm.cv_rubric_guide;");
+  AfwDatabase::db_query("DROP TABLE IF EXISTS " . $server_db_prefix . "adm.cv_rubric_guide;");
 
-AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_rubric_guide` (
+  AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS " . $server_db_prefix . "adm.`cv_rubric_guide` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_by` int(11) NOT NULL,
   `created_at`   datetime NOT NULL,
@@ -94,11 +96,9 @@ AfwDatabase::db_query("CREATE TABLE IF NOT EXISTS ".$server_db_prefix."adm.`cv_r
 ) ENGINE=innodb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1;");
 
 
-AfwDatabase::db_query("create unique index uk_cv_rubric_guide on ".$server_db_prefix."adm.cv_rubric_guide(cv_rubric_item_id,rubric_score);");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.cv_rubric_guide add   score_explanation varchar(200)  DEFAULT NULL  AFTER rubric_score;");
-AfwDatabase::db_query("ALTER TABLE ".$server_db_prefix."adm.applicant_scientific_conference change   event_topic event_topic text  DEFAULT  NULL  AFTER conference_role_id;");
+  AfwDatabase::db_query("create unique index uk_cv_rubric_guide on " . $server_db_prefix . "adm.cv_rubric_guide(cv_rubric_item_id,rubric_score);");
+  AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.cv_rubric_guide add   score_explanation varchar(200)  DEFAULT NULL  AFTER rubric_score;");
+  AfwDatabase::db_query("ALTER TABLE " . $server_db_prefix . "adm.applicant_scientific_conference change   event_topic event_topic text  DEFAULT  NULL  AFTER conference_role_id;");
+} catch (Exception $e) {
+  $migration_error .= " " . $e->getMessage();
 }
-catch(Exception $e)
-{
-    $migration_error .= " " . $e->getMessage();
-}    
