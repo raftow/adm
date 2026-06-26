@@ -357,7 +357,10 @@ class Applicant extends AdmObject
                 return $return;
         }
 
-
+        /**
+         * @param string $field_name 
+         * @param string $col_struct
+         */
         public function additional($field_name, $col_struct)
         {
                 // if (($field_name == "dragDropDiv") and ($col_struct == "step")) return 11;
@@ -1061,35 +1064,34 @@ class Applicant extends AdmObject
         public function resetPassword($lang = "ar")
         {
                 $id = $this->getVal("id");
-                
+
                 // send email to applicant with new password
                 $response = self::sendNotificationForApplicant($id, 15, $lang);
-                if($response["status"] != 200) {
+                if ($response["status"] != 200) {
                         return ["Error sending notification to applicant: " . $response["response"], ""];
                 }
                 return ["", "The password has been reset and sent to the applicant"];
-
         }
         public static function sendNotificationForApplicant($applicant_id, $template_id, $lang)
         {
-                
+
                 $base_url = AfwSession::config("api_base_url", "https://api.bmeholding.com/api");
-                $token = AfwSession::config("api_token","XXXXYYY"); // get it from config or env variable
+                $token = AfwSession::config("api_token", "XXXXYYY"); // get it from config or env variable
 
                 $ch = curl_init("$base_url/notification/send/applicant/$applicant_id/$template_id");
                 curl_setopt_array($ch, [
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_HTTPHEADER     => [
-                        "Authorization: Bearer $token",
-                        "Accept: application/json",
-                ],
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_HTTPHEADER     => [
+                                "Authorization: Bearer $token",
+                                "Accept: application/json",
+                        ],
                 ]);
 
                 $response = curl_exec($ch);
                 $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
-                return ["status"=>$status, "response"=>$response];
-        } 
+                return ["status" => $status, "response" => $response];
+        }
         public function runOnlyNeedUpdateApis($lang = "ar")
         {
                 return $this->runNeededApis($lang, false);
