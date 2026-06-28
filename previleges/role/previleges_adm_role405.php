@@ -36,7 +36,7 @@ $role_info[405] = array(
                 'id' => '104745',
                 'code' => 'f2-a-applicant/stats',
                 'level' => '999',
-                'menu_name_ar' => 'إحصائيات المتقدمون',
+                'menu_name_ar' => 'إحصائيات المتقدمين',
                 'menu_name_en' => 'Applicants statistics',
                 'page' => 'main.php?Main_Page=afw_mode_stats.php&cl=Applicant&currmod=adm',
                 'css' => 'bf',
