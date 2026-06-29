@@ -57,7 +57,7 @@ $role_info[409] = array(
             array(
                 'id' => '105333',
                 'code' => 'f2-a-application_cv_score/qsearch',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'تقييم السيرة الذاتية',
                 'menu_name_en' => 'Application cv score',
                 'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationCvScore&currmod=adm',
@@ -71,7 +71,7 @@ $role_info[409] = array(
             array(
                 'id' => '105328',
                 'code' => 'f2-a-application_cv_score/edit',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'إنشاء تقييم سيرة ذاتية',
                 'menu_name_en' => 'create Application cv score',
                 'page' => 'main.php?Main_Page=afw_mode_edit.php&cl=ApplicationCvScore&currmod=adm',
@@ -82,7 +82,7 @@ $role_info[409] = array(
             array(
                 'id' => '105329',
                 'code' => 'f2-a-application_cv_score/qedit',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'إدارة تقييم السيرة الذاتية',
                 'menu_name_en' => 'Application cv score administration',
                 'page' => 'main.php?Main_Page=afw_mode_qedit.php&cl=ApplicationCvScore&currmod=adm&ids=all&newo=3',
@@ -93,7 +93,7 @@ $role_info[409] = array(
             array(
                 'id' => '105330',
                 'code' => 'f2-a-application_cv_score/delete',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'مسح تقييم سيرة ذاتية',
                 'menu_name_en' => 'delete Application cv score',
                 'page' => 'main.php?Main_Page=afw_mode_delete.php&cl=ApplicationCvScore&currmod=adm',
@@ -104,7 +104,7 @@ $role_info[409] = array(
             array(
                 'id' => '105331',
                 'code' => 'f2-a-application_cv_score/display',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'عرض تفاصيل تقييم سيرة ذاتية',
                 'menu_name_en' => 'display details of Application cv score',
                 'page' => 'main.php?Main_Page=afw_mode_display.php&cl=ApplicationCvScore&currmod=adm',
@@ -115,7 +115,7 @@ $role_info[409] = array(
             array(
                 'id' => '105332',
                 'code' => 'f2-a-application_cv_score/search',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'البحث في تقييم السيرة الذاتية',
                 'menu_name_en' => 'Application cv score search',
                 'page' => 'main.php?Main_Page=afw_mode_search.php&cl=ApplicationCvScore&currmod=adm',
@@ -126,7 +126,7 @@ $role_info[409] = array(
             array(
                 'id' => '105333',
                 'code' => 'f2-a-application_cv_score/qsearch',
-                'level' => '100',
+                'level' => '1500',
                 'menu_name_ar' => 'تقييم السيرة الذاتية',
                 'menu_name_en' => 'Application cv score',
                 'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationCvScore&currmod=adm',
