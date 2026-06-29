@@ -20,6 +20,17 @@ $role_info[386] = array(
     'showme' => true,
     'items' =>
     array(
+      104744000 =>
+      array(
+        'id' => '104744',
+        'code' => 'applicant/report-2',
+        'level' => '999',
+        'menu_name_ar' => 'إحصائيات التقديم',
+        'menu_name_en' => 'Application stats',
+        'page' => 'index2.php?Main_Page=reports_applicant.php',
+        'css' => 'bf',
+        'icon' => 'bficon-report-2 bfc-',
+      ),
       104744 =>
       array(
         'id' => '104744',
