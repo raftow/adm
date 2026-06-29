@@ -24,7 +24,8 @@ if (!isset($_POST['table_html'])) {
 }
 
 $tableHTML = $_POST['table_html'];
-$title = $_POST['title'];
+$title     = $_POST['title'];
+$statsHTML = isset($_POST['stats_html']) ? $_POST['stats_html'] : '';
 // Build complete HTML for PDF
 $html = '
 <!DOCTYPE html>
@@ -35,7 +36,7 @@ $html = '
             font-family: Arial, sans-serif;
         }
         h2 {
-            margin-top:20px;
+            margin-top:10px;
             text-align: center;
             color: #333;
         }
@@ -47,7 +48,7 @@ $html = '
         table th, table td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: right;
         }
         table th {
             background-color: #4CAF50;
@@ -57,11 +58,14 @@ $html = '
         table tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+        table td:first-child, table th:first-child {
+            text-align: right;
+        }
     </style>
 </head>
 <body dir="rtl">
     <h2>' . $title . '</h2>
-    
+    ' . $statsHTML . '
     ' . $tableHTML . '
 </body>
 </html>';
@@ -73,7 +77,7 @@ $mpdf = new \Mpdf\Mpdf([
     'orientation' => 'L',
     'margin_left' => 10,
     'margin_right' => 10,
-    'margin_top' => 10,
+    'margin_top' => 25,
     'margin_bottom' => 10,
     'direction' => 'rtl'
 ]);
