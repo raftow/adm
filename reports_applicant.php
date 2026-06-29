@@ -116,9 +116,7 @@ $out_scr .= "                </select>
 ";
 
 
-$q_total = "select count(distinct a.id) as TOTAL from ".$server_db_prefix."adm.applicant a
-        inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id
-        where ap.application_plan_id='".$application_plan_id."'";
+$q_total = "select count(*) as TOTAL from ".$server_db_prefix."adm.applicant";
 $total_result = AfwDatabase::db_recup_rows($q_total);
 $total_applicants = intval($total_result[0]['TOTAL']);
 
@@ -229,7 +227,7 @@ $out_scr .= "<div class='container-fluid mb-3' style='display:flex;gap:16px;flex
  $out_scr .= "<td style='text-align:center;'><strong>".$grandTotal."</strong></td></tr>";
 
  $out_scr .= "</tbody></table>";
- $out_scr .= "<p style='font-size:0.85rem;color:#666;margin-top:8px;'>* الأعمدة تمثل المرحلة التي وقف عنها المتقدم</p>";
+ $out_scr .= "<p style='font-size:0.85rem;color:#666;margin-top:8px;'>* الأعمدة تمثل المرحلة التي وقف عندها المتقدم</p>";
  $out_scr .= '<br><br><button class="btn btn-primary" onclick="exportToPDF()">تصدير PDF</button>';
  $out_scr .= "</div>";
 
