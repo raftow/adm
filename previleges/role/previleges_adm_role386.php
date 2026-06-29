@@ -42,17 +42,19 @@ $role_info[386] = array(
         'css' => 'bf',
         'icon' => 'bficon-104744 bfc-',
       ),
-      104745 =>
+      105084 =>
       array(
-        'id' => '104745',
-        'code' => 'f2-a-applicant/stats',
+        'id' => '105084',
+        'code' => 'f2-a-application_desire/qsearch',
         'level' => '999',
-        'menu_name_ar' => 'إحصائيات المتقدمون',
-        'menu_name_en' => 'Applicants statistics',
-        'page' => 'main.php?Main_Page=afw_mode_stats.php&cl=Applicant&currmod=adm',
+        'menu_name_ar' => 'رغبات المتقدمين',
+        'menu_name_en' => 'Application desires',
+        'page' => 'main.php?Main_Page=afw_mode_qsearch.php&cl=ApplicationDesire&currmod=adm',
         'css' => 'bf',
-        'icon' => 'bficon-104745 bfc-',
+        'icon' => 'bficon-105084 bfc-',
       ),
+
+
       104839 =>
       array(
         'id' => '104839',
