@@ -2092,7 +2092,10 @@ class ApplicationDesire extends AdmObject
                 return true;
         }
 
-        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        /**
+     * @param string $attribute
+     */
+    public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 for ($s = 1; $s <= 3; $s++) {
                         if ($attribute == 'sorting_value_' . $s) {

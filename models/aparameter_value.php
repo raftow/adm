@@ -35,12 +35,17 @@ class AparameterValue extends AdmObject
                 } else return null;
         }
 
-        public static function loadByMainIndex($aparameter_id, $application_model_id=0, 
-                         $application_plan_id=0, $training_unit_id=0, 
-                         $department_id=0, $application_model_branch_id=0, 
-                         $major_path_id=0, $program_track_id=0, 
-                         $create_obj_if_not_found = false)
-        {
+        public static function loadByMainIndex(
+                $aparameter_id,
+                $application_model_id = 0,
+                $application_plan_id = 0,
+                $training_unit_id = 0,
+                $department_id = 0,
+                $application_model_branch_id = 0,
+                $major_path_id = 0,
+                $program_track_id = 0,
+                $create_obj_if_not_found = false
+        ) {
                 $obj = new AparameterValue();
                 $obj->select("aparameter_id", $aparameter_id);
                 $obj->select("application_model_id", $application_model_id);
@@ -63,7 +68,7 @@ class AparameterValue extends AdmObject
                         $obj->set("application_model_branch_id", $application_model_branch_id);
                         $obj->set("major_path_id", $major_path_id);
                         $obj->set("program_track_id", $program_track_id);
-        
+
                         $obj->insertNew();
                         if (!$obj->id) return null; // means beforeInsert rejected insert operation
                         $obj->is_new = true;
@@ -157,7 +162,10 @@ class AparameterValue extends AdmObject
                 return true;
         }
 
-        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        /**
+         * @param string $attribute
+         */
+        public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 $af_type_id = $this->getVal("afield_type_id");
 
@@ -275,7 +283,7 @@ class AparameterValue extends AdmObject
                 return 0;
         }
 
-        public function cloneInParameter($newParamId, $erase_existing=true)
+        public function cloneInParameter($newParamId, $erase_existing = true)
         {
                 $application_model_id = $this->getVal('application_model_id');
                 $application_plan_id = $this->getVal('application_plan_id');
@@ -285,14 +293,20 @@ class AparameterValue extends AdmObject
                 $major_path_id = $this->getVal('major_path_id');
                 $program_track_id = $this->getVal('program_track_id');
 
-                $pvObj = AparameterValue::loadByMainIndex($newParamId,$application_model_id, 
-                                                $application_plan_id, $training_unit_id, 
-                                                $department_id, $application_model_branch_id, 
-                                                $major_path_id, $program_track_id, $create_obj_if_not_found =true);
+                $pvObj = AparameterValue::loadByMainIndex(
+                        $newParamId,
+                        $application_model_id,
+                        $application_plan_id,
+                        $training_unit_id,
+                        $department_id,
+                        $application_model_branch_id,
+                        $major_path_id,
+                        $program_track_id,
+                        $create_obj_if_not_found = true
+                );
 
-                if($erase_existing or $pvObj->is_new)
-                {
-                        $pvObj->set("value", $this->getVal('value'));  
+                if ($erase_existing or $pvObj->is_new) {
+                        $pvObj->set("value", $this->getVal('value'));
                         $pvObj->commit();
                 }
         }
@@ -307,5 +321,4 @@ class AparameterValue extends AdmObject
                 // @todo this temporary for demo of amjad
                 return [true, 'for demo'];
         }
-
 }

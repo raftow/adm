@@ -320,7 +320,10 @@ class ApplicationPlanBranch extends AdmObject
         }
 
 
-        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        /**
+     * @param string $attribute
+     */
+    public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 $application_plan_id = $this->getVal("application_plan_id");
                 $application_model_id = null;

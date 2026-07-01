@@ -1025,7 +1025,10 @@ class Application extends AdmObject
                 return [true, ""];
         }
 
-        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        /**
+     * @param string $attribute
+     */
+    public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 if (AfwStringHelper::stringStartsWith($attribute, "attribute_")) {
                         $params = self::getApplicationAdditionalFieldParams($attribute);

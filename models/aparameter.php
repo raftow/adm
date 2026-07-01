@@ -182,7 +182,10 @@ class Aparameter extends AdmObject
                 return true;
         }
 
-        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        /**
+     * @param string $attribute
+     */
+    public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 $af_type_id = $this->getVal("afield_type_id");
 

@@ -187,7 +187,10 @@ class ApplicationModelBranch extends AdmObject
 
         
 
-        public function getAttributeLabel($attribute, $lang = 'ar', $short = false)
+        /**
+     * @param string $attribute
+     */
+    public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 for($spath=1; $spath<=4; $spath++)
                 {
