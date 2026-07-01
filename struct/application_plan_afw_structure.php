@@ -873,7 +873,7 @@ class AdmApplicationPlanAfwStructure
                 ),
 
 
-                'applicationList' => array(
+                /*'applicationList' => array(
                         'SHORTNAME' => 'applications',
                         'SHOW' => true,
                         'FORMAT' => 'retrieve',
@@ -902,7 +902,7 @@ class AdmApplicationPlanAfwStructure
                         'READONLY' => true,
                         'CAN-BE-SETTED' => true,
                         'CSS' => 'width_pct_100',
-                ),
+                ),*/
 
 
                 'created_by' => array(
