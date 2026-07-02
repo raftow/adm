@@ -184,14 +184,18 @@ $out_scr .= "<div class='container-fluid mb-3' style='display:flex;gap:16px;flex
  // build bootstrap table (responsive)
  $out_scr .= "<div class='table-responsive p-2' style='margin-right:0;margin-left:auto;'><table id='reportTable' class='table table-bordered table-striped' style='width:100%;margin:0;'>";
 
- $step_name_override = ['إجراءات القبول' => 'الطلبات المكتملة'];
+ $step_name_override = [
+     45 => 'بانتظار رفع الوثائق',
+     46 => 'بانتظار دفع رسوم التقديم',
+     49 => 'مكتملة ومسددة',
+ ];
 
  // header row 1: البرنامج + (الفترة if applicable) + step names (colspan=2 each) + المجموع
  $out_scr .= "<thead><tr>";
  $out_scr .= "<th rowspan='2' style='text-align:center;vertical-align:middle;'>البرنامج</th>";
  if($hasPeriods) $out_scr .= "<th rowspan='2' style='text-align:center;vertical-align:middle;'>الفترة</th>";
  foreach($steps_list as $step){
-     $label = isset($step_name_override[$step["step_name_ar"]]) ? $step_name_override[$step["step_name_ar"]] : "*".$step["step_name_ar"];
+     $label = isset($step_name_override[$step["id"]]) ? $step_name_override[$step["id"]] : $step["step_name_ar"];
      $out_scr .= "<th colspan='2' style='text-align:center;'>".htmlspecialchars($label)."</th>";
  }
  $out_scr .= "<th rowspan='2' style='text-align:center;vertical-align:middle;'>المجموع</th></tr>";
@@ -272,15 +276,14 @@ $out_scr .= "<div class='container-fluid mb-3' style='display:flex;gap:16px;flex
  $out_scr .= "<td style='text-align:center;'><strong>".$grandTotal."</strong></td></tr>";
 
  $out_scr .= "</tbody></table>";
- $out_scr .= "<p style='font-size:1rem;color:#666;margin-top:8px;'>* المُتقدم متوقف مؤقتاً عند هذه المرحلة، وبانتظار استئنافه للطلب</p>";
+ //$out_scr .= "<p style='font-size:1rem;color:#666;margin-top:8px;'>* المُتقدم متوقف مؤقتاً عند هذه المرحلة، وبانتظار استئنافه للطلب</p>";
  $out_scr .= '<br><br><button class="btn btn-primary" onclick="exportToPDF()">تصدير PDF</button>';
  $out_scr .= "</div>";
 
 $out_scr .="<script>
         function exportToPDF() {
             var tableHTML = document.getElementById('reportTable').outerHTML;
-            tableHTML +=\"<p style='font-size:1rem;color:#666;margin-top:8px;'>* المُتقدم متوقف مؤقتاً عند هذه المرحلة، وبانتظار استئنافه للطلب</p>\";
-
+            
             var statsHTML = ".json_encode($pdf_stats_html).";
 
             var form = document.createElement('form');
