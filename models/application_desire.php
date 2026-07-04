@@ -2339,11 +2339,17 @@ class ApplicationDesire extends AdmObject
                                 'applicant_id',
                                 'idn',
                                 'approved',
-                                // amajd asked it (04-july-2026) to show it in the list, but some one is removing it
-                                // please keep below reupload_enum retrieved in the list, and not removed from the list
-                                //'reupload_enum',
+                                'reupload_enum',
                         ];
+
+                        
                 }
+                else {
+                        $structure['FORCE-RETRIEVE-COLS'] = [
+                                // amajd asked it (04-july-2026) to show it in the list,
+                                // please keep below reupload_enum retrieved in the list, and not removed from the list
+                                'reupload_enum',
+                        ];}
 
                 return $applicationObject->showAttribute('applicantFileList', $structure, true, $lang);
         }
