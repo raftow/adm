@@ -269,7 +269,9 @@ class AdmApplicantFileAfwStructure
                         'IMPORTANT' => 'IN',
                         'SEARCH' => false,
                         'SHOW' => true,
-                        'RETRIEVE' => false,
+                        // amajd asked it (04-july-2026) to show it in the list, but some one is removing it
+                        // please do not make RETRIEVE false below
+                        'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'QSEARCH' => false,
