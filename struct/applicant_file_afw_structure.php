@@ -268,10 +268,8 @@ class AdmApplicantFileAfwStructure
                 'reupload_enum' => array(
                         'IMPORTANT' => 'IN',
                         'SEARCH' => false,
-                        'SHOW' => true,
-                        // amajd asked it (04-july-2026) to show it in the list, but some one is removing it
-                        // please do not make RETRIEVE false below
-                        'RETRIEVE' => true,
+                        'SHOW' => true,                        
+                        'RETRIEVE' => false,
                         'EDIT' => true,
                         'QEDIT' => true,
                         'QSEARCH' => false,
