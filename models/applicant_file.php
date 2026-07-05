@@ -251,6 +251,11 @@ class ApplicantFile extends AdmObject
         if ($attribute == "pic_view") return true;
         return false;
     }
+
+    public function hierarchy_level_needed_for_display()
+    {
+        return 1500;
+    }
 }
 
 // errors

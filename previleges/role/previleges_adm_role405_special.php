@@ -9,3 +9,5 @@ $role_info[405]['menu']['items'][10000000009] = array(
     'css' => 'bf',
     'icon' => 'bficon-std bfc-',
 );
+
+$role_info[405]['menu']['otherbfs'][104945] = 1500;
