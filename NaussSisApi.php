@@ -2,14 +2,21 @@
 
 class NaussApi
 {
-    //private $baseUrl = "https://selfservice9.bmeholding.com:8081/naussadm/api/admission/";
-    private $baseUrl = "https://193.122.73.144/naussadm/api/admission/";
+    private $baseUrl;
+    private $token;
+    private $baseUrlStudent;
+    private $baseUrlLookup;
 
-    private $token = "i9G0vbjMKqTPY3wS276Ghx0lx7UtzfV30vx60PsWPmbciSD7rm98Ws2bsWFbvRim";
-    private $baseUrlStudent = "https://193.122.73.144/naussadm/api/student/";
-    private $baseUrlLookup  = "https://193.122.73.144/naussadm/api/lookup/";
+    public function __construct()
+    {
+        $this->baseUrl       = AfwSession::config("sis_baseUrl",        "https://example.com/");
+        $this->token         = AfwSession::config("sis_token",          "XXXXYYY");
+        $this->baseUrlStudent = AfwSession::config("sis_baseUrlStudent", "https://example.com/");
+        $this->baseUrlLookup  = AfwSession::config("sis_baseUrlLookup",  "https://example.com/");
+    }
     //https://193.122.73.144/naussadm/api/admission/push-applicant
     //https://193.122.73.144/naussadm/api/admission/push-payments
+    //https://193.122.73.144/naussadm/api/admission/push-appfee
 
     private function sendRequest($endpoint, $data)
     {
@@ -146,6 +153,36 @@ class NaussApi
         ];*/
 
         return $this->sendRequest("push-payments", $data);
+    }
+
+    public function pushApplicationFees($data)
+    {
+        /*$data = [
+            "applNo"          => "",
+            "studentSsn"      => "1098765432",
+            "studentId"       => "",
+            "studentName"     => "عمر خالد فهد القحطاني",
+            "programCode"     => "BSC-ACCT",
+            "programDesc"     => "برنامج المحاسبة",
+            "electTrnsId"     => "212112a1serfdsfkl2123652",
+            "cardType"        => "DEBIT",
+            "cardBrand"       => "MADA",
+            "bankRno"         => "50604060410363",
+            "amount"          => 100,
+            "transactionDate" => "05/06/2026",
+            "categoryCode"    => "APPF",
+            "categoryDesc"    => "",
+            "paymentCode"     => "",
+            "paymentDesc"     => "",
+            "termCode"        => "202540",
+            "oafrCode"        => "GRADUATE_SELF",
+            "payingMethod"    => "دفع الكتروني",
+            "vatAmount"       => "",
+            "payedByName"     => "",
+            "dateFormat"      => "DD/MM/YYYY",
+        ];*/
+
+        return $this->sendRequest("push-appfee", $data);
     }
 
     public function checkActiveStudent($studentId)

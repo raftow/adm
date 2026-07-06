@@ -21,9 +21,9 @@ class ServiceRequestArTranslator
 		$trad["service_request"]["description"] = "رسالة الطلب";
 		$trad["service_request"]["applicant_file_id"] = "الملف المرفق";
 		$trad["service_request"]["application_plan_id"] = "خطة القبول";
-		$trad["service_request"]["request_status_id"] = "حالة الطلب";
+		$trad["service_request"]["request_status_id"] = "تحديث حالة الطلب";
 		//$trad["service_request"]["request_type_id"] = " الطلب";
-		$trad["service_request"]["status_comment"] = "ملاحظات الحالة";
+		$trad["service_request"]["status_comment"] = "رد موظف القبول";
 		$trad["service_request"]["status_date"] = "تاريخ الحالة";
 		$trad["service_request"]["applicant_id"] = "المتقدم";
 		$trad["service_request"]["applicantFileIdLink"] = "المرفقات";
