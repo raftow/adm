@@ -8,11 +8,11 @@ class AdmCvRubricGuideAfwStructure
         {
                 if ($obj instanceof CvRubricGuide) {
                         $obj->QEDIT_MODE_NEW_OBJECTS_DEFAULT_NUMBER = 15;
-                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => ["cv_rubric_item_id","rubric_score"], 'en' => ["cv_rubric_item_id","rubric_score"]];
+                        $obj->DISPLAY_FIELD_BY_LANG = ['ar' => ["cv_rubric_item_id", "rubric_score"], 'en' => ["cv_rubric_item_id", "rubric_score"]];
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
-
+                        $obj->public_display = true;
 
 
                         $obj->UNIQUE_KEY = array('cv_rubric_item_id', 'rubric_score');
@@ -83,7 +83,8 @@ class AdmCvRubricGuideAfwStructure
                         'RETRIEVE' => true,
                         'EDIT' => true,
                         'QEDIT' => true,
-                        'SIZE' => 9999,  'MAXLENGTH' => 32,
+                        'SIZE' => 9999,
+                        'MAXLENGTH' => 32,
                         'MANDATORY' => false,
                         //'FORMAT' => '*.2',
                         'UTF8' => false,
@@ -109,7 +110,7 @@ class AdmCvRubricGuideAfwStructure
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
                 ),
-                
+
 
 
                 'created_by'         => array('STEP' => 99, 'HIDE_IF_NEW' => true, 'SHOW' => true, "TECH_FIELDS-RETRIEVE" => true, 'RETRIEVE' => false,  'RETRIEVE' => false, 'QEDIT' => false, 'TYPE' => 'FK', 'ANSWER' => 'auser', 'ANSMODULE' => 'ums', 'FGROUP' => 'tech_fields'),

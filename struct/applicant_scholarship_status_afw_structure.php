@@ -13,6 +13,7 @@ class AdmApplicantScholarshipStatusAfwStructure
                         $obj->IS_LOOKUP = true;
 
                         $obj->editByStep = false;
+                        $obj->public_display = true;
                         //$obj->editNbSteps = 1; 
                         // $obj->after_save_edit = array("class"=>'aconditionOriginType',"attribute"=>'acondition_origin_type_id', "currmod"=>'adm',"currstep"=>1);
                         $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicantScholarshipStatus', "submit" => true);

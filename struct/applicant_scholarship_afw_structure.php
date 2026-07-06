@@ -94,7 +94,7 @@ class AdmApplicantScholarshipAfwStructure
                         'CSS' => 'width_pct_25',
                         // todo : reactivate the where condition after bug fix in autocomplete with dependent fields
                         //'WHERE' => 'id in (select distinct applicant_id from §DBPREFIX§adm.application ap inner join §DBPREFIX§adm.application_plan p where ap.application_plan_id=p.id and p.term_id=(select academic_term_id from §DBPREFIX§adm.scholarship where id=§scholarship_id§ ))',
-                       // 'DEPENDENCIES' => ['scholarship_id'],
+                        // 'DEPENDENCIES' => ['scholarship_id'],
                 ),
 
 
@@ -290,7 +290,7 @@ class AdmApplicantScholarshipAfwStructure
                         'QSEARCH' => false,
                         'SHOW' => true,
                         'RETRIEVE-AR' => true,
-                        'EDIT' => true, 
+                        'EDIT' => true,
                         'QEDIT' => true,
                         'SIZE' => '250',
                         'MAXLENGTH' => '250',

@@ -12,9 +12,7 @@ class AdmApplicantMembershipScientificInstitutionAfwStructure
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
-
-
-
+                        $obj->public_display = true;
                         $obj->UNIQUE_KEY = array('applicant_id', 'organization_name', 'scientific_institution_membership_type_id');
 
                         $obj->showQeditErrors = true;
