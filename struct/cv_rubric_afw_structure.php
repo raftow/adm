@@ -12,6 +12,7 @@ class AdmCvRubricAfwStructure
 
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
+                        $obj->public_display = true;
 
 
                         $obj->UNIQUE_KEY = array('cv_rubric_item_id');

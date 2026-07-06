@@ -13,7 +13,7 @@ class AdmApplicantCvScoreAfwStructure
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = "";
 
-
+                        $obj->public_display = true;
 
                         $obj->UNIQUE_KEY = array('applicant_id', 'cv_rubric_id', 'application_id');
 
