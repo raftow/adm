@@ -245,21 +245,20 @@ class ApplicationCvScore extends AFWObject
 
             $this->set("review_date_RECLT", date("Y-m-d H:i:s"));
         }
-        // update total score
+        // update total score — only sum rubrics where the user entered a score (skip null/empty)
         $cvRubricObj = new CvRubric();
         $cvRubricObj->where("active='Y'");
         $objList = $cvRubricObj->loadMany();
 
+        $total = 0;
         foreach ($objList as $objItem) {
-            $rubricItemObj = $objItem->het("cv_rubric_item_id");
-            $weight = $objItem->getVal("weight");
-
+            $rubricItemObj  = $objItem->het("cv_rubric_item_id");
             $rubricItemCode = $rubricItemObj->getVal("lookup_code");
-            $rubric_score = floatval($this->getVal("score_" . $rubricItemCode));
-            if($this->getVal("score_" . $rubricItemCode)) $total += $rubric_score * floatval($weight) / 100;
-            // $objItem->genereApplicationModelBranchList($lang);                                
+            $raw = $this->getVal("score_" . $rubricItemCode);
+            if($raw === null || $raw === '') continue;
+            $total += floatval($raw);
         }
-        $this->set("total_score",  $total);
+        $this->set("total_score", $total);
         $this->commit();
     }
 
