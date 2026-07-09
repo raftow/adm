@@ -255,7 +255,8 @@ class ApplicationCvScore extends AFWObject
             $weight = $objItem->getVal("weight");
 
             $rubricItemCode = $rubricItemObj->getVal("lookup_code");
-            $total += floatval($this->getVal("score_" . $rubricItemCode)) * floatval($weight) / 100;
+            $rubric_score = floatval($this->getVal("score_" . $rubricItemCode));
+            if($rubric_score) $total += $rubric_score * floatval($weight) / 100;
             // $objItem->genereApplicationModelBranchList($lang);                                
         }
         $this->set("total_score",  $total);
