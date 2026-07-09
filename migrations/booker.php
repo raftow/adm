@@ -122,4 +122,5 @@ $migrations = [
     '00116' => ['by' => 'medali', 'title' => 'add field to applicant_account'],
     '00117' => ['by' => 'medali', 'title' => 'add field to applicant'],
     '00118' => ['by' => 'rafik', 'title' => 'new UMS FW Features'],
+    '00119' => ['by' => 'medali', 'title' => 'add field to applicant_account'],
 ];
