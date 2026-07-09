@@ -23,7 +23,7 @@ class NominatingCandidatesArTranslator
 		$trad["nominating_candidates"]["name_en"] = "مسمى  بالانجليزية";
 		$trad["nominating_candidates"]["desc_en"] = "وصف  بالانجليزية";
 		$trad["nominating_candidates"]["identity_type_id"] = "نوع الهوية";
-		$trad["nominating_candidates"]["idn"] = "الهوية";
+		$trad["nominating_candidates"]["idn"] = "رقم الهوية";
 		$trad["nominating_candidates"]["first_name_ar"] = "الاسم الأول عربي";
 		$trad["nominating_candidates"]["second_name_ar"] = "اسم الأب عربي";
 		$trad["nominating_candidates"]["third_name_ar"] = "اسم الجد عربي";
