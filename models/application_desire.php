@@ -2323,7 +2323,7 @@ class ApplicationDesire extends AdmObject
         public function showEvaluationsDiv($lang, $workflowRequestObject)
         {
                 $applicantEvaluationList = $this->getApplicationObject()->getApplicant()->get('applicantEvaluationList');
-                $hide_retrieve_cols = ["active", "need_evaluation_enum", "imported", "workflow_file_id", "eval_expired_date"];
+                $hide_retrieve_cols = ["active", "need_evaluation_enum", "imported",  "eval_expired_date"];//"workflow_file_id",
                 $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
                 return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, $options);
         }
