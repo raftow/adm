@@ -12,7 +12,9 @@ class ProgramRequirementArTranslator
 		$trad['program_requirement']['academic_program_id'] = 'البرنامج الدراسي';
 		$trad['program_requirement']['application_category_enum'] = 'صنف طلب التقديم';
 		$trad['program_requirement']['application_class_enum'] = 'قسم طلب التقديم';
+		$trad['program_requirement']['aptitude_category_enum'] = 'قدرات المتقدم';
 		$trad['program_requirement']['application_requirement_mfk'] = 'متطلبات التقديم';
+
 		// steps
 		return $trad;
 	}
