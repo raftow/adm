@@ -174,7 +174,8 @@ class ApplicantEvaluation extends AdmObject
 
         public function afterEditSaveCase()
         {
-                if ($this->get("nominating_candidates_id")) return 2;
+                $ncObj = $this->calcNominating_candidates_id($what = "object");
+                if ($ncObj) return 2;
 
                 return 1;
         }
