@@ -50,7 +50,7 @@ class AdmProgramRequirementAfwStructure
                         'RELATION' => 'OneToMany',
                         'READONLY' => false,
                         'DNA' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_100',
                 ),
                 'application_category_enum' => array(
                         'SHORTNAME' => 'category',

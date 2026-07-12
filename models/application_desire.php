@@ -2697,7 +2697,7 @@ class ApplicationDesire extends AdmObject
                         $programObj = $branchObj->getMyProgram();
                         if ($programObj) {
                                 if ($programObj->sureIs("interview_ind")) {
-                                        list($found, $case) = ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"));
+                                        list($found, $case) = ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"), $workflowRequestObject->getVal("aptitude_category_enum"));
                                         if ($found) {
                                                 $found = true;
                                                 $reason = "The program itself require interview and category and class of the application also";
