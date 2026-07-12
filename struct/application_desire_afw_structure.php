@@ -19,7 +19,7 @@
                                         // $obj->UNIQUE_KEY = array('applicant_id','application_plan_id', 'application_simulation_id','application_plan_branch_id'); big one
                                         $obj->UNIQUE_KEY = array('applicant_id', 'application_plan_id', 'application_simulation_id', 'desire_num');
                                         $obj->public_display = true;
-                                        $obj->OwnedBy = array('module' => "adm", 'afw' => "Application", 'afw2' => "Applicant"); 
+                                        $obj->OwnedBy = array('module' => "adm", 'afw' => "Application", 'afw2' => "Applicant");
                                         // $obj->IS_LOOKUP = true;
                                         $obj->MOVE_UP_ACTION = true;
                                         $obj->editByStep = true;
@@ -1441,6 +1441,28 @@
                                         'CSS' => 'width_pct_100',
                                 ),
 
+                                'aptitude_category_enum' => array(
+                                        'CATEGORY' => 'FORMULA',
+                                        'IMPORTANT' => 'IN',
+                                        'SHOW' => true,
+                                        'RETRIEVE' => false,
+                                        'EDIT' => true,
+                                        'UTF8' => false,
+                                        'TYPE' => 'ENUM',
+                                        'ANSWER' => 'FUNCTION',
+                                        'SIZE' => 40,
+                                        'DEFAUT' => 0,
+                                        'DISPLAY' => true,
+                                        'STEP' => 99,
+                                        'RELATION' => 'ManyToOne',
+                                        'MANDATORY' => false,
+                                        'READONLY' => true,
+                                        'AUTOCOMPLETE' => false,
+                                        'DISPLAY-UGROUPS' => '',
+                                        'EDIT-UGROUPS' => '',
+                                        'CSS' => 'width_pct_100',
+                                ),
+
 
                                 'application_class_enum' => array(
                                         'CATEGORY' => 'FORMULA',
@@ -1635,7 +1657,7 @@
                                         'INPUT_WIDE' => true,
                                 ),
 
-                        'send_fees_to_sis' => array(
+                                'send_fees_to_sis' => array(
                                         'STEP' => 99,
                                         'CATEGORY' => 'FORMULA',
                                         'SHOW' => true,
