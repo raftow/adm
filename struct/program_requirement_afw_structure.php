@@ -12,7 +12,7 @@ class AdmProgramRequirementAfwStructure
                         // $obj->ENABLE_DISPLAY_MODE_IN_QEDIT=true;
                         $obj->ORDER_BY_FIELDS = '';
 
-                        $obj->UNIQUE_KEY = array('academic_program_id', 'application_category_enum', 'application_class_enum');
+                        $obj->UNIQUE_KEY = array('academic_program_id', 'application_category_enum', 'application_class_enum', 'aptitude_category_enum');
 
                         $obj->showQeditErrors = true;
                         $obj->showRetrieveErrors = true;
@@ -50,7 +50,7 @@ class AdmProgramRequirementAfwStructure
                         'RELATION' => 'OneToMany',
                         'READONLY' => false,
                         'DNA' => true,
-                        'CSS' => 'width_pct_50',
+                        'CSS' => 'width_pct_100',
                 ),
                 'application_category_enum' => array(
                         'SHORTNAME' => 'category',
@@ -94,6 +94,29 @@ class AdmProgramRequirementAfwStructure
                         'UTF8' => false,
                         'TYPE' => 'ENUM',
                         'ANSWER' => 'FUNCTION',
+                        'READONLY' => false,
+                        'DNA' => true,
+                        'CSS' => 'width_pct_25',
+                ),
+                'aptitude_category_enum' => array(
+                        'SHORTNAME' => 'category',
+                        'SEARCH' => true,
+                        'QSEARCH' => true,
+                        'SHOW' => true,
+                        'AUDIT' => false,
+                        'RETRIEVE' => true,
+                        'EDIT' => true,
+                        'QEDIT' => true,
+                        'SIZE' => 32,
+                        'MAXLENGTH' => 32,
+                        'MIN-SIZE' => 1,
+                        'CHAR_TEMPLATE' => 'ALPHABETIC,SPACE',
+                        'MANDATORY' => false,
+                        'EMPTY_IS_ALL' => true,
+                        'UTF8' => false,
+                        'TYPE' => 'ENUM',
+                        'ANSWER' => 'FUNCTION',
+                        'DEFAUT' => '1',
                         'READONLY' => false,
                         'DNA' => true,
                         'CSS' => 'width_pct_25',

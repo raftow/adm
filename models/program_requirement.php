@@ -39,13 +39,13 @@ class ProgramRequirement extends AdmObject
      * @param int $application_category_enum, 
      * @param int $application_class_enum
      */
-    public static function loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum, $create_obj_if_not_found = false)
+    public static function loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum, $aptitude_category_enum, $create_obj_if_not_found = false)
     {
         $obj = new ProgramRequirement();
         $obj->select("academic_program_id", $academic_program_id);
         $obj->select("application_category_enum", $application_category_enum);
         $obj->select("application_class_enum", $application_class_enum);
-
+        $obj->select("aptitude_category_enum", $aptitude_category_enum);
         if ($obj->load()) {
             if ($create_obj_if_not_found) $obj->activate();
             return $obj;
@@ -53,6 +53,7 @@ class ProgramRequirement extends AdmObject
             $obj->set("academic_program_id", $academic_program_id);
             $obj->set("application_category_enum", $application_category_enum);
             $obj->set("application_class_enum", $application_class_enum);
+            $obj->set("aptitude_category_enum", $aptitude_category_enum);
 
             $obj->insertNew();
             if (!$obj->id) return null; // means beforeInsert rejected insert operation
@@ -64,13 +65,14 @@ class ProgramRequirement extends AdmObject
     /**
      * @param int $academic_program_id, 
      * @param int $application_category_enum, 
-     * @param int $application_class_enum
+     * @param int $application_class_enum,
+     * @param int $aptitude_category_enum
      */
-    public static function loadByUniqueIndex($academic_program_id, $application_category_enum, $application_class_enum)
+    public static function loadByUniqueIndex($academic_program_id, $application_category_enum, $application_class_enum, $aptitude_category_enum)
     {
-        $requirement_key = "$academic_program_id-$application_category_enum-$application_class_enum";
+        $requirement_key = "$academic_program_id-$application_category_enum-$application_class_enum-$aptitude_category_enum";
         if (!self::$requirementCache[$requirement_key]) {
-            $obj = self::loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum);
+            $obj = self::loadByMainIndex($academic_program_id, $application_category_enum, $application_class_enum, $aptitude_category_enum);
             if ($obj) {
                 self::$requirementCache[$requirement_key] = $obj;
             } else self::$requirementCache[$requirement_key] = "not-found";
@@ -111,8 +113,8 @@ class ProgramRequirement extends AdmObject
         // $me = ($objme) ? $objme->id : 0;
 
         $otherLinksArray = $this->getOtherLinksArrayStandard($mode, $genereLog, $step);
-        $my_id = $this->getId();
-        $displ = $this->getDisplay($lang);
+        // $my_id = $this->getId();
+        // $displ = $this->getDisplay($lang);
 
         // check errors on all steps (by default no for optimization)
         // rafik don't know why this : \//  = false;
@@ -206,53 +208,81 @@ class ProgramRequirement extends AdmObject
         }
     }
 
-
-    public static function requirementFoundIn($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)
-    {
+    /**
+     * @param int $application_requirement_id,
+     * @param int $academic_program_id,
+     * @param int $workflow_category_enum,
+     * @param int $application_class_enum
+     * @param int $aptitude_category_enum,
+     */
+    public static function requirementFoundIn(
+        $application_requirement_id,
+        $academic_program_id,
+        $workflow_category_enum,
+        $application_class_enum,
+        $aptitude_category_enum
+    ) {
 
 
 
         $objPR = null;
         $case = "No case";
+        // X X X
         if (!$objPR) {
-            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum);
+            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum, $aptitude_category_enum);
             $case = "loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum)";
         }
 
+        // 0 X X 
         if (!$objPR) {
-            $objPR = self::loadByUniqueIndex($academic_program_id, 0, $application_class_enum);
-            $case = "loadByUniqueIndex($academic_program_id, 0, $application_class_enum)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, 0);
-            $case = "loadByUniqueIndex($academic_program_id, $workflow_category_enum, 0)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByUniqueIndex($academic_program_id, 0, 0);
-            $case = "loadByUniqueIndex($academic_program_id, 0, 0)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, $application_class_enum, $aptitude_category_enum);
+            $case = "loadByUniqueIndex($academic_program_id, 0, $application_class_enum, $aptitude_category_enum)";
         }
 
+        // X 0 X
         if (!$objPR) {
-            $objPR = self::loadByUniqueIndex(0, $workflow_category_enum, $application_class_enum);
-            $case = "loadByUniqueIndex(0, $workflow_category_enum, $application_class_enum)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByUniqueIndex(0, 0, $application_class_enum);
-            $case = "loadByUniqueIndex(0, 0, $application_class_enum)";
-        }
-        if (!$objPR) {
-            $objPR = self::loadByUniqueIndex(0, $workflow_category_enum, 0);
-            $case = "loadByUniqueIndex(0, $workflow_category_enum, 0)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, 0, $aptitude_category_enum);
+            $case = "loadByUniqueIndex($academic_program_id, $workflow_category_enum, 0, $aptitude_category_enum)";
         }
 
+        // X X 0
         if (!$objPR) {
-            $objPR = self::loadByUniqueIndex(0, 0, 0);
-            $case = "loadByUniqueIndex(0, 0, 0)";
+            $objPR = self::loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum, 0);
+            $case = "loadByUniqueIndex($academic_program_id, $workflow_category_enum, $application_class_enum, 0)";
         }
 
 
-        if (!$objPR) return [false, "no object requirement found for ($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)"];
-        return [$objPR->findInMfk("application_requirement_mfk", $application_requirement_id), $case];
+        // 0 0 X
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, 0, $aptitude_category_enum);
+            $case = "loadByUniqueIndex($academic_program_id, 0, 0, $aptitude_category_enum)";
+        }
+
+        // 0 X 0 
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, $workflow_category_enum, 0);
+            $case = "loadByUniqueIndex($academic_program_id, 0, $workflow_category_enum, 0)";
+        }
+
+        // 0 0 X 
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, 0, $aptitude_category_enum);
+            $case = "loadByUniqueIndex($academic_program_id, 0, 0, $aptitude_category_enum)";
+        }
+
+        // 0 0 0
+        if (!$objPR) {
+            $objPR = self::loadByUniqueIndex($academic_program_id, 0, 0, 0);
+            $case = "loadByUniqueIndex($academic_program_id, 0, 0, 0)";
+        }
+
+        if (!$objPR) {
+            return self::requirementFoundIn($application_requirement_id, 0, $workflow_category_enum, $application_class_enum, $aptitude_category_enum);
+        }
+
+
+        if (!$objPR) return [false, "no object requirement found for ($application_requirement_id, $academic_program_id, $workflow_category_enum, $application_class_enum)", null];
+        return [$objPR->findInMfk("application_requirement_mfk", $application_requirement_id), $case, $objPR];
     }
 }
 

@@ -563,12 +563,11 @@ class ApplicationDesire extends AdmObject
                                 }
                         }
                 }
-                if ($ncObject) 
-                {
+                if ($ncObject) {
                         $nominationLetterObj = $ncObject->het("nomination_letter_id");
-                        if($nominationLetterObj) $nominatingAuthorityObj = $nominationLetterObj->het('nominating_authority_id');
-                        if($nominatingAuthorityObj) $authorityCodeObj = $nominatingAuthorityObj->het('sis_code');
-                        if($authorityCodeObj){
+                        if ($nominationLetterObj) $nominatingAuthorityObj = $nominationLetterObj->het('nominating_authority_id');
+                        if ($nominatingAuthorityObj) $authorityCodeObj = $nominatingAuthorityObj->het('sis_code');
+                        if ($authorityCodeObj) {
                                 $contractorName = $authorityCodeObj->getVal('lookup_code') . "-" . $authorityCodeObj->getVal('name_ar');
                         }
                 }
@@ -816,6 +815,7 @@ class ApplicationDesire extends AdmObject
                 $inf_arr = [];
                 $war_arr = [];
                 $tech_arr = [];
+                $resultGotoNextDesireStep = [];
                 $bootstrapResult = 'standby';
                 $tentatives = 0;  // limit tentatives to 300 to avoid infinite loop
                 try {
@@ -1252,6 +1252,10 @@ class ApplicationDesire extends AdmObject
                         $wRequestObj->set('workflow_category_enum', $workflow_category_enum);
 
 
+                        $aptitude_category_enum = $this->calcAptitude_category_enum();
+                        $wRequestObj->set('aptitude_category_enum', $aptitude_category_enum);
+
+
 
                         list($err, $info, $log) = $wRequestObj->assignBestAvailableEmployee($lang, true, true);
                         if ($wRequestObj->isChanged()) {
@@ -1265,7 +1269,7 @@ class ApplicationDesire extends AdmObject
                         $action = 'already-exists';
                 }
 
-                return [$wRequestObj, 'new application_class_enum=' . $application_class_enum . ' workflow_category_enum=' . $workflow_category_enum, $action, $log];
+                return [$wRequestObj, 'new application_class_enum=' . $application_class_enum . ' workflow_category_enum=' . $workflow_category_enum . ' aptitude_category_enum=' . $aptitude_category_enum, $action, $log];
         }
 
         public function getDisplay($lang = 'ar')
@@ -2093,9 +2097,9 @@ class ApplicationDesire extends AdmObject
         }
 
         /**
-     * @param string $attribute
-     */
-    public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
+         * @param string $attribute
+         */
+        public function getAttributeLabel($attribute, $lang = 'ar', $short = false, $AIT = true)
         {
                 for ($s = 1; $s <= 3; $s++) {
                         if ($attribute == 'sorting_value_' . $s) {
@@ -2323,7 +2327,7 @@ class ApplicationDesire extends AdmObject
         public function showEvaluationsDiv($lang, $workflowRequestObject)
         {
                 $applicantEvaluationList = $this->getApplicationObject()->getApplicant()->get('applicantEvaluationList');
-                $hide_retrieve_cols = ["active", "need_evaluation_enum", "imported",  "eval_expired_date"];//"workflow_file_id",
+                $hide_retrieve_cols = ["active", "need_evaluation_enum", "imported",  "eval_expired_date"]; //"workflow_file_id",
                 $options = ['mode_force_cols' => true, 'hide_retrieve_cols' => $hide_retrieve_cols];
                 return AfwShowHelper::showRetrieveTable($applicantEvaluationList, $lang, $options);
         }
@@ -2341,15 +2345,13 @@ class ApplicationDesire extends AdmObject
                                 'approved',
                                 'reupload_enum',
                         ];
-
-                        
-                }
-                else {
+                } else {
                         $structure['FORCE-RETRIEVE-COLS'] = [
                                 // amajd asked it (04-july-2026) to show it in the list,
                                 // please keep below reupload_enum retrieved in the list, and not removed from the list
                                 'reupload_enum',
-                        ];}
+                        ];
+                }
 
                 return $applicationObject->showAttribute('applicantFileList', $structure, true, $lang);
         }
@@ -2376,7 +2378,7 @@ class ApplicationDesire extends AdmObject
                 */
                 $html_evaluation_table = "";
                 $eval_css = "";
-                $html_program_table = $this->tm("Academic program no found", $lang);
+                $html_program_table = $this->tm("Academic program not found", $lang);
                 /**
                  * @var ApplicationPlanBranch $branchObj
                  *
@@ -2695,7 +2697,7 @@ class ApplicationDesire extends AdmObject
                         $programObj = $branchObj->getMyProgram();
                         if ($programObj) {
                                 if ($programObj->sureIs("interview_ind")) {
-                                        list($found, $case) = ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"));
+                                        list($found, $case) = ProgramRequirement::requirementFoundIn($requirement_id, $programObj->id, $workflowRequestObject->getVal("workflow_category_enum"), $workflowRequestObject->getVal("application_class_enum"), $workflowRequestObject->getVal("aptitude_category_enum"));
                                         if ($found) {
                                                 $found = true;
                                                 $reason = "The program itself require interview and category and class of the application also";
@@ -2833,6 +2835,20 @@ class ApplicationDesire extends AdmObject
 
 
         // WORKFLOW RELATED FUNCTIONS
+
+
+        public function calcAptitude_category_enum($what = "value")
+        {
+                $this->getApplicationObject();
+
+                $main_company = AfwSession::currentCompany();
+                $file_dir_name = dirname(__FILE__);
+                $classAC = "ApplicationClass" . AfwStringHelper::firstCharUpper($main_company);
+                if (!class_exists($classAC)) {
+                        include($file_dir_name . "/../../client-$main_company/extra/application_class_$main_company.php");
+                }
+                return $classAC::calcAptitudeCategoryOf($this->applicationObj, $this);
+        }
 
         public function calcWorkflow_category_enum($what = "value")
         {

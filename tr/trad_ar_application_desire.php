@@ -97,6 +97,7 @@ class ApplicationDesireArTranslator
 
 		$trad['application_desire']['application_class_enum'] = 'قسم طلب التقديم';
 		$trad['application_desire']['workflow_category_enum'] = 'صنف طلب التقديم';
+		$trad['application_desire']['aptitude_category_enum'] = 'قدرات المتقدم';
 		$trad['application_desire']['guid'] = 'معرف السجل';
 		$trad['application_desire']['student_id'] = 'الرقم الأكاديمي';
 		$trad['application_desire']['student_created_ind'] = 'تم إنشاء سجل الطالب';
