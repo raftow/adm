@@ -231,7 +231,7 @@ class ApplicantAccount extends AdmObject
                 ];
                 //die(var_dump($data));
                 $response = $naussApi->pushApplicationFees($data);
-die(var_dump($response));
+//die(var_dump($response));
                 return [
                     "status" => $response["status"],
                     "body" => $response["body"]
