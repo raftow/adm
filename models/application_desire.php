@@ -2393,6 +2393,10 @@ class ApplicationDesire extends AdmObject
                         $programObj = $branchObj->het("program_id");
                         if ($programObj) {
                                 $html_program_table = AfwShowHelper::showRetrieveTable($programObj, $lang, $options);
+                                $appCVScoreObj = $this->cvIsReady();
+                                if ($appCVScoreObj) {
+                                        $html_program_table = "<br>\n" . $appCVScoreObj->showMyLink(1, '', 'تقييم السيرة الذاتية');
+                                }
                         } else {
                                 $html_program_table .= " > " . $this->tm("The program of applied branch seems to be removed", $lang) .
                                         "<br> branch-id=" . $branchObj->id;
