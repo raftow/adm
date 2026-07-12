@@ -151,10 +151,10 @@ class ApplicantAccount extends AdmObject
         public function sendApplicationFeesToNauss()
         {
                 $applicantaccount = new ApplicantAccount();
-                //$applicantaccount->where("application_model_financial_transaction_id =4 and payment_status_enum=2 and (send_to_sis_ind is null or send_to_sis_ind !='Y')");
-                $applicantaccount->where("id =174");
+                $applicantaccount->where("application_model_financial_transaction_id =4 and payment_status_enum=2 and (send_to_sis_ind is null or send_to_sis_ind !='Y')");
+                //$applicantaccount->where("id =174");
                 
-                $applicantaccountList = $applicantaccount->loadMany(1);
+                $applicantaccountList = $applicantaccount->loadMany(10);
                 foreach ($applicantaccountList as $applicantAccountObj) {
                         $response = $applicantAccountObj->sendToNauss();
                         if($response["status"] == 200){
