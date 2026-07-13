@@ -78,6 +78,8 @@ class NominatingCandidatesArTranslator
 		$trad["nominating_candidates"]["birth_date"] = "تاريخ الميلاد";
 		$trad["nominating_candidates"]["birth_gdate"] = "تاريخ الميلاد (ميلادي)";
 
+		$trad["nominating_candidates"]["applicationStatusShortcut"] = "حالة التقديم";
+		$trad["nominating_candidates"]["workflowStatusShortcut"] = "حالة القبول";
 
 
 		// steps

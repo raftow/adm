@@ -702,6 +702,42 @@ class NominatingCandidates extends AdmObject
         return $return . ' (' . $paymentType . ')';
     }
 
+    public function calcApplicationStatusShortcut($what = 'value')
+    {
+        $lang = AfwLanguageHelper::getGlobalLanguage();
+        $applicationObj = $this->applicationObj;
+        if (!$applicationObj) {
+            $applicant_id            = $this->getVal('applicant_id');
+            $application_plan_id     = $this->getVal('application_plan_id');
+            $application_simulation_id = $this->getVal('application_simulation_id');
+            if (!$applicant_id || !$application_plan_id) return '-';
+            $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $this->getVal('idn'));
+        }
+        if (!$applicationObj) return '-';
+        return $applicationObj->decode('application_status_enum', '', false, $lang);
+    }
+
+    public function calcWorkflowStatusShortcut($what = 'value')
+    {
+        $applicationObj = $this->applicationObj;
+        if (!$applicationObj) {
+            $applicant_id            = $this->getVal('applicant_id');
+            $application_plan_id     = $this->getVal('application_plan_id');
+            $application_simulation_id = $this->getVal('application_simulation_id');
+            if (!$applicant_id || !$application_plan_id) return '-';
+            $applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id, $this->getVal('idn'));
+        }
+        if (!$applicationObj) return '-';
+        $desireList = $applicationObj->get('applicationDesireList');
+        foreach ($desireList as $desireObj) {
+            $workflowRequestObj = $desireObj->het('workflow_request_id');
+            if (!$workflowRequestObj) continue;
+            $workflowStatusObj = $workflowRequestObj->het('workflow_status_id');
+            if ($workflowStatusObj) return $workflowStatusObj->getVal('workflow_status_name_ar');
+        }
+        return '-';
+    }
+
     public function calcMyApplicationLink($what = 'value')
     {
         $lang = AfwLanguageHelper::getGlobalLanguage();
