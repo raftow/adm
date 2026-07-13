@@ -314,6 +314,8 @@ class AdmApplicantAccountAfwStructure
                         'READONLY' => false,
                         'DNA' => true,
                         'CSS' => 'width_pct_50',
+                        'AUTOCOMPLETE' => true,
+                        'AUTOCOMPLETE-SEARCH' => true,
                 ),
                 'next_transition_id' => array(
                         'SEARCH' => true,
