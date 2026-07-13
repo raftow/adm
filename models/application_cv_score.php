@@ -16,6 +16,12 @@ class ApplicationCvScore extends AFWObject
 
     public static $DB_STRUCTURE = null;
 
+    /** @var ApplicationPlan $objApplicationPlan */
+    private $objApplicationPlan = null;
+    /** @var Application $applicationObj */
+    private $applicationObj = null;
+
+
     public function __construct()
     {
         parent::__construct("application_cv_score", "id", "adm");
@@ -255,7 +261,7 @@ class ApplicationCvScore extends AFWObject
             $rubricItemObj  = $objItem->het("cv_rubric_item_id");
             $rubricItemCode = $rubricItemObj->getVal("lookup_code");
             $raw = $this->getVal("score_" . $rubricItemCode);
-            if($raw === null || $raw === '') continue;
+            if ($raw === null || $raw === '') continue;
             $total += floatval($raw);
         }
         $this->set("total_score", $total);
@@ -736,5 +742,59 @@ class ApplicationCvScore extends AFWObject
             <div style="clear: both;"></div>
         </div>';
         return $html;
+    }
+
+    public function calcWorkflow_request_id($what = "value")
+    {
+        $wRequestObj = null;
+        // $lang = AfwLanguageHelper::getGlobalLanguage();
+        $this->getApplicationPlan();
+        if ($this->objApplicationPlan) {
+            // $application_simulation_id = $this->getVal('application_simulation_id');
+            // $desire_num = $this->getVal('desire_num');
+            // $applicationPlanId = $this->objApplicationPlan->id;
+            $applicationObj = $this->getApplicationObject();
+            if ($applicationObj) {
+                AfwAutoloader::addModule('workflow');
+                $wModelObj = $this->objApplicationPlan->getWorkflowModel();
+                if ($wModelObj) {
+                    $applicantObj = $applicationObj->getApplicant();
+                    if ($applicantObj) {
+                        $wApplicantObj = $applicantObj->getWorkflowApplicant();
+                        $wApplicantObjId = $wApplicantObj->id;
+                        $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
+                    }
+                }
+            }
+        }
+
+        return AfwLoadHelper::giveWhat($wRequestObj, $what);
+    }
+
+    public function getApplicationPlan()
+    {
+        if (!$this->objApplicationPlan) {
+            if (!$this->getVal('application_plan_id')) {
+                throw new AfwRuntimeException("No application_plan_id for this desire : " . $this->id);
+            }
+            $this->objApplicationPlan = ApplicationPlan::loadById($this->getVal('application_plan_id'));
+        }
+
+        return $this->objApplicationPlan;
+    }
+
+    /**
+     * @return Application
+     */
+    public function getApplicationObject()
+    {
+        if (!$this->applicationObj) {
+            $applicant_id = $this->getVal('applicant_id');
+            $application_plan_id = $this->getVal('application_plan_id');
+            $application_simulation_id = $this->getVal('application_simulation_id');
+
+            $this->applicationObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
+        }
+        return $this->applicationObj;
     }
 }
