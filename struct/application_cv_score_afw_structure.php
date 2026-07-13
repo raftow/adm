@@ -24,7 +24,12 @@ class AdmApplicationCvScoreAfwStructure
 			$obj->showRetrieveErrors = true;
 			$obj->general_check_errors = true;
 			// $obj->after_save_edit = array("class"=>'ApplicationCvScore',"attribute"=>'xxxx_id', "currmod"=>'adm',"currstep"=>2);
-			$obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicationCvScore', "submit" => true);
+			// $obj->after_save_edit = array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicationCvScore', "submit" => true);
+
+			$obj->after_save_edit_cases = array(
+				'case-1' => array("mode" => "qsearch", "currmod" => 'adm', "class" => 'ApplicationCvScore', "submit" => true),
+				'case-2' => array("class" => 'WorkflowRequest', "formulaAttribute" => 'workflow_request_id', "currmod" => 'workflow', "currstep" => 4),
+			);
 		} else {
 			ApplicationCvScoreArTranslator::initData();
 			ApplicationCvScoreEnTranslator::initData();
@@ -116,6 +121,32 @@ class AdmApplicationCvScoreAfwStructure
 			'STEP' => 1,
 			'DEFAULT' => '2'
 		),
+
+		'workflow_request_id' => array(
+			'CATEGORY' => 'FORMULA',
+			'SEARCH' => false,
+			'QSEARCH' => false,
+			'SHOW' => true,
+			'AUDIT' => false,
+			'RETRIEVE' => false,
+			'EDIT' => true,
+			'QEDIT' => false,
+			'SIZE' => 32,
+			'MAXLENGTH' => 32,
+			'MIN-SIZE' => 1,
+			'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+			'MANDATORY' => false,
+			'UTF8' => false,
+			'TYPE' => 'FK',
+			'ANSWER' => 'workflow_request',
+			'ANSMODULE' => 'workflow',
+			'RELATION' => 'OneToMany',
+			'READONLY' => true,
+			'DNA' => true,
+			'CSS' => 'width_pct_50',
+			'STEP' => 99,
+		),
+
 		'total_score' => array(
 			'SEARCH' => true,
 			'QSEARCH' => false,
