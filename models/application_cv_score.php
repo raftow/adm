@@ -802,4 +802,12 @@ class ApplicationCvScore extends AFWObject
     {
         return 'FINISH';
     }
+
+    public function afterEditSaveCase()
+    {
+        $workflow_request_id = $this->calcWorkflow_request_id();
+        if ($workflow_request_id > 0) return 2;
+
+        return 1;
+    }
 }
