@@ -1159,7 +1159,8 @@ class ApplicationDesire extends AdmObject
                                         if ($applicantObj) {
                                                 $wApplicantObj = $applicantObj->getWorkflowApplicant();
                                                 $wApplicantObjId = $wApplicantObj->id;
-                                                $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
+                                                if($wApplicantObjId)
+                                                        $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
                                         }
                                 }
                         }
