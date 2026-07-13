@@ -797,4 +797,9 @@ class ApplicationCvScore extends AFWObject
         }
         return $this->applicationObj;
     }
+
+    public function getReadOnlyFormFinishButtonLabel()
+    {
+        return 'FINISH';
+    }
 }
