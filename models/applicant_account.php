@@ -179,7 +179,7 @@ class ApplicantAccount extends AdmObject
                 $application_model_financial_transaction_id = $this->getVal("application_model_financial_transaction_id");
                 $termCode = $applicationPlanObj->het("term_id")->getVal("term_code");
 
-                $fullName = $applicantObj->getVal("first_name_ar") . " ". $applicantObj->getVal("second_name_ar")." ".$applicantObj->getVal("third_name_ar")." " . $applicantObj->getVal("last_name_ar");
+                $fullName = $applicantObj->getVal("first_name_ar") . " ". $applicantObj->getVal("father_name_ar")." ".$applicantObj->getVal("middle_name_ar")." " . $applicantObj->getVal("last_name_ar");
                 //$appObj = Application::loadByMainIndex($applicant_id, $application_plan_id, $application_simulation_id);
                 $applicationDesireObj = new ApplicationDesire();
                 $applicationDesireObj->select("applicant_id", $applicant_id);
@@ -206,28 +206,28 @@ class ApplicantAccount extends AdmObject
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $naussApi = new NaussApi();
                 $data = [
-                        "applNo"          => "",
+                        "applNo"          => $applicantObj->getVal("idn").$termCode,
                         "studentSsn"      => $applicantObj->getVal("idn"),
                         "studentId"       => "",
                         "studentName"     => $fullName,
                         "programCode"     => $programCode,
                         "programDesc"     => $programDesc,
-                        "electTrnsId"     => $applicantPaymentObj->getVal("id"),
+                        "electTrnsId"     => $applicantPaymentObj->getVal("payment_transaction_id"),
                         "cardType"        => ($applicantPaymentObj->getVal("payment_type") == 'DB') ? "DEBIT" : "CREDIT",
                         "cardBrand"       => $applicantPaymentObj->getVal("card_type"),
-                        "bankRno"         => $applicantPaymentObj->getVal("receipt_id"),
+                        "bankRno"         => $applicantPaymentObj->getVal("bankrno"),
                         "amount"          => $this->getVal("total_amount"),
-                        "transactionDate" => date("d/m/Y", strtotime($this->getVal("updated_at"))),
-                        "categoryCode"    => "CADM",
-                        "categoryDesc"    => "رسوم التقديم",
+                        "transactionDate" => date("d/m/Y H:i:s", strtotime($this->getVal("updated_at"))),
+                        "categoryCode"    => "APF",
+                        "categoryDesc"    => "Admissions Application Charges",
                         "paymentCode"     => "PADM",
-                        "paymentDesc"     => "رسوم التقديم",
+                        "paymentDesc"     => "مدفوعات رسوم طلب القبول",
                         "termCode"        => $termCode,
                         "oafrCode"        => "GRADUATE_SELF",
                         "payingMethod"    => "دفع الكتروني",
                         "vatAmount"       => "",
                         "payedByName"     => "",
-                        "dateFormat"      => "DD/MM/YYYY",
+                        "dateFormat"      => "DD/MM/YYYY HH24:MI:SS",
                 ];
                 //die(var_dump($data));
                 $response = $naussApi->pushApplicationFees($data);
