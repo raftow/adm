@@ -206,7 +206,7 @@ class ApplicantAccount extends AdmObject
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $naussApi = new NaussApi();
                 $data = [
-                        "applNo"          => $applicantObj->getVal("idn").$termCode,
+                        "applNo"          => $termCode.$applicantObj->getVal("idn"),
                         "studentSsn"      => $applicantObj->getVal("idn"),
                         "studentId"       => "",
                         "studentName"     => $fullName,

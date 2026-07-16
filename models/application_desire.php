@@ -736,8 +736,8 @@ class ApplicationDesire extends AdmObject
                 $transId = null;
 
                 if ($applicantPaymentObj) {
-                        $transId = $applicantPaymentObj->getVal("id");
-                        $receipt_id = $applicantPaymentObj->getVal("receipt_id");
+                        $transId = $applicantPaymentObj->getVal("payment_transaction_id");
+                        $receipt_id = $applicantPaymentObj->getVal("bankrno");
                         $card_type = $applicantPaymentObj->getVal("card_type");
                         $payment_type = $applicantPaymentObj->getVal("payment_type");
                 }
@@ -752,7 +752,7 @@ class ApplicationDesire extends AdmObject
                         "transId" => $transId,
                         "transReciept" => $receipt_id,
                         "cardType" => $card_type,
-                        "paymentBrand" => $payment_type
+                        "paymentBrand" => ($payment_type == 'DB') ? "DEBIT" : "CREDIT",
                 ];
         }
         public function sendAllDataToSIS($lang = 'ar')

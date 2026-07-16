@@ -47,16 +47,36 @@ $server_db_prefix = AfwSession::currentDBPrefix();
 
 $q0 = "select id,step_name_ar,step_name_en from ".$server_db_prefix."adm.application_step where  application_model_id='".$application_model_id."' and id in (45,46,49) order by step_num;";
 $steps_list = AfwDatabase::db_recup_rows($q0);
-$q = "select count(*) NB_APPLICANT, ac.program_name_ar category, ap.application_step_id stepid, a.gender_enum, ab.training_period_enum from ".$server_db_prefix."adm.applicant a
-        inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id
-        inner join ".$server_db_prefix."adm.application_desire ad on ad.application_plan_id=ap.application_plan_id
-        and ad.application_simulation_id=ap.application_simulation_id
-        and ad.application_model_id=ap.application_model_id
-        and ad.applicant_id=ap.applicant_id
-        inner join ".$server_db_prefix."adm.application_plan_branch ab on ad.application_plan_branch_id = ab.id
-        inner join ".$server_db_prefix."adm.academic_program ac on ab.program_id = ac.id
+$q = "
+    SELECT count(*) NB_APPLICANT, ac.program_name_ar category, ap.application_step_id stepid, a.gender_enum, ab.training_period_enum
+        FROM ".$server_db_prefix."adm.applicant a
+        INNER JOIN ".$server_db_prefix."adm.application ap ON a.id = ap.applicant_id
+        INNER JOIN ".$server_db_prefix."adm.application_desire ad ON ad.application_plan_id = ap.application_plan_id
+            AND ad.application_simulation_id = ap.application_simulation_id
+            AND ad.application_model_id = ap.application_model_id
+            AND ad.applicant_id = ap.applicant_id
+        INNER JOIN ".$server_db_prefix."adm.application_plan_branch ab ON ad.application_plan_branch_id = ab.id
+        INNER JOIN ".$server_db_prefix."adm.academic_program ac ON ab.program_id = ac.id
+        WHERE ap.application_plan_id = '".$application_plan_id."'
+          AND ap.application_step_id !=49
+        GROUP BY category, stepid, a.gender_enum, ab.training_period_enum
 
-        where   ap.application_plan_id='".$application_plan_id."' group by category, stepid, a.gender_enum, ab.training_period_enum; ";/*st.show_in_FrondEnd='Y'*/
+    UNION ALL
+
+    SELECT count(*) NB_APPLICANT, ac.program_name_ar category, ap.application_step_id stepid, a.gender_enum, ab.training_period_enum
+        FROM ".$server_db_prefix."adm.applicant a
+        INNER JOIN ".$server_db_prefix."adm.application ap ON a.id = ap.applicant_id
+        INNER JOIN ".$server_db_prefix."adm.application_desire ad ON ad.application_plan_id = ap.application_plan_id
+            AND ad.application_simulation_id = ap.application_simulation_id
+            AND ad.application_model_id = ap.application_model_id
+            AND ad.applicant_id = ap.applicant_id
+        INNER JOIN ".$server_db_prefix."adm.application_plan_branch ab ON ad.application_plan_branch_id = ab.id
+        INNER JOIN ".$server_db_prefix."adm.academic_program ac ON ab.program_id = ac.id
+        WHERE ap.application_plan_id = '".$application_plan_id."'
+          AND ap.application_step_id = 49
+          AND ap.application_status_enum = 2
+        GROUP BY category, stepid, a.gender_enum, ab.training_period_enum
+";
 
 //inner join ".$server_db_prefix."adm.application_step st  on ap.application_step_id=st.id 
   $a_json = AfwDatabase::db_recup_rows($q);
@@ -117,7 +137,7 @@ $apps_result = AfwDatabase::db_recup_rows($q_apps);
 $total_applications = intval($apps_result[0]['TOTAL']);
 
 $q_complete = "select count(*) as TOTAL from ".$server_db_prefix."adm.application ap
-        where ap.application_plan_id='".$application_plan_id."' and ap.application_status_enum=2";
+        where ap.application_plan_id='".$application_plan_id."' and ap.application_status_enum=2 and application_step_id=49";
 $complete_result = AfwDatabase::db_recup_rows($q_complete);
 $total_complete = intval($complete_result[0]['TOTAL']);
 
