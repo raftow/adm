@@ -284,4 +284,12 @@ class ApplicantQualification extends AdmObject
 
                 return $return;
         }
+
+
+        public function calcGpa_full($what = "value")
+        {
+                $return = $this->getVal("gpa");
+                $return .= "/" . $this->getVal("gpa_from");
+                return $return;
+        }
 }
