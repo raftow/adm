@@ -1159,7 +1159,7 @@ class ApplicationDesire extends AdmObject
                                         if ($applicantObj) {
                                                 $wApplicantObj = $applicantObj->getWorkflowApplicant();
                                                 $wApplicantObjId = $wApplicantObj->id;
-                                                if($wApplicantObjId)
+                                                if ($wApplicantObjId)
                                                         $wRequestObj = WorkflowRequest::loadByMainIndex($wApplicantObjId, $wModelObj->id);
                                         }
                                 }
@@ -2445,6 +2445,16 @@ class ApplicationDesire extends AdmObject
                         return $apCvScoreObj->getVal('total_score');
                 else
                         return null;
+        }
+
+        public function calcCv_exists($what = 'value')
+        {
+                $apCvScoreObj = $this->calcMyApplicationCvScore('object');
+                list($yes, $no) = AfwLanguageHelper::translateYesNo($what);
+                if ($apCvScoreObj)
+                        return $yes;
+                else
+                        return $no;
         }
 
         /**

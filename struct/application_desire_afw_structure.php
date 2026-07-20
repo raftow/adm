@@ -626,6 +626,25 @@
                                         'CSS' => 'width_pct_50',
                                 ),
 
+                                'cv_exists' => array(
+                                        'STEP' => 99,
+                                        'SEARCH' => false,
+                                        'QSEARCH' => false,
+                                        'SHOW' => true,
+                                        'AUDIT' => false,
+                                        'RETRIEVE' => false,
+                                        'CATEGORY' => 'FORMULA',
+                                        'EDIT' => true,
+                                        'QEDIT' => true,
+                                        'SIZE' => 9999,
+                                        'MAXLENGTH' => 32,
+                                        'CHAR_TEMPLATE' => "ALPHABETIC,SPACE",
+                                        'UTF8' => false,
+                                        'TYPE' => 'YN',
+                                        'READONLY' => true,
+                                        'CSS' => 'width_pct_50',
+                                ),
+
 
                                 'health_ind' => array(
                                         'SHOW' => true,
