@@ -120,7 +120,7 @@ $out_scr .= '<thead><tr><th style="text-align:center;">جهة الترشيح</th
 foreach (array_keys($columns) as $col) {
     $out_scr .= "<th style='text-align:center;'>{$col}</th>";
 }
-$out_scr .= "<th style='text-align:center;'>المجموع</th></tr></thead><tbody>";
+$out_scr .= "<th style='text-align:center;'>الكل</th></tr></thead><tbody>";
 
 $total_col = [];
 foreach ($rows as $authority => $data) {
@@ -142,11 +142,16 @@ foreach ($rows as $authority => $data) {
     }
     $out_scr .= "<td style='text-align:center;'>{$total_row}</td></tr>";
 }
-$out_scr .= "<tr><td style='text-align:center;'>المجموع</td>";
+$grand_total_val = array_sum($total_col);
+$out_scr .= "<tr><td style='text-align:center;'>
+    <a href='#' class='text-primary font-weight-bold authority-link'
+       data-authority-id='0'
+       data-authority-name='الكل'>الكل</a>
+</td>";
 foreach (array_keys($columns) as $col) {
     $out_scr .= "<td style='text-align:center;'>".($total_col[$col] ?? 0)."</td>";
 }
-$out_scr .= "<td style='text-align:center;'>".array_sum($total_col)."</td></tr>";
+$out_scr .= "<td style='text-align:center;'>{$grand_total_val}</td></tr>";
 $out_scr .= '</tbody></table></div>';
 
 $out_scr .= '<button class="btn btn-primary m-2" onclick="exportToPDF()">تصدير PDF</button>';

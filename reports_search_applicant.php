@@ -117,17 +117,20 @@ if ($search) {
 
             // workflow status via idn + plan session
             $applicant_idn = addslashes($applicant['idn']);
-            $q_wf = "SELECT ws.workflow_status_name_ar
+            $q_wf = "SELECT ws.workflow_status_name_ar, wg.workflow_stage_name_ar
                 FROM {$server_db_prefix}workflow.workflow_request wr
                 JOIN {$server_db_prefix}workflow.workflow_session wses
                        ON wses.id = wr.workflow_session_id
                 LEFT JOIN {$server_db_prefix}workflow.workflow_status ws
                        ON ws.id = wr.workflow_status_id
+                LEFT JOIN {$server_db_prefix}workflow.workflow_stage wg
+                       ON wg.id = wr.workflow_stage_id
                 WHERE wr.idn = '$applicant_idn'
                   AND wses.external_code = 'PLAN-$app_plan_id'
                 LIMIT 1";
             $wf_rows = AfwDatabase::db_recup_rows($q_wf);
             $workflow_status_name = $wf_rows[0]['workflow_status_name_ar'] ?? '-';
+            $workflow_stage_name  = $wf_rows[0]['workflow_stage_name_ar']  ?? '-';
         }
     }
 }
@@ -228,17 +231,20 @@ if ($applicant) {
                     <th style='text-align:center;'>رقم الرغبة</th>
                     <th style='text-align:center;'>البرنامج</th>
                     <th style='text-align:center;'>الفترة</th>
+                    <th style='text-align:center;'>مرحلة الطلب</th>
                     <th style='text-align:center;'>حالة الرغبة</th>
                 </tr>
             </thead>
             <tbody>";
         foreach ($desires as $d) {
             $period_label    = $period_labels[intval($d['training_period_enum'])] ?? '-';
-            $d_status_label  = htmlspecialchars($workflow_status_name);
+            $d_stage_label   = htmlspecialchars($workflow_stage_name  ?? '-');
+            $d_status_label  = htmlspecialchars($workflow_status_name ?? '-');
             $out_scr .= "<tr>
                 <td style='text-align:center;'>".intval($d['desire_num'])."</td>
                 <td>".htmlspecialchars($d['program_name_ar'])."</td>
                 <td style='text-align:center;'>".$period_label."</td>
+                <td style='text-align:center;'>".$d_stage_label."</td>
                 <td style='text-align:center;'>".$d_status_label."</td>
             </tr>";
         }
