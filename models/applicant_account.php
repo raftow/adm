@@ -204,6 +204,8 @@ class ApplicantAccount extends AdmObject
                 $applicantPaymentObj->load();
                 $applicationPlanObj = ApplicationPlan::loadById($application_plan_id);
                 include_once(__DIR__ . "/../NaussSisApi.php");
+                $server_db_prefix = AfwSession::currentDBPrefix();
+                $updated_at = AfwDatabase::db_recup_value("select created_at from payment_transaction where id='".$applicantPaymentObj->getVal("payment_transaction_id")."'");
                 $naussApi = new NaussApi();
                 $data = [
                         "applNo"          => $termCode.$applicantObj->getVal("idn"),
@@ -217,7 +219,7 @@ class ApplicantAccount extends AdmObject
                         "cardBrand"       => $applicantPaymentObj->getVal("card_type"),
                         "bankRno"         => $applicantPaymentObj->getVal("bankrno"),
                         "amount"          => $this->getVal("total_amount"),
-                        "transactionDate" => date("d/m/Y H:i:s", strtotime($this->getVal("updated_at"))),
+                        "transactionDate" => date("d/m/Y H:i:s", strtotime($updated_at)),
                         "categoryCode"    => "APF",
                         "categoryDesc"    => "Admissions Application Charges",
                         "paymentCode"     => "PADM",

@@ -5,6 +5,7 @@ $_tabs = [
     'reports_candidate'        => 'تقارير المرشحين',
     'reports_applicant'        => 'حالة التقديمات',
     'reports_search_applicant' => 'بحث عن متقدم',
+    'reports_committee'        => 'أعمال اللجان',
 ];
 
 $_style_inactive = 'border:none !important;color:#6c757d;';

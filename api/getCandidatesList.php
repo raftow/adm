@@ -19,67 +19,55 @@ $authority_id        = intval($_GET['authority_id'] ?? 0);
 $application_plan_id = intval($_GET['application_plan_id'] ?? 0);
 $branch_id           = intval($_GET['branch_id'] ?? 0);
 
-if (!$authority_id || !$application_plan_id) {
+if (!$application_plan_id) {
     echo "<div class='alert alert-warning'>بيانات غير كافية.</div>";
     exit;
 }
 
-$app_status_labels = [
-    1 => 'تقديم غير مكتمل',
-    2 => 'تقديم مكتمل',
-    3 => 'منسحب',
-    4 => 'مراجعة البيانات',
-    5 => 'مقبول',
-    6 => 'مرفوض',
-];
+$period_labels = [1 => 'صباحي', 2 => 'مسائي'];
 
 $branch_filter = $branch_id ? "AND EXISTS (
-    SELECT 1 FROM {$server_db_prefix}adm.application_desire ad_f
-    WHERE ad_f.applicant_id = ap2.id
-      AND ad_f.application_plan_id = $application_plan_id
-      AND ad_f.application_plan_branch_id = $branch_id
-      AND ad_f.active = 'Y'
+    SELECT 1 FROM {$server_db_prefix}adm.application_plan_branch apb
+    WHERE apb.id = $branch_id AND apb.program_id = n.academic_program_id
 )" : "";
 
 $q = "SELECT
-        nc.idn,
-        CONCAT(COALESCE(nc.first_name_ar,''),' ',COALESCE(nc.last_name_ar,'')) AS candidate_name,
-        nl.letter_code AS nomination_letter_num,
-        na.nominating_authority_name_ar,
-        app.application_status_enum,
-        desires.branch_names,
-        ws.workflow_status_name_ar
-    FROM {$server_db_prefix}adm.nominating_candidates nc
-    JOIN {$server_db_prefix}adm.nomination_letter nl
-           ON nl.id = nc.nomination_letter_id
-    JOIN {$server_db_prefix}adm.nominating_authority na
-           ON na.id = nl.nominating_authority_id
-    LEFT JOIN {$server_db_prefix}adm.applicant ap2
-           ON ap2.idn = nc.idn AND ap2.active = 'Y'
-    LEFT JOIN {$server_db_prefix}adm.application app
-           ON app.applicant_id = ap2.id
-          AND app.application_plan_id = $application_plan_id
-          AND app.active = 'Y'
-    LEFT JOIN (
-        SELECT ad.applicant_id,
-               GROUP_CONCAT(apb.name_ar ORDER BY ad.desire_num SEPARATOR ' / ') AS branch_names
-        FROM {$server_db_prefix}adm.application_desire ad
-        JOIN {$server_db_prefix}adm.application_plan_branch apb
-               ON apb.id = ad.application_plan_branch_id
-        WHERE ad.application_plan_id = $application_plan_id AND ad.active = 'Y'
-        GROUP BY ad.applicant_id
-    ) desires ON desires.applicant_id = ap2.id
-    LEFT JOIN {$server_db_prefix}workflow.workflow_request wr
-           ON wr.idn = nc.idn
-    LEFT JOIN {$server_db_prefix}workflow.workflow_session wses
-           ON wses.id = wr.workflow_session_id
-          AND wses.external_code = 'PLAN-$application_plan_id'
-    LEFT JOIN {$server_db_prefix}workflow.workflow_status ws
-           ON ws.id = wr.workflow_status_id
-    WHERE nl.application_plan_id = $application_plan_id
-      AND na.id = $authority_id
+        n.idn,
+        CONCAT(COALESCE(n.first_name_ar,''), ' ', COALESCE(n.last_name_ar,'')) AS candidate_name,
+        l.letter_code                       AS nomination_letter_num,
+        o.nominating_authority_name_ar      AS authority_name,
+        f.name_ar                           AS funding_status_name,
+        p.program_title_ar                  AS program,
+        n.training_period_enum,
+        (SELECT 1 FROM {$server_db_prefix}workflow.workflow_request w
+            INNER JOIN {$server_db_prefix}workflow.workflow_session ws2
+                ON ws2.id = w.workflow_session_id AND ws2.external_code = 'PLAN-$application_plan_id'
+            WHERE w.idn = n.idn LIMIT 1)    AS has_workflow,
+        g.workflow_stage_name_ar,
+        s.workflow_status_name_ar
+    FROM {$server_db_prefix}adm.nominating_candidates n
+    INNER JOIN {$server_db_prefix}adm.nomination_letter l
+            ON l.id = n.nomination_letter_id
+    INNER JOIN {$server_db_prefix}adm.nominating_authority o
+            ON o.id = l.nominating_authority_id
+    INNER JOIN {$server_db_prefix}adm.study_funding_status f
+            ON f.id = n.study_funding_status_id
+    LEFT JOIN {$server_db_prefix}adm.academic_program p
+            ON p.id = n.academic_program_id
+    LEFT JOIN {$server_db_prefix}workflow.workflow_request r
+            ON r.idn = n.idn
+    LEFT JOIN {$server_db_prefix}workflow.workflow_session ws
+            ON ws.id = r.workflow_session_id AND ws.external_code = 'PLAN-$application_plan_id'
+    LEFT JOIN {$server_db_prefix}workflow.workflow_stage g
+            ON g.id = r.workflow_stage_id
+    LEFT JOIN {$server_db_prefix}workflow.workflow_scope sp
+            ON sp.id = r.workflow_scope_id
+    LEFT JOIN {$server_db_prefix}workflow.workflow_status s
+            ON s.id = r.workflow_status_id
+    WHERE l.application_plan_id = $application_plan_id
+      " . ($authority_id ? "AND o.id = $authority_id" : "") . "
       $branch_filter
-    ORDER BY nc.last_name_ar, nc.first_name_ar";
+    ORDER BY n.last_name_ar, n.first_name_ar";
 
 $rows = AfwDatabase::db_recup_rows($q);
 
@@ -95,25 +83,32 @@ echo "<div class='table-responsive'>
     <th>#</th>
     <th>السجل المدني</th>
     <th>اسم المرشح</th>
-    <th>رقم خطاب الترشيح</th>
+    <th>رقم الخطاب</th>
     <th>جهة الترشيح</th>
-    <th>فروع التقديم</th>
-    <th>حالة التقديم</th>
+    <th>نوع التمويل</th>
+    <th>البرنامج</th>
+    <th>الفترة</th>
+    <th>لديه طلب</th>
+    <th>المرحلة</th>
     <th>حالة الطلب</th>
 </tr>
 </thead>
 <tbody>";
 
 foreach ($rows as $i => $r) {
-    $status_label = $app_status_labels[intval($r['application_status_enum'])] ?? '-';
+    $period  = $period_labels[intval($r['training_period_enum'])] ?? '-';
+    $has_wf  = $r['has_workflow'] ? '<span class=\"badge badge-success\">نعم</span>' : '<span class=\"badge badge-secondary\">لا</span>';
     echo "<tr>
         <td style='text-align:center;'>".($i+1)."</td>
         <td>".htmlspecialchars($r['idn'])."</td>
         <td>".htmlspecialchars($r['candidate_name'])."</td>
-        <td style='text-align:center;'>".htmlspecialchars($r['nomination_letter_num'])."</td>
-        <td>".htmlspecialchars($r['nominating_authority_name_ar'])."</td>
-        <td>".htmlspecialchars($r['branch_names'] ?? '-')."</td>
-        <td style='text-align:center;'>".$status_label."</td>
+        <td style='text-align:center;'>".htmlspecialchars($r['nomination_letter_num'] ?? '-')."</td>
+        <td>".htmlspecialchars($r['authority_name'])."</td>
+        <td>".htmlspecialchars($r['funding_status_name'])."</td>
+        <td>".htmlspecialchars($r['program'] ?? '-')."</td>
+        <td style='text-align:center;'>{$period}</td>
+        <td style='text-align:center;'>{$has_wf}</td>
+        <td>".htmlspecialchars($r['workflow_stage_name_ar'] ?? '-')."</td>
         <td>".htmlspecialchars($r['workflow_status_name_ar'] ?? '-')."</td>
     </tr>";
 }
