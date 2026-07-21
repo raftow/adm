@@ -256,7 +256,7 @@ class ApplicantAccount extends AdmObject
                                         "bankRno"         => $applicantPaymentObj->getVal("bankrno"),
                                         "amount"          => $tuitionBaseObj->getVal("amount"),
                                         "transactionDate" => date("d/m/Y H:i:s", strtotime($updated_at)),
-                                        "categoryCode"    => $financialTransaction->getVal("sis_charge_code"),
+                                        "categoryCode"    => $financialTransaction->getVal("lookup_code"),
                                         "categoryDesc"    => $arr_fees_desc[$financialTransaction->getVal("id")]["sis_category_desc"],
                                         "paymentCode"     => $financialTransaction->getVal("sis_payment_code"),
                                         "paymentDesc"     => $arr_fees_desc[$financialTransaction->getVal("id")]["fee_description_ar"],
@@ -269,11 +269,11 @@ class ApplicantAccount extends AdmObject
                                 ];
                                 //die(var_dump($data));
                                 $all_data[] = $data;
-                                //$response = $naussApi->pushApplicationFees($data);
+                                $response = $naussApi->pushApplicationFees($data);
                         }
                         
                 }
-die(var_dump($all_data));
+//die(var_dump($all_data));
                 return [
                     "status" => $response["status"],
                     "body" => $response["body"]
