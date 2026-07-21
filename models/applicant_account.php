@@ -151,7 +151,7 @@ class ApplicantAccount extends AdmObject
         public function sendApplicationFeesToNauss()
         {
                 $applicantaccount = new ApplicantAccount();
-                $applicantaccount->where("application_model_financial_transaction_id =4 and payment_status_enum=2 and (send_to_sis_ind is null or send_to_sis_ind !='Y')");
+                $applicantaccount->where("application_model_financial_transaction_id in (4,7) and payment_status_enum=2 and (send_to_sis_ind is null or send_to_sis_ind !='Y')");
                 //$applicantaccount->where("id =174");
                 
                 $applicantaccountList = $applicantaccount->loadMany(10);
@@ -205,35 +205,75 @@ class ApplicantAccount extends AdmObject
                 $applicationPlanObj = ApplicationPlan::loadById($application_plan_id);
                 include_once(__DIR__ . "/../NaussSisApi.php");
                 $server_db_prefix = AfwSession::currentDBPrefix();
-                $updated_at = AfwDatabase::db_recup_value("select created_at from payment_transaction where id='".$applicantPaymentObj->getVal("payment_transaction_id")."'");
+                $updated_at = AfwDatabase::db_recup_value("select created_at from ".$server_db_prefix."adm.payment_transaction where id='".$applicantPaymentObj->getVal("payment_transaction_id")."'");
                 $naussApi = new NaussApi();
-                $data = [
-                        "applNo"          => $termCode.$applicantObj->getVal("idn"),
-                        "studentSsn"      => $applicantObj->getVal("idn"),
-                        "studentId"       => "",
-                        "studentName"     => $fullName,
-                        "programCode"     => $programCode,
-                        "programDesc"     => $programDesc,
-                        "electTrnsId"     => $applicantPaymentObj->getVal("payment_transaction_id"),
-                        "cardType"        => ($applicantPaymentObj->getVal("payment_type") == 'DB') ? "DEBIT" : "CREDIT",
-                        "cardBrand"       => $applicantPaymentObj->getVal("card_type"),
-                        "bankRno"         => $applicantPaymentObj->getVal("bankrno"),
-                        "amount"          => $this->getVal("total_amount"),
-                        "transactionDate" => date("d/m/Y H:i:s", strtotime($updated_at)),
-                        "categoryCode"    => "APF",
-                        "categoryDesc"    => "Admissions Application Charges",
-                        "paymentCode"     => "PADM",
-                        "paymentDesc"     => "مدفوعات رسوم طلب القبول",
-                        "termCode"        => $termCode,
-                        "oafrCode"        => "GRADUATE_SELF",
-                        "payingMethod"    => "دفع الكتروني",
-                        "vatAmount"       => "",
-                        "payedByName"     => "",
-                        "dateFormat"      => "DD/MM/YYYY HH24:MI:SS",
-                ];
-                //die(var_dump($data));
-                $response = $naussApi->pushApplicationFees($data);
-//die(var_dump($response));
+                if($application_model_financial_transaction_id==4){
+                        $data = [
+                                "applNo"          => $termCode.$applicantObj->getVal("idn"),
+                                "studentSsn"      => $applicantObj->getVal("idn"),
+                                "studentId"       => "",
+                                "studentName"     => $fullName,
+                                "programCode"     => $programCode,
+                                "programDesc"     => $programDesc,
+                                "electTrnsId"     => $applicantPaymentObj->getVal("payment_transaction_id"),
+                                "cardType"        => ($applicantPaymentObj->getVal("payment_type") == 'DB') ? "DEBIT" : "CREDIT",
+                                "cardBrand"       => $applicantPaymentObj->getVal("card_type"),
+                                "bankRno"         => $applicantPaymentObj->getVal("bankrno"),
+                                "amount"          => $this->getVal("total_amount"),
+                                "transactionDate" => date("d/m/Y H:i:s", strtotime($updated_at)),
+                                "categoryCode"    => "APF",
+                                "categoryDesc"    => "Admissions Application Charges",
+                                "paymentCode"     => "PADM",
+                                "paymentDesc"     => "مدفوعات رسوم طلب القبول",
+                                "termCode"        => $termCode,
+                                "oafrCode"        => "GRADUATE_SELF",
+                                "payingMethod"    => "دفع الكتروني",
+                                "vatAmount"       => "",
+                                "payedByName"     => "",
+                                "dateFormat"      => "DD/MM/YYYY HH24:MI:SS",
+                        ];
+                        //die(var_dump($data));
+                        $response = $naussApi->pushApplicationFees($data);
+                }elseif($application_model_financial_transaction_id==7){
+                        $applicationModelFinancialTransaction = $this->het("application_model_financial_transaction_id");
+                        $financialTransactionObj = $applicationModelFinancialTransaction->getFinancialTransaction();
+                        $arr_fees_desc = array("2"=>array("sis_category_desc"=>"Registration Fees","fee_description_ar"=>"سداد الرسوم الإدارية"),
+                                               "4"=>array("sis_category_desc"=>"Registration Tuition","fee_description_ar"=>"سداد الرسوم الدراسية"));
+                        foreach ($financialTransactionObj as $financialTransaction) {
+                                $tuitionBaseObj = new TuitionBase();
+                                $tuitionBaseObj->where("active = 'Y' and (degree_id = '$degree_id' or program_id = '$program_id') and financial_transaction_id = '" . $financialTransaction->getVal("id") . "'");
+                                $tuitionBaseObj->load();
+                                $data = [
+                                        "applNo"          => $termCode.$applicantObj->getVal("idn"),
+                                        "studentSsn"      => $applicantObj->getVal("idn"),
+                                        "studentId"       => "",
+                                        "studentName"     => $fullName,
+                                        "programCode"     => $programCode,
+                                        "programDesc"     => $programDesc,
+                                        "electTrnsId"     => $applicantPaymentObj->getVal("payment_transaction_id"),
+                                        "cardType"        => ($applicantPaymentObj->getVal("payment_type") == 'DB') ? "DEBIT" : "CREDIT",
+                                        "cardBrand"       => $applicantPaymentObj->getVal("card_type"),
+                                        "bankRno"         => $applicantPaymentObj->getVal("bankrno"),
+                                        "amount"          => $tuitionBaseObj->getVal("amount"),
+                                        "transactionDate" => date("d/m/Y H:i:s", strtotime($updated_at)),
+                                        "categoryCode"    => $financialTransaction->getVal("sis_charge_code"),
+                                        "categoryDesc"    => $arr_fees_desc[$financialTransaction->getVal("id")]["sis_category_desc"],
+                                        "paymentCode"     => $financialTransaction->getVal("sis_payment_code"),
+                                        "paymentDesc"     => $arr_fees_desc[$financialTransaction->getVal("id")]["fee_description_ar"],
+                                        "termCode"        => $termCode,
+                                        "oafrCode"        => "GRADUATE_SELF",
+                                        "payingMethod"    => "دفع الكتروني",
+                                        "vatAmount"       => "",
+                                        "payedByName"     => "",
+                                        "dateFormat"      => "DD/MM/YYYY HH24:MI:SS",
+                                ];
+                                //die(var_dump($data));
+                                $all_data[] = $data;
+                                //$response = $naussApi->pushApplicationFees($data);
+                        }
+                        
+                }
+die(var_dump($all_data));
                 return [
                     "status" => $response["status"],
                     "body" => $response["body"]
