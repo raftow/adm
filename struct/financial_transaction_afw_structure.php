@@ -34,6 +34,7 @@ class AdmFinancialTransactionAfwStructure
                         'EDIT-UGROUPS' => '',
                         'CSS' => 'width_pct_25',
                 ),
+		'lookup_code' => array("TYPE" => "TEXT", "SHOW" => true, "RETRIEVE"=>true, "EDIT" => true, "SIZE" => 64, "QEDIT" => true, "SHORTNAME"=>"code", "DISPLAY" => true),
 
                 'fee_code' => array(
                         'IMPORTANT' => 'IN',

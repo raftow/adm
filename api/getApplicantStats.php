@@ -89,10 +89,9 @@ if($method==1)//عدد المتقدمين حسب الجنس
         where ad.desire_status_enum=2 and  ap.application_plan_id='".$application_plan_id."' group by category;";
 
 }elseif($method==5){ // توزيع محموع عدد المتقدمين على أيام فترة التقديم
-  $q = "select count(*) NB_APPLICANT, substring(ap.created_at,1,10) category from ".$server_db_prefix."adm.applicant a 
-        inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id 
-        
-        where ap.application_plan_id='".$application_plan_id."' group by category;";
+  $q = "select count(*) NB_APPLICANT, substring(ap.created_at,1,10) category from ".$server_db_prefix."adm.applicant a
+        inner join ".$server_db_prefix."adm.application ap on a.id=ap.applicant_id
+        where ap.application_plan_id='".$application_plan_id."' group by category order by category asc;";
 
 }
 

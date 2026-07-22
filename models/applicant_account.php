@@ -157,7 +157,7 @@ class ApplicantAccount extends AdmObject
                 $applicantaccountList = $applicantaccount->loadMany(10);
                 foreach ($applicantaccountList as $applicantAccountObj) {
                         $response = $applicantAccountObj->sendToNauss();
-                        if($response["status"] == 200){
+                        if($response["body"]["status"] == "SUCCESS"){
                             $applicantAccountObj->set("send_to_sis_ind", "Y");
                             $applicantAccountObj->set("send_to_sis_date", date("Y-m-d H:i:s"));
                             $applicantAccountObj->commit();
