@@ -614,8 +614,8 @@ class ApplicationDesire extends AdmObject
                         "dateFormat" => "DD/MM/YYYY"
                 ];
                 //die($applicationClassEnumId." |||||| ".var_dump($data));
-                //$response =  $api->pushApplicant($data);
-                die(var_dump($response));
+                $response =  $api->pushApplicant($data);
+                //die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
                         $studentId = $response["body"]['studentId'];
                         $this->set("student_id", $studentId);
