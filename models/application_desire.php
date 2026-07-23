@@ -553,7 +553,7 @@ class ApplicationDesire extends AdmObject
                                         }
                                 }
                         }
-                } else {
+                } else if($applicationClassObj && $applicationClassObj->getVal("budgeting_ind") == "Y") {
                         if ($ncObject) {
                                 $sponsorObj = $ncObject->het("nomination_letter_id")->het('nominating_authority_id');
                                 if ($sponsorObj) {
@@ -614,8 +614,8 @@ class ApplicationDesire extends AdmObject
                         "dateFormat" => "DD/MM/YYYY"
                 ];
                 //die($applicationClassEnumId." |||||| ".var_dump($data));
-                $response =  $api->pushApplicant($data);
-                //die(var_dump($response));
+                //$response =  $api->pushApplicant($data);
+                die(var_dump($response));
                 if ($response["body"]['status'] == "SUCCESS") {
                         $studentId = $response["body"]['studentId'];
                         $this->set("student_id", $studentId);
